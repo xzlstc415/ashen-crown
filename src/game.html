@@ -1,0 +1,1464 @@
+<title>Ashen Crown</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Alegreya+Sans:wght@400;500;700;800&family=Noto+Serif+SC:wght@600&family=Noto+Serif+JP:wght@600&display=swap">
+<style>
+/* Layout: one-screen duel — top bar, enemy hero, enemy board, play history, log, your board, your hero, hand, end-turn bar.
+   Single committed look: torchlit dungeon stone, parchment cards, ember and arcane accents. */
+:root{
+  color-scheme:dark;
+  --bg:#141118; --panel:#221b26; --line:#3d3244;
+  --ink:#ece3d0; --muted:#a69ba6;
+  --parch:#efe2c2; --parch-ink:#2b2219;
+  --ember:#e2763a; --kelp:#6aa57e; --foam:#a9c4ff; --gold:#d9b45a; --blood:#cf4a3f; --ready:#7fd17f; --arcane:#8f78e0;
+  --display:"IM Fell English SC", "Noto Serif SC", "Noto Serif JP", "Songti SC", "Hiragino Mincho ProN", Georgia, serif;
+  --body:"Alegreya Sans", "PingFang SC", "Hiragino Sans GB", "Hiragino Sans", "Yu Gothic", "Microsoft YaHei", "Meiryo", system-ui, sans-serif;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;overflow-x:hidden;
+  background-image:radial-gradient(110% 55% at 50% 45%, #2a2030 0%, transparent 70%)}
+.embers{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.embers i{position:absolute;bottom:-12px;border-radius:50%;background:#f39a3a;box-shadow:0 0 6px 1px rgba(243,154,58,.7);animation:rise linear infinite;opacity:.7}
+@keyframes rise{0%{transform:translate(0,0)}50%{opacity:.8}100%{transform:translate(var(--dx),-108vh);opacity:0}}
+#app{position:relative;z-index:1;min-height:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px;box-sizing:border-box;
+  padding-block:8px;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
+button{font-family:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.top{display:flex;align-items:center;gap:8px}
+.brand{font-family:var(--display);font-size:21px;letter-spacing:.04em;color:var(--parch);flex:1;white-space:nowrap}
+:is(:lang(zh),:lang(ja)) .brand{font-weight:600;font-size:19px}
+.pill{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--panel);padding:0;font-size:12px;font-weight:700}
+.pill span{padding:4px 9px;color:var(--muted)}
+.langsel{appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--parch);
+  font:700 12px var(--body);padding:4px 22px 4px 10px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 12px) 52%,calc(100% - 8px) 52%;background-size:4px 4px;background-repeat:no-repeat}
+.langsel:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.langsel option{background:var(--panel);color:var(--ink)}
+.stagepill{font-size:12px;font-weight:800;color:var(--ember);border:1.5px solid var(--ember);border-radius:999px;padding:2px 9px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.routerow{display:flex;justify-content:center;padding-top:4px}
+.route{display:flex;align-items:center;gap:3px}
+.node{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--muted)}
+.node.done{background:var(--line);color:var(--ink)}
+.node.here{border-color:var(--ember);color:var(--ember)}
+.link{width:6px;height:1.5px;background:var(--line)}
+
+.hero{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.face{position:relative;flex:none;width:50px;height:50px;border-radius:50%;border:2px solid #5a4a6a;
+  background:radial-gradient(circle at 40% 35%, #4a3a5a, #1b1422);display:grid;place-items:center;font-family:var(--display);font-size:18px;padding:0}
+.hero.foe .face{background:radial-gradient(circle at 40% 35%, #5a2a26, #1e0e0c);border-color:#6d3a33}
+.hpb{position:absolute;right:-8px;bottom:-6px;min-width:24px;height:24px;border-radius:12px;background:var(--blood);color:#fff;font:800 13px var(--body);display:grid;place-items:center;padding:0 4px;font-variant-numeric:tabular-nums}
+.arb{position:absolute;left:-8px;bottom:-6px;min-width:22px;height:22px;border-radius:6px;background:#5e6670;color:#fff;font:800 12px var(--body);display:grid;place-items:center}
+.hinfo{flex:1;min-width:0;display:grid;gap:3px}
+.hname{font-family:var(--display);font-size:17px;color:var(--parch);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:is(:lang(zh),:lang(ja)) .hname{font-weight:600;font-size:16px}
+.meta{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.crystals{display:flex;gap:3px;align-items:center;flex-wrap:wrap}
+.crystals i{width:9px;height:12px;transform:skewX(-12deg);border-radius:2px;background:#2a2234;border:1px solid #3d3150;transition:background .3s}
+.crystals i.on{background:#5aa3e0;border-color:#8cc4f0}
+.crystals b{font-size:12px;margin-left:4px;color:#8cc4f0;font-variant-numeric:tabular-nums}
+.power{flex:none;width:58px;height:58px;border-radius:50%;border:2px solid var(--gold);background:radial-gradient(circle at 40% 35%, #4a3a2a, #1e160f);
+  font-size:10px;font-weight:700;line-height:1.15;display:grid;place-items:center;text-align:center;padding:4px;position:relative}
+.power.foe{border-color:#6d3a33;opacity:.75}
+.power .pc{z-index:1;position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:#2f6fa8;color:#fff;font-size:11px;display:grid;place-items:center}
+.power .pn{display:block;max-width:50px}
+.power[disabled]{opacity:.4;cursor:default}
+.power:not([disabled]):not(.foe){animation:glowP 2s ease-in-out infinite}
+@keyframes glowP{50%{box-shadow:0 0 12px rgba(217,180,90,.6)}}
+
+.board{display:flex;justify-content:center;align-items:center;gap:8px;min-height:98px;padding:4px 0}
+.board.empty::after{content:attr(data-empty);font-size:12px;color:var(--muted);opacity:.6}
+.min{position:relative;width:60px;height:84px;flex:none;border-radius:14px 14px 10px 10px;border:2px solid #5a4a6a;
+  background:linear-gradient(#3a3046,#211b29);display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 3px 0;transition:transform .15s}
+.min.e{background:linear-gradient(#4a2826,#24130f);border-color:#6d3a33}
+.mart{display:block;width:100%;height:32px;border-radius:10px 10px 4px 4px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#5a4636,#17110d)}
+.mart svg{width:100%;height:100%;display:block}
+.min.guard{border:3px solid var(--gold);border-radius:6px}
+.min.guard .mart{border-radius:3px}
+.min.ward{box-shadow:0 0 0 3px rgba(169,196,255,.6),0 0 14px rgba(169,196,255,.55);animation:wardPulse 2.4s ease-in-out infinite}
+@keyframes wardPulse{50%{box-shadow:0 0 0 4px rgba(169,196,255,.35),0 0 20px rgba(169,196,255,.7)}}
+.min.sleep{filter:saturate(.6) brightness(.85)}
+.min.ready{outline:2px solid var(--ready);outline-offset:2px}
+.min.sel{transform:translateY(-8px);outline:2px solid var(--ember);outline-offset:2px}
+.min.enter{animation:enter .5s cubic-bezier(.2,1.5,.4,1)}
+@keyframes enter{from{transform:translateY(-36px) scale(.4);opacity:0}}
+.target{outline:2px solid var(--blood)!important;outline-offset:2px;animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{outline-color:transparent}}
+.hit{animation:hit .38s ease-out}
+@keyframes hit{20%{transform:translateX(-5px);filter:brightness(1.6) sepia(.6) saturate(3) hue-rotate(-30deg)}55%{transform:translateX(4px)}80%{transform:translateX(-2px)}}
+.mn{font-size:9.5px;line-height:1.05;text-align:center;font-weight:800;overflow:hidden;max-height:20px}
+.kw{font-size:8px;line-height:1.1;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;text-align:center}
+.z{position:absolute;top:-9px;right:-4px;font-size:11px;font-weight:800;color:var(--muted);animation:zz 1.6s ease-in-out infinite}
+@keyframes zz{50%{transform:translateY(-3px);opacity:.5}}
+.st{position:absolute;bottom:-7px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+.st.a{left:-7px;background:var(--gold);color:#2a1d08}
+.st.h{right:-7px;background:var(--blood);color:#fff}
+.st.h.hurt{background:#8a1f18;color:#ffb3a9}
+.st.h.up,.st.a.up{box-shadow:0 0 0 2px var(--ready)}
+
+.mid{display:flex;align-items:center;justify-content:center;gap:10px;min-height:28px;font-size:13px;color:var(--muted);text-align:center}
+.mid .btn{padding:5px 12px;font-size:12px}
+.float{position:absolute;left:50%;top:-18px;transform:translateX(-50%);font-weight:800;font-size:20px;pointer-events:none;text-shadow:0 1px 3px #000;animation:up .9s ease-out forwards;white-space:nowrap;z-index:5}
+@keyframes up{0%{transform:translateX(-50%) scale(1.5)}20%{transform:translateX(-50%) scale(1)}to{opacity:0;top:-48px}}
+
+/* ---------- card face (sized in em; .sm hand, .md reward/reveal, .big gallery) ---------- */
+.card{position:relative;flex:none;width:10em;height:15.6em;padding:.45em;border:none;border-radius:.9em;font-size:9.4px;
+  background:linear-gradient(160deg,#9a7848,#4a3520);color:var(--parch-ink);display:flex;flex-direction:column;align-items:stretch;gap:.25em;
+  box-shadow:0 .25em 0 #0009, inset 0 0 0 .12em #00000040;text-align:center;font-family:var(--body);transition:transform .15s}
+.card.s{background:linear-gradient(160deg,#7a66c0,#33285c)}
+.card.leg{background:linear-gradient(160deg,#f2cc6e,#8a5a1a)}
+.card.md{font-size:10.8px}.card.big{font-size:14px}
+.card .art{display:block;height:6.1em;flex:none;overflow:hidden;border:.15em solid #00000070;
+  border-radius:48% 48% .5em .5em / 38% 38% .5em .5em;background:radial-gradient(circle at 50% 40%,#5a4636,#17110d)}
+.card.s .art{border-radius:.5em;background:radial-gradient(circle at 50% 45%,#3d2f6e,#100a20)}
+.card.leg .art{background:radial-gradient(circle at 50% 40%,#6a2a1a,#1a0806)}
+.card .art svg{width:100%;height:100%;display:block}
+.card .cost{position:absolute;top:-.45em;left:-.4em;width:2em;height:2em;font-size:1.3em;font-weight:800;color:#fff;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#7cb8ee,#2f6fa8);border:.1em solid #bfe0fa;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.card .plate{position:relative;margin:-1em .15em 0;padding:.22em .25em;border-radius:.3em;background:linear-gradient(#4a3a2a,#22190f);
+  color:var(--parch);font-family:var(--display);font-size:1.12em;line-height:1.1;box-shadow:0 .1em .25em #0009;z-index:1}
+.card.s .plate{background:linear-gradient(#3a2e5e,#1a1430)}
+:is(:lang(zh),:lang(ja)) .card .plate{font-weight:600;font-size:1.04em;line-height:1.25}
+.card .gem{width:.75em;height:.75em;margin:-.15em auto 0;transform:rotate(45deg);border:.1em solid #0009;flex:none;z-index:1}
+.gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
+.card .tbox{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;
+  background:var(--parch);border-radius:.45em;padding:.3em .35em 1.1em;font-size:1em;line-height:1.22}
+.card.s .tbox{background:#e8e2f2;padding-bottom:.4em}
+.card .typ{font-size:.72em;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.card .tx b{font-weight:800}
+.card .stat{position:absolute;bottom:-.3em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.card .stat.a{left:-.3em;background:radial-gradient(circle at 35% 30%,#f3d888,#b88a2a);color:#2a1d08;border-radius:50%;border:.08em solid #2a1d08}
+.card .stat.h{right:-.3em;background:radial-gradient(circle at 35% 30%,#ec7a6c,#9a2a20);color:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;border:.08em solid #3a0a05}
+.card.leg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.35) 50%,transparent 65%);background-size:250% 100%;animation:shine 3.2s linear infinite}
+@keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
+
+.hand{display:flex;gap:7px;overflow-x:auto;padding:12px 6px 8px;margin-inline:-6px;scrollbar-width:thin}
+.hand .card.play{box-shadow:0 0 0 .22em var(--ready),0 0 .9em rgba(127,209,127,.5),0 .25em 0 #0009}
+.hand .card.play:hover,.hand .card.play:active{transform:translateY(-6px)}
+.hand .card.off{filter:grayscale(.5) brightness(.65)}
+.hand .card.pend{transform:translateY(-10px);box-shadow:0 0 0 .22em var(--ember),0 0 1em rgba(226,118,58,.6)}
+.hand .card.drawn{animation:drawIn .45s cubic-bezier(.2,1.2,.4,1) backwards;animation-delay:var(--d,0ms)}
+@keyframes drawIn{from{transform:translateX(80px) rotate(10deg);opacity:0}}
+
+.foot{display:flex;align-items:center;gap:10px}
+.foot .meta{flex:1}
+.btn{background:var(--ember);color:#2a130a;border:none;border-radius:8px;padding:11px 18px;font-weight:800;font-size:15px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.glow{animation:glowB 1.4s ease-in-out infinite}
+@keyframes glowB{50%{box-shadow:0 0 0 3px var(--ready),0 0 14px rgba(127,209,127,.6)}}
+.btn[disabled]{opacity:.45;cursor:default}
+
+.screen{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;text-align:center;padding-block:20px;animation:fadeUp .4s ease-out}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}}
+.screen h2{font-family:var(--display);font-weight:400;font-size:30px;margin:0;color:var(--parch);text-wrap:balance}
+:is(:lang(zh),:lang(ja)) .screen h2{font-weight:600;font-size:26px}
+.screen p{margin:0 auto;color:var(--muted);max-width:44ch;line-height:1.5}
+.rules{text-align:left;margin:0 auto;max-width:44ch;display:grid;gap:6px;padding:0;list-style:none;font-size:14px;line-height:1.5}
+.rules li{padding-left:14px;position:relative}
+.rules li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--ember)}
+.rules b{color:var(--parch)}
+.picks{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding-top:8px}
+.picks .card:hover{transform:translateY(-6px)}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.fan{display:flex;justify-content:center;height:160px;margin-top:6px;overflow-x:clip;max-width:100%}
+.fan .card{margin:0 -16px;transform-origin:50% 140%}
+
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;width:100%;margin:0 auto;text-align:left}
+.ccard{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;
+  border-top:3px solid var(--cc);transition:transform .15s,border-color .15s;animation:fadeUp .35s ease-out backwards}
+.ccard:hover{transform:translateY(-2px);border-color:var(--cc)}
+.ccard:nth-child(2){animation-delay:.05s}.ccard:nth-child(3){animation-delay:.1s}.ccard:nth-child(4){animation-delay:.15s}.ccard:nth-child(5){animation-delay:.2s}.ccard:nth-child(6){animation-delay:.25s}
+.cport{flex:none;width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--cc);background:radial-gradient(circle at 50% 40%,#3a3046,#140f18)}
+.cport svg,.fart svg{width:100%;height:100%;display:block}
+.ctext{display:grid;gap:4px;min-width:0}
+.cname{font-family:var(--display);font-size:20px;color:var(--parch);line-height:1.1}
+:is(:lang(zh),:lang(ja)) .cname{font-weight:600;font-size:18px}
+.ctag{font-size:12.5px;color:var(--muted);line-height:1.35}
+.cpow{display:flex;gap:8px;align-items:flex-start;margin-top:2px;font-size:13px;line-height:1.35}
+.cpow .pc{flex:none;width:20px;height:20px;border-radius:50%;background:#2f6fa8;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.cpow b{color:var(--parch)}
+.fart{position:absolute;inset:0;border-radius:50%;overflow:hidden}
+.pcur b{color:var(--parch)}
+
+/* ---------- menu, deck builder, difficulty ---------- */
+.nav{display:flex;gap:8px;flex-wrap:wrap;padding-top:6px}
+.nav .btn{padding:6px 12px;font-size:13px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;width:100%;max-width:520px;margin:0 auto}
+.mode{display:grid;gap:4px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:4px solid var(--cc,var(--ember));transition:transform .15s}
+.mode:hover{transform:translateY(-2px)}
+.mode b{font-family:var(--display);font-weight:400;font-size:20px;color:var(--parch)}
+:is(:lang(zh),:lang(ja)) .mode b{font-weight:600;font-size:18px}
+.mode span{font-size:13px;color:var(--muted);line-height:1.4}
+.bhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:6px}
+.bhead h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0;color:var(--parch);flex:1;min-width:0}
+:is(:lang(zh),:lang(ja)) .bhead h2{font-weight:600;font-size:21px}
+.count{font-weight:800;font-variant-numeric:tabular-nums;border:1.5px solid var(--ember);color:var(--ember);border-radius:999px;padding:3px 10px;font-size:13px;white-space:nowrap}
+.count.ok{border-color:var(--ready);color:var(--ready)}
+.bnote{font-size:12.5px;color:var(--muted);margin:0;line-height:1.45}
+.bwrap{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:600px){.bwrap{grid-template-columns:230px 1fr;align-items:start}.bdeck{position:sticky;top:max(8px,env(safe-area-inset-top,0px))}}
+.bdeck{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:8px;min-width:0}
+.curve{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;align-items:end;height:46px}
+.curve i{display:block;background:#5aa3e0;border-radius:2px 2px 0 0;min-height:2px}
+.curvel{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;font-size:10px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.dlist{display:grid;gap:3px;max-height:250px;overflow-y:auto;padding-right:2px}
+@media (min-width:600px){.dlist{max-height:52vh}}
+.drow{display:flex;align-items:center;gap:7px;background:#2c2432;border:1px solid var(--line);border-left:3px solid var(--rc,#e8e4da);border-radius:6px;padding:4px 7px;text-align:left;font-size:13px;min-width:0}
+.drow:hover{border-color:var(--blood)}
+.drow .dc{flex:none;width:20px;height:20px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;background:#2f6fa8;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.drow .dn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drow .dx{flex:none;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.bact{display:flex;gap:6px;flex-wrap:wrap}
+.bact .btn{padding:7px 10px;font-size:12.5px}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
+.chip.on{background:var(--line);color:var(--parch)}
+.coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(94px,1fr));gap:12px 8px;justify-items:center;padding:6px 0 20px}
+.cslot{position:relative}
+.cslot .badge{position:absolute;top:-6px;right:-6px;z-index:2;min-width:20px;height:20px;border-radius:10px;background:var(--ready);color:#10200f;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 4px}
+.cslot .card[disabled]{filter:grayscale(.7) brightness(.55);cursor:default}
+.bfoot{position:sticky;bottom:0;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(transparent,var(--bg) 30%);
+  padding-top:18px;padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+.toast{min-height:18px;font-size:12.5px;color:var(--ember)}
+
+/* ---------- gallery ---------- */
+.ghead{display:flex;align-items:center;gap:12px;padding-top:6px}
+.ghead h2{font-family:var(--display);font-weight:400;font-size:26px;margin:0;color:var(--parch);flex:1}
+:is(:lang(zh),:lang(ja)) .ghead h2{font-weight:600;font-size:23px}
+.gsub{font-size:13px;color:var(--muted);margin:0}
+.gsec{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:14px 0 2px;font-weight:800}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 12px;padding:12px 0 24px}
+.gitem{display:grid;justify-items:center;gap:8px;min-width:0}
+.gmeta{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
+.flav{margin:0;font-size:12.5px;font-style:italic;line-height:1.4;color:#c4b9c0;text-align:center;max-width:15em}
+
+/* ---------- effect layers ---------- */
+.orb{position:fixed;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle,#fff 15%,var(--c) 50%,transparent 72%);box-shadow:0 0 16px 5px var(--c);z-index:30;pointer-events:none}
+.burst{position:fixed;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:3px solid var(--c,#f3c97a);pointer-events:none;z-index:30}
+.spark{position:fixed;border-radius:50%;background:#f39a3a;box-shadow:0 0 6px #f39a3a;pointer-events:none;z-index:30}
+.wave{position:fixed;border-radius:12px;pointer-events:none;z-index:30;background:linear-gradient(90deg,transparent,rgba(243,154,58,.65),transparent);background-size:45% 100%;background-repeat:no-repeat}
+.banner{position:fixed;left:0;right:0;top:40%;z-index:40;pointer-events:none;text-align:center;font-family:var(--display);font-size:30px;color:var(--parch);
+  padding:12px 0;background:linear-gradient(90deg,transparent,rgba(20,17,24,.94) 22%,rgba(20,17,24,.94) 78%,transparent);border-block:1.5px solid var(--gold)}
+:is(:lang(zh),:lang(ja)) .banner{font-weight:600;letter-spacing:.2em}
+.banner.foe{border-color:var(--blood);color:#f0b0a6}
+.reveal{position:fixed;left:50%;top:12%;z-index:35;pointer-events:none;filter:drop-shadow(0 10px 24px #000c);transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px}
+.rcap,.rtgt{font-size:13px;font-weight:800;padding:3px 12px;border-radius:999px;white-space:nowrap}
+.rcap{color:#f0b0a6;background:rgba(20,17,24,.92);border:1px solid #7a3f39}
+.reveal.me .rcap,.peek .rcap.me{color:var(--ready);border-color:var(--kelp)}
+.rtgt{color:#fff;background:rgba(207,74,63,.9)}
+.aimed{outline:3px solid var(--blood)!important;outline-offset:3px;box-shadow:0 0 18px rgba(207,74,63,.85)!important;animation:pulse .5s ease-in-out infinite}
+.hist{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;min-height:30px}
+.hlab{font-size:11px;color:var(--muted);margin-right:4px}
+.hchip{width:30px;height:30px;padding:0;border-radius:7px;overflow:hidden;border:2px solid var(--kelp);background:radial-gradient(circle at 50% 40%,#3a3046,#17121c)}
+.hchip svg{width:100%;height:100%;display:block;transform:scale(1.5)}
+.hchip.foe{border-color:#a0483f;background:radial-gradient(circle at 50% 40%,#4a2a2a,#1a0c0c)}
+.hchip.fresh{animation:fresh 1.6s ease-in-out infinite}
+@keyframes fresh{50%{box-shadow:0 0 0 2px var(--blood),0 0 10px rgba(207,74,63,.75)}}
+.peek{position:fixed;inset:0;z-index:50;background:rgba(10,8,12,.82);display:grid;place-items:center;cursor:pointer;
+  padding-block:16px;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
+.peekbox{display:flex;flex-direction:column;align-items:center;gap:10px}
+.peek .hint{font-size:12px;color:var(--muted)}
+/* ---------- phones ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
+body{overflow-x:clip}
+body{overscroll-behavior-y:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button,select,.card{touch-action:manipulation}
+svg{-webkit-user-drag:none}
+@media (hover:none){
+  .hand .card.play:hover,.picks .card:hover,.pcard:hover,.ccard:hover,.mode:hover{transform:none}
+  .drow:hover{border-color:var(--line)}
+}
+@media (max-width:360px){
+  #app{gap:4px}.brand{font-size:18px}.top{gap:6px}
+  .card.sm{font-size:8.6px}.min{width:54px;height:80px}.board{gap:6px}
+  .hero{padding:5px 8px;gap:8px}.face{width:44px;height:44px}.power{width:52px;height:52px;font-size:9.5px}
+  .coll{grid-template-columns:repeat(auto-fill,minmax(86px,1fr))}
+}
+@media (max-height:700px) and (max-width:520px){
+  .board{min-height:90px;padding:2px 0}.hist{min-height:26px}.hchip{width:26px;height:26px}.hand{padding-top:10px}.mid{min-height:22px}
+}
+.rotate{display:none}
+@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
+  .rotate{display:grid;position:fixed;inset:0;z-index:100;background:var(--bg);place-items:center;text-align:center;color:var(--parch);
+    font-family:var(--display);font-size:22px;padding:24px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.embers{display:none}}
+</style>
+
+<div class="embers" aria-hidden="true"></div>
+<div class="rotate" role="alert"></div>
+<div id="app"></div>
+
+<script>
+(()=>{
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// ---------- language ----------
+const LANGS=[['en','EN'],['zh','中文'],['ja','日本語']];
+let L='en';
+try{L=localStorage.getItem('undertow-lang')||''}catch(e){}
+if(!LANGS.some(l=>l[0]===L)){const nl=(navigator.language||'').toLowerCase();L=nl.startsWith('zh')?'zh':nl.startsWith('ja')?'ja':'en'}
+const li=()=>L==='zh'?1:L==='ja'?2:0;
+
+const I18N={
+  en:{
+    brand:'Ashen Crown',hero:'Adventurer',heroInit:'A',duelOf:(n,t)=>`Duel ${n} of ${t}`,stageOf:(n,t)=>`${n}/${t}`,
+    mana:(a,b)=>`Mana ${a} of ${b}`,handDeck:(h,d)=>`Hand ${h} · Deck ${d}`,
+    ePow:'Fortify',ePowEff:'+2 armor',ePowAria:'Enemy hero power: gain 2 armor',
+    noEnemy:'No enemy minions',playMinions:'Play minions from your hand',
+    chooseTarget:x=>`Choose a target for ${x}.`,cancel:'Cancel',yourTurn:'Your turn',acting:x=>`${x} is acting…`,endTurn:'End turn',
+    minion:'Minion',spell:'Spell',guard:'Guard',ward:'Ward',gasp:'Last breath',
+    hpAria:(n,h)=>`${n}, ${h} health`,minAria:(n,a,h,k)=>`${n}, ${a} attack, ${h} health ${k}`,
+    cardAria:(n,c,s,t)=>`${n}, costs ${c}. ${s}${t}`,statsAria:(a,h)=>`${a} attack, ${h} health. `,
+    introTitle:'Fight your way to the Ashen Crown',
+    rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
+      'Tap a glowing minion, then tap an enemy to <b>attack</b>. New minions wait a turn unless they have <b>Charge</b>.',
+      'Enemies must hit <b>Guard</b> minions first. <b>Ward</b> blocks the next damage taken.',
+      'Choose one of six <b>classes</b>. Each has its own <b>hero power</b>, usable once per turn, and its own starting deck.',
+      'Defeat eight foes, from a goblin warband to the Ashen King. After each win you also add a card to your deck.'],
+    startDuel:'Begin the quest',viewCards:'Card gallery',cardsBtn:'Cards',
+    defeated:x=>`${x} is defeated`,rewardText:(n,x)=>`Choose a card to add to your deck (${n} cards now). Next foe: ${x}.`,skip:'Skip',
+    lostTitle:'The adventurer falls',lostText:x=>`${x} won this duel. Your deck and class are kept if you retry.`,retry:'Retry duel',newRun:'New quest',
+    champTitle:'The Ashen Crown is yours',champText:n=>`You defeated all eight foes with a ${n}-card deck.`,again:'Play again',
+    galTitle:'Card gallery',galSub:n=>`All ${n} cards in the realm.`,back:'Back',minions:'Minions',spells:'Spells',
+    rar:{c:'Common',r:'Rare',e:'Epic',l:'Legendary',t:'Token'},costN:n=>`${n} mana`,
+    race:{human:'Human',elf:'Elf',dwarf:'Dwarf',orc:'Orc',halfling:'Halfling',gnome:'Gnome',undead:'Undead',goblin:'Goblin',troll:'Troll',beast:'Beast',giant:'Giant',construct:'Construct',elemental:'Elemental',dragon:'Dragon'},
+    bannerYou:'Your turn',bannerFoe:'Enemy turn',
+    rises:x=>`${x} stands in your way.`,fatigue:(x,n)=>`${x} is out of cards and takes ${n} fatigue damage.`,
+    handFull:c=>`Your hand is full. ${c} was lost.`,summon:c=>`You summon ${c}.`,cast:c=>`You cast ${c}.`,castOn:(c,t)=>`You cast ${c} on ${t}.`,
+    attacks:(a,t)=>`${a} attacks ${t}.`,burst:c=>`The spirit of ${c} rises.`,
+    sinks:x=>`${x} is defeated.`,falls:'The adventurer falls.',noMana:'Not enough mana.',boardFull:'Your board is full.',
+    noTargets:'No valid targets for that card.',ready:x=>`${x} is ready. Tap what to attack.`,already:x=>`${x} already attacked this turn.`,
+    noAtk:x=>`${x} has no Attack.`,nextTurn:x=>`${x} can attack next turn.`,guardWay:'A Guard minion is in the way.',
+    info:(n,a,h,t)=>`${n}: ${a}/${h}${t?' · '+t:''}`,eTurn:x=>`${x}'s turn.`,eSummon:(x,c)=>`${x} summons ${c}.`,
+    eCast:(x,c)=>`${x} casts ${c}.`,eCastOn:(x,c,t)=>`${x} casts ${c} on ${t}.`,eShell:x=>`${x} fortifies.`,yourTurnLog:'Your turn.',
+    classTitle:'Choose your class',classSub:x=>`Each class has its own hero power and starting deck. Your first foe: ${x}.`,heroPower:'Hero power',
+    powerAria:(n,c,d)=>`Hero power ${n}, costs ${c}: ${d}`,powerUse:(n,t)=>`You use ${n}${t?' on '+t:''}.`,cantPower:'You can\'t use your hero power right now.',
+    modeCamp:'Adventure',modeCampSub:'Defeat eight foes in a row with a class starter deck.',modeQuick:'Quick Match',modeQuickSub:'Build your own deck and face a random AI opponent.',
+    qClassTitle:'Quick Match · Choose a class',qClassSub:n=>`Next you will build a ${n}-card deck for this class.`,
+    deckTitle:x=>`${x} deck`,deckRules:n=>`${n} cards. Up to 2 copies of a card, 1 of a legendary.`,deckNeed:n=>`${n} more to add`,deckReady:'Deck ready',
+    autoFill:'Auto-fill',resetDeck:'Starter deck',clearDeck:'Clear',nextDiff:'Next: difficulty',curve:'Mana curve',filterAll:'All',
+    tapAdd:'Tap a card to add it. Tap a row in your deck to remove one copy.',limitHit:'You already have the most copies allowed of that card.',deckFull:'Your deck is full.',emptyDeck:'Your deck is empty. Tap cards to add them.',
+    diffTitle:'Choose difficulty',diffSub:'Your opponent\'s class is chosen at random.',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
+    diffDesc:{easy:'The AI makes mistakes and never uses its hero power. Its deck adds common cards.',normal:'Standard AI that uses its class hero power. Its deck adds rare and epic cards.',hard:'Standard AI whose deck adds epic and legendary cards.'},
+    aiName:x=>`${x} (AI)`,goFirst:'You go first.',goSecond:'You go second and get a Lucky Coin.',qWin:'Victory',qLose:'Defeat',qVs:(c,d)=>`Opponent: ${c} · ${d}`,
+    record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',
+    ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
+    rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
+    played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
+    fWard:'Ward',fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
+      stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
+      buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
+      summon:(n,a,h,nm)=>n>1?`Summon two ${a}/${h} ${nm}s.`:`Summon a ${a}/${h} ${nm}.`,
+      heal:n=>`Restore ${n} Health to your hero.`,armor:n=>`Gain ${n} Armor.`,draw:n=>n>1?`Draw ${n} cards.`:'Draw a card.',self:n=>`Take ${n} damage.`,
+      kw:{guard:'Guard',ward:'Ward',surge:'Charge'},onPlay:'On play: ',last:'Last breath: ',sep:' ',kwSep:'. ',end:'.'},
+    kwRe:/\b(Guard|Ward|Charge|On play|Last breath)\b/g,
+  },
+  zh:{
+    brand:'灰烬王冠',hero:'冒险者',heroInit:'冒',duelOf:(n,t)=>`第${n}场，共${t}场`,stageOf:(n,t)=>`第${n}/${t}关`,
+    mana:(a,b)=>`法力值 ${a}/${b}`,handDeck:(h,d)=>`手牌 ${h} · 牌库 ${d}`,
+    ePow:'固守',ePowEff:'+2护甲',ePowAria:'敌方英雄技能：获得2点护甲',
+    noEnemy:'敌方没有随从',playMinions:'从手牌中打出随从',
+    chooseTarget:x=>`为「${x}」选择目标。`,cancel:'取消',yourTurn:'你的回合',acting:x=>`${x}行动中…`,endTurn:'结束回合',
+    minion:'随从',spell:'法术',guard:'守护',ward:'护盾',gasp:'遗言',
+    hpAria:(n,h)=>`${n}，${h}点生命值`,minAria:(n,a,h,k)=>`${n}，${a}点攻击力，${h}点生命值 ${k}`,
+    cardAria:(n,c,s,t)=>`${n}，消耗${c}点法力。${s}${t}`,statsAria:(a,h)=>`${a}点攻击力，${h}点生命值。`,
+    introTitle:'一路征战，夺取灰烬王冠',
+    rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
+      '点击带绿框的随从，再点击敌人即可<b>攻击</b>。新随从要等一回合才能攻击，除非它有<b>冲锋</b>。',
+      '敌人必须先攻击有<b>守护</b>的随从。<b>护盾</b>可以抵挡下一次伤害。',
+      '从六个<b>职业</b>中选择一个。每个职业都有专属的<b>英雄技能</b>（每回合可用一次）和初始牌组。',
+      '击败八名敌人，从哥布林战团一路打到灰烬之王。每赢一场，你还可以向牌组加入一张牌。'],
+    startDuel:'踏上征程',viewCards:'卡牌图鉴',cardsBtn:'图鉴',
+    defeated:x=>`${x}已被击败`,rewardText:(n,x)=>`选择一张牌加入你的牌组（当前${n}张）。下一个敌人：${x}。`,skip:'跳过',
+    lostTitle:'冒险者倒下了',lostText:x=>`${x}赢下了这场决斗。重试时会保留你的牌组和职业。`,retry:'重试本场',newRun:'重新开始',
+    champTitle:'灰烬王冠归你所有',champText:n=>`你用${n}张牌的牌组击败了全部八名敌人。`,again:'再玩一次',
+    galTitle:'卡牌图鉴',galSub:n=>`这个世界中的全部${n}张卡牌。`,back:'返回',minions:'随从',spells:'法术',
+    rar:{c:'普通',r:'稀有',e:'史诗',l:'传说',t:'衍生'},costN:n=>`${n}费`,
+    race:{human:'人类',elf:'精灵',dwarf:'矮人',orc:'兽人',halfling:'半身人',gnome:'侏儒',undead:'亡灵',goblin:'哥布林',troll:'巨魔',beast:'野兽',giant:'巨人',construct:'构造体',elemental:'元素',dragon:'龙'},
+    bannerYou:'你的回合',bannerFoe:'敌方回合',
+    rises:x=>`${x}挡住了你的去路。`,fatigue:(x,n)=>`${x}的牌库已空，受到${n}点疲劳伤害。`,
+    handFull:c=>`你的手牌已满，${c}被烧掉了。`,summon:c=>`你召唤了${c}。`,cast:c=>`你施放了${c}。`,castOn:(c,t)=>`你对${t}施放了${c}。`,
+    attacks:(a,t)=>`${a}攻击了${t}。`,burst:c=>`${c}的怨灵升起了。`,
+    sinks:x=>`${x}被击败了。`,falls:'冒险者倒下了。',noMana:'法力值不足。',boardFull:'你的场地已满。',
+    noTargets:'这张牌没有可用的目标。',ready:x=>`${x}已就绪，点击要攻击的目标。`,already:x=>`${x}本回合已经攻击过了。`,
+    noAtk:x=>`${x}没有攻击力。`,nextTurn:x=>`${x}下回合才能攻击。`,guardWay:'有守护随从挡在前面。',
+    info:(n,a,h,t)=>`${n}：${a}/${h}${t?' · '+t:''}`,eTurn:x=>`${x}的回合。`,eSummon:(x,c)=>`${x}召唤了${c}。`,
+    eCast:(x,c)=>`${x}施放了${c}。`,eCastOn:(x,c,t)=>`${x}对${t}施放了${c}。`,eShell:x=>`${x}加固了防御。`,yourTurnLog:'轮到你了。',
+    classTitle:'选择你的职业',classSub:x=>`每个职业都有专属的英雄技能和初始牌组。第一个敌人：${x}。`,heroPower:'英雄技能',
+    powerAria:(n,c,d)=>`英雄技能「${n}」，消耗${c}点法力：${d}`,powerUse:(n,t)=>t?`你对${t}使用了${n}。`:`你使用了${n}。`,cantPower:'现在无法使用英雄技能。',
+    modeCamp:'冒险模式',modeCampSub:'用职业初始牌组，连续击败八名敌人。',modeQuick:'自由对战',modeQuickSub:'自己组一副牌，随机对战一名AI对手。',
+    qClassTitle:'自由对战 · 选择职业',qClassSub:n=>`接下来为这个职业组一副${n}张的牌组。`,
+    deckTitle:x=>`${x}的牌组`,deckRules:n=>`${n}张牌。同名卡最多2张，传说卡最多1张。`,deckNeed:n=>`还差${n}张`,deckReady:'牌组已完成',
+    autoFill:'自动补满',resetDeck:'恢复初始牌组',clearDeck:'清空',nextDiff:'下一步：选择难度',curve:'法力曲线',filterAll:'全部',
+    tapAdd:'点击卡牌加入牌组，点击牌组中的一行移除一张。',limitHit:'这张牌已经达到数量上限。',deckFull:'牌组已满。',emptyDeck:'牌组是空的，点击卡牌加入。',
+    diffTitle:'选择难度',diffSub:'对手的职业会随机决定。',diff:{easy:'简单',normal:'普通',hard:'困难'},
+    diffDesc:{easy:'AI会出错，也不使用英雄技能。牌组补充普通卡。',normal:'标准AI，会使用职业英雄技能。牌组补充稀有卡和史诗卡。',hard:'标准AI，牌组补充史诗卡和传说卡。'},
+    aiName:x=>`${x}（AI）`,goFirst:'你先手。',goSecond:'你后手，获得一枚幸运硬币。',qWin:'胜利',qLose:'失败',qVs:(c,d)=>`对手：${c} · ${d}`,
+    record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',
+    ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
+    rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
+    played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
+    fWard:'护盾',fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
+      stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
+      buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
+      summon:(n,a,h,nm)=>`召唤${n>1?'两':'一'}个${a}/${h}的${nm}。`,
+      heal:n=>`为你的英雄恢复${n}点生命值。`,armor:n=>`获得${n}点护甲。`,draw:n=>`抽${n>1?'两':'一'}张牌。`,self:n=>`受到${n}点伤害。`,
+      kw:{guard:'守护',ward:'护盾',surge:'冲锋'},onPlay:'登场：',last:'遗言：',sep:'',kwSep:'。',end:'。'},
+    kwRe:/(守护|护盾|冲锋|登场|遗言)/g,
+  },
+  ja:{
+    brand:'灰燼の王冠',hero:'冒険者',heroInit:'冒',duelOf:(n,t)=>`決闘 ${n} / ${t}`,stageOf:(n,t)=>`${n}/${t}`,
+    mana:(a,b)=>`マナ ${a}/${b}`,handDeck:(h,d)=>`手札 ${h} · 山札 ${d}`,
+    ePow:'防備',ePowEff:'装甲+2',ePowAria:'敵のヒーローパワー：装甲を2獲得',
+    noEnemy:'敵のミニオンはいない',playMinions:'手札からミニオンを出そう',
+    chooseTarget:x=>`「${x}」の対象を選んでください。`,cancel:'キャンセル',yourTurn:'あなたのターン',acting:x=>`${x}が行動中…`,endTurn:'ターン終了',
+    minion:'ミニオン',spell:'呪文',guard:'ガード',ward:'結界',gasp:'断末魔',
+    hpAria:(n,h)=>`${n}、体力${h}`,minAria:(n,a,h,k)=>`${n}、攻撃力${a}、体力${h} ${k}`,
+    cardAria:(n,c,s,t)=>`${n}、コスト${c}。${s}${t}`,statsAria:(a,h)=>`攻撃力${a}、体力${h}。`,
+    introTitle:'戦い抜いて、灰燼の王冠を手にせよ',
+    rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
+      '光っているミニオンをタップし、敵をタップして<b>攻撃</b>。出したばかりのミニオンは<b>突撃</b>がない限り次のターンまで攻撃できない。',
+      '敵は先に<b>ガード</b>を持つミニオンを攻撃しなければならない。<b>結界</b>は次に受けるダメージを1回防ぐ。',
+      '6つの<b>クラス</b>から1つを選ぼう。クラスごとに専用の<b>ヒーローパワー</b>（1ターンに1回）と初期デッキがある。',
+      'ゴブリンの戦団から灰燼の王まで、8人の敵を倒そう。勝つたびにカードを1枚デッキに加えられる。'],
+    startDuel:'冒険に出る',viewCards:'カード図鑑',cardsBtn:'図鑑',
+    defeated:x=>`${x}を倒した`,rewardText:(n,x)=>`デッキに加えるカードを1枚選んでください（現在${n}枚）。次の敵：${x}。`,skip:'スキップ',
+    lostTitle:'冒険者は倒れた',lostText:x=>`${x}がこの決闘に勝った。再挑戦してもデッキとクラスはそのまま残る。`,retry:'再挑戦',newRun:'最初から',
+    champTitle:'灰燼の王冠はあなたのもの',champText:n=>`${n}枚のデッキで8人の敵をすべて倒した。`,again:'もう一度遊ぶ',
+    galTitle:'カード図鑑',galSub:n=>`この世界の全${n}枚のカード。`,back:'戻る',minions:'ミニオン',spells:'呪文',
+    rar:{c:'コモン',r:'レア',e:'エピック',l:'レジェンド',t:'トークン'},costN:n=>`コスト${n}`,
+    race:{human:'人間',elf:'エルフ',dwarf:'ドワーフ',orc:'オーク',halfling:'ハーフリング',gnome:'ノーム',undead:'アンデッド',goblin:'ゴブリン',troll:'トロール',beast:'獣',giant:'巨人',construct:'構造体',elemental:'精霊',dragon:'ドラゴン'},
+    bannerYou:'あなたのターン',bannerFoe:'敵のターン',
+    rises:x=>`${x}が立ちはだかる。`,fatigue:(x,n)=>`${x}の山札が尽き、${n}の疲労ダメージを受けた。`,
+    handFull:c=>`手札がいっぱいで、${c}は失われた。`,summon:c=>`${c}を召喚した。`,cast:c=>`${c}を唱えた。`,castOn:(c,t)=>`${t}に${c}を唱えた。`,
+    attacks:(a,t)=>`${a}が${t}を攻撃。`,burst:c=>`${c}の怨霊が立ち上がった。`,
+    sinks:x=>`${x}を倒した。`,falls:'冒険者は倒れた。',noMana:'マナが足りない。',boardFull:'盤面がいっぱいだ。',
+    noTargets:'このカードの対象がいない。',ready:x=>`${x}は準備完了。攻撃する対象をタップ。`,already:x=>`${x}はこのターン既に攻撃した。`,
+    noAtk:x=>`${x}には攻撃力がない。`,nextTurn:x=>`${x}は次のターンから攻撃できる。`,guardWay:'ガードを持つミニオンが立ちふさがっている。',
+    info:(n,a,h,t)=>`${n}：${a}/${h}${t?' · '+t:''}`,eTurn:x=>`${x}のターン。`,eSummon:(x,c)=>`${x}が${c}を召喚した。`,
+    eCast:(x,c)=>`${x}が${c}を唱えた。`,eCastOn:(x,c,t)=>`${x}が${t}に${c}を唱えた。`,eShell:x=>`${x}が守りを固めた。`,yourTurnLog:'あなたのターン。',
+    classTitle:'クラスを選択',classSub:x=>`クラスごとに専用のヒーローパワーと初期デッキがある。最初の敵：${x}。`,heroPower:'ヒーローパワー',
+    powerAria:(n,c,d)=>`ヒーローパワー「${n}」、コスト${c}：${d}`,powerUse:(n,t)=>t?`${t}に${n}を使った。`:`${n}を使った。`,cantPower:'今はヒーローパワーを使えない。',
+    modeCamp:'冒険モード',modeCampSub:'クラスの初期デッキで、8人の敵に連続で挑む。',modeQuick:'フリー対戦',modeQuickSub:'自分でデッキを組み、ランダムなAIと対戦する。',
+    qClassTitle:'フリー対戦 · クラスを選択',qClassSub:n=>`次にこのクラスで${n}枚のデッキを組む。`,
+    deckTitle:x=>`${x}のデッキ`,deckRules:n=>`${n}枚。同名カードは2枚まで、レジェンドは1枚まで。`,deckNeed:n=>`あと${n}枚`,deckReady:'デッキ完成',
+    autoFill:'自動で埋める',resetDeck:'初期デッキに戻す',clearDeck:'空にする',nextDiff:'次へ：難易度',curve:'マナカーブ',filterAll:'すべて',
+    tapAdd:'カードをタップで追加、デッキの行をタップで1枚外す。',limitHit:'このカードは枚数上限に達している。',deckFull:'デッキがいっぱい。',emptyDeck:'デッキは空。カードをタップして追加しよう。',
+    diffTitle:'難易度を選択',diffSub:'相手のクラスはランダムに決まる。',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
+    diffDesc:{easy:'AIはミスをし、ヒーローパワーを使わない。デッキはコモンで補充。',normal:'クラスのヒーローパワーを使う標準AI。デッキはレアとエピックで補充。',hard:'標準AI。デッキはエピックとレジェンドで補充。'},
+    aiName:x=>`${x}（AI）`,goFirst:'あなたが先攻。',goSecond:'あなたは後攻。幸運のコインを得る。',qWin:'勝利',qLose:'敗北',qVs:(c,d)=>`相手：${c} · ${d}`,
+    record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',
+    ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
+    rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
+    played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
+    fWard:'結界',fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
+      stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
+      buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
+      summon:(n,a,h,nm)=>`${a}/${h}の${nm}を${n}体召喚する。`,
+      heal:n=>`自分のヒーローの体力を${n}回復する。`,armor:n=>`装甲を${n}獲得する。`,draw:n=>`カードを${n}枚引く。`,self:n=>`${n}ダメージを受ける。`,
+      kw:{guard:'ガード',ward:'結界',surge:'突撃'},onPlay:'登場時：',last:'断末魔：',sep:'',kwSep:'。',end:'。'},
+    kwRe:/(ガード|結界|突撃|登場時|断末魔)/g,
+  }
+};
+const T=(k,...a)=>{const v=I18N[L][k];return typeof v==='function'?v(...a):v};
+
+// ---------- card art ----------
+const SKIN={human:'#e2b48c',elf:'#efd2b0',dwarf:'#d89a74',orc:'#86a85c',halfling:'#ecc096',gnome:'#f0c8a2',undead:'#d8d3c2',goblin:'#97b84e',troll:'#76a39a',giant:'#b0a69a',ogre:'#c9a874'};
+// Portrait builder: race shape + clothing + headgear + held items. viewBox 100x64.
+function portrait(o){
+  const r=o.race,sk=o.skin||SKIN[r],hair=o.hair||'#5a3a22',robe=o.robe||'#5a4a6a',P=[].concat(o.prop||[]);
+  const big=['giant','ogre','troll'].includes(r),small=['halfling','gnome','goblin'].includes(r);
+  let s='';
+  if(o.glow)s+=`<circle cx="50" cy="30" r="30" fill="${o.glow}" opacity=".22"/>`;
+  if(P.includes('staff'))s+=`<rect x="74" y="12" width="2.6" height="52" fill="#6b4a2a"/><circle cx="75.3" cy="10" r="7.5" fill="${o.orb||'#8fd0ff'}" opacity=".35"/><circle cx="75.3" cy="10" r="4" fill="${o.orb||'#8fd0ff'}"/>`;
+  if(P.includes('spear'))s+=`<rect x="75" y="8" width="2.2" height="56" fill="#6b4a2a"/><path d="M76.1 0l4 9h-8z" fill="#cfd6dc"/>`;
+  if(P.includes('banner'))s+=`<rect x="76" y="4" width="2.2" height="60" fill="#6b4a2a"/><path d="M78 6h16l-4 7 4 7H78z" fill="${o.flag||'#b03a2e'}"/>`;
+  if(P.includes('bow'))s+=`<path d="M24 6Q8 32 24 60" stroke="#8a5a2e" stroke-width="3" fill="none"/><path d="M24 6V60" stroke="#efe2c2" stroke-width=".8"/>`;
+  if(P.includes('sword'))s+=`<rect x="74.5" y="6" width="3.4" height="38" fill="#d6dde2"/><path d="M74.5 6l1.7-5 1.7 5z" fill="#d6dde2"/><rect x="69" y="43" width="14.5" height="3" rx="1" fill="#b08a4a"/><rect x="75.2" y="46" width="2" height="10" fill="#5a3a22"/>`;
+  if(P.includes('axe'))s+=`<rect x="75" y="8" width="2.6" height="56" fill="#6b4a2a"/><path d="M77.6 10q13 3 11 18q-6-7-11-5z" fill="#c9cfd4"/>`;
+  if(P.includes('hammer'))s+=`<rect x="75" y="14" width="2.6" height="50" fill="#6b4a2a"/><rect x="69" y="7" width="15" height="9" rx="1.5" fill="#9aa3ad"/>`;
+  if(P.includes('club'))s+=`<path d="M73 64l3-40q1-10 8-10t6 12l-9 38z" fill="#7a5a36"/>`;
+  const sw=big?34:small?22:28,top=big?40:small?45:42;
+  s+=`<path d="M${50-sw} 64Q${52-sw} ${top+2} 50 ${top}Q${48+sw} ${top+2} ${50+sw} 64Z" fill="${robe}"/>`;
+  if(o.trim)s+=`<path d="M43 ${top+1}L50 58L57 ${top+1}" stroke="${o.trim}" stroke-width="2" fill="none"/>`;
+  const cy=small?31:big?24:27,rx=big?13:small?9:10.5,ry=big?14:small?10.5:12.5;
+  if(o.head==='hood')s+=`<path d="M${44-rx} ${top+5}Q${42-rx} ${cy-ry-6} 50 ${cy-ry-5}Q${58+rx} ${cy-ry-6} ${56+rx} ${top+5}Z" fill="${o.hood||robe}"/>`;
+  if(o.long)s+=`<path d="M${49-rx} ${cy-4}Q${46-rx} ${cy+16} ${51-rx} ${cy+21}L50 ${cy}L${49+rx} ${cy+21}Q${54+rx} ${cy+16} ${51+rx} ${cy-4}Z" fill="${hair}"/>`;
+  if(r==='elf')s+=`<path d="M${51-rx} ${cy-1}L${41-rx} ${cy-10}L${52-rx} ${cy+4}Z M${49+rx} ${cy-1}L${59+rx} ${cy-10}L${48+rx} ${cy+4}Z" fill="${sk}"/>`;
+  if(r==='goblin'||r==='troll')s+=`<path d="M${51-rx} ${cy}L${38-rx} ${cy-6}L${51-rx} ${cy+5}Z M${49+rx} ${cy}L${62+rx} ${cy-6}L${49+rx} ${cy+5}Z" fill="${sk}"/>`;
+  s+=`<ellipse cx="50" cy="${cy}" rx="${rx}" ry="${ry}" fill="${sk}"/>`;
+  const noHair=['undead','troll','ogre','giant'].includes(r)||['helm','hood','wizhat','gnomehat'].includes(o.head)||o.bald;
+  if(!noHair)s+=`<path d="M${50-rx} ${cy-2}Q${50-rx} ${cy-ry-3} 50 ${cy-ry-2}Q${50+rx} ${cy-ry-3} ${50+rx} ${cy-2}Q${46+rx} ${cy-ry+3} 50 ${cy-ry+3}Q${54-rx} ${cy-ry+3} ${50-rx} ${cy-2}Z" fill="${hair}"/>`;
+  const ey=cy-1;
+  if(r==='undead'){
+    s+=`<ellipse cx="45.5" cy="${ey}" rx="2.6" ry="3" fill="#1a1414"/><ellipse cx="54.5" cy="${ey}" rx="2.6" ry="3" fill="#1a1414"/>`;
+    if(o.eyes)s+=`<circle cx="45.5" cy="${ey}" r="1.3" fill="${o.eyes}"/><circle cx="54.5" cy="${ey}" r="1.3" fill="${o.eyes}"/>`;
+    s+=`<path d="M45 ${cy+6}h10" stroke="#1a1414" stroke-width="1.2"/><path d="M47 ${cy+4.5}v3M50 ${cy+4.5}v3M53 ${cy+4.5}v3" stroke="#1a1414" stroke-width=".8"/>`;
+  }else s+=`<circle cx="46" cy="${ey}" r="1.4" fill="${o.eyes||'#1a1414'}"/><circle cx="54" cy="${ey}" r="1.4" fill="${o.eyes||'#1a1414'}"/>`;
+  if(['orc','troll','ogre','goblin','giant'].includes(r))s+=`<path d="M43 ${ey-3}l5 1.5M57 ${ey-3}l-5 1.5" stroke="#2a1a14" stroke-width="1.4"/>`;
+  if(r==='gnome'||r==='troll'||r==='goblin')s+=`<ellipse cx="50" cy="${cy+3}" rx="2.4" ry="${r==='troll'?4.5:2.6}" fill="${r==='gnome'?'#e3a184':'#5f8a52'}"/>`;
+  if(['orc','troll','ogre'].includes(r))s+=`<path d="M45 ${cy+8}l1.6-5 1.6 5zM51.8 ${cy+8}l1.6-5 1.6 5z" fill="#f4eedc"/>`;
+  if(r==='dwarf'||o.beard)s+=`<path d="M${51-rx} ${cy+1}Q${50-rx} ${cy+24} 50 ${cy+27}Q${50+rx} ${cy+24} ${49+rx} ${cy+1}Q${46+rx} ${cy+8} 50 ${cy+8}Q${54-rx} ${cy+8} ${51-rx} ${cy+1}Z" fill="${o.beardC||hair}"/>`;
+  if(o.head==='helm')s+=`<path d="M${49-rx} ${cy-1}Q${49-rx} ${cy-ry-4} 50 ${cy-ry-4}Q${51+rx} ${cy-ry-4} ${51+rx} ${cy-1}Z" fill="${o.helm||'#9aa3ad'}"/><rect x="49" y="${cy-ry-2}" width="2" height="${ry}" fill="#6d757e"/>`+(o.plume?`<path d="M50 ${cy-ry-4}q8-10 16-6q-8 1-12 8z" fill="${o.plume}"/>`:'');
+  if(o.head==='hood')s+=`<path d="M${48-rx} ${cy-2}Q${50-rx} ${cy-ry-4} 50 ${cy-ry-4}Q${50+rx} ${cy-ry-4} ${52+rx} ${cy-2}Q${47+rx} ${cy-ry+2} 50 ${cy-ry+2}Q${53-rx} ${cy-ry+2} ${48-rx} ${cy-2}Z" fill="${o.hood||robe}"/>`;
+  if(o.head==='crown')s+=`<path d="M${51-rx} ${cy-ry+3}L${52-rx} ${cy-ry-7}L${50-rx/2} ${cy-ry-2}L50 ${cy-ry-9}L${50+rx/2} ${cy-ry-2}L${48+rx} ${cy-ry-7}L${49+rx} ${cy-ry+3}Z" fill="#e8c35a"/><circle cx="50" cy="${cy-ry-1}" r="1.6" fill="${o.gem||'#d0454a'}"/>`;
+  if(o.head==='circlet')s+=`<path d="M${50-rx} ${cy-ry+5}Q50 ${cy-ry+1} ${50+rx} ${cy-ry+5}" stroke="#e8c35a" stroke-width="1.6" fill="none"/><circle cx="50" cy="${cy-ry+2.6}" r="1.7" fill="${o.gem||'#6ad0ff'}"/>`;
+  if(o.head==='wizhat')s+=`<path d="M${45-rx} ${cy-ry+4}L${55+rx} ${cy-ry+4}L54 ${cy-ry-20}Z" fill="${o.hat||'#3a2a7a'}"/><ellipse cx="50" cy="${cy-ry+4}" rx="${rx+7}" ry="2.6" fill="${o.hat||'#3a2a7a'}"/><circle cx="51.5" cy="${cy-ry-6}" r="1.4" fill="#f3d36a"/>`;
+  if(o.head==='gnomehat')s+=`<path d="M${48-rx} ${cy-ry+5}L${52+rx} ${cy-ry+5}L47 ${cy-ry-18}Z" fill="${o.hat||'#b03a2e'}"/>`;
+  if(o.head==='horns')s+=`<path d="M${52-rx} ${cy-ry+4}Q${42-rx} ${cy-ry-2} ${44-rx} ${cy-ry-10}Q${48-rx} ${cy-ry-3} ${55-rx} ${cy-ry+2}Z M${48+rx} ${cy-ry+4}Q${58+rx} ${cy-ry-2} ${56+rx} ${cy-ry-10}Q${52+rx} ${cy-ry-3} ${45+rx} ${cy-ry+2}Z" fill="#e6dcc8"/>`;
+  if(o.head==='mohawk')s+=`<path d="M47.5 ${cy-ry+2}Q50 ${cy-ry-11} 52.5 ${cy-ry+2}Z" fill="${hair}"/>`;
+  if(o.runes)s+=`<g stroke="#8fd0ff" stroke-width="1.3" fill="none"><path d="M26 56l3-6 3 6M66 52l4 4 4-4M42 60h7"/></g>`;
+  if(P.includes('shield'))s+=`<path d="M14 34h22v12q0 10-11 16q-11-6-11-16z" fill="${o.shc||'#7a5a36'}" stroke="#e8c35a" stroke-width="1.5"/><circle cx="25" cy="45" r="3" fill="#e8c35a"/>`;
+  if(P.includes('book'))s+=`<path d="M36 54l14 3 14-3v9l-14 3-14-3z" fill="${o.bookc||'#7a3a2a'}"/><path d="M50 57v9" stroke="#efe2c2" stroke-width="1"/>`;
+  if(P.includes('dagger'))s+=`<path d="M71 62l9-18 2.4 1.2-8 18.5z" fill="#d6dde2"/><path d="M67.5 59.5l8.5 4.5" stroke="#b08a4a" stroke-width="2.6"/>`;
+  if(P.includes('potion'))s+=`<path d="M70 50h6v4q6 3 6 8H64q0-5 6-8z" fill="${o.potc||'#7fd17f'}"/><rect x="69.5" y="47" width="7" height="3" fill="#b08a4a"/>`;
+  if(P.includes('wrench'))s+=`<path d="M66 62l12-14" stroke="#9aa3ad" stroke-width="3"/><circle cx="79" cy="46" r="4" fill="none" stroke="#9aa3ad" stroke-width="2.5"/>`;
+  return s;
+}
+const wolfArt=c=>`<path d="M14 58L26 34L42 26L46 10L54 22L60 20L84 36L87 43L71 45L66 52L38 58Z" fill="${c}"/><path d="M46 10L50 24L54 22Z" fill="#00000030"/><circle cx="62" cy="31" r="2" fill="#f3c97a"/><path d="M71 45l2 4 2-4 2 4 2-4" fill="#f4eedc"/><circle cx="86" cy="40" r="2.2" fill="#1a1414"/>`;
+const golemArt=(c,e)=>`<rect x="36" y="10" width="28" height="20" rx="4" fill="${c}"/><rect x="26" y="31" width="48" height="33" rx="6" fill="${c}"/><rect x="12" y="34" width="14" height="24" rx="5" fill="${c}"/><rect x="74" y="34" width="14" height="24" rx="5" fill="${c}"/><rect x="42" y="17" width="6" height="3" fill="${e}"/><rect x="52" y="17" width="6" height="3" fill="${e}"/><path d="M42 40l8 8 8-8M50 48v10" stroke="${e}" stroke-width="2" fill="none"/><path d="M36 10l4 6M60 30l4-5" stroke="#00000040" stroke-width="1.5"/>`;
+const ART={
+  skipper:portrait({race:'halfling',robe:'#4a6b3a',hair:'#6a4a2a',head:'hood',hood:'#3d5a30',prop:'dagger'}),
+  pearl:portrait({race:'human',robe:'#d8d0bc',trim:'#e8c35a',hair:'#c89a4a',head:'circlet',gem:'#ffe08a',prop:'book',bookc:'#e8c35a',glow:'#ffe9a0',long:1}),
+  crab:portrait({race:'dwarf',robe:'#6a4a3a',hair:'#b0532e',head:'helm',prop:'shield',shc:'#8a6a3a'}),
+  harpooneer:portrait({race:'elf',robe:'#3a6a4a',hair:'#e0c070',long:1,prop:'bow'}),
+  eel:portrait({race:'orc',robe:'#5a3a2a',hair:'#1e1a18',head:'mohawk',prop:'axe'}),
+  lurker:portrait({race:'troll',robe:'#4a5a3a',prop:'club'}),
+  sailor:portrait({race:'undead',robe:'#4a4a5a',head:'helm',helm:'#7a6a5a',prop:'sword',eyes:'#7fe0a0'}),
+  knight:portrait({race:'human',robe:'#b8c0c8',trim:'#e8c35a',head:'helm',plume:'#c0392b',prop:['sword','shield'],shc:'#2f4f8f'}),
+  diver:portrait({race:'gnome',robe:'#3a5a8a',hair:'#eeeeee',head:'gnomehat',beard:1,beardC:'#eeeeee',prop:'wrench'}),
+  gull:`<path d="M6 34Q26 2 48 26Q70 2 94 34Q72 28 50 44Q28 28 6 34Z" fill="#c9a36a"/><path d="M14 30Q28 14 44 26M86 30Q72 14 56 26" stroke="#8a6a3a" stroke-width="1.5" fill="none"/><ellipse cx="50" cy="48" rx="13" ry="12" fill="#b88a4a"/><circle cx="50" cy="30" r="9" fill="#f2ead8"/><path d="M55 30l11 3-11 4z" fill="#e8b23a"/><circle cx="52" cy="28" r="1.6" fill="#1a1414"/><path d="M40 52l-6 12M60 52l6 12" stroke="#8a6a3a" stroke-width="3"/>`,
+  shark:portrait({race:'giant',robe:'#5a5a6e',prop:'club',runes:1,eyes:'#8fd0ff'}),
+  leviathan:`<circle cx="60" cy="34" r="30" fill="#e2763a" opacity=".18"/><path d="M98 64Q84 40 68 34Q58 30 46 32L26 30Q18 34 24 41L44 43Q52 47 58 53Q64 60 66 64Z" fill="#8a2a22"/><path d="M66 31L80 9L72 33ZM58 31L66 6L62 32Z" fill="#e6dcc8"/><path d="M76 40l6-6 2 8M84 50l7-5 1 8" fill="#5a1a14"/><circle cx="52" cy="35" r="2.4" fill="#ffd36a"/><path d="M26 38l3 4 3-3 3 4 3-3 3 3" stroke="#f4eedc" stroke-width="1.4" fill="none"/><path d="M24 36Q10 28 0 36Q10 40 2 48Q14 44 22 40Z" fill="#f39a3a"/><path d="M20 37Q12 34 6 38Q12 40 8 44Q15 42 20 39Z" fill="#f6d78f"/>`,
+  bubble:`<circle cx="50" cy="30" r="24" fill="#a9c4ff" opacity=".15"/><path d="M50 8Q66 8 66 28V54L60 48L55 56L50 48L45 56L40 48L34 54V28Q34 8 50 8Z" fill="#c4d6ff" opacity=".85"/><ellipse cx="45" cy="26" rx="2.6" ry="3.6" fill="#1a1428"/><ellipse cx="55" cy="26" rx="2.6" ry="3.6" fill="#1a1428"/><ellipse cx="50" cy="36" rx="3" ry="4" fill="#1a1428"/>`,
+  spray:'<circle cx="50" cy="32" r="26" fill="none" stroke="#f39a3a" stroke-opacity=".35" stroke-dasharray="3 4"/><path d="M22 52L68 18" stroke="#efe2c2" stroke-width="3" stroke-linecap="round"/><path d="M66 13l10 0-3 10z" fill="#efe2c2"/><path d="M22 52Q12 54 8 62Q18 60 22 56Q20 62 26 64Q26 58 26 54Z" fill="#f39a3a"/><path d="M30 46q-8-2-12 4 7-1 10 1z" fill="#f6d78f"/>',
+  brace:'<circle cx="50" cy="32" r="28" fill="#ffe9a0" opacity=".15"/><path d="M50 6l22 7v17q0 19-22 30-22-11-22-30V13z" fill="#2f4f8f" stroke="#e8c35a" stroke-width="2"/><path d="M50 18l3 8h8l-6.5 5 2.5 8-7-5-7 5 2.5-8-6.5-5h8z" fill="#ffe08a"/>',
+  frenzy:'<path d="M50 6q-14 20-14 30a14 14 0 0028 0q0-10-14-30z" fill="#b0221a"/><path d="M44 34q0-7 5-12" stroke="#f0a097" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M14 18l14 10M86 18L72 28M18 54l10-6M82 54l-10-6" stroke="#cf4a3f" stroke-width="3" stroke-linecap="round"/>',
+  tidepool:'<circle cx="50" cy="30" r="24" fill="#8f78e0" opacity=".2"/><path d="M18 50l32-8 32 8V20l-32 8-32-8z" fill="#efe2c2"/><path d="M50 28v22" stroke="#7a5a36" stroke-width="1.5"/><path d="M24 26l20 5M24 32l20 5M24 38l20 5M56 31l20-5M56 37l20-5M56 43l20-5" stroke="#b9a98a" stroke-width="1"/><path d="M50 4l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#c4b4ff"/>',
+  mend:'<circle cx="50" cy="32" r="26" fill="#7fd17f" opacity=".18"/><g stroke="#ffe9a0" stroke-width="2" stroke-linecap="round"><path d="M50 4v8M50 52v8M22 32h8M70 32h8M30 12l5 5M70 12l-5 5M30 52l5-5M70 52l-5-5"/></g><circle cx="50" cy="32" r="13" fill="#bff0b0"/><path d="M50 24v16M42 32h16" stroke="#3a8a4a" stroke-width="4" stroke-linecap="round"/>',
+  undertow:'<path d="M38 0h24L56 44H44Z" fill="#ffe9a0" opacity=".55"/><path d="M45 0h10L52 46h-4Z" fill="#fff8d8"/><ellipse cx="50" cy="52" rx="26" ry="7" fill="#ffe08a" opacity=".5"/><path d="M28 52l-8-8M72 52l8-8M36 58l-6 4M64 58l6 4" stroke="#ffe08a" stroke-width="2" stroke-linecap="round"/>',
+  maelstrom:'<circle cx="50" cy="32" r="24" fill="#e2763a" opacity=".25"/><circle cx="50" cy="32" r="17" fill="#e2763a"/><circle cx="46" cy="28" r="10" fill="#f39a3a"/><circle cx="43" cy="25" r="5" fill="#f6d78f"/><path d="M66 22q14-6 26 2-12 0-18 8M66 42q14 6 26-2-12 0-18-8" fill="#e2763a" opacity=".7"/>',
+  riptide:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".18"/><path d="M58 2L34 34h14L40 62l28-38H54L64 2z" fill="#e8f4ff" stroke="#8fd0ff" stroke-width="2" stroke-linejoin="round"/>',
+  goblin:portrait({race:'goblin',robe:'#6a4a2a',bald:1,prop:'dagger'}),
+  apprentice:portrait({race:'human',robe:'#4a3a8a',head:'wizhat',hat:'#4a3a8a',prop:'staff',orb:'#f39a3a'}),
+  direwolf:wolfArt('#6e7078'),
+  cleric:portrait({race:'dwarf',robe:'#d8c8a0',trim:'#e8c35a',hair:'#9a9a9a',head:'circlet',gem:'#ffe08a',prop:'hammer',glow:'#ffe9a0'}),
+  berserker:portrait({race:'orc',robe:'#7a2a22',hair:'#1e1a18',head:'horns',prop:'axe'}),
+  beastcaller:portrait({race:'elf',robe:'#5a7a3a',hair:'#2a2a2a',long:1,head:'circlet',gem:'#7fd17f',prop:'staff',orb:'#7fd17f'}),
+  ghoul:portrait({race:'undead',skin:'#9aa08a',robe:'#3a3a3a',eyes:'#f3d36a'}),
+  alchemist:portrait({race:'gnome',robe:'#7a4a8a',hair:'#e07a3a',prop:'potion',potc:'#c47fe0'}),
+  burglar:portrait({race:'halfling',robe:'#3a3a4a',head:'hood',hood:'#2a2a3a',prop:'dagger'}),
+  commander:portrait({race:'human',robe:'#8a2a2a',trim:'#e8c35a',head:'helm',plume:'#e8c35a',prop:'banner',beard:1,hair:'#4a3020'}),
+  golem:golemArt('#8a8580','#8fd0ff'),
+  firelem:'<path d="M50 4Q66 22 62 34Q72 28 70 18Q84 34 74 52Q66 64 50 64Q34 64 26 52Q16 34 30 18Q28 28 38 34Q34 22 50 4Z" fill="#e2763a"/><path d="M50 22Q60 34 56 44Q62 42 62 36Q68 46 60 56Q54 62 50 62Q46 62 40 56Q32 46 38 36Q38 42 44 44Q40 34 50 22Z" fill="#f6d78f"/><path d="M43 44l5 2M57 44l-5 2" stroke="#3a1a0a" stroke-width="2.4" stroke-linecap="round"/>',
+  ogre:portrait({race:'ogre',robe:'#6a5a3a',prop:'club'}),
+  archmage:portrait({race:'human',robe:'#2a3a7a',hair:'#eeeeee',beard:1,beardC:'#eeeeee',head:'wizhat',hat:'#2a3a7a',prop:'staff',orb:'#8fd0ff',glow:'#8fd0ff'}),
+  lich:portrait({race:'undead',robe:'#3a2a5a',trim:'#9a6aff',head:'crown',gem:'#7fff9a',prop:'staff',orb:'#9a6aff',eyes:'#7fff9a',glow:'#9a6aff'}),
+  dwarfking:portrait({race:'dwarf',robe:'#7a2a2a',trim:'#e8c35a',hair:'#c87a2a',head:'crown',prop:'axe',glow:'#e8c35a'}),
+  elfqueen:portrait({race:'elf',robe:'#2a6a5a',trim:'#e8c35a',hair:'#f0e0a0',long:1,head:'crown',gem:'#7fd17f',prop:'staff',orb:'#7fd17f',glow:'#7fd17f'}),
+  radiant:'<circle cx="50" cy="32" r="28" fill="#ffe9a0" opacity=".2"/><g fill="#ffe08a"><path d="M50 2l4 22-4 6-4-6z"/><path d="M50 62l4-22-4-6-4 6z"/><path d="M18 32l22-4 6 4-6 4z"/><path d="M82 32l-22-4-6 4 6 4z"/></g><circle cx="50" cy="32" r="7" fill="#fff8d8"/>',
+  shieldwall:'<g stroke="#e8c35a" stroke-width="1.5"><path d="M16 18h22v14q0 12-11 18-11-6-11-18z" fill="#7a5a36"/><path d="M62 18h22v14q0 12-11 18-11-6-11-18z" fill="#7a5a36"/><path d="M38 12h24v16q0 14-12 21-12-7-12-21z" fill="#2f4f8f"/></g><circle cx="50" cy="28" r="3" fill="#e8c35a"/>',
+  calltoarms:'<path d="M14 40Q30 36 60 18L66 20Q70 34 66 48L60 50Q30 40 14 44Z" fill="#c9a36a"/><ellipse cx="66" cy="34" rx="6" ry="15" fill="#8a6a3a"/><path d="M14 40v4" stroke="#6a4a2a" stroke-width="4"/><path d="M76 22q8 12 0 24M82 16q12 18 0 36" stroke="#efe2c2" stroke-width="2" fill="none" stroke-linecap="round"/>',
+  hymn:'<rect x="26" y="4" width="3" height="58" fill="#6b4a2a"/><path d="M29 6h44l-8 12 8 12H29z" fill="#b03a2e"/><path d="M44 12l4 6 7-2-4 7 4 6-7-1-4 6-1-7-7-3 7-3z" fill="#e8c35a"/><path d="M70 40v14a4 4 0 11-2-3V38l10-2v14a4 4 0 11-2-3V40z" fill="#efe2c2"/>',
+  inferno:'<path d="M0 64Q4 40 14 30Q14 44 22 46Q20 26 34 14Q32 34 42 38Q42 20 54 8Q54 28 62 34Q64 22 74 18Q70 36 80 40Q84 30 92 28Q88 44 100 64Z" fill="#e2763a"/><path d="M8 64Q12 50 20 46Q22 56 30 56Q30 44 40 38Q42 50 50 52Q52 40 60 36Q60 50 70 52Q72 44 80 42Q80 54 92 64Z" fill="#f6d78f"/>',
+  darkpact:'<circle cx="50" cy="32" r="26" fill="#6a2a8a" opacity=".3"/><path d="M50 8Q66 8 66 26Q66 34 60 38V46H40V38Q34 34 34 26Q34 8 50 8Z" fill="#d8d3c2"/><ellipse cx="44" cy="26" rx="4" ry="5" fill="#2a0a3a"/><ellipse cx="56" cy="26" rx="4" ry="5" fill="#2a0a3a"/><circle cx="44" cy="26" r="1.4" fill="#c47fe0"/><circle cx="56" cy="26" r="1.4" fill="#c47fe0"/><path d="M44 46v6M50 46v6M56 46v6" stroke="#d8d3c2" stroke-width="2.5"/><path d="M80 50q2-6 0-10q4 4 2 10z" fill="#b0221a"/>',
+  breath:'<path d="M100 20Q84 14 72 22L62 20Q56 24 60 28L70 30Q80 36 92 34Z" fill="#8a2a22"/><path d="M74 20l6-10 2 10z" fill="#e6dcc8"/><circle cx="70" cy="24" r="1.6" fill="#ffd36a"/><path d="M60 26Q40 16 0 20Q16 32 4 44Q30 40 60 30Z" fill="#e2763a"/><path d="M56 27Q40 22 14 26Q24 32 16 38Q36 34 56 29Z" fill="#f6d78f"/><path d="M0 52Q30 46 50 58Q24 56 0 64Z" fill="#e2763a" opacity=".6"/>',
+  minnow:portrait({race:'human',robe:'#7a6a4a',hair:'#8a5a2a',prop:'spear'}),
+  reefling:portrait({race:'human',robe:'#5a5a7a',head:'helm',prop:'spear'}),
+  elver:wolfArt('#8a6a4a'),
+  squire:golemArt('#6d7680','#f39a3a'),
+  coin:'<circle cx="50" cy="32" r="22" fill="#e8c35a"/><circle cx="50" cy="32" r="17" fill="none" stroke="#b08a3a" stroke-width="2"/><path d="M50 20l3 8h8l-6.5 5 2.5 8-7-5-7 5 2.5-8-6.5-5h8z" fill="#b08a3a"/>',
+  spawn:'<circle cx="50" cy="34" r="26" fill="#e2763a" opacity=".15"/><path d="M22 30L38 40L34 22ZM78 30L62 40L66 22Z" fill="#8a2a22"/><ellipse cx="50" cy="46" rx="15" ry="12" fill="#b0452e"/><ellipse cx="50" cy="48" rx="8" ry="8" fill="#e6b07a"/><circle cx="50" cy="26" r="11" fill="#c4553a"/><path d="M42 18l-4-10 8 6zM58 18l4-10-8 6z" fill="#e6dcc8"/><circle cx="46" cy="25" r="2.4" fill="#fff"/><circle cx="54" cy="25" r="2.4" fill="#fff"/><circle cx="46.5" cy="25.5" r="1.3" fill="#1a1414"/><circle cx="54.5" cy="25.5" r="1.3" fill="#1a1414"/>',
+};
+
+// ---------- cards ----------
+// n = name [en, zh, ja]; f = flavor [en, zh, ja]; rules text is generated from the effect data in every language.
+const CARDS={
+  skipper:{c:1,t:'m',a:1,h:2,r:'c',race:'halfling',n:['Halfling Scout','半身人斥候','ハーフリングの斥候'],f:['Small enough to hide, bold enough to look.','小得藏得住，胆大得敢偷看。','隠れるには小さく、覗くには大胆。']},
+  goblin:{c:1,t:'m',a:2,h:1,r:'c',race:'goblin',n:['Goblin Cutpurse','哥布林扒手','ゴブリンのスリ'],f:['Your purse was lighter than he hoped.','你的钱袋比他预想的还轻。','財布は期待より軽かった。']},
+  pearl:{c:1,t:'m',a:1,h:1,r:'c',race:'human',ward:1,n:['Temple Acolyte','神殿侍僧','神殿の侍祭'],f:['Her prayers land before the blows do.','她的祷告总比拳头先到。','祈りは拳より先に届く。']},
+  apprentice:{c:1,t:'m',a:1,h:1,r:'c',race:'human',bc:{dmg:1,tgt:'any'},n:["Wizard's Apprentice",'法师学徒','魔術師の弟子'],f:['Only singed the eyebrows. This time.','这次只烧掉了眉毛。','今回は眉毛が焦げただけ。']},
+  crab:{c:2,t:'m',a:1,h:4,r:'c',race:'dwarf',guard:1,n:['Dwarf Shieldbearer','矮人盾卫','ドワーフの盾持ち'],f:['The shield is older than he is.','这面盾比他还老。','その盾は彼より年上だ。']},
+  harpooneer:{c:2,t:'m',a:2,h:2,r:'c',race:'elf',bc:{dmg:1,tgt:'any'},n:['Elven Archer','精灵弓手','エルフの射手'],f:['She has never needed a second arrow.','她从来不需要第二支箭。','二本目の矢は必要なかった。']},
+  direwolf:{c:2,t:'m',a:3,h:2,r:'c',race:'beast',n:['Dire Wolf','恐狼','ダイアウルフ'],f:['The pack is never far behind.','狼群从不远离。','群れはすぐ後ろにいる。']},
+  cleric:{c:2,t:'m',a:2,h:3,r:'c',race:'dwarf',bc:{heal:4},n:['Dwarven Cleric','矮人牧师','ドワーフの僧侶'],f:['Prayer, ale, and a very large hammer.','祷告、麦酒，还有一把很大的锤子。','祈りとエールと、とても大きなハンマー。']},
+  berserker:{c:2,t:'m',a:2,h:1,r:'c',race:'orc',surge:1,n:['Orc Berserker','兽人狂战士','オークの狂戦士'],f:['Thinks with his axe. Thinks fast.','用斧头思考，而且想得很快。','斧で考える。考えるのは速い。']},
+  burglar:{c:2,t:'m',a:2,h:2,r:'r',race:'halfling',bc:{draw:1},n:['Halfling Burglar','半身人窃贼','ハーフリングの泥棒'],f:['Finders keepers.','谁捡到就是谁的。','見つけた者の物。']},
+  eel:{c:3,t:'m',a:3,h:2,r:'r',race:'orc',surge:1,n:['Orc Raider','兽人掠夺者','オークの略奪者'],f:['First through the gate. Always.','永远第一个冲进城门。','門をくぐるのはいつも一番乗り。']},
+  lurker:{c:3,t:'m',a:3,h:4,r:'c',race:'troll',n:['Forest Troll','森林巨魔','森のトロール'],f:['Leave a toll, or become one.','留下买路钱，或者把你自己留下。','通行料を置いていけ。さもなくばお前が通行料だ。']},
+  sailor:{c:3,t:'m',a:3,h:2,r:'r',race:'undead',gasp:'bubble',n:['Grave Thrall','墓穴仆从','墓所の下僕'],f:['Death was only a change of employer.','死亡只是换了个雇主。','死は雇い主が変わっただけ。']},
+  beastcaller:{c:3,t:'m',a:2,h:3,r:'r',race:'elf',bc:{summon:'elver'},n:['Elven Beastcaller','精灵驯兽师','エルフの獣使い'],f:['She whistles once. Something always answers.','她吹一声口哨，总会有东西回应。','口笛ひとつで、必ず何かが応える。']},
+  ghoul:{c:3,t:'m',a:3,h:3,r:'c',race:'undead',gasp:'bubble',n:['Barrow Ghoul','古墓食尸鬼','塚の食屍鬼'],f:['Hungry even after the end.','死后依旧饥饿。','終わりの後も飢えている。']},
+  alchemist:{c:3,t:'m',a:2,h:2,r:'r',race:'gnome',bc:{buff:[2,0],tgt:'ally'},n:['Gnome Alchemist','侏儒炼金师','ノームの錬金術師'],f:["Drink this. Don't ask what's in it.",'喝了它。别问里面是什么。','これを飲め。中身は聞くな。']},
+  knight:{c:4,t:'m',a:3,h:5,r:'r',race:'human',guard:1,n:['Paladin Vanguard','圣骑士先锋','聖騎士の先鋒'],f:['Behind her, no one falls.','在她身后，无人倒下。','彼女の後ろで倒れる者はいない。']},
+  diver:{c:4,t:'m',a:3,h:3,r:'r',race:'gnome',bc:{draw:1},n:['Gnome Tinkerer','侏儒工匠','ノームの技師'],f:['It works. Mostly. Twice so far.','它能用。大部分时候。目前成功过两次。','動く。たいてい。今のところ二回は。']},
+  gull:{c:5,t:'m',a:4,h:4,r:'e',race:'beast',surge:1,n:['Griffon Rider','狮鹫骑士','グリフォンライダー'],f:['Arrives before the war horns finish.','战号还没吹完，他就到了。','角笛が鳴り終わる前に到着する。']},
+  commander:{c:5,t:'m',a:4,h:5,r:'e',race:'human',bc:{team:[1,0]},n:['Knight Commander','骑士指挥官','騎士団長'],f:['Hold the line, then break theirs.','守住阵线，再冲破他们的。','戦線を守れ。それから奴らのを崩せ。']},
+  golem:{c:5,t:'m',a:3,h:6,r:'c',race:'construct',guard:1,n:['Stone Golem','石魔像','ストーンゴーレム'],f:['It was told to guard the door. The door is long gone.','它被命令守门，可那扇门早就没了。','扉を守れと命じられた。扉はとうに無い。']},
+  shark:{c:6,t:'m',a:6,h:6,r:'e',race:'giant',ward:1,n:['Runebound Giant','符文巨人','ルーンの巨人'],f:['Every rune is a spell someone wasted on it.','每道符文，都是有人白费在它身上的法术。','ルーンの一つ一つが、誰かが無駄にした呪文だ。']},
+  firelem:{c:6,t:'m',a:5,h:5,r:'r',race:'elemental',bc:{dmg:3,tgt:'any'},n:['Fire Elemental','火元素','炎の精霊'],f:['Do not offer it a hand to shake.','千万别向它伸手握手。','握手を求めてはいけない。']},
+  ogre:{c:6,t:'m',a:6,h:7,r:'c',race:'giant',n:['Ogre Brute','食人魔蛮兵','オーガの蛮兵'],f:['Two heads would be smarter. He has one.','两个脑袋会聪明些，可他只有一个。','頭が二つなら賢かったろう。彼には一つしかない。']},
+  archmage:{c:7,t:'m',a:5,h:6,r:'e',race:'human',bc:{draw:2},n:['Archmage of the Spire','尖塔大法师','尖塔の大魔導師'],f:['She has read every book in the tower. Twice.','塔里的每本书她都读过两遍。','塔の本は全て読んだ。二度ずつ。']},
+  leviathan:{c:8,t:'m',a:7,h:8,r:'l',race:'dragon',guard:1,bc:{aoe:2},n:['Ignaroth, Ashen Wyrm','灰烬巨龙伊格纳洛斯','灰燼竜イグナロス'],f:['The crown was forged in his breath.','那顶王冠，正是在他的龙息中锻成。','王冠は彼の吐息で鍛えられた。']},
+  lich:{c:8,t:'m',a:6,h:6,r:'l',race:'undead',bc:{aoe:3,face:3},n:['Malakar the Undying','不朽者马拉卡','不死のマラカル'],f:['He has died eleven times. He is getting better at it.','他已经死过十一次了，而且越来越熟练。','十一度死んだ。だんだん上手くなっている。']},
+  dwarfking:{c:8,t:'m',a:7,h:7,r:'l',race:'dwarf',guard:1,bc:{armor:5,team:[1,1]},n:['Thorgrim, King Under Stone','石下之王索格林','石下の王ソーグリム'],f:['His beard has its own throne.','他的胡子都有自己的王座。','彼の髭には専用の玉座がある。']},
+  elfqueen:{c:8,t:'m',a:5,h:7,r:'l',race:'elf',ward:1,bc:{heal:8,draw:2},n:['Sylvara, Queen of the Glade','林地女王希尔瓦拉','森の女王シルヴァラ'],f:['The forest kneels when she walks.','她走过时，森林为之屈膝。','彼女が歩けば、森がひざまずく。']},
+  spray:{c:1,t:'s',r:'c',fx:{dmg:2,tgt:'any'},n:['Fire Bolt','火焰箭','ファイアボルト'],f:['The first spell every apprentice learns.','每个学徒学会的第一个法术。','見習いが最初に覚える呪文。']},
+  brace:{c:1,t:'s',r:'c',fx:{buff:[0,3],guard:1,tgt:'ally'},n:['Shield of Faith','信仰之盾','信仰の盾'],f:['Belief, hammered into steel.','把信念锻打成钢。','信念を鋼に打ち込む。']},
+  darkpact:{c:1,t:'s',r:'r',fx:{selfDmg:3,draw:2},n:['Dark Pact','黑暗契约','闇の契約'],f:['Sign here. And here. And in blood, here.','在这里签字。这里也是。还有这里，用血签。','ここに署名を。ここにも。そしてここは血で。']},
+  frenzy:{c:2,t:'s',r:'r',fx:{buff:[3,0],tgt:'ally'},n:['Bloodlust','嗜血','血の渇き'],f:['One taste is enough.','尝一口就够了。','一口で十分だ。']},
+  tidepool:{c:2,t:'s',r:'c',fx:{draw:2},n:["Scholar's Insight",'学者的洞见','賢者の洞察'],f:['Footnotes are where the real magic hides.','真正的魔法都藏在脚注里。','本当の魔法は脚注に隠れている。']},
+  mend:{c:2,t:'s',r:'r',fx:{heal:6},n:['Healing Light','治愈之光','癒しの光'],f:['Warm as a hearth, quick as a prayer.','像炉火一样温暖，像祷告一样迅速。','暖炉のように温かく、祈りのように速い。']},
+  shieldwall:{c:2,t:'s',r:'c',fx:{armor:4},n:['Shield Wall','盾墙','盾の壁'],f:['Lock shields. Lock eyes. Hold.','盾牌相扣，目光相接，守住。','盾を組め。目を据えろ。踏みとどまれ。']},
+  calltoarms:{c:2,t:'s',r:'c',fx:{summon:['minnow','minnow']},n:['Call to Arms','战斗号令','召集令'],f:['Farmers today. Heroes, maybe, tomorrow.','今天是农夫，明天也许就是英雄。','今日は農夫。明日は、たぶん英雄。']},
+  undertow:{c:3,t:'s',r:'r',fx:{dmg:4,tgt:'minion'},n:['Smite','惩击','天罰'],f:['Judgment, delivered from above.','来自天上的审判。','天上より下される裁き。']},
+  radiant:{c:3,t:'s',r:'r',fx:{aoe:1,heal:4},n:['Radiant Burst','光耀爆发','光輝の爆発'],f:['Light that burns the wicked and warms the faithful.','灼烧邪恶、温暖信徒的光。','悪を焼き、信じる者を温める光。']},
+  hymn:{c:3,t:'s',r:'r',fx:{team:[1,1]},n:['Battle Hymn','战歌','戦いの賛歌'],f:['Off-key, but very loud.','跑调了，但非常响亮。','音程は外れているが、とても大きい。']},
+  maelstrom:{c:4,t:'s',r:'e',fx:{aoe:2},n:['Fireball','火球术','ファイアボール'],f:['Aim for the middle.','瞄准中间就行。','真ん中を狙え。']},
+  riptide:{c:5,t:'s',r:'e',fx:{dmg:5,tgt:'any'},n:['Lightning Bolt','闪电箭','ライトニングボルト'],f:['Never strikes the same place twice. Never needs to.','从不劈同一个地方两次，也从不需要。','同じ場所に二度は落ちない。その必要もない。']},
+  breath:{c:6,t:'s',r:'e',fx:{aoe:3,face:3},n:["Dragon's Breath",'龙息','竜の息吹'],f:['The last thing the castle walls ever felt.','城墙感受到的最后一样东西。','城壁が最後に感じたもの。']},
+  inferno:{c:7,t:'s',r:'e',fx:{aoe:4},n:['Inferno','炼狱烈焰','業火'],f:['Nothing grows here anymore. Nothing will.','这里已寸草不生，以后也不会再有。','もう何も育たない。これからも。']},
+  bubble:{c:1,t:'m',a:2,h:1,r:'t',race:'undead',token:1,n:['Restless Spirit','怨灵','怨霊'],f:['It remembers being angry.','它记得自己曾经很愤怒。','怒っていたことだけは覚えている。']},
+  minnow:{c:1,t:'m',a:1,h:1,r:'t',race:'human',token:1,n:['Militia Recruit','民兵','民兵'],f:['Pitchfork sold separately.','干草叉需另购。','熊手は別売り。']},
+  reefling:{c:2,t:'m',a:2,h:2,r:'t',race:'human',token:1,guard:1,n:['Town Guard','城镇卫兵','町の衛兵'],f:['Halt. Please.','站住。拜托了。','止まれ。お願いだから。']},
+  elver:{c:2,t:'m',a:2,h:1,r:'t',race:'beast',token:1,surge:1,n:['Wolf','狼','狼'],f:['Teeth first, questions never.','先下口，从不提问。','まず牙。質問はなし。']},
+  squire:{c:3,t:'m',a:3,h:3,r:'t',race:'construct',token:1,guard:1,n:['Iron Golem','钢铁魔像','アイアンゴーレム'],f:['Forged in an afternoon. Built to last forever.','一个下午锻成，却要永远守护。','午後一つで鍛え、永遠に持つよう造られた。']},
+  coin:{c:0,t:'s',r:'t',token:1,fx:{mana:1},n:['Lucky Coin','幸运硬币','幸運のコイン'],f:['Going second has its perks.','后手也有后手的好处。','後攻にも良いことはある。']},
+  spawn:{c:4,t:'m',a:4,h:4,r:'t',race:'dragon',token:1,ward:1,n:['Dragon Whelp','幼龙','子竜'],f:['Small now. Not for long.','现在还小，不会太久。','今は小さい。長くはない。']},
+};
+const cn=k=>CARDS[k].n[li()];
+const cf=k=>CARDS[k].f[li()];
+const art=k=>`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
+function fxText(fx,tgt){
+  const F=I18N[L].fx,out=[];
+  if(fx.selfDmg)out.push(F.self(fx.selfDmg));
+  if(fx.dmg)out.push(F.dmg(fx.dmg,tgt==='minion'));
+  if(fx.aoe)out.push(fx.face?F.aoeAll(fx.aoe):F.aoe(fx.aoe));
+  else if(fx.face)out.push(F.face(fx.face));
+  if(fx.healT)out.push(F.healT(fx.healT));
+  if(fx.buff)out.push(F.buff(F.stat(fx.buff[0],fx.buff[1]),fx.guard,fx.ward));
+  if(fx.team)out.push(F.team(F.stat(fx.team[0],fx.team[1])));
+  if(fx.summon){const a=[].concat(fx.summon),c=CARDS[a[0]];out.push(F.summon(a.length,c.a,c.h,cn(a[0])))}
+  if(fx.heal)out.push(F.heal(fx.heal));
+  if(fx.armor)out.push(F.armor(fx.armor));
+  if(fx.draw)out.push(F.draw(fx.draw));
+  if(fx.mana)out.push(F.mana(fx.mana));
+  return out.join(F.sep);
+}
+function cardText(k){
+  const c=CARDS[k],F=I18N[L].fx;
+  const kws=['guard','ward','surge'].filter(x=>c[x]).map(x=>F.kw[x]);
+  let s=kws.length?kws.join(F.kwSep)+F.end:'';
+  if(c.bc)s+=(s?F.sep:'')+F.onPlay+fxText(c.bc,c.bc.tgt);
+  if(c.gasp){const g=CARDS[c.gasp];s+=(s?F.sep:'')+F.last+F.summon(1,g.a,g.h,cn(c.gasp))}
+  if(c.fx)s+=fxText(c.fx,c.fx.tgt);
+  return s;
+}
+const ct=cardText;
+const kwBold=s=>s.replace(I18N[L].kwRe,'<b>$1</b>');
+
+const rep=(k,n)=>Array(n).fill(k);
+const OPP=[
+  {n:['Goblin Warband','哥布林战团','ゴブリンの戦団'],i:['GW','哥','ゴ'],hp:20,deck:[...rep('goblin',4),...rep('skipper',2),...rep('berserker',3),...rep('direwolf',3),...rep('lurker',2),...rep('eel',2),...rep('spray',2),'calltoarms','frenzy']},
+  {n:['Forest Bandits','林地盗匪','森の盗賊団'],i:['FB','盗','盗'],hp:22,deck:[...rep('burglar',3),...rep('harpooneer',3),...rep('direwolf',2),...rep('skipper',2),...rep('lurker',3),...rep('beastcaller',2),...rep('spray',2),'darkpact','tidepool','eel']},
+  {n:['Orc Warlord','兽人督军','オークの将軍'],i:['OW','兽','オ'],hp:24,deck:[...rep('berserker',3),...rep('eel',3),...rep('lurker',2),...rep('frenzy',2),...rep('hymn',2),'commander',...rep('ogre',2),'shieldwall',...rep('direwolf',2),...rep('gull',2)]},
+  {n:['Storm Witch','风暴女巫','嵐の魔女'],i:['SW','巫','魔'],hp:26,deck:[...rep('apprentice',3),...rep('spray',3),...rep('riptide',2),...rep('maelstrom',2),...rep('firelem',2),...rep('tidepool',2),...rep('alchemist',2),'darkpact',...rep('harpooneer',2),'inferno']},
+  {n:['Ironhold Dwarves','铁堡矮人','鉄砦のドワーフ'],i:['ID','矮','鉄'],hp:28,deck:[...rep('crab',3),...rep('cleric',3),...rep('golem',2),...rep('shieldwall',2),...rep('brace',2),...rep('knight',2),...rep('alchemist',2),'mend','hymn','ogre','dwarfking']},
+  {n:['Elven Conclave','精灵议会','エルフ評議会'],i:['EC','精','エ'],hp:30,deck:[...rep('harpooneer',3),...rep('beastcaller',3),...rep('pearl',2),'mend',...rep('radiant',2),'archmage',...rep('gull',2),'shark',...rep('undertow',2),'tidepool','elfqueen','frenzy']},
+  {n:['The Bone Lich','骸骨巫妖','骸骨のリッチ'],i:['BL','骸','骸'],hp:30,deck:[...rep('sailor',3),...rep('ghoul',3),...rep('darkpact',2),...rep('undertow',2),'maelstrom','golem','shark','riptide','lich','archmage',...rep('ogre',2),...rep('apprentice',2)]},
+  {n:['The Ashen King','灰烬之王','灰燼の王'],i:['AK','王','王'],hp:28,deck:['leviathan','breath','maelstrom','firelem','commander','lurker','skipper',...rep('sailor',2),...rep('ghoul',2),'ogre','gull','undertow',...rep('crab',2),...rep('harpooneer',2),'apprentice','darkpact']},
+];
+const oppName=i=>OPP[i].n[li()];
+const COLLECT=Object.keys(CARDS).filter(k=>!CARDS[k].token);
+function rollRewards(stage){
+  const w={c:3,r:2,e:1,l:stage>=2?1:0},pool=[];
+  COLLECT.forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
+  const out=[];
+  while(out.length<3){const k=pool[Math.random()*pool.length|0];if(!out.includes(k))out.push(k)}
+  return out;
+}
+const BOARD_MAX=5;
+
+// ---------- classes: each has one hero power and a themed starting deck ----------
+const CLASSES=[
+  {id:'warrior',col:'#c0392b',n:['Warrior','战士','戦士'],tag:['Armor, sturdy Guard minions and brute force.','护甲、坚固的守护随从与蛮力。','装甲、頑丈なガード、そして力押し。'],
+   art:portrait({race:'human',robe:'#8a2a2a',hair:'#3a2a1a',beard:1,head:'helm',plume:'#c0392b',prop:'axe'}),
+   power:{c:2,fx:{armor:2},n:['Armor Up','全副武装','鎧を纏え']},
+   deck:[...rep('crab',2),...rep('berserker',2),...rep('eel',2),...rep('lurker',2),...rep('knight',2),'shieldwall',...rep('frenzy',2),'direwolf','goblin','commander',...rep('harpooneer',2),'hymn','ogre']},
+  {id:'mage',col:'#5a8ae0',n:['Mage','法师','魔法使い'],tag:['Spells that burn the board and refill your hand.','以法术清场灼敌，并补充手牌。','呪文で盤面を焼き払い、手札を補う。'],
+   art:portrait({race:'human',robe:'#2a3a7a',hair:'#d8c8a0',head:'wizhat',hat:'#2a3a7a',prop:'staff',orb:'#8fd0ff',glow:'#8fd0ff'}),
+   power:{c:2,tgt:'any',fx:{dmg:1},n:['Arcane Spark','奥术火花','秘術の火花']},
+   deck:[...rep('apprentice',2),...rep('spray',2),...rep('harpooneer',2),...rep('tidepool',2),'alchemist','undertow',...rep('maelstrom',2),'riptide','firelem',...rep('lurker',2),'knight','diver','crab','skipper']},
+  {id:'paladin',col:'#e8c35a',n:['Paladin','圣骑士','聖騎士'],tag:['Raise small armies, then bless and heal them.','召集小兵，再为他们加持与治疗。','小さな軍勢を集め、祝福し、癒す。'],
+   art:portrait({race:'human',robe:'#c8ccd2',trim:'#e8c35a',head:'helm',helm:'#e8c35a',plume:'#ffffff',prop:['sword','shield'],shc:'#e8c35a',glow:'#ffe9a0'}),
+   power:{c:2,fx:{summon:'minnow'},n:['Muster','征召','召集']},
+   deck:[...rep('pearl',2),...rep('crab',2),'skipper',...rep('brace',2),...rep('knight',2),...rep('calltoarms',2),'hymn','mend','commander',...rep('cleric',2),...rep('lurker',2),'undertow','radiant']},
+  {id:'hunter',col:'#6aa57e',n:['Hunter','猎人','狩人'],tag:['Beasts and fast pressure on the enemy hero.','驱使野兽，快速压制敌方英雄。','獣を従え、敵ヒーローを素早く追い詰める。'],
+   art:portrait({race:'elf',robe:'#3a5a2a',hair:'#8a5a2a',head:'hood',hood:'#2f4a22',prop:'bow'}),
+   power:{c:2,fx:{face:2},n:['Piercing Arrow','穿刺之箭','貫きの矢']},
+   deck:[...rep('direwolf',2),...rep('beastcaller',2),...rep('harpooneer',2),'goblin',...rep('eel',2),...rep('gull',2),...rep('frenzy',2),...rep('spray',2),...rep('lurker',2),'burglar',...rep('undertow',2)]},
+  {id:'priest',col:'#efe2c2',n:['Priest','牧师','司祭'],tag:['Healing and Ward to outlast every foe.','以治疗和护盾拖垮每一个敌人。','回復と結界で、どんな敵よりも長く耐える。'],
+   art:portrait({race:'human',robe:'#e8e2d0',trim:'#e8c35a',hair:'#c8a060',long:1,head:'circlet',gem:'#ffe08a',prop:'book',bookc:'#e8c35a',glow:'#ffe9a0'}),
+   power:{c:2,tgt:'friend',fx:{healT:2},n:['Mending Touch','愈合之触','癒しの手']},
+   deck:[...rep('pearl',2),...rep('cleric',2),...rep('mend',2),...rep('radiant',2),'brace',...rep('crab',2),'tidepool',...rep('knight',2),...rep('lurker',2),...rep('undertow',2),'golem','diver']},
+  {id:'warlock',col:'#9a6aff',n:['Warlock','术士','術士'],tag:['Trade health for cards and command the undead.','以生命换取手牌，驱使亡灵大军。','体力を手札に換え、アンデッドを操る。'],
+   art:portrait({race:'human',robe:'#3a2a5a',head:'hood',hood:'#2a1a40',eyes:'#c47fe0',prop:'staff',orb:'#9a6aff',glow:'#9a6aff'}),
+   power:{c:2,fx:{selfDmg:2,draw:1},n:['Blood Pact','鲜血契约','血の契約']},
+   deck:[...rep('darkpact',2),...rep('ghoul',2),...rep('sailor',2),'golem','firelem','burglar','tidepool',...rep('spray',2),...rep('lurker',2),...rep('undertow',2),'maelstrom','shark','ogre','diver']},
+];
+const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
+const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
+// ---------- quick match ----------
+const DECK_SIZE=25;
+const DIFFS={easy:{rar:['c'],col:'#6aa57e'},normal:{rar:['r','e'],col:'#5a8ae0'},hard:{rar:['e','l'],col:'#cf4a3f'}};
+const maxCopies=k=>CARDS[k].r==='l'?1:2;
+const copies=(d,k)=>d.filter(x=>x===k).length;
+function padDeck(base,rar){
+  const d=[...base],pool=COLLECT.filter(k=>rar.includes(CARDS[k].r));let g=0;
+  while(d.length<DECK_SIZE&&g++<600){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
+  return d;
+}
+function autoFill(d){
+  const w={c:3,r:2,e:1,l:1},pool=[];COLLECT.forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
+  let g=0;while(d.length<DECK_SIZE&&g++<2000){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
+}
+function loadDecks(){try{return JSON.parse(localStorage.getItem('ashen-decks')||'{}')||{}}catch(e){return {}}}
+function saveDeck(){try{const all=loadDecks();all[Q.cls]=Q.deck;localStorage.setItem('ashen-decks',JSON.stringify(all))}catch(e){}}
+function validDeck(d){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k))}
+let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,w:0,l:0,toast:''};
+
+const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
+const classArt=c=>`<svg viewBox="18 0 64 64" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${c.art}</svg>`;
+
+// ---------- state ----------
+let R,S,view='intro',prevView='intro',picks=[],U=0,FX=[];
+const $=s=>document.querySelector(s);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const other=s=>s==='p'?'e':'p';
+const isHero=o=>!!o.board;
+const idOf=o=>isHero(o)?`${o.side}:h`:`${o.side}:m:${o.uid}`;
+const heroName=s=>s.side==='p'?CBY[R.cls].n[li()]:S&&S.mode==='quick'?T('aiName',CBY[S.ecls].n[li()]):oppName(R.stage);
+const nm=o=>isHero(o)?heroName(o):cn(o.key);
+function getObj(id){const [s,k,u]=id.split(':');return k==='h'?S[s]:S[s].board.find(m=>m.uid==u)}
+function float(o,txt,col,hit){FX.push({id:idOf(o),txt,col,hit})}
+function say(k,...a){S.log=[k,a]}
+function logText(){if(!S.log)return '';const [k,a]=S.log;return T(k,...a.map(x=>typeof x==='function'?x():x))}
+
+// ---------- animation helpers ----------
+const elOf=id=>document.querySelector(`[data-t="${id}"]`);
+const center=e=>{const r=e.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]};
+function burst(x,y,c){
+  if(RM)return;
+  const b=document.createElement('div');b.className='burst';b.style.left=x+'px';b.style.top=y+'px';b.style.setProperty('--c',c||'#f3c97a');
+  document.body.appendChild(b);
+  b.animate([{transform:'scale(.2)',opacity:1},{transform:'scale(1.7)',opacity:0}],{duration:420,easing:'ease-out'}).finished.then(()=>b.remove());
+}
+function sparks(x,y,n=5){
+  if(RM)return;
+  for(let i=0;i<n;i++){
+    const b=document.createElement('div');b.className='spark';const s=3+Math.random()*4;
+    Object.assign(b.style,{width:s+'px',height:s+'px',left:(x-s/2+(Math.random()*30-15))+'px',top:(y-s/2)+'px'});
+    document.body.appendChild(b);
+    b.animate([{transform:'translateY(0)',opacity:1},{transform:`translate(${Math.random()*30-15}px,${-40-Math.random()*40}px)`,opacity:0}],
+      {duration:700+Math.random()*400,easing:'ease-out'}).finished.then(()=>b.remove());
+  }
+}
+async function lunge(aId,tId){
+  if(RM)return;
+  const a=elOf(aId),b=elOf(tId);if(!a||!b)return;
+  const [ax,ay]=center(a),[bx,by]=center(b);
+  a.style.position='relative';a.style.zIndex=10;
+  a.animate([{transform:'none'},{transform:`translate(${(bx-ax)*.78}px,${(by-ay)*.78}px) scale(1.12)`,offset:.55},{transform:'none'}],
+    {duration:440,easing:'cubic-bezier(.55,0,.45,1)'});
+  await wait(245);burst(bx,by,'#f0a097');await wait(140);
+}
+async function projectile(src,tId,color){
+  if(RM)return;
+  const s=typeof src==='string'?document.querySelector(src):src,t=elOf(tId);if(!s||!t)return;
+  const [sx,sy]=center(s),[tx,ty]=center(t);
+  const o=document.createElement('div');o.className='orb';o.style.setProperty('--c',color);o.style.left=(sx-8)+'px';o.style.top=(sy-8)+'px';
+  document.body.appendChild(o);
+  await o.animate([{transform:'translate(0,0) scale(.5)'},{transform:`translate(${(tx-sx)*.5}px,${(ty-sy)*.5-30}px) scale(1.2)`,offset:.5},{transform:`translate(${tx-sx}px,${ty-sy}px) scale(.9)`}],
+    {duration:420,easing:'ease-in'}).finished;
+  o.remove();burst(tx,ty,color);
+}
+async function wave(side){
+  if(RM)return;
+  const b=document.querySelector(`[data-board="${side}"]`);if(!b)return;
+  const r=b.getBoundingClientRect(),w=document.createElement('div');w.className='wave';
+  Object.assign(w.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+  document.body.appendChild(w);
+  await w.animate([{opacity:0,backgroundPosition:'-60% 0'},{opacity:1,offset:.25},{opacity:0,backgroundPosition:'160% 0'}],{duration:620,easing:'ease-in-out'}).finished;
+  w.remove();
+}
+function ghost(id){
+  if(RM)return;
+  const e=elOf(id);if(!e)return;
+  const r=e.getBoundingClientRect(),g=e.cloneNode(true);
+  g.removeAttribute('data-t');g.querySelectorAll('.float').forEach(f=>f.remove());
+  g.classList.remove('target','ready','sel','enter','hit','aimed');
+  Object.assign(g.style,{position:'fixed',left:r.left+'px',top:r.top+'px',margin:0,zIndex:20,pointerEvents:'none',outline:'none'});
+  document.body.appendChild(g);
+  g.animate([{transform:'none',opacity:1,filter:'none'},{transform:'translateY(22px) rotate(-14deg) scale(.55)',opacity:0,filter:'grayscale(1) blur(2px)'}],
+    {duration:700,easing:'ease-in'}).finished.then(()=>g.remove());
+  sparks(r.left+r.width/2,r.top+r.height/2,6);
+}
+async function flyCard(i,destSel){
+  if(RM)return;
+  const c=document.querySelectorAll('.hand .card')[i];if(!c)return;
+  const r=c.getBoundingClientRect(),d=destSel&&document.querySelector(destSel);
+  const [tx,ty]=d?center(d):[r.left+r.width/2,r.top-140];
+  const g=c.cloneNode(true);g.classList.remove('play','drawn','pend');
+  Object.assign(g.style,{position:'fixed',left:r.left+'px',top:r.top+'px',margin:0,zIndex:25,pointerEvents:'none'});
+  document.body.appendChild(g);c.style.visibility='hidden';
+  await g.animate([{transform:'none',opacity:1},{transform:`translate(${tx-(r.left+r.width/2)}px,${ty-(r.top+r.height/2)}px) scale(.45) rotate(-6deg)`,opacity:0}],
+    {duration:340,easing:'cubic-bezier(.4,0,.8,.6)'}).finished;
+  g.remove();
+}
+// Spotlight a played card above the board. Stays until close() so its effect can fire from it.
+function showPlay(side,k,t){
+  const d=document.createElement('div');d.className='reveal '+(side==='e'?'foe':'me');
+  d.innerHTML=`<span class="rcap">${T('played',heroName(S[side]))}</span>${cardFace(k,'md','div')}${t?`<span class="rtgt">${T('target',nm(t))}</span>`:''}`;
+  document.body.appendChild(d);
+  if(!RM)d.animate([{opacity:0,transform:'translateX(-50%) translateY(-14px) scale(.6) rotateY(80deg)'},{opacity:1,transform:'translateX(-50%) scale(1)'}],{duration:300,easing:'ease-out'});
+  return {card:d.querySelector('.card'),close(){
+    if(RM){d.remove();return}
+    d.animate([{opacity:1},{opacity:0,transform:'translateX(-50%) translateY(20px) scale(.8)'}],{duration:300,easing:'ease-in'}).finished.then(()=>d.remove());
+  }};
+}
+async function aimAt(t){if(!t)return;const e=elOf(idOf(t));if(e)e.classList.add('aimed');await wait(650)}
+function pushHist(side,key,t){const h={side,key,t,round:S.round};S.hist.push(h);if(S.hist.length>8)S.hist.shift();return h}
+function histHTML(){
+  if(!S.hist.length)return '<div class="hist"></div>';
+  return `<div class="hist"><span class="hlab">${T('history')}</span>${S.hist.map((h,i)=>{
+    const fresh=h.side==='e'&&h.round===S.round&&S.turn==='p'?' fresh':'';
+    return `<button class="hchip ${h.side==='e'?'foe':'me'}${fresh}" data-hist="${i}" aria-label="${T('played',heroName(S[h.side]))} ${cn(h.key)}${h.t?'. '+T('target',nm(h.t)):''}">${art(h.key)}</button>`}).join('')}</div>`;
+}
+function closePeek(){document.querySelectorAll('.peek').forEach(p=>p.remove())}
+function peek(i){
+  const h=S.hist[i];if(!h)return;closePeek();
+  const d=document.createElement('div');d.className='peek';d.dataset.go='peekclose';d.setAttribute('role','dialog');
+  d.innerHTML=`<div class="peekbox"><span class="rcap ${h.side==='e'?'':'me'}">${T('played',heroName(S[h.side]))}</span>${cardFace(h.key,'md','div')}
+    ${h.t?`<span class="rtgt">${T('target',nm(h.t))}</span>`:''}<span class="hint">${T('tapClose')}</span></div>`;
+  document.body.appendChild(d);
+}
+function banner(text,foe){
+  if(RM)return;
+  const b=document.createElement('div');b.className='banner'+(foe?' foe':'');b.textContent=text;document.body.appendChild(b);
+  b.animate([{opacity:0,transform:'scaleY(.2)',letterSpacing:'.6em'},{opacity:1,transform:'scaleY(1)',letterSpacing:'.12em',offset:.25},{opacity:1,offset:.7},{opacity:0,transform:'translateY(-10px)'}],
+    {duration:1100,easing:'ease-out'}).finished.then(()=>b.remove());
+}
+function initEmbers(){
+  const s=$('.embers');if(!s||RM)return;
+  let h='';for(let i=0;i<16;i++){const z=2+Math.random()*3;
+    h+=`<i style="left:${Math.random()*100}%;width:${z}px;height:${z}px;--dx:${(Math.random()*80-40).toFixed(0)}px;animation-duration:${(10+Math.random()*14).toFixed(1)}s;animation-delay:-${(Math.random()*20).toFixed(1)}s"></i>`}
+  s.innerHTML=h;
+}
+
+// ---------- game flow ----------
+function newRun(){R={stage:0,deck:[],cls:null};S=null;view='intro';render()}
+function goQuick(){view='qclass';render();scrollTo(0,0)}
+function openBuilder(cls){
+  Q.cls=cls;const saved=loadDecks()[cls];
+  Q.deck=validDeck(saved)?[...saved]:[...CBY[cls].deck];Q.toast='';view='build';render();scrollTo(0,0);
+}
+function startQuick(diff){
+  Q.diff=diff;R={stage:0,deck:[...Q.deck],cls:Q.cls};
+  const ecls=CLASSES[Math.random()*CLASSES.length|0].id;
+  const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false});
+  S={mode:'quick',diff,ecls,turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
+     p:mk('p',30,Q.deck),e:mk('e',30,padDeck(CBY[ecls].deck,DIFFS[diff].rar))};
+  S.e.power=CBY[ecls].power;
+  const pFirst=Math.random()<.5;
+  view='duel';
+  if(pFirst){draw('p',3);draw('e',4);S.e.hand.push('coin');say('goFirst');startTurn('p');render();banner(T('bannerYou'))}
+  else{draw('e',3);draw('p',4);S.p.hand.push('coin');say('goSecond');S.turn='e';render();aiTurn()}
+}
+function goClass(){view='class';render();scrollTo(0,0)}
+function pickClass(id){R.cls=id;R.deck=[...CBY[id].deck];startDuel()}
+const curPower=()=>CBY[R.cls].power;
+function powerBlocked(){
+  const p=curPower(),me=S.p;
+  if(S.turn!=='p'||S.busy||S.over||S.pending||me.powerUsed||me.mana<p.c)return true;
+  if(p.fx.summon&&me.board.length>=BOARD_MAX)return true;
+  if(p.tgt&&!targetsFor('p',p.tgt).length)return true;
+  return false;
+}
+function startDuel(){
+  const o=OPP[R.stage];
+  const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false});
+  S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',o.hp,o.deck)};
+  S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;
+  say('rises',()=>heroName(S.e));
+  draw('p',3);draw('e',4);S.e.hand.push('coin');
+  view='duel';startTurn('p');render();banner(T('bannerYou'));
+}
+function startTurn(side){
+  const s=S[side];s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
+  s.board.forEach(m=>{m.sleep=false;m.attacked=false});
+  draw(side,1);
+}
+function draw(side,n){
+  const s=S[side];
+  for(let i=0;i<n;i++){
+    if(!s.deck.length){s.fat++;damage(s,s.fat);const f=s.fat;say('fatigue',()=>heroName(s),f);continue}
+    const k=s.deck.pop();
+    if(s.hand.length>=10){if(side==='p')say('handFull',()=>cn(k))}else{s.hand.push(k);if(side==='p')S.drew++}
+  }
+}
+function summon(side,key){
+  const s=S[side];if(s.board.length>=BOARD_MAX)return null;
+  const c=CARDS[key];
+  const m={uid:++U,key,side,atk:c.a,hp:c.h,max:c.h,base:[c.a,c.h],guard:!!c.guard,ward:!!c.ward,sleep:!c.surge,attacked:false,enter:true};
+  s.board.push(m);return m;
+}
+function damage(o,n){
+  if(n<=0)return;
+  if(isHero(o)){const a=Math.min(o.armor,n);o.armor-=a;n-=a;o.hp-=n;float(o,n?'-'+n:T('fArmor',a),n?'var(--blood)':'#aab',true)}
+  else if(o.ward){o.ward=false;float(o,T('fWard'),'var(--foam)',true)}
+  else{o.hp-=n;float(o,'-'+n,'var(--blood)',true)}
+}
+function canAttack(m){return S.turn===m.side&&!m.sleep&&!m.attacked&&m.atk>0}
+function attackTargets(side){
+  const op=S[other(side)],guards=op.board.filter(m=>m.guard);
+  return guards.length?guards:[op,...op.board];
+}
+function targetsFor(side,tgt){
+  const op=S[other(side)];
+  if(tgt==='any')return [S.e,S.p,...S.e.board,...S.p.board];
+  if(tgt==='minion')return [...S.e.board,...S.p.board];
+  if(tgt==='ally')return S[side].board;
+  if(tgt==='friend')return [S[side],...S[side].board];
+  if(tgt==='enemy')return [op,...op.board];
+  return [];
+}
+function applyFx(side,fx,t){
+  const me=S[side],op=S[other(side)];
+  if(fx.selfDmg)damage(me,fx.selfDmg);
+  if(fx.dmg&&t)damage(t,fx.dmg);
+  if(fx.buff&&t){t.atk+=fx.buff[0];t.hp+=fx.buff[1];t.max+=fx.buff[1];if(fx.guard)t.guard=true;if(fx.ward)t.ward=true;
+    float(t,fx.buff[0]?T('fAtk',fx.buff[0]):T('fHp',fx.buff[1]),'var(--ready)')}
+  if(fx.aoe)[...op.board].forEach(m=>damage(m,fx.aoe));
+  if(fx.face)damage(op,fx.face);
+  if(fx.team)me.board.forEach(m=>{m.atk+=fx.team[0];m.hp+=fx.team[1];m.max+=fx.team[1];
+    float(m,fx.team[0]?T('fAtk',fx.team[0]):T('fHp',fx.team[1]),'var(--ready)')});
+  if(fx.summon)[].concat(fx.summon).forEach(k=>summon(side,k));
+  if(fx.heal){const h=Math.min(fx.heal,me.max-me.hp);me.hp+=h;float(me,'+'+h,'var(--ready)')}
+  if(fx.healT&&t){const h=Math.min(fx.healT,t.max-t.hp);t.hp+=h;float(t,'+'+h,'var(--ready)')}
+  if(fx.armor){me.armor+=fx.armor;float(me,T('armorN',fx.armor),'#cfd8dc')}
+  if(fx.draw)draw(side,fx.draw);
+  if(fx.mana)me.mana+=fx.mana;
+}
+// Visual for an effect, played before the state change.
+async function fxAnim(fx,srcSel,t,side){
+  if(fx.dmg&&t)await projectile(srcSel,idOf(t),'#f39a3a');
+  else if((fx.buff||fx.healT)&&t)await projectile(srcSel,idOf(t),'#7fd17f');
+  else if(fx.face&&!fx.aoe)await projectile(srcSel,`${other(side)}:h`,'#f39a3a');
+  else if(fx.aoe){if(fx.face&&!RM){const e=elOf(`${other(side)}:h`);if(e){const [x,y]=center(e);burst(x,y,'#f39a3a')}}await wave(other(side))}
+  else if(fx.heal||fx.armor||fx.team||fx.selfDmg){const e=elOf(`${side}:h`);if(e&&!RM){const [x,y]=center(e);burst(x,y,fx.armor?'#cfd8dc':'#7fd17f');sparks(x,y,4)}}
+}
+function doAttack(m,t){
+  say('attacks',()=>nm(m),()=>nm(t));
+  damage(t,m.atk);
+  if(!isHero(t))damage(m,t.atk);
+  m.attacked=true;
+}
+function cleanup(){
+  for(const sd of ['p','e']){
+    const s=S[sd],dead=s.board.filter(m=>m.hp<=0);
+    if(!dead.length)continue;
+    dead.forEach(m=>ghost(idOf(m)));
+    s.board=s.board.filter(m=>m.hp>0);
+    dead.forEach(m=>{const g=CARDS[m.key].gasp;if(g&&summon(sd,g))say('burst',()=>cn(m.key))});
+  }
+  if(S.sel!=null&&!S.p.board.some(m=>m.uid===S.sel))S.sel=null;
+  if(!S.over&&(S.p.hp<=0||S.e.hp<=0)){
+    S.over=true;
+    const won=S.e.hp<=0&&S.p.hp>0;
+    if(won)say('sinks',()=>heroName(S.e));else say('falls');
+    const e=elOf(won?'e:h':'p:h');
+    if(e&&!RM){const [x,y]=center(e);burst(x,y,'#f3c97a');setTimeout(()=>burst(x,y,'#cf4a3f'),150);sparks(x,y,10)}
+    if(S.mode==='quick'){if(won)Q.w++;else Q.l++}
+    setTimeout(()=>{
+      if(S.mode==='quick'){view='qresult';render();return}
+      if(!won)view='lost';
+      else if(R.stage===OPP.length-1)view='champ';
+      else{view='reward';picks=rollRewards(R.stage)}
+      render();
+    },1300);
+  }
+}
+function after(){cleanup();render()}
+
+// ---------- player actions ----------
+function blocked(){return S.turn!=='p'||S.busy||S.over}
+async function playHand(i){
+  if(blocked()||S.pending)return;
+  S.sel=null;
+  const k=S.p.hand[i],c=CARDS[k];
+  if(c.c>S.p.mana){say('noMana');return render()}
+  if(c.t==='m'){
+    if(S.p.board.length>=BOARD_MAX){say('boardFull');return render()}
+    S.busy=true;await flyCard(i,'[data-board="p"]');
+    S.p.mana-=c.c;S.p.hand.splice(i,1);
+    const m=summon('p',k),ph=pushHist('p',k,null);say('summon',()=>cn(k));
+    if(c.bc){
+      if(c.bc.tgt){const v=targetsFor('p',c.bc.tgt).map(idOf);if(v.length)S.pending={type:'bc',fx:c.bc,valid:v,key:k,src:idOf(m),hist:ph}}
+      else{render();await fxAnim(c.bc,`[data-t="${idOf(m)}"]`,null,'p');applyFx('p',c.bc,null)}
+    }
+    S.busy=false;return after();
+  }
+  if(c.fx.tgt){
+    const v=targetsFor('p',c.fx.tgt).map(idOf);
+    if(!v.length){say('noTargets');return render()}
+    S.pending={type:'spell',idx:i,valid:v,key:k};return render();
+  }
+  S.busy=true;await flyCard(i,c.fx.aoe?'[data-board="e"]':'[data-t="p:h"]');
+  S.p.mana-=c.c;S.p.hand.splice(i,1);render();
+  await fxAnim(c.fx,'[data-t="p:h"]',null,'p');
+  applyFx('p',c.fx,null);pushHist('p',k,null);say('cast',()=>cn(k));S.busy=false;after();
+}
+async function usePower(){
+  if(powerBlocked()){say('cantPower');return render()}
+  const p=curPower();S.sel=null;
+  if(p.tgt){S.pending={type:'power',valid:targetsFor('p',p.tgt).map(idOf),key:null};return render()}
+  S.busy=true;render();
+  await fxAnim(p.fx,'[data-go="power"]',null,'p');
+  S.p.mana-=p.c;S.p.powerUsed=true;applyFx('p',p.fx,null);say('powerUse',()=>pn(p),null);
+  S.busy=false;after();
+}
+function pendingLabel(){return S.pending.key?cn(S.pending.key):pn(curPower())}
+async function resolvePending(t){
+  const p=S.pending;S.pending=null;S.busy=true;render();
+  if(p.type==='spell'){
+    const k=S.p.hand[p.idx],c=CARDS[k];
+    await flyCard(p.idx,`[data-t="${idOf(t)}"]`);
+    S.p.mana-=c.c;S.p.hand.splice(p.idx,1);render();
+    await fxAnim(c.fx,'[data-t="p:h"]',t,'p');
+    applyFx('p',c.fx,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));
+  }else if(p.type==='bc'){
+    if(p.hist)p.hist.t=t;
+    await fxAnim(p.fx,`[data-t="${p.src}"]`,t,'p');applyFx('p',p.fx,t);
+  }else if(p.type==='power'){
+    const pw=curPower();
+    await fxAnim(pw.fx,'[data-go="power"]',t,'p');
+    S.p.mana-=pw.c;S.p.powerUsed=true;applyFx('p',pw.fx,t);say('powerUse',()=>pn(pw),()=>nm(t));
+  }
+  S.busy=false;after();
+}
+async function clickTarget(id){
+  if(blocked())return;
+  const o=getObj(id);if(!o)return;
+  if(S.pending){if(S.pending.valid.includes(id))resolvePending(o);return}
+  if(S.sel!=null){
+    const m=S.p.board.find(x=>x.uid===S.sel);
+    if(m&&attackTargets('p').map(idOf).includes(id)){
+      S.sel=null;S.busy=true;render();await lunge(idOf(m),id);doAttack(m,o);S.busy=false;return after();
+    }
+    if(o.side==='e'){say('guardWay');return render()}
+  }
+  if(o.side==='p'&&!isHero(o)){
+    if(canAttack(o)){S.sel=S.sel===o.uid?null:o.uid;if(S.sel)say('ready',()=>nm(o));else S.log=null}
+    else say(o.attacked?'already':o.atk<=0?'noAtk':'nextTurn',()=>nm(o));
+    return render();
+  }
+  if(o.side==='e'&&!isHero(o)){say('info',()=>nm(o),o.atk,o.hp,()=>ct(o.key));return render()}
+  S.sel=null;render();
+}
+function endTurn(){
+  if(blocked())return;
+  S.pending=null;S.sel=null;S.turn='e';aiTurn();
+}
+
+// ---------- AI ----------
+const aiEasy=()=>S.mode==='quick'&&S.diff==='easy';
+function aiDamageTarget(n,tgt){
+  const foes=S.p.board;
+  if(aiEasy()&&Math.random()<.5){const o=tgt==='minion'?foes:[S.p,...foes];return o.length?o[Math.random()*o.length|0]:null}
+  const kill=foes.filter(m=>!m.ward&&m.hp<=n).sort((a,b)=>b.atk-a.atk)[0];
+  if(kill)return kill;
+  const ward=foes.filter(m=>m.ward).sort((a,b)=>b.atk-a.atk)[0];
+  if(ward&&n<=2)return ward;
+  if(tgt==='any')return S.p;
+  if(tgt==='minion')return foes.slice().sort((a,b)=>b.atk-a.atk)[0]||null;
+  return null;
+}
+async function aiPower(){
+  const e=S.e,p=e.power,fx=p.fx;if(aiEasy()||e.mana<p.c)return;
+  let t=null;
+  if(fx.dmg){t=aiDamageTarget(fx.dmg,p.tgt);if(!t)return}
+  else if(fx.healT){t=[e,...e.board].filter(x=>x.hp<x.max).sort((a,b)=>(b.max-b.hp)-(a.max-a.hp))[0];if(!t)return}
+  else if(fx.buff){t=aiBestAlly();if(!t)return}
+  else if(!aiWorth(fx))return;
+  e.mana-=p.c;
+  if(t)await aimAt(t);
+  await fxAnim(fx,'[data-epow]',t,'e');applyFx('e',fx,t);
+  say('ePower',()=>heroName(e),()=>pn(p),t?()=>nm(t):null);cleanup();render();await wait(600);
+}
+function aiBestAlly(){return [...S.e.board].sort((a,b)=>b.atk-a.atk)[0]||null}
+function aiWorth(fx){
+  const e=S.e,p=S.p;
+  if(fx.selfDmg&&e.hp<=12)return false;
+  if(fx.draw&&e.hand.length>7)return false;
+  if(fx.aoe&&!fx.face&&p.board.length<2)return false;
+  if(fx.team&&e.board.length<2)return false;
+  if(fx.summon&&e.board.length>=BOARD_MAX)return false;
+  if(fx.heal&&!fx.aoe&&!fx.armor&&e.hp>e.max-6)return false;
+  if(fx.mana)return e.hand.some(k=>CARDS[k].c===e.mana+fx.mana&&k!=='coin');
+  return true;
+}
+function aiPlan(k){
+  const c=CARDS[k],e=S.e;
+  if(c.t==='m'){
+    if(e.board.length>=BOARD_MAX)return null;
+    const bc=c.bc;
+    if(bc&&bc.tgt==='ally')return {t:aiBestAlly()};
+    if(bc&&bc.tgt)return {t:aiDamageTarget(bc.dmg,bc.tgt)};
+    return {t:null};
+  }
+  const fx=c.fx;
+  if(fx.dmg){const t=aiDamageTarget(fx.dmg,fx.tgt);return t?{t}:null}
+  if(fx.buff){const t=aiBestAlly();return t?{t}:null}
+  return aiWorth(fx)?{t:null}:null;
+}
+function aiAttackTarget(m){
+  const opts=attackTargets('e');
+  if(aiEasy()&&Math.random()<.5)return opts[Math.random()*opts.length|0];
+  if(S.p.board.some(g=>g.guard))
+    return opts.filter(t=>!t.ward&&t.hp<=m.atk).sort((a,b)=>b.atk-a.atk)[0]||opts.slice().sort((a,b)=>a.hp-b.hp)[0];
+  const lethal=S.e.board.filter(canAttack).reduce((s,x)=>s+x.atk,0)>=S.p.hp+S.p.armor;
+  if(lethal)return S.p;
+  const kills=S.p.board.filter(t=>!t.ward&&t.hp<=m.atk);
+  const free=kills.filter(t=>t.atk<m.hp).sort((a,b)=>b.atk-a.atk)[0];
+  if(free&&free.atk>=2)return free;
+  const big=kills.filter(t=>t.atk>=m.atk&&t.atk>=3).sort((a,b)=>b.atk-a.atk)[0];
+  if(big)return big;
+  return S.p;
+}
+async function aiTurn(){
+  S.busy=true;S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));cleanup();render();banner(T('bannerFoe'),true);await wait(900);
+  const e=S.e,en=()=>heroName(e);
+  for(let g=0;g<12&&!S.over;g++){
+    const opts=e.hand.map((k,i)=>({k,i})).filter(o=>CARDS[o.k].c<=e.mana).sort((a,b)=>CARDS[b.k].c-CARDS[a.k].c);
+    let did=false;
+    for(const o of opts){
+      const plan=aiPlan(o.k);if(!plan)continue;
+      const c=CARDS[o.k],k=o.k;let t=plan.t;e.mana-=c.c;e.hand.splice(o.i,1);
+      if(c.t==='m'){
+        const shown=c.bc&&c.bc.tgt?t:null;
+        say('eSummon',en,()=>cn(k));render();
+        const sp=showPlay('e',k,shown);await wait(1100);
+        const m=summon('e',k);pushHist('e',k,shown);render();
+        if(c.bc){
+          if(c.bc.tgt==='ally'&&!t)t=m;
+          if(c.bc.tgt)await aimAt(t);
+          await fxAnim(c.bc,sp.card,t,'e');applyFx('e',c.bc,t);
+        }
+        sp.close();
+      }else{
+        if(t)say('eCastOn',en,()=>cn(k),()=>nm(t));else say('eCast',en,()=>cn(k));
+        render();
+        const sp=showPlay('e',k,t);await wait(1400);
+        pushHist('e',k,t);render();
+        await aimAt(t);
+        await fxAnim(c.fx,sp.card,t,'e');applyFx('e',c.fx,t);
+        sp.close();
+      }
+      did=true;cleanup();render();await wait(500);break;
+    }
+    if(!did)break;
+  }
+  if(!S.over)await aiPower();
+  for(const m of [...e.board]){
+    if(S.over)return;
+    if(!e.board.includes(m)||!canAttack(m))continue;
+    const t=aiAttackTarget(m);
+    await lunge(idOf(m),idOf(t));doAttack(m,t);cleanup();render();await wait(420);
+  }
+  if(S.over)return;
+  S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));
+}
+
+// ---------- render ----------
+function cardFace(k,size,tag='button',attrs='',extra=''){
+  const c=CARDS[k],m=c.t==='m';
+  const typ=m?`${T('minion')} · ${T('race')[c.race]}`:T('spell');
+  return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''} ${size} ${extra}" ${attrs}>
+    <span class="art">${art(k)}</span><span class="cost">${c.c}</span>
+    <span class="plate">${cn(k)}</span><span class="gem ${c.r}"></span>
+    <span class="tbox"><span class="typ">${typ}</span><span class="tx">${kwBold(ct(k))}</span></span>
+    ${m?`<span class="stat a">${c.a}</span><span class="stat h">${c.h}</span>`:''}</${tag}>`;
+}
+function header(){
+  return `<div class="top"><span class="brand">${T('brand')}</span>
+    <button class="pill" data-go="gallery" aria-label="${T('viewCards')}"><span>${T('cardsBtn')}</span></button>
+    <select class="langsel" id="langsel" aria-label="Language / 语言 / 言語">${LANGS.map(([v,t])=>`<option value="${v}" ${v===L?'selected':''}>${t}</option>`).join('')}</select>
+    ${S&&S.mode==='quick'&&view==='duel'?`<span class="stagepill" style="color:${DIFFS[S.diff].col};border-color:${DIFFS[S.diff].col}">${T('diff')[S.diff]}</span>`
+      :['intro','qclass','build','diff','qresult','gallery'].includes(view)&&!(S&&S.mode==='camp')?'':`<span class="stagepill" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${T('stageOf',R.stage+1,OPP.length)}</span>`}</div>`;
+}
+function routeRow(){
+  const nodes=OPP.map((o,i)=>{const cls=i<R.stage?'done':i===R.stage?'here':'';
+    return (i?'<span class="link"></span>':'')+`<span class="node ${cls}">${i===OPP.length-1?'B':i+1}</span>`}).join('');
+  return `<div class="routerow"><div class="route" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${nodes}</div></div>`;
+}
+function classCard(c,attr='data-class'){
+  const p=c.power;
+  return `<button class="ccard" style="--cc:${c.col}" ${attr}="${c.id}" aria-label="${c.n[li()]}. ${T('powerAria',pn(p),p.c,pd(p))}. ${c.tag[li()]}">
+    <span class="cport">${classArt(c)}</span>
+    <span class="ctext"><span class="cname">${c.n[li()]}</span><span class="ctag">${c.tag[li()]}</span>
+      <span class="cpow"><span class="pc">${p.c}</span><span><b>${pn(p)}</b> · ${kwBold(pd(p))}</span></span></span></button>`;
+}
+function navRow(...items){
+  return `<div class="nav">${items.map(([go,label])=>`<button class="btn ghost" data-go="${go}">${go==='menu'?'⌂ ':'← '}${label}</button>`).join('')}</div>`;
+}
+function builderHTML(){
+  const c=CBY[Q.cls],d=Q.deck,need=DECK_SIZE-d.length;
+  const order=k=>CARDS[k].c*100+(CARDS[k].t==='s'?50:0);
+  const uniq=[...new Set(d)].sort((a,b)=>order(a)-order(b)||cn(a).localeCompare(cn(b)));
+  const RC={c:'#e8e4da',r:'#4f8fe0',e:'#a35ad6',l:'#f09a3a'};
+  const rows=uniq.map(k=>`<button class="drow" style="--rc:${RC[CARDS[k].r]}" data-rm="${k}" aria-label="${cn(k)} ×${copies(d,k)}"><span class="dc">${CARDS[k].c}</span><span class="dn">${cn(k)}</span><span class="dx">×${copies(d,k)}</span></button>`).join('');
+  const buckets=[0,0,0,0,0,0,0,0];d.forEach(k=>buckets[Math.min(7,CARDS[k].c)]++);const mx=Math.max(4,...buckets);
+  const curve=`<div class="curve" aria-label="${T('curve')}">${buckets.map(n=>`<i style="height:${n/mx*100}%"></i>`).join('')}</div><div class="curvel">${['0','1','2','3','4','5','6','7+'].map(x=>`<span>${x}</span>`).join('')}</div>`;
+  const types=[['all',T('filterAll')],['m',T('minions')],['s',T('spells')]];
+  const costs=[[0,T('filterAll')],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']];
+  const list=COLLECT.filter(k=>(Q.type==='all'||CARDS[k].t===Q.type)&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
+    .sort((a,b)=>CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
+  const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
+    return `<div class="cslot">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
+  return navRow(['qclassback',T('changeClass')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
+    <p class="bnote">${T('deckRules',DECK_SIZE)} ${T('tapAdd')}</p>
+    <div class="bwrap">
+      <div class="bdeck">
+        <div class="meta">${T('curve')}</div>${curve}
+        <div class="dlist">${rows||`<p class="bnote">${T('emptyDeck')}</p>`}</div>
+        <div class="bact"><button class="btn ghost" data-go="autofill" ${need?'':'disabled'}>${T('autoFill')}</button><button class="btn ghost" data-go="resetdeck">${T('resetDeck')}</button><button class="btn ghost" data-go="cleardeck" ${d.length?'':'disabled'}>${T('clearDeck')}</button></div>
+      </div>
+      <div>
+        <div class="chips">${types.map(([v,t])=>`<button class="chip ${Q.type===v?'on':''}" data-ftype="${v}">${t}</button>`).join('')}</div>
+        <div class="chips" style="margin-top:6px">${costs.map(([v,t])=>`<button class="chip ${Q.cost===v?'on':''}" data-fcost="${v}">${t}</button>`).join('')}</div>
+        <div class="coll">${coll}</div>
+      </div>
+    </div>
+    <div class="bfoot"><span class="toast" aria-live="polite">${Q.toast||(need?T('deckNeed',need):T('deckReady'))}</span>
+      <button class="btn" data-go="todiff" ${need?'disabled':''}>${T('nextDiff')}</button></div>`;
+}
+function diffHTML(){
+  return navRow(['editdeck',T('editDeck')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('diffTitle')}</h2><p>${T('diffSub')}</p>
+    <div class="modes" style="max-width:440px;grid-template-columns:1fr">${['easy','normal','hard'].map(d=>`<button class="mode" style="--cc:${DIFFS[d].col}" data-diff="${d}"><b>${T('diff')[d]}</b><span>${T('diffDesc')[d]}</span></button>`).join('')}</div>
+  </div>`;
+}
+function qresultHTML(){
+  const won=S.e.hp<=0&&S.p.hp>0;
+  return `<div class="screen"><h2>${won?T('qWin'):T('qLose')}</h2><p>${T('qVs',CBY[S.ecls].n[li()],T('diff')[S.diff])}</p><p>${T('record',Q.w,Q.l)}</p>
+    <div class="btns"><button class="btn" data-go="rematch">${T('rematch')}</button><button class="btn ghost" data-go="editdeck">${T('editDeck')}</button><button class="btn ghost" data-go="newrun">${T('toMenu')}</button></div></div>`;
+}
+function classHTML(){
+  return `<div class="screen"><h2>${T('classTitle')}</h2><p>${T('classSub',oppName(0))}</p>
+    <div class="ccards">${CLASSES.map(classCard).join('')}</div></div>`;
+}
+function crystals(s){
+  let h='';for(let i=0;i<s.maxMana;i++)h+=`<i class="${i<s.mana?'on':''}"></i>`;
+  return `<div class="crystals" aria-label="${T('mana',s.mana,s.maxMana)}">${h}<b>${s.mana}/${s.maxMana}</b></div>`;
+}
+function tclass(id){
+  if(S.pending)return S.pending.valid.includes(id)?' target':'';
+  if(S.sel!=null&&id[0]==='e'&&attackTargets('p').map(idOf).includes(id))return ' target';
+  return '';
+}
+function heroHTML(s){
+  const id=idOf(s),foe=s.side==='e',name=heroName(s);
+  const init=foe&&S.mode!=='quick'?OPP[R.stage].i[li()]:T('heroInit');
+  const portrait=!foe?CBY[R.cls]:S.mode==='quick'?CBY[S.ecls]:null;
+  const face=`<button class="face${tclass(id)}" data-t="${id}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
+    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
+  const info=`<div class="hinfo"><span class="hname">${name}</span>${crystals(s)}
+    <span class="meta">${T('handDeck',s.hand.length,s.deck.length)}</span></div>`;
+  let power;
+  if(!foe){const p=curPower(),ok=!powerBlocked();
+    power=`<button class="power" data-go="power" ${ok?'':'disabled'} title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></button>`}
+  else{const p=s.power;power=`<div class="power foe" data-epow title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></div>`}
+  return `<div class="hero ${foe?'foe':''}">${face}${info}${power}</div>`;
+}
+function minHTML(m){
+  const id=idOf(m),c=CARDS[m.key];
+  let cls='min '+m.side;
+  if(m.guard)cls+=' guard';if(m.ward)cls+=' ward';if(m.enter)cls+=' enter';
+  if(m.sleep&&m.side==='p'&&S.turn==='p')cls+=' sleep';
+  if(m.side==='p'&&S.turn==='p'&&!S.pending&&!S.busy&&canAttack(m))cls+=' ready';
+  if(S.sel===m.uid)cls+=' sel';
+  cls+=tclass(id);
+  const kw=[m.guard&&T('guard'),m.ward&&T('ward'),c.gasp&&T('gasp')].filter(Boolean).join(' ');
+  return `<button class="${cls}" data-t="${id}" aria-label="${T('minAria',cn(m.key),m.atk,m.hp,kw)}">
+    <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>
+    ${m.sleep&&m.side==='p'?'<span class="z">zz</span>':''}
+    <span class="st a ${m.atk>m.base[0]?'up':''}">${m.atk}</span><span class="st h ${m.hp<m.max?'hurt':m.max>m.base[1]?'up':''}">${m.hp}</span></button>`;
+}
+function handHTML(){
+  const newFrom=S.p.hand.length-S.drew;
+  return S.p.hand.map((k,i)=>{
+    const c=CARDS[k];let ex='';
+    const ok=S.turn==='p'&&!S.busy&&!S.over&&c.c<=S.p.mana&&!S.pending;
+    if(ok)ex+=' play';else if(c.c>S.p.mana)ex+=' off';
+    if(S.pending&&S.pending.type==='spell'&&S.pending.idx===i)ex+=' pend';
+    let st='';if(i>=newFrom){ex+=' drawn';st=`style="--d:${(i-newFrom)*110}ms"`}
+    const aria=T('cardAria',cn(k),c.c,c.t==='m'?T('statsAria',c.a,c.h):'',ct(k));
+    return cardFace(k,'sm','button',`data-hand="${i}" ${st} aria-label="${aria}"`,ex);
+  }).join('');
+}
+function hasMoves(){
+  const p=S.p;
+  return p.hand.some(k=>CARDS[k].c<=p.mana&&(CARDS[k].t==='s'||p.board.length<BOARD_MAX))||p.board.some(canAttack)||!powerBlocked();
+}
+function galleryHTML(){
+  const keys=Object.keys(CARDS);
+  const sort=(a,b)=>(CARDS[a].r==='t')-(CARDS[b].r==='t')||CARDS[a].c-CARDS[b].c;
+  const sec=(title,list)=>`<div class="gsec">${title}</div><div class="gal">${list.sort(sort).map(k=>{const c=CARDS[k];
+    const meta=[T('rar')[c.r],T('costN',c.c),c.race&&T('race')[c.race]].filter(Boolean).join(' · ');
+    return `<div class="gitem">${cardFace(k,'big','div','data-tilt')}<span class="gmeta">${meta}</span><p class="flav">${cf(k)}</p></div>`}).join('')}</div>`;
+  return `<div class="ghead"><h2>${T('galTitle')}</h2><button class="btn ghost" data-go="back">${T('back')}</button></div>
+    <p class="gsub">${T('galSub',keys.length)}</p>
+    ${sec(T('minions'),keys.filter(k=>CARDS[k].t==='m'))}${sec(T('spells'),keys.filter(k=>CARDS[k].t==='s'))}`;
+}
+function render(){
+  document.documentElement.lang=L==='zh'?'zh-CN':L==='ja'?'ja':'en';
+  document.title=L==='en'?'Ashen Crown':`${T('brand')} Ashen Crown`;
+  const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
+  const app=$('#app');
+  if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
+  if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
+  if(view==='qclass'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+`<div class="screen"><h2>${T('qClassTitle')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
+  if(view==='build'){app.innerHTML=header()+builderHTML();FX=[];return}
+  if(view==='diff'){app.innerHTML=header()+diffHTML();FX=[];return}
+  if(view==='qresult'){app.innerHTML=header()+qresultHTML();FX=[];return}
+  if(view==='intro'){
+    const fan=['crab','firelem','leviathan','maelstrom','elfqueen'].map((k,i)=>cardFace(k,'sm','div',`style="transform:rotate(${(i-2)*9}deg) translateY(${Math.abs(i-2)*6}px)"`)).join('');
+    app.innerHTML=header()+`<div class="screen"><div class="fan" aria-hidden="true">${fan}</div><h2>${T('introTitle')}</h2>
+      <div class="modes"><button class="mode" style="--cc:var(--ember)" data-go="start"><b>${T('modeCamp')}</b><span>${T('modeCampSub')}</span></button>
+        <button class="mode" style="--cc:var(--arcane)" data-go="quick"><b>${T('modeQuick')}</b><span>${T('modeQuickSub')}</span></button></div>
+      <ul class="rules">${[...T('rules'),T('lpHint')].map(r=>`<li>${r}</li>`).join('')}</ul>
+      <div class="btns"><button class="btn ghost" data-go="gallery">${T('viewCards')}</button></div></div>`;
+    return;
+  }
+  if(view==='duel'){
+    const pend=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
+    const myTurn=S.turn==='p'&&!S.busy&&!S.over;
+    app.innerHTML=header()+heroHTML(S.e)+
+      `<div class="board ${S.e.board.length?'':'empty'}" data-board="e" data-empty="${T('noEnemy')}">${S.e.board.map(minHTML).join('')}</div>
+      ${histHTML()}<div class="mid" aria-live="polite">${pend}</div>
+      <div class="board ${S.p.board.length?'':'empty'}" data-board="p" data-empty="${T('playMinions')}">${S.p.board.map(minHTML).join('')}</div>`+
+      heroHTML(S.p)+
+      `<div class="hand">${handHTML()}</div>
+      <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
+        <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
+    S.drew=0;
+    [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
+    for(const f of FX){const el=elOf(f.id);if(!el)continue;
+      if(f.hit&&!RM){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
+      const s=document.createElement('span');s.className='float';s.textContent=f.txt;s.style.color=f.col;el.appendChild(s);setTimeout(()=>s.remove(),900)}
+    FX=[];
+    return;
+  }
+  FX=[];
+  if(view==='reward'){
+    app.innerHTML=header()+routeRow()+`<div class="screen"><h2>${T('defeated',oppName(R.stage))}</h2>
+      <p>${T('rewardText',R.deck.length,oppName(R.stage+1))}</p>
+      <div class="picks">${picks.map((k,i)=>cardFace(k,'md','button',`data-pick="${i}"`)).join('')}</div>
+      <div class="btns"><button class="btn ghost" data-go="skip">${T('skip')}</button></div></div>`;
+    return;
+  }
+  if(view==='lost'){
+    app.innerHTML=header()+`<div class="screen"><h2>${T('lostTitle')}</h2><p>${T('lostText',oppName(R.stage))}</p>
+      <div class="btns"><button class="btn" data-go="retry">${T('retry')}</button><button class="btn ghost" data-go="newrun">${T('newRun')}</button></div></div>`;
+    return;
+  }
+  if(view==='champ'){
+    app.innerHTML=header()+`<div class="screen"><h2>${T('champTitle')}</h2><p>${T('champText',R.deck.length)}</p>
+      <div class="btns"><button class="btn" data-go="newrun">${T('again')}</button></div></div>`;
+  }
+}
+
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff]');
+  if(!b||b.disabled)return;
+  if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
+  if(b.dataset.go==='peekclose')return closePeek();
+  if(b.dataset.t)return clickTarget(b.dataset.t);
+  if(b.dataset.hand!==undefined)return playHand(+b.dataset.hand);
+  if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return startDuel()}
+  if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
+  if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
+  if(b.dataset.add!==undefined){const k=b.dataset.add;
+    if(Q.deck.length>=DECK_SIZE)Q.toast=T('deckFull');else if(copies(Q.deck,k)>=maxCopies(k))Q.toast=T('limitHit');else{Q.deck.push(k);Q.toast='';saveDeck()}
+    return render()}
+  if(b.dataset.rm!==undefined){const i=Q.deck.lastIndexOf(b.dataset.rm);if(i>=0)Q.deck.splice(i,1);Q.toast='';saveDeck();return render()}
+  if(b.dataset.ftype!==undefined){Q.type=b.dataset.ftype;return render()}
+  if(b.dataset.fcost!==undefined){Q.cost=+b.dataset.fcost;return render()}
+  if(b.dataset.diff!==undefined)return startQuick(b.dataset.diff);
+  const g=b.dataset.go;
+  if(g==='gallery'){if(view!=='gallery'){prevView=view;view='gallery';render();scrollTo(0,0)}}
+  else if(g==='back'){view=prevView;render()}
+  else if(g==='start')goClass();
+  else if(g==='retry')startDuel();
+  else if(g==='end')endTurn();
+  else if(g==='power')usePower();
+  else if(g==='cancel'){S.pending=null;render()}
+  else if(g==='skip'){R.stage++;startDuel()}
+  else if(g==='newrun')newRun();
+  else if(g==='quick'||g==='qclassback')goQuick();
+  else if(g==='menu'){newRun();scrollTo(0,0)}
+  else if(g==='autofill'){autoFill(Q.deck);Q.toast='';saveDeck();render()}
+  else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';saveDeck();render()}
+  else if(g==='cleardeck'){Q.deck=[];Q.toast='';saveDeck();render()}
+  else if(g==='todiff'){if(Q.deck.length===DECK_SIZE){view='diff';render();scrollTo(0,0)}}
+  else if(g==='editdeck'){view='build';render();scrollTo(0,0)}
+  else if(g==='rematch')startQuick(Q.diff);
+});
+document.addEventListener('change',ev=>{
+  if(ev.target.id!=='langsel')return;
+  L=ev.target.value;try{localStorage.setItem('undertow-lang',L)}catch(e){}
+  FX=[];if(S)S.drew=0;render();const n=$('#langsel');if(n)n.focus();
+});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closePeek()});
+// Gentle 3D tilt for gallery cards.
+document.addEventListener('pointermove',ev=>{
+  if(RM)return;const c=ev.target.closest&&ev.target.closest('[data-tilt]');if(!c)return;
+  const r=c.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width-.5,y=(ev.clientY-r.top)/r.height-.5;
+  c.style.transform=`perspective(700px) rotateY(${x*16}deg) rotateX(${-y*16}deg) scale(1.04)`;
+});
+document.addEventListener('pointerout',ev=>{const c=ev.target.closest&&ev.target.closest('[data-tilt]');if(c&&!c.contains(ev.relatedTarget))c.style.transform=''});
+// Long-press any card to see it full size (phones have no hover).
+let lpT=null,lpFired=false,lpX=0,lpY=0;
+function cardKeyOf(el){
+  if(!el||!el.closest)return null;
+  const h=el.closest('[data-hand]');if(h&&S&&S.p)return S.p.hand[+h.dataset.hand];
+  const a=el.closest('[data-add]');if(a)return a.dataset.add;
+  const pk=el.closest('[data-pick]');if(pk)return picks[+pk.dataset.pick];
+  const t=el.closest('[data-t]');if(t&&t.dataset.t.includes(':m:')&&S){const o=getObj(t.dataset.t);return o?o.key:null}
+  const hc=el.closest('[data-hist]');if(hc&&S)return null;
+  return null;
+}
+function showZoom(k){
+  closePeek();const d=document.createElement('div');d.className='peek';d.dataset.go='peekclose';d.setAttribute('role','dialog');
+  d.innerHTML=`<div class="peekbox">${cardFace(k,'big','div')}<p class="flav" style="color:var(--muted)">${cf(k)}</p><span class="hint">${T('tapClose')}</span></div>`;
+  document.body.appendChild(d);
+}
+document.addEventListener('pointerdown',ev=>{
+  if(ev.pointerType==='mouse')return;lpFired=false;const k=cardKeyOf(ev.target);if(!k)return;
+lpX=ev.clientX;lpY=ev.clientY;clearTimeout(lpT);
+  lpT=setTimeout(()=>{lpT=null;lpFired=true;showZoom(k);try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}},430);
+},{passive:true});
+document.addEventListener('pointermove',ev=>{if(lpT&&Math.hypot(ev.clientX-lpX,ev.clientY-lpY)>10){clearTimeout(lpT);lpT=null}},{passive:true});
+['pointerup','pointercancel'].forEach(t=>document.addEventListener(t,()=>{clearTimeout(lpT);lpT=null},{passive:true}));
+document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagation();ev.preventDefault()}},true);
+document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
+initEmbers();
+newRun();
+})();
+</script>
