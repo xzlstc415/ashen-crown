@@ -51,3 +51,13 @@ ver = hashlib.sha1(html.encode()).hexdigest()[:10]
 sw = (here / 'sw.template.js').read_text().replace('__VERSION__', ver)
 (site / 'sw.js').write_text(sw)
 print('built index.html', len(html), 'bytes; cache version', ver)
+
+# iOS app: the same page and the PeerJS client are bundled in ios/AshenCrown/Web (no service worker there).
+import shutil
+web = site / 'ios' / 'AshenCrown' / 'Web'
+if web.parent.exists():
+    web.mkdir(exist_ok=True)
+    (web / 'index.html').write_text(html)
+    for f in ('peerjs.min.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'manifest.webmanifest'):
+        shutil.copy(site / f, web / f)
+    print('synced', web.relative_to(site))

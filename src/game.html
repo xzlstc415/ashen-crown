@@ -1323,7 +1323,8 @@ function peerOpts(){
   return o;
 }
 const newCode=()=>String(100000+Math.random()*900000|0);
-const inviteLink=c=>`${location.origin}${location.pathname}?room=${c}`;
+// Inside the iOS app the page has no public address, so invites point at the website (friends can join from any browser).
+const inviteLink=c=>window.ASHEN_APP||!/^https?:$/.test(location.protocol)?`https://ashen-crown.hermes-eris.com/?room=${c}`:`${location.origin}${location.pathname}?room=${c}`;
 function netSend(m){try{if(NET&&NET.conn&&NET.conn.open)NET.conn.send(m)}catch(e){}}
 function netClose(bye){
   const n=NET;NET=null;if(!n)return;
