@@ -219,7 +219,13 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .namebar .btn{padding:9px 12px;font-size:13px}
 .empty{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);font-size:14px;line-height:1.5}
 .nav .btn{padding:6px 12px;font-size:13px}
-.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;width:100%;max-width:520px;margin:0 auto}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;width:100%;max-width:640px;margin:0 auto}
+.room{box-sizing:border-box;display:grid;gap:8px;justify-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;width:100%;max-width:420px;margin:0 auto}
+.room .code{font:700 40px/1.1 var(--display);letter-spacing:.12em;color:var(--gold);-webkit-user-select:all;user-select:all}
+.room p{margin:0}
+.chip.odeck{border-left:3px solid var(--cc);font-size:12.5px;padding:6px 11px}
+.netwarn{position:fixed;left:50%;top:calc(8px + env(safe-area-inset-top));transform:translateX(-50%);background:#3a1f1a;border:1px solid var(--ember);color:var(--parch);padding:6px 12px;border-radius:999px;font-size:12.5px;z-index:40;white-space:nowrap}
+.foot .concede{padding:7px 10px;font-size:12.5px}
 .mode{display:grid;gap:4px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:4px solid var(--cc,var(--ember));transition:transform .15s}
 .mode:hover{transform:translateY(-2px)}
 .mode b{font-family:var(--display);font-weight:400;font-size:20px;color:var(--parch)}
@@ -384,6 +390,17 @@ const I18N={
     diffTitle:'Choose difficulty',diffSub:'Your opponent\'s class is chosen at random.',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
     diffDesc:{easy:'The AI makes mistakes and never uses its hero power. Its deck adds common cards.',normal:'Standard AI that uses its class hero power. Its deck adds rare and epic cards.',hard:'Standard AI whose deck adds epic and legendary cards.'},
     aiName:x=>`${x} (AI)`,goFirst:'You go first.',goSecond:'You go second and get a Lucky Coin.',qWin:'Victory',qLose:'Defeat',qVs:(c,d)=>`Opponent: ${c} · ${d}`,
+    modeOnline:'Play a Friend',modeOnlineSub:'Share a room code and battle a friend online.',
+    onSub:'Pick a deck. One player creates a room and sends the code; the other joins with it.',onDeck:'Your deck',starterDeck:c=>`${c} · Starter`,
+    createRoom:'Create room',joinRoom:'Join',codePh:'6-digit code',orJoin:'or join a friend\'s room',roomCode:'Room code',
+    waitFriend:'Waiting for your friend to join…',shareInvite:'Share invite link',copied:'Invite link copied.',inviteText:c=>`Join my Ashen Crown duel! Room code ${c}`,
+    connecting:c=>`Connecting to room ${c}…`,loadingNet:'Connecting to the match server…',
+    errServer:'Could not reach the match server. Check your connection and try again.',errNoRoom:'No room with that code. Check the code with your friend.',
+    errTimeout:'Connection timed out. Some networks block direct connections; try switching between Wi-Fi and mobile data.',
+    errVersion:'You and your friend are on different versions. Both refresh the page and try again.',errDeck:'That deck can\'t be used online.',errCode:'Enter the 6-digit room code.',
+    foeName:c=>`Friend (${c})`,onlinePill:'Online',concede:'Concede',concedeSure:'Tap again to concede',netSlow:'Waiting for your friend\'s connection…',
+    oDraw:'Draw',oVs:c=>`Opponent: your friend · ${c}`,oLeft:'Your friend left the match.',oConceded:'Your friend conceded.',
+    waitAgain:'Waiting for your friend…',foeAgain:'Your friend wants a rematch!',leaveRoom:'Leave room',oAgain:'Rematch',
     record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',myDecks:'My decks',myDecksSub:'Your saved decks are kept on this device.',newDeck:'New deck',noDecks:'No saved decks yet. Tap New deck, build one, and save it.',playDeck:'Play',editShort:'Edit',deleteDeck:'Delete',confirmDelete:'Tap again to delete',deckName:'Deck name',saveDeck:'Save deck',savedState:'Saved',saveAsNew:'Save as new',saved:x=>`Saved "${x}".`,deleted:x=>`Deleted "${x}".`,defaultName:(c,n)=>`${c} deck ${n}`,cardsN:n=>`${n} cards`,notReady:n=>`${n}/25 · not ready to play`,unsaved:'Unsaved changes',pickClassNew:'New deck · Choose a class',
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
@@ -438,6 +455,17 @@ const I18N={
     diffTitle:'选择难度',diffSub:'对手的职业会随机决定。',diff:{easy:'简单',normal:'普通',hard:'困难'},
     diffDesc:{easy:'AI会出错，也不使用英雄技能。牌组补充普通卡。',normal:'标准AI，会使用职业英雄技能。牌组补充稀有卡和史诗卡。',hard:'标准AI，牌组补充史诗卡和传说卡。'},
     aiName:x=>`${x}（AI）`,goFirst:'你先手。',goSecond:'你后手，获得一枚幸运硬币。',qWin:'胜利',qLose:'失败',qVs:(c,d)=>`对手：${c} · ${d}`,
+    modeOnline:'好友对战',modeOnlineSub:'分享房间码，与好友在线实时对战。',
+    onSub:'先选一副牌。一人创建房间并把房间码发给好友，好友输入房间码加入。',onDeck:'你的牌组',starterDeck:c=>`${c} · 初始牌组`,
+    createRoom:'创建房间',joinRoom:'加入',codePh:'6位房间码',orJoin:'或加入好友的房间',roomCode:'房间码',
+    waitFriend:'等待好友加入…',shareInvite:'分享邀请链接',copied:'邀请链接已复制。',inviteText:c=>`来灰烬王冠和我对战！房间码 ${c}`,
+    connecting:c=>`正在连接房间 ${c}…`,loadingNet:'正在连接对战服务器…',
+    errServer:'无法连接对战服务器，请检查网络后重试。',errNoRoom:'找不到这个房间，请和好友核对房间码。',
+    errTimeout:'连接超时。部分网络会阻止直连，可以在 Wi-Fi 和手机流量之间切换后再试。',
+    errVersion:'你和好友的游戏版本不同，请双方刷新页面后再试。',errDeck:'这副牌组不能用于好友对战。',errCode:'请输入6位房间码。',
+    foeName:c=>`好友（${c}）`,onlinePill:'好友对战',concede:'认输',concedeSure:'再点一次认输',netSlow:'对手网络不稳定，等待中…',
+    oDraw:'平局',oVs:c=>`对手：好友 · ${c}`,oLeft:'好友已离开对局。',oConceded:'好友认输了。',
+    waitAgain:'等待好友确认…',foeAgain:'好友想再来一局！',leaveRoom:'离开房间',oAgain:'再来一局',
     record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',myDecks:'我的牌组',myDecksSub:'保存的牌组存放在这台设备上。',newDeck:'新建牌组',noDecks:'还没有保存的牌组。点「新建牌组」，组好后保存。',playDeck:'开始对战',editShort:'编辑',deleteDeck:'删除',confirmDelete:'再点一次删除',deckName:'牌组名称',saveDeck:'保存牌组',savedState:'已保存',saveAsNew:'另存为新牌组',saved:x=>`已保存「${x}」。`,deleted:x=>`已删除「${x}」。`,defaultName:(c,n)=>`${c}牌组 ${n}`,cardsN:n=>`${n}张`,notReady:n=>`${n}/25 · 未完成，暂不能对战`,unsaved:'有未保存的修改',pickClassNew:'新建牌组 · 选择职业',
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
@@ -492,6 +520,17 @@ const I18N={
     diffTitle:'難易度を選択',diffSub:'相手のクラスはランダムに決まる。',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
     diffDesc:{easy:'AIはミスをし、ヒーローパワーを使わない。デッキはコモンで補充。',normal:'クラスのヒーローパワーを使う標準AI。デッキはレアとエピックで補充。',hard:'標準AI。デッキはエピックとレジェンドで補充。'},
     aiName:x=>`${x}（AI）`,goFirst:'あなたが先攻。',goSecond:'あなたは後攻。幸運のコインを得る。',qWin:'勝利',qLose:'敗北',qVs:(c,d)=>`相手：${c} · ${d}`,
+    modeOnline:'フレンド対戦',modeOnlineSub:'ルームコードを共有して、フレンドとオンライン対戦。',
+    onSub:'デッキを選び、一人がルームを作ってコードを送り、もう一人がそのコードで参加します。',onDeck:'あなたのデッキ',starterDeck:c=>`${c} · 初期デッキ`,
+    createRoom:'ルームを作成',joinRoom:'参加',codePh:'6桁のコード',orJoin:'またはフレンドのルームに参加',roomCode:'ルームコード',
+    waitFriend:'フレンドの参加を待っています…',shareInvite:'招待リンクを共有',copied:'招待リンクをコピーしました。',inviteText:c=>`灰燼の王冠で対戦しよう！ルームコード ${c}`,
+    connecting:c=>`ルーム ${c} に接続中…`,loadingNet:'対戦サーバーに接続中…',
+    errServer:'対戦サーバーに接続できません。通信状況を確認して再試行してください。',errNoRoom:'そのコードのルームが見つかりません。コードを確認してください。',
+    errTimeout:'接続がタイムアウトしました。ネットワークによっては直接接続が遮断されます。Wi-Fiとモバイル回線を切り替えて試してください。',
+    errVersion:'フレンドとバージョンが異なります。両方ともページを再読み込みしてください。',errDeck:'このデッキはフレンド対戦で使えません。',errCode:'6桁のルームコードを入力してください。',
+    foeName:c=>`フレンド（${c}）`,onlinePill:'オンライン',concede:'降参',concedeSure:'もう一度押して降参',netSlow:'相手の接続を待っています…',
+    oDraw:'引き分け',oVs:c=>`相手：フレンド · ${c}`,oLeft:'フレンドが対戦を離れました。',oConceded:'フレンドが降参しました。',
+    waitAgain:'フレンドを待っています…',foeAgain:'フレンドが再戦を希望しています！',leaveRoom:'退出',oAgain:'もう一戦',
     record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',myDecks:'マイデッキ',myDecksSub:'保存したデッキはこの端末に残る。',newDeck:'新しいデッキ',noDecks:'保存したデッキはまだない。「新しいデッキ」で組んで保存しよう。',playDeck:'対戦する',editShort:'編集',deleteDeck:'削除',confirmDelete:'もう一度タップで削除',deckName:'デッキ名',saveDeck:'デッキを保存',savedState:'保存済み',saveAsNew:'新規保存',saved:x=>`「${x}」を保存した。`,deleted:x=>`「${x}」を削除した。`,defaultName:(c,n)=>`${c}デッキ ${n}`,cardsN:n=>`${n}枚`,notReady:n=>`${n}/25 · 未完成のため対戦不可`,unsaved:'未保存の変更あり',pickClassNew:'新しいデッキ · クラスを選択',
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
@@ -819,7 +858,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const other=s=>s==='p'?'e':'p';
 const isHero=o=>!!o.board;
 const idOf=o=>isHero(o)?`${o.side}:h`:`${o.side}:m:${o.uid}`;
-const heroName=s=>s.side==='p'?CBY[R.cls].n[li()]:S&&S.mode==='quick'?T('aiName',CBY[S.ecls].n[li()]):oppName(R.stage);
+const heroName=s=>s.side==='p'?CBY[R.cls].n[li()]:S&&S.mode==='quick'?T('aiName',CBY[S.ecls].n[li()]):S&&S.mode==='online'?T('foeName',CBY[S.ecls].n[li()]):oppName(R.stage);
 const nm=o=>isHero(o)?heroName(o):cn(o.key);
 function getObj(id){const [s,k,u]=id.split(':');return k==='h'?S[s]:S[s].board.find(m=>m.uid==u)}
 function float(o,txt,col,hit){FX.push({id:idOf(o),txt,col,hit})}
@@ -1052,7 +1091,8 @@ function doAttack(m,t){
   m.attacked=true;
 }
 function cleanup(){
-  for(const sd of ['p','e']){
+  // Online games resolve deaths host-side first on both clients so token ids stay in step.
+  for(const sd of S.order||['p','e']){
     const s=S[sd],dead=s.board.filter(m=>m.hp<=0);
     if(!dead.length)continue;
     dead.forEach(m=>ghost(idOf(m)));
@@ -1067,8 +1107,12 @@ function cleanup(){
     const e=elOf(won?'e:h':'p:h');
     if(e&&!RM){const [x,y]=center(e);burst(x,y,'#f3c97a');setTimeout(()=>burst(x,y,'#cf4a3f'),150);sparks(x,y,10)}
     if(S.mode==='quick'){if(won)Q.w++;else Q.l++}
+    if(S.mode==='online'){S.result=S.p.hp<=0&&S.e.hp<=0?'draw':won?'win':'lose';if(S.result==='win')O.w++;else if(S.result==='lose')O.l++;O.concedeArm=false}
+    const me=S;
     setTimeout(()=>{
+      if(S!==me)return;
       if(S.mode==='quick'){view='qresult';render();return}
+      if(S.mode==='online'){view='oresult';render();return}
       if(!won)view='lost';
       else if(R.stage===OPP.length-1)view='champ';
       else{view='reward';picks=rollRewards(R.stage)}
@@ -1076,7 +1120,7 @@ function cleanup(){
     },1300);
   }
 }
-function after(){cleanup();render()}
+function after(){cleanup();netFlush();render()}
 
 // ---------- player actions ----------
 function blocked(){return S.turn!=='p'||S.busy||S.over}
@@ -1089,7 +1133,7 @@ async function playHand(i){
     if(S.p.board.length>=BOARD_MAX){say('boardFull');return render()}
     S.busy=true;await flyCard(i,'[data-board="p"]');
     S.p.mana-=c.c;S.p.hand.splice(i,1);
-    const m=summon('p',k),ph=pushHist('p',k,null);say('summon',()=>cn(k));
+    const m=summon('p',k),ph=pushHist('p',k,null);say('summon',()=>cn(k));netAct({t:'play',i,k});
     if(c.bc){
       if(c.bc.tgt){const v=targetsFor('p',c.bc.tgt).map(idOf);if(v.length)S.pending={type:'bc',fx:c.bc,valid:v,key:k,src:idOf(m),hist:ph}}
       else{render();await fxAnim(c.bc,`[data-t="${idOf(m)}"]`,null,'p');applyFx('p',c.bc,null)}
@@ -1104,7 +1148,7 @@ async function playHand(i){
   S.busy=true;await flyCard(i,c.fx.aoe?'[data-board="e"]':'[data-t="p:h"]');
   S.p.mana-=c.c;S.p.hand.splice(i,1);render();
   await fxAnim(c.fx,'[data-t="p:h"]',null,'p');
-  applyFx('p',c.fx,null);pushHist('p',k,null);say('cast',()=>cn(k));S.busy=false;after();
+  applyFx('p',c.fx,null);pushHist('p',k,null);say('cast',()=>cn(k));netAct({t:'cast',i,k,tgt:null});S.busy=false;after();
 }
 async function usePower(){
   if(powerBlocked()){say('cantPower');return render()}
@@ -1112,7 +1156,7 @@ async function usePower(){
   if(p.tgt){S.pending={type:'power',valid:targetsFor('p',p.tgt).map(idOf),key:null};return render()}
   S.busy=true;render();
   await fxAnim(p.fx,'[data-go="power"]',null,'p');
-  S.p.mana-=p.c;S.p.powerUsed=true;applyFx('p',p.fx,null);say('powerUse',()=>pn(p),null);
+  S.p.mana-=p.c;S.p.powerUsed=true;applyFx('p',p.fx,null);say('powerUse',()=>pn(p),null);netAct({t:'power',tgt:null});
   S.busy=false;after();
 }
 function pendingLabel(){return S.pending.key?cn(S.pending.key):pn(curPower())}
@@ -1123,14 +1167,14 @@ async function resolvePending(t){
     await flyCard(p.idx,`[data-t="${idOf(t)}"]`);
     S.p.mana-=c.c;S.p.hand.splice(p.idx,1);render();
     await fxAnim(c.fx,'[data-t="p:h"]',t,'p');
-    applyFx('p',c.fx,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));
+    applyFx('p',c.fx,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));netAct({t:'cast',i:p.idx,k,tgt:netRef(t)});
   }else if(p.type==='bc'){
     if(p.hist)p.hist.t=t;
-    await fxAnim(p.fx,`[data-t="${p.src}"]`,t,'p');applyFx('p',p.fx,t);
+    await fxAnim(p.fx,`[data-t="${p.src}"]`,t,'p');applyFx('p',p.fx,t);netAct({t:'bc',tgt:netRef(t)});
   }else if(p.type==='power'){
     const pw=curPower();
     await fxAnim(pw.fx,'[data-go="power"]',t,'p');
-    S.p.mana-=pw.c;S.p.powerUsed=true;applyFx('p',pw.fx,t);say('powerUse',()=>pn(pw),()=>nm(t));
+    S.p.mana-=pw.c;S.p.powerUsed=true;applyFx('p',pw.fx,t);say('powerUse',()=>pn(pw),()=>nm(t));netAct({t:'power',tgt:netRef(t)});
   }
   S.busy=false;after();
 }
@@ -1141,7 +1185,7 @@ async function clickTarget(id){
   if(S.sel!=null){
     const m=S.p.board.find(x=>x.uid===S.sel);
     if(m&&attackTargets('p').map(idOf).includes(id)){
-      S.sel=null;S.busy=true;render();await lunge(idOf(m),id);doAttack(m,o);S.busy=false;return after();
+      S.sel=null;S.busy=true;render();await lunge(idOf(m),id);doAttack(m,o);netAct({t:'atk',a:m.uid,tgt:netRef(o)});S.busy=false;return after();
     }
     if(o.side==='e'){say('guardWay');return render()}
   }
@@ -1155,7 +1199,12 @@ async function clickTarget(id){
 }
 function endTurn(){
   if(blocked())return;
-  S.pending=null;S.sel=null;S.turn='e';aiTurn();
+  S.pending=null;S.sel=null;
+  if(S.mode==='online'){
+    netAct({t:'end'});S.turn='e';S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));
+    cleanup();netFlush();render();banner(T('bannerFoe'),true);return;
+  }
+  S.turn='e';aiTurn();
 }
 
 // ---------- AI ----------
@@ -1267,6 +1316,269 @@ async function aiTurn(){
   S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));
 }
 
+// ---------- friend match (peer-to-peer, room code) ----------
+// Both phones run the same deterministic rules. The host shuffles both decks and picks who goes first;
+// after that each side sends only its own moves, and the other side replays them like an opponent turn.
+// Every batch carries a state hash; if the two copies ever disagree, the host's copy wins.
+const NET_PREFIX='ashen-crown-v1-';
+const NET_V=(()=>{let h=0;const s=JSON.stringify(Object.keys(CARDS).map(k=>{const c=CARDS[k];return [k,c.c,c.a,c.h,c.bc,c.fx,c.guard,c.ward,c.surge,c.gasp]}))+JSON.stringify(CLASSES.map(c=>c.power));
+  for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return h})();
+let NET=null;
+const O={sel:null,code:'',err:'',toast:'',concedeArm:false,w:0,l:0,lost:null,conceded:false};
+function onlineDecks(){
+  const saved=loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards)).map(d=>({id:'s:'+d.id,cls:d.cls,cards:[...d.cards],name:d.name}));
+  return [...saved,...CLASSES.map(c=>({id:'c:'+c.id,cls:c.id,cards:[...c.deck],name:T('starterDeck',c.n[li()])}))];
+}
+function curOnlineDeck(){const l=onlineDecks();return l.find(d=>d.id===O.sel)||l[0]}
+function goOnline(){
+  if(!O.sel){try{O.sel=localStorage.getItem('ashen-online-deck')}catch(e){}}
+  O.err='';O.toast='';view='online';render();scrollTo(0,0);
+}
+function loadPeerLib(){
+  if(window.Peer)return Promise.resolve();
+  const tryLoad=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;
+    s.onload=()=>window.Peer?res():rej();s.onerror=()=>{s.remove();rej()};document.head.appendChild(s)});
+  return tryLoad('peerjs.min.js').catch(()=>tryLoad('https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js'));
+}
+function peerOpts(){
+  const o={debug:0,config:{iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]}};
+  // ?peer=host:port points at a self-hosted signalling server (used for local testing).
+  try{const ps=new URLSearchParams(location.search).get('peer');if(ps){const [host,port]=ps.split(':');Object.assign(o,{host,port:+port||9000,path:'/',secure:false})}}catch(e){}
+  return o;
+}
+const newCode=()=>String(100000+Math.random()*900000|0);
+const inviteLink=c=>`${location.origin}${location.pathname}?room=${c}`;
+function netSend(m){try{if(NET&&NET.conn&&NET.conn.open)NET.conn.send(m)}catch(e){}}
+function netClose(bye){
+  const n=NET;NET=null;if(!n)return;
+  clearInterval(n.hb);clearTimeout(n.to);
+  try{if(bye&&n.conn&&n.conn.open)n.conn.send({t:'bye'})}catch(e){}
+  setTimeout(()=>{try{n.conn&&n.conn.close()}catch(e){}try{n.peer&&n.peer.destroy()}catch(e){}},bye?200:0);
+  const w=$('.netwarn');if(w)w.remove();
+}
+// Lobby-stage failure: drop the attempt and explain on the lobby screen.
+function netFail(key){netClose(false);O.err=T(key);if(view==='online'||view==='duel'||view==='oresult'){view='online';render()}}
+async function netStart(host,code){
+  netClose(false);O.err='';O.toast='';
+  const deck=curOnlineDeck();O.sel=deck.id;try{localStorage.setItem('ashen-online-deck',deck.id)}catch(e){}
+  const me=NET={host,code:host?newCode():code,state:host?'hosting':'joining',deck,q:[],qBusy:false,out:[],last:Date.now(),again:false,foeAgain:false,ready:false};
+  render();
+  try{await loadPeerLib()}catch(e){if(NET===me)netFail('errServer');return}
+  if(NET!==me)return;
+  const opts=peerOpts();
+  if(host){
+    const open=()=>{
+      const peer=new Peer(NET_PREFIX+me.code,opts);me.peer=peer;
+      peer.on('open',()=>{if(NET!==me)return;me.ready=true;render()});
+      peer.on('connection',c=>{if(NET!==me||me.conn){try{c.close()}catch(e){}return}netAttach(c)});
+      peer.on('error',err=>{if(NET!==me||me.state==='live')return;
+        if(err.type==='unavailable-id'){try{peer.destroy()}catch(e){}me.code=newCode();open();return}
+        netFail('errServer')});
+      // Phones drop the signalling socket when the app is backgrounded (e.g. while sending the code).
+      peer.on('disconnected',()=>{if(NET===me&&me.state!=='live'){try{peer.reconnect()}catch(e){}}});
+    };
+    open();
+  }else{
+    const peer=new Peer(opts);me.peer=peer;
+    peer.on('open',()=>{if(NET!==me)return;netAttach(peer.connect(NET_PREFIX+me.code,{reliable:true,serialization:'json'}))});
+    peer.on('error',err=>{if(NET!==me||me.state==='live')return;netFail(err.type==='peer-unavailable'?'errNoRoom':'errServer')});
+    me.to=setTimeout(()=>{if(NET===me&&me.state!=='live')netFail('errTimeout')},20000);
+  }
+}
+function netAttach(c){
+  const me=NET;me.conn=c;
+  c.on('open',()=>{if(NET!==me)return;clearTimeout(me.to);me.last=Date.now();
+    c.send({t:'hello',v:NET_V,cls:me.deck.cls,deck:me.deck.cards});
+    me.hb=setInterval(()=>{if(NET!==me)return;netSend({t:'ping'});netWatch()},3000)});
+  c.on('data',d=>{if(NET===me)netRecv(d)});
+  c.on('close',()=>{if(NET===me)netLost()});
+  c.on('error',()=>{if(NET===me)netLost()});
+}
+// Opponent gone. Mid-game that is a win; in the lobby it is an error.
+function netLost(){
+  const me=NET;if(!me)return;
+  if(!S||S.mode!=='online'||!['duel','oresult'].includes(view)){netFail(me.state==='live'?'oLeft':'errTimeout');return}
+  netClose(false);O.lost='oLeft';
+  if(!S.over){S.over=true;S.result='win';O.w++;S.busy=false;S.pending=null;view='oresult'}
+  render();
+}
+function netWatch(){
+  const me=NET;if(!me||me.state!=='live')return;
+  const idle=Date.now()-me.last;
+  if(idle>60000)return netLost();
+  const slow=idle>12000&&view==='duel';let el=$('.netwarn');
+  if(slow&&!el){el=document.createElement('div');el.className='netwarn';el.setAttribute('role','status');el.textContent=T('netSlow');document.body.appendChild(el)}
+  else if(!slow&&el)el.remove();
+}
+function netRecv(d){
+  const me=NET;me.last=Date.now();
+  if(!d||typeof d!=='object')return;
+  if(d.t==='ping')return netWatch();
+  if(d.t==='hello'){
+    if(d.v!==NET_V){netSend({t:'err',k:'errVersion'});return netFail('errVersion')}
+    const ok=Array.isArray(d.deck)&&d.deck.length>=20&&validDeck(d.deck)&&CBY[d.cls];
+    if(!ok){netSend({t:'err',k:'errDeck'});return netFail('errDeck')}
+    me.foe={cls:d.cls,deck:d.deck};me.state='live';
+    if(me.host)netDeal();else render();
+    return;
+  }
+  if(d.t==='err')return netFail(I18N.en[d.k]?d.k:'errServer');
+  if(d.t==='start')return startOnline(d);
+  if(d.t==='bye')return netLost();
+  if(d.t==='again'){me.foeAgain=true;if(me.host&&me.again)netDeal();else if(view==='oresult')render();return}
+  if(d.t==='act'||d.t==='sync'||d.t==='needsync'){me.q.push(d);netPump()}
+}
+function netDeal(){
+  const me=NET;me.again=me.foeAgain=false;
+  const d={t:'start',first:Math.random()<.5?'h':'g',hc:me.deck.cls,gc:me.foe.cls,hd:shuffle([...me.deck.cards]),gd:shuffle([...me.foe.deck])};
+  netSend(d);startOnline(d);
+}
+function startOnline(d){
+  const me=NET;if(!me)return;
+  me.state='live';me.q=[];me.out=[];me.qBusy=false;me.again=me.foeAgain=false;me.last=Date.now();
+  O.lost=null;O.conceded=false;O.concedeArm=false;
+  const h=me.host,myD=h?d.hd:d.gd,foeD=h?d.gd:d.hd,myC=h?d.hc:d.gc,foeC=h?d.gc:d.hc,iFirst=(d.first==='h')===h;
+  R={stage:0,deck:[...myD],cls:myC};U=0;closePeek();
+  const mk=(side,deck)=>({side,hp:30,max:30,armor:0,mana:0,maxMana:0,deck:[...deck],hand:[],board:[],fat:0,powerUsed:false});
+  S={mode:'online',ecls:foeC,turn:iFirst?'p':'e',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
+     order:h?['p','e']:['e','p'],p:mk('p',myD),e:mk('e',foeD)};
+  S.e.power=CBY[foeC].power;
+  const [a,b]=iFirst?['p','e']:['e','p'];
+  draw(a,3);draw(b,4);S[b].hand.push('coin');
+  say(iFirst?'goFirst':'goSecond');startTurn(a);
+  view='duel';render();scrollTo(0,0);banner(iFirst?T('bannerYou'):T('bannerFoe'),!iFirst);
+}
+// Compact fingerprint of everything both copies must agree on, host's side first.
+function netHash(){
+  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0])];
+  const str=JSON.stringify([S.order.map(k=>sd(S[k])),S.turn===S.order[0]?'h':'g']);
+  let x=0;for(let i=0;i<str.length;i++)x=(x*31+str.charCodeAt(i))|0;return x;
+}
+function netSnap(){
+  const side=s=>({hp:s.hp,max:s.max,armor:s.armor,mana:s.mana,maxMana:s.maxMana,deck:[...s.deck],hand:[...s.hand],fat:s.fat,powerUsed:s.powerUsed,
+    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked}))});
+  return {h:side(S[S.order[0]]),g:side(S[S.order[1]]),turn:S.turn===S.order[0]?'h':'g',opened:S.opened,U};
+}
+function netApplySnap(st){
+  if(!S||S.mode!=='online'||!NET)return;
+  const mine=NET.host?st.h:st.g,theirs=NET.host?st.g:st.h;
+  for(const [sd,src] of [['p',mine],['e',theirs]]){
+    Object.assign(S[sd],src,{hand:[...src.hand],deck:[...src.deck],board:src.board.map(m=>({...m,side:sd,enter:false}))});
+  }
+  S.turn=(st.turn==='h')===NET.host?'p':'e';S.opened=st.opened;U=Math.max(U,st.U);
+  S.pending=null;S.sel=null;S.busy=false;cleanup();render();
+}
+function netAct(a){if(S&&S.mode==='online'&&NET)NET.out.push(a)}
+function netFlush(){
+  if(!S||S.mode!=='online'||!NET||!NET.out.length)return;
+  const acts=NET.out;NET.out=[];netSend({t:'act',acts,h:netHash()});
+}
+const netRef=o=>o?{s:o.side==='p'?'me':'you',u:isHero(o)?null:o.uid}:null;
+// Sender's "me" is our 'e'.
+const netDeref=r=>{if(!r)return null;const sd=r.s==='me'?'e':'p';return r.u==null?S[sd]:S[sd].board.find(m=>m.uid===r.u)||null};
+async function netPump(){
+  const me=NET;if(!me||me.qBusy)return;me.qBusy=true;
+  while(NET===me&&me.q.length){
+    const m=me.q.shift();
+    try{
+      if(m.t==='needsync'){if(me.host&&S&&S.mode==='online')netSend({t:'sync',st:netSnap()});continue}
+      if(m.t==='sync'){netApplySnap(m.st);continue}
+      if(!S||S.mode!=='online')continue;
+      for(const a of m.acts){if(S.over)break;await remoteAct(a)}
+      if(NET===me&&!S.over&&m.h!==netHash()){console.info('[net] state mismatch, resyncing');if(me.host)netSend({t:'sync',st:netSnap()});else netSend({t:'needsync'})}
+    }catch(e){
+      console.warn('resync',e);S.busy=S.turn!=='p';
+      if(NET===me){if(me.host)netSend({t:'sync',st:netSnap()});else netSend({t:'needsync'})}
+    }
+  }
+  me.qBusy=false;
+}
+async function remoteAct(a){
+  const e=S.e,en=()=>heroName(e);
+  if(a.t==='concede'){O.conceded=true;e.hp=0;cleanup();render();return}
+  if(a.t==='end'){S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));return}
+  S.busy=true;
+  if(a.t==='play'||a.t==='cast'){
+    const k=e.hand[a.i];if(k!==a.k)throw new Error('hand out of step');
+    const c=CARDS[k];e.mana-=c.c;e.hand.splice(a.i,1);
+    if(c.t==='m'){
+      say('eSummon',en,()=>cn(k));render();
+      const sp=showPlay('e',k,null);await wait(900);
+      const m=summon('e',k),hh=pushHist('e',k,null);S.lastE={m,h:hh};render();
+      if(c.bc&&!c.bc.tgt){await fxAnim(c.bc,sp.card,null,'e');applyFx('e',c.bc,null)}
+      sp.close();
+    }else{
+      const t=netDeref(a.tgt);if(a.tgt&&!t)throw new Error('target missing');
+      if(t)say('eCastOn',en,()=>cn(k),()=>nm(t));else say('eCast',en,()=>cn(k));render();
+      const sp=showPlay('e',k,t);await wait(1100);pushHist('e',k,t);render();
+      if(t)await aimAt(t);
+      await fxAnim(c.fx,sp.card,t,'e');applyFx('e',c.fx,t);sp.close();
+    }
+  }else if(a.t==='bc'){
+    const last=S.lastE,t=netDeref(a.tgt);if(!last||(a.tgt&&!t))throw new Error('battlecry out of step');
+    const fx=CARDS[last.m.key].bc;if(t){last.h.t=t;render();await aimAt(t)}
+    await fxAnim(fx,`[data-t="${idOf(last.m)}"]`,t,'e');applyFx('e',fx,t);
+  }else if(a.t==='power'){
+    const p=e.power,t=netDeref(a.tgt);if(a.tgt&&!t)throw new Error('target missing');
+    e.mana-=p.c;e.powerUsed=true;
+    if(t)await aimAt(t);
+    await fxAnim(p.fx,'[data-epow]',t,'e');applyFx('e',p.fx,t);say('ePower',en,()=>pn(p),t?()=>nm(t):null);
+  }else if(a.t==='atk'){
+    const m=e.board.find(x=>x.uid===a.a),t=netDeref(a.tgt);if(!m||!t)throw new Error('attack out of step');
+    say('attacks',()=>nm(m),()=>nm(t));render();
+    await lunge(idOf(m),idOf(t));doAttack(m,t);
+  }
+  cleanup();render();await wait(350);
+}
+function concede(){
+  if(!S||S.mode!=='online'||S.over)return;
+  if(!O.concedeArm){O.concedeArm=true;render();setTimeout(()=>{if(O.concedeArm){O.concedeArm=false;if(view==='duel')render()}},3000);return}
+  O.concedeArm=false;S.pending=null;S.sel=null;netAct({t:'concede'});S.p.hp=0;cleanup();netFlush();render();
+}
+function askRematch(){
+  const me=NET;if(!me)return;me.again=true;netSend({t:'again'});
+  if(me.host&&me.foeAgain)netDeal();else render();
+}
+function joinTyped(){
+  const el=$('#roomcode'),code=((el&&el.value)||O.code).replace(/\D/g,'');O.code=code;
+  if(code.length!==6){O.err=T('errCode');return render()}
+  netStart(false,code);
+}
+async function shareInvite(){
+  const me=NET;if(!me||!me.ready)return;
+  const text=T('inviteText',me.code),url=inviteLink(me.code);
+  if(navigator.share){try{await navigator.share({title:'Ashen Crown',text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(`${text} ${url}`);O.toast=T('copied')}catch(e){O.toast=url}
+  render();
+}
+function onlineHTML(){
+  const n=NET,cur=curOnlineDeck();
+  let body;
+  if(n&&n.state==='hosting'){
+    body=`<div class="room"><span class="meta">${T('roomCode')}</span><b class="code" aria-live="polite">${n.ready?n.code.replace(/(\d{3})(\d{3})/,'$1 $2'):'··· ···'}</b>
+      <p>${n.ready?T('waitFriend'):T('loadingNet')}</p>
+      <div class="btns"><button class="btn" data-go="oshare" ${n.ready?'':'disabled'}>${T('shareInvite')}</button><button class="btn ghost" data-go="ocancel">${T('cancel')}</button></div>
+      ${O.toast?`<p class="toast" aria-live="polite">${esc(O.toast)}</p>`:''}</div>`;
+  }else if(n){
+    body=`<div class="room"><p aria-live="polite">${n.state==='live'?T('loadingNet'):T('connecting',n.code)}</p><div class="btns"><button class="btn ghost" data-go="ocancel">${T('cancel')}</button></div></div>`;
+  }else{
+    body=`<div class="btns"><button class="btn" data-go="ohost">${T('createRoom')}</button></div>
+      <p class="meta" style="margin:4px 0 0">${T('orJoin')}</p>
+      <div class="namebar" style="width:100%;max-width:340px;margin:0 auto"><input id="roomcode" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="${T('codePh')}" aria-label="${T('roomCode')}" value="${esc(O.code)}"><button class="btn" data-go="ojoin">${T('joinRoom')}</button></div>`;
+  }
+  const decks=onlineDecks().map(d=>`<button class="chip odeck ${d.id===cur.id?'on':''}" style="--cc:${CBY[d.cls].col}" data-odeck="${esc(d.id)}" ${n?'disabled':''} aria-pressed="${d.id===cur.id}">${esc(d.name)} · ${d.cards.length}</button>`).join('');
+  return navRow(['menu',T('toMenu')])+`<div class="screen" style="justify-content:flex-start"><h2>${T('modeOnline')}</h2><p>${T('onSub')}</p>
+    <div class="meta">${T('onDeck')}</div><div class="chips" style="justify-content:center;max-width:640px">${decks}</div>
+    ${O.err?`<p class="toast" aria-live="polite">${esc(O.err)}</p>`:''}${body}</div>`;
+}
+function oresultHTML(){
+  const r=S.result,n=NET,why=O.lost?T(O.lost):O.conceded?T('oConceded'):'';
+  return `<div class="screen"><h2>${r==='win'?T('qWin'):r==='lose'?T('qLose'):T('oDraw')}</h2><p>${T('oVs',CBY[S.ecls].n[li()])}</p>
+    ${why?`<p>${why}</p>`:''}<p>${T('record',O.w,O.l)}</p>
+    ${n&&n.foeAgain&&!n.again?`<p class="toast" aria-live="polite">${T('foeAgain')}</p>`:''}
+    <div class="btns">${n?`<button class="btn" data-go="oagain" ${n.again?'disabled':''}>${n.again?T('waitAgain'):T('oAgain')}</button>`:''}<button class="btn ghost" data-go="oleave">${T('leaveRoom')}</button></div></div>`;
+}
+
 // ---------- render ----------
 function cardFace(k,size,tag='button',attrs='',extra=''){
   const c=CARDS[k],m=c.t==='m';
@@ -1282,7 +1594,8 @@ function header(){
     <button class="pill" data-go="gallery" aria-label="${T('viewCards')}"><span>${T('cardsBtn')}</span></button>
     <select class="langsel" id="langsel" aria-label="Language / 语言 / 言語">${LANGS.map(([v,t])=>`<option value="${v}" ${v===L?'selected':''}>${t}</option>`).join('')}</select>
     ${S&&S.mode==='quick'&&view==='duel'?`<span class="stagepill" style="color:${DIFFS[S.diff].col};border-color:${DIFFS[S.diff].col}">${T('diff')[S.diff]}</span>`
-      :['intro','decks','qclass','build','diff','qresult','gallery'].includes(view)&&!(S&&S.mode==='camp')?'':`<span class="stagepill" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${T('stageOf',R.stage+1,OPP.length)}</span>`}</div>`;
+      :S&&S.mode==='online'&&view==='duel'?`<span class="stagepill" style="color:var(--arcane);border-color:var(--arcane)">${T('onlinePill')}</span>`
+      :['intro','decks','qclass','build','diff','qresult','gallery','online','oresult'].includes(view)&&!(S&&S.mode==='camp')?'':`<span class="stagepill" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${T('stageOf',R.stage+1,OPP.length)}</span>`}</div>`;
 }
 function routeRow(){
   const nodes=OPP.map((o,i)=>{const cls=i<R.stage?'done':i===R.stage?'here':'';
@@ -1370,8 +1683,8 @@ function tclass(id){
 }
 function heroHTML(s){
   const id=idOf(s),foe=s.side==='e',name=heroName(s);
-  const init=foe&&S.mode!=='quick'?OPP[R.stage].i[li()]:T('heroInit');
-  const portrait=!foe?CBY[R.cls]:S.mode==='quick'?CBY[S.ecls]:null;
+  const init=foe&&S.mode==='camp'?OPP[R.stage].i[li()]:T('heroInit');
+  const portrait=!foe?CBY[R.cls]:S.mode!=='camp'?CBY[S.ecls]:null;
   const face=`<button class="face${tclass(id)}" data-t="${id}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
     ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
   const info=`<div class="hinfo"><span class="hname">${name}</span>${crystals(s)}
@@ -1434,11 +1747,14 @@ function render(){
   if(view==='build'){app.innerHTML=header()+builderHTML();FX=[];return}
   if(view==='diff'){app.innerHTML=header()+diffHTML();FX=[];return}
   if(view==='qresult'){app.innerHTML=header()+qresultHTML();FX=[];return}
+  if(view==='online'){app.innerHTML=header()+onlineHTML();FX=[];return}
+  if(view==='oresult'){app.innerHTML=header()+oresultHTML();FX=[];return}
   if(view==='intro'){
     const fan=['crab','firelem','leviathan','maelstrom','elfqueen'].map((k,i)=>cardFace(k,'sm','div',`style="transform:rotate(${(i-2)*9}deg) translateY(${Math.abs(i-2)*6}px)"`)).join('');
     app.innerHTML=header()+`<div class="screen"><div class="fan" aria-hidden="true">${fan}</div><h2>${T('introTitle')}</h2>
       <div class="modes"><button class="mode" style="--cc:var(--ember)" data-go="start"><b>${T('modeCamp')}</b><span>${T('modeCampSub')}</span></button>
-        <button class="mode" style="--cc:var(--arcane)" data-go="quick"><b>${T('modeQuick')}</b><span>${T('modeQuickSub')}</span></button></div>
+        <button class="mode" style="--cc:var(--arcane)" data-go="quick"><b>${T('modeQuick')}</b><span>${T('modeQuickSub')}</span></button>
+        <button class="mode" style="--cc:var(--kelp)" data-go="online"><b>${T('modeOnline')}</b><span>${T('modeOnlineSub')}</span></button></div>
       <ul class="rules">${[...T('rules'),T('lpHint')].map(r=>`<li>${r}</li>`).join('')}</ul>
       <div class="btns"><button class="btn ghost" data-go="gallery">${T('viewCards')}</button></div></div>`;
     return;
@@ -1453,6 +1769,7 @@ function render(){
       heroHTML(S.p)+
       `<div class="hand">${handHTML()}</div>
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
+        ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
         <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
     S.drew=0;
     [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
@@ -1482,7 +1799,7 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del]');
+  const b=ev.target.closest('[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.go==='peekclose')return closePeek();
@@ -1504,6 +1821,7 @@ document.addEventListener('click',ev=>{
   if(b.dataset.ftype!==undefined){Q.type=b.dataset.ftype;return render()}
   if(b.dataset.fcost!==undefined){Q.cost=+b.dataset.fcost;return render()}
   if(b.dataset.diff!==undefined)return startQuick(b.dataset.diff);
+  if(b.dataset.odeck!==undefined){O.sel=b.dataset.odeck;O.err='';return render()}
   const g=b.dataset.go;
   if(g==='gallery'){if(view!=='gallery'){prevView=view;view='gallery';render();scrollTo(0,0)}}
   else if(g==='back'){view=prevView;render()}
@@ -1515,7 +1833,15 @@ document.addEventListener('click',ev=>{
   else if(g==='skip'){R.stage++;startDuel()}
   else if(g==='newrun')newRun();
   else if(g==='quick'||g==='qclassback')goQuick();
-  else if(g==='menu'){newRun();scrollTo(0,0)}
+  else if(g==='menu'){netClose(true);newRun();scrollTo(0,0)}
+  else if(g==='online')goOnline();
+  else if(g==='ohost')netStart(true);
+  else if(g==='ojoin')joinTyped();
+  else if(g==='ocancel'){netClose(true);O.toast='';render()}
+  else if(g==='oshare')shareInvite();
+  else if(g==='oagain')askRematch();
+  else if(g==='oleave'){netClose(true);O.lost=null;newRun();scrollTo(0,0)}
+  else if(g==='concede')concede();
   else if(g==='autofill'){autoFill(Q.deck);Q.toast='';Q.dirty=true;render()}
   else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';Q.dirty=true;render()}
   else if(g==='cleardeck'){Q.deck=[];Q.toast='';Q.dirty=true;render()}
@@ -1532,9 +1858,13 @@ document.addEventListener('change',ev=>{
   L=ev.target.value;try{localStorage.setItem('undertow-lang',L)}catch(e){}
   FX=[];if(S)S.drew=0;render();const n=$('#langsel');if(n)n.focus();
 });
-document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closePeek()});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closePeek();if(ev.key==='Enter'&&ev.target.id==='roomcode')joinTyped()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&NET)NET.last=Date.now()});
+// Closing the tab tells the friend right away instead of waiting for the connection to time out.
+addEventListener('pagehide',ev=>{if(NET&&!ev.persisted)netSend({t:'bye'})});
 // Typing a deck name updates state without re-rendering, so the keyboard stays open.
-document.addEventListener('input',ev=>{if(ev.target.id==='deckname'){Q.name=ev.target.value;if(!Q.dirty){Q.dirty=true;const b=document.querySelector('[data-go=savedeck]');if(b){b.classList.remove('ghost');b.textContent=T('saveDeck')}}}});
+document.addEventListener('input',ev=>{if(ev.target.id==='roomcode'){O.code=ev.target.value.replace(/\D/g,'').slice(0,6);if(ev.target.value!==O.code)ev.target.value=O.code;return}
+  if(ev.target.id==='deckname'){Q.name=ev.target.value;if(!Q.dirty){Q.dirty=true;const b=document.querySelector('[data-go=savedeck]');if(b){b.classList.remove('ghost');b.textContent=T('saveDeck')}}}});
 // Gentle 3D tilt for gallery cards.
 document.addEventListener('pointermove',ev=>{
   if(RM)return;const c=ev.target.closest&&ev.target.closest('[data-tilt]');if(!c)return;
@@ -1569,6 +1899,9 @@ document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagat
 document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
 initEmbers();
 newRun();
+// An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
+try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
+  if(rc.length===6){O.code=rc;const u=new URL(location.href);u.searchParams.delete('room');history.replaceState(null,'',u.pathname+u.search+u.hash);goOnline()}}catch(e){}
 })();
 </script>
 <script>
