@@ -364,7 +364,7 @@ const I18N={
     champTitle:'The Ashen Crown is yours',champText:n=>`You defeated all eight foes with a ${n}-card deck.`,again:'Play again',
     galTitle:'Card gallery',galSub:n=>`All ${n} cards in the realm.`,back:'Back',minions:'Minions',spells:'Spells',
     rar:{c:'Common',r:'Rare',e:'Epic',l:'Legendary',t:'Token'},costN:n=>`${n} mana`,
-    race:{human:'Human',elf:'Elf',dwarf:'Dwarf',orc:'Orc',halfling:'Halfling',gnome:'Gnome',undead:'Undead',goblin:'Goblin',troll:'Troll',beast:'Beast',giant:'Giant',construct:'Construct',elemental:'Elemental',dragon:'Dragon'},
+    race:{human:'Human',elf:'Elf',dwarf:'Dwarf',orc:'Orc',halfling:'Halfling',gnome:'Gnome',undead:'Undead',goblin:'Goblin',troll:'Troll',beast:'Beast',giant:'Giant',construct:'Construct',elemental:'Elemental',dragon:'Dragon',treant:'Treant'},
     bannerYou:'Your turn',bannerFoe:'Enemy turn',
     rises:x=>`${x} stands in your way.`,fatigue:(x,n)=>`${x} is out of cards and takes ${n} fatigue damage.`,
     handFull:c=>`Your hand is full. ${c} was lost.`,summon:c=>`You summon ${c}.`,cast:c=>`You cast ${c}.`,castOn:(c,t)=>`You cast ${c} on ${t}.`,
@@ -392,7 +392,7 @@ const I18N={
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
-      summon:(n,a,h,nm)=>n>1?`Summon two ${a}/${h} ${nm}s.`:`Summon a ${a}/${h} ${nm}.`,
+      summon:(n,a,h,nm)=>n>1?`Summon ${['','a','two','three','four'][n]} ${a}/${h} ${nm}s.`:`Summon a ${a}/${h} ${nm}.`,
       heal:n=>`Restore ${n} Health to your hero.`,armor:n=>`Gain ${n} Armor.`,draw:n=>n>1?`Draw ${n} cards.`:'Draw a card.',self:n=>`Take ${n} damage.`,
       kw:{guard:'Guard',ward:'Ward',surge:'Charge'},onPlay:'On play: ',last:'Last breath: ',sep:' ',kwSep:'. ',end:'.'},
     kwRe:/\b(Guard|Ward|Charge|On play|Last breath)\b/g,
@@ -418,7 +418,7 @@ const I18N={
     champTitle:'灰烬王冠归你所有',champText:n=>`你用${n}张牌的牌组击败了全部八名敌人。`,again:'再玩一次',
     galTitle:'卡牌图鉴',galSub:n=>`这个世界中的全部${n}张卡牌。`,back:'返回',minions:'随从',spells:'法术',
     rar:{c:'普通',r:'稀有',e:'史诗',l:'传说',t:'衍生'},costN:n=>`${n}费`,
-    race:{human:'人类',elf:'精灵',dwarf:'矮人',orc:'兽人',halfling:'半身人',gnome:'侏儒',undead:'亡灵',goblin:'哥布林',troll:'巨魔',beast:'野兽',giant:'巨人',construct:'构造体',elemental:'元素',dragon:'龙'},
+    race:{human:'人类',elf:'精灵',dwarf:'矮人',orc:'兽人',halfling:'半身人',gnome:'侏儒',undead:'亡灵',goblin:'哥布林',troll:'巨魔',beast:'野兽',giant:'巨人',construct:'构造体',elemental:'元素',dragon:'龙',treant:'树人'},
     bannerYou:'你的回合',bannerFoe:'敌方回合',
     rises:x=>`${x}挡住了你的去路。`,fatigue:(x,n)=>`${x}的牌库已空，受到${n}点疲劳伤害。`,
     handFull:c=>`你的手牌已满，${c}被烧掉了。`,summon:c=>`你召唤了${c}。`,cast:c=>`你施放了${c}。`,castOn:(c,t)=>`你对${t}施放了${c}。`,
@@ -446,7 +446,7 @@ const I18N={
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
-      summon:(n,a,h,nm)=>`召唤${n>1?'两':'一'}个${a}/${h}的${nm}。`,
+      summon:(n,a,h,nm)=>`召唤${['','一','两','三','四'][n]}个${a}/${h}的${nm}。`,
       heal:n=>`为你的英雄恢复${n}点生命值。`,armor:n=>`获得${n}点护甲。`,draw:n=>`抽${n>1?'两':'一'}张牌。`,self:n=>`受到${n}点伤害。`,
       kw:{guard:'守护',ward:'护盾',surge:'冲锋'},onPlay:'登场：',last:'遗言：',sep:'',kwSep:'。',end:'。'},
     kwRe:/(守护|护盾|冲锋|登场|遗言)/g,
@@ -472,7 +472,7 @@ const I18N={
     champTitle:'灰燼の王冠はあなたのもの',champText:n=>`${n}枚のデッキで8人の敵をすべて倒した。`,again:'もう一度遊ぶ',
     galTitle:'カード図鑑',galSub:n=>`この世界の全${n}枚のカード。`,back:'戻る',minions:'ミニオン',spells:'呪文',
     rar:{c:'コモン',r:'レア',e:'エピック',l:'レジェンド',t:'トークン'},costN:n=>`コスト${n}`,
-    race:{human:'人間',elf:'エルフ',dwarf:'ドワーフ',orc:'オーク',halfling:'ハーフリング',gnome:'ノーム',undead:'アンデッド',goblin:'ゴブリン',troll:'トロール',beast:'獣',giant:'巨人',construct:'構造体',elemental:'精霊',dragon:'ドラゴン'},
+    race:{human:'人間',elf:'エルフ',dwarf:'ドワーフ',orc:'オーク',halfling:'ハーフリング',gnome:'ノーム',undead:'アンデッド',goblin:'ゴブリン',troll:'トロール',beast:'獣',giant:'巨人',construct:'構造体',elemental:'精霊',dragon:'ドラゴン',treant:'樹人'},
     bannerYou:'あなたのターン',bannerFoe:'敵のターン',
     rises:x=>`${x}が立ちはだかる。`,fatigue:(x,n)=>`${x}の山札が尽き、${n}の疲労ダメージを受けた。`,
     handFull:c=>`手札がいっぱいで、${c}は失われた。`,summon:c=>`${c}を召喚した。`,cast:c=>`${c}を唱えた。`,castOn:(c,t)=>`${t}に${c}を唱えた。`,
@@ -602,6 +602,14 @@ const ART={
   lich:portrait({race:'undead',robe:'#3a2a5a',trim:'#9a6aff',head:'crown',gem:'#7fff9a',prop:'staff',orb:'#9a6aff',eyes:'#7fff9a',glow:'#9a6aff'}),
   dwarfking:portrait({race:'dwarf',robe:'#7a2a2a',trim:'#e8c35a',hair:'#c87a2a',head:'crown',prop:'axe',glow:'#e8c35a'}),
   elfqueen:portrait({race:'elf',robe:'#2a6a5a',trim:'#e8c35a',hair:'#f0e0a0',long:1,head:'crown',gem:'#7fd17f',prop:'staff',orb:'#7fd17f',glow:'#7fd17f'}),
+  hexer:portrait({race:'orc',robe:'#4a2a5a',hair:'#1e1a18',head:'horns',prop:'staff',orb:'#7fd17f',glow:'#7fd17f'}),
+  priestess:portrait({race:'human',robe:'#efe6d0',trim:'#e8c35a',hair:'#d8a860',long:1,head:'circlet',gem:'#ffe08a',prop:'staff',orb:'#ffe08a',glow:'#ffe9a0'}),
+  necro:portrait({race:'human',robe:'#2a2a2a',head:'hood',hood:'#1a1a1a',eyes:'#7fff9a',prop:'staff',orb:'#7fff9a',glow:'#4a8a5a'}),
+  thane:portrait({race:'dwarf',robe:'#5a4a3a',trim:'#e8c35a',hair:'#d0a050',head:'helm',helm:'#c9a24a',plume:'#b03a2e',prop:'hammer'}),
+  wyvern:'<path d="M4 30Q22 4 46 26L50 34L54 26Q78 4 96 30Q74 26 56 42H44Q26 26 4 30Z" fill="#3f7a4a"/><path d="M12 26Q26 14 42 26M88 26Q74 14 58 26" stroke="#2a5a34" stroke-width="1.5" fill="none"/><ellipse cx="50" cy="46" rx="10" ry="12" fill="#4a8a54"/><path d="M50 36q-2-12 6-18l8 4-6 4z" fill="#4a8a54"/><circle cx="58" cy="22" r="1.4" fill="#ffd36a"/><path d="M60 18l6-8 1 8z" fill="#e6dcc8"/><path d="M44 58l-8 6M56 58l8 6" stroke="#2a5a34" stroke-width="3"/><circle cx="48" cy="36" r="5" fill="#c0392b"/><path d="M46 31l2-5 2 5" fill="#9aa3ad"/>',
+  treant:'<path d="M50 64V30" stroke="#5a3e24" stroke-width="22"/><path d="M50 30Q30 20 18 4M50 30Q70 18 84 6M50 24Q44 10 48 0" stroke="#5a3e24" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="22" cy="10" r="12" fill="#3f7a3a"/><circle cx="80" cy="10" r="13" fill="#3f7a3a"/><circle cx="50" cy="4" r="11" fill="#4a8a44"/><ellipse cx="44" cy="40" rx="2.4" ry="3" fill="#ffe08a"/><ellipse cx="56" cy="40" rx="2.4" ry="3" fill="#ffe08a"/><path d="M44 50q6 3 12 0" stroke="#2a1a0e" stroke-width="2" fill="none"/><path d="M40 30v8M60 30v8" stroke="#3a2614" stroke-width="1.5"/>',
+  dragonknight:portrait({race:'human',robe:'#7a2a1a',trim:'#e8c35a',head:'helm',helm:'#3a3a44',plume:'#e2763a',prop:'sword',glow:'#e2763a'}),
+  lance:'<circle cx="50" cy="32" r="26" fill="#8f78e0" opacity=".22"/><path d="M14 58L76 10" stroke="#c4b4ff" stroke-width="4" stroke-linecap="round"/><path d="M72 6l12-2-2 12z" fill="#efe2ff"/><g fill="#efe2ff"><path d="M30 18l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M70 40l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/></g>',
   radiant:'<circle cx="50" cy="32" r="28" fill="#ffe9a0" opacity=".2"/><g fill="#ffe08a"><path d="M50 2l4 22-4 6-4-6z"/><path d="M50 62l4-22-4-6-4 6z"/><path d="M18 32l22-4 6 4-6 4z"/><path d="M82 32l-22-4-6 4 6 4z"/></g><circle cx="50" cy="32" r="7" fill="#fff8d8"/>',
   shieldwall:'<g stroke="#e8c35a" stroke-width="1.5"><path d="M16 18h22v14q0 12-11 18-11-6-11-18z" fill="#7a5a36"/><path d="M62 18h22v14q0 12-11 18-11-6-11-18z" fill="#7a5a36"/><path d="M38 12h24v16q0 14-12 21-12-7-12-21z" fill="#2f4f8f"/></g><circle cx="50" cy="28" r="3" fill="#e8c35a"/>',
   calltoarms:'<path d="M14 40Q30 36 60 18L66 20Q70 34 66 48L60 50Q30 40 14 44Z" fill="#c9a36a"/><ellipse cx="66" cy="34" rx="6" ry="15" fill="#8a6a3a"/><path d="M14 40v4" stroke="#6a4a2a" stroke-width="4"/><path d="M76 22q8 12 0 24M82 16q12 18 0 36" stroke="#efe2c2" stroke-width="2" fill="none" stroke-linecap="round"/>',
@@ -620,18 +628,17 @@ const ART={
 // ---------- cards ----------
 // n = name [en, zh, ja]; f = flavor [en, zh, ja]; rules text is generated from the effect data in every language.
 const CARDS={
-  skipper:{c:1,t:'m',a:1,h:2,r:'c',race:'halfling',n:['Halfling Scout','半身人斥候','ハーフリングの斥候'],f:['Small enough to hide, bold enough to look.','小得藏得住，胆大得敢偷看。','隠れるには小さく、覗くには大胆。']},
   goblin:{c:1,t:'m',a:2,h:1,r:'c',race:'goblin',n:['Goblin Cutpurse','哥布林扒手','ゴブリンのスリ'],f:['Your purse was lighter than he hoped.','你的钱袋比他预想的还轻。','財布は期待より軽かった。']},
   pearl:{c:1,t:'m',a:1,h:1,r:'c',race:'human',ward:1,n:['Temple Acolyte','神殿侍僧','神殿の侍祭'],f:['Her prayers land before the blows do.','她的祷告总比拳头先到。','祈りは拳より先に届く。']},
   apprentice:{c:1,t:'m',a:1,h:1,r:'c',race:'human',bc:{dmg:1,tgt:'any'},n:["Wizard's Apprentice",'法师学徒','魔術師の弟子'],f:['Only singed the eyebrows. This time.','这次只烧掉了眉毛。','今回は眉毛が焦げただけ。']},
   crab:{c:2,t:'m',a:1,h:4,r:'c',race:'dwarf',guard:1,n:['Dwarf Shieldbearer','矮人盾卫','ドワーフの盾持ち'],f:['The shield is older than he is.','这面盾比他还老。','その盾は彼より年上だ。']},
   harpooneer:{c:2,t:'m',a:2,h:2,r:'c',race:'elf',bc:{dmg:1,tgt:'any'},n:['Elven Archer','精灵弓手','エルフの射手'],f:['She has never needed a second arrow.','她从来不需要第二支箭。','二本目の矢は必要なかった。']},
   direwolf:{c:2,t:'m',a:3,h:2,r:'c',race:'beast',n:['Dire Wolf','恐狼','ダイアウルフ'],f:['The pack is never far behind.','狼群从不远离。','群れはすぐ後ろにいる。']},
-  cleric:{c:2,t:'m',a:2,h:3,r:'c',race:'dwarf',bc:{heal:4},n:['Dwarven Cleric','矮人牧师','ドワーフの僧侶'],f:['Prayer, ale, and a very large hammer.','祷告、麦酒，还有一把很大的锤子。','祈りとエールと、とても大きなハンマー。']},
+  cleric:{c:3,t:'m',a:3,h:4,r:'c',race:'dwarf',bc:{heal:4},n:['Dwarven Cleric','矮人牧师','ドワーフの僧侶'],f:['Prayer, ale, and a very large hammer.','祷告、麦酒，还有一把很大的锤子。','祈りとエールと、とても大きなハンマー。']},
   berserker:{c:2,t:'m',a:2,h:1,r:'c',race:'orc',surge:1,n:['Orc Berserker','兽人狂战士','オークの狂戦士'],f:['Thinks with his axe. Thinks fast.','用斧头思考，而且想得很快。','斧で考える。考えるのは速い。']},
   burglar:{c:2,t:'m',a:2,h:2,r:'r',race:'halfling',bc:{draw:1},n:['Halfling Burglar','半身人窃贼','ハーフリングの泥棒'],f:['Finders keepers.','谁捡到就是谁的。','見つけた者の物。']},
   eel:{c:3,t:'m',a:3,h:2,r:'r',race:'orc',surge:1,n:['Orc Raider','兽人掠夺者','オークの略奪者'],f:['First through the gate. Always.','永远第一个冲进城门。','門をくぐるのはいつも一番乗り。']},
-  lurker:{c:3,t:'m',a:3,h:4,r:'c',race:'troll',n:['Forest Troll','森林巨魔','森のトロール'],f:['Leave a toll, or become one.','留下买路钱，或者把你自己留下。','通行料を置いていけ。さもなくばお前が通行料だ。']},
+  lurker:{c:4,t:'m',a:4,h:5,r:'c',race:'troll',n:['Forest Troll','森林巨魔','森のトロール'],f:['Leave a toll, or become one.','留下买路钱，或者把你自己留下。','通行料を置いていけ。さもなくばお前が通行料だ。']},
   sailor:{c:2,t:'m',a:1,h:2,r:'r',race:'undead',gasp:'bubble',n:['Grave Thrall','墓穴仆从','墓所の下僕'],f:['Death was only a change of employer.','死亡只是换了个雇主。','死は雇い主が変わっただけ。']},
   beastcaller:{c:3,t:'m',a:2,h:3,r:'r',race:'elf',bc:{summon:'elver'},n:['Elven Beastcaller','精灵驯兽师','エルフの獣使い'],f:['She whistles once. Something always answers.','她吹一声口哨，总会有东西回应。','口笛ひとつで、必ず何かが応える。']},
   ghoul:{c:3,t:'m',a:3,h:3,r:'c',race:'undead',gasp:'bubble',n:['Barrow Ghoul','古墓食尸鬼','塚の食屍鬼'],f:['Hungry even after the end.','死后依旧饥饿。','終わりの後も飢えている。']},
@@ -644,7 +651,14 @@ const CARDS={
   shark:{c:6,t:'m',a:6,h:6,r:'e',race:'giant',ward:1,n:['Runebound Giant','符文巨人','ルーンの巨人'],f:['Every rune is a spell someone wasted on it.','每道符文，都是有人白费在它身上的法术。','ルーンの一つ一つが、誰かが無駄にした呪文だ。']},
   firelem:{c:6,t:'m',a:5,h:5,r:'r',race:'elemental',bc:{dmg:3,tgt:'any'},n:['Fire Elemental','火元素','炎の精霊'],f:['Do not offer it a hand to shake.','千万别向它伸手握手。','握手を求めてはいけない。']},
   ogre:{c:6,t:'m',a:6,h:7,r:'c',race:'giant',n:['Ogre Brute','食人魔蛮兵','オーガの蛮兵'],f:['Two heads would be smarter. He has one.','两个脑袋会聪明些，可他只有一个。','頭が二つなら賢かったろう。彼には一つしかない。']},
-  archmage:{c:7,t:'m',a:5,h:6,r:'e',race:'human',bc:{draw:2},n:['Archmage of the Spire','尖塔大法师','尖塔の大魔導師'],f:['She has read every book in the tower. Twice.','塔里的每本书她都读过两遍。','塔の本は全て読んだ。二度ずつ。']},
+  archmage:{c:7,t:'m',a:6,h:7,r:'e',race:'human',bc:{draw:2},n:['Archmage of the Spire','尖塔大法师','尖塔の大魔導師'],f:['She has read every book in the tower. Twice.','塔里的每本书她都读过两遍。','塔の本は全て読んだ。二度ずつ。']},
+  hexer:{c:4,t:'m',a:3,h:4,r:'c',race:'orc',bc:{dmg:2,tgt:'any'},n:['Orc Hexer','兽人妖术师','オークの呪術師'],f:['Every curse is a promise kept.','每一道诅咒，都是兑现的承诺。','呪いはすべて、守られた約束だ。']},
+  priestess:{c:4,t:'m',a:3,h:4,r:'r',race:'human',bc:{buff:[2,2],tgt:'ally'},n:['Temple Priestess','神殿祭司','神殿の司祭'],f:['She blesses the brave and the foolish alike.','无论勇敢还是愚蠢，她一视同仁地祝福。','勇者にも愚者にも、等しく祝福を。']},
+  necro:{c:4,t:'m',a:3,h:3,r:'r',race:'human',bc:{summon:'bubble'},n:['Necromancer','死灵法师','ネクロマンサー'],f:['Nobody stays dead on his watch.','在他看守下，没人能安息。','彼の見張りの下では、誰も死んだままでいられない。']},
+  thane:{c:5,t:'m',a:5,h:5,r:'r',race:'dwarf',bc:{armor:4},n:['Dwarf Thane','矮人领主','ドワーフの領主'],f:['His hall has never fallen. Neither has he.','他的大厅从未陷落，他本人也是。','彼の広間は一度も落ちていない。彼自身もだ。']},
+  wyvern:{c:6,t:'m',a:5,h:5,r:'e',race:'dragon',surge:1,n:['Wyvern Rider','双足飞龙骑手','ワイバーンライダー'],f:['The sky is just another road.','天空只是另一条路。','空もまた、ただの道だ。']},
+  treant:{c:7,t:'m',a:6,h:9,r:'r',race:'treant',guard:1,n:['Ancient Treant','远古树人','古の樹人'],f:['It was old when the first king was crowned.','第一位国王加冕时，它就已经很老了。','最初の王が戴冠した時、すでに老いていた。']},
+  dragonknight:{c:7,t:'m',a:5,h:5,r:'e',race:'human',gasp:'spawn',n:['Dragon Knight','龙骑士','竜騎士'],f:['When he falls, his dragon does not.','他倒下时，他的龙不会。','彼が倒れても、竜は倒れない。']},
   leviathan:{c:8,t:'m',a:7,h:8,r:'l',race:'dragon',guard:1,bc:{aoe:2},n:['Ignaroth, Ashen Wyrm','灰烬巨龙伊格纳洛斯','灰燼竜イグナロス'],f:['The crown was forged in his breath.','那顶王冠，正是在他的龙息中锻成。','王冠は彼の吐息で鍛えられた。']},
   lich:{c:8,t:'m',a:6,h:6,r:'l',race:'undead',bc:{aoe:3,face:3},n:['Malakar the Undying','不朽者马拉卡','不死のマラカル'],f:['He has died eleven times. He is getting better at it.','他已经死过十一次了，而且越来越熟练。','十一度死んだ。だんだん上手くなっている。']},
   dwarfking:{c:8,t:'m',a:7,h:7,r:'l',race:'dwarf',guard:1,bc:{armor:5,team:[1,1]},n:['Thorgrim, King Under Stone','石下之王索格林','石下の王ソーグリム'],f:['His beard has its own throne.','他的胡子都有自己的王座。','彼の髭には専用の玉座がある。']},
@@ -653,17 +667,18 @@ const CARDS={
   brace:{c:1,t:'s',r:'c',fx:{buff:[0,3],guard:1,tgt:'ally'},n:['Shield of Faith','信仰之盾','信仰の盾'],f:['Belief, hammered into steel.','把信念锻打成钢。','信念を鋼に打ち込む。']},
   darkpact:{c:1,t:'s',r:'r',fx:{selfDmg:3,draw:2},n:['Dark Pact','黑暗契约','闇の契約'],f:['Sign here. And here. And in blood, here.','在这里签字。这里也是。还有这里，用血签。','ここに署名を。ここにも。そしてここは血で。']},
   frenzy:{c:2,t:'s',r:'r',fx:{buff:[3,0],tgt:'ally'},n:['Bloodlust','嗜血','血の渇き'],f:['One taste is enough.','尝一口就够了。','一口で十分だ。']},
-  tidepool:{c:2,t:'s',r:'c',fx:{draw:2},n:["Scholar's Insight",'学者的洞见','賢者の洞察'],f:['Footnotes are where the real magic hides.','真正的魔法都藏在脚注里。','本当の魔法は脚注に隠れている。']},
+  tidepool:{c:3,t:'s',r:'c',fx:{draw:2},n:["Scholar's Insight",'学者的洞见','賢者の洞察'],f:['Footnotes are where the real magic hides.','真正的魔法都藏在脚注里。','本当の魔法は脚注に隠れている。']},
   mend:{c:2,t:'s',r:'r',fx:{heal:6},n:['Healing Light','治愈之光','癒しの光'],f:['Warm as a hearth, quick as a prayer.','像炉火一样温暖，像祷告一样迅速。','暖炉のように温かく、祈りのように速い。']},
   shieldwall:{c:2,t:'s',r:'c',fx:{armor:4},n:['Shield Wall','盾墙','盾の壁'],f:['Lock shields. Lock eyes. Hold.','盾牌相扣，目光相接，守住。','盾を組め。目を据えろ。踏みとどまれ。']},
-  calltoarms:{c:2,t:'s',r:'c',fx:{summon:['minnow','minnow']},n:['Call to Arms','战斗号令','召集令'],f:['Farmers today. Heroes, maybe, tomorrow.','今天是农夫，明天也许就是英雄。','今日は農夫。明日は、たぶん英雄。']},
+  calltoarms:{c:3,t:'s',r:'c',fx:{summon:['minnow','minnow','minnow']},n:['Call to Arms','战斗号令','召集令'],f:['Farmers today. Heroes, maybe, tomorrow.','今天是农夫，明天也许就是英雄。','今日は農夫。明日は、たぶん英雄。']},
   undertow:{c:3,t:'s',r:'r',fx:{dmg:4,tgt:'minion'},n:['Smite','惩击','天罰'],f:['Judgment, delivered from above.','来自天上的审判。','天上より下される裁き。']},
   radiant:{c:3,t:'s',r:'r',fx:{aoe:1,heal:4},n:['Radiant Burst','光耀爆发','光輝の爆発'],f:['Light that burns the wicked and warms the faithful.','灼烧邪恶、温暖信徒的光。','悪を焼き、信じる者を温める光。']},
   hymn:{c:3,t:'s',r:'r',fx:{team:[1,1]},n:['Battle Hymn','战歌','戦いの賛歌'],f:['Off-key, but very loud.','跑调了，但非常响亮。','音程は外れているが、とても大きい。']},
+  lance:{c:4,t:'s',r:'r',fx:{dmg:3,tgt:'minion',draw:1},n:['Arcane Lance','奥术长枪','秘術の槍'],f:['Pierce, then ponder.','先刺穿，再思考。','貫いてから、考えよ。']},
   maelstrom:{c:4,t:'s',r:'e',fx:{aoe:2},n:['Fireball','火球术','ファイアボール'],f:['Aim for the middle.','瞄准中间就行。','真ん中を狙え。']},
-  riptide:{c:5,t:'s',r:'e',fx:{dmg:5,tgt:'any'},n:['Lightning Bolt','闪电箭','ライトニングボルト'],f:['Never strikes the same place twice. Never needs to.','从不劈同一个地方两次，也从不需要。','同じ場所に二度は落ちない。その必要もない。']},
+  riptide:{c:5,t:'s',r:'e',fx:{dmg:6,tgt:'any'},n:['Lightning Bolt','闪电箭','ライトニングボルト'],f:['Never strikes the same place twice. Never needs to.','从不劈同一个地方两次，也从不需要。','同じ場所に二度は落ちない。その必要もない。']},
   breath:{c:6,t:'s',r:'e',fx:{aoe:3,face:3},n:["Dragon's Breath",'龙息','竜の息吹'],f:['The last thing the castle walls ever felt.','城墙感受到的最后一样东西。','城壁が最後に感じたもの。']},
-  inferno:{c:7,t:'s',r:'e',fx:{aoe:4},n:['Inferno','炼狱烈焰','業火'],f:['Nothing grows here anymore. Nothing will.','这里已寸草不生，以后也不会再有。','もう何も育たない。これからも。']},
+  inferno:{c:6,t:'s',r:'e',fx:{aoe:4},n:['Inferno','炼狱烈焰','業火'],f:['Nothing grows here anymore. Nothing will.','这里已寸草不生，以后也不会再有。','もう何も育たない。これからも。']},
   bubble:{c:1,t:'m',a:2,h:1,r:'t',race:'undead',token:1,n:['Restless Spirit','怨灵','怨霊'],f:['It remembers being angry.','它记得自己曾经很愤怒。','怒っていたことだけは覚えている。']},
   minnow:{c:1,t:'m',a:1,h:1,r:'t',race:'human',token:1,n:['Militia Recruit','民兵','民兵'],f:['Pitchfork sold separately.','干草叉需另购。','熊手は別売り。']},
   reefling:{c:2,t:'m',a:2,h:2,r:'t',race:'human',token:1,guard:1,n:['Town Guard','城镇卫兵','町の衛兵'],f:['Halt. Please.','站住。拜托了。','止まれ。お願いだから。']},
@@ -705,14 +720,14 @@ const kwBold=s=>s.replace(I18N[L].kwRe,'<b>$1</b>');
 
 const rep=(k,n)=>Array(n).fill(k);
 const OPP=[
-  {n:['Goblin Warband','哥布林战团','ゴブリンの戦団'],i:['GW','哥','ゴ'],hp:20,deck:[...rep('goblin',4),...rep('skipper',2),...rep('berserker',3),...rep('direwolf',3),...rep('lurker',2),...rep('eel',2),...rep('spray',2),'calltoarms','frenzy']},
-  {n:['Forest Bandits','林地盗匪','森の盗賊団'],i:['FB','盗','盗'],hp:22,deck:[...rep('burglar',3),...rep('harpooneer',3),...rep('direwolf',2),...rep('skipper',2),...rep('lurker',3),...rep('beastcaller',2),...rep('spray',2),'darkpact','tidepool','eel']},
-  {n:['Orc Warlord','兽人督军','オークの将軍'],i:['OW','兽','オ'],hp:24,deck:[...rep('berserker',3),...rep('eel',3),...rep('lurker',2),...rep('frenzy',2),...rep('hymn',2),'commander',...rep('ogre',2),'shieldwall',...rep('direwolf',2),...rep('gull',2)]},
-  {n:['Storm Witch','风暴女巫','嵐の魔女'],i:['SW','巫','魔'],hp:26,deck:[...rep('apprentice',3),...rep('spray',3),...rep('riptide',2),...rep('maelstrom',2),...rep('firelem',2),...rep('tidepool',2),...rep('alchemist',2),'darkpact',...rep('harpooneer',2),'inferno']},
-  {n:['Ironhold Dwarves','铁堡矮人','鉄砦のドワーフ'],i:['ID','矮','鉄'],hp:28,deck:[...rep('crab',3),...rep('cleric',3),...rep('golem',2),...rep('shieldwall',2),...rep('brace',2),...rep('knight',2),...rep('alchemist',2),'mend','hymn','ogre','dwarfking']},
-  {n:['Elven Conclave','精灵议会','エルフ評議会'],i:['EC','精','エ'],hp:30,deck:[...rep('harpooneer',3),...rep('beastcaller',3),...rep('pearl',2),'mend',...rep('radiant',2),'archmage',...rep('gull',2),'shark',...rep('undertow',2),'tidepool','elfqueen','frenzy']},
-  {n:['The Bone Lich','骸骨巫妖','骸骨のリッチ'],i:['BL','骸','骸'],hp:30,deck:[...rep('sailor',3),...rep('ghoul',3),...rep('darkpact',2),...rep('undertow',2),'maelstrom','golem','shark','riptide','lich','archmage',...rep('ogre',2),...rep('apprentice',2)]},
-  {n:['The Ashen King','灰烬之王','灰燼の王'],i:['AK','王','王'],hp:28,deck:['leviathan','breath','maelstrom','firelem','commander','lurker','skipper',...rep('sailor',2),...rep('ghoul',2),'ogre','gull','undertow',...rep('crab',2),...rep('harpooneer',2),'apprentice','darkpact']},
+  {n:['Storm Witch','风暴女巫','嵐の魔女'],i:['SW','巫','魔'],hp:20,deck:[...rep('apprentice',2),...rep('spray',2),...rep('lance',2),'maelstrom','riptide',...rep('firelem',2),...rep('tidepool',2),'alchemist',...rep('harpooneer',2),'diver','inferno','archmage','undertow','hexer']},
+  {n:['Goblin Warband','哥布林战团','ゴブリンの戦団'],i:['GW','哥','ゴ'],hp:18,deck:[...rep('goblin',3),...rep('berserker',3),...rep('direwolf',2),...rep('harpooneer',2),...rep('eel',2),...rep('frenzy',2),...rep('spray',2),'calltoarms',...rep('lurker',2),'hexer']},
+  {n:['Forest Bandits','林地盗匪','森の盗賊団'],i:['FB','盗','盗'],hp:22,deck:['goblin',...rep('burglar',2),...rep('harpooneer',2),...rep('direwolf',2),...rep('beastcaller',2),'eel',...rep('spray',2),'darkpact',...rep('lurker',2),...rep('hexer',2),'gull','undertow','tidepool']},
+  {n:['Orc Warlord','兽人督军','オークの将軍'],i:['OW','兽','オ'],hp:28,deck:[...rep('berserker',2),...rep('eel',2),...rep('frenzy',2),'hymn',...rep('hexer',2),...rep('lurker',2),'commander',...rep('ogre',2),'knight','gull','wyvern',...rep('direwolf',2),'thane']},
+  {n:['Ironhold Dwarves','铁堡矮人','鉄砦のドワーフ'],i:['ID','矮','鉄'],hp:26,deck:[...rep('crab',2),...rep('cleric',2),...rep('knight',2),...rep('thane',2),'golem','harpooneer','shieldwall','hymn','priestess','lurker','ogre','alchemist','eel','dwarfking','mend','brace']},
+  {n:['Elven Conclave','精灵议会','エルフ評議会'],i:['EC','精','エ'],hp:32,deck:[...rep('harpooneer',2),...rep('beastcaller',2),'pearl',...rep('priestess',2),'radiant','lance',...rep('gull',2),'shark','wyvern',...rep('undertow',2),'tidepool','treant','archmage','elfqueen','mend']},
+  {n:['The Bone Lich','骸骨巫妖','骸骨のリッチ'],i:['BL','骸','骸'],hp:34,deck:[...rep('sailor',2),...rep('ghoul',2),...rep('necro',2),'darkpact',...rep('undertow',2),'maelstrom','golem','shark','riptide','ogre','dragonknight','archmage','inferno','lich',...rep('apprentice',2)]},
+  {n:['The Ashen King','灰烬之王','灰燼の王'],i:['AK','王','王'],hp:28,deck:['leviathan',...rep('dragonknight',2),'wyvern','breath','maelstrom','firelem','commander','knight',...rep('sailor',2),...rep('ghoul',2),'necro',...rep('crab',2),...rep('harpooneer',2),'hexer','lance']},
 ];
 const oppName=i=>OPP[i].n[li()];
 const COLLECT=Object.keys(CARDS).filter(k=>!CARDS[k].token);
@@ -730,27 +745,27 @@ const CLASSES=[
   {id:'warrior',col:'#c0392b',n:['Warrior','战士','戦士'],tag:['Armor, sturdy Guard minions and brute force.','护甲、坚固的守护随从与蛮力。','装甲、頑丈なガード、そして力押し。'],
    art:portrait({race:'human',robe:'#8a2a2a',hair:'#3a2a1a',beard:1,head:'helm',plume:'#c0392b',prop:'axe'}),
    power:{c:2,fx:{armor:2},n:['Armor Up','全副武装','鎧を纏え']},
-   deck:[...rep('crab',2),...rep('berserker',2),...rep('eel',2),...rep('lurker',2),...rep('knight',2),'shieldwall',...rep('frenzy',2),'direwolf','goblin','commander',...rep('harpooneer',2),'hymn','ogre']},
+   deck:['goblin','berserker',...rep('crab',2),'frenzy','shieldwall',...rep('cleric',2),'eel','hymn','hexer','knight','lurker','priestess','commander','golem','thane',...rep('ogre',2),'treant']},
   {id:'mage',col:'#5a8ae0',n:['Mage','法师','魔法使い'],tag:['Spells that burn the board and refill your hand.','以法术清场灼敌，并补充手牌。','呪文で盤面を焼き払い、手札を補う。'],
    art:portrait({race:'human',robe:'#2a3a7a',hair:'#d8c8a0',head:'wizhat',hat:'#2a3a7a',prop:'staff',orb:'#8fd0ff',glow:'#8fd0ff'}),
    power:{c:2,tgt:'any',fx:{dmg:1},n:['Arcane Spark','奥术火花','秘術の火花']},
-   deck:[...rep('apprentice',2),...rep('spray',2),...rep('harpooneer',2),...rep('tidepool',2),'alchemist','undertow',...rep('maelstrom',2),'riptide','firelem',...rep('lurker',2),'knight','diver','crab','skipper']},
+   deck:[...rep('apprentice',2),'spray','burglar',...rep('harpooneer',2),...rep('alchemist',2),'beastcaller','undertow','diver',...rep('hexer',2),...rep('maelstrom',2),'golem','gull','firelem','inferno','archmage']},
   {id:'paladin',col:'#e8c35a',n:['Paladin','圣骑士','聖騎士'],tag:['Raise small armies, then bless and heal them.','召集小兵，再为他们加持与治疗。','小さな軍勢を集め、祝福し、癒す。'],
    art:portrait({race:'human',robe:'#c8ccd2',trim:'#e8c35a',head:'helm',helm:'#e8c35a',plume:'#ffffff',prop:['sword','shield'],shc:'#e8c35a',glow:'#ffe9a0'}),
    power:{c:2,fx:{summon:'minnow'},n:['Muster','征召','召集']},
-   deck:[...rep('pearl',2),...rep('crab',2),'harpooneer',...rep('brace',2),...rep('knight',2),...rep('calltoarms',2),'hymn','mend','commander',...rep('cleric',2),...rep('lurker',2),'undertow','radiant']},
+   deck:['brace',...rep('pearl',2),...rep('crab',2),...rep('mend',2),'calltoarms','hymn',...rep('radiant',2),...rep('knight',2),...rep('priestess',2),'commander','gull','thane','shark','dragonknight']},
   {id:'hunter',col:'#6aa57e',n:['Hunter','猎人','狩人'],tag:['Beasts and fast pressure on the enemy hero.','驱使野兽，快速压制敌方英雄。','獣を従え、敵ヒーローを素早く追い詰める。'],
    art:portrait({race:'elf',robe:'#3a5a2a',hair:'#8a5a2a',head:'hood',hood:'#2f4a22',prop:'bow'}),
    power:{c:2,fx:{face:2},n:['Piercing Arrow','穿刺之箭','貫きの矢']},
-   deck:[...rep('direwolf',2),...rep('beastcaller',2),...rep('harpooneer',2),'goblin',...rep('eel',2),...rep('gull',2),...rep('frenzy',2),...rep('spray',2),...rep('lurker',2),'burglar',...rep('undertow',2)]},
+   deck:['goblin','spray','berserker',...rep('direwolf',2),...rep('harpooneer',2),...rep('beastcaller',2),'eel','undertow','hexer','lance','lurker',...rep('gull',2),'riptide','shark','wyvern','dragonknight']},
   {id:'priest',col:'#efe2c2',n:['Priest','牧师','司祭'],tag:['Healing and Ward to outlast every foe.','以治疗和护盾拖垮每一个敌人。','回復と結界で、どんな敵よりも長く耐える。'],
    art:portrait({race:'human',robe:'#e8e2d0',trim:'#e8c35a',hair:'#c8a060',long:1,head:'circlet',gem:'#ffe08a',prop:'book',bookc:'#e8c35a',glow:'#ffe9a0'}),
-   power:{c:2,tgt:'friend',fx:{healT:2},n:['Mending Touch','愈合之触','癒しの手']},
-   deck:[...rep('pearl',2),...rep('cleric',2),...rep('mend',2),...rep('radiant',2),'brace',...rep('crab',2),'tidepool',...rep('knight',2),...rep('lurker',2),...rep('undertow',2),'golem','diver']},
+   power:{c:2,tgt:'friend',fx:{healT:3},n:['Mending Touch','愈合之触','癒しの手']},
+   deck:['brace',...rep('pearl',2),'crab','mend',...rep('cleric',2),'radiant','tidepool','undertow','diver',...rep('knight',2),'lance','priestess',...rep('golem',2),'shark','archmage','treant']},
   {id:'warlock',col:'#9a6aff',n:['Warlock','术士','術士'],tag:['Trade health for cards and command the undead.','以生命换取手牌，驱使亡灵大军。','体力を手札に換え、アンデッドを操る。'],
    art:portrait({race:'human',robe:'#3a2a5a',head:'hood',hood:'#2a1a40',eyes:'#c47fe0',prop:'staff',orb:'#9a6aff',glow:'#9a6aff'}),
    power:{c:2,fx:{selfDmg:2,draw:1},n:['Blood Pact','鲜血契约','血の契約']},
-   deck:[...rep('darkpact',2),...rep('ghoul',2),...rep('sailor',2),'golem','firelem','burglar','tidepool',...rep('spray',2),...rep('lurker',2),...rep('undertow',2),'maelstrom','shark','ogre','diver']},
+   deck:[...rep('apprentice',2),'goblin','burglar',...rep('sailor',2),'eel',...rep('ghoul',2),...rep('hexer',2),'maelstrom',...rep('necro',2),'golem','riptide','breath','ogre','shark','dragonknight']},
 ];
 const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
 const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
@@ -968,7 +983,8 @@ function startDuel(){
 function startTurn(side){
   const s=S[side];s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
   s.board.forEach(m=>{m.sleep=false;m.attacked=false});
-  draw(side,1);
+  // Whoever goes first skips the draw on the opening turn (offsets the first-player advantage).
+  if(S.opened)draw(side,1);else S.opened=true;
 }
 function draw(side,n){
   const s=S[side];
@@ -1341,7 +1357,7 @@ function qresultHTML(){
 }
 function classHTML(){
   return `<div class="screen"><h2>${T('classTitle')}</h2><p>${T('classSub',oppName(0))}</p>
-    <div class="ccards">${CLASSES.map(classCard).join('')}</div></div>`;
+    <div class="ccards">${CLASSES.map(c=>classCard(c)).join('')}</div></div>`;
 }
 function crystals(s){
   let h='';for(let i=0;i<s.maxMana;i++)h+=`<i class="${i<s.mana?'on':''}"></i>`;
