@@ -184,6 +184,22 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
 /* ---------- menu, deck builder, difficulty ---------- */
 .nav{display:flex;gap:8px;flex-wrap:wrap;padding-top:6px}
+.dklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;width:100%;text-align:left}
+.dk{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--cc);border-radius:12px;padding:12px}
+.dk .cport{width:52px;height:52px}
+.dkt{display:grid;gap:2px;min-width:0}
+.dkt b{font-family:var(--display);font-weight:400;font-size:18px;color:var(--parch);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:is(:lang(zh),:lang(ja)) .dkt b{font-weight:600;font-size:16px}
+.dkt span{font-size:12.5px;color:var(--muted)}
+.dkt span.warn{color:var(--ember)}
+.dkb{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.dkb .btn{padding:7px 12px;font-size:13px}
+.btn.danger{border-color:var(--blood);color:#f0a097}
+.namebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.namebar input{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--parch);font:600 15px var(--body);padding:9px 11px;-webkit-user-select:text;user-select:text}
+.namebar input:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.namebar .btn{padding:9px 12px;font-size:13px}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);font-size:14px;line-height:1.5}
 .nav .btn{padding:6px 12px;font-size:13px}
 .modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;width:100%;max-width:520px;margin:0 auto}
 .mode{display:grid;gap:4px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:4px solid var(--cc,var(--ember));transition:transform .15s}
@@ -344,7 +360,7 @@ const I18N={
     diffTitle:'Choose difficulty',diffSub:'Your opponent\'s class is chosen at random.',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
     diffDesc:{easy:'The AI makes mistakes and never uses its hero power. Its deck adds common cards.',normal:'Standard AI that uses its class hero power. Its deck adds rare and epic cards.',hard:'Standard AI whose deck adds epic and legendary cards.'},
     aiName:x=>`${x} (AI)`,goFirst:'You go first.',goSecond:'You go second and get a Lucky Coin.',qWin:'Victory',qLose:'Defeat',qVs:(c,d)=>`Opponent: ${c} · ${d}`,
-    record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',
+    record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',myDecks:'My decks',myDecksSub:'Your saved decks are kept on this device.',newDeck:'New deck',noDecks:'No saved decks yet. Tap New deck, build one, and save it.',playDeck:'Play',editShort:'Edit',deleteDeck:'Delete',confirmDelete:'Tap again to delete',deckName:'Deck name',saveDeck:'Save deck',savedState:'Saved',saveAsNew:'Save as new',saved:x=>`Saved "${x}".`,deleted:x=>`Deleted "${x}".`,defaultName:(c,n)=>`${c} deck ${n}`,cardsN:n=>`${n} cards`,notReady:n=>`${n}/25 · not ready to play`,unsaved:'Unsaved changes',pickClassNew:'New deck · Choose a class',
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
@@ -398,7 +414,7 @@ const I18N={
     diffTitle:'选择难度',diffSub:'对手的职业会随机决定。',diff:{easy:'简单',normal:'普通',hard:'困难'},
     diffDesc:{easy:'AI会出错，也不使用英雄技能。牌组补充普通卡。',normal:'标准AI，会使用职业英雄技能。牌组补充稀有卡和史诗卡。',hard:'标准AI，牌组补充史诗卡和传说卡。'},
     aiName:x=>`${x}（AI）`,goFirst:'你先手。',goSecond:'你后手，获得一枚幸运硬币。',qWin:'胜利',qLose:'失败',qVs:(c,d)=>`对手：${c} · ${d}`,
-    record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',
+    record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',myDecks:'我的牌组',myDecksSub:'保存的牌组存放在这台设备上。',newDeck:'新建牌组',noDecks:'还没有保存的牌组。点「新建牌组」，组好后保存。',playDeck:'开始对战',editShort:'编辑',deleteDeck:'删除',confirmDelete:'再点一次删除',deckName:'牌组名称',saveDeck:'保存牌组',savedState:'已保存',saveAsNew:'另存为新牌组',saved:x=>`已保存「${x}」。`,deleted:x=>`已删除「${x}」。`,defaultName:(c,n)=>`${c}牌组 ${n}`,cardsN:n=>`${n}张`,notReady:n=>`${n}/25 · 未完成，暂不能对战`,unsaved:'有未保存的修改',pickClassNew:'新建牌组 · 选择职业',
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
@@ -452,7 +468,7 @@ const I18N={
     diffTitle:'難易度を選択',diffSub:'相手のクラスはランダムに決まる。',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
     diffDesc:{easy:'AIはミスをし、ヒーローパワーを使わない。デッキはコモンで補充。',normal:'クラスのヒーローパワーを使う標準AI。デッキはレアとエピックで補充。',hard:'標準AI。デッキはエピックとレジェンドで補充。'},
     aiName:x=>`${x}（AI）`,goFirst:'あなたが先攻。',goSecond:'あなたは後攻。幸運のコインを得る。',qWin:'勝利',qLose:'敗北',qVs:(c,d)=>`相手：${c} · ${d}`,
-    record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',
+    record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',myDecks:'マイデッキ',myDecksSub:'保存したデッキはこの端末に残る。',newDeck:'新しいデッキ',noDecks:'保存したデッキはまだない。「新しいデッキ」で組んで保存しよう。',playDeck:'対戦する',editShort:'編集',deleteDeck:'削除',confirmDelete:'もう一度タップで削除',deckName:'デッキ名',saveDeck:'デッキを保存',savedState:'保存済み',saveAsNew:'新規保存',saved:x=>`「${x}」を保存した。`,deleted:x=>`「${x}」を削除した。`,defaultName:(c,n)=>`${c}デッキ ${n}`,cardsN:n=>`${n}枚`,notReady:n=>`${n}/25 · 未完成のため対戦不可`,unsaved:'未保存の変更あり',pickClassNew:'新しいデッキ · クラスを選択',
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
@@ -728,10 +744,30 @@ function autoFill(d){
   const w={c:3,r:2,e:1,l:1},pool=[];COLLECT.forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
   let g=0;while(d.length<DECK_SIZE&&g++<2000){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
 }
-function loadDecks(){try{return JSON.parse(localStorage.getItem('ashen-decks')||'{}')||{}}catch(e){return {}}}
-function saveDeck(){try{const all=loadDecks();all[Q.cls]=Q.deck;localStorage.setItem('ashen-decks',JSON.stringify(all))}catch(e){}}
+// Saved decks: a list of named decks per device. Older single drafts per class are migrated once.
+function loadSaved(){
+  let list=[];try{list=JSON.parse(localStorage.getItem('ashen-saved')||'[]')||[]}catch(e){}
+  list=Array.isArray(list)?list.filter(d=>d&&CBY[d.cls]&&validDeck(d.cards)&&typeof d.name==='string'):[];
+  try{
+    if(!localStorage.getItem('ashen-migrated')){
+      const old=JSON.parse(localStorage.getItem('ashen-decks')||'{}')||{};
+      Object.entries(old).forEach(([cls,cards])=>{if(CBY[cls]&&validDeck(cards)&&cards.length)list.push({id:'d'+Date.now().toString(36)+cls,name:T('defaultName',CBY[cls].n[li()],1),cls,cards,t:Date.now()})});
+      localStorage.setItem('ashen-migrated','1');storeSaved(list);
+    }
+  }catch(e){}
+  return list;
+}
+function storeSaved(list){try{localStorage.setItem('ashen-saved',JSON.stringify(list))}catch(e){}}
+function nextDefaultName(cls){const n=loadSaved().filter(d=>d.cls===cls).length+1;return T('defaultName',CBY[cls].n[li()],n)}
+function saveCurrent(asNew){
+  const list=loadSaved();const name=(Q.name||'').trim()||nextDefaultName(Q.cls);Q.name=name;
+  let d=!asNew&&Q.editId&&list.find(x=>x.id===Q.editId);
+  if(d){d.name=name;d.cards=[...Q.deck];d.t=Date.now()}
+  else{d={id:'d'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,cls:Q.cls,cards:[...Q.deck],t:Date.now()};list.unshift(d);Q.editId=d.id}
+  storeSaved(list);Q.dirty=false;Q.toast=T('saved',name);
+}
 function validDeck(d){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k))}
-let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,w:0,l:0,toast:''};
+let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
 
 const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
 const classArt=c=>`<svg viewBox="18 0 64 64" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${c.art}</svg>`;
@@ -864,11 +900,16 @@ function initEmbers(){
 
 // ---------- game flow ----------
 function newRun(){R={stage:0,deck:[],cls:null};S=null;view='intro';render()}
-function goQuick(){view='qclass';render();scrollTo(0,0)}
-function openBuilder(cls){
-  Q.cls=cls;const saved=loadDecks()[cls];
-  Q.deck=validDeck(saved)?[...saved]:[...CBY[cls].deck];Q.toast='';view='build';render();scrollTo(0,0);
+function goQuick(){Q.delArm=null;view='decks';render();scrollTo(0,0)}
+function goNewDeck(){view='qclass';render();scrollTo(0,0)}
+function openBuilder(cls,id){
+  const d=id&&loadSaved().find(x=>x.id===id);
+  if(d){Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name}
+  else{Q.cls=cls;Q.deck=[...CBY[cls].deck];Q.editId=null;Q.name=nextDefaultName(cls)}
+  Q.dirty=!d;Q.toast='';view='build';render();scrollTo(0,0);
 }
+function playSaved(id){const d=loadSaved().find(x=>x.id===id);if(!d||d.cards.length!==DECK_SIZE)return;
+  Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name;Q.dirty=false;view='diff';render();scrollTo(0,0)}
 function startQuick(diff){
   Q.diff=diff;R={stage:0,deck:[...Q.deck],cls:Q.cls};
   const ecls=CLASSES[Math.random()*CLASSES.length|0].id;
@@ -1201,7 +1242,7 @@ function header(){
     <button class="pill" data-go="gallery" aria-label="${T('viewCards')}"><span>${T('cardsBtn')}</span></button>
     <select class="langsel" id="langsel" aria-label="Language / 语言 / 言語">${LANGS.map(([v,t])=>`<option value="${v}" ${v===L?'selected':''}>${t}</option>`).join('')}</select>
     ${S&&S.mode==='quick'&&view==='duel'?`<span class="stagepill" style="color:${DIFFS[S.diff].col};border-color:${DIFFS[S.diff].col}">${T('diff')[S.diff]}</span>`
-      :['intro','qclass','build','diff','qresult','gallery'].includes(view)&&!(S&&S.mode==='camp')?'':`<span class="stagepill" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${T('stageOf',R.stage+1,OPP.length)}</span>`}</div>`;
+      :['intro','decks','qclass','build','diff','qresult','gallery'].includes(view)&&!(S&&S.mode==='camp')?'':`<span class="stagepill" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${T('stageOf',R.stage+1,OPP.length)}</span>`}</div>`;
 }
 function routeRow(){
   const nodes=OPP.map((o,i)=>{const cls=i<R.stage?'done':i===R.stage?'here':'';
@@ -1218,6 +1259,18 @@ function classCard(c,attr='data-class'){
 function navRow(...items){
   return `<div class="nav">${items.map(([go,label])=>`<button class="btn ghost" data-go="${go}">${go==='menu'?'⌂ ':'← '}${label}</button>`).join('')}</div>`;
 }
+function decksHTML(){
+  const list=loadSaved();
+  const cards=list.map(d=>{const c=CBY[d.cls],ok=d.cards.length===DECK_SIZE,arm=Q.delArm===d.id;
+    return `<div class="dk" style="--cc:${c.col}"><span class="cport">${classArt(c)}</span>
+      <span class="dkt"><b>${esc(d.name)}</b><span class="${ok?'':'warn'}">${c.n[li()]} · ${ok?T('cardsN',d.cards.length):T('notReady',d.cards.length)}</span></span>
+      <span class="dkb"><button class="btn" data-play="${d.id}" ${ok?'':'disabled'}>${T('playDeck')}</button><button class="btn ghost" data-edit="${d.id}">${T('editShort')}</button><button class="btn ghost ${arm?'danger':''}" data-del="${d.id}">${arm?T('confirmDelete'):T('deleteDeck')}</button></span></div>`}).join('');
+  return navRow(['menu',T('toMenu')])+`<div class="screen" style="justify-content:flex-start"><h2>${T('myDecks')}</h2><p>${T('myDecksSub')}</p>
+    <div class="btns"><button class="btn" data-go="newdeck">＋ ${T('newDeck')}</button></div>
+    ${Q.libToast?`<p class="toast" aria-live="polite">${esc(Q.libToast)}</p>`:''}
+    ${list.length?`<div class="dklist">${cards}</div>`:`<div class="empty">${T('noDecks')}</div>`}</div>`;
+}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function builderHTML(){
   const c=CBY[Q.cls],d=Q.deck,need=DECK_SIZE-d.length;
   const order=k=>CARDS[k].c*100+(CARDS[k].t==='s'?50:0);
@@ -1232,7 +1285,10 @@ function builderHTML(){
     .sort((a,b)=>CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
     return `<div class="cslot">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
-  return navRow(['qclassback',T('changeClass')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
+  return navRow(['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
+    <div class="namebar"><input id="deckname" type="text" maxlength="28" autocomplete="off" aria-label="${T('deckName')}" placeholder="${T('deckName')}" value="${esc(Q.name)}">
+      <button class="btn ${Q.dirty?'':'ghost'}" data-go="savedeck">${Q.dirty?T('saveDeck'):'✓ '+T('savedState')}</button>
+      ${Q.editId?`<button class="btn ghost" data-go="saveasnew">${T('saveAsNew')}</button>`:''}</div>
     <p class="bnote">${T('deckRules',DECK_SIZE)} ${T('tapAdd')}</p>
     <div class="bwrap">
       <div class="bdeck">
@@ -1246,7 +1302,7 @@ function builderHTML(){
         <div class="coll">${coll}</div>
       </div>
     </div>
-    <div class="bfoot"><span class="toast" aria-live="polite">${Q.toast||(need?T('deckNeed',need):T('deckReady'))}</span>
+    <div class="bfoot"><span class="toast" aria-live="polite">${Q.toast||(Q.dirty&&Q.editId?T('unsaved'):need?T('deckNeed',need):T('deckReady'))}</span>
       <button class="btn" data-go="todiff" ${need?'disabled':''}>${T('nextDiff')}</button></div>`;
 }
 function diffHTML(){
@@ -1333,7 +1389,8 @@ function render(){
   const app=$('#app');
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
-  if(view==='qclass'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+`<div class="screen"><h2>${T('qClassTitle')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
+  if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
+  if(view==='qclass'){app.innerHTML=header()+navRow(['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('pickClassNew')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
   if(view==='build'){app.innerHTML=header()+builderHTML();FX=[];return}
   if(view==='diff'){app.innerHTML=header()+diffHTML();FX=[];return}
   if(view==='qresult'){app.innerHTML=header()+qresultHTML();FX=[];return}
@@ -1385,7 +1442,7 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff]');
+  const b=ev.target.closest('[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.go==='peekclose')return closePeek();
@@ -1395,9 +1452,15 @@ document.addEventListener('click',ev=>{
   if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
   if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
   if(b.dataset.add!==undefined){const k=b.dataset.add;
-    if(Q.deck.length>=DECK_SIZE)Q.toast=T('deckFull');else if(copies(Q.deck,k)>=maxCopies(k))Q.toast=T('limitHit');else{Q.deck.push(k);Q.toast='';saveDeck()}
+    if(Q.deck.length>=DECK_SIZE)Q.toast=T('deckFull');else if(copies(Q.deck,k)>=maxCopies(k))Q.toast=T('limitHit');else{Q.deck.push(k);Q.toast='';Q.dirty=true}
     return render()}
-  if(b.dataset.rm!==undefined){const i=Q.deck.lastIndexOf(b.dataset.rm);if(i>=0)Q.deck.splice(i,1);Q.toast='';saveDeck();return render()}
+  if(b.dataset.rm!==undefined){const i=Q.deck.lastIndexOf(b.dataset.rm);if(i>=0){Q.deck.splice(i,1);Q.dirty=true}Q.toast='';return render()}
+  if(b.dataset.play!==undefined)return playSaved(b.dataset.play);
+  if(b.dataset.edit!==undefined){Q.delArm=null;return openBuilder(null,b.dataset.edit)}
+  if(b.dataset.del!==undefined){const id=b.dataset.del;
+    if(Q.delArm===id){const list=loadSaved(),d=list.find(x=>x.id===id);storeSaved(list.filter(x=>x.id!==id));Q.delArm=null;Q.libToast=d?T('deleted',d.name):'';if(Q.editId===id)Q.editId=null}
+    else{Q.delArm=id;Q.libToast=''}
+    return render()}
   if(b.dataset.ftype!==undefined){Q.type=b.dataset.ftype;return render()}
   if(b.dataset.fcost!==undefined){Q.cost=+b.dataset.fcost;return render()}
   if(b.dataset.diff!==undefined)return startQuick(b.dataset.diff);
@@ -1413,9 +1476,13 @@ document.addEventListener('click',ev=>{
   else if(g==='newrun')newRun();
   else if(g==='quick'||g==='qclassback')goQuick();
   else if(g==='menu'){newRun();scrollTo(0,0)}
-  else if(g==='autofill'){autoFill(Q.deck);Q.toast='';saveDeck();render()}
-  else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';saveDeck();render()}
-  else if(g==='cleardeck'){Q.deck=[];Q.toast='';saveDeck();render()}
+  else if(g==='autofill'){autoFill(Q.deck);Q.toast='';Q.dirty=true;render()}
+  else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';Q.dirty=true;render()}
+  else if(g==='cleardeck'){Q.deck=[];Q.toast='';Q.dirty=true;render()}
+  else if(g==='savedeck'){saveCurrent(false);render()}
+  else if(g==='saveasnew'){Q.name=(Q.name||'').trim()+(L==='en'?' (copy)':L==='zh'?'（副本）':'（コピー）');saveCurrent(true);render()}
+  else if(g==='decks'){Q.libToast='';goQuick()}
+  else if(g==='newdeck'){Q.libToast='';goNewDeck()}
   else if(g==='todiff'){if(Q.deck.length===DECK_SIZE){view='diff';render();scrollTo(0,0)}}
   else if(g==='editdeck'){view='build';render();scrollTo(0,0)}
   else if(g==='rematch')startQuick(Q.diff);
@@ -1426,6 +1493,8 @@ document.addEventListener('change',ev=>{
   FX=[];if(S)S.drew=0;render();const n=$('#langsel');if(n)n.focus();
 });
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closePeek()});
+// Typing a deck name updates state without re-rendering, so the keyboard stays open.
+document.addEventListener('input',ev=>{if(ev.target.id==='deckname'){Q.name=ev.target.value;if(!Q.dirty){Q.dirty=true;const b=document.querySelector('[data-go=savedeck]');if(b){b.classList.remove('ghost');b.textContent=T('saveDeck')}}}});
 // Gentle 3D tilt for gallery cards.
 document.addEventListener('pointermove',ev=>{
   if(RM)return;const c=ev.target.closest&&ev.target.closest('[data-tilt]');if(!c)return;
