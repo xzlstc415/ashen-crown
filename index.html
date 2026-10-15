@@ -391,7 +391,7 @@ const I18N={
     diffDesc:{easy:'The AI makes mistakes and never uses its hero power. Its deck adds common cards.',normal:'Standard AI that uses its class hero power. Its deck adds rare and epic cards.',hard:'Standard AI whose deck adds epic and legendary cards.'},
     aiName:x=>`${x} (AI)`,goFirst:'You go first.',goSecond:'You go second and get a Lucky Coin.',qWin:'Victory',qLose:'Defeat',qVs:(c,d)=>`Opponent: ${c} · ${d}`,
     modeOnline:'Play a Friend',modeOnlineSub:'Share a room code and battle a friend online.',
-    onSub:'Pick a deck. One player creates a room and sends the code; the other joins with it.',onDeck:'Your deck',starterDeck:c=>`${c} · Starter`,
+    onSub:'Pick one of your decks. One player creates a room and sends the code; the other joins with it.',onDeck:'Your deck',starterDeck:c=>`${c} · Starter`,
     createRoom:'Create room',joinRoom:'Join',codePh:'6-digit code',orJoin:'or join a friend\'s room',roomCode:'Room code',
     waitFriend:'Waiting for your friend to join…',shareInvite:'Share invite link',copied:'Invite link copied.',inviteText:c=>`Join my Ashen Crown duel! Room code ${c}`,
     connecting:c=>`Connecting to room ${c}…`,loadingNet:'Connecting to the match server…',
@@ -400,7 +400,7 @@ const I18N={
     errVersion:'You and your friend are on different versions. Both refresh the page and try again.',errDeck:'That deck can\'t be used online.',errCode:'Enter the 6-digit room code.',
     foeName:c=>`Friend (${c})`,onlinePill:'Online',concede:'Concede',concedeSure:'Tap again to concede',netSlow:'Waiting for your friend\'s connection…',
     oDraw:'Draw',oVs:c=>`Opponent: your friend · ${c}`,oLeft:'Your friend left the match.',oConceded:'Your friend conceded.',
-    waitAgain:'Waiting for your friend…',foeAgain:'Your friend wants a rematch!',leaveRoom:'Leave room',oAgain:'Rematch',
+    waitAgain:'Waiting for your friend…',foeAgain:'Your friend wants a rematch!',leaveRoom:'Leave room',onNoDecks:'Friend matches use your own 25-card decks. You don\'t have a complete one yet, so build one here first.',useDeck:'Save & use for friend match',oAgain:'Rematch',
     record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',myDecks:'My decks',myDecksSub:'Your saved decks are kept on this device.',newDeck:'New deck',noDecks:'No saved decks yet. Tap New deck, build one, and save it.',playDeck:'Play',editShort:'Edit',deleteDeck:'Delete',confirmDelete:'Tap again to delete',deckName:'Deck name',saveDeck:'Save deck',savedState:'Saved',saveAsNew:'Save as new',saved:x=>`Saved "${x}".`,deleted:x=>`Deleted "${x}".`,defaultName:(c,n)=>`${c} deck ${n}`,cardsN:n=>`${n} cards`,notReady:n=>`${n}/25 · not ready to play`,unsaved:'Unsaved changes',pickClassNew:'New deck · Choose a class',
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
@@ -456,7 +456,7 @@ const I18N={
     diffDesc:{easy:'AI会出错，也不使用英雄技能。牌组补充普通卡。',normal:'标准AI，会使用职业英雄技能。牌组补充稀有卡和史诗卡。',hard:'标准AI，牌组补充史诗卡和传说卡。'},
     aiName:x=>`${x}（AI）`,goFirst:'你先手。',goSecond:'你后手，获得一枚幸运硬币。',qWin:'胜利',qLose:'失败',qVs:(c,d)=>`对手：${c} · ${d}`,
     modeOnline:'好友对战',modeOnlineSub:'分享房间码，与好友在线实时对战。',
-    onSub:'先选一副牌。一人创建房间并把房间码发给好友，好友输入房间码加入。',onDeck:'你的牌组',starterDeck:c=>`${c} · 初始牌组`,
+    onSub:'先选一副你的牌组。一人创建房间并把房间码发给好友，好友输入房间码加入。',onDeck:'你的牌组',starterDeck:c=>`${c} · 初始牌组`,
     createRoom:'创建房间',joinRoom:'加入',codePh:'6位房间码',orJoin:'或加入好友的房间',roomCode:'房间码',
     waitFriend:'等待好友加入…',shareInvite:'分享邀请链接',copied:'邀请链接已复制。',inviteText:c=>`来灰烬王冠和我对战！房间码 ${c}`,
     connecting:c=>`正在连接房间 ${c}…`,loadingNet:'正在连接对战服务器…',
@@ -465,7 +465,7 @@ const I18N={
     errVersion:'你和好友的游戏版本不同，请双方刷新页面后再试。',errDeck:'这副牌组不能用于好友对战。',errCode:'请输入6位房间码。',
     foeName:c=>`好友（${c}）`,onlinePill:'好友对战',concede:'认输',concedeSure:'再点一次认输',netSlow:'对手网络不稳定，等待中…',
     oDraw:'平局',oVs:c=>`对手：好友 · ${c}`,oLeft:'好友已离开对局。',oConceded:'好友认输了。',
-    waitAgain:'等待好友确认…',foeAgain:'好友想再来一局！',leaveRoom:'离开房间',oAgain:'再来一局',
+    waitAgain:'等待好友确认…',foeAgain:'好友想再来一局！',leaveRoom:'离开房间',onNoDecks:'好友对战只能使用你自己组的25张牌组。你还没有完整的牌组，先在这里组一副吧。',useDeck:'保存并用于好友对战',oAgain:'再来一局',
     record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',myDecks:'我的牌组',myDecksSub:'保存的牌组存放在这台设备上。',newDeck:'新建牌组',noDecks:'还没有保存的牌组。点「新建牌组」，组好后保存。',playDeck:'开始对战',editShort:'编辑',deleteDeck:'删除',confirmDelete:'再点一次删除',deckName:'牌组名称',saveDeck:'保存牌组',savedState:'已保存',saveAsNew:'另存为新牌组',saved:x=>`已保存「${x}」。`,deleted:x=>`已删除「${x}」。`,defaultName:(c,n)=>`${c}牌组 ${n}`,cardsN:n=>`${n}张`,notReady:n=>`${n}/25 · 未完成，暂不能对战`,unsaved:'有未保存的修改',pickClassNew:'新建牌组 · 选择职业',
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
@@ -521,7 +521,7 @@ const I18N={
     diffDesc:{easy:'AIはミスをし、ヒーローパワーを使わない。デッキはコモンで補充。',normal:'クラスのヒーローパワーを使う標準AI。デッキはレアとエピックで補充。',hard:'標準AI。デッキはエピックとレジェンドで補充。'},
     aiName:x=>`${x}（AI）`,goFirst:'あなたが先攻。',goSecond:'あなたは後攻。幸運のコインを得る。',qWin:'勝利',qLose:'敗北',qVs:(c,d)=>`相手：${c} · ${d}`,
     modeOnline:'フレンド対戦',modeOnlineSub:'ルームコードを共有して、フレンドとオンライン対戦。',
-    onSub:'デッキを選び、一人がルームを作ってコードを送り、もう一人がそのコードで参加します。',onDeck:'あなたのデッキ',starterDeck:c=>`${c} · 初期デッキ`,
+    onSub:'自分のデッキを選び、一人がルームを作ってコードを送り、もう一人がそのコードで参加します。',onDeck:'あなたのデッキ',starterDeck:c=>`${c} · 初期デッキ`,
     createRoom:'ルームを作成',joinRoom:'参加',codePh:'6桁のコード',orJoin:'またはフレンドのルームに参加',roomCode:'ルームコード',
     waitFriend:'フレンドの参加を待っています…',shareInvite:'招待リンクを共有',copied:'招待リンクをコピーしました。',inviteText:c=>`灰燼の王冠で対戦しよう！ルームコード ${c}`,
     connecting:c=>`ルーム ${c} に接続中…`,loadingNet:'対戦サーバーに接続中…',
@@ -530,7 +530,7 @@ const I18N={
     errVersion:'フレンドとバージョンが異なります。両方ともページを再読み込みしてください。',errDeck:'このデッキはフレンド対戦で使えません。',errCode:'6桁のルームコードを入力してください。',
     foeName:c=>`フレンド（${c}）`,onlinePill:'オンライン',concede:'降参',concedeSure:'もう一度押して降参',netSlow:'相手の接続を待っています…',
     oDraw:'引き分け',oVs:c=>`相手：フレンド · ${c}`,oLeft:'フレンドが対戦を離れました。',oConceded:'フレンドが降参しました。',
-    waitAgain:'フレンドを待っています…',foeAgain:'フレンドが再戦を希望しています！',leaveRoom:'退出',oAgain:'もう一戦',
+    waitAgain:'フレンドを待っています…',foeAgain:'フレンドが再戦を希望しています！',leaveRoom:'退出',onNoDecks:'フレンド対戦では自分で組んだ25枚のデッキを使います。まだ完成したデッキがないので、ここで組みましょう。',useDeck:'保存してフレンド対戦に使う',oAgain:'もう一戦',
     record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',myDecks:'マイデッキ',myDecksSub:'保存したデッキはこの端末に残る。',newDeck:'新しいデッキ',noDecks:'保存したデッキはまだない。「新しいデッキ」で組んで保存しよう。',playDeck:'対戦する',editShort:'編集',deleteDeck:'削除',confirmDelete:'もう一度タップで削除',deckName:'デッキ名',saveDeck:'デッキを保存',savedState:'保存済み',saveAsNew:'新規保存',saved:x=>`「${x}」を保存した。`,deleted:x=>`「${x}」を削除した。`,defaultName:(c,n)=>`${c}デッキ ${n}`,cardsN:n=>`${n}枚`,notReady:n=>`${n}/25 · 未完成のため対戦不可`,unsaved:'未保存の変更あり',pickClassNew:'新しいデッキ · クラスを選択',
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
@@ -978,7 +978,7 @@ function initEmbers(){
 
 // ---------- game flow ----------
 function newRun(){R={stage:0,deck:[],cls:null};S=null;view='intro';render()}
-function goQuick(){Q.delArm=null;view='decks';render();scrollTo(0,0)}
+function goQuick(){Q.delArm=null;Q.ret=null;view='decks';render();scrollTo(0,0)}
 function goNewDeck(){view='qclass';render();scrollTo(0,0)}
 function openBuilder(cls,id){
   const d=id&&loadSaved().find(x=>x.id===id);
@@ -1326,8 +1326,8 @@ const NET_V=(()=>{let h=0;const s=JSON.stringify(Object.keys(CARDS).map(k=>{cons
 let NET=null;
 const O={sel:null,code:'',err:'',toast:'',concedeArm:false,w:0,l:0,lost:null,conceded:false};
 function onlineDecks(){
-  const saved=loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards)).map(d=>({id:'s:'+d.id,cls:d.cls,cards:[...d.cards],name:d.name}));
-  return [...saved,...CLASSES.map(c=>({id:'c:'+c.id,cls:c.id,cards:[...c.deck],name:T('starterDeck',c.n[li()])}))];
+  // Friend matches use your own saved 25-card decks only, so both sides play the same deck size.
+  return loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards)).map(d=>({id:'s:'+d.id,sid:d.id,cls:d.cls,cards:[...d.cards],name:d.name}));
 }
 function curOnlineDeck(){const l=onlineDecks();return l.find(d=>d.id===O.sel)||l[0]}
 function goOnline(){
@@ -1360,7 +1360,7 @@ function netClose(bye){
 function netFail(key){netClose(false);O.err=T(key);if(view==='online'||view==='duel'||view==='oresult'){view='online';render()}}
 async function netStart(host,code){
   netClose(false);O.err='';O.toast='';
-  const deck=curOnlineDeck();O.sel=deck.id;try{localStorage.setItem('ashen-online-deck',deck.id)}catch(e){}
+  const deck=curOnlineDeck();if(!deck)return render();O.sel=deck.id;try{localStorage.setItem('ashen-online-deck',deck.id)}catch(e){}
   const me=NET={host,code:host?newCode():code,state:host?'hosting':'joining',deck,q:[],qBusy:false,out:[],last:Date.now(),again:false,foeAgain:false,ready:false};
   render();
   try{await loadPeerLib()}catch(e){if(NET===me)netFail('errServer');return}
@@ -1554,7 +1554,9 @@ async function shareInvite(){
 function onlineHTML(){
   const n=NET,cur=curOnlineDeck();
   let body;
-  if(n&&n.state==='hosting'){
+  if(!cur){
+    body=`<div class="empty">${T('onNoDecks')}</div><div class="btns"><button class="btn" data-go="onew">＋ ${T('newDeck')}</button></div>`;
+  }else if(n&&n.state==='hosting'){
     body=`<div class="room"><span class="meta">${T('roomCode')}</span><b class="code" aria-live="polite">${n.ready?n.code.replace(/(\d{3})(\d{3})/,'$1 $2'):'··· ···'}</b>
       <p>${n.ready?T('waitFriend'):T('loadingNet')}</p>
       <div class="btns"><button class="btn" data-go="oshare" ${n.ready?'':'disabled'}>${T('shareInvite')}</button><button class="btn ghost" data-go="ocancel">${T('cancel')}</button></div>
@@ -1566,9 +1568,10 @@ function onlineHTML(){
       <p class="meta" style="margin:4px 0 0">${T('orJoin')}</p>
       <div class="namebar" style="width:100%;max-width:340px;margin:0 auto"><input id="roomcode" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="${T('codePh')}" aria-label="${T('roomCode')}" value="${esc(O.code)}"><button class="btn" data-go="ojoin">${T('joinRoom')}</button></div>`;
   }
-  const decks=onlineDecks().map(d=>`<button class="chip odeck ${d.id===cur.id?'on':''}" style="--cc:${CBY[d.cls].col}" data-odeck="${esc(d.id)}" ${n?'disabled':''} aria-pressed="${d.id===cur.id}">${esc(d.name)} · ${d.cards.length}</button>`).join('');
+  const decks=cur?onlineDecks().map(d=>`<button class="chip odeck ${d.id===cur.id?'on':''}" style="--cc:${CBY[d.cls].col}" data-odeck="${esc(d.id)}" ${n?'disabled':''} aria-pressed="${d.id===cur.id}">${esc(d.name)} · ${CBY[d.cls].n[li()]}</button>`).join('')
+    +`<button class="chip" data-go="onew" ${n?'disabled':''}>＋ ${T('newDeck')}</button><button class="chip" data-go="oedit" ${n?'disabled':''}>✎ ${T('editDeck')}</button>`:'';
   return navRow(['menu',T('toMenu')])+`<div class="screen" style="justify-content:flex-start"><h2>${T('modeOnline')}</h2><p>${T('onSub')}</p>
-    <div class="meta">${T('onDeck')}</div><div class="chips" style="justify-content:center;max-width:640px">${decks}</div>
+    ${cur?`<div class="meta">${T('onDeck')}</div><div class="chips" style="justify-content:center;max-width:640px">${decks}</div>`:''}
     ${O.err?`<p class="toast" aria-live="polite">${esc(O.err)}</p>`:''}${body}</div>`;
 }
 function oresultHTML(){
@@ -1638,7 +1641,8 @@ function builderHTML(){
     .sort((a,b)=>CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
     return `<div class="cslot">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
-  return navRow(['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
+  const toOnline=Q.ret==='online';
+  return navRow(toOnline?['online',T('modeOnline')]:['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
     <div class="namebar"><input id="deckname" type="text" maxlength="28" autocomplete="off" aria-label="${T('deckName')}" placeholder="${T('deckName')}" value="${esc(Q.name)}">
       <button class="btn ${Q.dirty?'':'ghost'}" data-go="savedeck">${Q.dirty?T('saveDeck'):'✓ '+T('savedState')}</button>
       ${Q.editId?`<button class="btn ghost" data-go="saveasnew">${T('saveAsNew')}</button>`:''}</div>
@@ -1656,7 +1660,7 @@ function builderHTML(){
       </div>
     </div>
     <div class="bfoot"><span class="toast" aria-live="polite">${Q.toast||(Q.dirty&&Q.editId?T('unsaved'):need?T('deckNeed',need):T('deckReady'))}</span>
-      <button class="btn" data-go="todiff" ${need?'disabled':''}>${T('nextDiff')}</button></div>`;
+      ${toOnline?`<button class="btn" data-go="ouse" ${need?'disabled':''}>${T('useDeck')}</button>`:`<button class="btn" data-go="todiff" ${need?'disabled':''}>${T('nextDiff')}</button>`}</div>`;
 }
 function diffHTML(){
   return navRow(['editdeck',T('editDeck')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('diffTitle')}</h2><p>${T('diffSub')}</p>
@@ -1743,7 +1747,7 @@ function render(){
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
   if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
-  if(view==='qclass'){app.innerHTML=header()+navRow(['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('pickClassNew')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
+  if(view==='qclass'){app.innerHTML=header()+navRow(Q.ret==='online'?['online',T('modeOnline')]:['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('pickClassNew')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
   if(view==='build'){app.innerHTML=header()+builderHTML();FX=[];return}
   if(view==='diff'){app.innerHTML=header()+diffHTML();FX=[];return}
   if(view==='qresult'){app.innerHTML=header()+qresultHTML();FX=[];return}
@@ -1835,6 +1839,9 @@ document.addEventListener('click',ev=>{
   else if(g==='quick'||g==='qclassback')goQuick();
   else if(g==='menu'){netClose(true);newRun();scrollTo(0,0)}
   else if(g==='online')goOnline();
+  else if(g==='onew'){Q.ret='online';goNewDeck()}
+  else if(g==='oedit'){const d=curOnlineDeck();if(d){Q.ret='online';openBuilder(null,d.sid)}}
+  else if(g==='ouse'){if(Q.deck.length===DECK_SIZE){if(Q.dirty||!Q.editId)saveCurrent(false);O.sel='s:'+Q.editId;Q.ret=null;goOnline()}}
   else if(g==='ohost')netStart(true);
   else if(g==='ojoin')joinTyped();
   else if(g==='ocancel'){netClose(true);O.toast='';render()}
