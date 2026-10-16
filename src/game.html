@@ -352,6 +352,13 @@ svg{-webkit-user-drag:none}
 .lside .hand .card:hover,.lside .hand .card.pend{z-index:5}
 .lside .hand .card.hsel{transform:translateY(-10px);z-index:6;box-shadow:0 0 0 .22em var(--gold),0 0 .9em rgba(243,201,122,.6)}
 .lflag{position:absolute;top:6px;right:10px;z-index:3}
+/* landscape board: minions are just their picture plus Attack/Health (name and keywords live in the long-press view) */
+#app.duelland .min{padding:0}
+#app.duelland .min .mn,#app.duelland .min .kw{display:none}
+#app.duelland .min .mart{position:absolute;inset:2px;width:auto;height:auto;border-radius:11px 11px 8px 8px}
+#app.duelland .min.guard .mart{border-radius:3px}
+#app.duelland .min .mart img{object-position:50% 14%}
+#app.duelland .min .mart svg{position:absolute;left:-14%;width:128%;height:auto;top:50%;transform:translateY(-58%)}
 /* taller screens (tablets, desktop): the same layout, scaled up */
 @media (orientation:landscape) and (min-width:560px) and (min-height:520px){
   #app.duelland{zoom:1.35;height:calc(100dvh / 1.35)}
