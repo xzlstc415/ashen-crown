@@ -347,10 +347,11 @@ svg{-webkit-user-drag:none}
 .power.mini .pc{top:-7px;width:16px;height:16px;font-size:10px}
 .power.mini .pn{display:none}
 .lhist{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;overflow:hidden}
+.lhist .hchip.off{display:none}
 .lhist .hchip{width:28px;height:28px;flex:none}
-.endb{flex:none;width:54px;height:54px;border-radius:50%;border:2px solid #f3c97a;color:#fff;display:grid;place-items:center;padding:0;
+.endb{flex:none;width:42px;height:42px;border-radius:50%;border:2px solid #f3c97a;color:#fff;display:grid;place-items:center;padding:0;
   background:radial-gradient(circle at 40% 35%,#f0a060,#a8401a 70%);box-shadow:0 3px 0 #0008}
-.endb svg{width:26px;height:26px}
+.endb svg{width:20px;height:20px}
 .endb[disabled]{filter:grayscale(.85) brightness(.55);cursor:default}
 .endb.glow{animation:glowE 1.4s ease-in-out infinite}
 @keyframes glowE{50%{box-shadow:0 0 0 4px rgba(243,201,122,.35),0 0 18px rgba(243,160,96,.8)}}
@@ -1971,8 +1972,8 @@ function railHero(s){
 function duelLandHTML(){
   if(S.hsel!=null&&!(S.hsel<S.p.hand.length))S.hsel=null;
   const myTurn=S.turn==='p'&&!S.busy&&!S.over;
-  const chips=S.hist.map((h,i)=>{const fresh=h.side==='e'&&h.round===S.round&&S.turn==='p'?' fresh':'';
-    return `<button class="hchip ${h.side==='e'?'foe':'me'}${fresh}" data-hist="${i}" aria-label="${T('played',heroName(S[h.side]))} ${cn(h.key)}${h.t?'. '+T('target',nm(h.t)):''}">${art(h.key)}</button>`}).join('');
+  const chips=S.hist.map((h,i)=>i<S.hist.length-4?'':(()=>{const fresh=h.side==='e'&&h.round===S.round&&S.turn==='p'?' fresh':'';
+    return `<button class="hchip ${h.side==='e'?'foe':'me'}${fresh}" data-hist="${i}" aria-label="${T('played',heroName(S[h.side]))} ${cn(h.key)}${h.t?'. '+T('target',nm(h.t)):''}">${art(h.key)}</button>`})()).join('');
   const endIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12a7 7 0 1 1-2.05-4.95"/><path d="M19 4v5h-5"/></svg>';
   const rail=`<div class="lrail">${railHero(S.e)}<div class="lhist">${chips}</div>${railHero(S.p)}
     <button class="endb ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'} title="${T('endTurn')}" aria-label="${T('endTurn')}">${endIcon}</button></div>`;
@@ -1996,6 +1997,11 @@ function fitHand(){
   const cs=h.querySelectorAll('.card'),n=cs.length;let ov=0;
   if(LAND.matches&&n>1){const w=cs[0].offsetWidth,avail=h.clientWidth-16;ov=Math.min(0,Math.floor((avail-n*w)/(n-1))-7)}
   h.style.setProperty('--ov',ov+'px');
+  // Recent plays (landscape rail): show the newest that fit completely, never a cut-off one.
+  const box=$('.lhist');if(!box)return;
+  const cs2=[...box.querySelectorAll('.hchip')];cs2.forEach(c=>c.classList.remove('off'));
+  const fit=Math.max(0,Math.floor((box.clientHeight+4)/32));
+  cs2.slice(0,Math.max(0,cs2.length-fit)).forEach(c=>c.classList.add('off'));
 }
 addEventListener('resize',()=>{if(view==='duel')fitHand()});
 function render(){
@@ -2167,6 +2173,7 @@ newRun();
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
   if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
     const mins=CBY[dc].deck.filter(k=>CARDS[k].t==='m');for(let i=0;i<Math.min(5,+q.get('board')||0);i++){summon('p',mins[i%mins.length]);summon('e',mins[(i+3)%mins.length])}
+    for(let i=0;i<Math.min(8,+q.get('hist')||0);i++)pushHist(i%2?'e':'p',mins[i%mins.length],null);
     if(q.get('sel')!=null)S.hsel=+q.get('sel');render()}}catch(e){}
 // An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
 try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
