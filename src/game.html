@@ -307,36 +307,57 @@ svg{-webkit-user-drag:none}
   .board{min-height:90px;padding:2px 0}.hist{min-height:26px}.hchip{width:26px;height:26px}.hand{padding-top:10px}.mid{min-height:22px}
 }
 .rotate{display:none}
-/* ---------- landscape duel: heroes and End turn on the left, boards in the middle, the hand along the bottom ---------- */
-@media (orientation:landscape) and (min-width:560px){
-  #app.duelview{max-width:1180px;min-height:100dvh;display:grid;grid-template-columns:minmax(196px,22%) 1fr;
-    grid-template-rows:auto auto auto auto auto;grid-template-areas:"top top" "heroE boardE" "hist mid" "heroP boardP" "foot hand";
-    column-gap:12px;row-gap:4px;align-content:space-between;padding-block:4px}
-  #app.duelview>.top{grid-area:top}
-  #app.duelview>.top .brand{font-size:15px}
-  #app.duelview>.hero.foe{grid-area:heroE}
-  #app.duelview>.hero:not(.foe){grid-area:heroP}
-  #app.duelview>[data-board="e"]{grid-area:boardE}
-  #app.duelview>[data-board="p"]{grid-area:boardP}
-  #app.duelview>.hist{grid-area:hist;justify-content:flex-start;min-height:0}
-  #app.duelview>.mid{grid-area:mid;min-height:22px;font-size:12.5px}
-  #app.duelview>.hand{grid-area:hand;margin:0;padding:10px 6px 4px;justify-content:flex-start;align-self:end}
-  #app.duelview>.foot{grid-area:foot;flex-direction:column;align-items:stretch;gap:6px;align-self:end;padding-bottom:6px}
-  #app.duelview>.foot .btn{width:100%}
-  #app.duelview .hero{padding:5px 8px;gap:7px;align-self:center}
-  #app.duelview .face{width:42px;height:42px}
-  #app.duelview .power{width:46px;height:46px;font-size:8.5px}
-  #app.duelview .hname{font-size:14px}
-  #app.duelview .board{min-height:86px;padding:0}
-  #app.duelview .hand .card{font-size:clamp(6.4px,2.35vh,13px)}
-  #app.duelview .hand{gap:7px}
-  #app.duelview .hand .card+.card{margin-left:var(--ov,0px)}
-  #app.duelview .hand .card:hover,#app.duelview .hand .card.pend{z-index:5}
+/* ---------- landscape duel: slim status rail | board | preview + hand ---------- */
+#app.duelland{max-width:none;height:100vh;height:100dvh;min-height:0;display:grid;grid-template-columns:72px minmax(340px,1fr) minmax(240px,1.15fr);
+  gap:10px;overflow:hidden;padding:6px max(10px,env(safe-area-inset-right,0px)) 6px max(10px,env(safe-area-inset-left,0px))}
+.lrail{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:0}
+.lhero{display:flex;flex-direction:column;align-items:center;gap:5px}
+.lhero.me{flex-direction:column-reverse}
+.lhero .face{width:46px;height:46px}
+.lhero .hpb{right:-9px;bottom:-5px;min-width:22px;height:22px;font-size:12px}
+.lhero .arb{left:-9px;bottom:-5px;min-width:20px;height:20px;font-size:11px}
+.lrow{display:flex;align-items:center;gap:5px}
+.lmana{position:relative;width:30px;height:34px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%);
+  background:linear-gradient(160deg,#7cb8ee,#2f6fa8);color:#fff;font:800 13px var(--body);line-height:1;font-variant-numeric:tabular-nums}
+.lmana small{position:absolute;bottom:4px;font-size:8px;font-weight:700;opacity:.85}
+.lmana.none{background:linear-gradient(160deg,#3d3150,#2a2234);color:#8c7fa0}
+.lsm{display:flex;gap:2px;justify-content:center;height:6px}
+.lsm i{width:6px;height:6px;transform:rotate(45deg);background:#a77be8;border:1px solid #d2b8ff}
+.power.mini{width:32px;height:32px;font-size:0;border-width:2px}
+.power.mini::before{content:"✦";font-size:15px;color:var(--gold)}
+.power.mini .pc{top:-7px;width:16px;height:16px;font-size:10px}
+.power.mini .pn{display:none}
+.lhist{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;overflow:hidden}
+.lhist .hchip{width:28px;height:28px;flex:none}
+.endb{flex:none;width:54px;height:54px;border-radius:50%;border:2px solid #f3c97a;color:#fff;display:grid;place-items:center;padding:0;
+  background:radial-gradient(circle at 40% 35%,#f0a060,#a8401a 70%);box-shadow:0 3px 0 #0008}
+.endb svg{width:26px;height:26px}
+.endb[disabled]{filter:grayscale(.85) brightness(.55);cursor:default}
+.endb.glow{animation:glowE 1.4s ease-in-out infinite}
+@keyframes glowE{50%{box-shadow:0 0 0 4px rgba(243,201,122,.35),0 0 18px rgba(243,160,96,.8)}}
+.lboard{display:flex;flex-direction:column;justify-content:space-evenly;min-width:0;min-height:0}
+.lboard .board{min-height:88px;padding:0}
+.lboard .mid{min-height:20px;font-size:12.5px}
+.lside{display:flex;flex-direction:column;min-width:0;min-height:0;gap:4px}
+.lprev{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:12px;color:var(--muted)}
+.lprev .card{font-size:clamp(7px,2.4vh,15px)}
+.lprev .pbtns{display:flex;gap:8px;align-items:center}
+.lprev .btn{padding:6px 14px;font-size:13px}
+.lprev .who{display:grid;gap:2px;line-height:1.3}
+.lprev .who b{color:var(--parch);font-family:var(--display);font-weight:400}
+.lside .hand{flex:none;margin:0;padding:12px 4px 2px;overflow:visible;justify-content:center;gap:7px}
+.lside .hand .card{font-size:clamp(6px,2.25vh,12.5px)}
+.lside .hand .card+.card{margin-left:var(--ov,0px)}
+.lside .hand .card:hover,.lside .hand .card.pend{z-index:5}
+.lside .hand .card.hsel{transform:translateY(-10px);z-index:6;box-shadow:0 0 0 .22em var(--gold),0 0 .9em rgba(243,201,122,.6)}
+.lflag{position:absolute;top:6px;right:10px;z-index:3}
+/* taller screens (tablets, desktop): the same layout, scaled up */
+@media (orientation:landscape) and (min-width:560px) and (min-height:520px){
+  #app.duelland{zoom:1.35;height:calc(100dvh / 1.35)}
+  #app.duelland .lside .hand .card{font-size:8.8px}#app.duelland .lprev .card{font-size:9.6px}
 }
-@media (orientation:landscape) and (min-width:560px) and (max-height:430px){
-  #app.duelview .min{width:54px;height:76px}#app.duelview .mart{height:27px}#app.duelview .board{min-height:78px}
-  #app.duelview>.top{display:none}
-  #app.duelview{grid-template-areas:"heroE boardE" "hist mid" "heroP boardP" "foot hand"}
+@media (orientation:landscape) and (min-width:560px) and (min-height:700px){
+  #app.duelland{zoom:1.75;height:calc(100dvh / 1.75)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.embers{display:none}}
 </style>
@@ -413,7 +434,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
-    fWard:'Ward',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fWard:'Ward',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
@@ -479,7 +500,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
-    fWard:'护盾',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fWard:'护盾',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
@@ -545,7 +566,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
-    fWard:'結界',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fWard:'結界',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
     fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
@@ -1879,6 +1900,7 @@ function handHTML(){
     const ok=S.turn==='p'&&!S.busy&&!S.over&&canPay('p',k)&&!S.pending;
     if(ok)ex+=' play';else if(!canPay('p',k))ex+=' off';
     if(S.pending&&S.pending.type==='spell'&&S.pending.idx===i)ex+=' pend';
+    if(S.hsel===i&&LAND.matches)ex+=' hsel';
     let st='';if(i>=newFrom){ex+=' drawn';st=`style="--d:${(i-newFrom)*110}ms"`}
     const aria=T('cardAria',cn(k),c.c,c.t==='m'?T('statsAria',c.a,c.h):'',ct(k));
     return cardFace(k,'sm','button',`data-hand="${i}" ${st} aria-label="${aria}"`,ex);
@@ -1898,8 +1920,52 @@ function galleryHTML(){
     <p class="gsub">${T('galSub',keys.length)}</p>
     ${sec(T('minions'),keys.filter(k=>CARDS[k].t==='m'))}${sec(T('spells'),keys.filter(k=>CARDS[k].t==='s'))}`;
 }
-// Landscape: overlap the hand just enough that every card fits in one row.
 const LAND=matchMedia('(orientation:landscape) and (min-width:560px)');
+function afterDuelRender(){
+  [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
+  for(const f of FX){const el=elOf(f.id);if(!el)continue;
+    if(f.hit&&!RM){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
+    const s=document.createElement('span');s.className='float';s.textContent=f.txt;s.style.color=f.col;el.appendChild(s);setTimeout(()=>s.remove(),900)}
+  FX=[];
+}
+// Landscape duel: a slim status rail on the left, the board in the middle, the card preview and hand on the right.
+function railHero(s){
+  const id=idOf(s),foe=s.side==='e',name=heroName(s);
+  const init=foe&&S.mode==='camp'?OPP[R.stage].i[li()]:T('heroInit');
+  const portrait=!foe?CBY[R.cls]:S.mode!=='camp'?CBY[S.ecls]:null;
+  const face=`<button class="face${tclass(id)}" data-t="${id}" title="${name}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
+    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
+  const mana=`<div><div class="lmana${s.mana?'':' none'}" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${s.mana}<small>/${s.maxMana}</small></div>
+    <div class="lsm">${'<i></i>'.repeat(s.sm||0)}</div></div>`;
+  let power;
+  if(!foe){const p=curPower(),ok=!powerBlocked();
+    power=`<button class="power mini" data-go="power" ${ok?'':'disabled'} title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></button>`}
+  else{const p=s.power;power=`<div class="power mini foe" data-epow title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></div>`}
+  return `<div class="lhero ${foe?'foe':'me'}">${face}<div class="lrow">${mana}${power}</div></div>`;
+}
+function duelLandHTML(){
+  if(S.hsel!=null&&!(S.hsel<S.p.hand.length))S.hsel=null;
+  const myTurn=S.turn==='p'&&!S.busy&&!S.over;
+  const chips=S.hist.map((h,i)=>{const fresh=h.side==='e'&&h.round===S.round&&S.turn==='p'?' fresh':'';
+    return `<button class="hchip ${h.side==='e'?'foe':'me'}${fresh}" data-hist="${i}" aria-label="${T('played',heroName(S[h.side]))} ${cn(h.key)}${h.t?'. '+T('target',nm(h.t)):''}">${art(h.key)}</button>`}).join('');
+  const endIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12a7 7 0 1 1-2.05-4.95"/><path d="M19 4v5h-5"/></svg>';
+  const rail=`<div class="lrail">${railHero(S.e)}<div class="lhist">${chips}</div>${railHero(S.p)}
+    <button class="endb ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'} title="${T('endTurn')}" aria-label="${T('endTurn')}">${endIcon}</button></div>`;
+  const mid=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
+  const board=`<div class="lboard"><div class="board ${S.e.board.length?'':'empty'}" data-board="e" data-empty="${T('noEnemy')}">${S.e.board.map(minHTML).join('')}</div>
+    <div class="mid" aria-live="polite">${mid}</div>
+    <div class="board ${S.p.board.length?'':'empty'}" data-board="p" data-empty="${T('playMinions')}">${S.p.board.map(minHTML).join('')}</div></div>`;
+  const pk=S.pending&&S.pending.type==='spell'?S.p.hand[S.pending.idx]:S.hsel!=null?S.p.hand[S.hsel]:null;
+  let prev;
+  if(pk)prev=cardFace(pk,'md','div')+(S.pending?'':`<span>${S.turn==='p'&&canPay('p',pk)?T('tapPlay'):''}</span>`);
+  else prev=`<div class="who"><span><b>${heroName(S.e)}</b> · ${T('handDeck',S.e.hand.length,S.e.deck.length)}</span>
+    <span><b>${heroName(S.p)}</b> · ${T('handDeck',S.p.hand.length,S.p.deck.length)}</span>
+    <span>${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span><span>${T('tapPreview')}</span></div>`;
+  const flag=S.mode==='online'&&!S.over?`<button class="btn ghost concede lflag ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑'}</button>`:'';
+  return rail+board+`<div class="lside">${flag}<div class="lprev">${prev}</div><div class="hand">${handHTML()}</div></div>`;
+}
+LAND.addEventListener('change',()=>{if(view==='duel'){S.hsel=null;render()}});
+// Landscape: overlap the hand just enough that every card fits in one row.
 function fitHand(){
   const h=$('.hand');if(!h)return;
   const cs=h.querySelectorAll('.card'),n=cs.length;let ov=0;
@@ -1911,7 +1977,7 @@ function render(){
   document.documentElement.lang=L==='zh'?'zh-CN':L==='ja'?'ja':'en';
   document.title='Ruinaccord';
   const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
-  const app=$('#app');app.classList.toggle('duelview',view==='duel');
+  const app=$('#app');app.classList.toggle('duelland',view==='duel'&&LAND.matches);
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
   if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
@@ -1931,6 +1997,7 @@ function render(){
       <div class="btns"><button class="btn ghost" data-go="gallery">${T('viewCards')}</button></div></div>`;
     return;
   }
+  if(view==='duel'&&LAND.matches){app.innerHTML=duelLandHTML();S.drew=0;fitHand();afterDuelRender();return}
   if(view==='duel'){
     const pend=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
     const myTurn=S.turn==='p'&&!S.busy&&!S.over;
@@ -1943,12 +2010,7 @@ function render(){
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
         ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
         <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
-    S.drew=0;fitHand();
-    [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
-    for(const f of FX){const el=elOf(f.id);if(!el)continue;
-      if(f.hit&&!RM){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
-      const s=document.createElement('span');s.className='float';s.textContent=f.txt;s.style.color=f.col;el.appendChild(s);setTimeout(()=>s.remove(),900)}
-    FX=[];
+    S.drew=0;afterDuelRender();
     return;
   }
   FX=[];
@@ -1976,7 +2038,9 @@ document.addEventListener('click',ev=>{
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.go==='peekclose')return closePeek();
   if(b.dataset.t)return clickTarget(b.dataset.t);
-  if(b.dataset.hand!==undefined)return playHand(+b.dataset.hand);
+  if(b.dataset.hand!==undefined){const i=+b.dataset.hand;
+    if(LAND.matches&&S&&S.hsel!==i&&!S.pending){S.hsel=i;return render()}
+    if(S)S.hsel=null;return playHand(i)}
   if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return startDuel()}
   if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
   if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
@@ -2074,9 +2138,11 @@ document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagat
 document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
 initEmbers();
 newRun();
-// Test link: ?duel=<class>&hand=<n> starts an Adventure duel at once with n extra cards in hand (layout checks).
+// Test link: ?duel=<class>&hand=<n>&board=<n> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
-  if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n){draw('p',n);render()}}}catch(e){}
+  if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
+    const mins=CBY[dc].deck.filter(k=>CARDS[k].t==='m');for(let i=0;i<Math.min(5,+q.get('board')||0);i++){summon('p',mins[i%mins.length]);summon('e',mins[(i+3)%mins.length])}
+    if(q.get('sel')!=null)S.hsel=+q.get('sel');render()}}catch(e){}
 // An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
 try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
   if(rc.length===6){O.code=rc;const u=new URL(location.href);u.searchParams.delete('room');history.replaceState(null,'',u.pathname+u.search+u.hash);goOnline()}}catch(e){}
