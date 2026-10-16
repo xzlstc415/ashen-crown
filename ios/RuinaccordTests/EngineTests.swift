@@ -148,7 +148,7 @@ final class EngineTests: XCTestCase {
         // Freeze: the frozen minion skips its next turn, then thaws.
         let f = s.summon(.e, "lurker")!
         s.castSpell(.p, "frostbolt", f.id)
-        XCTAssertEqual(s.minion(f.id)?.hp, 2); XCTAssertTrue(s.minion(f.id)!.frozen)
+        XCTAssertEqual(s.minion(f.id)?.hp, 1); XCTAssertTrue(s.minion(f.id)!.frozen)   // Frostbolt: 4 damage
         s.startTurn(.e); XCTAssertFalse(s.canAttack(s.minion(f.id)!))
         s.startTurn(.p); XCTAssertFalse(s.minion(f.id)!.frozen)
         s.turn = .e; s.startTurn(.e); XCTAssertTrue(s.canAttack(s.minion(f.id)!))

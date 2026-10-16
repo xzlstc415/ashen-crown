@@ -1776,7 +1776,7 @@
     "armor": 0,
     "draw": 2,
     "mana": 0,
-    "selfDmg": 3,
+    "selfDmg": 2,
     "guard": false,
     "ward": false,
     "buff": null,
@@ -1958,7 +1958,7 @@
     "aoe": 0,
     "face": 0,
     "healT": 0,
-    "heal": 6,
+    "heal": 4,
     "armor": 0,
     "draw": 0,
     "mana": 0,
@@ -2327,7 +2327,7 @@
    "onSpell": null,
    "bc": null,
    "fx": {
-    "dmg": 3,
+    "dmg": 4,
     "aoe": 0,
     "face": 0,
     "healT": 0,
@@ -2554,7 +2554,7 @@
   },
   {
    "id": "inferno",
-   "cost": 6,
+   "cost": 5,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -2952,9 +2952,9 @@
    "token": false,
    "cls": "mage",
    "text": [
-    "Summon two 0/2 Mirror Images with Guard.",
-    "召唤两个0/2并具有守护的镜像。",
-    "ガードを持つ0/2のミラーイメージを2体召喚する。"
+    "Summon two 1/3 Mirror Images with Guard.",
+    "召唤两个1/3并具有守护的镜像。",
+    "ガードを持つ1/3のミラーイメージを2体召喚する。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -3020,15 +3020,15 @@
    "token": false,
    "cls": "mage",
    "text": [
-    "Deal 3 damage and Freeze the target.",
-    "造成3点伤害，并冻结目标。",
-    "3ダメージを与え、対象を凍結させる。"
+    "Deal 4 damage and Freeze the target.",
+    "造成4点伤害，并冻结目标。",
+    "4ダメージを与え、対象を凍結させる。"
    ],
    "sp": 0,
    "onSpell": null,
    "bc": null,
    "fx": {
-    "dmg": 3,
+    "dmg": 4,
     "aoe": 0,
     "face": 0,
     "healT": 0,
@@ -3655,7 +3655,7 @@
   },
   {
    "id": "pwshield",
-   "cost": 1,
+   "cost": 2,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -3910,7 +3910,7 @@
   },
   {
    "id": "swdeath",
-   "cost": 3,
+   "cost": 4,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -4053,15 +4053,15 @@
    "token": false,
    "cls": "warlock",
    "text": [
-    "Deal 1 damage to a minion. If that kills it, draw a card.",
-    "对一个随从造成1点伤害。如果它因此死亡，抽一张牌。",
-    "ミニオン1体に1ダメージを与える。それで倒した場合、カードを1枚引く。"
+    "Deal 2 damage to a minion. If that kills it, draw a card.",
+    "对一个随从造成2点伤害。如果它因此死亡，抽一张牌。",
+    "ミニオン1体に2ダメージを与える。それで倒した場合、カードを1枚引く。"
    ],
    "sp": 0,
    "onSpell": null,
    "bc": null,
    "fx": {
-    "dmg": 1,
+    "dmg": 2,
     "aoe": 0,
     "face": 0,
     "healT": 0,
@@ -4682,8 +4682,8 @@
    "id": "mirrorimg",
    "cost": 0,
    "type": "m",
-   "atk": 0,
-   "hp": 2,
+   "atk": 1,
+   "hp": 3,
    "rarity": "t",
    "race": "elemental",
    "guard": true,
