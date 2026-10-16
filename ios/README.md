@@ -60,7 +60,7 @@
 
 - 改卡牌 / 平衡：改 `src/game.html`，运行 `python3 src/build.py`（网站）和 `node ios/tools/gen_data.mjs`（app 数据与插画）。规则版本号由卡牌数据自动算出，版本不同的玩家不会被匹配到一起。
 - 改界面或逻辑：直接改 Swift 文件。新增 Swift 文件不用做别的，xcodegen 按目录收集；如果改了 `project.yml`，运行 `xcodegen generate`。
-- 发版前把 `project.yml` 里的 `CURRENT_PROJECT_VERSION`（Build）加 1，再 `xcodegen generate`。
+- 发版：先提交并推送改动，然后在仓库根目录运行 `scripts/testflight.sh`。它会把版本号加一位（例如 2.0.1 变成 2.0.2，也可以写 `scripts/testflight.sh 2.1.0` 指定），打包、上传到 TestFlight，再提交 "Release x.y.z"、打标签并推送。Build 号自动用当前时间。签名用的是本机的 Apple Distribution 证书和 "Ruinaccord App Store" 描述文件（2027-10-07 到期），上传用 `~/.appstoreconnect/private_keys` 里的团队 API 密钥。
 - 跑测试：`xcodebuild test -project ios/Ruinaccord.xcodeproj -scheme Ruinaccord -destination 'platform=iOS Simulator,name=iPhone 17'`。
 
 ## 在线对战是怎么工作的
