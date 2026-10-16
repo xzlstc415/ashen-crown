@@ -106,34 +106,34 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .float{position:absolute;left:50%;top:-18px;transform:translateX(-50%);font-weight:800;font-size:20px;pointer-events:none;text-shadow:0 1px 3px #000;animation:up .9s ease-out forwards;white-space:nowrap;z-index:5}
 @keyframes up{0%{transform:translateX(-50%) scale(1.5)}20%{transform:translateX(-50%) scale(1)}to{opacity:0;top:-48px}}
 
-/* ---------- card face (sized in em; .sm hand, .md reward/reveal, .big gallery) ---------- */
-.card{position:relative;flex:none;width:10em;height:15.6em;padding:.45em;border:none;border-radius:.9em;font-size:9.4px;
-  background:linear-gradient(160deg,#9a7848,#4a3520);color:var(--parch-ink);display:flex;flex-direction:column;align-items:stretch;gap:.25em;
-  box-shadow:0 .25em 0 #0009, inset 0 0 0 .12em #00000040;text-align:center;font-family:var(--body);transition:transform .15s}
-.card.s{background:linear-gradient(160deg,#7a66c0,#33285c)}
-.card.leg{background:linear-gradient(160deg,#f2cc6e,#8a5a1a)}
+/* ---------- card face (sized in em; .sm hand, .md reward/reveal, .big gallery) ----------
+   Full-art layout: the painting is the whole card, rules sit in a translucent box at the bottom. */
+.card{position:relative;flex:none;width:10em;height:15.6em;padding:0;border:.28em solid #8a6a3a;border-radius:.9em;font-size:9.4px;
+  background:#120d16;color:#f3e9d4;display:block;box-shadow:0 .25em 0 #0009;text-align:center;font-family:var(--body);transition:transform .15s}
+.card.s{border-color:#6c58b8}
+.card.leg{border-color:#e8b24a}
 .card.md{font-size:10.8px}.card.big{font-size:14px}
-.card .art{display:block;height:6.1em;flex:none;overflow:hidden;border:.15em solid #00000070;
-  border-radius:48% 48% .5em .5em / 38% 38% .5em .5em;background:radial-gradient(circle at 50% 40%,#5a4636,#17110d)}
-.card.s .art{border-radius:.5em;background:radial-gradient(circle at 50% 45%,#3d2f6e,#100a20)}
-.card.leg .art{background:radial-gradient(circle at 50% 40%,#6a2a1a,#1a0806)}
-.card .art svg{width:100%;height:100%;display:block}
-.card .cost{position:absolute;top:-.45em;left:-.4em;width:2em;height:2em;font-size:1.3em;font-weight:800;color:#fff;display:grid;place-items:center;
+.card .art{position:absolute;inset:0;border-radius:.62em;overflow:hidden;background:radial-gradient(circle at 50% 28%,#5a4636,#120d16 72%)}
+.card.s .art{background:radial-gradient(circle at 50% 28%,#3d2f6e,#100a20 72%)}
+.card.leg .art{background:radial-gradient(circle at 50% 28%,#6a2a1a,#1a0806 72%)}
+.card .art svg{position:absolute;left:0;top:.45em;width:100%;height:auto;aspect-ratio:100/64;display:block}
+.card .art img{width:100%;height:100%;object-fit:cover;display:block}
+.card .cost{position:absolute;top:-.55em;left:-.5em;width:2em;height:2em;font-size:1.3em;font-weight:800;color:#fff;display:grid;place-items:center;z-index:2;
   background:radial-gradient(circle at 35% 30%,#7cb8ee,#2f6fa8);border:.1em solid #bfe0fa;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
-.card .plate{position:relative;margin:-1em .15em 0;padding:.22em .25em;border-radius:.3em;background:linear-gradient(#4a3a2a,#22190f);
-  color:var(--parch);font-family:var(--display);font-size:1.12em;line-height:1.1;box-shadow:0 .1em .25em #0009;z-index:1}
-.card.s .plate{background:linear-gradient(#3a2e5e,#1a1430)}
+.card .tbox{position:absolute;left:.35em;right:.35em;bottom:.35em;min-height:40%;display:flex;flex-direction:column;align-items:center;gap:.18em;
+  background:rgba(14,10,18,.66);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);border:.08em solid rgba(232,195,90,.35);
+  border-radius:.5em;padding:.45em .4em 1.25em;line-height:1.22;color:#f3e9d4}
+.card.s .tbox{padding-bottom:.55em}
+.card .plate{font-family:var(--display);font-size:1.12em;line-height:1.1;color:#fff4dc;text-shadow:0 .08em .2em #000}
 :is(:lang(zh),:lang(ja)) .card .plate{font-weight:600;font-size:1.04em;line-height:1.25}
-.card .gem{width:.75em;height:.75em;margin:-.15em auto 0;transform:rotate(45deg);border:.1em solid #0009;flex:none;z-index:1}
+.card .gem{position:absolute;top:-.42em;left:50%;margin-left:-.375em;width:.75em;height:.75em;transform:rotate(45deg);border:.1em solid #0009}
 .gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
-.card .tbox{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;
-  background:var(--parch);border-radius:.45em;padding:.3em .35em 1.1em;font-size:1em;line-height:1.22}
-.card.s .tbox{background:#e8e2f2;padding-bottom:.4em}
-.card .typ{font-size:.72em;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
-.card .tx b{font-weight:800}
-.card .stat{position:absolute;bottom:-.3em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
-.card .stat.a{left:-.3em;background:radial-gradient(circle at 35% 30%,#f3d888,#b88a2a);color:#2a1d08;border-radius:50%;border:.08em solid #2a1d08}
-.card .stat.h{right:-.3em;background:radial-gradient(circle at 35% 30%,#ec7a6c,#9a2a20);color:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;border:.08em solid #3a0a05}
+.card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.card .tx b{font-weight:800;color:#ffe2a0}
+.card .stat{position:absolute;bottom:-.45em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums;z-index:2}
+.card .stat.a{left:-.45em;background:radial-gradient(circle at 35% 30%,#f3d888,#b88a2a);color:#2a1d08;border-radius:50%;border:.08em solid #2a1d08}
+.card .stat.h{right:-.45em;background:radial-gradient(circle at 35% 30%,#ec7a6c,#9a2a20);color:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;border:.08em solid #3a0a05}
+.mart img,.hchip img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
 .card.leg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.35) 50%,transparent 65%);background-size:250% 100%;animation:shine 3.2s linear infinite}
 @keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
@@ -307,9 +307,36 @@ svg{-webkit-user-drag:none}
   .board{min-height:90px;padding:2px 0}.hist{min-height:26px}.hchip{width:26px;height:26px}.hand{padding-top:10px}.mid{min-height:22px}
 }
 .rotate{display:none}
-@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
-  .rotate{display:grid;position:fixed;inset:0;z-index:100;background:var(--bg);place-items:center;text-align:center;color:var(--parch);
-    font-family:var(--display);font-size:22px;padding:24px}
+/* ---------- landscape duel: heroes and End turn on the left, boards in the middle, the hand along the bottom ---------- */
+@media (orientation:landscape) and (min-width:560px){
+  #app.duelview{max-width:1180px;min-height:100dvh;display:grid;grid-template-columns:minmax(196px,22%) 1fr;
+    grid-template-rows:auto auto auto auto auto;grid-template-areas:"top top" "heroE boardE" "hist mid" "heroP boardP" "foot hand";
+    column-gap:12px;row-gap:4px;align-content:space-between;padding-block:4px}
+  #app.duelview>.top{grid-area:top}
+  #app.duelview>.top .brand{font-size:15px}
+  #app.duelview>.hero.foe{grid-area:heroE}
+  #app.duelview>.hero:not(.foe){grid-area:heroP}
+  #app.duelview>[data-board="e"]{grid-area:boardE}
+  #app.duelview>[data-board="p"]{grid-area:boardP}
+  #app.duelview>.hist{grid-area:hist;justify-content:flex-start;min-height:0}
+  #app.duelview>.mid{grid-area:mid;min-height:22px;font-size:12.5px}
+  #app.duelview>.hand{grid-area:hand;margin:0;padding:10px 6px 4px;justify-content:flex-start;align-self:end}
+  #app.duelview>.foot{grid-area:foot;flex-direction:column;align-items:stretch;gap:6px;align-self:end;padding-bottom:6px}
+  #app.duelview>.foot .btn{width:100%}
+  #app.duelview .hero{padding:5px 8px;gap:7px;align-self:center}
+  #app.duelview .face{width:42px;height:42px}
+  #app.duelview .power{width:46px;height:46px;font-size:8.5px}
+  #app.duelview .hname{font-size:14px}
+  #app.duelview .board{min-height:86px;padding:0}
+  #app.duelview .hand .card{font-size:clamp(6.4px,2.35vh,13px)}
+  #app.duelview .hand{gap:7px}
+  #app.duelview .hand .card+.card{margin-left:var(--ov,0px)}
+  #app.duelview .hand .card:hover,#app.duelview .hand .card.pend{z-index:5}
+}
+@media (orientation:landscape) and (min-width:560px) and (max-height:430px){
+  #app.duelview .min{width:54px;height:76px}#app.duelview .mart{height:27px}#app.duelview .board{min-height:78px}
+  #app.duelview>.top{display:none}
+  #app.duelview{grid-template-areas:"heroE boardE" "hist mid" "heroP boardP" "foot hand"}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.embers{display:none}}
 </style>
@@ -777,7 +804,9 @@ const CARDS={
 };
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
-const art=k=>`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
+// Cards with a painting (img/cards/<id>.jpg, listed by src/build.py) show it; the rest keep their vector art.
+const PAINTED=new Set(/*PAINTED*/[]);
+const art=k=>PAINTED.has(k)?`<img src="img/cards/${k}.jpg" alt="" loading="lazy" decoding="async">`:`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
 function fxText(fx,tgt){
   const F=I18N[L].fx,out=[];
   if(fx.selfDmg)out.push(F.self(fx.selfDmg));
@@ -1718,8 +1747,7 @@ function cardFace(k,size,tag='button',attrs='',extra=''){
   const typ=(m?`${T('minion')} · ${T('race')[c.race]}`:T('spell'))+(c.cls?` · ${CBY[c.cls].n[li()]}`:'');
   return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''} ${size} ${extra}" ${attrs}>
     <span class="art">${art(k)}</span><span class="cost">${c.c}</span>
-    <span class="plate">${cn(k)}</span><span class="gem ${c.r}"></span>
-    <span class="tbox"><span class="typ">${typ}</span><span class="tx">${kwBold(ct(k))}</span></span>
+    <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span><span class="typ">${typ}</span><span class="tx">${kwBold(ct(k))}</span></span>
     ${m?`<span class="stat a">${c.a}</span><span class="stat h">${c.h}</span>`:''}</${tag}>`;
 }
 function header(){
@@ -1870,11 +1898,20 @@ function galleryHTML(){
     <p class="gsub">${T('galSub',keys.length)}</p>
     ${sec(T('minions'),keys.filter(k=>CARDS[k].t==='m'))}${sec(T('spells'),keys.filter(k=>CARDS[k].t==='s'))}`;
 }
+// Landscape: overlap the hand just enough that every card fits in one row.
+const LAND=matchMedia('(orientation:landscape) and (min-width:560px)');
+function fitHand(){
+  const h=$('.hand');if(!h)return;
+  const cs=h.querySelectorAll('.card'),n=cs.length;let ov=0;
+  if(LAND.matches&&n>1){const w=cs[0].offsetWidth,avail=h.clientWidth-16;ov=Math.min(0,Math.floor((avail-n*w)/(n-1))-7)}
+  h.style.setProperty('--ov',ov+'px');
+}
+addEventListener('resize',()=>{if(view==='duel')fitHand()});
 function render(){
   document.documentElement.lang=L==='zh'?'zh-CN':L==='ja'?'ja':'en';
   document.title='Ruinaccord';
   const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
-  const app=$('#app');
+  const app=$('#app');app.classList.toggle('duelview',view==='duel');
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
   if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
@@ -1906,7 +1943,7 @@ function render(){
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
         ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
         <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
-    S.drew=0;
+    S.drew=0;fitHand();
     [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
     for(const f of FX){const el=elOf(f.id);if(!el)continue;
       if(f.hit&&!RM){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
@@ -2037,6 +2074,9 @@ document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagat
 document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
 initEmbers();
 newRun();
+// Test link: ?duel=<class>&hand=<n> starts an Adventure duel at once with n extra cards in hand (layout checks).
+try{const q=new URLSearchParams(location.search),dc=q.get('duel');
+  if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n){draw('p',n);render()}}}catch(e){}
 // An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
 try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
   if(rc.length===6){O.code=rc;const u=new URL(location.href);u.searchParams.delete('room');history.replaceState(null,'',u.pathname+u.search+u.hash);goOnline()}}catch(e){}

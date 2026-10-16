@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the site (index.html, sw.js in the repo root) from src/game.html.
-Usage: python3 src/build.py   -> writes index.html (+ bumps the service-worker cache)."""
+Usage: python3 src/build.py          -> writes index.html (+ bumps the service-worker cache)
+       python3 src/build.py --beta   -> writes beta/index.html only (test page at /beta/)"""
 import re, hashlib, pathlib
 here = pathlib.Path(__file__).parent
 src = (here / 'game.html').read_text()
@@ -37,6 +38,10 @@ body{{margin:0;font-size:15px}}
 </style>
 </head>
 <body>'''
+# Cards that have a painting in img/cards/ (made by art/build_art.py).
+import json
+painted = sorted(p.stem for p in (site / 'img' / 'cards').glob('*.jpg'))
+rest = rest.replace('/*PAINTED*/[]', json.dumps(painted))
 html = head + rest.rstrip() + '''
 <script>
 if('serviceWorker' in navigator && location.protocol==='https:'){
@@ -46,6 +51,17 @@ if('serviceWorker' in navigator && location.protocol==='https:'){
 </body>
 </html>
 '''
+import sys
+if '--beta' in sys.argv:
+    # Test build at /beta/: same game, files resolved from the site root, no service worker (so it never
+    # replaces the cached main page). Saved decks are shared with the main page (same origin).
+    beta = html.replace('<head>', '<head>\n<base href="../">', 1)
+    beta = beta[:beta.index("<script>\nif('serviceWorker'")] + '</body>\n</html>\n'
+    beta = beta.replace('<title>Ruinaccord</title>', '<title>Ruinaccord (beta)</title>')
+    (site / 'beta').mkdir(exist_ok=True)
+    (site / 'beta' / 'index.html').write_text(beta)
+    print('built beta/index.html', len(beta), 'bytes')
+    raise SystemExit
 (site / 'index.html').write_text(html)
 ver = hashlib.sha1(html.encode()).hexdigest()[:10]
 sw = (here / 'sw.template.js').read_text().replace('__VERSION__', ver)
