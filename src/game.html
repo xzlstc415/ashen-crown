@@ -128,7 +128,9 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 :is(:lang(zh),:lang(ja)) .card .plate{font-weight:600;font-size:1.04em;line-height:1.25}
 .card .gem{position:absolute;top:-.42em;left:50%;margin-left:-.375em;width:.75em;height:.75em;transform:rotate(45deg);border:.1em solid #0009}
 .gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
-.card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.card .typ{display:none;font-size:.68em;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+/* the frame colour already tells minion from spell; race and class stay visible in the gallery and the long-press view */
+.gitem .card .typ,.peekbox .card .typ{display:block}
 .card .tx{font-size:.86em;line-height:1.24}
 .card .tx b{font-weight:800;color:#ffe2a0}
 .card .stat{position:absolute;bottom:-.45em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums;z-index:2}
