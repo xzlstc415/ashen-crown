@@ -163,13 +163,22 @@ final class OnlineMatch {
         beatTask = Task { [weak self] in
             while !Task.isCancelled {
                 await self?._beat()
-                try? await Task.sleep(for: .seconds(15))
+                try? await Task.sleep(for: .seconds(10))
             }
         }
     }
 
     var isHost: Bool { role == .host }
-    func receive(_ d: MatchDoc) { doc = d; onUpdate?(d) }
+    /// When this phone last saw the opponent do something (a heartbeat or a move), by this phone's clock.
+    private var foeSeenAt = Date()
+    func receive(_ d: MatchDoc) {
+        let old = doc
+        if old == nil || d.beat[foeUid] != old?.beat[foeUid] || (d.actsBy == foeUid && d.seq != old?.seq) || d.mull?[foeUid] != old?.mull?[foeUid] {
+            foeSeenAt = Date()
+        }
+        doc = d
+        onUpdate?(d)
+    }
     func send(state: DuelState, acts: [NetAct], seq: Int, turnHost: Bool) async throws { try await _send(state, acts, seq, turnHost) }
     func resetGame(state: DuelState) async throws { try await _reset(state) }
     func askRematch() async throws { try await _again() }
@@ -178,6 +187,6 @@ final class OnlineMatch {
     func leave(announce: Bool = true) async { beatTask?.cancel(); await _leave(announce) }
     /// Records that the opponent timed out (they lose when they come back).
     func dropFoe() async { await _drop(foeUid) }
-    /// Seconds since the opponent's last heartbeat.
-    var foeIdle: TimeInterval { doc?.beat[foeUid].map { Date().timeIntervalSince1970 - $0 } ?? 0 }
+    /// Seconds since the opponent was last seen (heartbeats come every 10 s).
+    var foeIdle: TimeInterval { Date().timeIntervalSince(foeSeenAt) }
 }

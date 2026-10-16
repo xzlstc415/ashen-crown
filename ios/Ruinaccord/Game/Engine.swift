@@ -114,6 +114,29 @@ struct DuelState: Codable {
 
     static let boardMax = GameData.shared.boardMax
 
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        mode = try c.decode(GameMode.self, forKey: .mode)
+        pcls = try c.decode(String.self, forKey: .pcls)
+        ecls = try c.decodeIfPresent(String.self, forKey: .ecls)
+        diff = try c.decodeIfPresent(Difficulty.self, forKey: .diff)
+        stage = try c.decodeIfPresent(Int.self, forKey: .stage) ?? 0
+        turn = try c.decode(Side.self, forKey: .turn)
+        over = try c.decode(Bool.self, forKey: .over)
+        opened = try c.decode(Bool.self, forKey: .opened)
+        mulligan = try c.decodeIfPresent(Bool.self, forKey: .mulligan) ?? false
+        round = try c.decode(Int.self, forKey: .round)
+        nextUid = try c.decode(Int.self, forKey: .nextUid)
+        p = try c.decode(Hero.self, forKey: .p)
+        e = try c.decode(Hero.self, forKey: .e)
+        order = try c.decodeIfPresent([Side].self, forKey: .order) ?? [.p, .e]
+        result = try c.decodeIfPresent(GameResult.self, forKey: .result)
+    }
+
+    init(mode: GameMode, pcls: String, ecls: String? = nil, diff: Difficulty? = nil, stage: Int = 0, p: Hero, e: Hero) {
+        self.mode = mode; self.pcls = pcls; self.ecls = ecls; self.diff = diff; self.stage = stage; self.p = p; self.e = e
+    }
+
     static func makeHero(_ side: Side, hp: Int, deck: [String], power: Power) -> Hero {
         Hero(side: side, hp: hp, max: hp, deck: deck, power: power)
     }

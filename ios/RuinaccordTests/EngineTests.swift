@@ -262,4 +262,24 @@ final class EngineTests: XCTestCase {
         }
         print(line)
     }
+
+    /// The opponent counts as present when their heartbeat or move arrives, measured on this phone's clock.
+    @MainActor func testOpponentPresence() async throws {
+        let m = OnlineMatch(id: "m", role: .host, myUid: "me", foeUid: "foe",
+                            send: { _, _, _, _ in }, reset: { _ in }, again: {}, leave: { _ in }, drop: { _ in }, beat: {}, mull: { _ in })
+        func doc(beat: Double, actsBy: String? = nil, seq: Int = 0) -> MatchDoc {
+            MatchDoc(players: ["me", "foe"], h: "me", g: "foe", hc: "mage", gc: "priest", hDeck: [], gDeck: [], v: "x", game: 1, state: nil,
+                     seq: seq, acts: [], actsBy: actsBy, again: [:], left: nil, beat: ["me": 0, "foe": beat], createdAt: 0, updatedAt: 0)
+        }
+        m.receive(doc(beat: 100))
+        try await Task.sleep(for: .milliseconds(300))
+        XCTAssertGreaterThan(m.foeIdle, 0.25)
+        m.receive(doc(beat: 100))                 // nothing new from the opponent
+        XCTAssertGreaterThan(m.foeIdle, 0.25)
+        m.receive(doc(beat: 90))                  // a heartbeat (even with a clock behind ours) counts
+        XCTAssertLessThan(m.foeIdle, 0.1)
+        try await Task.sleep(for: .milliseconds(300))
+        m.receive(doc(beat: 90, actsBy: "foe", seq: 3))   // a move counts too
+        XCTAssertLessThan(m.foeIdle, 0.1)
+    }
 }

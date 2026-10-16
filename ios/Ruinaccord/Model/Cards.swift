@@ -128,7 +128,9 @@ final class GameData: Decodable {
         func mix(_ s: String) { for u in s.utf8 { h = h &* 31 &+ Int32(u) } }
         for c in cards { mix("\(c.id)|\(c.cls ?? "")|\(c.sp)|\(c.onSpell ?? [])|\(c.cost)|\(c.atk ?? -1)|\(c.hp ?? -1)|\(c.hasGuard)|\(c.ward)|\(c.surge)|\(c.gasp ?? "")|\(c.bc.map { "\($0)" } ?? "")|\(c.fx.map { "\($0)" } ?? "")") }
         for k in classes { mix("\(k.id)|\(k.power.cost)|\(k.power.tgt?.rawValue ?? "")|\(k.power.fx)") }
-        return "v3-\(String(UInt32(bitPattern: h), radix: 36))"
+        // The prefix is the online protocol: raise it whenever two app versions would play a match differently
+        // (v4: opening mulligan, presence by local clock).
+        return "v4-\(String(UInt32(bitPattern: h), radix: 36))"
     }()
 
     private enum CodingKeys: String, CodingKey { case cards, classes, opponents, boardMax, deckSize, fortify }

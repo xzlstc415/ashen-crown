@@ -324,7 +324,8 @@ final class FirebaseMatchService: MatchService {
         match.receive(doc)
         listener = ref.addSnapshotListener { snap, error in
             guard let snap else { Task { @MainActor in match.lostConnection = true }; return }
-            if snap.metadata.hasPendingWrites { return }   // only the server's view
+            // Every snapshot is used, including ones taken while this phone has its own write in flight: skipping
+            // those used to drop the opponent's move when it arrived during our heartbeat write.
             guard let d = try? snap.data(as: MatchDoc.self) else { return }
             Task { @MainActor in match.receive(d) }
         }

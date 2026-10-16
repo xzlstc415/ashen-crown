@@ -1090,7 +1090,7 @@ final class GameVM {
         guard let m = match, state != nil, S.mode == .online else { return }
         let idle = m.foeIdle
         if idle > 60 && !S.over { netLost(message: "oLeft", writeLeft: true); return }
-        o.slow = idle > 12 && screen == .duel && !S.over
+        o.slow = idle > 25 && screen == .duel && !S.over   // two missed heartbeats
     }
 
     /// Opponent gone. Mid-game that is a win; afterwards it only ends the rematch option.
