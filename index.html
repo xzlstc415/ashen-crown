@@ -124,34 +124,35 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .float{position:absolute;left:50%;top:-18px;transform:translateX(-50%);font-weight:800;font-size:20px;pointer-events:none;text-shadow:0 1px 3px #000;animation:up .9s ease-out forwards;white-space:nowrap;z-index:5}
 @keyframes up{0%{transform:translateX(-50%) scale(1.5)}20%{transform:translateX(-50%) scale(1)}to{opacity:0;top:-48px}}
 
-/* ---------- card face (sized in em; .sm hand, .md reward/reveal, .big gallery) ---------- */
-.card{position:relative;flex:none;width:10em;height:15.6em;padding:.45em;border:none;border-radius:.9em;font-size:9.4px;
-  background:linear-gradient(160deg,#9a7848,#4a3520);color:var(--parch-ink);display:flex;flex-direction:column;align-items:stretch;gap:.25em;
-  box-shadow:0 .25em 0 #0009, inset 0 0 0 .12em #00000040;text-align:center;font-family:var(--body);transition:transform .15s}
-.card.s{background:linear-gradient(160deg,#7a66c0,#33285c)}
-.card.leg{background:linear-gradient(160deg,#f2cc6e,#8a5a1a)}
+/* ---------- card face (sized in em; .sm hand, .md reward/reveal, .big gallery) ----------
+   Full-art layout: the painting is the whole card, rules sit in a translucent box at the bottom. */
+.card{position:relative;flex:none;width:10em;height:15.6em;padding:0;border:.28em solid #8a6a3a;border-radius:.9em;font-size:9.4px;
+  background:#120d16;color:#f3e9d4;display:block;box-shadow:0 .25em 0 #0009;text-align:center;font-family:var(--body);transition:transform .15s}
+.card.s{border-color:#6c58b8}
+.card.leg{border-color:#e8b24a}
 .card.md{font-size:10.8px}.card.big{font-size:14px}
-.card .art{display:block;height:6.1em;flex:none;overflow:hidden;border:.15em solid #00000070;
-  border-radius:48% 48% .5em .5em / 38% 38% .5em .5em;background:radial-gradient(circle at 50% 40%,#5a4636,#17110d)}
-.card.s .art{border-radius:.5em;background:radial-gradient(circle at 50% 45%,#3d2f6e,#100a20)}
-.card.leg .art{background:radial-gradient(circle at 50% 40%,#6a2a1a,#1a0806)}
-.card .art svg{width:100%;height:100%;display:block}
-.card .cost{position:absolute;top:-.45em;left:-.4em;width:2em;height:2em;font-size:1.3em;font-weight:800;color:#fff;display:grid;place-items:center;
+.card .art{position:absolute;inset:0;border-radius:.62em;overflow:hidden;background:radial-gradient(circle at 50% 28%,#5a4636,#120d16 72%)}
+.card.s .art{background:radial-gradient(circle at 50% 28%,#3d2f6e,#100a20 72%)}
+.card.leg .art{background:radial-gradient(circle at 50% 28%,#6a2a1a,#1a0806 72%)}
+.card .art svg{position:absolute;left:0;top:.45em;width:100%;height:auto;aspect-ratio:100/64;display:block}
+.card .art img{width:100%;height:100%;object-fit:cover;display:block}
+.card .cost{position:absolute;top:-.55em;left:-.5em;width:2em;height:2em;font-size:1.3em;font-weight:800;color:#fff;display:grid;place-items:center;z-index:2;
   background:radial-gradient(circle at 35% 30%,#7cb8ee,#2f6fa8);border:.1em solid #bfe0fa;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
-.card .plate{position:relative;margin:-1em .15em 0;padding:.22em .25em;border-radius:.3em;background:linear-gradient(#4a3a2a,#22190f);
-  color:var(--parch);font-family:var(--display);font-size:1.12em;line-height:1.1;box-shadow:0 .1em .25em #0009;z-index:1}
-.card.s .plate{background:linear-gradient(#3a2e5e,#1a1430)}
+.card .tbox{position:absolute;left:.35em;right:.35em;bottom:.35em;min-height:40%;display:flex;flex-direction:column;align-items:center;gap:.18em;
+  background:rgba(14,10,18,.66);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);border:.08em solid rgba(232,195,90,.35);
+  border-radius:.5em;padding:.85em .45em 1.25em;line-height:1.22;color:#f3e9d4}
+.card.s .tbox{padding-bottom:.55em}
+.card .plate{font-family:var(--display);font-size:1.12em;line-height:1.1;color:#fff4dc;text-shadow:0 .08em .2em #000}
 :is(:lang(zh),:lang(ja)) .card .plate{font-weight:600;font-size:1.04em;line-height:1.25}
-.card .gem{width:.75em;height:.75em;margin:-.15em auto 0;transform:rotate(45deg);border:.1em solid #0009;flex:none;z-index:1}
+.card .gem{position:absolute;top:-.42em;left:50%;margin-left:-.375em;width:.75em;height:.75em;transform:rotate(45deg);border:.1em solid #0009}
 .gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
-.card .tbox{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;
-  background:var(--parch);border-radius:.45em;padding:.3em .35em 1.1em;font-size:1em;line-height:1.22}
-.card.s .tbox{background:#e8e2f2;padding-bottom:.4em}
-.card .typ{font-size:.72em;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
-.card .tx b{font-weight:800}
-.card .stat{position:absolute;bottom:-.3em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
-.card .stat.a{left:-.3em;background:radial-gradient(circle at 35% 30%,#f3d888,#b88a2a);color:#2a1d08;border-radius:50%;border:.08em solid #2a1d08}
-.card .stat.h{right:-.3em;background:radial-gradient(circle at 35% 30%,#ec7a6c,#9a2a20);color:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;border:.08em solid #3a0a05}
+.card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.card .tx{font-size:.86em;line-height:1.24}
+.card .tx b{font-weight:800;color:#ffe2a0}
+.card .stat{position:absolute;bottom:-.45em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums;z-index:2}
+.card .stat.a{left:-.45em;background:radial-gradient(circle at 35% 30%,#f3d888,#b88a2a);color:#2a1d08;border-radius:50%;border:.08em solid #2a1d08}
+.card .stat.h{right:-.45em;background:radial-gradient(circle at 35% 30%,#ec7a6c,#9a2a20);color:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;border:.08em solid #3a0a05}
+.mart img,.hchip img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
 .card.leg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.35) 50%,transparent 65%);background-size:250% 100%;animation:shine 3.2s linear infinite}
 @keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
@@ -262,6 +263,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(94px,1fr));gap:12px 8px;justify-items:center;padding:6px 0 20px}
 .cslot{position:relative}
 .cslot .badge{position:absolute;top:-6px;right:-6px;z-index:2;min-width:20px;height:20px;border-radius:10px;background:var(--ready);color:#10200f;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 4px}
+.cslot.clsc .card{box-shadow:0 0 0 .22em var(--cc),0 0 .8em color-mix(in srgb,var(--cc) 55%,transparent),0 .25em 0 #0009}
 .cslot .card[disabled]{filter:grayscale(.7) brightness(.55);cursor:default}
 .bfoot{position:sticky;bottom:0;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(transparent,var(--bg) 30%);
   padding-top:18px;padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
@@ -325,9 +327,70 @@ svg{-webkit-user-drag:none}
   .board{min-height:90px;padding:2px 0}.hist{min-height:26px}.hchip{width:26px;height:26px}.hand{padding-top:10px}.mid{min-height:22px}
 }
 .rotate{display:none}
-@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){
-  .rotate{display:grid;position:fixed;inset:0;z-index:100;background:var(--bg);place-items:center;text-align:center;color:var(--parch);
-    font-family:var(--display);font-size:22px;padding:24px}
+/* ---------- landscape duel: slim status rail | board | preview + hand ---------- */
+#app.duelland{max-width:none;height:100vh;height:100dvh;min-height:0;display:grid;grid-template-columns:72px minmax(340px,1fr) minmax(240px,1.15fr);
+  gap:10px;overflow:hidden;padding:6px max(10px,env(safe-area-inset-right,0px)) 6px max(10px,env(safe-area-inset-left,0px))}
+.lrail{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:0}
+.lhero{display:flex;flex-direction:column;align-items:center;gap:5px}
+.lhero.me{flex-direction:column-reverse}
+.lhero .face{width:46px;height:46px}
+.lhero .hpb{right:-9px;bottom:-5px;min-width:22px;height:22px;font-size:12px}
+.lhero .arb{left:-9px;bottom:-5px;min-width:20px;height:20px;font-size:11px}
+.lrow{display:flex;align-items:center;gap:5px}
+.lmana{position:relative;width:30px;height:34px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%);
+  background:linear-gradient(160deg,#7cb8ee,#2f6fa8);color:#fff;font:800 13px var(--body);line-height:1;font-variant-numeric:tabular-nums}
+.lmana small{position:absolute;bottom:4px;font-size:8px;font-weight:700;opacity:.85}
+.lmana.none{background:linear-gradient(160deg,#3d3150,#2a2234);color:#8c7fa0}
+.lsm{display:flex;gap:2px;justify-content:center;height:6px}
+.lsm i{width:6px;height:6px;transform:rotate(45deg);background:#a77be8;border:1px solid #d2b8ff}
+.power.mini{width:32px;height:32px;font-size:0;border-width:2px}
+.power.mini::before{content:"✦";font-size:15px;color:var(--gold)}
+.power.mini .pc{top:-7px;width:16px;height:16px;font-size:10px}
+.power.mini .pn{display:none}
+.lhist{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;overflow:hidden}
+.lhist .hchip.off{display:none}
+.lhist .hchip{width:28px;height:28px;flex:none}
+.endb{flex:none;width:42px;height:42px;border-radius:50%;border:2px solid #f3c97a;color:#fff;display:grid;place-items:center;padding:0;
+  background:radial-gradient(circle at 40% 35%,#f0a060,#a8401a 70%);box-shadow:0 3px 0 #0008}
+.endb svg{width:20px;height:20px}
+.endb[disabled]{filter:grayscale(.85) brightness(.55);cursor:default}
+.endb.glow{animation:glowE 1.4s ease-in-out infinite}
+@keyframes glowE{50%{box-shadow:0 0 0 4px rgba(243,201,122,.35),0 0 18px rgba(243,160,96,.8)}}
+.lboard{display:flex;flex-direction:column;justify-content:space-evenly;min-width:0;min-height:0}
+.lboard .board{min-height:88px;padding:0}
+.lboard .mid{min-height:20px;font-size:12.5px}
+.lside{display:flex;flex-direction:column;min-width:0;min-height:0;gap:4px}
+.lprev{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:12px;color:var(--muted)}
+.lprev .card{font-size:clamp(7px,2.4vh,15px)}
+.lprev .pbtns{display:flex;gap:8px;align-items:center}
+.lprev .btn{padding:6px 14px;font-size:13px}
+.lprev .who{display:grid;gap:2px;line-height:1.3}
+.lprev .who b{color:var(--parch);font-family:var(--display);font-weight:400}
+.lside .hand{flex:none;margin:0;padding:12px 4px 2px;overflow:visible;justify-content:center;gap:7px}
+.lside .hand .card{font-size:clamp(6px,2.25vh,12.5px)}
+.lside .hand .card+.card{margin-left:var(--ov,0px)}
+.lside .hand .card:hover,.lside .hand .card.pend{z-index:5}
+.lside .hand .card.hsel{transform:translateY(-10px);z-index:6;box-shadow:0 0 0 .22em var(--gold),0 0 .9em rgba(243,201,122,.6)}
+.lflag{position:absolute;top:6px;right:10px;z-index:3}
+/* landscape board: minions are just their picture plus Attack/Health (name and keywords live in the long-press view) */
+#app.duelland .min{padding:0}
+#app.duelland .min .mn,#app.duelland .min .kw{display:none}
+.mico{display:none}
+#app.duelland .mico{display:flex;flex-direction:column;gap:2px;position:absolute;left:-7px;top:6px;z-index:2;pointer-events:none}
+.mi{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#17121c;border:1.5px solid currentColor;box-shadow:0 1px 3px #000a}
+.mi svg{width:11px;height:11px;display:block}
+.mi.guard{color:#e8c35a}.mi.ward{color:#a9c4ff}.mi.gasp{color:#d8d3c2}.mi.sp{color:#c4a3ff}.mi.grow{color:#8fe08f}.mi.frozen{color:#8fd0ff}.mi.silenced{color:#a6a0aa}
+#app.duelland .min .mart{position:absolute;inset:2px;width:auto;height:auto;border-radius:11px 11px 8px 8px}
+#app.duelland .min.guard .mart{border-radius:3px}
+#app.duelland .min .mart img{object-position:50% 14%}
+#app.duelland .min .mart svg{position:absolute;left:-14%;width:128%;height:auto;top:50%;transform:translateY(-58%)}
+/* taller screens (tablets, desktop): the same layout, scaled up */
+@media (orientation:landscape) and (min-width:560px) and (min-height:520px){
+  #app.duelland{zoom:1.35;height:calc(100dvh / 1.35)}
+  #app.duelland .lside .hand .card{font-size:8.8px}#app.duelland .lprev .card{font-size:9.6px}
+}
+@media (orientation:landscape) and (min-width:560px) and (min-height:700px){
+  #app.duelland{zoom:1.75;height:calc(100dvh / 1.75)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.embers{display:none}}
 /* standalone page: safe areas top and bottom (the artifact viewer supplied these before) */
@@ -410,7 +473,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
-    fWard:'Ward',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fWard:'Ward',growKw:'Grows with spells',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
@@ -476,7 +539,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
-    fWard:'护盾',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fWard:'护盾',growKw:'施法成长',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
@@ -542,7 +605,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
-    fWard:'結界',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fWard:'結界',growKw:'呪文で成長',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
     fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
@@ -623,14 +686,14 @@ const ART={
   shark:portrait({race:'giant',robe:'#5a5a6e',prop:'club',runes:1,eyes:'#8fd0ff'}),
   leviathan:`<circle cx="60" cy="34" r="30" fill="#e2763a" opacity=".18"/><path d="M98 64Q84 40 68 34Q58 30 46 32L26 30Q18 34 24 41L44 43Q52 47 58 53Q64 60 66 64Z" fill="#8a2a22"/><path d="M66 31L80 9L72 33ZM58 31L66 6L62 32Z" fill="#e6dcc8"/><path d="M76 40l6-6 2 8M84 50l7-5 1 8" fill="#5a1a14"/><circle cx="52" cy="35" r="2.4" fill="#ffd36a"/><path d="M26 38l3 4 3-3 3 4 3-3 3 3" stroke="#f4eedc" stroke-width="1.4" fill="none"/><path d="M24 36Q10 28 0 36Q10 40 2 48Q14 44 22 40Z" fill="#f39a3a"/><path d="M20 37Q12 34 6 38Q12 40 8 44Q15 42 20 39Z" fill="#f6d78f"/>`,
   bubble:`<circle cx="50" cy="30" r="24" fill="#a9c4ff" opacity=".15"/><path d="M50 8Q66 8 66 28V54L60 48L55 56L50 48L45 56L40 48L34 54V28Q34 8 50 8Z" fill="#c4d6ff" opacity=".85"/><ellipse cx="45" cy="26" rx="2.6" ry="3.6" fill="#1a1428"/><ellipse cx="55" cy="26" rx="2.6" ry="3.6" fill="#1a1428"/><ellipse cx="50" cy="36" rx="3" ry="4" fill="#1a1428"/>`,
-  spray:'<circle cx="50" cy="32" r="26" fill="none" stroke="#f39a3a" stroke-opacity=".35" stroke-dasharray="3 4"/><path d="M22 52L68 18" stroke="#efe2c2" stroke-width="3" stroke-linecap="round"/><path d="M66 13l10 0-3 10z" fill="#efe2c2"/><path d="M22 52Q12 54 8 62Q18 60 22 56Q20 62 26 64Q26 58 26 54Z" fill="#f39a3a"/><path d="M30 46q-8-2-12 4 7-1 10 1z" fill="#f6d78f"/>',
+  spray:'<circle cx="50" cy="32" r="26" fill="#6aa57e" opacity=".18"/><path d="M14 54L74 12" stroke="#c4b4ff" stroke-width="2.6" stroke-linecap="round"/><path d="M70 8l12-2-2 12z" fill="#efe2ff"/><path d="M16 52l-6-2M16 52l-2 6M20 49l-6-2M20 49l-2 6" stroke="#7fd17f" stroke-width="2" stroke-linecap="round"/><g fill="#c4b4ff"><circle cx="40" cy="28" r="2"/><circle cx="56" cy="22" r="1.5"/><circle cx="30" cy="40" r="1.2"/></g>',
   brace:'<circle cx="50" cy="32" r="28" fill="#ffe9a0" opacity=".15"/><path d="M50 6l22 7v17q0 19-22 30-22-11-22-30V13z" fill="#2f4f8f" stroke="#e8c35a" stroke-width="2"/><path d="M50 18l3 8h8l-6.5 5 2.5 8-7-5-7 5 2.5-8-6.5-5h8z" fill="#ffe08a"/>',
   frenzy:'<path d="M50 6q-14 20-14 30a14 14 0 0028 0q0-10-14-30z" fill="#b0221a"/><path d="M44 34q0-7 5-12" stroke="#f0a097" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M14 18l14 10M86 18L72 28M18 54l10-6M82 54l-10-6" stroke="#cf4a3f" stroke-width="3" stroke-linecap="round"/>',
   tidepool:'<circle cx="50" cy="30" r="24" fill="#8f78e0" opacity=".2"/><path d="M18 50l32-8 32 8V20l-32 8-32-8z" fill="#efe2c2"/><path d="M50 28v22" stroke="#7a5a36" stroke-width="1.5"/><path d="M24 26l20 5M24 32l20 5M24 38l20 5M56 31l20-5M56 37l20-5M56 43l20-5" stroke="#b9a98a" stroke-width="1"/><path d="M50 4l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#c4b4ff"/>',
   mend:'<circle cx="50" cy="32" r="26" fill="#7fd17f" opacity=".18"/><g stroke="#ffe9a0" stroke-width="2" stroke-linecap="round"><path d="M50 4v8M50 52v8M22 32h8M70 32h8M30 12l5 5M70 12l-5 5M30 52l5-5M70 52l-5-5"/></g><circle cx="50" cy="32" r="13" fill="#bff0b0"/><path d="M50 24v16M42 32h16" stroke="#3a8a4a" stroke-width="4" stroke-linecap="round"/>',
   undertow:'<path d="M38 0h24L56 44H44Z" fill="#ffe9a0" opacity=".55"/><path d="M45 0h10L52 46h-4Z" fill="#fff8d8"/><ellipse cx="50" cy="52" rx="26" ry="7" fill="#ffe08a" opacity=".5"/><path d="M28 52l-8-8M72 52l8-8M36 58l-6 4M64 58l6 4" stroke="#ffe08a" stroke-width="2" stroke-linecap="round"/>',
   maelstrom:'<circle cx="50" cy="32" r="24" fill="#e2763a" opacity=".25"/><circle cx="50" cy="32" r="17" fill="#e2763a"/><circle cx="46" cy="28" r="10" fill="#f39a3a"/><circle cx="43" cy="25" r="5" fill="#f6d78f"/><path d="M66 22q14-6 26 2-12 0-18 8M66 42q14 6 26-2-12 0-18-8" fill="#e2763a" opacity=".7"/>',
-  riptide:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".18"/><path d="M58 2L34 34h14L40 62l28-38H54L64 2z" fill="#e8f4ff" stroke="#8fd0ff" stroke-width="2" stroke-linejoin="round"/>',
+  riptide:'<circle cx="50" cy="32" r="26" fill="#6aa57e" opacity=".15"/><circle cx="66" cy="22" r="11" fill="none" stroke="#cf4a3f" stroke-width="2.2"/><circle cx="66" cy="22" r="5" fill="none" stroke="#cf4a3f" stroke-width="1.8"/><path d="M8 58L64 24" stroke="#8a5a2e" stroke-width="3" stroke-linecap="round"/><path d="M60 22l10-3-3 9z" fill="#cfd6dc"/><path d="M10 56l-6-1M10 56l-1 6M14 54l-6-1M14 54l-1 6" stroke="#7fd17f" stroke-width="2" stroke-linecap="round"/>',
   goblin:portrait({race:'goblin',robe:'#6a4a2a',bald:1,prop:'dagger'}),
   apprentice:portrait({race:'human',robe:'#4a3a8a',head:'wizhat',hat:'#4a3a8a',prop:'staff',orb:'#f39a3a'}),
   direwolf:wolfArt('#6e7078'),
@@ -707,33 +770,33 @@ const ART={
 // n = name [en, zh, ja]; f = flavor [en, zh, ja]; rules text is generated from the effect data in every language.
 const CARDS={
   goblin:{c:1,t:'m',a:2,h:1,r:'c',race:'goblin',n:['Goblin Cutpurse','哥布林扒手','ゴブリンのスリ'],f:['Your purse was lighter than he hoped.','你的钱袋比他预想的还轻。','財布は期待より軽かった。']},
-  pearl:{c:1,t:'m',a:1,h:1,r:'c',race:'human',ward:1,n:['Temple Acolyte','神殿侍僧','神殿の侍祭'],f:['Her prayers land before the blows do.','她的祷告总比拳头先到。','祈りは拳より先に届く。']},
-  apprentice:{c:1,t:'m',a:1,h:1,r:'c',race:'human',bc:{dmg:1,tgt:'any'},n:["Wizard's Apprentice",'法师学徒','魔術師の弟子'],f:['Only singed the eyebrows. This time.','这次只烧掉了眉毛。','今回は眉毛が焦げただけ。']},
-  crab:{c:2,t:'m',a:1,h:4,r:'c',race:'dwarf',guard:1,n:['Dwarf Shieldbearer','矮人盾卫','ドワーフの盾持ち'],f:['The shield is older than he is.','这面盾比他还老。','その盾は彼より年上だ。']},
+  pearl:{cls:'priest',c:1,t:'m',a:1,h:1,r:'c',race:'human',ward:1,n:['Temple Acolyte','神殿侍僧','神殿の侍祭'],f:['Her prayers land before the blows do.','她的祷告总比拳头先到。','祈りは拳より先に届く。']},
+  apprentice:{cls:'mage',c:1,t:'m',a:1,h:2,r:'c',race:'human',bc:{dmg:1,tgt:'any'},n:["Wizard's Apprentice",'法师学徒','魔術師の弟子'],f:['Only singed the eyebrows. This time.','这次只烧掉了眉毛。','今回は眉毛が焦げただけ。']},
+  crab:{cls:'warrior',c:2,t:'m',a:1,h:4,r:'c',race:'dwarf',guard:1,n:['Dwarf Shieldbearer','矮人盾卫','ドワーフの盾持ち'],f:['The shield is older than he is.','这面盾比他还老。','その盾は彼より年上だ。']},
   harpooneer:{c:2,t:'m',a:2,h:2,r:'c',race:'elf',bc:{dmg:1,tgt:'any'},n:['Elven Archer','精灵弓手','エルフの射手'],f:['She has never needed a second arrow.','她从来不需要第二支箭。','二本目の矢は必要なかった。']},
-  direwolf:{c:2,t:'m',a:3,h:2,r:'c',race:'beast',n:['Dire Wolf','恐狼','ダイアウルフ'],f:['The pack is never far behind.','狼群从不远离。','群れはすぐ後ろにいる。']},
-  cleric:{c:3,t:'m',a:3,h:4,r:'c',race:'dwarf',bc:{heal:4},n:['Dwarven Cleric','矮人牧师','ドワーフの僧侶'],f:['Prayer, ale, and a very large hammer.','祷告、麦酒，还有一把很大的锤子。','祈りとエールと、とても大きなハンマー。']},
-  berserker:{c:2,t:'m',a:2,h:1,r:'c',race:'orc',surge:1,n:['Orc Berserker','兽人狂战士','オークの狂戦士'],f:['Thinks with his axe. Thinks fast.','用斧头思考，而且想得很快。','斧で考える。考えるのは速い。']},
+  direwolf:{cls:'hunter',c:2,t:'m',a:3,h:2,r:'c',race:'beast',n:['Dire Wolf','恐狼','ダイアウルフ'],f:['The pack is never far behind.','狼群从不远离。','群れはすぐ後ろにいる。']},
+  cleric:{cls:'priest',c:3,t:'m',a:3,h:4,r:'c',race:'dwarf',bc:{heal:3},n:['Dwarven Cleric','矮人牧师','ドワーフの僧侶'],f:['Prayer, ale, and a very large hammer.','祷告、麦酒，还有一把很大的锤子。','祈りとエールと、とても大きなハンマー。']},
+  berserker:{cls:'warrior',c:2,t:'m',a:2,h:1,r:'c',race:'orc',surge:1,n:['Orc Berserker','兽人狂战士','オークの狂戦士'],f:['Thinks with his axe. Thinks fast.','用斧头思考，而且想得很快。','斧で考える。考えるのは速い。']},
   burglar:{c:2,t:'m',a:2,h:2,r:'r',race:'halfling',bc:{draw:1},n:['Halfling Burglar','半身人窃贼','ハーフリングの泥棒'],f:['Finders keepers.','谁捡到就是谁的。','見つけた者の物。']},
   eel:{c:3,t:'m',a:3,h:2,r:'r',race:'orc',surge:1,n:['Orc Raider','兽人掠夺者','オークの略奪者'],f:['First through the gate. Always.','永远第一个冲进城门。','門をくぐるのはいつも一番乗り。']},
   lurker:{c:4,t:'m',a:4,h:5,r:'c',race:'troll',n:['Forest Troll','森林巨魔','森のトロール'],f:['Leave a toll, or become one.','留下买路钱，或者把你自己留下。','通行料を置いていけ。さもなくばお前が通行料だ。']},
-  sailor:{c:2,t:'m',a:1,h:2,r:'r',race:'undead',gasp:'bubble',n:['Grave Thrall','墓穴仆从','墓所の下僕'],f:['Death was only a change of employer.','死亡只是换了个雇主。','死は雇い主が変わっただけ。']},
-  beastcaller:{c:3,t:'m',a:2,h:3,r:'r',race:'elf',bc:{summon:'elver'},n:['Elven Beastcaller','精灵驯兽师','エルフの獣使い'],f:['She whistles once. Something always answers.','她吹一声口哨，总会有东西回应。','口笛ひとつで、必ず何かが応える。']},
-  ghoul:{c:3,t:'m',a:3,h:3,r:'c',race:'undead',gasp:'bubble',n:['Barrow Ghoul','古墓食尸鬼','塚の食屍鬼'],f:['Hungry even after the end.','死后依旧饥饿。','終わりの後も飢えている。']},
+  sailor:{cls:'warlock',c:2,t:'m',a:1,h:2,r:'r',race:'undead',gasp:'bubble',n:['Grave Thrall','墓穴仆从','墓所の下僕'],f:['Death was only a change of employer.','死亡只是换了个雇主。','死は雇い主が変わっただけ。']},
+  beastcaller:{cls:'hunter',c:3,t:'m',a:2,h:3,r:'r',race:'elf',bc:{summon:'elver'},n:['Elven Beastcaller','精灵驯兽师','エルフの獣使い'],f:['She whistles once. Something always answers.','她吹一声口哨，总会有东西回应。','口笛ひとつで、必ず何かが応える。']},
+  ghoul:{cls:'warlock',c:3,t:'m',a:3,h:3,r:'c',race:'undead',gasp:'bubble',n:['Barrow Ghoul','古墓食尸鬼','塚の食屍鬼'],f:['Hungry even after the end.','死后依旧饥饿。','終わりの後も飢えている。']},
   alchemist:{c:3,t:'m',a:2,h:2,r:'r',race:'gnome',bc:{buff:[2,0],tgt:'ally'},n:['Gnome Alchemist','侏儒炼金师','ノームの錬金術師'],f:["Drink this. Don't ask what's in it.",'喝了它。别问里面是什么。','これを飲め。中身は聞くな。']},
-  knight:{c:4,t:'m',a:3,h:5,r:'r',race:'human',guard:1,n:['Paladin Vanguard','圣骑士先锋','聖騎士の先鋒'],f:['Behind her, no one falls.','在她身后，无人倒下。','彼女の後ろで倒れる者はいない。']},
+  knight:{cls:'paladin',c:4,t:'m',a:3,h:5,r:'r',race:'human',guard:1,n:['Paladin Vanguard','圣骑士先锋','聖騎士の先鋒'],f:['Behind her, no one falls.','在她身后，无人倒下。','彼女の後ろで倒れる者はいない。']},
   diver:{c:4,t:'m',a:3,h:4,r:'r',race:'gnome',bc:{draw:1},n:['Gnome Tinkerer','侏儒工匠','ノームの技師'],f:['It works. Mostly. Twice so far.','它能用。大部分时候。目前成功过两次。','動く。たいてい。今のところ二回は。']},
-  gull:{c:5,t:'m',a:4,h:4,r:'e',race:'beast',surge:1,n:['Griffon Rider','狮鹫骑士','グリフォンライダー'],f:['Arrives before the war horns finish.','战号还没吹完，他就到了。','角笛が鳴り終わる前に到着する。']},
-  commander:{c:5,t:'m',a:4,h:5,r:'e',race:'human',bc:{team:[1,0]},n:['Knight Commander','骑士指挥官','騎士団長'],f:['Hold the line, then break theirs.','守住阵线，再冲破他们的。','戦線を守れ。それから奴らのを崩せ。']},
+  gull:{cls:'hunter',c:5,t:'m',a:4,h:4,r:'e',race:'beast',surge:1,n:['Griffon Rider','狮鹫骑士','グリフォンライダー'],f:['Arrives before the war horns finish.','战号还没吹完，他就到了。','角笛が鳴り終わる前に到着する。']},
+  commander:{cls:'paladin',c:5,t:'m',a:4,h:4,r:'e',race:'human',bc:{team:[1,0]},n:['Knight Commander','骑士指挥官','騎士団長'],f:['Hold the line, then break theirs.','守住阵线，再冲破他们的。','戦線を守れ。それから奴らのを崩せ。']},
   golem:{c:5,t:'m',a:2,h:8,r:'c',race:'construct',guard:1,n:['Stone Golem','石魔像','ストーンゴーレム'],f:['It was told to guard the door. The door is long gone.','它被命令守门，可那扇门早就没了。','扉を守れと命じられた。扉はとうに無い。']},
   shark:{c:6,t:'m',a:6,h:6,r:'e',race:'giant',ward:1,n:['Runebound Giant','符文巨人','ルーンの巨人'],f:['Every rune is a spell someone wasted on it.','每道符文，都是有人白费在它身上的法术。','ルーンの一つ一つが、誰かが無駄にした呪文だ。']},
   firelem:{c:6,t:'m',a:5,h:5,r:'r',race:'elemental',bc:{dmg:3,tgt:'any'},n:['Fire Elemental','火元素','炎の精霊'],f:['Do not offer it a hand to shake.','千万别向它伸手握手。','握手を求めてはいけない。']},
   ogre:{c:6,t:'m',a:6,h:7,r:'c',race:'giant',n:['Ogre Brute','食人魔蛮兵','オーガの蛮兵'],f:['Two heads would be smarter. He has one.','两个脑袋会聪明些，可他只有一个。','頭が二つなら賢かったろう。彼には一つしかない。']},
-  archmage:{c:7,t:'m',a:6,h:7,r:'e',race:'human',bc:{draw:2},n:['Archmage of the Spire','尖塔大法师','尖塔の大魔導師'],f:['She has read every book in the tower. Twice.','塔里的每本书她都读过两遍。','塔の本は全て読んだ。二度ずつ。']},
+  archmage:{cls:'mage',c:6,t:'m',a:6,h:7,r:'e',race:'human',bc:{draw:2},n:['Archmage of the Spire','尖塔大法师','尖塔の大魔導師'],f:['She has read every book in the tower. Twice.','塔里的每本书她都读过两遍。','塔の本は全て読んだ。二度ずつ。']},
   hexer:{c:4,t:'m',a:3,h:4,r:'c',race:'orc',bc:{dmg:2,tgt:'any'},n:['Orc Hexer','兽人妖术师','オークの呪術師'],f:['Every curse is a promise kept.','每一道诅咒，都是兑现的承诺。','呪いはすべて、守られた約束だ。']},
-  priestess:{c:4,t:'m',a:3,h:4,r:'r',race:'human',bc:{buff:[2,2],tgt:'ally'},n:['Temple Priestess','神殿祭司','神殿の司祭'],f:['She blesses the brave and the foolish alike.','无论勇敢还是愚蠢，她一视同仁地祝福。','勇者にも愚者にも、等しく祝福を。']},
-  necro:{c:4,t:'m',a:3,h:3,r:'r',race:'human',bc:{summon:'bubble'},n:['Necromancer','死灵法师','ネクロマンサー'],f:['Nobody stays dead on his watch.','在他看守下，没人能安息。','彼の見張りの下では、誰も死んだままでいられない。']},
-  thane:{c:5,t:'m',a:5,h:5,r:'r',race:'dwarf',bc:{armor:4},n:['Dwarf Thane','矮人领主','ドワーフの領主'],f:['His hall has never fallen. Neither has he.','他的大厅从未陷落，他本人也是。','彼の広間は一度も落ちていない。彼自身もだ。']},
+  priestess:{cls:'paladin',c:4,t:'m',a:3,h:4,r:'r',race:'human',bc:{buff:[2,2],tgt:'ally'},n:['Temple Priestess','神殿祭司','神殿の司祭'],f:['She blesses the brave and the foolish alike.','无论勇敢还是愚蠢，她一视同仁地祝福。','勇者にも愚者にも、等しく祝福を。']},
+  necro:{cls:'warlock',c:4,t:'m',a:3,h:4,r:'r',race:'human',bc:{summon:'bubble'},n:['Necromancer','死灵法师','ネクロマンサー'],f:['Nobody stays dead on his watch.','在他看守下，没人能安息。','彼の見張りの下では、誰も死んだままでいられない。']},
+  thane:{cls:'warrior',c:5,t:'m',a:5,h:5,r:'r',race:'dwarf',bc:{armor:4},n:['Dwarf Thane','矮人领主','ドワーフの領主'],f:['His hall has never fallen. Neither has he.','他的大厅从未陷落，他本人也是。','彼の広間は一度も落ちていない。彼自身もだ。']},
   wyvern:{c:6,t:'m',a:5,h:5,r:'e',race:'dragon',surge:1,n:['Wyvern Rider','双足飞龙骑手','ワイバーンライダー'],f:['The sky is just another road.','天空只是另一条路。','空もまた、ただの道だ。']},
   treant:{c:7,t:'m',a:6,h:9,r:'r',race:'treant',guard:1,n:['Ancient Treant','远古树人','古の樹人'],f:['It was old when the first king was crowned.','第一位国王加冕时，它就已经很老了。','最初の王が戴冠した時、すでに老いていた。']},
   dragonknight:{c:7,t:'m',a:5,h:5,r:'e',race:'human',gasp:'spawn',n:['Dragon Knight','龙骑士','竜騎士'],f:['When he falls, his dragon does not.','他倒下时，他的龙不会。','彼が倒れても、竜は倒れない。']},
@@ -741,31 +804,31 @@ const CARDS={
   lich:{c:8,t:'m',a:6,h:6,r:'l',race:'undead',bc:{aoe:3,face:3},n:['Malakar the Undying','不朽者马拉卡','不死のマラカル'],f:['He has died eleven times. He is getting better at it.','他已经死过十一次了，而且越来越熟练。','十一度死んだ。だんだん上手くなっている。']},
   dwarfking:{c:8,t:'m',a:7,h:7,r:'l',race:'dwarf',guard:1,bc:{armor:5,team:[1,1]},n:['Thorgrim, King Under Stone','石下之王索格林','石下の王ソーグリム'],f:['His beard has its own throne.','他的胡子都有自己的王座。','彼の髭には専用の玉座がある。']},
   elfqueen:{c:8,t:'m',a:5,h:7,r:'l',race:'elf',ward:1,bc:{heal:8,draw:2},n:['Sylvara, Queen of the Glade','林地女王希尔瓦拉','森の女王シルヴァラ'],f:['The forest kneels when she walks.','她走过时，森林为之屈膝。','彼女が歩けば、森がひざまずく。']},
-  spray:{c:1,t:'s',r:'c',fx:{dmg:2,tgt:'any'},n:['Fire Bolt','火焰箭','ファイアボルト'],f:['The first spell every apprentice learns.','每个学徒学会的第一个法术。','見習いが最初に覚える呪文。']},
-  brace:{c:1,t:'s',r:'c',fx:{buff:[0,3],guard:1,tgt:'ally'},n:['Shield of Faith','信仰之盾','信仰の盾'],f:['Belief, hammered into steel.','把信念锻打成钢。','信念を鋼に打ち込む。']},
-  darkpact:{c:1,t:'s',r:'r',fx:{selfDmg:3,draw:2},n:['Dark Pact','黑暗契约','闇の契約'],f:['Sign here. And here. And in blood, here.','在这里签字。这里也是。还有这里，用血签。','ここに署名を。ここにも。そしてここは血で。']},
-  frenzy:{c:2,t:'s',r:'r',fx:{buff:[3,0],tgt:'ally'},n:['Bloodlust','嗜血','血の渇き'],f:['One taste is enough.','尝一口就够了。','一口で十分だ。']},
+  spray:{cls:'hunter',c:1,t:'s',r:'c',fx:{dmg:2,tgt:'any'},n:['Arcane Shot','奥术射击','アーケインショット'],f:['Quicker than a thought, and twice as sharp.','比念头更快，也更锋利。','思考より速く、二倍鋭い。']},
+  brace:{cls:'paladin',c:1,t:'s',r:'c',fx:{buff:[0,3],guard:1,tgt:'ally'},n:['Shield of Faith','信仰之盾','信仰の盾'],f:['Belief, hammered into steel.','把信念锻打成钢。','信念を鋼に打ち込む。']},
+  darkpact:{cls:'warlock',c:1,t:'s',r:'r',fx:{selfDmg:2,draw:2},n:['Dark Pact','黑暗契约','闇の契約'],f:['Sign here. And here. And in blood, here.','在这里签字。这里也是。还有这里，用血签。','ここに署名を。ここにも。そしてここは血で。']},
+  frenzy:{cls:'warrior',c:2,t:'s',r:'r',fx:{buff:[3,0],tgt:'ally'},n:['Bloodlust','嗜血','血の渇き'],f:['One taste is enough.','尝一口就够了。','一口で十分だ。']},
   tidepool:{c:3,t:'s',r:'c',fx:{draw:2},n:["Scholar's Insight",'学者的洞见','賢者の洞察'],f:['Footnotes are where the real magic hides.','真正的魔法都藏在脚注里。','本当の魔法は脚注に隠れている。']},
-  mend:{c:2,t:'s',r:'r',fx:{heal:6},n:['Healing Light','治愈之光','癒しの光'],f:['Warm as a hearth, quick as a prayer.','像炉火一样温暖，像祷告一样迅速。','暖炉のように温かく、祈りのように速い。']},
-  shieldwall:{c:2,t:'s',r:'c',fx:{armor:4},n:['Shield Wall','盾墙','盾の壁'],f:['Lock shields. Lock eyes. Hold.','盾牌相扣，目光相接，守住。','盾を組め。目を据えろ。踏みとどまれ。']},
-  calltoarms:{c:3,t:'s',r:'c',fx:{summon:['minnow','minnow','minnow']},n:['Call to Arms','战斗号令','召集令'],f:['Farmers today. Heroes, maybe, tomorrow.','今天是农夫，明天也许就是英雄。','今日は農夫。明日は、たぶん英雄。']},
+  mend:{cls:'priest',c:2,t:'s',r:'r',fx:{heal:4},n:['Healing Light','治愈之光','癒しの光'],f:['Warm as a hearth, quick as a prayer.','像炉火一样温暖，像祷告一样迅速。','暖炉のように温かく、祈りのように速い。']},
+  shieldwall:{cls:'warrior',c:2,t:'s',r:'c',fx:{armor:4},n:['Shield Wall','盾墙','盾の壁'],f:['Lock shields. Lock eyes. Hold.','盾牌相扣，目光相接，守住。','盾を組め。目を据えろ。踏みとどまれ。']},
+  calltoarms:{cls:'paladin',c:3,t:'s',r:'c',fx:{summon:['minnow','minnow','minnow']},n:['Call to Arms','战斗号令','召集令'],f:['Farmers today. Heroes, maybe, tomorrow.','今天是农夫，明天也许就是英雄。','今日は農夫。明日は、たぶん英雄。']},
   undertow:{c:3,t:'s',r:'r',fx:{dmg:4,tgt:'minion'},n:['Smite','惩击','天罰'],f:['Judgment, delivered from above.','来自天上的审判。','天上より下される裁き。']},
   radiant:{c:3,t:'s',r:'r',fx:{aoe:1,heal:4},n:['Radiant Burst','光耀爆发','光輝の爆発'],f:['Light that burns the wicked and warms the faithful.','灼烧邪恶、温暖信徒的光。','悪を焼き、信じる者を温める光。']},
   hymn:{c:3,t:'s',r:'r',fx:{team:[1,1]},n:['Battle Hymn','战歌','戦いの賛歌'],f:['Off-key, but very loud.','跑调了，但非常响亮。','音程は外れているが、とても大きい。']},
-  lance:{c:4,t:'s',r:'r',fx:{dmg:3,tgt:'minion',draw:1},n:['Arcane Lance','奥术长枪','秘術の槍'],f:['Pierce, then ponder.','先刺穿，再思考。','貫いてから、考えよ。']},
-  maelstrom:{c:4,t:'s',r:'e',fx:{aoe:2},n:['Fireball','火球术','ファイアボール'],f:['Aim for the middle.','瞄准中间就行。','真ん中を狙え。']},
-  riptide:{c:5,t:'s',r:'e',fx:{dmg:6,tgt:'any'},n:['Lightning Bolt','闪电箭','ライトニングボルト'],f:['Never strikes the same place twice. Never needs to.','从不劈同一个地方两次，也从不需要。','同じ場所に二度は落ちない。その必要もない。']},
+  lance:{cls:'mage',c:3,t:'s',r:'r',fx:{dmg:4,tgt:'minion',draw:1},n:['Arcane Lance','奥术长枪','秘術の槍'],f:['Pierce, then ponder.','先刺穿，再思考。','貫いてから、考えよ。']},
+  maelstrom:{cls:'mage',c:3,t:'s',r:'e',fx:{aoe:2},n:['Fireball','火球术','ファイアボール'],f:['Aim for the middle.','瞄准中间就行。','真ん中を狙え。']},
+  riptide:{cls:'hunter',c:5,t:'s',r:'e',fx:{dmg:6,tgt:'any'},n:['Deadly Shot','致命射击','必殺の射撃'],f:['One breath. One arrow. One less problem.','一次呼吸，一支箭，少一个麻烦。','一呼吸、一矢、厄介事が一つ減る。']},
   breath:{c:6,t:'s',r:'e',fx:{aoe:3,face:3},n:["Dragon's Breath",'龙息','竜の息吹'],f:['The last thing the castle walls ever felt.','城墙感受到的最后一样东西。','城壁が最後に感じたもの。']},
-  inferno:{c:6,t:'s',r:'e',fx:{aoe:4},n:['Inferno','炼狱烈焰','業火'],f:['Nothing grows here anymore. Nothing will.','这里已寸草不生，以后也不会再有。','もう何も育たない。これからも。']},
+  inferno:{cls:'warlock',c:5,t:'s',r:'e',fx:{aoe:4},n:['Inferno','炼狱烈焰','業火'],f:['Nothing grows here anymore. Nothing will.','这里已寸草不生，以后也不会再有。','もう何も育たない。これからも。']},
   // ---- class spells (cls: only that class may use them; x: rules text in every language) ----
   innerrage:{c:0,t:'s',r:'c',cls:'warrior',fx:{dmg:1,buff:[2,0],tgt:'minion'},n:['Inner Rage','怒火中烧','内なる怒り'],x:['Deal 1 damage to a minion and give it +2 Attack.','对一个随从造成1点伤害，并使其获得+2攻击力。','ミニオン1体に1ダメージを与え、攻撃力+2を付与する。'],f:['Pain is a fine whetstone.','痛苦是最好的磨刀石。','痛みは良い砥石だ。']},
   whirlwind:{c:1,t:'s',r:'c',cls:'warrior',fx:{sweep:1},n:['Whirlwind','旋风斩','旋風斬り'],x:['Deal 1 damage to ALL minions.','对所有随从造成1点伤害。','全てのミニオンに1ダメージを与える。'],f:['Friends should stand further back.','朋友们最好站远一点。','味方はもっと離れて立つべきだ。']},
   shieldslam:{c:1,t:'s',r:'e',cls:'warrior',fx:{armorDmg:1,tgt:'minion'},n:['Shield Slam','盾牌猛击','シールドスラム'],x:['Deal damage to a minion equal to your Armor.','对一个随从造成等同于你护甲值的伤害。','ミニオン1体に、自分の装甲と同じだけのダメージを与える。'],f:['The best defense is a very heavy offense.','最好的防守，是非常沉重的进攻。','最大の防御は、とても重い攻撃だ。']},
   execute:{c:2,t:'s',r:'r',cls:'warrior',fx:{destroy:1,cond:'damaged',tgt:'foe'},n:['Execute','斩杀','処刑'],x:['Destroy a damaged enemy minion.','消灭一个受伤的敌方随从。','ダメージを受けている敵のミニオン1体を破壊する。'],f:['Finish what you started.','把开始的事做完。','始めたことは終わらせろ。']},
   missiles:{c:1,t:'s',r:'c',cls:'mage',fx:{aoe:1,face:1},n:['Arcane Missiles','奥术飞弹','アーケインミサイル'],f:['Not aimed. Not needed.','无需瞄准，也不需要瞄准。','狙いは要らない。'] },
-  mirror:{c:1,t:'s',r:'c',cls:'mage',fx:{summon:['mirrorimg','mirrorimg']},n:['Mirror Image','镜像','ミラーイメージ'],x:['Summon two 0/2 Mirror Images with Guard.','召唤两个0/2并具有守护的镜像。','ガードを持つ0/2のミラーイメージを2体召喚する。'],f:['Which one is real? Neither.','哪个是真的？都不是。','どれが本物？どれでもない。']},
-  frostbolt:{c:2,t:'s',r:'c',cls:'mage',fx:{dmg:3,freeze:1,tgt:'any'},n:['Frostbolt','寒冰箭','フロストボルト'],x:['Deal 3 damage and Freeze the target.','造成3点伤害，并冻结目标。','3ダメージを与え、対象を凍結させる。'],f:['Chill out.','冷静一下。','頭を冷やせ。']},
-  frostnova:{c:3,t:'s',r:'r',cls:'mage',fx:{aoe:1,freezeAll:1},n:['Frost Nova','冰霜新星','フロストノヴァ'],x:['Deal 1 damage to all enemy minions and Freeze them.','对所有敌方随从造成1点伤害，并将其冻结。','敵のミニオン全てに1ダメージを与え、凍結させる。'],f:['Everyone hold still.','所有人都别动。','全員、動くな。']},
+  mirror:{c:1,t:'s',r:'c',cls:'mage',fx:{summon:['mirrorimg','mirrorimg']},n:['Mirror Image','镜像','ミラーイメージ'],x:['Summon two 1/3 Mirror Images with Guard.','召唤两个1/3并具有守护的镜像。','ガードを持つ1/3のミラーイメージを2体召喚する。'],f:['Which one is real? Neither.','哪个是真的？都不是。','どれが本物？どれでもない。']},
+  frostbolt:{c:2,t:'s',r:'c',cls:'mage',fx:{dmg:4,freeze:1,tgt:'any'},n:['Frostbolt','寒冰箭','フロストボルト'],x:['Deal 4 damage and Freeze the target.','造成4点伤害，并冻结目标。','4ダメージを与え、対象を凍結させる。'],f:['Chill out.','冷静一下。','頭を冷やせ。']},
+  frostnova:{c:2,t:'s',r:'r',cls:'mage',fx:{aoe:1,freezeAll:1},n:['Frost Nova','冰霜新星','フロストノヴァ'],x:['Deal 1 damage to all enemy minions and Freeze them.','对所有敌方随从造成1点伤害，并将其冻结。','敵のミニオン全てに1ダメージを与え、凍結させる。'],f:['Everyone hold still.','所有人都别动。','全員、動くな。']},
   squires:{c:2,t:'s',r:'c',cls:'paladin',fx:{summon:['minnow','minnow']},n:["Squire's Call",'侍从召集','従者の召集'],f:['Bring your own bucket.','自带水桶。','バケツは各自持参。']},
   humility:{c:2,t:'s',r:'r',cls:'paladin',fx:{setAtk:1,tgt:'foe'},n:['Humility','谦逊','謙虚'],x:["Change an enemy minion's Attack to 1.",'使一个敌方随从的攻击力变为1。','敵のミニオン1体の攻撃力を1にする。'],f:['Kneel, and be smaller.','跪下，然后变得渺小。','ひざまずき、小さくなれ。']},
   aegis:{c:1,t:'s',r:'c',cls:'paladin',fx:{ward:1,draw:1,tgt:'ally'},n:['Sacred Aegis','圣盾术','聖なる盾'],x:['Give a friendly minion Ward. Draw a card.','使一个友方随从获得护盾。抽一张牌。','味方のミニオン1体に結界を付与する。カードを1枚引く。'],f:['The light catches the first blow.','圣光会接下第一击。','光が最初の一撃を受け止める。']},
@@ -774,20 +837,20 @@ const CARDS={
   huntmark:{c:1,t:'s',r:'r',cls:'hunter',fx:{setHp:1,tgt:'foe'},n:["Hunter's Mark",'猎人印记','狩人の印'],x:["Change an enemy minion's Health to 1.",'使一个敌方随从的生命值变为1。','敵のミニオン1体の体力を1にする。'],f:['Marked, then missed by no one.','被标记之后，再没人会失手。','印をつけたら、もう誰も外さない。']},
   killcmd:{c:2,t:'s',r:'c',cls:'hunter',fx:{dmg:3,dmgBeast:5,tgt:'any'},n:['Kill Command','杀戮命令','キルコマンド'],x:['Deal 3 damage. If you control a Beast, deal 5 instead.','造成3点伤害。如果你控制一只野兽，改为造成5点伤害。','3ダメージを与える。味方に獣がいる場合、代わりに5ダメージを与える。'],f:['One word. Many teeth.','一个字，许多牙。','一言で、牙が並ぶ。']},
   hounds:{c:3,t:'s',r:'e',cls:'hunter',fx:{perFoe:'hound'},n:['Unleash the Hounds','关门放狗','猟犬を放て'],x:['For each enemy minion, summon a 1/1 Hound with Charge.','每有一个敌方随从，便召唤一只1/1并具有冲锋的猎犬。','敵のミニオン1体につき、突撃を持つ1/1の猟犬を1体召喚する。'],f:['Let them hunt.','让它们去猎吧。','狩らせろ。']},
-  pwshield:{c:1,t:'s',r:'c',cls:'priest',fx:{buff:[0,2],draw:1,tgt:'ally'},n:['Word of Shielding','真言术：盾','守りの言葉'],f:['Spoken softly. Struck hard.','轻声念出，重重挡下。','静かに唱え、強く守る。']},
+  pwshield:{c:2,t:'s',r:'c',cls:'priest',fx:{buff:[0,2],draw:1,tgt:'ally'},n:['Word of Shielding','真言术：盾','守りの言葉'],f:['Spoken softly. Struck hard.','轻声念出，重重挡下。','静かに唱え、強く守る。']},
   holysmite:{c:1,t:'s',r:'c',cls:'priest',fx:{dmg:2,tgt:'minion'},n:['Holy Smite','神圣惩击','ホーリースマイト'],f:['A small sun, very briefly.','一个小太阳，转瞬即逝。','ほんの一瞬の、小さな太陽。']},
   dispel:{c:1,t:'s',r:'r',cls:'priest',fx:{silence:1,tgt:'minion'},n:['Dispel','驱散','ディスペル'],x:['Silence a minion: it loses its buffs, keywords and effects.','沉默一个随从：它失去所有增益、关键词和效果。','ミニオン1体を沈黙させる（強化、キーワード、効果を全て失う）。'],f:['Hush.','嘘。','静かに。']},
-  swpain:{c:2,t:'s',r:'r',cls:'priest',fx:{destroy:1,cond:'atk<=3',tgt:'foe'},n:['Word of Pain','暗言术：痛','苦痛の言葉'],x:['Destroy an enemy minion with 3 or less Attack.','消灭一个攻击力小于或等于3的敌方随从。','攻撃力3以下の敵のミニオン1体を破壊する。'],f:['The small ones go quietly.','小家伙们走得很安静。','小さき者は静かに逝く。']},
-  swdeath:{c:3,t:'s',r:'e',cls:'priest',fx:{destroy:1,cond:'atk>=5',tgt:'foe'},n:['Word of Death','暗言术：灭','死の言葉'],x:['Destroy an enemy minion with 5 or more Attack.','消灭一个攻击力大于或等于5的敌方随从。','攻撃力5以上の敵のミニオン1体を破壊する。'],f:['The bigger they are.','块头越大……','大きい者ほど。']},
+  swpain:{c:3,t:'s',r:'r',cls:'priest',fx:{destroy:1,cond:'atk<=3',tgt:'foe'},n:['Word of Pain','暗言术：痛','苦痛の言葉'],x:['Destroy an enemy minion with 3 or less Attack.','消灭一个攻击力小于或等于3的敌方随从。','攻撃力3以下の敵のミニオン1体を破壊する。'],f:['The small ones go quietly.','小家伙们走得很安静。','小さき者は静かに逝く。']},
+  swdeath:{c:4,t:'s',r:'e',cls:'priest',fx:{destroy:1,cond:'atk>=5',tgt:'foe'},n:['Word of Death','暗言术：灭','死の言葉'],x:['Destroy an enemy minion with 5 or more Attack.','消灭一个攻击力大于或等于5的敌方随从。','攻撃力5以上の敵のミニオン1体を破壊する。'],f:['The bigger they are.','块头越大……','大きい者ほど。']},
   soulfire:{c:1,t:'s',r:'r',cls:'warlock',fx:{dmg:4,selfDmg:2,tgt:'any'},n:['Soulfire','灵魂之火','ソウルファイア'],x:['Deal 4 damage. Your hero takes 2 damage.','造成4点伤害。你的英雄受到2点伤害。','4ダメージを与える。自分のヒーローは2ダメージを受ける。'],f:['Burns twice: once out, once in.','烧两次：一次向外，一次向内。','二度焼く。外へ一度、内へ一度。']},
-  coil:{c:1,t:'s',r:'c',cls:'warlock',fx:{dmg:1,drawIfKill:1,tgt:'minion'},n:['Mortal Coil','死亡缠绕','デスコイル'],x:['Deal 1 damage to a minion. If that kills it, draw a card.','对一个随从造成1点伤害。如果它因此死亡，抽一张牌。','ミニオン1体に1ダメージを与える。それで倒した場合、カードを1枚引く。'],f:['Every ending is a lesson.','每次终结都是一堂课。','終わりはすべて教訓だ。']},
+  coil:{c:1,t:'s',r:'c',cls:'warlock',fx:{dmg:2,drawIfKill:1,tgt:'minion'},n:['Mortal Coil','死亡缠绕','デスコイル'],x:['Deal 2 damage to a minion. If that kills it, draw a card.','对一个随从造成2点伤害。如果它因此死亡，抽一张牌。','ミニオン1体に2ダメージを与える。それで倒した場合、カードを1枚引く。'],f:['Every ending is a lesson.','每次终结都是一堂课。','終わりはすべて教訓だ。']},
   raisedead:{c:1,t:'s',r:'c',cls:'warlock',fx:{summon:['skeleton','skeleton'],selfDmg:1},n:['Raise Dead','亡者复生','死者の蘇生'],x:['Summon two 1/1 Skeletons. Your hero takes 1 damage.','召唤两个1/1的骷髅。你的英雄受到1点伤害。','1/1のスケルトンを2体召喚する。自分のヒーローは1ダメージを受ける。'],f:['Up. Up! Good bones.','起来，起来！好骨头。','起きろ、起きろ！良い骨だ。']},
   hellfire:{c:3,t:'s',r:'e',cls:'warlock',fx:{sweep:3,heroes:1},n:['Hellfire','地狱烈焰','ヘルファイア'],x:['Deal 3 damage to ALL characters.','对所有角色造成3点伤害。','全てのキャラクターに3ダメージを与える。'],f:['It does not ask whose side you are on.','它不问你站在哪一边。','どちらの味方かは問わない。']},
   // ---- neutral spell support ----
   retreat:{c:1,t:'s',r:'c',fx:{bounce:1,tgt:'ally'},n:['Tactical Retreat','战术撤退','戦術的撤退'],x:['Return a friendly minion to your hand.','将一个友方随从移回你的手牌。','味方のミニオン1体を手札に戻す。'],f:['Live to charge again.','活下来，才能再冲锋。','生きて、もう一度突撃しよう。']},
-  wyrmling:{c:1,t:'m',a:1,h:3,r:'r',race:'dragon',onSpell:[1,0],n:['Mana Wyrmling','法力幼龙','マナの幼竜'],x:['Whenever you cast a spell, gain +1 Attack.','每当你施放一个法术，获得+1攻击力。','自分が呪文を使うたび、攻撃力+1を得る。'],f:['It eats spells. It is always hungry.','它以法术为食，而且永远吃不饱。','呪文を食べる。いつも腹ぺこだ。']},
+  wyrmling:{cls:'mage',c:1,t:'m',a:2,h:3,r:'r',race:'dragon',onSpell:[1,0],n:['Mana Wyrmling','法力幼龙','マナの幼竜'],x:['Whenever you cast a spell, gain +1 Attack.','每当你施放一个法术，获得+1攻击力。','自分が呪文を使うたび、攻撃力+1を得る。'],f:['It eats spells. It is always hungry.','它以法术为食，而且永远吃不饱。','呪文を食べる。いつも腹ぺこだ。']},
   geomancer:{c:2,t:'m',a:2,h:2,r:'c',race:'gnome',sp:1,n:['Gnome Geomancer','侏儒地卜师','ノームの地相術師'],x:['Spell Damage +1. Your spells deal 1 extra damage.','法术伤害+1。你的法术多造成1点伤害。','呪文ダメージ+1。自分の呪文のダメージが1増える。'],f:['The ground hums along with her.','大地随她一同低吟。','大地が彼女と共に唸る。']},
-  spellbreaker:{c:4,t:'m',a:4,h:3,r:'r',race:'elf',bc:{silence:1,tgt:'minion'},n:['Elven Spellbreaker','精灵破法者','エルフの呪文破り'],x:['On play: Silence a minion.','登场：沉默一个随从。','登場時：ミニオン1体を沈黙させる。'],f:['Magic is a habit. She breaks habits.','魔法是一种习惯，而她专破习惯。','魔法は癖だ。彼女は癖を断つ。']},
+  spellbreaker:{cls:'priest',c:4,t:'m',a:4,h:3,r:'r',race:'elf',bc:{silence:1,tgt:'minion'},n:['Elven Spellbreaker','精灵破法者','エルフの呪文破り'],x:['On play: Silence a minion.','登场：沉默一个随从。','登場時：ミニオン1体を沈黙させる。'],f:['Magic is a habit. She breaks habits.','魔法是一种习惯，而她专破习惯。','魔法は癖だ。彼女は癖を断つ。']},
   bubble:{c:1,t:'m',a:2,h:1,r:'t',race:'undead',token:1,n:['Restless Spirit','怨灵','怨霊'],f:['It remembers being angry.','它记得自己曾经很愤怒。','怒っていたことだけは覚えている。']},
   minnow:{c:1,t:'m',a:1,h:1,r:'t',race:'human',token:1,n:['Militia Recruit','民兵','民兵'],f:['Pitchfork sold separately.','干草叉需另购。','熊手は別売り。']},
   reefling:{c:2,t:'m',a:2,h:2,r:'t',race:'human',token:1,guard:1,n:['Town Guard','城镇卫兵','町の衛兵'],f:['Halt. Please.','站住。拜托了。','止まれ。お願いだから。']},
@@ -795,13 +858,16 @@ const CARDS={
   squire:{c:3,t:'m',a:3,h:3,r:'t',race:'construct',token:1,guard:1,n:['Iron Golem','钢铁魔像','アイアンゴーレム'],f:['Forged in an afternoon. Built to last forever.','一个下午锻成，却要永远守护。','午後一つで鍛え、永遠に持つよう造られた。']},
   coin:{c:0,t:'s',r:'t',token:1,fx:{mana:1},n:['Lucky Coin','幸运硬币','幸運のコイン'],f:['Going second has its perks.','后手也有后手的好处。','後攻にも良いことはある。']},
   skeleton:{c:1,t:'m',a:1,h:1,r:'t',race:'undead',token:1,n:['Skeleton','骷髅','スケルトン'],f:['Rattles when it walks.','走起路来咔咔作响。','歩くとカラカラ鳴る。']},
-  mirrorimg:{c:0,t:'m',a:0,h:2,r:'t',race:'elemental',token:1,guard:1,n:['Mirror Image','镜像','ミラーイメージ'],f:['Smile. It will smile back.','微笑吧，它也会对你微笑。','笑え。向こうも笑い返す。']},
+  mirrorimg:{c:0,t:'m',a:1,h:3,r:'t',race:'elemental',token:1,guard:1,n:['Mirror Image','镜像','ミラーイメージ'],f:['Smile. It will smile back.','微笑吧，它也会对你微笑。','笑え。向こうも笑い返す。']},
   hound:{c:1,t:'m',a:1,h:1,r:'t',race:'beast',token:1,surge:1,n:['Hound','猎犬','猟犬'],f:['Already running.','它已经在跑了。','もう走っている。']},
   spawn:{c:4,t:'m',a:4,h:4,r:'t',race:'dragon',token:1,ward:1,n:['Dragon Whelp','幼龙','子竜'],f:['Small now. Not for long.','现在还小，不会太久。','今は小さい。長くはない。']},
 };
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
-const art=k=>`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
+// Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
+// id -> content hash, and the hash in the URL makes a replaced painting skip any cached copy.
+const PAINTED={"direwolf":"ff584692","frostbolt":"13aed245","knight":"36becf70","leviathan":"1c8ac206"};
+const art=k=>PAINTED[k]?`<img src="img/cards/${k}.jpg?v=${PAINTED[k]}" alt="" loading="lazy" decoding="async">`:`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
 function fxText(fx,tgt){
   const F=I18N[L].fx,out=[];
   if(fx.selfDmg)out.push(F.self(fx.selfDmg));
@@ -860,27 +926,27 @@ const CLASSES=[
   {id:'warrior',col:'#c0392b',n:['Warrior','战士','戦士'],tag:['Armor, sturdy Guard minions and brute force.','护甲、坚固的守护随从与蛮力。','装甲、頑丈なガード、そして力押し。'],
    art:portrait({race:'human',robe:'#8a2a2a',hair:'#3a2a1a',beard:1,head:'helm',plume:'#c0392b',prop:'axe'}),
    power:{c:2,fx:{armor:2},n:['Armor Up','全副武装','鎧を纏え']},
-   deck:['innerrage','berserker',...rep('crab',2),'frenzy','whirlwind','shieldwall','shieldslam','cleric',...rep('execute',2),'eel','hymn','knight','lurker','commander','golem','thane','ogre','treant']},
+   deck:['innerrage',...rep('berserker',2),...rep('crab',2),'frenzy','whirlwind','shieldwall','shieldslam',...rep('execute',2),'eel','hymn','lurker',...rep('golem',2),...rep('thane',2),'ogre','treant']},
   {id:'mage',col:'#5a8ae0',n:['Mage','法师','魔法使い'],tag:['Spells that burn the board and refill your hand.','以法术清场灼敌，并补充手牌。','呪文で盤面を焼き払い、手札を補う。'],
    art:portrait({race:'human',robe:'#2a3a7a',hair:'#d8c8a0',head:'wizhat',hat:'#2a3a7a',prop:'staff',orb:'#8fd0ff',glow:'#8fd0ff'}),
    power:{c:2,tgt:'any',fx:{dmg:1},n:['Arcane Spark','奥术火花','秘術の火花']},
-   deck:[...rep('apprentice',2),'spray','missiles','wyrmling','geomancer','harpooneer',...rep('frostbolt',2),'lurker','diver',...rep('hexer',2),'maelstrom','frostnova','gull','firelem','ogre','inferno','archmage']},
+   deck:[...rep('apprentice',2),'lance','missiles','wyrmling','geomancer','harpooneer',...rep('frostbolt',2),'lurker','diver',...rep('hexer',2),...rep('maelstrom',2),'frostnova','wyrmling','firelem','ogre','archmage']},
   {id:'paladin',col:'#e8c35a',n:['Paladin','圣骑士','聖騎士'],tag:['Raise small armies, then bless and heal them.','召集小兵，再为他们加持与治疗。','小さな軍勢を集め、祝福し、癒す。'],
    art:portrait({race:'human',robe:'#c8ccd2',trim:'#e8c35a',head:'helm',helm:'#e8c35a',plume:'#ffffff',prop:['sword','shield'],shc:'#e8c35a',glow:'#ffe9a0'}),
    power:{c:2,fx:{summon:'minnow'},n:['Muster','征召','召集']},
-   deck:['brace',...rep('pearl',2),'squires','humility','crab','mend','aegis','ogre',...rep('radiant',2),...rep('knight',2),'priestess','kings','lurker','gull','thane','golem','dragonknight']},
+   deck:['brace','harpooneer',...rep('priestess',2),'squires','humility','calltoarms','aegis','ogre',...rep('radiant',2),...rep('knight',2),'kings','lurker',...rep('commander',2),...rep('golem',2),'dragonknight']},
   {id:'hunter',col:'#6aa57e',n:['Hunter','猎人','狩人'],tag:['Beasts and fast pressure on the enemy hero.','驱使野兽，快速压制敌方英雄。','獣を従え、敵ヒーローを素早く追い詰める。'],
    art:portrait({race:'elf',robe:'#3a5a2a',hair:'#8a5a2a',head:'hood',hood:'#2f4a22',prop:'bow'}),
    power:{c:2,fx:{face:2},n:['Piercing Arrow','穿刺之箭','貫きの矢']},
-   deck:['pounce','spray','huntmark','berserker',...rep('direwolf',2),'harpooneer',...rep('beastcaller',2),...rep('killcmd',2),'eel','undertow','hounds',...rep('gull',2),'riptide','shark','wyvern','dragonknight']},
+   deck:['pounce','spray','huntmark','goblin',...rep('direwolf',2),'harpooneer',...rep('beastcaller',2),...rep('killcmd',2),'eel','undertow','hounds',...rep('gull',2),'riptide','shark','wyvern','dragonknight']},
   {id:'priest',col:'#efe2c2',n:['Priest','牧师','司祭'],tag:['Healing and Ward to outlast every foe.','以治疗和护盾拖垮每一个敌人。','回復と結界で、どんな敵よりも長く耐える。'],
    art:portrait({race:'human',robe:'#e8e2d0',trim:'#e8c35a',hair:'#c8a060',long:1,head:'circlet',gem:'#ffe08a',prop:'book',bookc:'#e8c35a',glow:'#ffe9a0'}),
    power:{c:2,tgt:'friend',fx:{healT:3},n:['Mending Touch','愈合之触','癒しの手']},
-   deck:['brace',...rep('pearl',2),'pwshield','holysmite','mend',...rep('cleric',2),'dispel','radiant','undertow','diver','knight','swpain','priestess','golem','swdeath','shark','archmage','treant']},
+   deck:['pwshield',...rep('pearl',2),'pwshield','holysmite','mend',...rep('cleric',2),'dispel','radiant','undertow','diver','spellbreaker','swpain','spellbreaker','golem','swdeath','shark',...rep('treant',2)]},
   {id:'warlock',col:'#9a6aff',n:['Warlock','术士','術士'],tag:['Trade health for cards and command the undead.','以生命换取手牌，驱使亡灵大军。','体力を手札に換え、アンデッドを操る。'],
    art:portrait({race:'human',robe:'#3a2a5a',head:'hood',hood:'#2a1a40',eyes:'#c47fe0',prop:'staff',orb:'#9a6aff',glow:'#9a6aff'}),
    power:{c:2,fx:{selfDmg:2,draw:1},n:['Blood Pact','鲜血契约','血の契約']},
-   deck:['cleric','soulfire','coil','raisedead','lurker',...rep('sailor',2),...rep('ghoul',2),'cleric','hellfire','maelstrom',...rep('necro',2),'golem','riptide','breath','ogre','shark','dragonknight']},
+   deck:['hexer','soulfire','coil','raisedead','lurker',...rep('sailor',2),...rep('ghoul',2),'firelem','hellfire','inferno',...rep('necro',2),'golem','darkpact','breath','ogre','shark','dragonknight']},
 ];
 const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
 const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
@@ -901,7 +967,10 @@ function autoFill(d,cls){
 // Saved decks: a list of named decks per device. Older single drafts per class are migrated once.
 function loadSaved(){
   let list=[];try{list=JSON.parse(localStorage.getItem('ashen-saved')||'[]')||[]}catch(e){}
-  list=Array.isArray(list)?list.filter(d=>d&&CBY[d.cls]&&validDeck(d.cards,d.cls)&&typeof d.name==='string'):[];
+  // Decks are kept when the rules change: cards a class may no longer use (or that no longer exist) are dropped,
+  // and the deck simply needs refilling.
+  list=Array.isArray(list)?list.filter(d=>d&&CBY[d.cls]&&Array.isArray(d.cards)&&typeof d.name==='string')
+    .map(d=>({...d,cards:sanitizeDeck(d.cards,d.cls)})):[];
   try{
     if(!localStorage.getItem('ashen-migrated')){
       const old=JSON.parse(localStorage.getItem('ashen-decks')||'{}')||{};
@@ -920,6 +989,7 @@ function saveCurrent(asNew){
   else{d={id:'d'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,cls:Q.cls,cards:[...Q.deck],t:Date.now()};list.unshift(d);Q.editId=d.id}
   storeSaved(list);Q.dirty=false;Q.toast=T('saved',name);
 }
+function sanitizeDeck(d,cls){const out=[];d.forEach(k=>{if(CARDS[k]&&!CARDS[k].token&&forCls(k,cls)&&copies(out,k)<maxCopies(k)&&out.length<DECK_SIZE)out.push(k)});return out}
 function validDeck(d,cls){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k)&&(!cls||forCls(k,cls)))}
 let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
 
@@ -1739,11 +1809,12 @@ function oresultHTML(){
 // ---------- render ----------
 function cardFace(k,size,tag='button',attrs='',extra=''){
   const c=CARDS[k],m=c.t==='m';
-  const typ=(m?`${T('minion')} · ${T('race')[c.race]}`:T('spell'))+(c.cls?` · ${CBY[c.cls].n[li()]}`:'');
+  // The frame colour shows minion or spell; the line names what matters in play: the race (Beasts count for
+  // Kill Command) and, for class cards, the class.
+  const typ=[m&&T('race')[c.race],c.cls&&CBY[c.cls].n[li()]].filter(Boolean).join(' · ');
   return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''} ${size} ${extra}" ${attrs}>
     <span class="art">${art(k)}</span><span class="cost">${c.c}</span>
-    <span class="plate">${cn(k)}</span><span class="gem ${c.r}"></span>
-    <span class="tbox"><span class="typ">${typ}</span><span class="tx">${kwBold(ct(k))}</span></span>
+    <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span>${typ?`<span class="typ">${typ}</span>`:''}<span class="tx">${kwBold(ct(k))}</span></span>
     ${m?`<span class="stat a">${c.a}</span><span class="stat h">${c.h}</span>`:''}</${tag}>`;
 }
 function header(){
@@ -1789,12 +1860,12 @@ function builderHTML(){
   const rows=uniq.map(k=>`<button class="drow" style="--rc:${RC[CARDS[k].r]}" data-rm="${k}" aria-label="${cn(k)} ×${copies(d,k)}"><span class="dc">${CARDS[k].c}</span><span class="dn">${cn(k)}</span><span class="dx">×${copies(d,k)}</span></button>`).join('');
   const buckets=[0,0,0,0,0,0,0,0];d.forEach(k=>buckets[Math.min(7,CARDS[k].c)]++);const mx=Math.max(4,...buckets);
   const curve=`<div class="curve" aria-label="${T('curve')}">${buckets.map(n=>`<i style="height:${n/mx*100}%"></i>`).join('')}</div><div class="curvel">${['0','1','2','3','4','5','6','7+'].map(x=>`<span>${x}</span>`).join('')}</div>`;
-  const types=[['all',T('filterAll')],['m',T('minions')],['s',T('spells')]];
+  const types=[['all',T('filterAll')],['m',T('minions')],['s',T('spells')],['cls',c.n[li()]]];
   const costs=[[0,T('filterAll')],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']];
-  const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||CARDS[k].t===Q.type)&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
-    .sort((a,b)=>CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
+  const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
+    .sort((a,b)=>!!CARDS[b].cls-!!CARDS[a].cls||CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
-    return `<div class="cslot">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
+    return `<div class="cslot${CARDS[k].cls?' clsc':''}" style="--cc:${c.col}">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
   const toOnline=Q.ret==='online';
   return navRow(toOnline?['online',T('modeOnline')]:['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
     <div class="namebar"><input id="deckname" type="text" maxlength="28" autocomplete="off" aria-label="${T('deckName')}" placeholder="${T('deckName')}" value="${esc(Q.name)}">
@@ -1854,6 +1925,15 @@ function heroHTML(s){
   else{const p=s.power;power=`<div class="power foe" data-epow title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></div>`}
   return `<div class="hero ${foe?'foe':''}">${face}${info}${power}</div>`;
 }
+const MICON={
+  guard:'<path d="M8 1.6l5.4 2v3.9c0 3.4-2.3 5.6-5.4 6.9-3.1-1.3-5.4-3.5-5.4-6.9V3.6z" fill="currentColor"/>',
+  ward:'<circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.4 6.2a3.2 3.2 0 0 1 2.4-1.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>',
+  gasp:'<path d="M8 1.8a5.2 5.2 0 0 0-5.2 5.2c0 1.9.9 3.2 2.2 3.8v2.6h6v-2.6c1.3-.6 2.2-1.9 2.2-3.8A5.2 5.2 0 0 0 8 1.8z" fill="currentColor"/><circle cx="6" cy="7.4" r="1.25" fill="#17121c"/><circle cx="10" cy="7.4" r="1.25" fill="#17121c"/><path d="M7 13.4v-2M9 13.4v-2" stroke="#17121c" stroke-width=".9"/>',
+  sp:'<path d="M8 1l1.7 4.4L14.2 7l-4.5 1.6L8 13l-1.7-4.4L1.8 7l4.5-1.6z" fill="currentColor"/>',
+  grow:'<path d="M8 2l4.6 4.8H9.8V14H6.2V6.8H3.4z" fill="currentColor"/>',
+  frozen:'<path d="M8 1.5v13M2.4 4.8l11.2 6.4M2.4 11.2l11.2-6.4M6.2 2.6L8 4.2l1.8-1.6M6.2 13.4L8 11.8l1.8 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  silenced:'<circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12L12 4" stroke="currentColor" stroke-width="1.8"/>',
+};
 function minHTML(m){
   const id=idOf(m),c=CARDS[m.key];
   let cls='min '+m.side;
@@ -1863,8 +1943,12 @@ function minHTML(m){
   if(S.sel===m.uid)cls+=' sel';
   cls+=tclass(id);
   const kw=[m.frozen&&T('fFreeze'),m.guard&&T('guard'),m.ward&&T('ward'),!m.silenced&&c.gasp&&T('gasp'),!m.silenced&&c.sp&&T('spKw',c.sp),m.silenced&&T('fSilence')].filter(Boolean).join(' ');
+  // Lasting effects as small icons (shown on the landscape board, where the text is hidden).
+  const ic=[m.guard&&['guard',T('guard')],m.ward&&['ward',T('ward')],!m.silenced&&c.gasp&&['gasp',T('gasp')],!m.silenced&&c.sp&&['sp',T('spKw',c.sp)],
+    !m.silenced&&c.onSpell&&['grow',T('growKw')],m.frozen&&['frozen',T('fFreeze')],m.silenced&&['silenced',T('fSilence')]].filter(Boolean);
+  const icons=ic.length?`<span class="mico">${ic.map(([k,t])=>`<i class="mi ${k}" title="${t}"><svg viewBox="0 0 16 16" aria-hidden="true">${MICON[k]}</svg></i>`).join('')}</span>`:'';
   return `<button class="${cls}" data-t="${id}" aria-label="${T('minAria',cn(m.key),m.atk,m.hp,kw)}">
-    <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>
+    <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>${icons}
     ${m.sleep&&m.side==='p'?'<span class="z">zz</span>':''}
     <span class="st a ${m.atk>m.base[0]?'up':''}">${m.atk}</span><span class="st h ${m.hp<m.max?'hurt':m.max>m.base[1]?'up':''}">${m.hp}</span></button>`;
 }
@@ -1875,6 +1959,7 @@ function handHTML(){
     const ok=S.turn==='p'&&!S.busy&&!S.over&&canPay('p',k)&&!S.pending;
     if(ok)ex+=' play';else if(!canPay('p',k))ex+=' off';
     if(S.pending&&S.pending.type==='spell'&&S.pending.idx===i)ex+=' pend';
+    if(S.hsel===i&&LAND.matches)ex+=' hsel';
     let st='';if(i>=newFrom){ex+=' drawn';st=`style="--d:${(i-newFrom)*110}ms"`}
     const aria=T('cardAria',cn(k),c.c,c.t==='m'?T('statsAria',c.a,c.h):'',ct(k));
     return cardFace(k,'sm','button',`data-hand="${i}" ${st} aria-label="${aria}"`,ex);
@@ -1894,11 +1979,69 @@ function galleryHTML(){
     <p class="gsub">${T('galSub',keys.length)}</p>
     ${sec(T('minions'),keys.filter(k=>CARDS[k].t==='m'))}${sec(T('spells'),keys.filter(k=>CARDS[k].t==='s'))}`;
 }
+const LAND=matchMedia('(orientation:landscape) and (min-width:560px)');
+function afterDuelRender(){
+  [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
+  for(const f of FX){const el=elOf(f.id);if(!el)continue;
+    if(f.hit&&!RM){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
+    const s=document.createElement('span');s.className='float';s.textContent=f.txt;s.style.color=f.col;el.appendChild(s);setTimeout(()=>s.remove(),900)}
+  FX=[];
+}
+// Landscape duel: a slim status rail on the left, the board in the middle, the card preview and hand on the right.
+function railHero(s){
+  const id=idOf(s),foe=s.side==='e',name=heroName(s);
+  const init=foe&&S.mode==='camp'?OPP[R.stage].i[li()]:T('heroInit');
+  const portrait=!foe?CBY[R.cls]:S.mode!=='camp'?CBY[S.ecls]:null;
+  const face=`<button class="face${tclass(id)}" data-t="${id}" title="${name}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
+    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
+  const mana=`<div><div class="lmana${s.mana?'':' none'}" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${s.mana}<small>/${s.maxMana}</small></div>
+    <div class="lsm">${'<i></i>'.repeat(s.sm||0)}</div></div>`;
+  let power;
+  if(!foe){const p=curPower(),ok=!powerBlocked();
+    power=`<button class="power mini" data-go="power" ${ok?'':'disabled'} title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></button>`}
+  else{const p=s.power;power=`<div class="power mini foe" data-epow title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></div>`}
+  return `<div class="lhero ${foe?'foe':'me'}">${face}<div class="lrow">${mana}${power}</div></div>`;
+}
+function duelLandHTML(){
+  if(S.hsel!=null&&!(S.hsel<S.p.hand.length))S.hsel=null;
+  const myTurn=S.turn==='p'&&!S.busy&&!S.over;
+  const chips=S.hist.map((h,i)=>i<S.hist.length-4?'':(()=>{const fresh=h.side==='e'&&h.round===S.round&&S.turn==='p'?' fresh':'';
+    return `<button class="hchip ${h.side==='e'?'foe':'me'}${fresh}" data-hist="${i}" aria-label="${T('played',heroName(S[h.side]))} ${cn(h.key)}${h.t?'. '+T('target',nm(h.t)):''}">${art(h.key)}</button>`})()).join('');
+  const endIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12a7 7 0 1 1-2.05-4.95"/><path d="M19 4v5h-5"/></svg>';
+  const rail=`<div class="lrail">${railHero(S.e)}<div class="lhist">${chips}</div>${railHero(S.p)}
+    <button class="endb ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'} title="${T('endTurn')}" aria-label="${T('endTurn')}">${endIcon}</button></div>`;
+  const mid=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
+  const board=`<div class="lboard"><div class="board ${S.e.board.length?'':'empty'}" data-board="e" data-empty="${T('noEnemy')}">${S.e.board.map(minHTML).join('')}</div>
+    <div class="mid" aria-live="polite">${mid}</div>
+    <div class="board ${S.p.board.length?'':'empty'}" data-board="p" data-empty="${T('playMinions')}">${S.p.board.map(minHTML).join('')}</div></div>`;
+  const pk=S.pending&&S.pending.type==='spell'?S.p.hand[S.pending.idx]:S.hsel!=null?S.p.hand[S.hsel]:null;
+  let prev;
+  if(pk)prev=cardFace(pk,'md','div')+(S.pending?'':`<span>${S.turn==='p'&&canPay('p',pk)?T('tapPlay'):''}</span>`);
+  else prev=`<div class="who"><span><b>${heroName(S.e)}</b> · ${T('handDeck',S.e.hand.length,S.e.deck.length)}</span>
+    <span><b>${heroName(S.p)}</b> · ${T('handDeck',S.p.hand.length,S.p.deck.length)}</span>
+    <span>${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span><span>${T('tapPreview')}</span></div>`;
+  const flag=S.mode==='online'&&!S.over?`<button class="btn ghost concede lflag ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑'}</button>`:'';
+  return rail+board+`<div class="lside">${flag}<div class="lprev">${prev}</div><div class="hand">${handHTML()}</div></div>`;
+}
+LAND.addEventListener('change',()=>{if(view==='duel'){S.hsel=null;render()}});
+// Landscape: overlap the hand just enough that every card fits in one row.
+function fitHand(){
+  const h=$('.hand');if(!h)return;
+  const cs=h.querySelectorAll('.card'),n=cs.length;let ov=0;
+  if(LAND.matches&&n>1){const w=cs[0].offsetWidth,avail=h.clientWidth-16;ov=Math.min(0,Math.floor((avail-n*w)/(n-1))-7)}
+  h.style.setProperty('--ov',ov+'px');
+  // Recent plays (landscape rail): show the newest that fit completely, never a cut-off one.
+  const box=$('.lhist');if(!box)return;
+  const cs2=[...box.querySelectorAll('.hchip')];cs2.forEach(c=>c.classList.remove('off'));
+  const fit=Math.max(0,Math.floor((box.clientHeight+4)/32));
+  cs2.slice(0,Math.max(0,cs2.length-fit)).forEach(c=>c.classList.add('off'));
+}
+addEventListener('resize',()=>{if(view==='duel')fitHand()});
 function render(){
   document.documentElement.lang=L==='zh'?'zh-CN':L==='ja'?'ja':'en';
   document.title='Ruinaccord';
   const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
-  const app=$('#app');
+  const app=$('#app');app.classList.toggle('duelland',view==='duel'&&LAND.matches);
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
   if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
@@ -1918,6 +2061,7 @@ function render(){
       <div class="btns"><button class="btn ghost" data-go="gallery">${T('viewCards')}</button></div></div>`;
     return;
   }
+  if(view==='duel'&&LAND.matches){app.innerHTML=duelLandHTML();S.drew=0;fitHand();afterDuelRender();return}
   if(view==='duel'){
     const pend=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
     const myTurn=S.turn==='p'&&!S.busy&&!S.over;
@@ -1930,12 +2074,7 @@ function render(){
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
         ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
         <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
-    S.drew=0;
-    [...S.p.board,...S.e.board].forEach(m=>m.enter=false);
-    for(const f of FX){const el=elOf(f.id);if(!el)continue;
-      if(f.hit&&!RM){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
-      const s=document.createElement('span');s.className='float';s.textContent=f.txt;s.style.color=f.col;el.appendChild(s);setTimeout(()=>s.remove(),900)}
-    FX=[];
+    S.drew=0;afterDuelRender();
     return;
   }
   FX=[];
@@ -1963,7 +2102,9 @@ document.addEventListener('click',ev=>{
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.go==='peekclose')return closePeek();
   if(b.dataset.t)return clickTarget(b.dataset.t);
-  if(b.dataset.hand!==undefined)return playHand(+b.dataset.hand);
+  if(b.dataset.hand!==undefined){const i=+b.dataset.hand;
+    if(LAND.matches&&S&&S.hsel!==i&&!S.pending){S.hsel=i;return render()}
+    if(S)S.hsel=null;return playHand(i)}
   if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return startDuel()}
   if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
   if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
@@ -2061,6 +2202,15 @@ document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagat
 document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
 initEmbers();
 newRun();
+// Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
+try{const q=new URLSearchParams(location.search),dc=q.get('duel');
+  if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
+    const mins=CBY[dc].deck.filter(k=>CARDS[k].t==='m');for(let i=0;i<Math.min(5,+q.get('board')||0);i++){summon('p',mins[i%mins.length]);summon('e',mins[(i+3)%mins.length])}
+    for(let i=0;i<Math.min(8,+q.get('hist')||0);i++)pushHist(i%2?'e':'p',mins[i%mins.length],null);
+    // &cards=a,b,c: these cards go in your hand, and the minions among them also on both boards (art checks)
+    (q.get('cards')||'').split(',').filter(k=>CARDS[k]).forEach(k=>{S.p.hand.unshift(k);if(CARDS[k].t==='m'){summon('p',k);summon('e',k)}});S.p.hand.splice(10);
+    (q.get('fx')||'').split(',').forEach((f,i)=>{const m=S.e.board[i];if(!m)return;if(f==='ward')m.ward=true;if(f==='frozen')m.frozen=true;if(f==='silenced')silence(m)});
+    if(q.get('sel')!=null)S.hsel=+q.get('sel');render()}}catch(e){}
 // An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
 try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
   if(rc.length===6){O.code=rc;const u=new URL(location.href);u.searchParams.delete('room');history.replaceState(null,'',u.pathname+u.search+u.hash);goOnline()}}catch(e){}
