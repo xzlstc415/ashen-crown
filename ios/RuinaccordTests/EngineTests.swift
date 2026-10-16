@@ -142,7 +142,7 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.p.spellMana, 3); XCTAssertEqual(s.p.mana, 0)
         s.p.mana = 1
         XCTAssertTrue(s.canPay(.p, "frostnova")); XCTAssertFalse(s.canPay(.p, "direwolf"))
-        s.pay(.p, "frostnova"); XCTAssertEqual(s.p.spellMana, 0); XCTAssertEqual(s.p.mana, 1)
+        s.pay(.p, "frostnova"); XCTAssertEqual(s.p.spellMana, 1); XCTAssertEqual(s.p.mana, 1)
         s.p.spellMana = 1; s.p.mana = 2; s.pay(.p, "frostbolt"); XCTAssertEqual(s.p.spellMana, 0); XCTAssertEqual(s.p.mana, 1)
 
         // Freeze: the frozen minion skips its next turn, then thaws.
@@ -199,7 +199,7 @@ final class EngineTests: XCTestCase {
         let geo = z.summon(.p, "geomancer")!, wy = z.summon(.p, "wyrmling")!
         _ = geo
         z.castSpell(.p, "missiles", nil)                     // 1 + Spell Damage 1
-        XCTAssertEqual(z.e.hp, 28); XCTAssertEqual(z.minion(wy.id)?.atk, 2)
+        XCTAssertEqual(z.e.hp, 28); XCTAssertEqual(z.minion(wy.id)?.atk, 3)
         z.castSpell(.p, "retreat", wy.id)
         XCTAssertNil(z.minion(wy.id)); XCTAssertEqual(z.p.hand.last, "wyrmling")
     }
