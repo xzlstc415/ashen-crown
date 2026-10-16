@@ -358,6 +358,11 @@ svg{-webkit-user-drag:none}
 /* landscape board: minions are just their picture plus Attack/Health (name and keywords live in the long-press view) */
 #app.duelland .min{padding:0}
 #app.duelland .min .mn,#app.duelland .min .kw{display:none}
+.mico{display:none}
+#app.duelland .mico{display:flex;flex-direction:column;gap:2px;position:absolute;left:-7px;top:6px;z-index:2;pointer-events:none}
+.mi{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#17121c;border:1.5px solid currentColor;box-shadow:0 1px 3px #000a}
+.mi svg{width:11px;height:11px;display:block}
+.mi.guard{color:#e8c35a}.mi.ward{color:#a9c4ff}.mi.gasp{color:#d8d3c2}.mi.sp{color:#c4a3ff}.mi.grow{color:#8fe08f}.mi.frozen{color:#8fd0ff}.mi.silenced{color:#a6a0aa}
 #app.duelland .min .mart{position:absolute;inset:2px;width:auto;height:auto;border-radius:11px 11px 8px 8px}
 #app.duelland .min.guard .mart{border-radius:3px}
 #app.duelland .min .mart img{object-position:50% 14%}
@@ -445,7 +450,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
-    fWard:'Ward',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fWard:'Ward',growKw:'Grows with spells',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
@@ -511,7 +516,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
-    fWard:'护盾',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fWard:'护盾',growKw:'施法成长',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
@@ -577,7 +582,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
-    fWard:'結界',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fWard:'結界',growKw:'呪文で成長',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
     fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
@@ -1891,6 +1896,15 @@ function heroHTML(s){
   else{const p=s.power;power=`<div class="power foe" data-epow title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></div>`}
   return `<div class="hero ${foe?'foe':''}">${face}${info}${power}</div>`;
 }
+const MICON={
+  guard:'<path d="M8 1.6l5.4 2v3.9c0 3.4-2.3 5.6-5.4 6.9-3.1-1.3-5.4-3.5-5.4-6.9V3.6z" fill="currentColor"/>',
+  ward:'<circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.4 6.2a3.2 3.2 0 0 1 2.4-1.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>',
+  gasp:'<path d="M8 1.8a5.2 5.2 0 0 0-5.2 5.2c0 1.9.9 3.2 2.2 3.8v2.6h6v-2.6c1.3-.6 2.2-1.9 2.2-3.8A5.2 5.2 0 0 0 8 1.8z" fill="currentColor"/><circle cx="6" cy="7.4" r="1.25" fill="#17121c"/><circle cx="10" cy="7.4" r="1.25" fill="#17121c"/><path d="M7 13.4v-2M9 13.4v-2" stroke="#17121c" stroke-width=".9"/>',
+  sp:'<path d="M8 1l1.7 4.4L14.2 7l-4.5 1.6L8 13l-1.7-4.4L1.8 7l4.5-1.6z" fill="currentColor"/>',
+  grow:'<path d="M8 2l4.6 4.8H9.8V14H6.2V6.8H3.4z" fill="currentColor"/>',
+  frozen:'<path d="M8 1.5v13M2.4 4.8l11.2 6.4M2.4 11.2l11.2-6.4M6.2 2.6L8 4.2l1.8-1.6M6.2 13.4L8 11.8l1.8 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  silenced:'<circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12L12 4" stroke="currentColor" stroke-width="1.8"/>',
+};
 function minHTML(m){
   const id=idOf(m),c=CARDS[m.key];
   let cls='min '+m.side;
@@ -1900,8 +1914,12 @@ function minHTML(m){
   if(S.sel===m.uid)cls+=' sel';
   cls+=tclass(id);
   const kw=[m.frozen&&T('fFreeze'),m.guard&&T('guard'),m.ward&&T('ward'),!m.silenced&&c.gasp&&T('gasp'),!m.silenced&&c.sp&&T('spKw',c.sp),m.silenced&&T('fSilence')].filter(Boolean).join(' ');
+  // Lasting effects as small icons (shown on the landscape board, where the text is hidden).
+  const ic=[m.guard&&['guard',T('guard')],m.ward&&['ward',T('ward')],!m.silenced&&c.gasp&&['gasp',T('gasp')],!m.silenced&&c.sp&&['sp',T('spKw',c.sp)],
+    !m.silenced&&c.onSpell&&['grow',T('growKw')],m.frozen&&['frozen',T('fFreeze')],m.silenced&&['silenced',T('fSilence')]].filter(Boolean);
+  const icons=ic.length?`<span class="mico">${ic.map(([k,t])=>`<i class="mi ${k}" title="${t}"><svg viewBox="0 0 16 16" aria-hidden="true">${MICON[k]}</svg></i>`).join('')}</span>`:'';
   return `<button class="${cls}" data-t="${id}" aria-label="${T('minAria',cn(m.key),m.atk,m.hp,kw)}">
-    <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>
+    <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>${icons}
     ${m.sleep&&m.side==='p'?'<span class="z">zz</span>':''}
     <span class="st a ${m.atk>m.base[0]?'up':''}">${m.atk}</span><span class="st h ${m.hp<m.max?'hurt':m.max>m.base[1]?'up':''}">${m.hp}</span></button>`;
 }
@@ -2162,6 +2180,7 @@ try{const q=new URLSearchParams(location.search),dc=q.get('duel');
     for(let i=0;i<Math.min(8,+q.get('hist')||0);i++)pushHist(i%2?'e':'p',mins[i%mins.length],null);
     // &cards=a,b,c: these cards go in your hand, and the minions among them also on both boards (art checks)
     (q.get('cards')||'').split(',').filter(k=>CARDS[k]).forEach(k=>{S.p.hand.unshift(k);if(CARDS[k].t==='m'){summon('p',k);summon('e',k)}});S.p.hand.splice(10);
+    (q.get('fx')||'').split(',').forEach((f,i)=>{const m=S.e.board[i];if(!m)return;if(f==='ward')m.ward=true;if(f==='frozen')m.frozen=true;if(f==='silenced')silence(m)});
     if(q.get('sel')!=null)S.hsel=+q.get('sel');render()}}catch(e){}
 // An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
 try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
