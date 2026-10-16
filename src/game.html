@@ -2144,11 +2144,13 @@ document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagat
 document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
 initEmbers();
 newRun();
-// Test link: ?duel=<class>&hand=<n>&board=<n> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
+// Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
   if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
     const mins=CBY[dc].deck.filter(k=>CARDS[k].t==='m');for(let i=0;i<Math.min(5,+q.get('board')||0);i++){summon('p',mins[i%mins.length]);summon('e',mins[(i+3)%mins.length])}
     for(let i=0;i<Math.min(8,+q.get('hist')||0);i++)pushHist(i%2?'e':'p',mins[i%mins.length],null);
+    // &cards=a,b,c: these cards go in your hand, and the minions among them also on both boards (art checks)
+    (q.get('cards')||'').split(',').filter(k=>CARDS[k]).forEach(k=>{S.p.hand.unshift(k);if(CARDS[k].t==='m'){summon('p',k);summon('e',k)}});S.p.hand.splice(10);
     if(q.get('sel')!=null)S.hsel=+q.get('sel');render()}}catch(e){}
 // An invite link (?room=123456) opens straight into the friend-match lobby with the code filled in.
 try{const rc=(new URLSearchParams(location.search).get('room')||'').replace(/\D/g,'');
