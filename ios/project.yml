@@ -57,6 +57,14 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.hermes-eris.ruinaccord
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: NO
+      configs:
+        # Archives (scripts/testflight.sh or Product > Archive) sign manually for the App Store.
+        # Set here rather than on the xcodebuild command line, which would also apply to the
+        # Firebase package targets, and those cannot take a provisioning profile.
+        Release:
+          CODE_SIGN_STYLE: Manual
+          CODE_SIGN_IDENTITY: Apple Distribution
+          PROVISIONING_PROFILE_SPECIFIER: Ruinaccord App Store
     dependencies:
       - package: Firebase
         product: FirebaseAuth

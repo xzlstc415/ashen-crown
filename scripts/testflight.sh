@@ -11,7 +11,7 @@
 # puts both files back. The build number is the time, so every upload is higher
 # than the last.
 #
-# Signing is manual: the "Apple Distribution: Zhiliang Xing" identity in the login
+# Signing is manual (Release config of the app target in ios/project.yml): the "Apple Distribution: Zhiliang Xing" identity in the login
 # keychain and the "Ruinaccord App Store" profile (created through the App Store
 # Connect API on 2026-10-15, expires 2027-10-07). The upload authenticates with the
 # team API key in ~/.appstoreconnect/private_keys.
@@ -49,8 +49,6 @@ rm -rf "$OUT"; mkdir -p "$OUT"
 xcodebuild -project ios/Ruinaccord.xcodeproj -scheme Ruinaccord -configuration Release \
   -destination 'generic/platform=iOS' -archivePath "$OUT/Ruinaccord.xcarchive" \
   -clonedSourcePackagesDirPath ios/.spm -derivedDataPath ios/.build/DerivedData-release archive \
-  CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Distribution" \
-  PROVISIONING_PROFILE_SPECIFIER="$PROFILE" DEVELOPMENT_TEAM=7Z6WNXV55C \
   MARKETING_VERSION="$VERSION" CURRENT_PROJECT_VERSION="$BUILD" | grep -E "error:|ARCHIVE (SUCCEEDED|FAILED)"
 [ -d "$OUT/Ruinaccord.xcarchive" ] || { echo "archive failed" >&2; exit 1; }
 
