@@ -40,8 +40,8 @@ body{{margin:0;font-size:15px}}
 <body>'''
 # Cards that have a painting in img/cards/ (made by art/build_art.py).
 import json
-painted = sorted(p.stem for p in (site / 'img' / 'cards').glob('*.jpg'))
-rest = rest.replace('/*PAINTED*/[]', json.dumps(painted))
+painted = {p.stem: hashlib.sha1(p.read_bytes()).hexdigest()[:8] for p in sorted((site / 'img' / 'cards').glob('*.jpg'))}
+rest = rest.replace('/*PAINTED*/{}', json.dumps(painted, separators=(',', ':')))
 html = head + rest.rstrip() + '''
 <script>
 if('serviceWorker' in navigator && location.protocol==='https:'){

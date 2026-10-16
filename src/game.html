@@ -826,9 +826,10 @@ const CARDS={
 };
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
-// Cards with a painting (img/cards/<id>.jpg, listed by src/build.py) show it; the rest keep their vector art.
-const PAINTED=new Set(/*PAINTED*/[]);
-const art=k=>PAINTED.has(k)?`<img src="img/cards/${k}.jpg" alt="" loading="lazy" decoding="async">`:`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
+// Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
+// id -> content hash, and the hash in the URL makes a replaced painting skip any cached copy.
+const PAINTED=/*PAINTED*/{};
+const art=k=>PAINTED[k]?`<img src="img/cards/${k}.jpg?v=${PAINTED[k]}" alt="" loading="lazy" decoding="async">`:`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
 function fxText(fx,tgt){
   const F=I18N[L].fx,out=[];
   if(fx.selfDmg)out.push(F.self(fx.selfDmg));
