@@ -53,7 +53,7 @@ struct CardView: View {
                     .zIndex(1)
                 // Text box
                 VStack(spacing: 0.15 * em) {
-                    Text(card.isMinion ? "\(tx.minion) · \(tx.race(card.race ?? ""))" : tx.spell)
+                    Text((card.isMinion ? "\(tx.minion) · \(tx.race(card.race ?? ""))" : tx.spell) + (card.cls.map { " · " + tx.className($0) } ?? ""))
                         .font(Theme.body(0.72 * em, .medium)).tracking(0.5)
                         .foregroundStyle(Theme.parchInk.opacity(0.6))
                         .textCase(.uppercase).lineLimit(1).minimumScaleFactor(0.7)
@@ -143,9 +143,12 @@ struct MinionView: View {
         let aimed = vm.aimed == m.id
         let sleeping = m.sleep && m.side == .p && myTurn
         var kws: [String] = []
+        if m.frozen { kws.append(tx.fFreeze) }
         if m.hasGuard { kws.append(tx.guardKw) }
         if m.ward { kws.append(tx.wardKw) }
-        if m.card.gasp != nil { kws.append(tx.gaspKw) }
+        if m.gasp != nil { kws.append(tx.gaspKw) }
+        if m.spellDamage > 0 { kws.append(tx.spKw(m.spellDamage)) }
+        if m.silenced { kws.append(tx.fSilence) }
         return ZStack(alignment: .top) {
             RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12)
                 .fill(LinearGradient(colors: foe ? [Color(hex: "#4a2826"), Color(hex: "#24130f")] : [Color(hex: "#3a3046"), Color(hex: "#211b29")], startPoint: .top, endPoint: .bottom))
@@ -155,6 +158,7 @@ struct MinionView: View {
                     RadialGradient(colors: [Color(hex: "#5a4636"), Color(hex: "#17110d")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 40)
                     Image(m.card.artName).resizable().scaledToFit()
                 }
+                .grayscale(m.silenced ? 0.85 : 0)
                 .frame(width: 54, height: 32)
                 .clipShape(UnevenRoundedRectangle(topLeadingRadius: 10, bottomLeadingRadius: 4, bottomTrailingRadius: 4, topTrailingRadius: 10))
                 Text(tx.name(m.card.names)).font(Theme.body(9.5, .heavy)).foregroundStyle(Theme.ink)
@@ -180,6 +184,8 @@ struct MinionView: View {
         }
         .frame(width: 60, height: 84)
         .saturation(sleeping ? 0.6 : 1).brightness(sleeping ? -0.08 : 0)
+        .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).fill(Color(hex: "#8fd0ff").opacity(m.frozen ? 0.22 : 0)).allowsHitTesting(false))
+        .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Color(hex: "#8fd0ff"), lineWidth: m.frozen ? 3 : 0).padding(-1.5))
         .shadow(color: m.ward ? Theme.foam.opacity(0.7) : .clear, radius: m.ward ? 7 : 0)
         .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Theme.foam.opacity(0.6), lineWidth: m.ward ? 3 : 0).padding(-3))
         .overlay(RoundedRectangle(cornerRadius: 14).stroke(aimed ? Theme.blood : target ? Theme.blood : selected ? Theme.ember : ready ? Theme.ready : .clear, lineWidth: aimed ? 3 : 2).padding(-4))
@@ -281,8 +287,16 @@ struct HeroView: View {
                             .transformEffect(CGAffineTransform(a: 1, b: 0, c: -0.21, d: 1, tx: 0, ty: 0))
                     }
                     Text("\(h.mana)/\(h.maxMana)").font(Theme.body(12, .semibold)).foregroundStyle(Color(hex: "#8cc4f0")).monospacedDigit().padding(.leading, 4)
+                    if h.spellMana > 0 {
+                        HStack(spacing: 2) {
+                            ForEach(0..<h.spellMana, id: \.self) { _ in
+                                Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
+                                    .frame(width: 7, height: 7).rotationEffect(.degrees(45))
+                            }
+                        }.padding(.leading, 5)
+                    }
                 }
-                .accessibilityLabel(Text(tx.mana(h.mana, h.maxMana)))
+                .accessibilityLabel(Text(tx.mana(h.mana, h.maxMana) + (h.spellMana > 0 ? ", " + tx.spellMana(h.spellMana) : "")))
                 Text(tx.handDeck(h.hand.count, h.deck.count)).font(Theme.body(12)).foregroundStyle(Theme.muted).monospacedDigit()
             }
             .frame(maxWidth: .infinity, alignment: .leading)

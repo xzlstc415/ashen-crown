@@ -3,6 +3,7 @@ import Foundation
 /// Who an effect or hero power may target.
 enum Target: String, Codable {
     case any, minion, ally, friend, enemy
+    case foe          // enemy minions only
 }
 
 /// One card effect or hero power. Zero / nil means "not part of this effect".
@@ -13,7 +14,23 @@ struct Effect: Codable, Hashable {
     var team: [Int]?      // [+atk, +hp] for all friendly minions
     var summon: [String] = []
     var tgt: Target?
-    private enum CodingKeys: String, CodingKey { case dmg, aoe, face, healT, heal, armor, draw, mana, selfDmg, grantGuard = "guard", ward, buff, team, summon, tgt }
+    /// Extra condition on a minion target: "damaged", "atk<=3" or "atk>=5".
+    var cond: String?
+    var destroy = false, silence = false, freeze = false, freezeAll = false
+    var setAtk = 0, setHp = 0
+    var sweep = 0              // damage to ALL minions (and both heroes when `heroes`)
+    var heroes = false
+    var armorDmg = false       // damage equal to your Armor
+    var dmgBeast = 0           // damage instead of `dmg` while you control a Beast
+    var drawIfKill = false
+    var tempAtk = 0            // +Attack until the end of this turn
+    var bounce = false         // return the minion to its owner's hand
+    var perFoe: String?        // summon this card once per enemy minion
+    private enum CodingKeys: String, CodingKey {
+        case dmg, aoe, face, healT, heal, armor, draw, mana, selfDmg, grantGuard = "guard", ward, buff, team, summon, tgt
+        case cond, destroy, silence, freeze, freezeAll, setAtk, setHp, sweep, heroes, armorDmg, dmgBeast, drawIfKill, tempAtk, bounce, perFoe
+    }
+    var dealsDamage: Bool { dmg > 0 || armorDmg }
 }
 
 struct Power: Codable, Hashable {
@@ -42,12 +59,17 @@ struct Card: Codable, Identifiable, Hashable {
     let fx: Effect?             // spell effect
     let names: [String]
     let flavor: [String]
+    let cls: String?            // class card: only this class may use it
+    let text: [String]?         // rules text written per language (otherwise generated from the effect)
+    let sp: Int                 // Spell Damage
+    let onSpell: [Int]?         // [+atk, +hp] whenever its owner casts a spell
 
     var isMinion: Bool { type == .minion }
     var isLegendary: Bool { rarity == "l" }
     var maxCopies: Int { isLegendary ? 1 : 2 }
     var artName: String { "art_\(id)" }
-    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor }
+    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell }
+    func allowed(for cls: String?) -> Bool { self.cls == nil || cls == nil || self.cls == cls }
 }
 
 struct HeroClass: Codable, Identifiable, Hashable {
@@ -104,9 +126,9 @@ final class GameData: Decodable {
     private(set) lazy var rulesVersion: String = {
         var h: Int32 = 0
         func mix(_ s: String) { for u in s.utf8 { h = h &* 31 &+ Int32(u) } }
-        for c in cards { mix("\(c.id)|\(c.cost)|\(c.atk ?? -1)|\(c.hp ?? -1)|\(c.hasGuard)|\(c.ward)|\(c.surge)|\(c.gasp ?? "")|\(c.bc.map { "\($0)" } ?? "")|\(c.fx.map { "\($0)" } ?? "")") }
+        for c in cards { mix("\(c.id)|\(c.cls ?? "")|\(c.sp)|\(c.onSpell ?? [])|\(c.cost)|\(c.atk ?? -1)|\(c.hp ?? -1)|\(c.hasGuard)|\(c.ward)|\(c.surge)|\(c.gasp ?? "")|\(c.bc.map { "\($0)" } ?? "")|\(c.fx.map { "\($0)" } ?? "")") }
         for k in classes { mix("\(k.id)|\(k.power.cost)|\(k.power.tgt?.rawValue ?? "")|\(k.power.fx)") }
-        return "v2-\(String(UInt32(bitPattern: h), radix: 36))"
+        return "v3-\(String(UInt32(bitPattern: h), radix: 36))"
     }()
 
     private enum CodingKeys: String, CodingKey { case cards, classes, opponents, boardMax, deckSize, fortify }

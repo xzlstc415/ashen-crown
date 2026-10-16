@@ -43,16 +43,19 @@ struct Tx {
     var rules: [String] {
         switch lang {
         case .en: return ["You gain one more **mana** each turn, up to 10. Spend it on minions and spells.",
+                          "Mana you leave unspent is saved as up to 3 **spell mana**, which only spells can use.",
                           "Tap a glowing minion, then tap an enemy to **attack**. New minions wait a turn unless they have **Charge**.",
                           "Enemies must hit **Guard** minions first. **Ward** blocks the next damage taken.",
                           "Choose one of six **classes**. Each has its own **hero power**, usable once per turn, and its own starting deck.",
                           "Defeat eight foes, from a goblin warband to the Ashen King. After each win you also add a card to your deck."]
         case .zh: return ["每回合你的**法力值**上限加1，最多10点。用它打出随从和法术。",
+                          "没用完的法力会存为最多3点**法术法力**，只能用来施放法术。",
                           "点击带绿框的随从，再点击敌人即可**攻击**。新随从要等一回合才能攻击，除非它有**冲锋**。",
                           "敌人必须先攻击有**守护**的随从。**护盾**可以抵挡下一次伤害。",
                           "从六个**职业**中选择一个。每个职业都有专属的**英雄技能**（每回合可用一次）和初始牌组。",
                           "击败八名敌人，从哥布林战团一路打到灰烬之王。每赢一场，你还可以向牌组加入一张牌。"]
         case .ja: return ["毎ターン**マナ**の上限が1増える（最大10）。ミニオンと呪文に使おう。",
+                          "使い切らなかったマナは最大3まで**呪文マナ**として貯まり、呪文にだけ使える。",
                           "光っているミニオンをタップし、敵をタップして**攻撃**。出したばかりのミニオンは**突撃**がない限り次のターンまで攻撃できない。",
                           "敵は先に**ガード**を持つミニオンを攻撃しなければならない。**結界**は次に受けるダメージを1回防ぐ。",
                           "6つの**クラス**から1つを選ぼう。クラスごとに専用の**ヒーローパワー**（1ターンに1回）と初期デッキがある。",
@@ -248,6 +251,11 @@ struct Tx {
     var history: String { pick("Recent plays", "最近出牌", "最近のプレイ") }
     var tapClose: String { pick("Tap anywhere to close", "点击任意位置关闭", "タップで閉じる") }
     var fWard: String { pick("Ward", "护盾", "結界") }
+    var fFreeze: String { pick("Frozen", "冻结", "凍結") }
+    var fSilence: String { pick("Silenced", "沉默", "沈黙") }
+    var fDestroy: String { pick("Destroyed", "消灭", "破壊") }
+    func spKw(_ n: Int) -> String { pick("Spell +\(n)", "法伤+\(n)", "呪文+\(n)") }
+    func spellMana(_ n: Int) -> String { pick("\(n) spell mana", "法术法力 \(n)", "呪文マナ \(n)") }
     func fArmor(_ n: Int) -> String { pick("-\(n) armor", "-\(n)护甲", "装甲-\(n)") }
     func armorN(_ n: Int) -> String { pick("+\(n) armor", "+\(n)护甲", "装甲+\(n)") }
     func fAtk(_ n: Int) -> String { pick("+\(n) Atk", "+\(n)攻击", "攻撃+\(n)") }
@@ -321,6 +329,7 @@ struct Tx {
     var kwCharge: String { pick("Charge", "冲锋", "突撃") }
     /// Full rules text of a card.
     func cardText(_ c: Card) -> String {
+        if let t = c.text { return name(t) }
         var kws: [String] = []
         if c.hasGuard { kws.append(guardKw) }
         if c.ward { kws.append(wardKw) }
@@ -335,9 +344,9 @@ struct Tx {
     /// Keywords that get bolded in card text.
     var keywords: [String] {
         switch lang {
-        case .en: return ["Guard", "Ward", "Charge", "On play", "Last breath"]
-        case .zh: return ["守护", "护盾", "冲锋", "登场", "遗言"]
-        case .ja: return ["ガード", "結界", "突撃", "登場時", "断末魔"]
+        case .en: return ["Guard", "Ward", "Charge", "On play", "Last breath", "Freeze", "Silence", "Spell Damage"]
+        case .zh: return ["守护", "护盾", "冲锋", "登场", "遗言", "冻结", "沉默", "法术伤害"]
+        case .ja: return ["ガード", "結界", "突撃", "登場時", "断末魔", "凍結", "沈黙", "呪文ダメージ"]
         }
     }
     func cardName(_ id: String) -> String { GameData.shared.card(id).map { name($0.names) } ?? id }

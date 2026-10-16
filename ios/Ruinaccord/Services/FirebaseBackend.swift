@@ -51,7 +51,7 @@ final class FirebaseBackend: Backend {
         deckListener = users(info.uid).collection("decks").addSnapshotListener { [weak self] snap, _ in
             guard let snap else { return }
             let list = snap.documents.compactMap { try? $0.data(as: SavedDeck.self) }
-                .filter { GameData.shared.cls($0.cls) != nil && Decks.isValid($0.cards) }
+                .filter { GameData.shared.cls($0.cls) != nil && Decks.isValid($0.cards, cls: $0.cls) }
                 .sorted { $0.t > $1.t }
             Task { @MainActor in self?.decks = list }
         }
@@ -205,7 +205,7 @@ final class FirebaseMatchService: MatchService {
                 let t = try tx.getDocument(their)
                 guard t.exists, t.get("state") as? String == "waiting",
                       let cls = t.get("cls") as? String, let cards = t.get("deck") as? [String],
-                      GameData.shared.cls(cls) != nil, cards.count == Decks.size, Decks.isValid(cards) else { return nil }
+                      GameData.shared.cls(cls) != nil, cards.count == Decks.size, Decks.isValid(cards, cls: cls) else { return nil }
                 let theirUid = their.documentID
                 let doc = self.initialDoc(h: myUid, hc: myDeck.cls, hDeck: myDeck.cards, g: theirUid, gc: cls, gDeck: cards)
                 tx.setData(try Firestore.Encoder().encode(doc), forDocument: matchRef)
@@ -269,7 +269,7 @@ final class FirebaseMatchService: MatchService {
                       let cls = r.get("cls") as? String, let cards = r.get("deck") as? [String] else { return "notfound" }
                 if host == uid { return "notfound" }
                 if r.get("v") as? String != self.version { return "version" }
-                guard GameData.shared.cls(cls) != nil, cards.count == Decks.size, Decks.isValid(cards) else { return "deck" }
+                guard GameData.shared.cls(cls) != nil, cards.count == Decks.size, Decks.isValid(cards, cls: cls) else { return "deck" }
                 let doc = self.initialDoc(h: uid, hc: deck.cls, hDeck: deck.cards, g: host, gc: cls, gDeck: cards)
                 tx.setData(try Firestore.Encoder().encode(doc), forDocument: matchRef)
                 tx.updateData(["state": "matched", "matchId": matchRef.documentID, "updatedAt": self.now], forDocument: room)

@@ -27,7 +27,17 @@ extension DuelState {
         if !fx.summon.isEmpty && e.board.count >= Self.boardMax { return false }
         if fx.heal > 0 && fx.aoe == 0 && fx.armor == 0 && e.hp > e.max - 6 { return false }
         if fx.mana > 0 { return e.hand.contains { k in k != "coin" && GameData.shared.card(k)?.cost == e.mana + fx.mana } }
+        if !fx.summon.isEmpty && fx.selfDmg > 0 && e.hp <= fx.selfDmg + 8 { return false }
         return true
+    }
+
+    func aiValue(_ m: Minion) -> Int { m.atk + m.hp + (m.hasGuard ? 2 : 0) + (m.ward ? 2 : 0) }
+
+    /// An enemy minion worth silencing: buffed, keyworded or carrying an effect.
+    func aiSilenceTarget() -> EID? {
+        p.board.filter { m in
+            !m.silenced && (m.hasGuard || m.ward || m.atk > m.baseAtk || m.max > m.baseHp || m.card.gasp != nil || m.card.sp > 0 || m.card.onSpell != nil)
+        }.max(by: { aiValue($0) < aiValue($1) })?.id
     }
 
     /// Returns `.some(target)` (target may be nil) when the card should be played now, or nil to hold it.
@@ -35,12 +45,54 @@ extension DuelState {
         guard let c = GameData.shared.card(k) else { return nil }
         if c.isMinion {
             if e.board.count >= Self.boardMax { return nil }
+            if let bc = c.bc, bc.silence { return .some(aiSilenceTarget()) }
             if let bc = c.bc, bc.tgt == .ally { return .some(aiBestAlly()) }
             if let bc = c.bc, let tgt = bc.tgt { return .some(aiDamageTarget(bc.dmg, tgt)) }
             return .some(nil)
         }
         guard let fx = c.fx else { return nil }
-        if fx.dmg > 0 { if let t = aiDamageTarget(fx.dmg, fx.tgt) { return .some(t) }; return nil }
+        let bonus = spellBonus(.e)
+        let foes = p.board
+        func best(_ l: [Minion], _ score: (Minion) -> Int) -> EID?? {
+            guard let m = l.max(by: { score($0) < score($1) }) else { return nil }
+            return .some(m.id)
+        }
+        if fx.destroy {
+            let l = targetsFor(.e, fx.tgt ?? .foe, fx.cond).compactMap { minion($0) }
+            guard let m = l.max(by: { aiValue($0) < aiValue($1) }), aiValue(m) >= (c.cost >= 3 ? 8 : 5) else { return nil }
+            return .some(m.id)
+        }
+        if fx.silence { return aiSilenceTarget().map { .some($0) } ?? nil }
+        if fx.setAtk > 0 { return best(foes.filter { $0.atk >= 4 }) { $0.atk } }
+        if fx.setHp > 0 { return best(foes.filter { $0.hp >= 5 }) { $0.hp } }
+        if fx.freezeAll { return foes.filter { $0.atk >= 2 }.count >= 2 ? .some(nil) : nil }
+        if fx.aoe > 0 {
+            let hits = foes.contains { !$0.ward && $0.hp <= fx.aoe + bonus }
+            if fx.face == 0 && foes.count < 2 && !hits { return nil }
+            if fx.face > 0 && fx.aoe < 3 && !hits && foes.count < 2 && p.hp > fx.face + bonus { return nil }
+        }
+        if fx.sweep > 0 {
+            let n = fx.sweep + bonus
+            func dies(_ l: [Minion]) -> Int { l.filter { !$0.ward && $0.hp <= n }.reduce(0) { $0 + aiValue($1) } }
+            if fx.heroes && e.hp + e.armor <= n + 6 { return nil }
+            return dies(foes) >= dies(e.board) + 5 ? .some(nil) : nil
+        }
+        if fx.armorDmg {
+            guard e.armor + bonus >= 2, let t = aiDamageTarget(e.armor + bonus, .minion) else { return nil }
+            return .some(t)
+        }
+        if fx.drawIfKill { return best(foes.filter { !$0.ward && $0.hp <= fx.dmg + bonus }) { $0.atk } }
+        if fx.dmg > 0 && fx.buff != nil { return best(e.board.filter { ($0.hp > fx.dmg || $0.ward) && !$0.frozen }) { $0.atk } }
+        if fx.tempAtk > 0 { return best(e.board.filter { !$0.sleep && !$0.attacked && !$0.frozen }) { $0.atk } }
+        if fx.bounce { return best(e.board.filter { $0.card.bc != nil && !$0.card.token && $0.hp * 2 <= $0.max }) { $0.card.cost } }
+        if fx.perFoe != nil { return foes.count >= 2 && e.board.count < Self.boardMax ? .some(nil) : nil }
+        if fx.ward && fx.tgt != nil { return best(e.board.filter { !$0.ward }) { $0.atk } }
+        if fx.dmg > 0 {
+            let beast = fx.dmgBeast > 0 && e.board.contains { $0.card.race == "beast" }
+            if fx.selfDmg > 0 && e.hp <= fx.selfDmg + 8 { return nil }
+            if let t = aiDamageTarget((beast ? fx.dmgBeast : fx.dmg) + bonus, fx.tgt) { return .some(t) }
+            return nil
+        }
         if fx.buff != nil { if let t = aiBestAlly() { return .some(t) }; return nil }
         return aiWorth(fx) ? .some(nil) : nil
     }
@@ -79,7 +131,7 @@ extension DuelState {
     /// Playable cards this turn, most expensive first.
     func aiPlayable() -> [(key: String, index: Int)] {
         e.hand.enumerated().compactMap { i, k in
-            guard let c = GameData.shared.card(k), c.cost <= e.mana else { return nil }
+            guard canPay(.e, k) else { return nil }
             return (k, i)
         }.sorted { (GameData.shared.card($0.key)?.cost ?? 0) > (GameData.shared.card($1.key)?.cost ?? 0) }
     }

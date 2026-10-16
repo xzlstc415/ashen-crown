@@ -74,8 +74,8 @@ struct HandView: View {
             HStack(spacing: 7) {
                 ForEach(Array(s.p.hand.enumerated()), id: \.offset) { i, k in
                     if let c = GameData.shared.card(k) {
-                        let ok = s.turn == .p && !vm.busy && !s.over && c.cost <= s.p.mana && vm.pending == nil
-                        let off = c.cost > s.p.mana
+                        let ok = s.turn == .p && !vm.busy && !s.over && s.canPay(.p, k) && vm.pending == nil
+                        let off = !s.canPay(.p, k)
                         let pend: Bool = { if let p = vm.pending, case .spell(let idx) = p.kind { return idx == i }; return false }()
                         HandCard(card: c, index: i, ok: ok, off: off, pend: pend, fresh: i >= newFrom, delay: Double(max(0, i - newFrom)) * 0.11)
                     }

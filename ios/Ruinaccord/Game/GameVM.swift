@@ -214,6 +214,10 @@ final class GameVM {
         case .armorGain(let n): return (tx.armorN(n), Color(hex: "#cfd8dc"))
         case .atkUp(let n): return (tx.fAtk(n), Theme.ready)
         case .hpUp(let n): return (tx.fHp(n), Theme.ready)
+        case .frozen: return (tx.fFreeze, Theme.foam)
+        case .silenced: return (tx.fSilence, Color(white: 0.7))
+        case .destroyed: return (tx.fDestroy, Theme.blood)
+        case .stats(let a, let h): return ("\(a)/\(h)", Color(hex: "#cfd8dc"))
         }
     }
 
@@ -277,7 +281,7 @@ final class GameVM {
         if let i = q.deck.lastIndex(of: k) { q.deck.remove(at: i); q.dirty = true }
         q.toast = ""
     }
-    func autoFill() { Decks.autoFill(&q.deck); q.toast = ""; q.dirty = true }
+    func autoFill() { Decks.autoFill(&q.deck, cls: q.cls); q.toast = ""; q.dirty = true }
     func resetDeck() { q.deck = gd.cls(q.cls ?? "")?.deck ?? []; q.toast = ""; q.dirty = true }
     func clearDeck() { q.deck = []; q.toast = ""; q.dirty = true }
 
@@ -332,7 +336,7 @@ final class GameVM {
         let ecls = gd.classes.randomElement()!
         var s = DuelState(mode: .quick, pcls: cls, ecls: ecls.id, diff: diff,
                           p: DuelState.makeHero(.p, hp: 30, deck: q.deck.shuffled(), power: curPower),
-                          e: DuelState.makeHero(.e, hp: 30, deck: Decks.pad(ecls.deck, rarities: diff.rarities).shuffled(), power: ecls.power))
+                          e: DuelState.makeHero(.e, hp: 30, deck: Decks.pad(ecls.deck, rarities: diff.rarities, cls: ecls.id).shuffled(), power: ecls.power))
         resetDuelUI()
         let pFirst = Bool.random()
         if pFirst {
@@ -435,8 +439,11 @@ final class GameVM {
 
     /// Visual for an effect, played before the state change.
     func fxAnim(_ fx: Effect, from: CGPoint?, target t: EID?, side: Side) async {
-        if fx.dmg > 0, let t { await projectile(from: from, to: t, color: Theme.ember2) }
-        else if (fx.buff != nil || fx.healT > 0), let t { await projectile(from: from, to: t, color: Theme.ready) }
+        if fx.dealsDamage, let t { await projectile(from: from, to: t, color: fx.freeze ? Theme.foam : Theme.ember2) }
+        else if fx.destroy || fx.silence || fx.setAtk > 0 || fx.setHp > 0, let t { await projectile(from: from, to: t, color: Color(hex: "#c4b4ff")) }
+        else if (fx.buff != nil || fx.healT > 0 || fx.tempAtk > 0 || fx.ward || fx.bounce), let t { await projectile(from: from, to: t, color: Theme.ready) }
+        else if fx.sweep > 0 { Task { await wave(side) }; await wave(side.other) }
+        else if fx.freezeAll { await wave(side.other) }
         else if fx.face > 0 && fx.aoe == 0 { await projectile(from: from, to: .hero(side.other), color: Theme.ember2) }
         else if fx.aoe > 0 {
             if fx.face > 0, let c = center(.hero(side.other)) { burst(at: c, color: Theme.ember2) }
@@ -485,7 +492,7 @@ final class GameVM {
             case .camp:
                 if !won { go(.lost) }
                 else if run.stage == gd.opponents.count - 1 { go(.champ) }
-                else { picks = Decks.rollRewards(stage: run.stage); go(.reward) }
+                else { picks = Decks.rollRewards(stage: run.stage, cls: run.cls); go(.reward) }
             }
         }
     }
@@ -493,7 +500,7 @@ final class GameVM {
     func playHand(_ i: Int) {
         guard !blocked, pending == nil, i < S.p.hand.count, let c = gd.card(S.p.hand[i]) else { return }
         sel = nil
-        if c.cost > S.p.mana { S.log(.noMana); drain(); return }
+        if !S.canPay(.p, c.id) { S.log(.noMana); drain(); return }
         Task { await playHandAsync(i, c) }
     }
 
@@ -503,7 +510,7 @@ final class GameVM {
             if S.p.board.count >= DuelState.boardMax { S.log(.boardFull); drain(); return }
             busy = true
             await flyCard(i, to: boardCenter(.p))
-            S.p.mana -= c.cost
+            S.pay(.p, k)
             S.p.hand.remove(at: i)
             let m = S.summon(.p, k)
             let h = pushHist(.p, k, nil)
@@ -511,7 +518,7 @@ final class GameVM {
             netAct(NetAct(n: 0, t: "play", i: i, k: k))
             if let bc = c.bc, let m {
                 if let tgt = bc.tgt {
-                    let v = S.targetsFor(.p, tgt)
+                    let v = S.targetsFor(.p, tgt, bc.cond).filter { $0 != m.id }
                     if !v.isEmpty { pending = Pending(kind: .battlecry(fx: bc, src: m.id, hist: h), valid: v, key: k) }
                 } else {
                     drain()
@@ -526,18 +533,18 @@ final class GameVM {
         }
         guard let fx = c.fx else { return }
         if let tgt = fx.tgt {
-            let v = S.targetsFor(.p, tgt)
+            let v = S.targetsFor(.p, tgt, fx.cond)
             if v.isEmpty { S.log(.noTargets); drain(); return }
             pending = Pending(kind: .spell(idx: i), valid: v, key: k)
             return
         }
         busy = true
         await flyCard(i, to: fx.aoe > 0 ? boardCenter(.e) : center(.hero(.p)))
-        S.p.mana -= c.cost
+        S.pay(.p, k)
         S.p.hand.remove(at: i)
         drain()
         await fxAnim(fx, from: center(.hero(.p)), target: nil, side: .p)
-        S.applyFx(.p, fx, nil)
+        S.castSpell(.p, k, nil)
         pushHist(.p, k, nil)
         S.log(.cast(k))
         netAct(NetAct(n: 0, t: "cast", i: i, k: k))
@@ -582,11 +589,11 @@ final class GameVM {
         case .spell(let idx):
             guard idx < S.p.hand.count, let c = gd.card(S.p.hand[idx]), let fx = c.fx else { busy = false; return }
             await flyCard(idx, to: center(t))
-            S.p.mana -= c.cost
+            S.pay(.p, c.id)
             S.p.hand.remove(at: idx)
             drain()
             await fxAnim(fx, from: center(.hero(.p)), target: t, side: .p)
-            S.applyFx(.p, fx, t)
+            S.castSpell(.p, c.id, t)
             pushHist(.p, c.id, S.name(t))
             S.log(.castOn(c.id, S.name(t)))
             netAct(NetAct(n: 0, t: "cast", i: idx, k: c.id, tgt: netRef(t)))
@@ -651,7 +658,7 @@ final class GameVM {
     func hasMoves() -> Bool {
         guard let s = state else { return false }
         let p = s.p
-        return p.hand.contains { k in (gd.card(k).map { $0.cost <= p.mana && (!$0.isMinion || p.board.count < DuelState.boardMax) } ?? false) }
+        return p.hand.contains { k in (gd.card(k).map { s.canPay(.p, k) && (!$0.isMinion || p.board.count < DuelState.boardMax) } ?? false) }
             || p.board.contains(where: s.canAttack) || !powerBlocked
     }
 
@@ -694,7 +701,7 @@ final class GameVM {
             for o in S.aiPlayable() {
                 guard let plan = S.aiPlan(o.key), let c = gd.card(o.key) else { continue }
                 var t = plan
-                S.e.mana -= c.cost
+                S.pay(.e, c.id)
                 S.e.hand.remove(at: o.index)
                 if c.isMinion {
                     let shown: EID? = (c.bc?.tgt != nil) ? t : nil
@@ -718,7 +725,7 @@ final class GameVM {
                     pushHist(.e, c.id, t.map { S.name($0) })
                     await aimAt(t)
                     await fxAnim(fx, from: revealCenter, target: t, side: .e)
-                    S.applyFx(.e, fx, t)
+                    S.castSpell(.e, c.id, t)
                     reveal = nil
                 }
                 did = true
@@ -982,7 +989,7 @@ final class GameVM {
         switch a.t {
         case "play", "cast":
             guard let i = a.i, i < S.e.hand.count, S.e.hand[i] == a.k, let c = gd.card(S.e.hand[i]) else { throw NetError.outOfStep }
-            S.e.mana -= c.cost
+            S.pay(.e, c.id)
             S.e.hand.remove(at: i)
             if c.isMinion {
                 S.log(.eSummon(c.id)); drain()
@@ -1005,7 +1012,7 @@ final class GameVM {
                 pushHist(.e, c.id, t.map { S.name($0) })
                 if t != nil { await aimAt(t) }
                 await fxAnim(fx, from: revealCenter, target: t, side: .e)
-                S.applyFx(.e, fx, t)
+                S.castSpell(.e, c.id, t)
                 reveal = nil
             }
         case "bc":

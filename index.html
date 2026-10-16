@@ -76,6 +76,8 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .crystals i{width:9px;height:12px;transform:skewX(-12deg);border-radius:2px;background:#2a2234;border:1px solid #3d3150;transition:background .3s}
 .crystals i.on{background:#5aa3e0;border-color:#8cc4f0}
 .crystals b{font-size:12px;margin-left:4px;color:#8cc4f0;font-variant-numeric:tabular-nums}
+.crystals .sm{display:inline-flex;gap:2px;margin-left:6px}
+.crystals .sm i{width:8px;height:8px;transform:rotate(45deg);border-radius:1px;background:#a77be8;border:1px solid #d2b8ff}
 .power{flex:none;width:58px;height:58px;border-radius:50%;border:2px solid var(--gold);background:radial-gradient(circle at 40% 35%, #4a3a2a, #1e160f);
   font-size:10px;font-weight:700;line-height:1.15;display:grid;place-items:center;text-align:center;padding:4px;position:relative}
 .power.foe{border-color:#6d3a33;opacity:.75}
@@ -97,6 +99,8 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .min.ward{box-shadow:0 0 0 3px rgba(169,196,255,.6),0 0 14px rgba(169,196,255,.55);animation:wardPulse 2.4s ease-in-out infinite}
 @keyframes wardPulse{50%{box-shadow:0 0 0 4px rgba(169,196,255,.35),0 0 20px rgba(169,196,255,.7)}}
 .min.sleep{filter:saturate(.6) brightness(.85)}
+.min.frozen{box-shadow:0 0 0 3px rgba(143,208,255,.85),inset 0 0 18px rgba(143,208,255,.55);filter:saturate(.7) hue-rotate(10deg)}
+.min.silenced .mart{filter:grayscale(.85)}
 .min.ready{outline:2px solid var(--ready);outline-offset:2px}
 .min.sel{transform:translateY(-8px);outline:2px solid var(--ember);outline-offset:2px}
 .min.enter{animation:enter .5s cubic-bezier(.2,1.5,.4,1)}
@@ -360,6 +364,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}, costs ${c}. ${s}${t}`,statsAria:(a,h)=>`${a} attack, ${h} health. `,
     introTitle:'Fight your way to the Ashen Crown',
     rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
+      'Mana you leave unspent is saved as up to 3 <b>spell mana</b>, which only spells can use.',
       'Tap a glowing minion, then tap an enemy to <b>attack</b>. New minions wait a turn unless they have <b>Charge</b>.',
       'Enemies must hit <b>Guard</b> minions first. <b>Ward</b> blocks the next damage taken.',
       'Choose one of six <b>classes</b>. Each has its own <b>hero power</b>, usable once per turn, and its own starting deck.',
@@ -405,14 +410,14 @@ const I18N={
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
-    fWard:'Ward',fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fWard:'Ward',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
       summon:(n,a,h,nm)=>n>1?`Summon ${['','a','two','three','four'][n]} ${a}/${h} ${nm}s.`:`Summon a ${a}/${h} ${nm}.`,
       heal:n=>`Restore ${n} Health to your hero.`,armor:n=>`Gain ${n} Armor.`,draw:n=>n>1?`Draw ${n} cards.`:'Draw a card.',self:n=>`Take ${n} damage.`,
       kw:{guard:'Guard',ward:'Ward',surge:'Charge'},onPlay:'On play: ',last:'Last breath: ',sep:' ',kwSep:'. ',end:'.'},
-    kwRe:/\b(Guard|Ward|Charge|On play|Last breath)\b/g,
+    kwRe:/\b(Guard|Ward|Charge|On play|Last breath|Freeze|Silence|Spell Damage)\b/g,
   },
   zh:{
     brand:'Ruinaccord',hero:'冒险者',heroInit:'冒',duelOf:(n,t)=>`第${n}场，共${t}场`,stageOf:(n,t)=>`第${n}/${t}关`,
@@ -425,6 +430,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}，消耗${c}点法力。${s}${t}`,statsAria:(a,h)=>`${a}点攻击力，${h}点生命值。`,
     introTitle:'一路征战，夺取灰烬王冠',
     rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
+      '没用完的法力会存为最多3点<b>法术法力</b>，只能用来施放法术。',
       '点击带绿框的随从，再点击敌人即可<b>攻击</b>。新随从要等一回合才能攻击，除非它有<b>冲锋</b>。',
       '敌人必须先攻击有<b>守护</b>的随从。<b>护盾</b>可以抵挡下一次伤害。',
       '从六个<b>职业</b>中选择一个。每个职业都有专属的<b>英雄技能</b>（每回合可用一次）和初始牌组。',
@@ -470,14 +476,14 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
-    fWard:'护盾',fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fWard:'护盾',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
       summon:(n,a,h,nm)=>`召唤${['','一','两','三','四'][n]}个${a}/${h}的${nm}。`,
       heal:n=>`为你的英雄恢复${n}点生命值。`,armor:n=>`获得${n}点护甲。`,draw:n=>`抽${n>1?'两':'一'}张牌。`,self:n=>`受到${n}点伤害。`,
       kw:{guard:'守护',ward:'护盾',surge:'冲锋'},onPlay:'登场：',last:'遗言：',sep:'',kwSep:'。',end:'。'},
-    kwRe:/(守护|护盾|冲锋|登场|遗言)/g,
+    kwRe:/(守护|护盾|冲锋|登场|遗言|冻结|沉默|法术伤害)/g,
   },
   ja:{
     brand:'Ruinaccord',hero:'冒険者',heroInit:'冒',duelOf:(n,t)=>`決闘 ${n} / ${t}`,stageOf:(n,t)=>`${n}/${t}`,
@@ -490,6 +496,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}、コスト${c}。${s}${t}`,statsAria:(a,h)=>`攻撃力${a}、体力${h}。`,
     introTitle:'戦い抜いて、灰燼の王冠を手にせよ',
     rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
+      '使い切らなかったマナは最大3まで<b>呪文マナ</b>として貯まり、呪文にだけ使える。',
       '光っているミニオンをタップし、敵をタップして<b>攻撃</b>。出したばかりのミニオンは<b>突撃</b>がない限り次のターンまで攻撃できない。',
       '敵は先に<b>ガード</b>を持つミニオンを攻撃しなければならない。<b>結界</b>は次に受けるダメージを1回防ぐ。',
       '6つの<b>クラス</b>から1つを選ぼう。クラスごとに専用の<b>ヒーローパワー</b>（1ターンに1回）と初期デッキがある。',
@@ -535,14 +542,14 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
-    fWard:'結界',fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fWard:'結界',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
     fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
       summon:(n,a,h,nm)=>`${a}/${h}の${nm}を${n}体召喚する。`,
       heal:n=>`自分のヒーローの体力を${n}回復する。`,armor:n=>`装甲を${n}獲得する。`,draw:n=>`カードを${n}枚引く。`,self:n=>`${n}ダメージを受ける。`,
       kw:{guard:'ガード',ward:'結界',surge:'突撃'},onPlay:'登場時：',last:'断末魔：',sep:'',kwSep:'。',end:'。'},
-    kwRe:/(ガード|結界|突撃|登場時|断末魔)/g,
+    kwRe:/(ガード|結界|突撃|登場時|断末魔|凍結|沈黙|呪文ダメージ)/g,
   }
 };
 const T=(k,...a)=>{const v=I18N[L][k];return typeof v==='function'?v(...a):v};
@@ -656,6 +663,38 @@ const ART={
   inferno:'<path d="M0 64Q4 40 14 30Q14 44 22 46Q20 26 34 14Q32 34 42 38Q42 20 54 8Q54 28 62 34Q64 22 74 18Q70 36 80 40Q84 30 92 28Q88 44 100 64Z" fill="#e2763a"/><path d="M8 64Q12 50 20 46Q22 56 30 56Q30 44 40 38Q42 50 50 52Q52 40 60 36Q60 50 70 52Q72 44 80 42Q80 54 92 64Z" fill="#f6d78f"/>',
   darkpact:'<circle cx="50" cy="32" r="26" fill="#6a2a8a" opacity=".3"/><path d="M50 8Q66 8 66 26Q66 34 60 38V46H40V38Q34 34 34 26Q34 8 50 8Z" fill="#d8d3c2"/><ellipse cx="44" cy="26" rx="4" ry="5" fill="#2a0a3a"/><ellipse cx="56" cy="26" rx="4" ry="5" fill="#2a0a3a"/><circle cx="44" cy="26" r="1.4" fill="#c47fe0"/><circle cx="56" cy="26" r="1.4" fill="#c47fe0"/><path d="M44 46v6M50 46v6M56 46v6" stroke="#d8d3c2" stroke-width="2.5"/><path d="M80 50q2-6 0-10q4 4 2 10z" fill="#b0221a"/>',
   breath:'<path d="M100 20Q84 14 72 22L62 20Q56 24 60 28L70 30Q80 36 92 34Z" fill="#8a2a22"/><path d="M74 20l6-10 2 10z" fill="#e6dcc8"/><circle cx="70" cy="24" r="1.6" fill="#ffd36a"/><path d="M60 26Q40 16 0 20Q16 32 4 44Q30 40 60 30Z" fill="#e2763a"/><path d="M56 27Q40 22 14 26Q24 32 16 38Q36 34 56 29Z" fill="#f6d78f"/><path d="M0 52Q30 46 50 58Q24 56 0 64Z" fill="#e2763a" opacity=".6"/>',
+  innerrage:'<circle cx="50" cy="32" r="26" fill="#cf4a3f" opacity=".2"/><path d="M50 10q-12 16-12 26a12 12 0 0024 0q0-10-12-26z" fill="#cf4a3f"/><path d="M44 36l6-8 2 8 6-6" stroke="#ffd36a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M20 20l8 6M80 20l-8 6M18 48l9-4M82 48l-9-4" stroke="#f39a3a" stroke-width="2.4" stroke-linecap="round"/>',
+  whirlwind:'<circle cx="50" cy="32" r="27" fill="#cf4a3f" opacity=".15"/><path d="M30 32a20 20 0 1 0 40 0a14 14 0 1 0-28 0a8 8 0 1 0 16 0" fill="none" stroke="#efe2c2" stroke-width="2.6" stroke-linecap="round"/><path d="M16 14q8-8 18-6l-6 9z" fill="#c9cfd4"/><path d="M84 50q-8 8-18 6l6-9z" fill="#c9cfd4"/><path d="M16 14l18 18M84 50L66 32" stroke="#6b4a2a" stroke-width="2.4"/>',
+  shieldslam:'<circle cx="50" cy="32" r="26" fill="#cfd8dc" opacity=".15"/><path d="M38 8h24v18q0 16-12 24-12-8-12-24z" fill="#7a5a36" stroke="#e8c35a" stroke-width="2"/><path d="M50 14v30M40 24h20" stroke="#e8c35a" stroke-width="2"/><path d="M70 30h16M68 20l12-6M68 40l12 6M30 30H14M32 20l-12-6M32 40l-12 6" stroke="#efe2c2" stroke-width="2.4" stroke-linecap="round"/>',
+  execute:'<g transform="rotate(-30 50 32)"><rect x="48" y="4" width="4" height="54" fill="#6b4a2a"/><path d="M52 6q20 3 18 22q-8-8-18-6z" fill="#c9cfd4"/></g><path d="M18 58h64" stroke="#cf4a3f" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="53" r="3" fill="#cf4a3f"/><circle cx="68" cy="54" r="2" fill="#cf4a3f"/>',
+  missiles:'<circle cx="50" cy="32" r="26" fill="#8f78e0" opacity=".2"/><g stroke="#c4b4ff" stroke-width="3" stroke-linecap="round"><path d="M14 54L40 30"/><path d="M22 62L56 34"/><path d="M8 42L32 22"/></g><g fill="#efe2ff"><circle cx="42" cy="28" r="5"/><circle cx="58" cy="32" r="5"/><circle cx="34" cy="20" r="4"/></g><path d="M76 12l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#c4b4ff"/>',
+  mirror:'<ellipse cx="50" cy="32" rx="22" ry="28" fill="#8fd0ff" opacity=".2" stroke="#e8c35a" stroke-width="3"/><g fill="#c4e6ff"><circle cx="42" cy="24" r="6"/><path d="M31 52q2-16 11-18 9 2 11 18z"/></g><g fill="#c4e6ff" opacity=".55"><circle cx="58" cy="24" r="6"/><path d="M47 52q2-16 11-18 9 2 11 18z"/></g>',
+  frostbolt:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".18"/><path d="M14 54L70 14l6 6-48 40z" fill="#c4e6ff" stroke="#8fd0ff" stroke-width="2" stroke-linejoin="round"/><path d="M70 14l12-4-4 12z" fill="#ffffff"/><path d="M24 42l6 6M36 33l6 6M48 24l6 6" stroke="#ffffff" stroke-width="1.6"/>',
+  frostnova:'<circle cx="50" cy="32" r="28" fill="#8fd0ff" opacity=".18"/><path d="M50 6v52M27 19l46 26M27 45l46-26" stroke="#e8f4ff" stroke-width="3" stroke-linecap="round"/><path d="M44 10l6 6 6-6M44 54l6-6 6 6M24 26l8-2-2-8M76 38l-8 2 2 8M24 38l8 2-2 8M76 26l-8-2 2-8" stroke="#8fd0ff" stroke-width="2" stroke-linecap="round" fill="none"/>',
+  squires:'<path d="M22 60L66 4M78 60L34 4" stroke="#6b4a2a" stroke-width="3"/><path d="M66 4l4 9-9-2zM34 4l-4 9 9-2z" fill="#cfd6dc"/><path d="M36 34q14-16 28 0v8H36z" fill="#9aa3ad"/><rect x="48" y="24" width="4" height="18" fill="#6d757e"/><circle cx="50" cy="32" r="28" fill="#ffe9a0" opacity=".12"/>',
+  humility:'<circle cx="50" cy="32" r="26" fill="#ffe9a0" opacity=".18"/><rect x="40" y="8" width="5" height="34" fill="#d6dde2"/><rect x="32" y="40" width="21" height="4" rx="1" fill="#b08a4a"/><rect x="40.5" y="44" width="4" height="12" fill="#5a3a22"/><path d="M68 12v28M59 32l9 9 9-9" stroke="#ffe08a" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+  aegis:'<circle cx="50" cy="32" r="26" fill="#ffe9a0" opacity=".25" stroke="#ffe08a" stroke-width="2.5"/><circle cx="50" cy="22" r="7" fill="#e2b48c"/><path d="M36 54q2-20 14-22 12 2 14 22z" fill="#c8ccd2"/><path d="M28 14l4 2M72 14l-4 2M22 34h5M78 34h-5" stroke="#ffe08a" stroke-width="2" stroke-linecap="round"/>',
+  kings:'<circle cx="50" cy="32" r="26" fill="#ffe9a0" opacity=".2"/><path d="M26 44L28 18L40 30L50 12L60 30L72 18L74 44Z" fill="#e8c35a" stroke="#8a5a1a" stroke-width="2" stroke-linejoin="round"/><rect x="24" y="44" width="52" height="8" rx="2" fill="#b8913f"/><circle cx="50" cy="35" r="4" fill="#cf4a3f"/><path d="M82 6v12M76 12h12" stroke="#7fd17f" stroke-width="3" stroke-linecap="round"/>',
+  pounce:'<circle cx="50" cy="32" r="26" fill="#6aa57e" opacity=".18"/><g stroke="#efe2c2" stroke-width="4" stroke-linecap="round" fill="none"><path d="M30 10q10 22 4 46"/><path d="M46 8q10 24 4 48"/><path d="M62 10q10 22 4 46"/></g>',
+  huntmark:'<circle cx="50" cy="32" r="22" fill="none" stroke="#cf4a3f" stroke-width="3"/><circle cx="50" cy="32" r="12" fill="none" stroke="#cf4a3f" stroke-width="2.4"/><circle cx="50" cy="32" r="3.5" fill="#cf4a3f"/><path d="M50 2v14M50 48v14M20 32h14M66 32h14" stroke="#efe2c2" stroke-width="2.4" stroke-linecap="round"/>',
+  killcmd:'<circle cx="50" cy="32" r="26" fill="#6aa57e" opacity=".2"/><path d="M12 56L74 12" stroke="#8a5a2e" stroke-width="3"/><path d="M70 8l12-2-2 12z" fill="#cfd6dc"/><path d="M14 54l-3-8M14 54l-8 1" stroke="#efe2c2" stroke-width="2"/><g fill="#f3c97a"><ellipse cx="64" cy="46" rx="7" ry="6"/><circle cx="54" cy="36" r="3"/><circle cx="62" cy="33" r="3"/><circle cx="71" cy="35" r="3"/><circle cx="76" cy="42" r="3"/></g>',
+  hounds:wolfArt('#5a5048')+'<path d="M2 22h12M0 30h10M4 38h8" stroke="#f3c97a" stroke-width="2" stroke-linecap="round"/>',
+  pwshield:'<circle cx="50" cy="32" r="27" fill="#ffe9a0" opacity=".2"/><path d="M50 6l20 6v16q0 18-20 28-20-10-20-28V12z" fill="#efe6d0" stroke="#ffe08a" stroke-width="2.4"/><path d="M50 18v24M40 28h20" stroke="#e8c35a" stroke-width="4" stroke-linecap="round"/>',
+  holysmite:'<path d="M44 0h12L54 44h-8Z" fill="#fff8d8" opacity=".85"/><circle cx="50" cy="48" r="9" fill="#ffe08a"/><path d="M36 56l-6 4M64 56l6 4M50 58v6M40 44l-8-2M60 44l8-2" stroke="#ffe08a" stroke-width="2" stroke-linecap="round"/>',
+  dispel:'<circle cx="50" cy="32" r="22" fill="none" stroke="#8f78e0" stroke-width="3" stroke-dasharray="10 6"/><path d="M38 20l24 24M62 20L38 44" stroke="#efe2c2" stroke-width="3.4" stroke-linecap="round"/><g fill="#c4b4ff"><circle cx="20" cy="14" r="2"/><circle cx="82" cy="50" r="2.4"/><circle cx="78" cy="12" r="1.6"/></g>',
+  swpain:'<circle cx="50" cy="32" r="26" fill="#4a2a6a" opacity=".35"/><path d="M50 12q12 0 12 12 0 7-5 10v6H43v-6q-5-3-5-10 0-12 12-12z" fill="#c4b4ff"/><circle cx="45" cy="24" r="3" fill="#2a0a3a"/><circle cx="55" cy="24" r="3" fill="#2a0a3a"/><path d="M20 58q10-14 22-12M80 58q-10-14-22-12" stroke="#9a6aff" stroke-width="3" fill="none" stroke-linecap="round"/>',
+  swdeath:'<circle cx="50" cy="32" r="28" fill="#1a0a2a" opacity=".6"/><path d="M50 6q18 0 18 18 0 10-7 14v10H39V38q-7-4-7-14 0-18 18-18z" fill="#d8d3c2"/><ellipse cx="43" cy="24" rx="5" ry="6" fill="#2a0a3a"/><ellipse cx="57" cy="24" rx="5" ry="6" fill="#2a0a3a"/><path d="M45 44v4M50 44v4M55 44v4" stroke="#2a0a3a" stroke-width="2"/><path d="M14 10l10 8M86 10l-10 8" stroke="#9a6aff" stroke-width="2.4" stroke-linecap="round"/>',
+  soulfire:'<path d="M50 4Q64 20 60 32Q68 26 66 16Q80 32 70 50Q62 62 50 62Q38 62 30 50Q20 32 34 16Q32 26 40 32Q36 20 50 4Z" fill="#7a3ac0"/><path d="M50 22Q58 32 55 42Q60 40 60 34Q66 44 58 54Q53 60 50 60Q47 60 42 54Q34 44 40 34Q40 40 45 42Q42 32 50 22Z" fill="#7fff9a"/>',
+  coil:'<circle cx="50" cy="32" r="26" fill="#4a2a6a" opacity=".3"/><path d="M44 32a6 6 0 1 1 12 0a12 12 0 1 1-24 0a18 18 0 1 1 36 0" fill="none" stroke="#9a6aff" stroke-width="4" stroke-linecap="round"/><circle cx="68" cy="32" r="4" fill="#7fff9a"/>',
+  raisedead:'<rect x="14" y="50" width="72" height="14" fill="#3a2a22"/><path d="M14 50q36-8 72 0" fill="#4a3a2a"/><g fill="#d8d3c2"><rect x="44" y="30" width="9" height="22" rx="2"/><rect x="37" y="16" width="4" height="18" rx="2"/><rect x="43" y="10" width="4" height="22" rx="2"/><rect x="49" y="10" width="4" height="22" rx="2"/><rect x="55" y="14" width="4" height="20" rx="2"/></g><circle cx="24" cy="20" r="3" fill="#7fff9a" opacity=".7"/><circle cx="78" cy="14" r="2" fill="#7fff9a" opacity=".7"/>',
+  hellfire:'<path d="M0 64Q4 36 16 26Q16 42 24 44Q22 22 36 10Q34 32 44 36Q44 16 56 4Q56 26 64 32Q66 18 76 14Q72 34 82 38Q86 26 96 24Q90 44 100 64Z" fill="#8a2a6a"/><path d="M10 64Q14 48 22 44Q24 54 32 54Q32 42 42 36Q44 48 52 50Q54 38 62 34Q62 48 72 50Q74 42 82 40Q82 52 90 64Z" fill="#e2763a"/>',
+  retreat:'<rect x="56" y="16" width="24" height="34" rx="3" fill="#efe2c2" stroke="#b08a4a" stroke-width="2"/><path d="M60 23h16M60 29h12" stroke="#b08a4a" stroke-width="1.6"/><path d="M50 52Q20 54 22 28" fill="none" stroke="#8fd0ff" stroke-width="3.4" stroke-linecap="round"/><path d="M14 32l8-10 8 10" fill="none" stroke="#8fd0ff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>',
+  wyrmling:'<circle cx="50" cy="32" r="26" fill="#8f78e0" opacity=".2"/><path d="M20 52Q30 30 46 36Q60 42 66 26Q70 16 82 18Q74 22 74 30Q70 48 50 50Q36 52 28 60Z" fill="#5a8ae0"/><path d="M66 26l-3-10 7 6zM74 21l4-8 2 8z" fill="#c4b4ff"/><circle cx="77" cy="22" r="1.8" fill="#ffffff"/><circle cx="30" cy="20" r="2" fill="#c4b4ff"/><circle cx="40" cy="13" r="1.5" fill="#c4b4ff"/>',
+  geomancer:portrait({race:'gnome',robe:'#5a4a8a',hair:'#d0a050',head:'wizhat',hat:'#3a6a8a',prop:'staff',orb:'#c4b4ff',glow:'#8f78e0',beard:1,beardC:'#d0a050'}),
+  spellbreaker:portrait({race:'elf',robe:'#6a2a3a',hair:'#e0d0b0',long:1,head:'helm',helm:'#7a2a3a',prop:'sword',glow:'#cf4a3f'}),
+  skeleton:portrait({race:'undead',robe:'#3a3a3a',prop:'sword',eyes:'#7fff9a'}),
+  mirrorimg:portrait({race:'human',skin:'#c4e6ff',robe:'#8fd0ff',hair:'#e8f4ff',glow:'#8fd0ff'}),
+  hound:wolfArt('#a07a4a'),
   minnow:portrait({race:'human',robe:'#7a6a4a',hair:'#8a5a2a',prop:'spear'}),
   reefling:portrait({race:'human',robe:'#5a5a7a',head:'helm',prop:'spear'}),
   elver:wolfArt('#8a6a4a'),
@@ -718,12 +757,46 @@ const CARDS={
   riptide:{c:5,t:'s',r:'e',fx:{dmg:6,tgt:'any'},n:['Lightning Bolt','闪电箭','ライトニングボルト'],f:['Never strikes the same place twice. Never needs to.','从不劈同一个地方两次，也从不需要。','同じ場所に二度は落ちない。その必要もない。']},
   breath:{c:6,t:'s',r:'e',fx:{aoe:3,face:3},n:["Dragon's Breath",'龙息','竜の息吹'],f:['The last thing the castle walls ever felt.','城墙感受到的最后一样东西。','城壁が最後に感じたもの。']},
   inferno:{c:6,t:'s',r:'e',fx:{aoe:4},n:['Inferno','炼狱烈焰','業火'],f:['Nothing grows here anymore. Nothing will.','这里已寸草不生，以后也不会再有。','もう何も育たない。これからも。']},
+  // ---- class spells (cls: only that class may use them; x: rules text in every language) ----
+  innerrage:{c:0,t:'s',r:'c',cls:'warrior',fx:{dmg:1,buff:[2,0],tgt:'minion'},n:['Inner Rage','怒火中烧','内なる怒り'],x:['Deal 1 damage to a minion and give it +2 Attack.','对一个随从造成1点伤害，并使其获得+2攻击力。','ミニオン1体に1ダメージを与え、攻撃力+2を付与する。'],f:['Pain is a fine whetstone.','痛苦是最好的磨刀石。','痛みは良い砥石だ。']},
+  whirlwind:{c:1,t:'s',r:'c',cls:'warrior',fx:{sweep:1},n:['Whirlwind','旋风斩','旋風斬り'],x:['Deal 1 damage to ALL minions.','对所有随从造成1点伤害。','全てのミニオンに1ダメージを与える。'],f:['Friends should stand further back.','朋友们最好站远一点。','味方はもっと離れて立つべきだ。']},
+  shieldslam:{c:1,t:'s',r:'e',cls:'warrior',fx:{armorDmg:1,tgt:'minion'},n:['Shield Slam','盾牌猛击','シールドスラム'],x:['Deal damage to a minion equal to your Armor.','对一个随从造成等同于你护甲值的伤害。','ミニオン1体に、自分の装甲と同じだけのダメージを与える。'],f:['The best defense is a very heavy offense.','最好的防守，是非常沉重的进攻。','最大の防御は、とても重い攻撃だ。']},
+  execute:{c:2,t:'s',r:'r',cls:'warrior',fx:{destroy:1,cond:'damaged',tgt:'foe'},n:['Execute','斩杀','処刑'],x:['Destroy a damaged enemy minion.','消灭一个受伤的敌方随从。','ダメージを受けている敵のミニオン1体を破壊する。'],f:['Finish what you started.','把开始的事做完。','始めたことは終わらせろ。']},
+  missiles:{c:1,t:'s',r:'c',cls:'mage',fx:{aoe:1,face:1},n:['Arcane Missiles','奥术飞弹','アーケインミサイル'],f:['Not aimed. Not needed.','无需瞄准，也不需要瞄准。','狙いは要らない。'] },
+  mirror:{c:1,t:'s',r:'c',cls:'mage',fx:{summon:['mirrorimg','mirrorimg']},n:['Mirror Image','镜像','ミラーイメージ'],x:['Summon two 0/2 Mirror Images with Guard.','召唤两个0/2并具有守护的镜像。','ガードを持つ0/2のミラーイメージを2体召喚する。'],f:['Which one is real? Neither.','哪个是真的？都不是。','どれが本物？どれでもない。']},
+  frostbolt:{c:2,t:'s',r:'c',cls:'mage',fx:{dmg:3,freeze:1,tgt:'any'},n:['Frostbolt','寒冰箭','フロストボルト'],x:['Deal 3 damage and Freeze the target.','造成3点伤害，并冻结目标。','3ダメージを与え、対象を凍結させる。'],f:['Chill out.','冷静一下。','頭を冷やせ。']},
+  frostnova:{c:3,t:'s',r:'r',cls:'mage',fx:{aoe:1,freezeAll:1},n:['Frost Nova','冰霜新星','フロストノヴァ'],x:['Deal 1 damage to all enemy minions and Freeze them.','对所有敌方随从造成1点伤害，并将其冻结。','敵のミニオン全てに1ダメージを与え、凍結させる。'],f:['Everyone hold still.','所有人都别动。','全員、動くな。']},
+  squires:{c:2,t:'s',r:'c',cls:'paladin',fx:{summon:['minnow','minnow']},n:["Squire's Call",'侍从召集','従者の召集'],f:['Bring your own bucket.','自带水桶。','バケツは各自持参。']},
+  humility:{c:2,t:'s',r:'r',cls:'paladin',fx:{setAtk:1,tgt:'foe'},n:['Humility','谦逊','謙虚'],x:["Change an enemy minion's Attack to 1.",'使一个敌方随从的攻击力变为1。','敵のミニオン1体の攻撃力を1にする。'],f:['Kneel, and be smaller.','跪下，然后变得渺小。','ひざまずき、小さくなれ。']},
+  aegis:{c:1,t:'s',r:'c',cls:'paladin',fx:{ward:1,draw:1,tgt:'ally'},n:['Sacred Aegis','圣盾术','聖なる盾'],x:['Give a friendly minion Ward. Draw a card.','使一个友方随从获得护盾。抽一张牌。','味方のミニオン1体に結界を付与する。カードを1枚引く。'],f:['The light catches the first blow.','圣光会接下第一击。','光が最初の一撃を受け止める。']},
+  kings:{c:4,t:'s',r:'r',cls:'paladin',fx:{buff:[4,4],tgt:'ally'},n:['Blessing of Kings','王者祝福','王の祝福'],f:['Crowned for one glorious battle.','为一场荣耀之战而加冕。','栄光の一戦のための戴冠。']},
+  pounce:{c:0,t:'s',r:'c',cls:'hunter',fx:{tempAtk:2,tgt:'ally'},n:['Pounce','扑击','飛びかかり'],x:['Give a friendly minion +2 Attack this turn.','本回合中，使一个友方随从获得+2攻击力。','このターンの間、味方のミニオン1体に攻撃力+2を付与する。'],f:['Now.','就是现在。','今だ。']},
+  huntmark:{c:1,t:'s',r:'r',cls:'hunter',fx:{setHp:1,tgt:'foe'},n:["Hunter's Mark",'猎人印记','狩人の印'],x:["Change an enemy minion's Health to 1.",'使一个敌方随从的生命值变为1。','敵のミニオン1体の体力を1にする。'],f:['Marked, then missed by no one.','被标记之后，再没人会失手。','印をつけたら、もう誰も外さない。']},
+  killcmd:{c:2,t:'s',r:'c',cls:'hunter',fx:{dmg:3,dmgBeast:5,tgt:'any'},n:['Kill Command','杀戮命令','キルコマンド'],x:['Deal 3 damage. If you control a Beast, deal 5 instead.','造成3点伤害。如果你控制一只野兽，改为造成5点伤害。','3ダメージを与える。味方に獣がいる場合、代わりに5ダメージを与える。'],f:['One word. Many teeth.','一个字，许多牙。','一言で、牙が並ぶ。']},
+  hounds:{c:3,t:'s',r:'e',cls:'hunter',fx:{perFoe:'hound'},n:['Unleash the Hounds','关门放狗','猟犬を放て'],x:['For each enemy minion, summon a 1/1 Hound with Charge.','每有一个敌方随从，便召唤一只1/1并具有冲锋的猎犬。','敵のミニオン1体につき、突撃を持つ1/1の猟犬を1体召喚する。'],f:['Let them hunt.','让它们去猎吧。','狩らせろ。']},
+  pwshield:{c:1,t:'s',r:'c',cls:'priest',fx:{buff:[0,2],draw:1,tgt:'ally'},n:['Word of Shielding','真言术：盾','守りの言葉'],f:['Spoken softly. Struck hard.','轻声念出，重重挡下。','静かに唱え、強く守る。']},
+  holysmite:{c:1,t:'s',r:'c',cls:'priest',fx:{dmg:2,tgt:'minion'},n:['Holy Smite','神圣惩击','ホーリースマイト'],f:['A small sun, very briefly.','一个小太阳，转瞬即逝。','ほんの一瞬の、小さな太陽。']},
+  dispel:{c:1,t:'s',r:'r',cls:'priest',fx:{silence:1,tgt:'minion'},n:['Dispel','驱散','ディスペル'],x:['Silence a minion: it loses its buffs, keywords and effects.','沉默一个随从：它失去所有增益、关键词和效果。','ミニオン1体を沈黙させる（強化、キーワード、効果を全て失う）。'],f:['Hush.','嘘。','静かに。']},
+  swpain:{c:2,t:'s',r:'r',cls:'priest',fx:{destroy:1,cond:'atk<=3',tgt:'foe'},n:['Word of Pain','暗言术：痛','苦痛の言葉'],x:['Destroy an enemy minion with 3 or less Attack.','消灭一个攻击力小于或等于3的敌方随从。','攻撃力3以下の敵のミニオン1体を破壊する。'],f:['The small ones go quietly.','小家伙们走得很安静。','小さき者は静かに逝く。']},
+  swdeath:{c:3,t:'s',r:'e',cls:'priest',fx:{destroy:1,cond:'atk>=5',tgt:'foe'},n:['Word of Death','暗言术：灭','死の言葉'],x:['Destroy an enemy minion with 5 or more Attack.','消灭一个攻击力大于或等于5的敌方随从。','攻撃力5以上の敵のミニオン1体を破壊する。'],f:['The bigger they are.','块头越大……','大きい者ほど。']},
+  soulfire:{c:1,t:'s',r:'r',cls:'warlock',fx:{dmg:4,selfDmg:2,tgt:'any'},n:['Soulfire','灵魂之火','ソウルファイア'],x:['Deal 4 damage. Your hero takes 2 damage.','造成4点伤害。你的英雄受到2点伤害。','4ダメージを与える。自分のヒーローは2ダメージを受ける。'],f:['Burns twice: once out, once in.','烧两次：一次向外，一次向内。','二度焼く。外へ一度、内へ一度。']},
+  coil:{c:1,t:'s',r:'c',cls:'warlock',fx:{dmg:1,drawIfKill:1,tgt:'minion'},n:['Mortal Coil','死亡缠绕','デスコイル'],x:['Deal 1 damage to a minion. If that kills it, draw a card.','对一个随从造成1点伤害。如果它因此死亡，抽一张牌。','ミニオン1体に1ダメージを与える。それで倒した場合、カードを1枚引く。'],f:['Every ending is a lesson.','每次终结都是一堂课。','終わりはすべて教訓だ。']},
+  raisedead:{c:1,t:'s',r:'c',cls:'warlock',fx:{summon:['skeleton','skeleton'],selfDmg:1},n:['Raise Dead','亡者复生','死者の蘇生'],x:['Summon two 1/1 Skeletons. Your hero takes 1 damage.','召唤两个1/1的骷髅。你的英雄受到1点伤害。','1/1のスケルトンを2体召喚する。自分のヒーローは1ダメージを受ける。'],f:['Up. Up! Good bones.','起来，起来！好骨头。','起きろ、起きろ！良い骨だ。']},
+  hellfire:{c:3,t:'s',r:'e',cls:'warlock',fx:{sweep:3,heroes:1},n:['Hellfire','地狱烈焰','ヘルファイア'],x:['Deal 3 damage to ALL characters.','对所有角色造成3点伤害。','全てのキャラクターに3ダメージを与える。'],f:['It does not ask whose side you are on.','它不问你站在哪一边。','どちらの味方かは問わない。']},
+  // ---- neutral spell support ----
+  retreat:{c:1,t:'s',r:'c',fx:{bounce:1,tgt:'ally'},n:['Tactical Retreat','战术撤退','戦術的撤退'],x:['Return a friendly minion to your hand.','将一个友方随从移回你的手牌。','味方のミニオン1体を手札に戻す。'],f:['Live to charge again.','活下来，才能再冲锋。','生きて、もう一度突撃しよう。']},
+  wyrmling:{c:1,t:'m',a:1,h:3,r:'r',race:'dragon',onSpell:[1,0],n:['Mana Wyrmling','法力幼龙','マナの幼竜'],x:['Whenever you cast a spell, gain +1 Attack.','每当你施放一个法术，获得+1攻击力。','自分が呪文を使うたび、攻撃力+1を得る。'],f:['It eats spells. It is always hungry.','它以法术为食，而且永远吃不饱。','呪文を食べる。いつも腹ぺこだ。']},
+  geomancer:{c:2,t:'m',a:2,h:2,r:'c',race:'gnome',sp:1,n:['Gnome Geomancer','侏儒地卜师','ノームの地相術師'],x:['Spell Damage +1. Your spells deal 1 extra damage.','法术伤害+1。你的法术多造成1点伤害。','呪文ダメージ+1。自分の呪文のダメージが1増える。'],f:['The ground hums along with her.','大地随她一同低吟。','大地が彼女と共に唸る。']},
+  spellbreaker:{c:4,t:'m',a:4,h:3,r:'r',race:'elf',bc:{silence:1,tgt:'minion'},n:['Elven Spellbreaker','精灵破法者','エルフの呪文破り'],x:['On play: Silence a minion.','登场：沉默一个随从。','登場時：ミニオン1体を沈黙させる。'],f:['Magic is a habit. She breaks habits.','魔法是一种习惯，而她专破习惯。','魔法は癖だ。彼女は癖を断つ。']},
   bubble:{c:1,t:'m',a:2,h:1,r:'t',race:'undead',token:1,n:['Restless Spirit','怨灵','怨霊'],f:['It remembers being angry.','它记得自己曾经很愤怒。','怒っていたことだけは覚えている。']},
   minnow:{c:1,t:'m',a:1,h:1,r:'t',race:'human',token:1,n:['Militia Recruit','民兵','民兵'],f:['Pitchfork sold separately.','干草叉需另购。','熊手は別売り。']},
   reefling:{c:2,t:'m',a:2,h:2,r:'t',race:'human',token:1,guard:1,n:['Town Guard','城镇卫兵','町の衛兵'],f:['Halt. Please.','站住。拜托了。','止まれ。お願いだから。']},
   elver:{c:2,t:'m',a:2,h:1,r:'t',race:'beast',token:1,surge:1,n:['Wolf','狼','狼'],f:['Teeth first, questions never.','先下口，从不提问。','まず牙。質問はなし。']},
   squire:{c:3,t:'m',a:3,h:3,r:'t',race:'construct',token:1,guard:1,n:['Iron Golem','钢铁魔像','アイアンゴーレム'],f:['Forged in an afternoon. Built to last forever.','一个下午锻成，却要永远守护。','午後一つで鍛え、永遠に持つよう造られた。']},
   coin:{c:0,t:'s',r:'t',token:1,fx:{mana:1},n:['Lucky Coin','幸运硬币','幸運のコイン'],f:['Going second has its perks.','后手也有后手的好处。','後攻にも良いことはある。']},
+  skeleton:{c:1,t:'m',a:1,h:1,r:'t',race:'undead',token:1,n:['Skeleton','骷髅','スケルトン'],f:['Rattles when it walks.','走起路来咔咔作响。','歩くとカラカラ鳴る。']},
+  mirrorimg:{c:0,t:'m',a:0,h:2,r:'t',race:'elemental',token:1,guard:1,n:['Mirror Image','镜像','ミラーイメージ'],f:['Smile. It will smile back.','微笑吧，它也会对你微笑。','笑え。向こうも笑い返す。']},
+  hound:{c:1,t:'m',a:1,h:1,r:'t',race:'beast',token:1,surge:1,n:['Hound','猎犬','猟犬'],f:['Already running.','它已经在跑了。','もう走っている。']},
   spawn:{c:4,t:'m',a:4,h:4,r:'t',race:'dragon',token:1,ward:1,n:['Dragon Whelp','幼龙','子竜'],f:['Small now. Not for long.','现在还小，不会太久。','今は小さい。長くはない。']},
 };
 const cn=k=>CARDS[k].n[li()];
@@ -747,6 +820,7 @@ function fxText(fx,tgt){
 }
 function cardText(k){
   const c=CARDS[k],F=I18N[L].fx;
+  if(c.x)return c.x[li()];
   const kws=['guard','ward','surge'].filter(x=>c[x]).map(x=>F.kw[x]);
   let s=kws.length?kws.join(F.kwSep)+F.end:'';
   if(c.bc)s+=(s?F.sep:'')+F.onPlay+fxText(c.bc,c.bc.tgt);
@@ -759,20 +833,22 @@ const kwBold=s=>s.replace(I18N[L].kwRe,'<b>$1</b>');
 
 const rep=(k,n)=>Array(n).fill(k);
 const OPP=[
-  {n:['Storm Witch','风暴女巫','嵐の魔女'],i:['SW','巫','魔'],hp:20,deck:[...rep('apprentice',2),...rep('spray',2),...rep('lance',2),'maelstrom','riptide',...rep('firelem',2),...rep('tidepool',2),'alchemist',...rep('harpooneer',2),'diver','inferno','archmage','undertow','hexer']},
+  {n:['Storm Witch','风暴女巫','嵐の魔女'],i:['SW','巫','魔'],hp:20,deck:[...rep('apprentice',2),...rep('spray',2),...rep('lance',2),'maelstrom','riptide',...rep('firelem',2),...rep('tidepool',2),'alchemist',...rep('harpooneer',2),'diver','inferno','archmage','frostbolt','frostnova']},
   {n:['Goblin Warband','哥布林战团','ゴブリンの戦団'],i:['GW','哥','ゴ'],hp:18,deck:[...rep('goblin',3),...rep('berserker',3),...rep('direwolf',2),...rep('harpooneer',2),...rep('eel',2),...rep('frenzy',2),...rep('spray',2),'calltoarms',...rep('lurker',2),'hexer']},
   {n:['Forest Bandits','林地盗匪','森の盗賊団'],i:['FB','盗','盗'],hp:22,deck:['goblin',...rep('burglar',2),...rep('harpooneer',2),...rep('direwolf',2),...rep('beastcaller',2),'eel',...rep('spray',2),'darkpact',...rep('lurker',2),...rep('hexer',2),'gull','undertow','tidepool']},
   {n:['Orc Warlord','兽人督军','オークの将軍'],i:['OW','兽','オ'],hp:28,deck:[...rep('berserker',2),...rep('eel',2),...rep('frenzy',2),'hymn',...rep('hexer',2),...rep('lurker',2),'commander',...rep('ogre',2),'knight','gull','wyvern',...rep('direwolf',2),'thane']},
   {n:['Ironhold Dwarves','铁堡矮人','鉄砦のドワーフ'],i:['ID','矮','鉄'],hp:26,deck:[...rep('crab',2),...rep('cleric',2),...rep('knight',2),...rep('thane',2),'golem','harpooneer','shieldwall','hymn','priestess','lurker','ogre','alchemist','eel','dwarfking','mend','brace']},
   {n:['Elven Conclave','精灵议会','エルフ評議会'],i:['EC','精','エ'],hp:32,deck:[...rep('harpooneer',2),...rep('beastcaller',2),'pearl',...rep('priestess',2),'radiant','lance',...rep('gull',2),'shark','wyvern',...rep('undertow',2),'tidepool','treant','archmage','elfqueen','mend']},
-  {n:['The Bone Lich','骸骨巫妖','骸骨のリッチ'],i:['BL','骸','骸'],hp:34,deck:[...rep('sailor',2),...rep('ghoul',2),...rep('necro',2),'darkpact',...rep('undertow',2),'maelstrom','golem','shark','riptide','ogre','dragonknight','archmage','inferno','lich',...rep('apprentice',2)]},
+  {n:['The Bone Lich','骸骨巫妖','骸骨のリッチ'],i:['BL','骸','骸'],hp:34,deck:[...rep('sailor',2),...rep('ghoul',2),...rep('necro',2),'darkpact',...rep('undertow',2),'maelstrom','golem','shark','riptide','ogre','dragonknight','archmage','hellfire','lich','coil','apprentice']},
   {n:['The Ashen King','灰烬之王','灰燼の王'],i:['AK','王','王'],hp:28,deck:['leviathan',...rep('dragonknight',2),'wyvern','breath','maelstrom','firelem','commander','knight',...rep('sailor',2),...rep('ghoul',2),'necro',...rep('crab',2),...rep('harpooneer',2),'hexer','lance']},
 ];
 const oppName=i=>OPP[i].n[li()];
 const COLLECT=Object.keys(CARDS).filter(k=>!CARDS[k].token);
+// Class cards (cls) belong to one class; everything else is neutral.
+const forCls=(k,cls)=>!CARDS[k].cls||CARDS[k].cls===cls;
 function rollRewards(stage){
   const w={c:3,r:2,e:1,l:stage>=2?1:0},pool=[];
-  COLLECT.forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
+  COLLECT.filter(k=>forCls(k,R.cls)).forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
   const out=[];
   while(out.length<3){const k=pool[Math.random()*pool.length|0];if(!out.includes(k))out.push(k)}
   return out;
@@ -784,27 +860,27 @@ const CLASSES=[
   {id:'warrior',col:'#c0392b',n:['Warrior','战士','戦士'],tag:['Armor, sturdy Guard minions and brute force.','护甲、坚固的守护随从与蛮力。','装甲、頑丈なガード、そして力押し。'],
    art:portrait({race:'human',robe:'#8a2a2a',hair:'#3a2a1a',beard:1,head:'helm',plume:'#c0392b',prop:'axe'}),
    power:{c:2,fx:{armor:2},n:['Armor Up','全副武装','鎧を纏え']},
-   deck:['goblin','berserker',...rep('crab',2),'frenzy','shieldwall',...rep('cleric',2),'eel','hymn','hexer','knight','lurker','priestess','commander','golem','thane',...rep('ogre',2),'treant']},
+   deck:['innerrage','berserker',...rep('crab',2),'frenzy','whirlwind','shieldwall','shieldslam','cleric',...rep('execute',2),'eel','hymn','knight','lurker','commander','golem','thane','ogre','treant']},
   {id:'mage',col:'#5a8ae0',n:['Mage','法师','魔法使い'],tag:['Spells that burn the board and refill your hand.','以法术清场灼敌，并补充手牌。','呪文で盤面を焼き払い、手札を補う。'],
    art:portrait({race:'human',robe:'#2a3a7a',hair:'#d8c8a0',head:'wizhat',hat:'#2a3a7a',prop:'staff',orb:'#8fd0ff',glow:'#8fd0ff'}),
    power:{c:2,tgt:'any',fx:{dmg:1},n:['Arcane Spark','奥术火花','秘術の火花']},
-   deck:[...rep('apprentice',2),'spray','burglar',...rep('harpooneer',2),...rep('alchemist',2),'beastcaller','undertow','diver',...rep('hexer',2),...rep('maelstrom',2),'golem','gull','firelem','inferno','archmage']},
+   deck:[...rep('apprentice',2),'spray','missiles','wyrmling','geomancer','harpooneer',...rep('frostbolt',2),'lurker','diver',...rep('hexer',2),'maelstrom','frostnova','gull','firelem','ogre','inferno','archmage']},
   {id:'paladin',col:'#e8c35a',n:['Paladin','圣骑士','聖騎士'],tag:['Raise small armies, then bless and heal them.','召集小兵，再为他们加持与治疗。','小さな軍勢を集め、祝福し、癒す。'],
    art:portrait({race:'human',robe:'#c8ccd2',trim:'#e8c35a',head:'helm',helm:'#e8c35a',plume:'#ffffff',prop:['sword','shield'],shc:'#e8c35a',glow:'#ffe9a0'}),
    power:{c:2,fx:{summon:'minnow'},n:['Muster','征召','召集']},
-   deck:['brace',...rep('pearl',2),...rep('crab',2),...rep('mend',2),'calltoarms','hymn',...rep('radiant',2),...rep('knight',2),...rep('priestess',2),'commander','gull','thane','shark','dragonknight']},
+   deck:['brace',...rep('pearl',2),'squires','humility','crab','mend','aegis','ogre',...rep('radiant',2),...rep('knight',2),'priestess','kings','lurker','gull','thane','golem','dragonknight']},
   {id:'hunter',col:'#6aa57e',n:['Hunter','猎人','狩人'],tag:['Beasts and fast pressure on the enemy hero.','驱使野兽，快速压制敌方英雄。','獣を従え、敵ヒーローを素早く追い詰める。'],
    art:portrait({race:'elf',robe:'#3a5a2a',hair:'#8a5a2a',head:'hood',hood:'#2f4a22',prop:'bow'}),
    power:{c:2,fx:{face:2},n:['Piercing Arrow','穿刺之箭','貫きの矢']},
-   deck:['goblin','spray','berserker',...rep('direwolf',2),...rep('harpooneer',2),...rep('beastcaller',2),'eel','undertow','hexer','lance','lurker',...rep('gull',2),'riptide','shark','wyvern','dragonknight']},
+   deck:['pounce','spray','huntmark','berserker',...rep('direwolf',2),'harpooneer',...rep('beastcaller',2),...rep('killcmd',2),'eel','undertow','hounds',...rep('gull',2),'riptide','shark','wyvern','dragonknight']},
   {id:'priest',col:'#efe2c2',n:['Priest','牧师','司祭'],tag:['Healing and Ward to outlast every foe.','以治疗和护盾拖垮每一个敌人。','回復と結界で、どんな敵よりも長く耐える。'],
    art:portrait({race:'human',robe:'#e8e2d0',trim:'#e8c35a',hair:'#c8a060',long:1,head:'circlet',gem:'#ffe08a',prop:'book',bookc:'#e8c35a',glow:'#ffe9a0'}),
    power:{c:2,tgt:'friend',fx:{healT:3},n:['Mending Touch','愈合之触','癒しの手']},
-   deck:['brace',...rep('pearl',2),'crab','mend',...rep('cleric',2),'radiant','tidepool','undertow','diver',...rep('knight',2),'lance','priestess',...rep('golem',2),'shark','archmage','treant']},
+   deck:['brace',...rep('pearl',2),'pwshield','holysmite','mend',...rep('cleric',2),'dispel','radiant','undertow','diver','knight','swpain','priestess','golem','swdeath','shark','archmage','treant']},
   {id:'warlock',col:'#9a6aff',n:['Warlock','术士','術士'],tag:['Trade health for cards and command the undead.','以生命换取手牌，驱使亡灵大军。','体力を手札に換え、アンデッドを操る。'],
    art:portrait({race:'human',robe:'#3a2a5a',head:'hood',hood:'#2a1a40',eyes:'#c47fe0',prop:'staff',orb:'#9a6aff',glow:'#9a6aff'}),
    power:{c:2,fx:{selfDmg:2,draw:1},n:['Blood Pact','鲜血契约','血の契約']},
-   deck:[...rep('apprentice',2),'goblin','burglar',...rep('sailor',2),'eel',...rep('ghoul',2),...rep('hexer',2),'maelstrom',...rep('necro',2),'golem','riptide','breath','ogre','shark','dragonknight']},
+   deck:['cleric','soulfire','coil','raisedead','lurker',...rep('sailor',2),...rep('ghoul',2),'cleric','hellfire','maelstrom',...rep('necro',2),'golem','riptide','breath','ogre','shark','dragonknight']},
 ];
 const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
 const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
@@ -813,23 +889,23 @@ const DECK_SIZE=25;
 const DIFFS={easy:{rar:['c'],col:'#6aa57e'},normal:{rar:['r','e'],col:'#5a8ae0'},hard:{rar:['e','l'],col:'#cf4a3f'}};
 const maxCopies=k=>CARDS[k].r==='l'?1:2;
 const copies=(d,k)=>d.filter(x=>x===k).length;
-function padDeck(base,rar){
-  const d=[...base],pool=COLLECT.filter(k=>rar.includes(CARDS[k].r));let g=0;
+function padDeck(base,rar,cls){
+  const d=[...base],pool=COLLECT.filter(k=>rar.includes(CARDS[k].r)&&forCls(k,cls));let g=0;
   while(d.length<DECK_SIZE&&g++<600){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
   return d;
 }
-function autoFill(d){
-  const w={c:3,r:2,e:1,l:1},pool=[];COLLECT.forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
+function autoFill(d,cls){
+  const w={c:3,r:2,e:1,l:1},pool=[];COLLECT.filter(k=>forCls(k,cls)).forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
   let g=0;while(d.length<DECK_SIZE&&g++<2000){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
 }
 // Saved decks: a list of named decks per device. Older single drafts per class are migrated once.
 function loadSaved(){
   let list=[];try{list=JSON.parse(localStorage.getItem('ashen-saved')||'[]')||[]}catch(e){}
-  list=Array.isArray(list)?list.filter(d=>d&&CBY[d.cls]&&validDeck(d.cards)&&typeof d.name==='string'):[];
+  list=Array.isArray(list)?list.filter(d=>d&&CBY[d.cls]&&validDeck(d.cards,d.cls)&&typeof d.name==='string'):[];
   try{
     if(!localStorage.getItem('ashen-migrated')){
       const old=JSON.parse(localStorage.getItem('ashen-decks')||'{}')||{};
-      Object.entries(old).forEach(([cls,cards])=>{if(CBY[cls]&&validDeck(cards)&&cards.length)list.push({id:'d'+Date.now().toString(36)+cls,name:T('defaultName',CBY[cls].n[li()],1),cls,cards,t:Date.now()})});
+      Object.entries(old).forEach(([cls,cards])=>{if(CBY[cls]&&validDeck(cards,cls)&&cards.length)list.push({id:'d'+Date.now().toString(36)+cls,name:T('defaultName',CBY[cls].n[li()],1),cls,cards,t:Date.now()})});
       localStorage.setItem('ashen-migrated','1');storeSaved(list);
     }
   }catch(e){}
@@ -844,7 +920,7 @@ function saveCurrent(asNew){
   else{d={id:'d'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,cls:Q.cls,cards:[...Q.deck],t:Date.now()};list.unshift(d);Q.editId=d.id}
   storeSaved(list);Q.dirty=false;Q.toast=T('saved',name);
 }
-function validDeck(d){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k))}
+function validDeck(d,cls){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k)&&(!cls||forCls(k,cls)))}
 let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
 
 const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
@@ -991,9 +1067,9 @@ function playSaved(id){const d=loadSaved().find(x=>x.id===id);if(!d||d.cards.len
 function startQuick(diff){
   Q.diff=diff;R={stage:0,deck:[...Q.deck],cls:Q.cls};
   const ecls=CLASSES[Math.random()*CLASSES.length|0].id;
-  const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false});
+  const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,sm:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false});
   S={mode:'quick',diff,ecls,turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
-     p:mk('p',30,Q.deck),e:mk('e',30,padDeck(CBY[ecls].deck,DIFFS[diff].rar))};
+     p:mk('p',30,Q.deck),e:mk('e',30,padDeck(CBY[ecls].deck,DIFFS[diff].rar,ecls))};
   S.e.power=CBY[ecls].power;
   const pFirst=Math.random()<.5;
   view='duel';
@@ -1012,7 +1088,7 @@ function powerBlocked(){
 }
 function startDuel(){
   const o=OPP[R.stage];
-  const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false});
+  const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,sm:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false});
   S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',o.hp,o.deck)};
   S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;
   say('rises',()=>heroName(S.e));
@@ -1020,8 +1096,13 @@ function startDuel(){
   view='duel';startTurn('p');render();banner(T('bannerYou'));
 }
 function startTurn(side){
-  const s=S[side];s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
-  s.board.forEach(m=>{m.sleep=false;m.attacked=false});
+  const s=S[side],o=S[other(side)];
+  // The side whose turn just ended banks its unspent mana as spell mana (up to 3), its frozen minions thaw
+  // and temporary Attack wears off. Minions frozen during the other turn sit this turn out.
+  o.sm=Math.min(3,(o.sm||0)+Math.max(0,o.mana));o.mana=0;
+  o.board.forEach(m=>{m.frozen=false;if(m.tmp){m.atk-=m.tmp;m.tmp=0}});
+  s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
+  s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen});
   // Whoever goes first skips the draw on the opening turn (offsets the first-player advantage).
   if(S.opened)draw(side,1);else S.opened=true;
 }
@@ -1036,7 +1117,7 @@ function draw(side,n){
 function summon(side,key){
   const s=S[side];if(s.board.length>=BOARD_MAX)return null;
   const c=CARDS[key];
-  const m={uid:++U,key,side,atk:c.a,hp:c.h,max:c.h,base:[c.a,c.h],guard:!!c.guard,ward:!!c.ward,sleep:!c.surge,attacked:false,enter:true};
+  const m={uid:++U,key,side,atk:c.a,hp:c.h,max:c.h,base:[c.a,c.h],guard:!!c.guard,ward:!!c.ward,sleep:!c.surge,attacked:false,frozen:false,silenced:false,tmp:0,enter:true};
   s.board.push(m);return m;
 }
 function damage(o,n){
@@ -1050,36 +1131,76 @@ function attackTargets(side){
   const op=S[other(side)],guards=op.board.filter(m=>m.guard);
   return guards.length?guards:[op,...op.board];
 }
-function targetsFor(side,tgt){
+function targetsFor(side,tgt,cond){
   const op=S[other(side)];
-  if(tgt==='any')return [S.e,S.p,...S.e.board,...S.p.board];
-  if(tgt==='minion')return [...S.e.board,...S.p.board];
-  if(tgt==='ally')return S[side].board;
-  if(tgt==='friend')return [S[side],...S[side].board];
-  if(tgt==='enemy')return [op,...op.board];
-  return [];
+  let v=[];
+  if(tgt==='any')v=[S.e,S.p,...S.e.board,...S.p.board];
+  else if(tgt==='minion')v=[...S.e.board,...S.p.board];
+  else if(tgt==='ally')v=S[side].board;
+  else if(tgt==='friend')v=[S[side],...S[side].board];
+  else if(tgt==='enemy')v=[op,...op.board];
+  else if(tgt==='foe')v=op.board;
+  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:o.atk>=5)):v;
 }
-function applyFx(side,fx,t){
-  const me=S[side],op=S[other(side)];
+function applyFx(side,fx,t,bonus=0){
+  const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null;
   if(fx.selfDmg)damage(me,fx.selfDmg);
-  if(fx.dmg&&t)damage(t,fx.dmg);
-  if(fx.buff&&t){t.atk+=fx.buff[0];t.hp+=fx.buff[1];t.max+=fx.buff[1];if(fx.guard)t.guard=true;if(fx.ward)t.ward=true;
-    float(t,fx.buff[0]?T('fAtk',fx.buff[0]):T('fHp',fx.buff[1]),'var(--ready)')}
-  if(fx.aoe)[...op.board].forEach(m=>damage(m,fx.aoe));
-  if(fx.face)damage(op,fx.face);
+  let dmg=fx.dmg||0;
+  if(fx.dmgBeast&&me.board.some(m=>CARDS[m.key].race==='beast'))dmg=fx.dmgBeast;
+  if(fx.armorDmg)dmg=me.armor;
+  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus);if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
+  if(mt){
+    if(fx.destroy){mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}
+    if(fx.silence)silence(mt);
+    if(fx.setAtk){mt.atk=fx.setAtk;mt.tmp=0;float(mt,`${fx.setAtk}/${mt.hp}`,'#cfd8dc')}
+    if(fx.setHp){mt.hp=mt.max=fx.setHp;float(mt,`${mt.atk}/${fx.setHp}`,'#cfd8dc')}
+    if(fx.freeze){mt.frozen=true;float(mt,T('fFreeze'),'var(--foam)')}
+    if(fx.tempAtk){mt.atk+=fx.tempAtk;mt.tmp=(mt.tmp||0)+fx.tempAtk;float(mt,T('fAtk',fx.tempAtk),'var(--ready)')}
+    if(fx.buff){mt.atk+=fx.buff[0];mt.hp+=fx.buff[1];mt.max+=fx.buff[1];
+      float(mt,fx.buff[0]?T('fAtk',fx.buff[0]):T('fHp',fx.buff[1]),'var(--ready)')}
+    if(fx.guard)mt.guard=true;
+    if(fx.ward){mt.ward=true;if(!fx.buff)float(mt,T('fWard'),'var(--foam)')}
+    if(fx.bounce){const o=S[mt.side];ghost(idOf(mt));o.board=o.board.filter(m=>m!==mt);if(o.hand.length<10)o.hand.push(mt.key)}
+  }
+  if(fx.aoe)[...op.board].forEach(m=>damage(m,fx.aoe+bonus));
+  if(fx.face)damage(op,fx.face+bonus);
+  if(fx.sweep){[...me.board,...op.board].forEach(m=>damage(m,fx.sweep+bonus));if(fx.heroes){damage(op,fx.sweep+bonus);damage(me,fx.sweep+bonus)}}
+  if(fx.freezeAll)op.board.forEach(m=>{m.frozen=true;float(m,T('fFreeze'),'var(--foam)')});
   if(fx.team)me.board.forEach(m=>{m.atk+=fx.team[0];m.hp+=fx.team[1];m.max+=fx.team[1];
     float(m,fx.team[0]?T('fAtk',fx.team[0]):T('fHp',fx.team[1]),'var(--ready)')});
   if(fx.summon)[].concat(fx.summon).forEach(k=>summon(side,k));
+  if(fx.perFoe)for(let i=op.board.length;i>0;i--)summon(side,fx.perFoe);
   if(fx.heal){const h=Math.min(fx.heal,me.max-me.hp);me.hp+=h;float(me,'+'+h,'var(--ready)')}
   if(fx.healT&&t){const h=Math.min(fx.healT,t.max-t.hp);t.hp+=h;float(t,'+'+h,'var(--ready)')}
   if(fx.armor){me.armor+=fx.armor;float(me,T('armorN',fx.armor),'#cfd8dc')}
   if(fx.draw)draw(side,fx.draw);
   if(fx.mana)me.mana+=fx.mana;
 }
+// Silence: the minion loses buffs, keywords and card effects for good.
+function silence(m){
+  m.silenced=true;m.guard=false;m.ward=false;m.frozen=false;m.tmp=0;
+  m.atk=m.base[0];m.max=m.base[1];if(m.hp>m.max)m.hp=m.max;
+  float(m,T('fSilence'),'#aab');
+}
+const spellBonus=side=>S[side].board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].sp||0),0);
+// A spell: its effect (plus Spell Damage), then "whenever you cast a spell" minions react.
+function castSpell(side,k,t){
+  applyFx(side,CARDS[k].fx,t,spellBonus(side));
+  S[side].board.forEach(m=>{const o=!m.silenced&&CARDS[m.key].onSpell;if(o&&m.hp>0){m.atk+=o[0];m.hp+=o[1];m.max+=o[1];float(m,T('fAtk',o[0]),'var(--ready)')}});
+}
+// Spells spend banked spell mana first; minions use normal mana only.
+const canPay=(side,k)=>CARDS[k].c<=S[side].mana+(CARDS[k].t==='s'?S[side].sm||0:0);
+function pay(side,k){
+  const s=S[side],c=CARDS[k];
+  if(c.t==='s'){const u=Math.min(s.sm||0,c.c);s.sm=(s.sm||0)-u;s.mana-=c.c-u}else s.mana-=c.c;
+}
 // Visual for an effect, played before the state change.
 async function fxAnim(fx,srcSel,t,side){
-  if(fx.dmg&&t)await projectile(srcSel,idOf(t),'#f39a3a');
-  else if((fx.buff||fx.healT)&&t)await projectile(srcSel,idOf(t),'#7fd17f');
+  if((fx.dmg||fx.armorDmg)&&t)await projectile(srcSel,idOf(t),fx.freeze?'#8fd0ff':'#f39a3a');
+  else if((fx.destroy||fx.silence||fx.setAtk||fx.setHp)&&t)await projectile(srcSel,idOf(t),'#c4b4ff');
+  else if((fx.buff||fx.healT||fx.tempAtk||fx.ward||fx.bounce)&&t)await projectile(srcSel,idOf(t),'#7fd17f');
+  else if(fx.sweep){wave(side);await wave(other(side))}
+  else if(fx.freezeAll)await wave(other(side));
   else if(fx.face&&!fx.aoe)await projectile(srcSel,`${other(side)}:h`,'#f39a3a');
   else if(fx.aoe){if(fx.face&&!RM){const e=elOf(`${other(side)}:h`);if(e){const [x,y]=center(e);burst(x,y,'#f39a3a')}}await wave(other(side))}
   else if(fx.heal||fx.armor||fx.team||fx.selfDmg){const e=elOf(`${side}:h`);if(e&&!RM){const [x,y]=center(e);burst(x,y,fx.armor?'#cfd8dc':'#7fd17f');sparks(x,y,4)}}
@@ -1097,7 +1218,7 @@ function cleanup(){
     if(!dead.length)continue;
     dead.forEach(m=>ghost(idOf(m)));
     s.board=s.board.filter(m=>m.hp>0);
-    dead.forEach(m=>{const g=CARDS[m.key].gasp;if(g&&summon(sd,g))say('burst',()=>cn(m.key))});
+    dead.forEach(m=>{const g=!m.silenced&&CARDS[m.key].gasp;if(g&&summon(sd,g))say('burst',()=>cn(m.key))});
   }
   if(S.sel!=null&&!S.p.board.some(m=>m.uid===S.sel))S.sel=null;
   if(!S.over&&(S.p.hp<=0||S.e.hp<=0)){
@@ -1128,27 +1249,27 @@ async function playHand(i){
   if(blocked()||S.pending)return;
   S.sel=null;
   const k=S.p.hand[i],c=CARDS[k];
-  if(c.c>S.p.mana){say('noMana');return render()}
+  if(!canPay('p',k)){say('noMana');return render()}
   if(c.t==='m'){
     if(S.p.board.length>=BOARD_MAX){say('boardFull');return render()}
     S.busy=true;await flyCard(i,'[data-board="p"]');
-    S.p.mana-=c.c;S.p.hand.splice(i,1);
+    pay('p',k);S.p.hand.splice(i,1);
     const m=summon('p',k),ph=pushHist('p',k,null);say('summon',()=>cn(k));netAct({t:'play',i,k});
     if(c.bc){
-      if(c.bc.tgt){const v=targetsFor('p',c.bc.tgt).map(idOf);if(v.length)S.pending={type:'bc',fx:c.bc,valid:v,key:k,src:idOf(m),hist:ph}}
+      if(c.bc.tgt){const v=targetsFor('p',c.bc.tgt,c.bc.cond).map(idOf).filter(id=>id!==idOf(m));if(v.length)S.pending={type:'bc',fx:c.bc,valid:v,key:k,src:idOf(m),hist:ph}}
       else{render();await fxAnim(c.bc,`[data-t="${idOf(m)}"]`,null,'p');applyFx('p',c.bc,null)}
     }
     S.busy=false;return after();
   }
   if(c.fx.tgt){
-    const v=targetsFor('p',c.fx.tgt).map(idOf);
+    const v=targetsFor('p',c.fx.tgt,c.fx.cond).map(idOf);
     if(!v.length){say('noTargets');return render()}
     S.pending={type:'spell',idx:i,valid:v,key:k};return render();
   }
   S.busy=true;await flyCard(i,c.fx.aoe?'[data-board="e"]':'[data-t="p:h"]');
-  S.p.mana-=c.c;S.p.hand.splice(i,1);render();
+  pay('p',k);S.p.hand.splice(i,1);render();
   await fxAnim(c.fx,'[data-t="p:h"]',null,'p');
-  applyFx('p',c.fx,null);pushHist('p',k,null);say('cast',()=>cn(k));netAct({t:'cast',i,k,tgt:null});S.busy=false;after();
+  castSpell('p',k,null);pushHist('p',k,null);say('cast',()=>cn(k));netAct({t:'cast',i,k,tgt:null});S.busy=false;after();
 }
 async function usePower(){
   if(powerBlocked()){say('cantPower');return render()}
@@ -1165,9 +1286,9 @@ async function resolvePending(t){
   if(p.type==='spell'){
     const k=S.p.hand[p.idx],c=CARDS[k];
     await flyCard(p.idx,`[data-t="${idOf(t)}"]`);
-    S.p.mana-=c.c;S.p.hand.splice(p.idx,1);render();
+    pay('p',k);S.p.hand.splice(p.idx,1);render();
     await fxAnim(c.fx,'[data-t="p:h"]',t,'p');
-    applyFx('p',c.fx,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));netAct({t:'cast',i:p.idx,k,tgt:netRef(t)});
+    castSpell('p',k,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));netAct({t:'cast',i:p.idx,k,tgt:netRef(t)});
   }else if(p.type==='bc'){
     if(p.hist)p.hist.t=t;
     await fxAnim(p.fx,`[data-t="${p.src}"]`,t,'p');applyFx('p',p.fx,t);netAct({t:'bc',tgt:netRef(t)});
@@ -1242,19 +1363,51 @@ function aiWorth(fx){
   if(fx.summon&&e.board.length>=BOARD_MAX)return false;
   if(fx.heal&&!fx.aoe&&!fx.armor&&e.hp>e.max-6)return false;
   if(fx.mana)return e.hand.some(k=>CARDS[k].c===e.mana+fx.mana&&k!=='coin');
+  if(fx.summon&&fx.selfDmg&&e.hp<=fx.selfDmg+8)return false;
   return true;
 }
+const val=m=>m.atk+m.hp+(m.guard?2:0)+(m.ward?2:0);
+// An enemy minion worth silencing: buffed, keyworded or carrying an effect.
+function aiSilenceTarget(){
+  return S.p.board.filter(m=>!m.silenced&&(m.guard||m.ward||m.atk>m.base[0]||m.max>m.base[1]||CARDS[m.key].gasp||CARDS[m.key].sp||CARDS[m.key].onSpell))
+    .sort((a,b)=>val(b)-val(a))[0]||null;
+}
 function aiPlan(k){
-  const c=CARDS[k],e=S.e;
+  const c=CARDS[k],e=S.e,foes=S.p.board;
   if(c.t==='m'){
     if(e.board.length>=BOARD_MAX)return null;
     const bc=c.bc;
+    if(bc&&bc.silence)return {t:aiSilenceTarget()};
     if(bc&&bc.tgt==='ally')return {t:aiBestAlly()};
     if(bc&&bc.tgt)return {t:aiDamageTarget(bc.dmg,bc.tgt)};
     return {t:null};
   }
-  const fx=c.fx;
-  if(fx.dmg){const t=aiDamageTarget(fx.dmg,fx.tgt);return t?{t}:null}
+  const fx=c.fx,bonus=spellBonus('e');
+  const pick=(list,score)=>list.slice().sort((a,b)=>score(b)-score(a))[0]||null;
+  if(fx.destroy){const t=pick(targetsFor('e',fx.tgt,fx.cond),val);return t&&val(t)>=(c.c>=3?8:5)?{t}:null}
+  if(fx.silence){const t=aiSilenceTarget();return t?{t}:null}
+  if(fx.setAtk){const t=pick(foes.filter(m=>m.atk>=4),m=>m.atk);return t?{t}:null}
+  if(fx.setHp){const t=pick(foes.filter(m=>m.hp>=5),m=>m.hp);return t?{t}:null}
+  if(fx.freezeAll)return foes.filter(m=>m.atk>=2).length>=2?{t:null}:null;
+  if(fx.aoe&&!fx.face&&foes.length<2&&!foes.some(m=>!m.ward&&m.hp<=fx.aoe+bonus))return null;
+  if(fx.aoe&&fx.face&&fx.aoe<3&&!foes.some(m=>!m.ward&&m.hp<=fx.aoe+bonus)&&foes.length<2&&S.p.hp>fx.face+bonus)return null;
+  if(fx.sweep){
+    const n=fx.sweep+bonus,dies=l=>l.filter(m=>!m.ward&&m.hp<=n).reduce((s,m)=>s+val(m),0);
+    if(fx.heroes&&e.hp+e.armor<=n+6)return null;
+    return dies(foes)>=dies(e.board)+5?{t:null}:null;
+  }
+  if(fx.armorDmg){if(e.armor+bonus<2)return null;const t=aiDamageTarget(e.armor+bonus,'minion');return t?{t}:null}
+  if(fx.drawIfKill){const t=pick(foes.filter(m=>!m.ward&&m.hp<=fx.dmg+bonus),m=>m.atk);return t?{t}:null}
+  if(fx.dmg&&fx.buff){const t=pick(e.board.filter(m=>(m.hp>fx.dmg||m.ward)&&!m.frozen),m=>m.atk);return t?{t}:null}
+  if(fx.tempAtk){const t=pick(e.board.filter(m=>!m.sleep&&!m.attacked&&!m.frozen),m=>m.atk);return t?{t}:null}
+  if(fx.bounce){const t=pick(e.board.filter(m=>CARDS[m.key].bc&&!CARDS[m.key].token&&m.hp*2<=m.max),m=>CARDS[m.key].c);return t?{t}:null}
+  if(fx.perFoe)return foes.length>=2&&e.board.length<BOARD_MAX?{t:null}:null;
+  if(fx.ward&&fx.tgt){const t=pick(e.board.filter(m=>!m.ward),m=>m.atk);return t?{t}:null}
+  if(fx.dmg){
+    const n=(fx.dmgBeast&&e.board.some(m=>CARDS[m.key].race==='beast')?fx.dmgBeast:fx.dmg)+bonus;
+    if(fx.selfDmg&&e.hp<=fx.selfDmg+8)return null;
+    const t=aiDamageTarget(n,fx.tgt);return t?{t}:null;
+  }
   if(fx.buff){const t=aiBestAlly();return t?{t}:null}
   return aiWorth(fx)?{t:null}:null;
 }
@@ -1276,11 +1429,11 @@ async function aiTurn(){
   S.busy=true;S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));cleanup();render();banner(T('bannerFoe'),true);await wait(900);
   const e=S.e,en=()=>heroName(e);
   for(let g=0;g<12&&!S.over;g++){
-    const opts=e.hand.map((k,i)=>({k,i})).filter(o=>CARDS[o.k].c<=e.mana).sort((a,b)=>CARDS[b.k].c-CARDS[a.k].c);
+    const opts=e.hand.map((k,i)=>({k,i})).filter(o=>canPay('e',o.k)).sort((a,b)=>CARDS[b.k].c-CARDS[a.k].c);
     let did=false;
     for(const o of opts){
       const plan=aiPlan(o.k);if(!plan)continue;
-      const c=CARDS[o.k],k=o.k;let t=plan.t;e.mana-=c.c;e.hand.splice(o.i,1);
+      const c=CARDS[o.k],k=o.k;let t=plan.t;pay('e',k);e.hand.splice(o.i,1);
       if(c.t==='m'){
         const shown=c.bc&&c.bc.tgt?t:null;
         say('eSummon',en,()=>cn(k));render();
@@ -1298,7 +1451,7 @@ async function aiTurn(){
         const sp=showPlay('e',k,t);await wait(1400);
         pushHist('e',k,t);render();
         await aimAt(t);
-        await fxAnim(c.fx,sp.card,t,'e');applyFx('e',c.fx,t);
+        await fxAnim(c.fx,sp.card,t,'e');castSpell('e',k,t);
         sp.close();
       }
       did=true;cleanup();render();await wait(500);break;
@@ -1327,7 +1480,7 @@ let NET=null;
 const O={sel:null,code:'',err:'',toast:'',concedeArm:false,w:0,l:0,lost:null,conceded:false};
 function onlineDecks(){
   // Friend matches use your own saved 25-card decks only, so both sides play the same deck size.
-  return loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards)).map(d=>({id:'s:'+d.id,sid:d.id,cls:d.cls,cards:[...d.cards],name:d.name}));
+  return loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards,d.cls)).map(d=>({id:'s:'+d.id,sid:d.id,cls:d.cls,cards:[...d.cards],name:d.name}));
 }
 function curOnlineDeck(){const l=onlineDecks();return l.find(d=>d.id===O.sel)||l[0]}
 function goOnline(){
@@ -1417,7 +1570,7 @@ function netRecv(d){
   if(d.t==='ping')return netWatch();
   if(d.t==='hello'){
     if(d.v!==NET_V){netSend({t:'err',k:'errVersion'});return netFail('errVersion')}
-    const ok=Array.isArray(d.deck)&&d.deck.length>=20&&validDeck(d.deck)&&CBY[d.cls];
+    const ok=Array.isArray(d.deck)&&d.deck.length>=20&&validDeck(d.deck,d.cls)&&CBY[d.cls];
     if(!ok){netSend({t:'err',k:'errDeck'});return netFail('errDeck')}
     me.foe={cls:d.cls,deck:d.deck};me.state='live';
     if(me.host)netDeal();else render();
@@ -1440,7 +1593,7 @@ function startOnline(d){
   O.lost=null;O.conceded=false;O.concedeArm=false;
   const h=me.host,myD=h?d.hd:d.gd,foeD=h?d.gd:d.hd,myC=h?d.hc:d.gc,foeC=h?d.gc:d.hc,iFirst=(d.first==='h')===h;
   R={stage:0,deck:[...myD],cls:myC};U=0;closePeek();
-  const mk=(side,deck)=>({side,hp:30,max:30,armor:0,mana:0,maxMana:0,deck:[...deck],hand:[],board:[],fat:0,powerUsed:false});
+  const mk=(side,deck)=>({side,hp:30,max:30,armor:0,mana:0,maxMana:0,sm:0,deck:[...deck],hand:[],board:[],fat:0,powerUsed:false});
   S={mode:'online',ecls:foeC,turn:iFirst?'p':'e',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
      order:h?['p','e']:['e','p'],p:mk('p',myD),e:mk('e',foeD)};
   S.e.power=CBY[foeC].power;
@@ -1451,13 +1604,13 @@ function startOnline(d){
 }
 // Compact fingerprint of everything both copies must agree on, host's side first.
 function netHash(){
-  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0])];
+  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,m.frozen?1:0,m.silenced?1:0,m.tmp||0])];
   const str=JSON.stringify([S.order.map(k=>sd(S[k])),S.turn===S.order[0]?'h':'g']);
   let x=0;for(let i=0;i<str.length;i++)x=(x*31+str.charCodeAt(i))|0;return x;
 }
 function netSnap(){
-  const side=s=>({hp:s.hp,max:s.max,armor:s.armor,mana:s.mana,maxMana:s.maxMana,deck:[...s.deck],hand:[...s.hand],fat:s.fat,powerUsed:s.powerUsed,
-    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked}))});
+  const side=s=>({hp:s.hp,max:s.max,armor:s.armor,mana:s.mana,maxMana:s.maxMana,sm:s.sm||0,deck:[...s.deck],hand:[...s.hand],fat:s.fat,powerUsed:s.powerUsed,
+    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:!!m.frozen,silenced:!!m.silenced,tmp:m.tmp||0}))});
   return {h:side(S[S.order[0]]),g:side(S[S.order[1]]),turn:S.turn===S.order[0]?'h':'g',opened:S.opened,U};
 }
 function netApplySnap(st){
@@ -1501,7 +1654,7 @@ async function remoteAct(a){
   S.busy=true;
   if(a.t==='play'||a.t==='cast'){
     const k=e.hand[a.i];if(k!==a.k)throw new Error('hand out of step');
-    const c=CARDS[k];e.mana-=c.c;e.hand.splice(a.i,1);
+    const c=CARDS[k];pay('e',k);e.hand.splice(a.i,1);
     if(c.t==='m'){
       say('eSummon',en,()=>cn(k));render();
       const sp=showPlay('e',k,null);await wait(900);
@@ -1513,7 +1666,7 @@ async function remoteAct(a){
       if(t)say('eCastOn',en,()=>cn(k),()=>nm(t));else say('eCast',en,()=>cn(k));render();
       const sp=showPlay('e',k,t);await wait(1100);pushHist('e',k,t);render();
       if(t)await aimAt(t);
-      await fxAnim(c.fx,sp.card,t,'e');applyFx('e',c.fx,t);sp.close();
+      await fxAnim(c.fx,sp.card,t,'e');castSpell('e',k,t);sp.close();
     }
   }else if(a.t==='bc'){
     const last=S.lastE,t=netDeref(a.tgt);if(!last||(a.tgt&&!t))throw new Error('battlecry out of step');
@@ -1586,7 +1739,7 @@ function oresultHTML(){
 // ---------- render ----------
 function cardFace(k,size,tag='button',attrs='',extra=''){
   const c=CARDS[k],m=c.t==='m';
-  const typ=m?`${T('minion')} · ${T('race')[c.race]}`:T('spell');
+  const typ=(m?`${T('minion')} · ${T('race')[c.race]}`:T('spell'))+(c.cls?` · ${CBY[c.cls].n[li()]}`:'');
   return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''} ${size} ${extra}" ${attrs}>
     <span class="art">${art(k)}</span><span class="cost">${c.c}</span>
     <span class="plate">${cn(k)}</span><span class="gem ${c.r}"></span>
@@ -1638,7 +1791,7 @@ function builderHTML(){
   const curve=`<div class="curve" aria-label="${T('curve')}">${buckets.map(n=>`<i style="height:${n/mx*100}%"></i>`).join('')}</div><div class="curvel">${['0','1','2','3','4','5','6','7+'].map(x=>`<span>${x}</span>`).join('')}</div>`;
   const types=[['all',T('filterAll')],['m',T('minions')],['s',T('spells')]];
   const costs=[[0,T('filterAll')],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']];
-  const list=COLLECT.filter(k=>(Q.type==='all'||CARDS[k].t===Q.type)&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
+  const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||CARDS[k].t===Q.type)&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
     .sort((a,b)=>CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
     return `<div class="cslot">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
@@ -1679,7 +1832,8 @@ function classHTML(){
 }
 function crystals(s){
   let h='';for(let i=0;i<s.maxMana;i++)h+=`<i class="${i<s.mana?'on':''}"></i>`;
-  return `<div class="crystals" aria-label="${T('mana',s.mana,s.maxMana)}">${h}<b>${s.mana}/${s.maxMana}</b></div>`;
+  const sm=s.sm?`<span class="sm" aria-label="${T('smAria',s.sm)}">${'<i></i>'.repeat(s.sm)}</span>`:'';
+  return `<div class="crystals" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${h}<b>${s.mana}/${s.maxMana}</b>${sm}</div>`;
 }
 function tclass(id){
   if(S.pending)return S.pending.valid.includes(id)?' target':'';
@@ -1703,12 +1857,12 @@ function heroHTML(s){
 function minHTML(m){
   const id=idOf(m),c=CARDS[m.key];
   let cls='min '+m.side;
-  if(m.guard)cls+=' guard';if(m.ward)cls+=' ward';if(m.enter)cls+=' enter';
+  if(m.guard)cls+=' guard';if(m.ward)cls+=' ward';if(m.enter)cls+=' enter';if(m.frozen)cls+=' frozen';if(m.silenced)cls+=' silenced';
   if(m.sleep&&m.side==='p'&&S.turn==='p')cls+=' sleep';
   if(m.side==='p'&&S.turn==='p'&&!S.pending&&!S.busy&&canAttack(m))cls+=' ready';
   if(S.sel===m.uid)cls+=' sel';
   cls+=tclass(id);
-  const kw=[m.guard&&T('guard'),m.ward&&T('ward'),c.gasp&&T('gasp')].filter(Boolean).join(' ');
+  const kw=[m.frozen&&T('fFreeze'),m.guard&&T('guard'),m.ward&&T('ward'),!m.silenced&&c.gasp&&T('gasp'),!m.silenced&&c.sp&&T('spKw',c.sp),m.silenced&&T('fSilence')].filter(Boolean).join(' ');
   return `<button class="${cls}" data-t="${id}" aria-label="${T('minAria',cn(m.key),m.atk,m.hp,kw)}">
     <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>
     ${m.sleep&&m.side==='p'?'<span class="z">zz</span>':''}
@@ -1718,8 +1872,8 @@ function handHTML(){
   const newFrom=S.p.hand.length-S.drew;
   return S.p.hand.map((k,i)=>{
     const c=CARDS[k];let ex='';
-    const ok=S.turn==='p'&&!S.busy&&!S.over&&c.c<=S.p.mana&&!S.pending;
-    if(ok)ex+=' play';else if(c.c>S.p.mana)ex+=' off';
+    const ok=S.turn==='p'&&!S.busy&&!S.over&&canPay('p',k)&&!S.pending;
+    if(ok)ex+=' play';else if(!canPay('p',k))ex+=' off';
     if(S.pending&&S.pending.type==='spell'&&S.pending.idx===i)ex+=' pend';
     let st='';if(i>=newFrom){ex+=' drawn';st=`style="--d:${(i-newFrom)*110}ms"`}
     const aria=T('cardAria',cn(k),c.c,c.t==='m'?T('statsAria',c.a,c.h):'',ct(k));
@@ -1728,7 +1882,7 @@ function handHTML(){
 }
 function hasMoves(){
   const p=S.p;
-  return p.hand.some(k=>CARDS[k].c<=p.mana&&(CARDS[k].t==='s'||p.board.length<BOARD_MAX))||p.board.some(canAttack)||!powerBlocked();
+  return p.hand.some(k=>canPay('p',k)&&(CARDS[k].t==='s'||p.board.length<BOARD_MAX))||p.board.some(canAttack)||!powerBlocked();
 }
 function galleryHTML(){
   const keys=Object.keys(CARDS);
@@ -1850,7 +2004,7 @@ document.addEventListener('click',ev=>{
   else if(g==='oagain')askRematch();
   else if(g==='oleave'){netClose(true);O.lost=null;newRun();scrollTo(0,0)}
   else if(g==='concede')concede();
-  else if(g==='autofill'){autoFill(Q.deck);Q.toast='';Q.dirty=true;render()}
+  else if(g==='autofill'){autoFill(Q.deck,Q.cls);Q.toast='';Q.dirty=true;render()}
   else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';Q.dirty=true;render()}
   else if(g==='cleardeck'){Q.deck=[];Q.toast='';Q.dirty=true;render()}
   else if(g==='savedeck'){saveCurrent(false);render()}

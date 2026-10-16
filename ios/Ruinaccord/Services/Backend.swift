@@ -9,7 +9,7 @@ struct SavedDeck: Codable, Identifiable, Hashable {
     var cards: [String]
     var t: Double           // last change, seconds since 1970 (sorts newest first)
 
-    var isComplete: Bool { cards.count == Decks.size && Decks.isValid(cards) }
+    var isComplete: Bool { cards.count == Decks.size && Decks.isValid(cards, cls: cls) }
     static func newId() -> String { "d" + String(Int(Date().timeIntervalSince1970), radix: 36) + String(UInt32.random(in: 0...UInt32.max), radix: 36) }
 }
 

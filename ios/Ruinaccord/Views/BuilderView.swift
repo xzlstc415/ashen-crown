@@ -15,7 +15,7 @@ struct BuilderView: View {
         for k in d { buckets[min(7, gd.card(k)?.cost ?? 0)] += 1 }
         let mx = max(4, buckets.max() ?? 4)
         let list = gd.collectible.filter { c in
-            (vm.q.typeFilter == "all" || c.type.rawValue == vm.q.typeFilter) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter))
+            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || c.type.rawValue == vm.q.typeFilter) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter))
         }.sorted { a, b in a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
         let toOnline = vm.q.returnToOnline
 

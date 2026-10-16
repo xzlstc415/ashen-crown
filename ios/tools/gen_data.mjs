@@ -20,6 +20,7 @@ const data = new Function(chunk + '\nreturn {ART, CARDS, OPP, CLASSES, BOARD_MAX
 const cards = Object.entries(data.CARDS).map(([id, c]) => ({
   id, cost: c.c, type: c.t, atk: c.a ?? null, hp: c.h ?? null, rarity: c.r, race: c.race ?? null,
   guard: !!c.guard, ward: !!c.ward, surge: !!c.surge, gasp: c.gasp ?? null, token: !!c.token,
+  cls: c.cls ?? null, text: c.x ?? null, sp: c.sp ?? 0, onSpell: c.onSpell ?? null,
   bc: fx(c.bc), fx: fx(c.fx), names: c.n, flavor: c.f,
 }));
 function fx(e) {
@@ -28,6 +29,9 @@ function fx(e) {
     dmg: e.dmg ?? 0, aoe: e.aoe ?? 0, face: e.face ?? 0, healT: e.healT ?? 0, heal: e.heal ?? 0, armor: e.armor ?? 0,
     draw: e.draw ?? 0, mana: e.mana ?? 0, selfDmg: e.selfDmg ?? 0, guard: !!e.guard, ward: !!e.ward,
     buff: e.buff ?? null, team: e.team ?? null, summon: e.summon ? [].concat(e.summon) : [], tgt: e.tgt ?? null,
+    cond: e.cond ?? null, destroy: !!e.destroy, silence: !!e.silence, freeze: !!e.freeze, freezeAll: !!e.freezeAll,
+    setAtk: e.setAtk ?? 0, setHp: e.setHp ?? 0, sweep: e.sweep ?? 0, heroes: !!e.heroes, armorDmg: !!e.armorDmg,
+    dmgBeast: e.dmgBeast ?? 0, drawIfKill: !!e.drawIfKill, tempAtk: e.tempAtk ?? 0, bounce: !!e.bounce, perFoe: e.perFoe ?? null,
   };
 }
 const classes = data.CLASSES.map(c => ({
