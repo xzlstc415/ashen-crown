@@ -2116,7 +2116,10 @@ document.addEventListener('click',ev=>{
   if(b.dataset.go==='peekclose')return closePeek();
   if(b.dataset.t)return clickTarget(b.dataset.t);
   if(b.dataset.hand!==undefined){const i=+b.dataset.hand;
-    if(LAND.matches&&S&&S.hsel!==i&&!S.pending){S.hsel=i;return render()}
+    // Landscape: the first tap previews a card; a spell that needs a target goes straight to choosing it.
+    const hk=S&&S.p.hand[i],hc=hk&&CARDS[hk];
+    const aim=hc&&hc.t==='s'&&hc.fx&&hc.fx.tgt&&canPay('p',hk)&&S.turn==='p'&&!S.busy&&!S.over;
+    if(LAND.matches&&S&&S.hsel!==i&&!S.pending&&!aim){S.hsel=i;return render()}
     if(S)S.hsel=null;return playHand(i)}
   if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return startDuel()}
   if(b.dataset.class!==undefined)return pickClass(b.dataset.class);

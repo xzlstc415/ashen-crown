@@ -118,7 +118,12 @@ struct HandCard: View {
             .reportFrame { vm.handFrames[index] = $0 }
             .contentShape(Rectangle())
             .onTapGesture {
-                if previewFirst && vm.hsel != index && vm.pending == nil { vm.hsel = index }
+                // A spell that needs a target goes straight to choosing it; other cards preview first.
+                let aim: Bool = {
+                    guard card.fx?.tgt != nil, let st = vm.state else { return false }
+                    return st.turn == .p && !vm.busy && !st.over && st.canPay(.p, card.id)
+                }()
+                if previewFirst && vm.hsel != index && vm.pending == nil && !aim { vm.hsel = index }
                 else { vm.hsel = nil; vm.playHand(index) }
             }
             .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = card.id }
