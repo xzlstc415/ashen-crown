@@ -50,7 +50,7 @@ S = {
 'dwarfking': 'Thorgrim, a mighty dwarf king with an enormous braided orange beard and a golden crown, sitting on a stone throne holding a great axe, golden accent',
 'elfqueen': 'Sylvara, an elegant elf queen with long pale golden hair and a leaf crown, flowers blooming where she steps, a staff of living wood, forest green accent',
 # ---- neutral spells ----
-'spray': 'a single fiery bolt shooting from an outstretched hand, bright orange flame trail, small embers, ember red-orange accent',
+'spray': 'a hunter loosing a glowing arcane arrow that leaves a trail of green and violet sparks, quick and light, forest green accent',
 'brace': 'a radiant blue and gold shield of light forming in front of a soldier, holy star at its center, holy gold accent',
 'darkpact': 'a glowing parchment scroll with an unreadable blood smear floating in the air, a skeletal hand holding a quill, purple shadow smoke, dark purple accent',
 'frenzy': 'a warrior roaring with red battle rage aura bursting around him, eyes glowing red, drops of blood in the air, crimson red accent',
@@ -63,7 +63,7 @@ S = {
 'hymn': 'a group of soldiers singing a battle hymn under a waving banner, mouths open, musical notes of light rising, warm golden accent',
 'lance': 'a long spear of pure arcane energy flying forward, violet sparks and stars trailing behind, arcane violet accent',
 'maelstrom': 'a big ball of fire spinning toward a group of enemies, flames swirling around it, bright orange fire accent',
-'riptide': 'a jagged lightning bolt striking down from a dark cloud, bright white-blue electricity, storm blue accent',
+'riptide': 'a single heavy arrow flying straight at a huge monster, a red target mark glowing on the beast, a hunter drawing a longbow at the edge, forest green accent',
 'breath': 'a huge dragon head seen from the side breathing a wide stream of fire across the frame, ember red-orange accent',
 'inferno': 'a sea of roaring flames rising high, burning ground and silhouettes of broken pillars, bright orange fire accent',
 'retreat': 'a wounded soldier stepping back behind a raised shield while a glowing card of light pulls him away, cool blue accent',

@@ -51,7 +51,8 @@ final class FirebaseBackend: Backend {
         deckListener = users(info.uid).collection("decks").addSnapshotListener { [weak self] snap, _ in
             guard let snap else { return }
             let list = snap.documents.compactMap { try? $0.data(as: SavedDeck.self) }
-                .filter { GameData.shared.cls($0.cls) != nil && Decks.isValid($0.cards, cls: $0.cls) }
+                .filter { GameData.shared.cls($0.cls) != nil }
+                .map { d -> SavedDeck in var d = d; d.cards = Decks.sanitize(d.cards, cls: d.cls); return d }
                 .sorted { $0.t > $1.t }
             Task { @MainActor in self?.decks = list }
         }

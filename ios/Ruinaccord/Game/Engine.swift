@@ -415,6 +415,17 @@ enum Decks {
         }
     }
 
+    /// A saved deck under the current rules: cards its class may no longer use (or that no longer exist) are dropped,
+    /// so the deck is kept and just needs refilling.
+    static func sanitize(_ d: [String], cls: String) -> [String] {
+        var out: [String] = []
+        for k in d {
+            guard let c = GameData.shared.card(k), !c.token, c.allowed(for: cls), copies(out, k) < c.maxCopies, out.count < size else { continue }
+            out.append(k)
+        }
+        return out
+    }
+
     /// Fills the AI's class deck up to size with cards of the given rarities.
     static func pad(_ base: [String], rarities: [String], cls: String?) -> [String] {
         var d = base

@@ -21,7 +21,9 @@ final class LocalBackend: Backend {
 
     func start() {
         if let data = try? Data(contentsOf: file), let s = try? JSONDecoder().decode(Store.self, from: data) {
-            decks = s.decks.sorted { $0.t > $1.t }
+            decks = s.decks.filter { GameData.shared.cls($0.cls) != nil }
+                .map { d -> SavedDeck in var d = d; d.cards = Decks.sanitize(d.cards, cls: d.cls); return d }
+                .sorted { $0.t > $1.t }
             profile = s.profile
         }
         auth = .signedIn(AccountInfo(uid: "local", isAnonymous: true, name: nil))

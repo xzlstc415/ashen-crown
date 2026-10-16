@@ -15,8 +15,8 @@ struct BuilderView: View {
         for k in d { buckets[min(7, gd.card(k)?.cost ?? 0)] += 1 }
         let mx = max(4, buckets.max() ?? 4)
         let list = gd.collectible.filter { c in
-            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || c.type.rawValue == vm.q.typeFilter) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter))
-        }.sorted { a, b in a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
+            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter))
+        }.sorted { a, b in (a.cls != nil) != (b.cls != nil) ? a.cls != nil : a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
         let toOnline = vm.q.returnToOnline
 
         return AnyView(VStack(alignment: .leading, spacing: 10) {
@@ -95,7 +95,7 @@ struct BuilderView: View {
 
             // Filters + collection
             FlowChips {
-                ForEach([("all", tx.filterAll), ("m", tx.minions), ("s", tx.spells)], id: \.0) { v, t in Chip(text: t, on: vm.q.typeFilter == v) { vm.q.typeFilter = v } }
+                ForEach([("all", tx.filterAll), ("m", tx.minions), ("s", tx.spells), ("cls", tx.name(cls.names))], id: \.0) { v, t in Chip(text: t, on: vm.q.typeFilter == v) { vm.q.typeFilter = v } }
             }
             FlowChips {
                 ForEach([(0, tx.filterAll), (1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5"), (6, "6"), (7, "7+")], id: \.0) { v, t in Chip(text: t, on: vm.q.costFilter == v) { vm.q.costFilter = v } }
@@ -105,6 +105,9 @@ struct BuilderView: View {
                     let n = Decks.copies(d, c.id), full = n >= c.maxCopies || d.count >= Decks.size
                     Button { vm.addCard(c.id) } label: { CardView(card: c, size: .sm) }
                         .buttonStyle(.plain)
+                        // class cards carry a glow in the class colour
+                        .overlay(RoundedRectangle(cornerRadius: 8.5).stroke(c.cls != nil ? Color(hex: cls.color) : .clear, lineWidth: 2.5).padding(-2))
+                        .shadow(color: c.cls != nil ? Color(hex: cls.color).opacity(0.55) : .clear, radius: 6)
                         .saturation(full ? 0.3 : 1).brightness(full ? -0.25 : 0)
                         .disabled(full)
                         .overlay(alignment: .topTrailing) {

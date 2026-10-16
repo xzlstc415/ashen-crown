@@ -1637,7 +1637,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "hunter",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -1675,14 +1675,14 @@
     "perFoe": null
    },
    "names": [
-    "Fire Bolt",
-    "火焰箭",
-    "ファイアボルト"
+    "Arcane Shot",
+    "奥术射击",
+    "アーケインショット"
    ],
    "flavor": [
-    "The first spell every apprentice learns.",
-    "每个学徒学会的第一个法术。",
-    "見習いが最初に覚える呪文。"
+    "Quicker than a thought, and twice as sharp.",
+    "比念头更快，也更锋利。",
+    "思考より速く、二倍鋭い。"
    ]
   },
   {
@@ -1698,7 +1698,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "paladin",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -1762,7 +1762,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "warlock",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -1823,7 +1823,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "warrior",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -1948,7 +1948,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "priest",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -2009,7 +2009,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "warrior",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -2070,7 +2070,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "paladin",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -2310,7 +2310,7 @@
   },
   {
    "id": "lance",
-   "cost": 4,
+   "cost": 3,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -2321,7 +2321,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "mage",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -2371,7 +2371,7 @@
   },
   {
    "id": "maelstrom",
-   "cost": 4,
+   "cost": 3,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -2382,7 +2382,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "mage",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -2443,7 +2443,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "hunter",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -2481,14 +2481,14 @@
     "perFoe": null
    },
    "names": [
-    "Lightning Bolt",
-    "闪电箭",
-    "ライトニングボルト"
+    "Deadly Shot",
+    "致命射击",
+    "必殺の射撃"
    ],
    "flavor": [
-    "Never strikes the same place twice. Never needs to.",
-    "从不劈同一个地方两次，也从不需要。",
-    "同じ場所に二度は落ちない。その必要もない。"
+    "One breath. One arrow. One less problem.",
+    "一次呼吸，一支箭，少一个麻烦。",
+    "一呼吸、一矢、厄介事が一つ減る。"
    ]
   },
   {
@@ -2565,7 +2565,7 @@
    "surge": false,
    "gasp": null,
    "token": false,
-   "cls": null,
+   "cls": "warlock",
    "text": null,
    "sp": 0,
    "onSpell": null,
@@ -3072,7 +3072,7 @@
   },
   {
    "id": "frostnova",
-   "cost": 3,
+   "cost": 2,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -4863,7 +4863,7 @@
    "deck": [
     "apprentice",
     "apprentice",
-    "spray",
+    "lance",
     "missiles",
     "wyrmling",
     "geomancer",
@@ -4875,11 +4875,11 @@
     "hexer",
     "hexer",
     "maelstrom",
+    "maelstrom",
     "frostnova",
     "gull",
     "firelem",
     "ogre",
-    "inferno",
     "archmage"
    ],
    "power": {
@@ -4944,7 +4944,7 @@
     "squires",
     "humility",
     "crab",
-    "mend",
+    "calltoarms",
     "aegis",
     "ogre",
     "radiant",
@@ -5094,7 +5094,7 @@
     "回復と結界で、どんな敵よりも長く耐える。"
    ],
    "deck": [
-    "brace",
+    "pwshield",
     "pearl",
     "pearl",
     "pwshield",
@@ -5182,11 +5182,11 @@
     "ghoul",
     "cleric",
     "hellfire",
-    "maelstrom",
+    "inferno",
     "necro",
     "necro",
     "golem",
-    "riptide",
+    "darkpact",
     "breath",
     "ogre",
     "shark",
