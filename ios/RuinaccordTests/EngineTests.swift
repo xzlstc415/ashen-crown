@@ -74,6 +74,7 @@ final class EngineTests: XCTestCase {
             let a = gd.classes[g % 6], b = gd.classes[(g * 5 + 1) % 6]
             var s = DuelState.onlineStart(hostCls: a.id, hostDeck: Decks.pad(a.deck, rarities: ["c", "r", "e", "l"], cls: a.id),
                                           guestCls: b.id, guestDeck: Decks.pad(b.deck, rarities: ["c", "r", "e", "l"], cls: b.id))
+            open(&s)
             var rounds = 0
             while !s.over && rounds < 300 {
                 rounds += 1
@@ -93,6 +94,7 @@ final class EngineTests: XCTestCase {
         let gd = GameData.shared
         var s = DuelState.onlineStart(hostCls: "mage", hostDeck: Decks.pad(gd.cls("mage")!.deck, rarities: ["c"], cls: "mage"),
                                       guestCls: "warrior", guestDeck: Decks.pad(gd.cls("warrior")!.deck, rarities: ["r"], cls: "warrior"))
+        open(&s)
         if s.turn == .p { s = s.flipped() }
         aiTurn(&s)
         let f = s.flipped()
@@ -126,6 +128,36 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.p.board.count, DuelState.boardMax)
         // Charge minions can attack at once, others sleep.
         let b = s.summon(.e, "berserker")!; XCTAssertFalse(b.sleep); XCTAssertTrue(s.summon(.e, "lurker")!.sleep)
+    }
+
+    /// Both sides mulligan like the AI, then the coin and the first turn (as the app does after the mulligan screen).
+    private func open(_ s: inout DuelState) {
+        XCTAssertTrue(s.mulligan)
+        s.applyMulligan(.p, s.aiMulliganPicks(.p)); s.applyMulligan(.e, s.aiMulliganPicks(.e))
+        s.mulligan = false
+        s[s.turn.other].hand.append("coin")
+        s.startTurn(s.turn)
+    }
+
+    func testMulligan() {
+        let gd = GameData.shared
+        var s = DuelState.onlineStart(hostCls: "mage", hostDeck: Decks.pad(gd.cls("mage")!.deck, rarities: ["c"], cls: "mage"),
+                                      guestCls: "warrior", guestDeck: Decks.pad(gd.cls("warrior")!.deck, rarities: ["r"], cls: "warrior"))
+        XCTAssertTrue(s.mulligan); XCTAssertFalse(s.p.hand.contains("coin") || s.e.hand.contains("coin"))
+        let side = s.turn, hand = s[side].hand, deck = s[side].deck
+        s.applyMulligan(side, [0, 2, 2, 9])          // duplicates and out-of-range indices are ignored
+        XCTAssertEqual(s[side].hand.count, hand.count)
+        XCTAssertEqual(s[side].deck.count, deck.count)
+        XCTAssertEqual(Array(s[side].deck.prefix(2)), [hand[0], hand[2]])   // replaced cards go to the bottom
+        XCTAssertEqual(s[side].hand[0], hand[1])                          // kept cards stay, new ones follow
+        XCTAssertEqual(Array(s[side].hand.suffix(2)), [deck[deck.count - 1], deck[deck.count - 2]])
+        // the same choices give the same result on the other phone (flipped view)
+        var a = DuelState.onlineStart(hostCls: "mage", hostDeck: gd.cls("mage")!.deck + ["ogre", "ogre", "golem", "golem", "lurker"],
+                                      guestCls: "priest", guestDeck: gd.cls("priest")!.deck + ["ogre", "ogre", "golem", "golem", "lurker"])
+        var b = a.flipped()
+        a.applyMulligan(.p, [1]); a.applyMulligan(.e, [0, 2])
+        b.applyMulligan(.e, [1]); b.applyMulligan(.p, [0, 2])
+        XCTAssertEqual(a.hash(hostSide: .p), b.hash(hostSide: .e))
     }
 
     private func blank() -> DuelState {
@@ -213,6 +245,7 @@ final class EngineTests: XCTestCase {
             if a.id == b.id { continue }
             var s = DuelState.onlineStart(hostCls: a.id, hostDeck: Decks.pad(a.deck, rarities: ["r", "e"], cls: a.id),
                                           guestCls: b.id, guestDeck: Decks.pad(b.deck, rarities: ["r", "e"], cls: b.id))
+            open(&s)
             var rounds = 0
             while !s.over && rounds < 300 {
                 rounds += 1

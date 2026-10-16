@@ -113,6 +113,12 @@ final class GameVM {
     /// Single-player duels: first tap on Leave arms it; `abandoned` stops the game without a result screen.
     var quitArm = false
     var abandoned = false
+    /// Opening mulligan: hand cards picked for replacement; `mullMine` is set once confirmed (online: until the foe confirms).
+    var mullPicks: Set<Int> = []
+    var mullMine: [Int]?
+    private var mullCont: (() -> Void)?
+    /// Changes with every new game, so an AI turn still waiting from an old game stops instead of acting in the new one.
+    private(set) var gameToken = UUID()
     var zoomCard: String?
     var peekItem: HistItem?
     var deaths: Set<EID> = []
@@ -332,6 +338,7 @@ final class GameVM {
     private func resetDuelUI() {
         log = nil; pending = nil; sel = nil; busy = false; hist = []; floats = []; hitTick = [:]; drewCount = 0
         reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil
+        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil
     }
 
     func startQuick(_ diff: Difficulty) {
@@ -344,14 +351,14 @@ final class GameVM {
                           p: DuelState.makeHero(.p, hp: 30, deck: q.deck.shuffled(), power: curPower),
                           e: DuelState.makeHero(.e, hp: 30, deck: Decks.pad(ecls.deck, rarities: diff.rarities, cls: ecls.id).shuffled(), power: ecls.power))
         resetDuelUI()
-        let pFirst = Bool.random()
-        if pFirst {
-            s.draw(.p, 3); s.draw(.e, 4); s.e.hand.append("coin"); s.log(.goFirst); s.startTurn(.p)
-            state = s; drain(); go(.duel); showBanner(tx.bannerYou, foe: false)
-        } else {
-            s.draw(.e, 3); s.draw(.p, 4); s.p.hand.append("coin"); s.log(.goSecond); s.turn = .e
-            state = s; drain(); go(.duel)
-            Task { await aiTurn() }
+        let first: Side = Bool.random() ? .p : .e
+        s.draw(first, 3); s.draw(first.other, 4); s.turn = first; s.mulligan = true
+        state = s; drain(); go(.duel)
+        mullCont = { [self] in
+            S[first.other].hand.append("coin")
+            S.log(first == .p ? .goFirst : .goSecond)
+            if first == .p { S.startTurn(.p); drain(); showBanner(tx.bannerYou, foe: false) }
+            else { drain(); Task { await aiTurn() } }
         }
     }
 
@@ -365,11 +372,13 @@ final class GameVM {
                           e: DuelState.makeHero(.e, hp: o.hp, deck: o.deck.shuffled(), power: gd.fortify))
         resetDuelUI()
         s.log(.rises)
-        s.draw(.p, 3); s.draw(.e, 4); s.e.hand.append("coin")
-        s.startTurn(.p)
+        s.draw(.p, 3); s.draw(.e, 4); s.mulligan = true
         state = s; drain()
         go(.duel)
-        showBanner(tx.bannerYou, foe: false)
+        mullCont = { [self] in
+            S.e.hand.append("coin"); S.startTurn(.p); drain()
+            showBanner(tx.bannerYou, foe: false)
+        }
     }
 
     func pickReward(_ i: Int) { run.deck.append(picks[i]); run.stage += 1; startDuel() }
@@ -462,7 +471,7 @@ final class GameVM {
 
     // MARK: - Player actions
 
-    var blocked: Bool { state == nil || S.turn != .p || busy || S.over }
+    var blocked: Bool { state == nil || S.turn != .p || busy || S.over || S.mulligan }
 
     func after() {
         let ended = S.cleanup()
@@ -563,7 +572,7 @@ final class GameVM {
     var powerBlocked: Bool {
         guard let s = state else { return true }
         let p = curPower
-        if s.turn != .p || busy || s.over || pending != nil || s.p.powerUsed || s.p.mana < p.cost { return true }
+        if s.turn != .p || busy || s.over || s.mulligan || pending != nil || s.p.powerUsed || s.p.mana < p.cost { return true }
         if !p.fx.summon.isEmpty && s.p.board.count >= DuelState.boardMax { return true }
         if let t = p.tgt, s.targetsFor(.p, t).isEmpty { return true }
         return false
@@ -697,6 +706,7 @@ final class GameVM {
     // MARK: - Computer opponent
 
     func aiTurn() async {
+        let token = gameToken
         busy = true
         S.round += 1
         S.startTurn(.e)
@@ -704,6 +714,7 @@ final class GameVM {
         S.cleanup(); drain()
         showBanner(tx.bannerFoe, foe: true)
         await wait(900)
+        guard gameToken == token else { return }
         for _ in 0..<12 where !S.over {
             var did = false
             for o in S.aiPlayable() {
@@ -716,13 +727,16 @@ final class GameVM {
                     S.log(.eSummon(c.id)); drain()
                     reveal = Reveal(side: .e, key: c.id, target: shown.map { S.name($0) })
                     await wait(1100)
+                    guard gameToken == token else { return }
                     let m = S.summon(.e, c.id)
                     pushHist(.e, c.id, shown.map { S.name($0) })
                     drain()
                     if let bc = c.bc, let m {
                         if bc.tgt == .ally && t == nil { t = m.id }
                         if bc.tgt != nil { await aimAt(t) }
+                        guard gameToken == token else { return }
                         await fxAnim(bc, from: revealCenter, target: t, side: .e)
+                        guard gameToken == token else { return }
                         S.applyFx(.e, bc, t)
                     }
                     reveal = nil
@@ -730,28 +744,35 @@ final class GameVM {
                     S.log(t.map { .eCastOn(c.id, S.name($0)) } ?? .eCast(c.id)); drain()
                     reveal = Reveal(side: .e, key: c.id, target: t.map { S.name($0) })
                     await wait(1400)
+                    guard gameToken == token else { return }
                     pushHist(.e, c.id, t.map { S.name($0) })
                     await aimAt(t)
+                    guard gameToken == token else { return }
                     await fxAnim(fx, from: revealCenter, target: t, side: .e)
+                    guard gameToken == token else { return }
                     S.castSpell(.e, c.id, t)
                     reveal = nil
                 }
                 did = true
                 S.cleanup(); drain()
                 await wait(500)
+                guard gameToken == token else { return }
                 break
             }
             if !did { break }
         }
         if !S.over { await aiPower() }
+        guard gameToken == token else { return }
         for m in S.e.board {
             if S.over { break }
             guard S.e.board.contains(where: { $0.uid == m.uid }), let cur = S.minion(m.id), S.canAttack(cur) else { continue }
             let t = S.aiAttackTarget(cur)
             await lunge(m.id, t)
+            guard gameToken == token else { return }
             S.attack(m.id, t)
             S.cleanup(); drain()
             await wait(420)
+            guard gameToken == token else { return }
         }
         if S.over { busy = false; onGameOver(); return }
         S.turn = .p
@@ -765,15 +786,19 @@ final class GameVM {
     private var revealCenter: CGPoint? { revealFrame.map { CGPoint(x: $0.midX, y: $0.midY) } }
 
     private func aiPower() async {
+        let token = gameToken
         guard let plan = S.aiPowerPlan() else { return }
         let p = S.e.power
         S.e.mana -= p.cost
         if let t = plan { await aimAt(t) }
+        guard gameToken == token else { return }
         await fxAnim(p.fx, from: epowFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: plan, side: .e)
+        guard gameToken == token else { return }
         S.applyFx(.e, p.fx, plan)
         S.log(.ePower(p, plan.map { S.name($0) }))
         S.cleanup(); drain()
         await wait(600)
+        guard gameToken == token else { return }
     }
 
     // MARK: - Online
@@ -888,6 +913,7 @@ final class GameVM {
             startOnline(st, isHost: m.isHost)
         }
         guard state != nil, S.mode == .online else { return }
+        if S.mulligan { tryOnlineMulligan() }
         if let left = d.left {
             if left == m.foeUid { netLost(message: "oLeft"); return }
             if left == m.myUid && !S.over { droppedOut(); return }
@@ -916,9 +942,15 @@ final class GameVM {
         netOut = []; turnActs = []; netN = 0; appliedN = 0; seq = 0; netQueue = []
         o.lost = nil; o.conceded = false; o.concedeArm = false; o.again = false; o.foeAgain = false
         state = s
-        S.log(s.turn == .p ? .goFirst : .goSecond); drain()
+        drain()
         go(.duel)
-        showBanner(s.turn == .p ? tx.bannerYou : tx.bannerFoe, foe: s.turn != .p)
+        let first = s.turn
+        mullCont = { [self] in
+            S[first.other].hand.append("coin")
+            S.startTurn(first)
+            S.log(first == .p ? .goFirst : .goSecond); drain()
+            showBanner(first == .p ? tx.bannerYou : tx.bannerFoe, foe: first != .p)
+        }
     }
 
     private func netRef(_ id: EID?) -> NetRef? { id.map { NetRef(s: $0.side == .p ? "me" : "you", u: $0.uid) } }
@@ -1102,6 +1134,44 @@ final class GameVM {
         pending = nil; sel = nil; hsel = nil; reveal = nil; banner = nil; zoomCard = nil
         run = Run()
         go(.intro)
+    }
+
+    // MARK: - Opening mulligan
+
+    func toggleMulligan(_ i: Int) {
+        guard state?.mulligan == true, mullMine == nil else { return }
+        if mullPicks.contains(i) { mullPicks.remove(i) } else { mullPicks.insert(i) }
+    }
+
+    func confirmMulligan() {
+        guard state?.mulligan == true, mullMine == nil else { return }
+        let mine = mullPicks.sorted()
+        mullMine = mine
+        if S.mode == .online {
+            let m = match
+            Task { try? await m?.sendMulligan(mine) }
+            tryOnlineMulligan()
+            return
+        }
+        S.applyMulligan(.p, mine)
+        S.applyMulligan(.e, S.aiMulliganPicks(.e))
+        finishMulligan()
+    }
+
+    /// Online: both players' choices are in the match document; apply them in the same way on both phones.
+    private func tryOnlineMulligan() {
+        guard state?.mulligan == true, let mine = mullMine, let m = match, let foe = m.doc?.mull?[m.foeUid] else { return }
+        S.applyMulligan(.p, mine)
+        S.applyMulligan(.e, foe)
+        finishMulligan()
+    }
+
+    private func finishMulligan() {
+        S.mulligan = false
+        mullPicks = []; mullMine = nil
+        let c = mullCont; mullCont = nil
+        drain()
+        c?()
     }
 
     func concede() {

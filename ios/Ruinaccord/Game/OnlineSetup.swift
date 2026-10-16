@@ -11,8 +11,7 @@ extension DuelState {
         let first: Side = Bool.random() ? .p : .e
         s.turn = first
         s.draw(first, 3); s.draw(first.other, 4)
-        s[first.other].hand.append("coin")
-        s.startTurn(first)
+        s.mulligan = true        // the coin and the first turn come after both players mulligan
         s.events = []
         return s
     }

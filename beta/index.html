@@ -373,6 +373,13 @@ svg{-webkit-user-drag:none}
 .lside .hand .card:hover,.lside .hand .card.pend{z-index:5}
 .lside .hand .card.hsel{transform:translateY(-10px);z-index:6;box-shadow:0 0 0 .22em var(--gold),0 0 .9em rgba(243,201,122,.6)}
 .lflag{position:absolute;top:6px;right:10px;z-index:3}
+.mull{position:fixed;inset:0;z-index:60;background:rgba(10,7,14,.84);display:grid;place-items:center;padding:12px;overflow:auto}
+.mbox{display:grid;justify-items:center;gap:10px;text-align:center;max-width:720px}
+.mbox h2{margin:0}.mbox p{margin:0;color:var(--muted);font-size:13px;max-width:440px}
+.mcards{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding-top:8px}
+.mc{position:relative;cursor:pointer}.mc .card{font-size:clamp(7px,2.5vh,10.8px);transition:filter .15s,transform .15s}
+.mc.x .card{filter:grayscale(.85) brightness(.45);transform:translateY(6px)}
+.mx{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:800;color:var(--blood);pointer-events:none;text-shadow:0 2px 6px #000}
 /* landscape board: minions are just their picture plus Attack/Health (name and keywords live in the long-press view) */
 #app.duelland .min{padding:0}
 #app.duelland .min .mn,#app.duelland .min .kw{display:none}
@@ -467,7 +474,7 @@ const I18N={
     errServer:'Could not reach the match server. Check your connection and try again.',errNoRoom:'No room with that code. Check the code with your friend.',
     errTimeout:'Connection timed out. Some networks block direct connections; try switching between Wi-Fi and mobile data.',
     errVersion:'You and your friend are on different versions. Both refresh the page and try again.',errDeck:'That deck can\'t be used online.',errCode:'Enter the 6-digit room code.',
-    foeName:c=>`Friend (${c})`,onlinePill:'Online',concede:'Concede',concedeSure:'Tap again to concede',quitSure:'Tap again to leave',quitAria:'Leave to the main menu',netSlow:'Waiting for your friend\'s connection…',
+    foeName:c=>`Friend (${c})`,onlinePill:'Online',concede:'Concede',concedeSure:'Tap again to concede',quitSure:'Tap again to leave',mullTitle:'Starting hand',mullSub:'Tap the cards you want to replace. New cards are drawn, and the replaced ones go to the bottom of your deck.',mullKeep:'Keep this hand',mullSwap:n=>`Replace ${n} card${n>1?'s':''}`,mullWait:'Waiting for your opponent…',quitAria:'Leave to the main menu',netSlow:'Waiting for your friend\'s connection…',
     oDraw:'Draw',oVs:c=>`Opponent: your friend · ${c}`,oLeft:'Your friend left the match.',oConceded:'Your friend conceded.',
     waitAgain:'Waiting for your friend…',foeAgain:'Your friend wants a rematch!',leaveRoom:'Leave room',onNoDecks:'Friend matches use your own 25-card decks. You don\'t have a complete one yet, so build one here first.',useDeck:'Save & use for friend match',oAgain:'Rematch',
     record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',myDecks:'My decks',myDecksSub:'Your saved decks are kept on this device.',newDeck:'New deck',noDecks:'No saved decks yet. Tap New deck, build one, and save it.',playDeck:'Play',editShort:'Edit',deleteDeck:'Delete',confirmDelete:'Tap again to delete',deckName:'Deck name',saveDeck:'Save deck',savedState:'Saved',saveAsNew:'Save as new',saved:x=>`Saved "${x}".`,deleted:x=>`Deleted "${x}".`,defaultName:(c,n)=>`${c} deck ${n}`,cardsN:n=>`${n} cards`,notReady:n=>`${n}/25 · not ready to play`,unsaved:'Unsaved changes',pickClassNew:'New deck · Choose a class',
@@ -533,7 +540,7 @@ const I18N={
     errServer:'无法连接对战服务器，请检查网络后重试。',errNoRoom:'找不到这个房间，请和好友核对房间码。',
     errTimeout:'连接超时。部分网络会阻止直连，可以在 Wi-Fi 和手机流量之间切换后再试。',
     errVersion:'你和好友的游戏版本不同，请双方刷新页面后再试。',errDeck:'这副牌组不能用于好友对战。',errCode:'请输入6位房间码。',
-    foeName:c=>`好友（${c}）`,onlinePill:'好友对战',concede:'认输',concedeSure:'再点一次认输',quitSure:'再点一次退出',quitAria:'退出到主菜单',netSlow:'对手网络不稳定，等待中…',
+    foeName:c=>`好友（${c}）`,onlinePill:'好友对战',concede:'认输',concedeSure:'再点一次认输',quitSure:'再点一次退出',mullTitle:'起手牌',mullSub:'点选想替换的牌。会先补抽新牌，换掉的牌放回牌库底部。',mullKeep:'保留手牌',mullSwap:n=>`替换${n}张`,mullWait:'等待对手选择…',quitAria:'退出到主菜单',netSlow:'对手网络不稳定，等待中…',
     oDraw:'平局',oVs:c=>`对手：好友 · ${c}`,oLeft:'好友已离开对局。',oConceded:'好友认输了。',
     waitAgain:'等待好友确认…',foeAgain:'好友想再来一局！',leaveRoom:'离开房间',onNoDecks:'好友对战只能使用你自己组的25张牌组。你还没有完整的牌组，先在这里组一副吧。',useDeck:'保存并用于好友对战',oAgain:'再来一局',
     record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',myDecks:'我的牌组',myDecksSub:'保存的牌组存放在这台设备上。',newDeck:'新建牌组',noDecks:'还没有保存的牌组。点「新建牌组」，组好后保存。',playDeck:'开始对战',editShort:'编辑',deleteDeck:'删除',confirmDelete:'再点一次删除',deckName:'牌组名称',saveDeck:'保存牌组',savedState:'已保存',saveAsNew:'另存为新牌组',saved:x=>`已保存「${x}」。`,deleted:x=>`已删除「${x}」。`,defaultName:(c,n)=>`${c}牌组 ${n}`,cardsN:n=>`${n}张`,notReady:n=>`${n}/25 · 未完成，暂不能对战`,unsaved:'有未保存的修改',pickClassNew:'新建牌组 · 选择职业',
@@ -599,7 +606,7 @@ const I18N={
     errServer:'対戦サーバーに接続できません。通信状況を確認して再試行してください。',errNoRoom:'そのコードのルームが見つかりません。コードを確認してください。',
     errTimeout:'接続がタイムアウトしました。ネットワークによっては直接接続が遮断されます。Wi-Fiとモバイル回線を切り替えて試してください。',
     errVersion:'フレンドとバージョンが異なります。両方ともページを再読み込みしてください。',errDeck:'このデッキはフレンド対戦で使えません。',errCode:'6桁のルームコードを入力してください。',
-    foeName:c=>`フレンド（${c}）`,onlinePill:'オンライン',concede:'降参',concedeSure:'もう一度押して降参',quitSure:'もう一度押して終了',quitAria:'メインメニューに戻る',netSlow:'相手の接続を待っています…',
+    foeName:c=>`フレンド（${c}）`,onlinePill:'オンライン',concede:'降参',concedeSure:'もう一度押して降参',quitSure:'もう一度押して終了',mullTitle:'初期手札',mullSub:'交換したいカードをタップ。新しいカードを引き、交換したカードはデッキの一番下に戻る。',mullKeep:'このまま',mullSwap:n=>`${n}枚交換`,mullWait:'相手を待っています…',quitAria:'メインメニューに戻る',netSlow:'相手の接続を待っています…',
     oDraw:'引き分け',oVs:c=>`相手：フレンド · ${c}`,oLeft:'フレンドが対戦を離れました。',oConceded:'フレンドが降参しました。',
     waitAgain:'フレンドを待っています…',foeAgain:'フレンドが再戦を希望しています！',leaveRoom:'退出',onNoDecks:'フレンド対戦では自分で組んだ25枚のデッキを使います。まだ完成したデッキがないので、ここで組みましょう。',useDeck:'保存してフレンド対戦に使う',oAgain:'もう一戦',
     record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',myDecks:'マイデッキ',myDecksSub:'保存したデッキはこの端末に残る。',newDeck:'新しいデッキ',noDecks:'保存したデッキはまだない。「新しいデッキ」で組んで保存しよう。',playDeck:'対戦する',editShort:'編集',deleteDeck:'削除',confirmDelete:'もう一度タップで削除',deckName:'デッキ名',saveDeck:'デッキを保存',savedState:'保存済み',saveAsNew:'新規保存',saved:x=>`「${x}」を保存した。`,deleted:x=>`「${x}」を削除した。`,defaultName:(c,n)=>`${c}デッキ ${n}`,cardsN:n=>`${n}枚`,notReady:n=>`${n}/25 · 未完成のため対戦不可`,unsaved:'未保存の変更あり',pickClassNew:'新しいデッキ · クラスを選択',
@@ -1144,15 +1151,17 @@ function startQuick(diff){
   S.e.power=CBY[ecls].power;
   const pFirst=Math.random()<.5;
   view='duel';
-  if(pFirst){draw('p',3);draw('e',4);S.e.hand.push('coin');say('goFirst');startTurn('p');render();banner(T('bannerYou'))}
-  else{draw('e',3);draw('p',4);S.p.hand.push('coin');say('goSecond');S.turn='e';render();aiTurn()}
+  const first=pFirst?'p':'e',second=other(first);
+  draw(first,3);draw(second,4);S.turn=first;
+  beginMulligan(()=>{S[second].hand.push('coin');say(pFirst?'goFirst':'goSecond');
+    if(pFirst){startTurn('p');render();banner(T('bannerYou'))}else{render();aiTurn()}});
 }
 function goClass(){view='class';render();scrollTo(0,0)}
 function pickClass(id){R.cls=id;R.deck=[...CBY[id].deck];startDuel()}
 const curPower=()=>CBY[R.cls].power;
 function powerBlocked(){
   const p=curPower(),me=S.p;
-  if(S.turn!=='p'||S.busy||S.over||S.pending||me.powerUsed||me.mana<p.c)return true;
+  if(S.turn!=='p'||S.busy||S.over||S.mull||S.pending||me.powerUsed||me.mana<p.c)return true;
   if(p.fx.summon&&me.board.length>=BOARD_MAX)return true;
   if(p.tgt&&!targetsFor('p',p.tgt).length)return true;
   return false;
@@ -1163,8 +1172,38 @@ function startDuel(){
   S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',o.hp,o.deck)};
   S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;
   say('rises',()=>heroName(S.e));
-  draw('p',3);draw('e',4);S.e.hand.push('coin');
-  view='duel';startTurn('p');render();banner(T('bannerYou'));
+  draw('p',3);draw('e',4);
+  beginMulligan(()=>{S.e.hand.push('coin');startTurn('p');render();banner(T('bannerYou'))});
+}
+// ---------- opening mulligan ----------
+// Replaced cards are swapped for new draws, then go to the bottom of the deck. No randomness, so both
+// copies of an online game reach the same hands.
+function mulligan(side,idx){
+  const s=S[side],pick=[...new Set(idx)].filter(i=>Number.isInteger(i)&&i>=0&&i<s.hand.length);
+  const back=pick.map(i=>s.hand[i]);s.hand=s.hand.filter((k,i)=>!pick.includes(i));
+  for(let n=0;n<back.length&&s.deck.length;n++){s.hand.push(s.deck.pop());if(side==='p')S.drew++}
+  s.deck.unshift(...back);
+}
+// The computer swaps out expensive cards (4 mana or more).
+const aiMull=side=>S[side].hand.map((k,i)=>CARDS[k].c>=4?i:-1).filter(i=>i>=0);
+// Hands are dealt; show the mulligan, then run `cont` (coin, first turn).
+function beginMulligan(cont){S.mull={pick:new Set(),cont,mine:null};view='duel';render();scrollTo(0,0)}
+function mullConfirm(){
+  const m=S&&S.mull;if(!m||m.mine)return;
+  m.mine=[...m.pick];
+  if(S.mode==='online'){netSend({t:'mull',idx:m.mine});render();return mullTry()}
+  mulligan('p',m.mine);mulligan('e',aiMull('e'));S.mull=null;m.cont();
+}
+// Online: finish once both players have chosen.
+function mullTry(){
+  const m=S&&S.mull,me=NET;if(!m||!m.mine||!me||!me.foeMull)return;
+  mulligan('p',m.mine);mulligan('e',me.foeMull);me.foeMull=null;S.mull=null;m.cont();
+}
+function mullHTML(){
+  const m=S.mull;
+  return `<div class="mull" role="dialog" aria-label="${T('mullTitle')}"><div class="mbox"><h2>${T('mullTitle')}</h2><p>${T('mullSub')}</p>
+    <div class="mcards">${S.p.hand.map((k,i)=>`<div class="mc${m.pick.has(i)?' x':''}" data-mull="${i}">${cardFace(k,'md','div')}${m.pick.has(i)?'<span class="mx">✕</span>':''}</div>`).join('')}</div>
+    ${m.mine?`<p aria-live="polite">${T('mullWait')}</p>`:`<button class="btn" data-go="mullok">${m.pick.size?T('mullSwap',m.pick.size):T('mullKeep')}</button>`}</div></div>`;
 }
 function startTurn(side){
   const s=S[side],o=S[other(side)];
@@ -1315,7 +1354,7 @@ function cleanup(){
 function after(){cleanup();netFlush();render()}
 
 // ---------- player actions ----------
-function blocked(){return S.turn!=='p'||S.busy||S.over}
+function blocked(){return S.turn!=='p'||S.busy||S.over||!!S.mull}
 async function playHand(i){
   if(blocked()||S.pending)return;
   S.sel=null;
@@ -1413,6 +1452,8 @@ function aiDamageTarget(n,tgt){
   return null;
 }
 async function aiPower(){
+  // Stop if this game was left (or replaced by a new one) while we were waiting.
+  const G0=S;
   const e=S.e,p=e.power,fx=p.fx;if(aiEasy()||e.mana<p.c)return;
   let t=null;
   if(fx.dmg){t=aiDamageTarget(fx.dmg,p.tgt);if(!t)return}
@@ -1420,9 +1461,9 @@ async function aiPower(){
   else if(fx.buff){t=aiBestAlly();if(!t)return}
   else if(!aiWorth(fx))return;
   e.mana-=p.c;
-  if(t)await aimAt(t);
-  await fxAnim(fx,'[data-epow]',t,'e');applyFx('e',fx,t);
-  say('ePower',()=>heroName(e),()=>pn(p),t?()=>nm(t):null);cleanup();render();await wait(600);
+  if(t)await aimAt(t);if(S!==G0)return;
+  await fxAnim(fx,'[data-epow]',t,'e');if(S!==G0)return;applyFx('e',fx,t);
+  say('ePower',()=>heroName(e),()=>pn(p),t?()=>nm(t):null);cleanup();render();await wait(600);if(S!==G0)return;
 }
 function aiBestAlly(){return [...S.e.board].sort((a,b)=>b.atk-a.atk)[0]||null}
 function aiWorth(fx){
@@ -1497,7 +1538,9 @@ function aiAttackTarget(m){
   return S.p;
 }
 async function aiTurn(){
-  S.busy=true;S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));cleanup();render();banner(T('bannerFoe'),true);await wait(900);
+  // Stop if this game was left (or replaced by a new one) while we were waiting.
+  const G0=S;
+  S.busy=true;S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));cleanup();render();banner(T('bannerFoe'),true);await wait(900);if(S!==G0)return;
   const e=S.e,en=()=>heroName(e);
   for(let g=0;g<12&&!S.over;g++){
     const opts=e.hand.map((k,i)=>({k,i})).filter(o=>canPay('e',o.k)).sort((a,b)=>CARDS[b.k].c-CARDS[a.k].c);
@@ -1508,33 +1551,33 @@ async function aiTurn(){
       if(c.t==='m'){
         const shown=c.bc&&c.bc.tgt?t:null;
         say('eSummon',en,()=>cn(k));render();
-        const sp=showPlay('e',k,shown);await wait(1100);
+        const sp=showPlay('e',k,shown);await wait(1100);if(S!==G0)return;
         const m=summon('e',k);pushHist('e',k,shown);render();
         if(c.bc){
           if(c.bc.tgt==='ally'&&!t)t=m;
-          if(c.bc.tgt)await aimAt(t);
-          await fxAnim(c.bc,sp.card,t,'e');applyFx('e',c.bc,t);
+          if(c.bc.tgt)await aimAt(t);if(S!==G0)return;
+          await fxAnim(c.bc,sp.card,t,'e');if(S!==G0)return;applyFx('e',c.bc,t);
         }
         sp.close();
       }else{
         if(t)say('eCastOn',en,()=>cn(k),()=>nm(t));else say('eCast',en,()=>cn(k));
         render();
-        const sp=showPlay('e',k,t);await wait(1400);
+        const sp=showPlay('e',k,t);await wait(1400);if(S!==G0)return;
         pushHist('e',k,t);render();
-        await aimAt(t);
-        await fxAnim(c.fx,sp.card,t,'e');castSpell('e',k,t);
+        await aimAt(t);if(S!==G0)return;
+        await fxAnim(c.fx,sp.card,t,'e');if(S!==G0)return;castSpell('e',k,t);
         sp.close();
       }
-      did=true;cleanup();render();await wait(500);break;
+      did=true;cleanup();render();await wait(500);if(S!==G0)return;break;
     }
     if(!did)break;
   }
-  if(!S.over)await aiPower();
+  if(!S.over)await aiPower();if(S!==G0)return;
   for(const m of [...e.board]){
     if(S.over)return;
     if(!e.board.includes(m)||!canAttack(m))continue;
     const t=aiAttackTarget(m);
-    await lunge(idOf(m),idOf(t));doAttack(m,t);cleanup();render();await wait(420);
+    await lunge(idOf(m),idOf(t));if(S!==G0)return;doAttack(m,t);cleanup();render();await wait(420);if(S!==G0)return;
   }
   if(S.over)return;
   S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));
@@ -1649,6 +1692,7 @@ function netRecv(d){
   }
   if(d.t==='err')return netFail(I18N.en[d.k]?d.k:'errServer');
   if(d.t==='start')return startOnline(d);
+  if(d.t==='mull'){me.foeMull=Array.isArray(d.idx)?d.idx.filter(Number.isInteger):[];return mullTry()}
   if(d.t==='bye')return netLost();
   if(d.t==='again'){me.foeAgain=true;if(me.host&&me.again)netDeal();else if(view==='oresult')render();return}
   if(d.t==='act'||d.t==='sync'||d.t==='needsync'){me.q.push(d);netPump()}
@@ -1669,9 +1713,8 @@ function startOnline(d){
      order:h?['p','e']:['e','p'],p:mk('p',myD),e:mk('e',foeD)};
   S.e.power=CBY[foeC].power;
   const [a,b]=iFirst?['p','e']:['e','p'];
-  draw(a,3);draw(b,4);S[b].hand.push('coin');
-  say(iFirst?'goFirst':'goSecond');startTurn(a);
-  view='duel';render();scrollTo(0,0);banner(iFirst?T('bannerYou'):T('bannerFoe'),!iFirst);
+  draw(a,3);draw(b,4);me.foeMull=null;
+  beginMulligan(()=>{S[b].hand.push('coin');say(iFirst?'goFirst':'goSecond');startTurn(a);render();banner(iFirst?T('bannerYou'):T('bannerFoe'),!iFirst)});
 }
 // Compact fingerprint of everything both copies must agree on, host's side first.
 function netHash(){
@@ -2073,7 +2116,7 @@ function render(){
       <div class="btns"><button class="btn ghost" data-go="gallery">${T('viewCards')}</button></div></div>`;
     return;
   }
-  if(view==='duel'&&LAND.matches){app.innerHTML=duelLandHTML();S.drew=0;fitHand();afterDuelRender();return}
+  if(view==='duel'&&LAND.matches){app.innerHTML=duelLandHTML()+(S.mull?mullHTML():'');S.drew=0;fitHand();afterDuelRender();return}
   if(view==='duel'){
     const pend=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
     const myTurn=S.turn==='p'&&!S.busy&&!S.over;
@@ -2086,7 +2129,7 @@ function render(){
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
         ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
         ${S.mode!=='online'?`<button class="btn ghost concede ${Q.quitArm?'danger':''}" data-go="quit" aria-label="${T('quitAria')}">${Q.quitArm?T('quitSure'):'⌂ '+T('toMenu')}</button>`:''}
-        <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
+        <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`+(S.mull?mullHTML():'');
     S.drew=0;afterDuelRender();
     return;
   }
@@ -2110,11 +2153,12 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck]');
+  const b=ev.target.closest('[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.go==='peekclose')return closePeek();
   if(b.dataset.t)return clickTarget(b.dataset.t);
+  if(b.dataset.mull!==undefined){const m=S&&S.mull;if(m&&!m.mine){const i=+b.dataset.mull;m.pick.has(i)?m.pick.delete(i):m.pick.add(i);render()}return}
   if(b.dataset.hand!==undefined){const i=+b.dataset.hand;
     // Landscape: the first tap previews a card; a spell that needs a target goes straight to choosing it.
     const hk=S&&S.p.hand[i],hc=hk&&CARDS[hk];
@@ -2162,6 +2206,7 @@ document.addEventListener('click',ev=>{
   else if(g==='oleave'){netClose(true);O.lost=null;newRun();scrollTo(0,0)}
   else if(g==='concede')concede();
   else if(g==='quit')quitDuel();
+  else if(g==='mullok')mullConfirm();
   else if(g==='autofill'){autoFill(Q.deck,Q.cls);Q.toast='';Q.dirty=true;render()}
   else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';Q.dirty=true;render()}
   else if(g==='cleardeck'){Q.deck=[];Q.toast='';Q.dirty=true;render()}

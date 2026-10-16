@@ -34,6 +34,7 @@ struct GameRoot: View {
         ZStack {
             if vm.screen == .duel {
                 GeometryReader { g in
+                    if vm.state?.mulligan == true { MulliganView().zIndex(20) }
                     if g.size.width > g.size.height && g.size.width >= 560 {
                         // Landscape: rail | board | preview + hand
                         DuelLandView().padding(.vertical, 6)

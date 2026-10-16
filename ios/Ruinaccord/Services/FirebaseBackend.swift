@@ -310,7 +310,7 @@ final class FirebaseMatchService: MatchService {
             },
             reset: { state in
                 try await ref.updateData(["state": try Firestore.Encoder().encode(state), "acts": [], "actsBy": FieldValue.delete(), "seq": 0,
-                                          "game": FieldValue.increment(Int64(1)), "again": [:], "left": FieldValue.delete(),
+                                          "game": FieldValue.increment(Int64(1)), "again": [:], "mull": [:], "left": FieldValue.delete(),
                                           "updatedAt": Date().timeIntervalSince1970])
             },
             again: { try await ref.updateData(["again.\(uid)": true]) },
@@ -319,7 +319,8 @@ final class FirebaseMatchService: MatchService {
                 if announce { try? await ref.updateData(["left": uid, "updatedAt": Date().timeIntervalSince1970]) }
             },
             drop: { who in try? await ref.updateData(["left": who, "updatedAt": Date().timeIntervalSince1970]) },
-            beat: { try? await ref.updateData(["beat.\(uid)": Date().timeIntervalSince1970]) })
+            beat: { try? await ref.updateData(["beat.\(uid)": Date().timeIntervalSince1970]) },
+            mull: { idx in try await ref.updateData(["mull.\(uid)": idx, "updatedAt": Date().timeIntervalSince1970]) })
         match.receive(doc)
         listener = ref.addSnapshotListener { snap, error in
             guard let snap else { Task { @MainActor in match.lostConnection = true }; return }

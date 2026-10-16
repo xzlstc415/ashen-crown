@@ -123,6 +123,7 @@ struct MatchDoc: Codable {
     var again: [String: Bool]
     var left: String?
     var beat: [String: Double]      // epoch seconds, written by each client
+    var mull: [String: [Int]]? = nil   // opening mulligan: hand indices each player replaces
     var createdAt: Double
     var updatedAt: Double
 }
@@ -145,6 +146,7 @@ final class OnlineMatch {
     let _leave: (Bool) async -> Void
     let _drop: (String) async -> Void
     let _beat: () async -> Void
+    let _mull: ([Int]) async throws -> Void
     var onUpdate: ((MatchDoc) -> Void)?
     private var beatTask: Task<Void, Never>?
 
@@ -154,9 +156,10 @@ final class OnlineMatch {
          again: @escaping () async throws -> Void,
          leave: @escaping (Bool) async -> Void,
          drop: @escaping (String) async -> Void,
-         beat: @escaping () async -> Void) {
+         beat: @escaping () async -> Void,
+         mull: @escaping ([Int]) async throws -> Void) {
         self.id = id; self.role = role; self.myUid = myUid; self.foeUid = foeUid
-        _send = send; _reset = reset; _again = again; _leave = leave; _drop = drop; _beat = beat
+        _send = send; _reset = reset; _again = again; _leave = leave; _drop = drop; _beat = beat; _mull = mull
         beatTask = Task { [weak self] in
             while !Task.isCancelled {
                 await self?._beat()
@@ -170,6 +173,7 @@ final class OnlineMatch {
     func send(state: DuelState, acts: [NetAct], seq: Int, turnHost: Bool) async throws { try await _send(state, acts, seq, turnHost) }
     func resetGame(state: DuelState) async throws { try await _reset(state) }
     func askRematch() async throws { try await _again() }
+    func sendMulligan(_ idx: [Int]) async throws { try await _mull(idx) }
     /// Stops listening; `announce` also tells the opponent we left (they win if the game is still on).
     func leave(announce: Bool = true) async { beatTask?.cancel(); await _leave(announce) }
     /// Records that the opponent timed out (they lose when they come back).

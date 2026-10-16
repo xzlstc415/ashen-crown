@@ -239,3 +239,43 @@ private struct LandHand: View {
         .onChange(of: s.p.hand.count) { _, _ in Task { await vm.wait(600); vm.drewCount = 0 } })
     }
 }
+
+/// Opening hand: tap cards to replace them, then confirm (online: wait for the opponent).
+struct MulliganView: View {
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        guard let s = vm.state else { return AnyView(EmptyView()) }
+        let tx = vm.tx, hand = s.p.hand, n = max(1, hand.count)
+        return AnyView(GeometryReader { g in
+            let em = max(6, min(10.8, (g.size.height - 170) / 15.6, (g.size.width - 40 - CGFloat(n - 1) * 18) / (CGFloat(n) * 10)))
+            VStack(spacing: 10) {
+                Text(tx.mullTitle).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                Text(tx.mullSub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
+                HStack(spacing: 18) {
+                    ForEach(Array(hand.enumerated()), id: \.offset) { i, k in
+                        if let c = GameData.shared.card(k) {
+                            let x = vm.mullPicks.contains(i)
+                            CardView(card: c, size: .fit(em))
+                                .saturation(x ? 0.15 : 1).brightness(x ? -0.35 : 0)
+                                .offset(y: x ? 6 : 0)
+                                .overlay { if x { Text("✕").font(.system(size: 44, weight: .heavy)).foregroundStyle(Theme.blood).shadow(radius: 4) } }
+                                .contentShape(Rectangle())
+                                .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { vm.toggleMulligan(i) } }
+                                .accessibilityAddTraits(x ? .isSelected : [])
+                        }
+                    }
+                }
+                .padding(.top, 6)
+                if vm.mullMine != nil {
+                    Text(tx.mullWait).font(Theme.body(13)).foregroundStyle(Theme.muted)
+                } else {
+                    Button(vm.mullPicks.isEmpty ? tx.mullKeep : tx.mullSwap(vm.mullPicks.count)) { vm.confirmMulligan() }.primary()
+                }
+            }
+            .padding(16)
+            .frame(width: g.size.width, height: g.size.height)
+            .background(Color(hex: "#0a070e").opacity(0.86))
+        }
+        .ignoresSafeArea())
+    }
+}

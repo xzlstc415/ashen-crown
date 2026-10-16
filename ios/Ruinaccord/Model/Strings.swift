@@ -252,6 +252,11 @@ struct Tx {
     var tapClose: String { pick("Tap anywhere to close", "点击任意位置关闭", "タップで閉じる") }
     var fWard: String { pick("Ward", "护盾", "結界") }
     var fFreeze: String { pick("Frozen", "冻结", "凍結") }
+    var mullTitle: String { pick("Starting hand", "起手牌", "初期手札") }
+    var mullSub: String { pick("Tap the cards you want to replace. New cards are drawn, and the replaced ones go to the bottom of your deck.", "点选想替换的牌。会先补抽新牌，换掉的牌放回牌库底部。", "交換したいカードをタップ。新しいカードを引き、交換したカードはデッキの一番下に戻る。") }
+    var mullKeep: String { pick("Keep this hand", "保留手牌", "このまま") }
+    func mullSwap(_ n: Int) -> String { pick("Replace \(n) card\(n > 1 ? "s" : "")", "替换\(n)张", "\(n)枚交換") }
+    var mullWait: String { pick("Waiting for your opponent…", "等待对手选择…", "相手を待っています…") }
     var quitSure: String { pick("Tap again to leave", "再点一次退出", "もう一度押して終了") }
     var quitAria: String { pick("Leave to the main menu", "退出到主菜单", "メインメニューに戻る") }
     var tapPlay: String { pick("Tap the card again to play it.", "再点一次这张牌即可打出。", "もう一度タップで使用します。") }

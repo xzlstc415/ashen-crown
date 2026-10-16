@@ -45,6 +45,8 @@ enum DebugLaunch {
             default: break
             }
             // -card <key>: put a card in hand and on both boards; -zoom <key>: open its large view (art checks).
+            // The opening mulligan is confirmed (keeping the hand) unless -mull asks to see it.
+            if vm.state?.mulligan == true && !args.contains("-mull") { vm.confirmMulligan() }
             // -card a,b,c: these cards go in your hand; minions among them also on both boards
             if let ks = value("-card"), vm.state != nil {
                 try? await Task.sleep(for: .milliseconds(600))
@@ -71,6 +73,7 @@ enum DebugLaunch {
                     print("quittest \(round): screen \(vm.screen) over \(vm.state?.over ?? false)")
                     try? await Task.sleep(for: .milliseconds(3500))
                     vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; Decks.autoFill(&vm.q.deck, cls: "mage"); vm.startQuick(.normal)
+                    vm.confirmMulligan()
                 }
                 print("quittest done: screen \(vm.screen)")
             }

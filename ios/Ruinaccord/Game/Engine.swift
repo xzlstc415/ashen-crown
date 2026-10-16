@@ -97,6 +97,8 @@ struct DuelState: Codable {
     var turn: Side = .p
     var over = false
     var opened = false
+    /// Hands are dealt and players are choosing cards to replace; the first turn has not started.
+    var mulligan = false
     var round = 0
     var nextUid = 0
     var p: Hero
@@ -108,7 +110,7 @@ struct DuelState: Codable {
     /// Transient UI events produced by rule functions; drained by the view model, never stored.
     var events: [GameEvent] = []
 
-    private enum CodingKeys: String, CodingKey { case mode, pcls, ecls, diff, stage, turn, over, opened, round, nextUid, p, e, order, result }
+    private enum CodingKeys: String, CodingKey { case mode, pcls, ecls, diff, stage, turn, over, opened, mulligan, round, nextUid, p, e, order, result }
 
     static let boardMax = GameData.shared.boardMax
 
@@ -233,6 +235,27 @@ struct DuelState: Codable {
             default: return m.atk >= 5
             }
         }
+    }
+
+    // MARK: - Opening mulligan
+
+    /// Replaced cards are swapped for new draws and then go to the bottom of the deck. No randomness, so both
+    /// copies of an online game reach the same hands.
+    mutating func applyMulligan(_ side: Side, _ idx: [Int]) {
+        let hand = self[side].hand
+        let pick = Array(Set(idx.filter { hand.indices.contains($0) })).sorted()
+        let back = pick.map { hand[$0] }
+        self[side].hand = hand.enumerated().filter { !pick.contains($0.offset) }.map(\.element)
+        for _ in back where !self[side].deck.isEmpty {
+            self[side].hand.append(self[side].deck.removeLast())
+            events.append(.drew(side))
+        }
+        self[side].deck.insert(contentsOf: back, at: 0)
+    }
+
+    /// The computer swaps out expensive cards (4 mana or more).
+    func aiMulliganPicks(_ side: Side) -> [Int] {
+        self[side].hand.indices.filter { (GameData.shared.card(self[side].hand[$0])?.cost ?? 0) >= 4 }
     }
 
     // MARK: - Spells
