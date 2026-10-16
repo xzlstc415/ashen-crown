@@ -252,6 +252,8 @@ struct Tx {
     var tapClose: String { pick("Tap anywhere to close", "点击任意位置关闭", "タップで閉じる") }
     var fWard: String { pick("Ward", "护盾", "結界") }
     var fFreeze: String { pick("Frozen", "冻结", "凍結") }
+    var quitSure: String { pick("Tap again to leave", "再点一次退出", "もう一度押して終了") }
+    var quitAria: String { pick("Leave to the main menu", "退出到主菜单", "メインメニューに戻る") }
     var tapPlay: String { pick("Tap the card again to play it.", "再点一次这张牌即可打出。", "もう一度タップで使用します。") }
     var tapPreview: String { pick("Tap a card in your hand to see it.", "点一张手牌查看。", "手札のカードをタップして確認。") }
     var fSilence: String { pick("Silenced", "沉默", "沈黙") }

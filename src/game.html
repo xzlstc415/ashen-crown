@@ -442,7 +442,7 @@ const I18N={
     errServer:'Could not reach the match server. Check your connection and try again.',errNoRoom:'No room with that code. Check the code with your friend.',
     errTimeout:'Connection timed out. Some networks block direct connections; try switching between Wi-Fi and mobile data.',
     errVersion:'You and your friend are on different versions. Both refresh the page and try again.',errDeck:'That deck can\'t be used online.',errCode:'Enter the 6-digit room code.',
-    foeName:c=>`Friend (${c})`,onlinePill:'Online',concede:'Concede',concedeSure:'Tap again to concede',netSlow:'Waiting for your friend\'s connection…',
+    foeName:c=>`Friend (${c})`,onlinePill:'Online',concede:'Concede',concedeSure:'Tap again to concede',quitSure:'Tap again to leave',quitAria:'Leave to the main menu',netSlow:'Waiting for your friend\'s connection…',
     oDraw:'Draw',oVs:c=>`Opponent: your friend · ${c}`,oLeft:'Your friend left the match.',oConceded:'Your friend conceded.',
     waitAgain:'Waiting for your friend…',foeAgain:'Your friend wants a rematch!',leaveRoom:'Leave room',onNoDecks:'Friend matches use your own 25-card decks. You don\'t have a complete one yet, so build one here first.',useDeck:'Save & use for friend match',oAgain:'Rematch',
     record:(w,l)=>`This session: ${w} won, ${l} lost`,rematch:'New opponent',editDeck:'Edit deck',toMenu:'Main menu',changeClass:'Change class',myDecks:'My decks',myDecksSub:'Your saved decks are kept on this device.',newDeck:'New deck',noDecks:'No saved decks yet. Tap New deck, build one, and save it.',playDeck:'Play',editShort:'Edit',deleteDeck:'Delete',confirmDelete:'Tap again to delete',deckName:'Deck name',saveDeck:'Save deck',savedState:'Saved',saveAsNew:'Save as new',saved:x=>`Saved "${x}".`,deleted:x=>`Deleted "${x}".`,defaultName:(c,n)=>`${c} deck ${n}`,cardsN:n=>`${n} cards`,notReady:n=>`${n}/25 · not ready to play`,unsaved:'Unsaved changes',pickClassNew:'New deck · Choose a class',
@@ -508,7 +508,7 @@ const I18N={
     errServer:'无法连接对战服务器，请检查网络后重试。',errNoRoom:'找不到这个房间，请和好友核对房间码。',
     errTimeout:'连接超时。部分网络会阻止直连，可以在 Wi-Fi 和手机流量之间切换后再试。',
     errVersion:'你和好友的游戏版本不同，请双方刷新页面后再试。',errDeck:'这副牌组不能用于好友对战。',errCode:'请输入6位房间码。',
-    foeName:c=>`好友（${c}）`,onlinePill:'好友对战',concede:'认输',concedeSure:'再点一次认输',netSlow:'对手网络不稳定，等待中…',
+    foeName:c=>`好友（${c}）`,onlinePill:'好友对战',concede:'认输',concedeSure:'再点一次认输',quitSure:'再点一次退出',quitAria:'退出到主菜单',netSlow:'对手网络不稳定，等待中…',
     oDraw:'平局',oVs:c=>`对手：好友 · ${c}`,oLeft:'好友已离开对局。',oConceded:'好友认输了。',
     waitAgain:'等待好友确认…',foeAgain:'好友想再来一局！',leaveRoom:'离开房间',onNoDecks:'好友对战只能使用你自己组的25张牌组。你还没有完整的牌组，先在这里组一副吧。',useDeck:'保存并用于好友对战',oAgain:'再来一局',
     record:(w,l)=>`本次战绩：${w}胜 ${l}负`,rematch:'再来一局',editDeck:'修改牌组',toMenu:'主菜单',changeClass:'换职业',myDecks:'我的牌组',myDecksSub:'保存的牌组存放在这台设备上。',newDeck:'新建牌组',noDecks:'还没有保存的牌组。点「新建牌组」，组好后保存。',playDeck:'开始对战',editShort:'编辑',deleteDeck:'删除',confirmDelete:'再点一次删除',deckName:'牌组名称',saveDeck:'保存牌组',savedState:'已保存',saveAsNew:'另存为新牌组',saved:x=>`已保存「${x}」。`,deleted:x=>`已删除「${x}」。`,defaultName:(c,n)=>`${c}牌组 ${n}`,cardsN:n=>`${n}张`,notReady:n=>`${n}/25 · 未完成，暂不能对战`,unsaved:'有未保存的修改',pickClassNew:'新建牌组 · 选择职业',
@@ -574,7 +574,7 @@ const I18N={
     errServer:'対戦サーバーに接続できません。通信状況を確認して再試行してください。',errNoRoom:'そのコードのルームが見つかりません。コードを確認してください。',
     errTimeout:'接続がタイムアウトしました。ネットワークによっては直接接続が遮断されます。Wi-Fiとモバイル回線を切り替えて試してください。',
     errVersion:'フレンドとバージョンが異なります。両方ともページを再読み込みしてください。',errDeck:'このデッキはフレンド対戦で使えません。',errCode:'6桁のルームコードを入力してください。',
-    foeName:c=>`フレンド（${c}）`,onlinePill:'オンライン',concede:'降参',concedeSure:'もう一度押して降参',netSlow:'相手の接続を待っています…',
+    foeName:c=>`フレンド（${c}）`,onlinePill:'オンライン',concede:'降参',concedeSure:'もう一度押して降参',quitSure:'もう一度押して終了',quitAria:'メインメニューに戻る',netSlow:'相手の接続を待っています…',
     oDraw:'引き分け',oVs:c=>`相手：フレンド · ${c}`,oLeft:'フレンドが対戦を離れました。',oConceded:'フレンドが降参しました。',
     waitAgain:'フレンドを待っています…',foeAgain:'フレンドが再戦を希望しています！',leaveRoom:'退出',onNoDecks:'フレンド対戦では自分で組んだ25枚のデッキを使います。まだ完成したデッキがないので、ここで組みましょう。',useDeck:'保存してフレンド対戦に使う',oAgain:'もう一戦',
     record:(w,l)=>`今回の戦績：${w}勝 ${l}敗`,rematch:'もう一戦',editDeck:'デッキを編集',toMenu:'メインメニュー',changeClass:'クラスを変更',myDecks:'マイデッキ',myDecksSub:'保存したデッキはこの端末に残る。',newDeck:'新しいデッキ',noDecks:'保存したデッキはまだない。「新しいデッキ」で組んで保存しよう。',playDeck:'対戦する',editShort:'編集',deleteDeck:'削除',confirmDelete:'もう一度タップで削除',deckName:'デッキ名',saveDeck:'デッキを保存',savedState:'保存済み',saveAsNew:'新規保存',saved:x=>`「${x}」を保存した。`,deleted:x=>`「${x}」を削除した。`,defaultName:(c,n)=>`${c}デッキ ${n}`,cardsN:n=>`${n}枚`,notReady:n=>`${n}/25 · 未完成のため対戦不可`,unsaved:'未保存の変更あり',pickClassNew:'新しいデッキ · クラスを選択',
@@ -1730,6 +1730,16 @@ async function remoteAct(a){
   }
   cleanup();render();await wait(350);
 }
+// Single-player duels (Adventure, AI match): leave for the main menu after a second tap. The AI's turn sees
+// S.over and stops; the abandoned game counts as neither a win nor a loss.
+function quitDuel(){
+  if(!S||S.mode==='online')return;
+  if(!Q.quitArm){Q.quitArm=true;render();setTimeout(()=>{if(Q.quitArm){Q.quitArm=false;if(view==='duel')render()}},3000);return}
+  Q.quitArm=false;S.over=true;S.mode='quit';S.pending=null;S.sel=null;closePeek();
+  document.querySelectorAll('.banner,.reveal,.orb,.wave').forEach(e=>e.remove());
+  // S stays (marked over) so an AI turn still in flight stops cleanly instead of reading a cleared game.
+  R={stage:0,deck:[],cls:null};view='intro';render();scrollTo(0,0);
+}
 function concede(){
   if(!S||S.mode!=='online'||S.over)return;
   if(!O.concedeArm){O.concedeArm=true;render();setTimeout(()=>{if(O.concedeArm){O.concedeArm=false;if(view==='duel')render()}},3000);return}
@@ -1996,7 +2006,8 @@ function duelLandHTML(){
   else prev=`<div class="who"><span><b>${heroName(S.e)}</b> · ${T('handDeck',S.e.hand.length,S.e.deck.length)}</span>
     <span><b>${heroName(S.p)}</b> · ${T('handDeck',S.p.hand.length,S.p.deck.length)}</span>
     <span>${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span><span>${T('tapPreview')}</span></div>`;
-  const flag=S.mode==='online'&&!S.over?`<button class="btn ghost concede lflag ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑'}</button>`:'';
+  const flag=S.mode==='online'?(!S.over?`<button class="btn ghost concede lflag ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑'}</button>`:'')
+    :`<button class="btn ghost lflag ${Q.quitArm?'danger':''}" data-go="quit" aria-label="${T('quitAria')}" title="${T('quitAria')}">${Q.quitArm?T('quitSure'):'⌂'}</button>`;
   return rail+board+`<div class="lside">${flag}<div class="lprev">${prev}</div><div class="hand">${handHTML()}</div></div>`;
 }
 LAND.addEventListener('change',()=>{if(view==='duel'){S.hsel=null;render()}});
@@ -2049,6 +2060,7 @@ function render(){
       `<div class="hand">${handHTML()}</div>
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
         ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
+        ${S.mode!=='online'?`<button class="btn ghost concede ${Q.quitArm?'danger':''}" data-go="quit" aria-label="${T('quitAria')}">${Q.quitArm?T('quitSure'):'⌂ '+T('toMenu')}</button>`:''}
         <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`;
     S.drew=0;afterDuelRender();
     return;
@@ -2121,6 +2133,7 @@ document.addEventListener('click',ev=>{
   else if(g==='oagain')askRematch();
   else if(g==='oleave'){netClose(true);O.lost=null;newRun();scrollTo(0,0)}
   else if(g==='concede')concede();
+  else if(g==='quit')quitDuel();
   else if(g==='autofill'){autoFill(Q.deck,Q.cls);Q.toast='';Q.dirty=true;render()}
   else if(g==='resetdeck'){Q.deck=[...CBY[Q.cls].deck];Q.toast='';Q.dirty=true;render()}
   else if(g==='cleardeck'){Q.deck=[];Q.toast='';Q.dirty=true;render()}

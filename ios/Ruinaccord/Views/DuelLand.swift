@@ -199,8 +199,11 @@ private struct LandSide: View {
                 .frame(width: g.size.width, height: g.size.height)
             }
             .overlay(alignment: .topTrailing) {
-                if s.mode == .online && !s.over {
-                    Button(vm.o.concedeArm ? tx.concedeSure : "⚑") { vm.concede() }.ghost(compact: true, danger: vm.o.concedeArm)
+                if s.mode == .online {
+                    if !s.over { Button(vm.o.concedeArm ? tx.concedeSure : "⚑") { vm.concede() }.ghost(compact: true, danger: vm.o.concedeArm) }
+                } else {
+                    Button(vm.quitArm ? tx.quitSure : "⌂") { vm.quitDuel() }.ghost(compact: true, danger: vm.quitArm)
+                        .accessibilityLabel(Text(tx.quitAria))
                 }
             }
             LandHand(em: min(12.5, max(6, screenHeight * 0.0225)))

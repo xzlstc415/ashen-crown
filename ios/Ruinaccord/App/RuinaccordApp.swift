@@ -61,6 +61,19 @@ enum DebugLaunch {
                 scene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight)) { _ in }
             }
             if let n = value("-sel").flatMap(Int.init) { vm.hsel = n }
+            // -quittest: end the turn, leave in the middle of the AI's turn, then start a new game
+            if args.contains("-quittest") {
+                for round in 0..<3 {
+                    try? await Task.sleep(for: .milliseconds(900))
+                    vm.endTurn()
+                    try? await Task.sleep(for: .milliseconds(1200 + round * 500))
+                    vm.quitDuel(); vm.quitDuel()
+                    print("quittest \(round): screen \(vm.screen) over \(vm.state?.over ?? false)")
+                    try? await Task.sleep(for: .milliseconds(3500))
+                    vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; Decks.autoFill(&vm.q.deck, cls: "mage"); vm.startQuick(.normal)
+                }
+                print("quittest done: screen \(vm.screen)")
+            }
             if args.contains("-autoplay") { await autoplay(vm) }
         }
     }

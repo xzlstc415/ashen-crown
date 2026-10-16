@@ -33,6 +33,10 @@ struct DuelView: View {
                 if s.mode == .online && !s.over {
                     Button(vm.o.concedeArm ? tx.concedeSure : "⚑ " + tx.concede) { vm.concede() }.ghost(compact: true, danger: vm.o.concedeArm)
                 }
+                if s.mode != .online {
+                    Button(vm.quitArm ? tx.quitSure : "⌂ " + tx.toMenu) { vm.quitDuel() }.ghost(compact: true, danger: vm.quitArm)
+                        .accessibilityLabel(Text(tx.quitAria))
+                }
                 Button(tx.endTurn) { vm.endTurn() }
                     .primary(glow: myTurn && !vm.hasMoves())
                     .disabled(!myTurn)

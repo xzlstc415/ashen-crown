@@ -110,6 +110,9 @@ final class GameVM {
     var hiddenHand: Int?
     /// Landscape duel: the hand card shown in the preview (tap it again to play).
     var hsel: Int?
+    /// Single-player duels: first tap on Leave arms it; `abandoned` stops the game without a result screen.
+    var quitArm = false
+    var abandoned = false
     var zoomCard: String?
     var peekItem: HistItem?
     var deaths: Set<EID> = []
@@ -332,6 +335,7 @@ final class GameVM {
     }
 
     func startQuick(_ diff: Difficulty) {
+        abandoned = false; quitArm = false
         guard let cls = q.cls else { return }
         q.diff = diff
         run = Run(stage: 0, deck: q.deck, cls: cls)
@@ -354,6 +358,7 @@ final class GameVM {
     func pickClass(_ id: String) { run.cls = id; run.deck = gd.cls(id)?.deck ?? []; startDuel() }
 
     func startDuel() {
+        abandoned = false; quitArm = false
         let o = gd.opponents[run.stage]
         var s = DuelState(mode: .camp, pcls: run.cls ?? "", stage: run.stage,
                           p: DuelState.makeHero(.p, hp: 30, deck: run.deck.shuffled(), power: curPower),
@@ -468,6 +473,7 @@ final class GameVM {
     }
 
     private func onGameOver() {
+        if abandoned { return }
         let won = S.result == .win
         if let c = center(won ? .hero(.e) : .hero(.p)) {
             burst(at: c, color: Color(hex: "#f3c97a")); sparks(at: c, n: 10)
@@ -1079,6 +1085,23 @@ final class GameVM {
         go(.oresult)
         Task { await match?.leave() }
         match = nil; watchTask?.cancel(); o.net = .idle
+    }
+
+    /// Adventure and AI matches: leave for the main menu after a second tap. The game is marked over (so an AI
+    /// turn still running stops at its next check) and counts as neither a win nor a loss.
+    func quitDuel() {
+        guard state != nil, S.mode != .online else { return }
+        if !quitArm {
+            quitArm = true
+            Task { await wait(3000); quitArm = false }
+            return
+        }
+        quitArm = false
+        abandoned = true
+        S.over = true
+        pending = nil; sel = nil; hsel = nil; reveal = nil; banner = nil; zoomCard = nil
+        run = Run()
+        go(.intro)
     }
 
     func concede() {
