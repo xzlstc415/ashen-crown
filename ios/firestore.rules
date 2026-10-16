@@ -1,0 +1,51 @@
+// Firestore security rules for Ruinaccord. Deploy from the Firebase console (Firestore → Rules) or
+// with `firebase deploy --only firestore:rules`.
+//
+//   users/{uid}             profile; users/{uid}/decks/{id} saved decks — owner only
+//   queue/{uid}             matchmaking ticket — owner writes it, any signed-in player may claim it
+//   rooms/{code}            friend room — host writes it, a joiner may claim it
+//   matches/{id}            the shared game — its two players only
+//
+// Online play (queue, rooms, matches) requires a real account (Sign in with Apple), not a guest.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function me() { return request.auth.uid; }
+    function player() { return signedIn() && request.auth.token.firebase.sign_in_provider != 'anonymous'; }
+
+    match /users/{uid} {
+      allow read, write: if signedIn() && me() == uid;
+      match /decks/{deckId} {
+        allow read, write: if signedIn() && me() == uid
+          && (request.method == 'delete' || (request.resource.data.cards is list && request.resource.data.cards.size() <= 25));
+      }
+    }
+
+    match /queue/{uid} {
+      allow read: if player();
+      allow create, delete: if player() && me() == uid;
+      allow update: if player() && (
+        me() == uid ||
+        // another player claims a waiting ticket
+        (resource.data.state == 'waiting' && request.resource.data.state == 'matched'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['state', 'matchId'])));
+    }
+
+    match /rooms/{code} {
+      allow read: if player();
+      allow create: if player() && request.resource.data.host == me();
+      allow delete: if player() && resource.data.host == me();
+      allow update: if player() && (
+        resource.data.host == me() ||
+        (resource.data.state == 'open' && request.resource.data.state == 'matched'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['state', 'matchId', 'updatedAt'])));
+    }
+
+    match /matches/{matchId} {
+      allow create: if player() && me() in request.resource.data.players && request.resource.data.players.size() == 2;
+      allow read, update: if player() && me() in resource.data.players;
+      allow delete: if false;
+    }
+  }
+}

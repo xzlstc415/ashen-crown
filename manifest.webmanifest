@@ -1,6 +1,6 @@
 {
-  "name": "Ashen Crown",
-  "short_name": "Ashen Crown",
+  "name": "Ruinaccord",
+  "short_name": "Ruinaccord",
   "description": "A fantasy card duel game. Pick a class, build a deck, and fight your way to the Ashen Crown.",
   "start_url": "./",
   "scope": "./",

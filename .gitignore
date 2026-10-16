@@ -1,0 +1,6 @@
+.spm/
+xcuserdata/
+*.xcuserstate
+ios/Ruinaccord/Resources/GoogleService-Info.plist
+.DS_Store
+ios/.build/

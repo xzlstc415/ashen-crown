@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04C359C60F6648C25CDD9785 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC700070828DEC542AC94CF /* RootView.swift */; };
+		0A081FE3B940C67A4E2054CA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6E61187E18BC316D45FFFF0 /* GoogleService-Info.plist */; };
+		1E3B9EB9FFE18EB48DF7982B /* BuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6D2FA6143E636B3581CB32 /* BuilderView.swift */; };
+		25E4B615B2D93D57E56F13B3 /* CardViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4304DEDFC22EB55CB3F75C1 /* CardViews.swift */; };
+		28A69FAF6CE7AC607CA8CACD /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C950AF1547086DEFA329B63 /* Cards.swift */; };
+		2DFB944F878F5CB1BC405CD7 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B8AF488CBA9B96B345E7C1 /* AI.swift */; };
+		40DD757248CE476F10922818 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E8B964C8B1BD0034A3D1C0 /* Theme.swift */; };
+		49599BD1A502000263D2EFE4 /* GameVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E237C810DC453F183A579 /* GameVM.swift */; };
+		4FF741F2824D49696226611E /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB346BC7649F3118FD6D2CEE /* Screens.swift */; };
+		6370F8EDA1AF1898F22A1E97 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8D7521C26BA891CBD22C4C /* Strings.swift */; };
+		642261FD6395B36F4ED84235 /* GameData.json in Resources */ = {isa = PBXBuildFile; fileRef = 997EFB616A19EC2C60772CF3 /* GameData.json */; };
+		6936AE195FD41A5CB91BA12A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7979B9F87D7B0EF3FED45B7D /* InfoPlist.strings */; };
+		6ECA26D602B2AF111F6511FD /* OnlineSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AF9F81C41BC14E3F613242 /* OnlineSetup.swift */; };
+		8695586E6C55323C94F7F21B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F2F9D0F03C3C0126FA39EC0 /* FirebaseAuth */; };
+		8A22D4156FEC668CA6A76854 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 958D0FF258F88C68E61370DF /* PrivacyInfo.xcprivacy */; };
+		93C60E4357D19D17B0B8AFFD /* LocalBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E8AA0B886A534E391E96A9 /* LocalBackend.swift */; };
+		C7F471E9F9A1B6A86EF94A74 /* FirebaseBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B2BC2834EDFD23BD3DA52 /* FirebaseBackend.swift */; };
+		CCD2C63C86600949ED86510D /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2A3E3FFE627500A1B95D7 /* Backend.swift */; };
+		E0400EF665034BEA5638BF07 /* RuinaccordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048B3A9F4BCC9BAF16D331C /* RuinaccordApp.swift */; };
+		EA25C31BFAE434EF7E9E959D /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF527A51B1E8B26782748BB /* Engine.swift */; };
+		EA6F7E62FB9B3B612D7E26EA /* EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9726708ED1BBD78C7E359 /* EngineTests.swift */; };
+		F4718328AED7FDF6B8EB0020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB8548AE18AE9BAA895F2B8 /* Assets.xcassets */; };
+		F5B49A914418393AA4E4B3F6 /* DuelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA8A742A17EE606385C7A5 /* DuelView.swift */; };
+		F7C8AEB2C0167E794509EA91 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AEFFFACFCDF9F697C70720A2 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AF91930B09915F9090606BAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3676DEE7A8D3D8CEF5AABFAC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EB24DBDE9F48F4483A4555A;
+			remoteInfo = Ruinaccord;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01E8B964C8B1BD0034A3D1C0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		07BA8A742A17EE606385C7A5 /* DuelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelView.swift; sourceTree = "<group>"; };
+		2BF527A51B1E8B26782748BB /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		35E8AA0B886A534E391E96A9 /* LocalBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBackend.swift; sourceTree = "<group>"; };
+		3D6D2FA6143E636B3581CB32 /* BuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderView.swift; sourceTree = "<group>"; };
+		418B2BC2834EDFD23BD3DA52 /* FirebaseBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBackend.swift; sourceTree = "<group>"; };
+		49AF9F81C41BC14E3F613242 /* OnlineSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineSetup.swift; sourceTree = "<group>"; };
+		515FAC671D78A251B394A5AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		516765CCF614DB8B30389E3F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5C950AF1547086DEFA329B63 /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
+		5FC700070828DEC542AC94CF /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		65E9726708ED1BBD78C7E359 /* EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineTests.swift; sourceTree = "<group>"; };
+		7048B3A9F4BCC9BAF16D331C /* RuinaccordApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuinaccordApp.swift; sourceTree = "<group>"; };
+		74AF8472DF424E7A492663A7 /* Ruinaccord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ruinaccord.entitlements; sourceTree = "<group>"; };
+		7B95B052D92081839F0D5844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7CB8548AE18AE9BAA895F2B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7D8D7521C26BA891CBD22C4C /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		827FEEAE590C991CEC570CE1 /* Ruinaccord.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ruinaccord.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		958D0FF258F88C68E61370DF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		997EFB616A19EC2C60772CF3 /* GameData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameData.json; sourceTree = "<group>"; };
+		A16EF64FECF27875E5E666C0 /* RuinaccordTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RuinaccordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6E61187E18BC316D45FFFF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AA0E237C810DC453F183A579 /* GameVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVM.swift; sourceTree = "<group>"; };
+		ADE2A3E3FFE627500A1B95D7 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
+		BB346BC7649F3118FD6D2CEE /* Screens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
+		C0B8AF488CBA9B96B345E7C1 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
+		D4304DEDFC22EB55CB3F75C1 /* CardViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViews.swift; sourceTree = "<group>"; };
+		DC2E664762FABBA9BAF60AD9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		856239DA696F5057A58B8EA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8695586E6C55323C94F7F21B /* FirebaseAuth in Frameworks */,
+				F7C8AEB2C0167E794509EA91 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B5AFAC5FB2EB64F2B75A0F2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ADE2A3E3FFE627500A1B95D7 /* Backend.swift */,
+				418B2BC2834EDFD23BD3DA52 /* FirebaseBackend.swift */,
+				35E8AA0B886A534E391E96A9 /* LocalBackend.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		22EF76F34EF2E4957419B518 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7048B3A9F4BCC9BAF16D331C /* RuinaccordApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		588432F60436893A5CC46FA5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				827FEEAE590C991CEC570CE1 /* Ruinaccord.app */,
+				A16EF64FECF27875E5E666C0 /* RuinaccordTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		655963C90A11A046DF49D8D0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D6D2FA6143E636B3581CB32 /* BuilderView.swift */,
+				D4304DEDFC22EB55CB3F75C1 /* CardViews.swift */,
+				07BA8A742A17EE606385C7A5 /* DuelView.swift */,
+				5FC700070828DEC542AC94CF /* RootView.swift */,
+				BB346BC7649F3118FD6D2CEE /* Screens.swift */,
+				01E8B964C8B1BD0034A3D1C0 /* Theme.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A67A0B35A2096CE404FBF993 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5C950AF1547086DEFA329B63 /* Cards.swift */,
+				7D8D7521C26BA891CBD22C4C /* Strings.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A71255C863BF5C4AB6FE5364 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				C0B8AF488CBA9B96B345E7C1 /* AI.swift */,
+				2BF527A51B1E8B26782748BB /* Engine.swift */,
+				AA0E237C810DC453F183A579 /* GameVM.swift */,
+				49AF9F81C41BC14E3F613242 /* OnlineSetup.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		CD4CA25AAF4A3E0DBE3F3136 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				997EFB616A19EC2C60772CF3 /* GameData.json */,
+				A6E61187E18BC316D45FFFF0 /* GoogleService-Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DD6868EA62DAC3A0A5268FA5 /* Ruinaccord */ = {
+			isa = PBXGroup;
+			children = (
+				7CB8548AE18AE9BAA895F2B8 /* Assets.xcassets */,
+				7B95B052D92081839F0D5844 /* Info.plist */,
+				958D0FF258F88C68E61370DF /* PrivacyInfo.xcprivacy */,
+				74AF8472DF424E7A492663A7 /* Ruinaccord.entitlements */,
+				22EF76F34EF2E4957419B518 /* App */,
+				A71255C863BF5C4AB6FE5364 /* Game */,
+				7979B9F87D7B0EF3FED45B7D /* InfoPlist.strings */,
+				A67A0B35A2096CE404FBF993 /* Model */,
+				CD4CA25AAF4A3E0DBE3F3136 /* Resources */,
+				1B5AFAC5FB2EB64F2B75A0F2 /* Services */,
+				655963C90A11A046DF49D8D0 /* Views */,
+			);
+			path = Ruinaccord;
+			sourceTree = "<group>";
+		};
+		EB64ADB80D8A29F7D49190E2 = {
+			isa = PBXGroup;
+			children = (
+				DD6868EA62DAC3A0A5268FA5 /* Ruinaccord */,
+				FF91CA7ED6457013978DE180 /* RuinaccordTests */,
+				588432F60436893A5CC46FA5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FF91CA7ED6457013978DE180 /* RuinaccordTests */ = {
+			isa = PBXGroup;
+			children = (
+				65E9726708ED1BBD78C7E359 /* EngineTests.swift */,
+			);
+			path = RuinaccordTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E6E7418C2D800148D9575F9 /* RuinaccordTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5AC41E9E465F30493BFE23BD /* Build configuration list for PBXNativeTarget "RuinaccordTests" */;
+			buildPhases = (
+				9192ABEF67BB30424F063410 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA8620647B974D3F805E8A4B /* PBXTargetDependency */,
+			);
+			name = RuinaccordTests;
+			packageProductDependencies = (
+			);
+			productName = RuinaccordTests;
+			productReference = A16EF64FECF27875E5E666C0 /* RuinaccordTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4EB24DBDE9F48F4483A4555A /* Ruinaccord */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DB88F94656A9D171F544D49 /* Build configuration list for PBXNativeTarget "Ruinaccord" */;
+			buildPhases = (
+				C966F3B57D5912AAA921110D /* Sources */,
+				F5F6777E89DDD1167D69C805 /* Resources */,
+				856239DA696F5057A58B8EA3 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ruinaccord;
+			packageProductDependencies = (
+				4F2F9D0F03C3C0126FA39EC0 /* FirebaseAuth */,
+				AEFFFACFCDF9F697C70720A2 /* FirebaseFirestore */,
+			);
+			productName = Ruinaccord;
+			productReference = 827FEEAE590C991CEC570CE1 /* Ruinaccord.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3676DEE7A8D3D8CEF5AABFAC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					4E6E7418C2D800148D9575F9 = {
+						DevelopmentTeam = 7Z6WNXV55C;
+						ProvisioningStyle = Automatic;
+					};
+					4EB24DBDE9F48F4483A4555A = {
+						DevelopmentTeam = 7Z6WNXV55C;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6EF1A5DB6D587A7942E9B207 /* Build configuration list for PBXProject "Ruinaccord" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				ja,
+				"zh-Hans",
+			);
+			mainGroup = EB64ADB80D8A29F7D49190E2;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				594C462A67E17DEA15E574D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 588432F60436893A5CC46FA5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EB24DBDE9F48F4483A4555A /* Ruinaccord */,
+				4E6E7418C2D800148D9575F9 /* RuinaccordTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F5F6777E89DDD1167D69C805 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4718328AED7FDF6B8EB0020 /* Assets.xcassets in Resources */,
+				642261FD6395B36F4ED84235 /* GameData.json in Resources */,
+				0A081FE3B940C67A4E2054CA /* GoogleService-Info.plist in Resources */,
+				6936AE195FD41A5CB91BA12A /* InfoPlist.strings in Resources */,
+				8A22D4156FEC668CA6A76854 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9192ABEF67BB30424F063410 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA6F7E62FB9B3B612D7E26EA /* EngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C966F3B57D5912AAA921110D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DFB944F878F5CB1BC405CD7 /* AI.swift in Sources */,
+				CCD2C63C86600949ED86510D /* Backend.swift in Sources */,
+				1E3B9EB9FFE18EB48DF7982B /* BuilderView.swift in Sources */,
+				25E4B615B2D93D57E56F13B3 /* CardViews.swift in Sources */,
+				28A69FAF6CE7AC607CA8CACD /* Cards.swift in Sources */,
+				F5B49A914418393AA4E4B3F6 /* DuelView.swift in Sources */,
+				EA25C31BFAE434EF7E9E959D /* Engine.swift in Sources */,
+				C7F471E9F9A1B6A86EF94A74 /* FirebaseBackend.swift in Sources */,
+				49599BD1A502000263D2EFE4 /* GameVM.swift in Sources */,
+				93C60E4357D19D17B0B8AFFD /* LocalBackend.swift in Sources */,
+				6ECA26D602B2AF111F6511FD /* OnlineSetup.swift in Sources */,
+				04C359C60F6648C25CDD9785 /* RootView.swift in Sources */,
+				E0400EF665034BEA5638BF07 /* RuinaccordApp.swift in Sources */,
+				4FF741F2824D49696226611E /* Screens.swift in Sources */,
+				6370F8EDA1AF1898F22A1E97 /* Strings.swift in Sources */,
+				40DD757248CE476F10922818 /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA8620647B974D3F805E8A4B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EB24DBDE9F48F4483A4555A /* Ruinaccord */;
+			targetProxy = AF91930B09915F9090606BAC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7979B9F87D7B0EF3FED45B7D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				515FAC671D78A251B394A5AF /* en */,
+				DC2E664762FABBA9BAF60AD9 /* ja */,
+				516765CCF614DB8B30389E3F /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		074B18B7DAEA46A9A85DA977 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7Z6WNXV55C;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 2.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0F9B7A512D8CB80560200FA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Ruinaccord/Ruinaccord.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Ruinaccord/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hermes-eris.ruinaccord";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		270E9FB8C0DAE4687235AA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hermes-eris.ruinaccord.tests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ruinaccord.app/Ruinaccord";
+			};
+			name = Release;
+		};
+		63F774C3AD360484FCAC777C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Ruinaccord/Ruinaccord.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Ruinaccord/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hermes-eris.ruinaccord";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		93FA9C77BF9D37FD783F070F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7Z6WNXV55C;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 2.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B6ABCC6BC2BD5D368A014942 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hermes-eris.ruinaccord.tests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ruinaccord.app/Ruinaccord";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DB88F94656A9D171F544D49 /* Build configuration list for PBXNativeTarget "Ruinaccord" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63F774C3AD360484FCAC777C /* Debug */,
+				0F9B7A512D8CB80560200FA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5AC41E9E465F30493BFE23BD /* Build configuration list for PBXNativeTarget "RuinaccordTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6ABCC6BC2BD5D368A014942 /* Debug */,
+				270E9FB8C0DAE4687235AA02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6EF1A5DB6D587A7942E9B207 /* Build configuration list for PBXProject "Ruinaccord" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93FA9C77BF9D37FD783F070F /* Debug */,
+				074B18B7DAEA46A9A85DA977 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		594C462A67E17DEA15E574D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F2F9D0F03C3C0126FA39EC0 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 594C462A67E17DEA15E574D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		AEFFFACFCDF9F697C70720A2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 594C462A67E17DEA15E574D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 3676DEE7A8D3D8CEF5AABFAC /* Project object */;
+}

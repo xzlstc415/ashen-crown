@@ -1,0 +1,2787 @@
+{
+ "cards": [
+  {
+   "id": "goblin",
+   "cost": 1,
+   "type": "m",
+   "atk": 2,
+   "hp": 1,
+   "rarity": "c",
+   "race": "goblin",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Goblin Cutpurse",
+    "哥布林扒手",
+    "ゴブリンのスリ"
+   ],
+   "flavor": [
+    "Your purse was lighter than he hoped.",
+    "你的钱袋比他预想的还轻。",
+    "財布は期待より軽かった。"
+   ]
+  },
+  {
+   "id": "pearl",
+   "cost": 1,
+   "type": "m",
+   "atk": 1,
+   "hp": 1,
+   "rarity": "c",
+   "race": "human",
+   "guard": false,
+   "ward": true,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Temple Acolyte",
+    "神殿侍僧",
+    "神殿の侍祭"
+   ],
+   "flavor": [
+    "Her prayers land before the blows do.",
+    "她的祷告总比拳头先到。",
+    "祈りは拳より先に届く。"
+   ]
+  },
+  {
+   "id": "apprentice",
+   "cost": 1,
+   "type": "m",
+   "atk": 1,
+   "hp": 1,
+   "rarity": "c",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 1,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any"
+   },
+   "fx": null,
+   "names": [
+    "Wizard's Apprentice",
+    "法师学徒",
+    "魔術師の弟子"
+   ],
+   "flavor": [
+    "Only singed the eyebrows. This time.",
+    "这次只烧掉了眉毛。",
+    "今回は眉毛が焦げただけ。"
+   ]
+  },
+  {
+   "id": "crab",
+   "cost": 2,
+   "type": "m",
+   "atk": 1,
+   "hp": 4,
+   "rarity": "c",
+   "race": "dwarf",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Dwarf Shieldbearer",
+    "矮人盾卫",
+    "ドワーフの盾持ち"
+   ],
+   "flavor": [
+    "The shield is older than he is.",
+    "这面盾比他还老。",
+    "その盾は彼より年上だ。"
+   ]
+  },
+  {
+   "id": "harpooneer",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 2,
+   "rarity": "c",
+   "race": "elf",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 1,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any"
+   },
+   "fx": null,
+   "names": [
+    "Elven Archer",
+    "精灵弓手",
+    "エルフの射手"
+   ],
+   "flavor": [
+    "She has never needed a second arrow.",
+    "她从来不需要第二支箭。",
+    "二本目の矢は必要なかった。"
+   ]
+  },
+  {
+   "id": "direwolf",
+   "cost": 2,
+   "type": "m",
+   "atk": 3,
+   "hp": 2,
+   "rarity": "c",
+   "race": "beast",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Dire Wolf",
+    "恐狼",
+    "ダイアウルフ"
+   ],
+   "flavor": [
+    "The pack is never far behind.",
+    "狼群从不远离。",
+    "群れはすぐ後ろにいる。"
+   ]
+  },
+  {
+   "id": "cleric",
+   "cost": 3,
+   "type": "m",
+   "atk": 3,
+   "hp": 4,
+   "rarity": "c",
+   "race": "dwarf",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 4,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Dwarven Cleric",
+    "矮人牧师",
+    "ドワーフの僧侶"
+   ],
+   "flavor": [
+    "Prayer, ale, and a very large hammer.",
+    "祷告、麦酒，还有一把很大的锤子。",
+    "祈りとエールと、とても大きなハンマー。"
+   ]
+  },
+  {
+   "id": "berserker",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 1,
+   "rarity": "c",
+   "race": "orc",
+   "guard": false,
+   "ward": false,
+   "surge": true,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Orc Berserker",
+    "兽人狂战士",
+    "オークの狂戦士"
+   ],
+   "flavor": [
+    "Thinks with his axe. Thinks fast.",
+    "用斧头思考，而且想得很快。",
+    "斧で考える。考えるのは速い。"
+   ]
+  },
+  {
+   "id": "burglar",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 2,
+   "rarity": "r",
+   "race": "halfling",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 1,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Halfling Burglar",
+    "半身人窃贼",
+    "ハーフリングの泥棒"
+   ],
+   "flavor": [
+    "Finders keepers.",
+    "谁捡到就是谁的。",
+    "見つけた者の物。"
+   ]
+  },
+  {
+   "id": "eel",
+   "cost": 3,
+   "type": "m",
+   "atk": 3,
+   "hp": 2,
+   "rarity": "r",
+   "race": "orc",
+   "guard": false,
+   "ward": false,
+   "surge": true,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Orc Raider",
+    "兽人掠夺者",
+    "オークの略奪者"
+   ],
+   "flavor": [
+    "First through the gate. Always.",
+    "永远第一个冲进城门。",
+    "門をくぐるのはいつも一番乗り。"
+   ]
+  },
+  {
+   "id": "lurker",
+   "cost": 4,
+   "type": "m",
+   "atk": 4,
+   "hp": 5,
+   "rarity": "c",
+   "race": "troll",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Forest Troll",
+    "森林巨魔",
+    "森のトロール"
+   ],
+   "flavor": [
+    "Leave a toll, or become one.",
+    "留下买路钱，或者把你自己留下。",
+    "通行料を置いていけ。さもなくばお前が通行料だ。"
+   ]
+  },
+  {
+   "id": "sailor",
+   "cost": 2,
+   "type": "m",
+   "atk": 1,
+   "hp": 2,
+   "rarity": "r",
+   "race": "undead",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": "bubble",
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Grave Thrall",
+    "墓穴仆从",
+    "墓所の下僕"
+   ],
+   "flavor": [
+    "Death was only a change of employer.",
+    "死亡只是换了个雇主。",
+    "死は雇い主が変わっただけ。"
+   ]
+  },
+  {
+   "id": "beastcaller",
+   "cost": 3,
+   "type": "m",
+   "atk": 2,
+   "hp": 3,
+   "rarity": "r",
+   "race": "elf",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [
+     "elver"
+    ],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Elven Beastcaller",
+    "精灵驯兽师",
+    "エルフの獣使い"
+   ],
+   "flavor": [
+    "She whistles once. Something always answers.",
+    "她吹一声口哨，总会有东西回应。",
+    "口笛ひとつで、必ず何かが応える。"
+   ]
+  },
+  {
+   "id": "ghoul",
+   "cost": 3,
+   "type": "m",
+   "atk": 3,
+   "hp": 3,
+   "rarity": "c",
+   "race": "undead",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": "bubble",
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Barrow Ghoul",
+    "古墓食尸鬼",
+    "塚の食屍鬼"
+   ],
+   "flavor": [
+    "Hungry even after the end.",
+    "死后依旧饥饿。",
+    "終わりの後も飢えている。"
+   ]
+  },
+  {
+   "id": "alchemist",
+   "cost": 3,
+   "type": "m",
+   "atk": 2,
+   "hp": 2,
+   "rarity": "r",
+   "race": "gnome",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": [
+     2,
+     0
+    ],
+    "team": null,
+    "summon": [],
+    "tgt": "ally"
+   },
+   "fx": null,
+   "names": [
+    "Gnome Alchemist",
+    "侏儒炼金师",
+    "ノームの錬金術師"
+   ],
+   "flavor": [
+    "Drink this. Don't ask what's in it.",
+    "喝了它。别问里面是什么。",
+    "これを飲め。中身は聞くな。"
+   ]
+  },
+  {
+   "id": "knight",
+   "cost": 4,
+   "type": "m",
+   "atk": 3,
+   "hp": 5,
+   "rarity": "r",
+   "race": "human",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Paladin Vanguard",
+    "圣骑士先锋",
+    "聖騎士の先鋒"
+   ],
+   "flavor": [
+    "Behind her, no one falls.",
+    "在她身后，无人倒下。",
+    "彼女の後ろで倒れる者はいない。"
+   ]
+  },
+  {
+   "id": "diver",
+   "cost": 4,
+   "type": "m",
+   "atk": 3,
+   "hp": 4,
+   "rarity": "r",
+   "race": "gnome",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 1,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Gnome Tinkerer",
+    "侏儒工匠",
+    "ノームの技師"
+   ],
+   "flavor": [
+    "It works. Mostly. Twice so far.",
+    "它能用。大部分时候。目前成功过两次。",
+    "動く。たいてい。今のところ二回は。"
+   ]
+  },
+  {
+   "id": "gull",
+   "cost": 5,
+   "type": "m",
+   "atk": 4,
+   "hp": 4,
+   "rarity": "e",
+   "race": "beast",
+   "guard": false,
+   "ward": false,
+   "surge": true,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Griffon Rider",
+    "狮鹫骑士",
+    "グリフォンライダー"
+   ],
+   "flavor": [
+    "Arrives before the war horns finish.",
+    "战号还没吹完，他就到了。",
+    "角笛が鳴り終わる前に到着する。"
+   ]
+  },
+  {
+   "id": "commander",
+   "cost": 5,
+   "type": "m",
+   "atk": 4,
+   "hp": 5,
+   "rarity": "e",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": [
+     1,
+     0
+    ],
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Knight Commander",
+    "骑士指挥官",
+    "騎士団長"
+   ],
+   "flavor": [
+    "Hold the line, then break theirs.",
+    "守住阵线，再冲破他们的。",
+    "戦線を守れ。それから奴らのを崩せ。"
+   ]
+  },
+  {
+   "id": "golem",
+   "cost": 5,
+   "type": "m",
+   "atk": 2,
+   "hp": 8,
+   "rarity": "c",
+   "race": "construct",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Stone Golem",
+    "石魔像",
+    "ストーンゴーレム"
+   ],
+   "flavor": [
+    "It was told to guard the door. The door is long gone.",
+    "它被命令守门，可那扇门早就没了。",
+    "扉を守れと命じられた。扉はとうに無い。"
+   ]
+  },
+  {
+   "id": "shark",
+   "cost": 6,
+   "type": "m",
+   "atk": 6,
+   "hp": 6,
+   "rarity": "e",
+   "race": "giant",
+   "guard": false,
+   "ward": true,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Runebound Giant",
+    "符文巨人",
+    "ルーンの巨人"
+   ],
+   "flavor": [
+    "Every rune is a spell someone wasted on it.",
+    "每道符文，都是有人白费在它身上的法术。",
+    "ルーンの一つ一つが、誰かが無駄にした呪文だ。"
+   ]
+  },
+  {
+   "id": "firelem",
+   "cost": 6,
+   "type": "m",
+   "atk": 5,
+   "hp": 5,
+   "rarity": "r",
+   "race": "elemental",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 3,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any"
+   },
+   "fx": null,
+   "names": [
+    "Fire Elemental",
+    "火元素",
+    "炎の精霊"
+   ],
+   "flavor": [
+    "Do not offer it a hand to shake.",
+    "千万别向它伸手握手。",
+    "握手を求めてはいけない。"
+   ]
+  },
+  {
+   "id": "ogre",
+   "cost": 6,
+   "type": "m",
+   "atk": 6,
+   "hp": 7,
+   "rarity": "c",
+   "race": "giant",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Ogre Brute",
+    "食人魔蛮兵",
+    "オーガの蛮兵"
+   ],
+   "flavor": [
+    "Two heads would be smarter. He has one.",
+    "两个脑袋会聪明些，可他只有一个。",
+    "頭が二つなら賢かったろう。彼には一つしかない。"
+   ]
+  },
+  {
+   "id": "archmage",
+   "cost": 7,
+   "type": "m",
+   "atk": 6,
+   "hp": 7,
+   "rarity": "e",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 2,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Archmage of the Spire",
+    "尖塔大法师",
+    "尖塔の大魔導師"
+   ],
+   "flavor": [
+    "She has read every book in the tower. Twice.",
+    "塔里的每本书她都读过两遍。",
+    "塔の本は全て読んだ。二度ずつ。"
+   ]
+  },
+  {
+   "id": "hexer",
+   "cost": 4,
+   "type": "m",
+   "atk": 3,
+   "hp": 4,
+   "rarity": "c",
+   "race": "orc",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 2,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any"
+   },
+   "fx": null,
+   "names": [
+    "Orc Hexer",
+    "兽人妖术师",
+    "オークの呪術師"
+   ],
+   "flavor": [
+    "Every curse is a promise kept.",
+    "每一道诅咒，都是兑现的承诺。",
+    "呪いはすべて、守られた約束だ。"
+   ]
+  },
+  {
+   "id": "priestess",
+   "cost": 4,
+   "type": "m",
+   "atk": 3,
+   "hp": 4,
+   "rarity": "r",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": [
+     2,
+     2
+    ],
+    "team": null,
+    "summon": [],
+    "tgt": "ally"
+   },
+   "fx": null,
+   "names": [
+    "Temple Priestess",
+    "神殿祭司",
+    "神殿の司祭"
+   ],
+   "flavor": [
+    "She blesses the brave and the foolish alike.",
+    "无论勇敢还是愚蠢，她一视同仁地祝福。",
+    "勇者にも愚者にも、等しく祝福を。"
+   ]
+  },
+  {
+   "id": "necro",
+   "cost": 4,
+   "type": "m",
+   "atk": 3,
+   "hp": 3,
+   "rarity": "r",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [
+     "bubble"
+    ],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Necromancer",
+    "死灵法师",
+    "ネクロマンサー"
+   ],
+   "flavor": [
+    "Nobody stays dead on his watch.",
+    "在他看守下，没人能安息。",
+    "彼の見張りの下では、誰も死んだままでいられない。"
+   ]
+  },
+  {
+   "id": "thane",
+   "cost": 5,
+   "type": "m",
+   "atk": 5,
+   "hp": 5,
+   "rarity": "r",
+   "race": "dwarf",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 4,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Dwarf Thane",
+    "矮人领主",
+    "ドワーフの領主"
+   ],
+   "flavor": [
+    "His hall has never fallen. Neither has he.",
+    "他的大厅从未陷落，他本人也是。",
+    "彼の広間は一度も落ちていない。彼自身もだ。"
+   ]
+  },
+  {
+   "id": "wyvern",
+   "cost": 6,
+   "type": "m",
+   "atk": 5,
+   "hp": 5,
+   "rarity": "e",
+   "race": "dragon",
+   "guard": false,
+   "ward": false,
+   "surge": true,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Wyvern Rider",
+    "双足飞龙骑手",
+    "ワイバーンライダー"
+   ],
+   "flavor": [
+    "The sky is just another road.",
+    "天空只是另一条路。",
+    "空もまた、ただの道だ。"
+   ]
+  },
+  {
+   "id": "treant",
+   "cost": 7,
+   "type": "m",
+   "atk": 6,
+   "hp": 9,
+   "rarity": "r",
+   "race": "treant",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Ancient Treant",
+    "远古树人",
+    "古の樹人"
+   ],
+   "flavor": [
+    "It was old when the first king was crowned.",
+    "第一位国王加冕时，它就已经很老了。",
+    "最初の王が戴冠した時、すでに老いていた。"
+   ]
+  },
+  {
+   "id": "dragonknight",
+   "cost": 7,
+   "type": "m",
+   "atk": 5,
+   "hp": 5,
+   "rarity": "e",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": "spawn",
+   "token": false,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Dragon Knight",
+    "龙骑士",
+    "竜騎士"
+   ],
+   "flavor": [
+    "When he falls, his dragon does not.",
+    "他倒下时，他的龙不会。",
+    "彼が倒れても、竜は倒れない。"
+   ]
+  },
+  {
+   "id": "leviathan",
+   "cost": 8,
+   "type": "m",
+   "atk": 7,
+   "hp": 8,
+   "rarity": "l",
+   "race": "dragon",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 2,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Ignaroth, Ashen Wyrm",
+    "灰烬巨龙伊格纳洛斯",
+    "灰燼竜イグナロス"
+   ],
+   "flavor": [
+    "The crown was forged in his breath.",
+    "那顶王冠，正是在他的龙息中锻成。",
+    "王冠は彼の吐息で鍛えられた。"
+   ]
+  },
+  {
+   "id": "lich",
+   "cost": 8,
+   "type": "m",
+   "atk": 6,
+   "hp": 6,
+   "rarity": "l",
+   "race": "undead",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 3,
+    "face": 3,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Malakar the Undying",
+    "不朽者马拉卡",
+    "不死のマラカル"
+   ],
+   "flavor": [
+    "He has died eleven times. He is getting better at it.",
+    "他已经死过十一次了，而且越来越熟练。",
+    "十一度死んだ。だんだん上手くなっている。"
+   ]
+  },
+  {
+   "id": "dwarfking",
+   "cost": 8,
+   "type": "m",
+   "atk": 7,
+   "hp": 7,
+   "rarity": "l",
+   "race": "dwarf",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 5,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": [
+     1,
+     1
+    ],
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Thorgrim, King Under Stone",
+    "石下之王索格林",
+    "石下の王ソーグリム"
+   ],
+   "flavor": [
+    "His beard has its own throne.",
+    "他的胡子都有自己的王座。",
+    "彼の髭には専用の玉座がある。"
+   ]
+  },
+  {
+   "id": "elfqueen",
+   "cost": 8,
+   "type": "m",
+   "atk": 5,
+   "hp": 7,
+   "rarity": "l",
+   "race": "elf",
+   "guard": false,
+   "ward": true,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 8,
+    "armor": 0,
+    "draw": 2,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "fx": null,
+   "names": [
+    "Sylvara, Queen of the Glade",
+    "林地女王希尔瓦拉",
+    "森の女王シルヴァラ"
+   ],
+   "flavor": [
+    "The forest kneels when she walks.",
+    "她走过时，森林为之屈膝。",
+    "彼女が歩けば、森がひざまずく。"
+   ]
+  },
+  {
+   "id": "spray",
+   "cost": 1,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 2,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any"
+   },
+   "names": [
+    "Fire Bolt",
+    "火焰箭",
+    "ファイアボルト"
+   ],
+   "flavor": [
+    "The first spell every apprentice learns.",
+    "每个学徒学会的第一个法术。",
+    "見習いが最初に覚える呪文。"
+   ]
+  },
+  {
+   "id": "brace",
+   "cost": 1,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": true,
+    "ward": false,
+    "buff": [
+     0,
+     3
+    ],
+    "team": null,
+    "summon": [],
+    "tgt": "ally"
+   },
+   "names": [
+    "Shield of Faith",
+    "信仰之盾",
+    "信仰の盾"
+   ],
+   "flavor": [
+    "Belief, hammered into steel.",
+    "把信念锻打成钢。",
+    "信念を鋼に打ち込む。"
+   ]
+  },
+  {
+   "id": "darkpact",
+   "cost": 1,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 2,
+    "mana": 0,
+    "selfDmg": 3,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Dark Pact",
+    "黑暗契约",
+    "闇の契約"
+   ],
+   "flavor": [
+    "Sign here. And here. And in blood, here.",
+    "在这里签字。这里也是。还有这里，用血签。",
+    "ここに署名を。ここにも。そしてここは血で。"
+   ]
+  },
+  {
+   "id": "frenzy",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": [
+     3,
+     0
+    ],
+    "team": null,
+    "summon": [],
+    "tgt": "ally"
+   },
+   "names": [
+    "Bloodlust",
+    "嗜血",
+    "血の渇き"
+   ],
+   "flavor": [
+    "One taste is enough.",
+    "尝一口就够了。",
+    "一口で十分だ。"
+   ]
+  },
+  {
+   "id": "tidepool",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 2,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Scholar's Insight",
+    "学者的洞见",
+    "賢者の洞察"
+   ],
+   "flavor": [
+    "Footnotes are where the real magic hides.",
+    "真正的魔法都藏在脚注里。",
+    "本当の魔法は脚注に隠れている。"
+   ]
+  },
+  {
+   "id": "mend",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 6,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Healing Light",
+    "治愈之光",
+    "癒しの光"
+   ],
+   "flavor": [
+    "Warm as a hearth, quick as a prayer.",
+    "像炉火一样温暖，像祷告一样迅速。",
+    "暖炉のように温かく、祈りのように速い。"
+   ]
+  },
+  {
+   "id": "shieldwall",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 4,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Shield Wall",
+    "盾墙",
+    "盾の壁"
+   ],
+   "flavor": [
+    "Lock shields. Lock eyes. Hold.",
+    "盾牌相扣，目光相接，守住。",
+    "盾を組め。目を据えろ。踏みとどまれ。"
+   ]
+  },
+  {
+   "id": "calltoarms",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [
+     "minnow",
+     "minnow",
+     "minnow"
+    ],
+    "tgt": null
+   },
+   "names": [
+    "Call to Arms",
+    "战斗号令",
+    "召集令"
+   ],
+   "flavor": [
+    "Farmers today. Heroes, maybe, tomorrow.",
+    "今天是农夫，明天也许就是英雄。",
+    "今日は農夫。明日は、たぶん英雄。"
+   ]
+  },
+  {
+   "id": "undertow",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 4,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "minion"
+   },
+   "names": [
+    "Smite",
+    "惩击",
+    "天罰"
+   ],
+   "flavor": [
+    "Judgment, delivered from above.",
+    "来自天上的审判。",
+    "天上より下される裁き。"
+   ]
+  },
+  {
+   "id": "radiant",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 1,
+    "face": 0,
+    "healT": 0,
+    "heal": 4,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Radiant Burst",
+    "光耀爆发",
+    "光輝の爆発"
+   ],
+   "flavor": [
+    "Light that burns the wicked and warms the faithful.",
+    "灼烧邪恶、温暖信徒的光。",
+    "悪を焼き、信じる者を温める光。"
+   ]
+  },
+  {
+   "id": "hymn",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": [
+     1,
+     1
+    ],
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Battle Hymn",
+    "战歌",
+    "戦いの賛歌"
+   ],
+   "flavor": [
+    "Off-key, but very loud.",
+    "跑调了，但非常响亮。",
+    "音程は外れているが、とても大きい。"
+   ]
+  },
+  {
+   "id": "lance",
+   "cost": 4,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 3,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 1,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "minion"
+   },
+   "names": [
+    "Arcane Lance",
+    "奥术长枪",
+    "秘術の槍"
+   ],
+   "flavor": [
+    "Pierce, then ponder.",
+    "先刺穿，再思考。",
+    "貫いてから、考えよ。"
+   ]
+  },
+  {
+   "id": "maelstrom",
+   "cost": 4,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 2,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Fireball",
+    "火球术",
+    "ファイアボール"
+   ],
+   "flavor": [
+    "Aim for the middle.",
+    "瞄准中间就行。",
+    "真ん中を狙え。"
+   ]
+  },
+  {
+   "id": "riptide",
+   "cost": 5,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 6,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any"
+   },
+   "names": [
+    "Lightning Bolt",
+    "闪电箭",
+    "ライトニングボルト"
+   ],
+   "flavor": [
+    "Never strikes the same place twice. Never needs to.",
+    "从不劈同一个地方两次，也从不需要。",
+    "同じ場所に二度は落ちない。その必要もない。"
+   ]
+  },
+  {
+   "id": "breath",
+   "cost": 6,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 3,
+    "face": 3,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Dragon's Breath",
+    "龙息",
+    "竜の息吹"
+   ],
+   "flavor": [
+    "The last thing the castle walls ever felt.",
+    "城墙感受到的最后一样东西。",
+    "城壁が最後に感じたもの。"
+   ]
+  },
+  {
+   "id": "inferno",
+   "cost": 6,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 4,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Inferno",
+    "炼狱烈焰",
+    "業火"
+   ],
+   "flavor": [
+    "Nothing grows here anymore. Nothing will.",
+    "这里已寸草不生，以后也不会再有。",
+    "もう何も育たない。これからも。"
+   ]
+  },
+  {
+   "id": "bubble",
+   "cost": 1,
+   "type": "m",
+   "atk": 2,
+   "hp": 1,
+   "rarity": "t",
+   "race": "undead",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Restless Spirit",
+    "怨灵",
+    "怨霊"
+   ],
+   "flavor": [
+    "It remembers being angry.",
+    "它记得自己曾经很愤怒。",
+    "怒っていたことだけは覚えている。"
+   ]
+  },
+  {
+   "id": "minnow",
+   "cost": 1,
+   "type": "m",
+   "atk": 1,
+   "hp": 1,
+   "rarity": "t",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Militia Recruit",
+    "民兵",
+    "民兵"
+   ],
+   "flavor": [
+    "Pitchfork sold separately.",
+    "干草叉需另购。",
+    "熊手は別売り。"
+   ]
+  },
+  {
+   "id": "reefling",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 2,
+   "rarity": "t",
+   "race": "human",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Town Guard",
+    "城镇卫兵",
+    "町の衛兵"
+   ],
+   "flavor": [
+    "Halt. Please.",
+    "站住。拜托了。",
+    "止まれ。お願いだから。"
+   ]
+  },
+  {
+   "id": "elver",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 1,
+   "rarity": "t",
+   "race": "beast",
+   "guard": false,
+   "ward": false,
+   "surge": true,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Wolf",
+    "狼",
+    "狼"
+   ],
+   "flavor": [
+    "Teeth first, questions never.",
+    "先下口，从不提问。",
+    "まず牙。質問はなし。"
+   ]
+  },
+  {
+   "id": "squire",
+   "cost": 3,
+   "type": "m",
+   "atk": 3,
+   "hp": 3,
+   "rarity": "t",
+   "race": "construct",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Iron Golem",
+    "钢铁魔像",
+    "アイアンゴーレム"
+   ],
+   "flavor": [
+    "Forged in an afternoon. Built to last forever.",
+    "一个下午锻成，却要永远守护。",
+    "午後一つで鍛え、永遠に持つよう造られた。"
+   ]
+  },
+  {
+   "id": "coin",
+   "cost": 0,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "t",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 1,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null
+   },
+   "names": [
+    "Lucky Coin",
+    "幸运硬币",
+    "幸運のコイン"
+   ],
+   "flavor": [
+    "Going second has its perks.",
+    "后手也有后手的好处。",
+    "後攻にも良いことはある。"
+   ]
+  },
+  {
+   "id": "spawn",
+   "cost": 4,
+   "type": "m",
+   "atk": 4,
+   "hp": 4,
+   "rarity": "t",
+   "race": "dragon",
+   "guard": false,
+   "ward": true,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Dragon Whelp",
+    "幼龙",
+    "子竜"
+   ],
+   "flavor": [
+    "Small now. Not for long.",
+    "现在还小，不会太久。",
+    "今は小さい。長くはない。"
+   ]
+  }
+ ],
+ "classes": [
+  {
+   "id": "warrior",
+   "color": "#c0392b",
+   "names": [
+    "Warrior",
+    "战士",
+    "戦士"
+   ],
+   "tags": [
+    "Armor, sturdy Guard minions and brute force.",
+    "护甲、坚固的守护随从与蛮力。",
+    "装甲、頑丈なガード、そして力押し。"
+   ],
+   "deck": [
+    "goblin",
+    "berserker",
+    "crab",
+    "crab",
+    "frenzy",
+    "shieldwall",
+    "cleric",
+    "cleric",
+    "eel",
+    "hymn",
+    "hexer",
+    "knight",
+    "lurker",
+    "priestess",
+    "commander",
+    "golem",
+    "thane",
+    "ogre",
+    "ogre",
+    "treant"
+   ],
+   "power": {
+    "cost": 2,
+    "tgt": null,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 2,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null
+    },
+    "names": [
+     "Armor Up",
+     "全副武装",
+     "鎧を纏え"
+    ]
+   }
+  },
+  {
+   "id": "mage",
+   "color": "#5a8ae0",
+   "names": [
+    "Mage",
+    "法师",
+    "魔法使い"
+   ],
+   "tags": [
+    "Spells that burn the board and refill your hand.",
+    "以法术清场灼敌，并补充手牌。",
+    "呪文で盤面を焼き払い、手札を補う。"
+   ],
+   "deck": [
+    "apprentice",
+    "apprentice",
+    "spray",
+    "burglar",
+    "harpooneer",
+    "harpooneer",
+    "alchemist",
+    "alchemist",
+    "beastcaller",
+    "undertow",
+    "diver",
+    "hexer",
+    "hexer",
+    "maelstrom",
+    "maelstrom",
+    "golem",
+    "gull",
+    "firelem",
+    "inferno",
+    "archmage"
+   ],
+   "power": {
+    "cost": 2,
+    "tgt": "any",
+    "fx": {
+     "dmg": 1,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null
+    },
+    "names": [
+     "Arcane Spark",
+     "奥术火花",
+     "秘術の火花"
+    ]
+   }
+  },
+  {
+   "id": "paladin",
+   "color": "#e8c35a",
+   "names": [
+    "Paladin",
+    "圣骑士",
+    "聖騎士"
+   ],
+   "tags": [
+    "Raise small armies, then bless and heal them.",
+    "召集小兵，再为他们加持与治疗。",
+    "小さな軍勢を集め、祝福し、癒す。"
+   ],
+   "deck": [
+    "brace",
+    "pearl",
+    "pearl",
+    "crab",
+    "crab",
+    "mend",
+    "mend",
+    "calltoarms",
+    "hymn",
+    "radiant",
+    "radiant",
+    "knight",
+    "knight",
+    "priestess",
+    "priestess",
+    "commander",
+    "gull",
+    "thane",
+    "shark",
+    "dragonknight"
+   ],
+   "power": {
+    "cost": 2,
+    "tgt": null,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [
+      "minnow"
+     ],
+     "tgt": null
+    },
+    "names": [
+     "Muster",
+     "征召",
+     "召集"
+    ]
+   }
+  },
+  {
+   "id": "hunter",
+   "color": "#6aa57e",
+   "names": [
+    "Hunter",
+    "猎人",
+    "狩人"
+   ],
+   "tags": [
+    "Beasts and fast pressure on the enemy hero.",
+    "驱使野兽，快速压制敌方英雄。",
+    "獣を従え、敵ヒーローを素早く追い詰める。"
+   ],
+   "deck": [
+    "goblin",
+    "spray",
+    "berserker",
+    "direwolf",
+    "direwolf",
+    "harpooneer",
+    "harpooneer",
+    "beastcaller",
+    "beastcaller",
+    "eel",
+    "undertow",
+    "hexer",
+    "lance",
+    "lurker",
+    "gull",
+    "gull",
+    "riptide",
+    "shark",
+    "wyvern",
+    "dragonknight"
+   ],
+   "power": {
+    "cost": 2,
+    "tgt": null,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 2,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null
+    },
+    "names": [
+     "Piercing Arrow",
+     "穿刺之箭",
+     "貫きの矢"
+    ]
+   }
+  },
+  {
+   "id": "priest",
+   "color": "#efe2c2",
+   "names": [
+    "Priest",
+    "牧师",
+    "司祭"
+   ],
+   "tags": [
+    "Healing and Ward to outlast every foe.",
+    "以治疗和护盾拖垮每一个敌人。",
+    "回復と結界で、どんな敵よりも長く耐える。"
+   ],
+   "deck": [
+    "brace",
+    "pearl",
+    "pearl",
+    "crab",
+    "mend",
+    "cleric",
+    "cleric",
+    "radiant",
+    "tidepool",
+    "undertow",
+    "diver",
+    "knight",
+    "knight",
+    "lance",
+    "priestess",
+    "golem",
+    "golem",
+    "shark",
+    "archmage",
+    "treant"
+   ],
+   "power": {
+    "cost": 2,
+    "tgt": "friend",
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 3,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null
+    },
+    "names": [
+     "Mending Touch",
+     "愈合之触",
+     "癒しの手"
+    ]
+   }
+  },
+  {
+   "id": "warlock",
+   "color": "#9a6aff",
+   "names": [
+    "Warlock",
+    "术士",
+    "術士"
+   ],
+   "tags": [
+    "Trade health for cards and command the undead.",
+    "以生命换取手牌，驱使亡灵大军。",
+    "体力を手札に換え、アンデッドを操る。"
+   ],
+   "deck": [
+    "apprentice",
+    "apprentice",
+    "goblin",
+    "burglar",
+    "sailor",
+    "sailor",
+    "eel",
+    "ghoul",
+    "ghoul",
+    "hexer",
+    "hexer",
+    "maelstrom",
+    "necro",
+    "necro",
+    "golem",
+    "riptide",
+    "breath",
+    "ogre",
+    "shark",
+    "dragonknight"
+   ],
+   "power": {
+    "cost": 2,
+    "tgt": null,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 1,
+     "mana": 0,
+     "selfDmg": 2,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null
+    },
+    "names": [
+     "Blood Pact",
+     "鲜血契约",
+     "血の契約"
+    ]
+   }
+  }
+ ],
+ "opponents": [
+  {
+   "names": [
+    "Storm Witch",
+    "风暴女巫",
+    "嵐の魔女"
+   ],
+   "initials": [
+    "SW",
+    "巫",
+    "魔"
+   ],
+   "hp": 20,
+   "deck": [
+    "apprentice",
+    "apprentice",
+    "spray",
+    "spray",
+    "lance",
+    "lance",
+    "maelstrom",
+    "riptide",
+    "firelem",
+    "firelem",
+    "tidepool",
+    "tidepool",
+    "alchemist",
+    "harpooneer",
+    "harpooneer",
+    "diver",
+    "inferno",
+    "archmage",
+    "undertow",
+    "hexer"
+   ]
+  },
+  {
+   "names": [
+    "Goblin Warband",
+    "哥布林战团",
+    "ゴブリンの戦団"
+   ],
+   "initials": [
+    "GW",
+    "哥",
+    "ゴ"
+   ],
+   "hp": 18,
+   "deck": [
+    "goblin",
+    "goblin",
+    "goblin",
+    "berserker",
+    "berserker",
+    "berserker",
+    "direwolf",
+    "direwolf",
+    "harpooneer",
+    "harpooneer",
+    "eel",
+    "eel",
+    "frenzy",
+    "frenzy",
+    "spray",
+    "spray",
+    "calltoarms",
+    "lurker",
+    "lurker",
+    "hexer"
+   ]
+  },
+  {
+   "names": [
+    "Forest Bandits",
+    "林地盗匪",
+    "森の盗賊団"
+   ],
+   "initials": [
+    "FB",
+    "盗",
+    "盗"
+   ],
+   "hp": 22,
+   "deck": [
+    "goblin",
+    "burglar",
+    "burglar",
+    "harpooneer",
+    "harpooneer",
+    "direwolf",
+    "direwolf",
+    "beastcaller",
+    "beastcaller",
+    "eel",
+    "spray",
+    "spray",
+    "darkpact",
+    "lurker",
+    "lurker",
+    "hexer",
+    "hexer",
+    "gull",
+    "undertow",
+    "tidepool"
+   ]
+  },
+  {
+   "names": [
+    "Orc Warlord",
+    "兽人督军",
+    "オークの将軍"
+   ],
+   "initials": [
+    "OW",
+    "兽",
+    "オ"
+   ],
+   "hp": 28,
+   "deck": [
+    "berserker",
+    "berserker",
+    "eel",
+    "eel",
+    "frenzy",
+    "frenzy",
+    "hymn",
+    "hexer",
+    "hexer",
+    "lurker",
+    "lurker",
+    "commander",
+    "ogre",
+    "ogre",
+    "knight",
+    "gull",
+    "wyvern",
+    "direwolf",
+    "direwolf",
+    "thane"
+   ]
+  },
+  {
+   "names": [
+    "Ironhold Dwarves",
+    "铁堡矮人",
+    "鉄砦のドワーフ"
+   ],
+   "initials": [
+    "ID",
+    "矮",
+    "鉄"
+   ],
+   "hp": 26,
+   "deck": [
+    "crab",
+    "crab",
+    "cleric",
+    "cleric",
+    "knight",
+    "knight",
+    "thane",
+    "thane",
+    "golem",
+    "harpooneer",
+    "shieldwall",
+    "hymn",
+    "priestess",
+    "lurker",
+    "ogre",
+    "alchemist",
+    "eel",
+    "dwarfking",
+    "mend",
+    "brace"
+   ]
+  },
+  {
+   "names": [
+    "Elven Conclave",
+    "精灵议会",
+    "エルフ評議会"
+   ],
+   "initials": [
+    "EC",
+    "精",
+    "エ"
+   ],
+   "hp": 32,
+   "deck": [
+    "harpooneer",
+    "harpooneer",
+    "beastcaller",
+    "beastcaller",
+    "pearl",
+    "priestess",
+    "priestess",
+    "radiant",
+    "lance",
+    "gull",
+    "gull",
+    "shark",
+    "wyvern",
+    "undertow",
+    "undertow",
+    "tidepool",
+    "treant",
+    "archmage",
+    "elfqueen",
+    "mend"
+   ]
+  },
+  {
+   "names": [
+    "The Bone Lich",
+    "骸骨巫妖",
+    "骸骨のリッチ"
+   ],
+   "initials": [
+    "BL",
+    "骸",
+    "骸"
+   ],
+   "hp": 34,
+   "deck": [
+    "sailor",
+    "sailor",
+    "ghoul",
+    "ghoul",
+    "necro",
+    "necro",
+    "darkpact",
+    "undertow",
+    "undertow",
+    "maelstrom",
+    "golem",
+    "shark",
+    "riptide",
+    "ogre",
+    "dragonknight",
+    "archmage",
+    "inferno",
+    "lich",
+    "apprentice",
+    "apprentice"
+   ]
+  },
+  {
+   "names": [
+    "The Ashen King",
+    "灰烬之王",
+    "灰燼の王"
+   ],
+   "initials": [
+    "AK",
+    "王",
+    "王"
+   ],
+   "hp": 28,
+   "deck": [
+    "leviathan",
+    "dragonknight",
+    "dragonknight",
+    "wyvern",
+    "breath",
+    "maelstrom",
+    "firelem",
+    "commander",
+    "knight",
+    "sailor",
+    "sailor",
+    "ghoul",
+    "ghoul",
+    "necro",
+    "crab",
+    "crab",
+    "harpooneer",
+    "harpooneer",
+    "hexer",
+    "lance"
+   ]
+  }
+ ],
+ "boardMax": 5,
+ "deckSize": 25,
+ "fortify": {
+  "cost": 2,
+  "tgt": null,
+  "fx": {
+   "dmg": 0,
+   "aoe": 0,
+   "face": 0,
+   "healT": 0,
+   "heal": 0,
+   "armor": 2,
+   "draw": 0,
+   "mana": 0,
+   "selfDmg": 0,
+   "guard": false,
+   "ward": false,
+   "buff": null,
+   "team": null,
+   "summon": [],
+   "tgt": null
+  },
+  "names": [
+   "Fortify",
+   "固守",
+   "防備"
+  ]
+ }
+}

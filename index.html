@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ashen Crown</title>
+<title>Ruinaccord</title>
 <meta name="description" content="A fantasy card duel game. Pick a class, build a deck, and fight your way to the Ashen Crown. Plays in English, Chinese and Japanese.">
 <meta name="theme-color" content="#141118">
 <meta name="color-scheme" content="dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Ashen Crown">
-<meta property="og:title" content="Ashen Crown">
+<meta name="apple-mobile-web-app-title" content="Ruinaccord">
+<meta property="og:title" content="Ruinaccord">
 <meta property="og:description" content="A fantasy card duel game for your phone and browser.">
-<meta property="og:image" content="https://ashen-crown.hermes-eris.com/icon-512.png">
+<meta property="og:image" content="https://ruinaccord.hermes-eris.com/icon-512.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
@@ -350,7 +350,7 @@ const li=()=>L==='zh'?1:L==='ja'?2:0;
 
 const I18N={
   en:{
-    brand:'Ashen Crown',hero:'Adventurer',heroInit:'A',duelOf:(n,t)=>`Duel ${n} of ${t}`,stageOf:(n,t)=>`${n}/${t}`,
+    brand:'Ruinaccord',hero:'Adventurer',heroInit:'A',duelOf:(n,t)=>`Duel ${n} of ${t}`,stageOf:(n,t)=>`${n}/${t}`,
     mana:(a,b)=>`Mana ${a} of ${b}`,handDeck:(h,d)=>`Hand ${h} · Deck ${d}`,
     ePow:'Fortify',ePowEff:'+2 armor',ePowAria:'Enemy hero power: gain 2 armor',
     noEnemy:'No enemy minions',playMinions:'Play minions from your hand',
@@ -393,7 +393,7 @@ const I18N={
     modeOnline:'Play a Friend',modeOnlineSub:'Share a room code and battle a friend online.',
     onSub:'Pick one of your decks. One player creates a room and sends the code; the other joins with it.',onDeck:'Your deck',starterDeck:c=>`${c} · Starter`,
     createRoom:'Create room',joinRoom:'Join',codePh:'6-digit code',orJoin:'or join a friend\'s room',roomCode:'Room code',
-    waitFriend:'Waiting for your friend to join…',shareInvite:'Share invite link',copied:'Invite link copied.',inviteText:c=>`Join my Ashen Crown duel! Room code ${c}`,
+    waitFriend:'Waiting for your friend to join…',shareInvite:'Share invite link',copied:'Invite link copied.',inviteText:c=>`Join my Ruinaccord duel! Room code ${c}`,
     connecting:c=>`Connecting to room ${c}…`,loadingNet:'Connecting to the match server…',
     errServer:'Could not reach the match server. Check your connection and try again.',errNoRoom:'No room with that code. Check the code with your friend.',
     errTimeout:'Connection timed out. Some networks block direct connections; try switching between Wi-Fi and mobile data.',
@@ -415,7 +415,7 @@ const I18N={
     kwRe:/\b(Guard|Ward|Charge|On play|Last breath)\b/g,
   },
   zh:{
-    brand:'灰烬王冠',hero:'冒险者',heroInit:'冒',duelOf:(n,t)=>`第${n}场，共${t}场`,stageOf:(n,t)=>`第${n}/${t}关`,
+    brand:'Ruinaccord',hero:'冒险者',heroInit:'冒',duelOf:(n,t)=>`第${n}场，共${t}场`,stageOf:(n,t)=>`第${n}/${t}关`,
     mana:(a,b)=>`法力值 ${a}/${b}`,handDeck:(h,d)=>`手牌 ${h} · 牌库 ${d}`,
     ePow:'固守',ePowEff:'+2护甲',ePowAria:'敌方英雄技能：获得2点护甲',
     noEnemy:'敌方没有随从',playMinions:'从手牌中打出随从',
@@ -458,7 +458,7 @@ const I18N={
     modeOnline:'好友对战',modeOnlineSub:'分享房间码，与好友在线实时对战。',
     onSub:'先选一副你的牌组。一人创建房间并把房间码发给好友，好友输入房间码加入。',onDeck:'你的牌组',starterDeck:c=>`${c} · 初始牌组`,
     createRoom:'创建房间',joinRoom:'加入',codePh:'6位房间码',orJoin:'或加入好友的房间',roomCode:'房间码',
-    waitFriend:'等待好友加入…',shareInvite:'分享邀请链接',copied:'邀请链接已复制。',inviteText:c=>`来灰烬王冠和我对战！房间码 ${c}`,
+    waitFriend:'等待好友加入…',shareInvite:'分享邀请链接',copied:'邀请链接已复制。',inviteText:c=>`来 Ruinaccord 和我对战！房间码 ${c}`,
     connecting:c=>`正在连接房间 ${c}…`,loadingNet:'正在连接对战服务器…',
     errServer:'无法连接对战服务器，请检查网络后重试。',errNoRoom:'找不到这个房间，请和好友核对房间码。',
     errTimeout:'连接超时。部分网络会阻止直连，可以在 Wi-Fi 和手机流量之间切换后再试。',
@@ -480,7 +480,7 @@ const I18N={
     kwRe:/(守护|护盾|冲锋|登场|遗言)/g,
   },
   ja:{
-    brand:'灰燼の王冠',hero:'冒険者',heroInit:'冒',duelOf:(n,t)=>`決闘 ${n} / ${t}`,stageOf:(n,t)=>`${n}/${t}`,
+    brand:'Ruinaccord',hero:'冒険者',heroInit:'冒',duelOf:(n,t)=>`決闘 ${n} / ${t}`,stageOf:(n,t)=>`${n}/${t}`,
     mana:(a,b)=>`マナ ${a}/${b}`,handDeck:(h,d)=>`手札 ${h} · 山札 ${d}`,
     ePow:'防備',ePowEff:'装甲+2',ePowAria:'敵のヒーローパワー：装甲を2獲得',
     noEnemy:'敵のミニオンはいない',playMinions:'手札からミニオンを出そう',
@@ -523,7 +523,7 @@ const I18N={
     modeOnline:'フレンド対戦',modeOnlineSub:'ルームコードを共有して、フレンドとオンライン対戦。',
     onSub:'自分のデッキを選び、一人がルームを作ってコードを送り、もう一人がそのコードで参加します。',onDeck:'あなたのデッキ',starterDeck:c=>`${c} · 初期デッキ`,
     createRoom:'ルームを作成',joinRoom:'参加',codePh:'6桁のコード',orJoin:'またはフレンドのルームに参加',roomCode:'ルームコード',
-    waitFriend:'フレンドの参加を待っています…',shareInvite:'招待リンクを共有',copied:'招待リンクをコピーしました。',inviteText:c=>`灰燼の王冠で対戦しよう！ルームコード ${c}`,
+    waitFriend:'フレンドの参加を待っています…',shareInvite:'招待リンクを共有',copied:'招待リンクをコピーしました。',inviteText:c=>`Ruinaccordで対戦しよう！ルームコード ${c}`,
     connecting:c=>`ルーム ${c} に接続中…`,loadingNet:'対戦サーバーに接続中…',
     errServer:'対戦サーバーに接続できません。通信状況を確認して再試行してください。',errNoRoom:'そのコードのルームが見つかりません。コードを確認してください。',
     errTimeout:'接続がタイムアウトしました。ネットワークによっては直接接続が遮断されます。Wi-Fiとモバイル回線を切り替えて試してください。',
@@ -1348,7 +1348,7 @@ function peerOpts(){
 }
 const newCode=()=>String(100000+Math.random()*900000|0);
 // Inside the iOS app the page has no public address, so invites point at the website (friends can join from any browser).
-const inviteLink=c=>window.ASHEN_APP||!/^https?:$/.test(location.protocol)?`https://ashen-crown.hermes-eris.com/?room=${c}`:`${location.origin}${location.pathname}?room=${c}`;
+const inviteLink=c=>window.ASHEN_APP||!/^https?:$/.test(location.protocol)?`https://ruinaccord.hermes-eris.com/?room=${c}`:`${location.origin}${location.pathname}?room=${c}`;
 function netSend(m){try{if(NET&&NET.conn&&NET.conn.open)NET.conn.send(m)}catch(e){}}
 function netClose(bye){
   const n=NET;NET=null;if(!n)return;
@@ -1548,7 +1548,7 @@ function joinTyped(){
 async function shareInvite(){
   const me=NET;if(!me||!me.ready)return;
   const text=T('inviteText',me.code),url=inviteLink(me.code);
-  if(navigator.share){try{await navigator.share({title:'Ashen Crown',text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+  if(navigator.share){try{await navigator.share({title:'Ruinaccord',text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
   try{await navigator.clipboard.writeText(`${text} ${url}`);O.toast=T('copied')}catch(e){O.toast=url}
   render();
 }
@@ -1742,7 +1742,7 @@ function galleryHTML(){
 }
 function render(){
   document.documentElement.lang=L==='zh'?'zh-CN':L==='ja'?'ja':'en';
-  document.title=L==='en'?'Ashen Crown':`${T('brand')} Ashen Crown`;
+  document.title='Ruinaccord';
   const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
   const app=$('#app');
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}

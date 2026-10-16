@@ -14,17 +14,17 @@ head = f'''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ashen Crown</title>
+<title>Ruinaccord</title>
 <meta name="description" content="A fantasy card duel game. Pick a class, build a deck, and fight your way to the Ashen Crown. Plays in English, Chinese and Japanese.">
 <meta name="theme-color" content="#141118">
 <meta name="color-scheme" content="dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Ashen Crown">
-<meta property="og:title" content="Ashen Crown">
+<meta name="apple-mobile-web-app-title" content="Ruinaccord">
+<meta property="og:title" content="Ruinaccord">
 <meta property="og:description" content="A fantasy card duel game for your phone and browser.">
-<meta property="og:image" content="https://ashen-crown.hermes-eris.com/icon-512.png">
+<meta property="og:image" content="https://ruinaccord.hermes-eris.com/icon-512.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
@@ -51,13 +51,3 @@ ver = hashlib.sha1(html.encode()).hexdigest()[:10]
 sw = (here / 'sw.template.js').read_text().replace('__VERSION__', ver)
 (site / 'sw.js').write_text(sw)
 print('built index.html', len(html), 'bytes; cache version', ver)
-
-# iOS app: the same page and the PeerJS client are bundled in ios/AshenCrown/Web (no service worker there).
-import shutil
-web = site / 'ios' / 'AshenCrown' / 'Web'
-if web.parent.exists():
-    web.mkdir(exist_ok=True)
-    (web / 'index.html').write_text(html)
-    for f in ('peerjs.min.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'manifest.webmanifest'):
-        shutil.copy(site / f, web / f)
-    print('synced', web.relative_to(site))
