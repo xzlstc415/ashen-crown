@@ -1,14 +1,29 @@
-# Ruinaccord 卡牌画风说明（草稿）
+# Ruinaccord 卡牌画风说明
 
-参考图：圣骑士先锋（暗黑写实风，2026-10-16 选定）。
+第二版（2026-10-16）：第一版"暗黑写实"太重，改成更轻、更风格化的手绘风，方向参考《英雄联盟》原画和《杀戮尖塔》。
 
 ## 画风关键词
 
-- 暗黑奇幻厚涂（dark fantasy painting），写实比例，细节丰富，像主机游戏原画。
-- 世界观：一切都发生在**废墟**里，比如倒塌的哥特教堂、碎裂的城墙、长满苔藓的石柱，空气里飘着灰烬和火星。
-- 色调：整体偏冷灰、低饱和，只有**一个发光的重点**，用该职业的颜色（见下表）。
-- 光线：阴天或暴风雨的天空，人物有强烈的轮廓光，发光的部分（剑、眼睛、法术）最亮。
-- 质感：盔甲、布料要旧，有划痕、破损和锈迹，不要崭新光亮。
+- **风格化手绘插画**，不是照片级写实。形体要概括、轮廓清楚，像游戏原画而不是电影截图。
+- **轮廓第一**：一眼能看出是什么（骑士、狼、冰箭），缩到手机上很小也能认出来。
+- **颜色明快**：饱和度中等偏高，明暗对比清楚。阴影用带颜色的暗部（偏紫、偏蓝），不要发灰发黑。
+- **细节适量**：大块面干净，只在脸、武器、发光点这些重点上画细节。不要满屏的划痕、锈迹、碎屑。
+- **世界观不变**：还是废墟世界，但画面是"阳光照进废墟、藤蔓爬上石柱"，不是末日焦土。
+- **只画插画本身**：不要卡框、边框、文字、数字、图标、费用宝石。这些由游戏来画。
+
+## 两个可选方向
+
+用同一张牌各生成一次，选更喜欢的那个，之后所有牌统一用它。
+
+**方向 A：英雄联盟原画风**（更华丽）
+- 半写实的厚涂，人物比例略夸张（肩更宽、武器更大）。
+- 光影戏剧化，有明显的轮廓光和发光特效。
+- 背景有景深，但比主体暗、虚。
+
+**方向 B：杀戮尖塔风**（更简洁）
+- 手绘感更强，笔触明显，形体更简化，接近绘本。
+- 颜色块更平，阴影层次少，配色更有限。
+- 背景很简单，常常只是一块渐变或几笔暗示的场景。
 
 ## 职业强调色（发光重点用这个颜色）
 
@@ -22,54 +37,61 @@
 | 术士 | 邪能绿与暗紫 | glowing fel green and dark purple |
 | 中立卡 | 暖色火光 | warm firelight |
 
-## 构图（重要，关系到卡面版式）
+## 构图（关系到卡面版式）
 
-卡面是**全图版式**：整张画就是卡牌背景，下方约 40% 会盖一个半透明的文字框（像万智牌的全图卡）。
+卡面是**全图版式**：整张画就是卡牌背景，下方约 40% 会盖一个半透明的文字框。
 
-- **一律生成竖图，比例 2:3**（Midjourney 加 `--ar 2:3`），分辨率至少 1024×1536。和参考图一样，不需要再裁切。
-- **主体放在画面上方 60%**：头部、武器、发光点都在这里。下方 40% 只放地面、碎石、雾气这类简单背景，因为会被文字框挡住。
-- 场上的随从小头像会取画面上半部分，所以**脸或最有辨识度的部位要在上三分之一**。
-- 一张图只有一个主体，背景要比主体暗、模糊，这样在手机上缩小后还能认出来。
-- 法术牌画"正在施放的瞬间"：法术效果本身是主体（例如冰箭、火焰、光柱），可以露出施法者的手，但不画完整人物。
-- 不要文字、不要水印、不要画框和边框。
+- **竖图，比例 2:3**，至少 1024×1536。
+- **主体放在画面上方 60%**：头部、武器、发光点都在这里。下方 40% 只放地面、碎石、雾气这类简单背景。
+- 场上的随从小头像取画面上半部分，所以**脸或最有辨识度的部位要在上三分之一**。
+- 一张图只有一个主体，背景比主体暗、简单。
+- 法术牌画"正在施放的瞬间"：法术效果本身是主体，可以露出施法者的手，但不画完整人物。
 
-## 通用后缀（每条提示词末尾都加）
+## 通用后缀（每条提示词末尾加一个）
 
+方向 A：
 ```
-dark fantasy digital painting, ruined gothic world, ash and embers in the air, overcast stormy sky, dramatic rim lighting, muted desaturated palette with one strong glowing accent, highly detailed, cinematic, painterly, no text, no watermark, no border --ar 2:3
-```
-
-## 第一批测试提示词
-
-先用这四张验证不同类型的牌能不能保持统一，没问题再批量出。
-
-1. **圣骑士先锋**（已有参考图，可以直接用；想改成女骑士的话用这条重出）
-```
-a female paladin knight in battered blackened plate armor with gold trim, great helm with a glowing cross-shaped visor slit, a broken halo of golden thorns floating behind the head, tattered white tabard with a gold sun emblem, huge cracked tower shield with a gold sunburst and glowing gold cracks, longsword lowered, standing guard in a ruined cathedral with a shattered rose window, glowing holy gold accent, [通用后缀]
+stylized fantasy splash art, painterly digital illustration, bold readable silhouette, vibrant saturated colors, colorful shadows, dramatic rim lighting, clean shapes, sunlit overgrown ruins in the background, game key art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-2. **寒冰箭**（法术牌）
+方向 B：
 ```
-a jagged spear of glowing ice streaking across the frame, frost crystals and shards trailing behind it, a gauntleted hand at the edge releasing it, ruined frozen courtyard with broken pillars in the background, glowing icy blue and arcane violet accent, [通用后缀]
-```
-
-3. **恐狼**（野兽）
-```
-a huge scarred dire wolf with grey matted fur, snarling, low and ready to pounce among fallen stones of a ruined wall, breath steaming in the cold air, eyes reflecting firelight, warm firelight accent, [通用后缀]
+hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-4. **灰烬巨龙伊格纳洛斯**（传说）
+如果用的不是 Midjourney，把末尾的 `--ar 2:3 --no ...` 去掉，在工具里选竖图 2:3，并把 "text, frame, border, card, letters, numbers" 填进反向提示词（negative prompt）。
+
+## 测试提示词
+
+每张都用 A、B 两个后缀各生成一次。
+
+1. **圣骑士先锋**（4 费 3/5 随从，守护）
 ```
-an enormous ancient dragon with ash-grey cracked scales and molten veins, wings spread over a burning ruined city, perched on a collapsed cathedral tower, fire glowing in its throat, embers raining down, warm firelight accent, [通用后缀]
+a female paladin knight in polished silver plate armor with gold trim, open-face helm, a radiant golden halo behind her head, white tabard with a gold sun emblem, raising a big kite shield with a glowing gold sunburst, standing firm on cracked steps, glowing holy gold accent, [后缀]
+```
+
+2. **寒冰箭**（2 费法师法术）
+```
+a jagged bolt of glowing ice flying toward the viewer, trailing frost crystals and cold mist, a gloved hand at the bottom edge just releasing it, glowing icy blue and arcane violet accent, [后缀]
+```
+
+3. **恐狼**（2 费 3/2 野兽）
+```
+a big grey dire wolf with a thick mane and a scar over one eye, snarling and crouched to pounce on a broken stone ledge, eyes reflecting firelight, warm firelight accent, [后缀]
+```
+
+4. **灰烬巨龙伊格纳洛斯**（8 费 7/8 传说龙，守护，登场时对所有敌方随从造成 2 点伤害）
+```
+an enormous ash-grey dragon with glowing molten cracks along its scales, wings spread wide, coiled protectively on top of a ruined cathedral tower, breathing a sweeping wave of fire downward, warm firelight accent, [后缀]
 ```
 
 ## 出图后怎么交给我
 
-把图片放进仓库的 `art/raw/` 文件夹，文件名用卡牌 ID，例如 `knight.png`、`frostbolt.jpg`（PNG、JPG、WebP 都可以）。然后运行：
+把图片放进 `art/raw/`，文件名用卡牌 ID，例如 `knight.png`、`frostbolt.png`、`direwolf.png`、`leviathan.png`。然后运行：
 
 ```sh
 python3 art/build_art.py   # 裁成 2:3，生成网页和 App 用的 JPEG
-python3 src/build.py       # 重新生成网站
+python3 src/build.py --beta
 ```
 
-或者直接把图发给我，我来放。`art/raw/` 不进 git（原图太大），生成的 `img/cards/` 和 App 里的 `Paint` 素材会提交。
+或者直接把图发给我，我来放。`art/raw/` 不进 git，生成的 `img/cards/` 和 App 的 `Paint` 素材会提交。
