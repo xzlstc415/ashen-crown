@@ -312,7 +312,7 @@ a serene temple priestess in white robes with a golden circlet, raising a staff 
 ```
 
 ### 骑士指挥官 Knight Commander — `commander.png`
-5 费 · 随从 4/5 · 史诗 · 圣骑士
+5 费 · 随从 4/4 · 史诗 · 圣骑士
 ```
 a veteran knight commander in red and gold armor with a short beard, raising a war banner and shouting an order, warm golden accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
