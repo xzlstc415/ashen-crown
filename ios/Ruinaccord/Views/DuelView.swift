@@ -89,19 +89,23 @@ struct HandView: View {
     }
 }
 
-private struct HandCard: View {
+struct HandCard: View {
     let card: Card
     let index: Int
     let ok: Bool, off: Bool, pend: Bool, fresh: Bool
     let delay: Double
+    var size: CardSize = .sm
+    /// Landscape: the first tap previews the card, a second tap plays it.
+    var previewFirst = false
     @Environment(GameVM.self) private var vm
     @State private var shown = false
     var body: some View {
-        CardView(card: card, size: .sm)
-            .overlay(RoundedRectangle(cornerRadius: 8.5).stroke(pend ? Theme.ember : ok ? Theme.ready : .clear, lineWidth: 2))
-            .shadow(color: pend ? Theme.ember.opacity(0.6) : ok ? Theme.ready.opacity(0.5) : .clear, radius: ok || pend ? 8 : 0)
+        let selected = previewFirst && vm.hsel == index
+        CardView(card: card, size: size)
+            .overlay(RoundedRectangle(cornerRadius: 0.9 * size.em).stroke(selected ? Theme.gold : pend ? Theme.ember : ok ? Theme.ready : .clear, lineWidth: 2))
+            .shadow(color: selected ? Theme.gold.opacity(0.7) : pend ? Theme.ember.opacity(0.6) : ok ? Theme.ready.opacity(0.5) : .clear, radius: ok || pend || selected ? 8 : 0)
             .saturation(off ? 0.5 : 1).brightness(off ? -0.15 : 0)
-            .offset(y: pend ? -10 : 0)
+            .offset(y: pend || selected ? -10 : 0)
             .opacity(vm.hiddenHand == index ? 0 : 1)
             .offset(x: shown ? 0 : 80).rotationEffect(.degrees(shown ? 0 : 10)).opacity(shown ? 1 : 0)
             .onAppear {
@@ -109,7 +113,10 @@ private struct HandCard: View {
             }
             .reportFrame { vm.handFrames[index] = $0 }
             .contentShape(Rectangle())
-            .onTapGesture { vm.playHand(index) }
+            .onTapGesture {
+                if previewFirst && vm.hsel != index && vm.pending == nil { vm.hsel = index }
+                else { vm.hsel = nil; vm.playHand(index) }
+            }
             .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = card.id }
             .accessibilityLabel(Text("\(vm.tx.name(card.names)), \(card.cost)"))
     }
@@ -123,21 +130,7 @@ struct HistStrip: View {
         return AnyView(HStack(spacing: 4) {
             if !vm.hist.isEmpty {
                 Text(vm.tx.history).font(Theme.body(11)).foregroundStyle(Theme.muted).padding(.trailing, 4)
-                ForEach(vm.hist) { h in
-                    let foe = h.side == .e
-                    let fresh = foe && h.round == s.round && s.turn == .p
-                    Button { vm.peekItem = h } label: {
-                        ZStack {
-                            RadialGradient(colors: foe ? [Color(hex: "#4a2a2a"), Color(hex: "#1a0c0c")] : [Color(hex: "#3a3046"), Color(hex: "#17121c")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 20)
-                            Image("art_\(h.key)").resizable().scaledToFit().scaleEffect(1.5)
-                        }
-                        .frame(width: 30, height: 30)
-                        .clipShape(RoundedRectangle(cornerRadius: 7))
-                        .overlay(RoundedRectangle(cornerRadius: 7).stroke(foe ? Color(hex: "#a0483f") : Theme.kelp, lineWidth: 2))
-                        .shadow(color: fresh ? Theme.blood.opacity(0.75) : .clear, radius: fresh ? 6 : 0)
-                    }
-                    .buttonStyle(.plain)
-                }
+                ForEach(vm.hist) { h in HistChip(h: h) }
             }
         }
         .frame(maxWidth: .infinity, minHeight: 30))
@@ -285,5 +278,28 @@ struct PeekView: View {
             .contentShape(Rectangle())
             .onTapGesture { vm.peekItem = nil }
         }
+    }
+}
+
+/// One recent play; tap it to see the card.
+struct HistChip: View {
+    let h: HistItem
+    var size: CGFloat = 30
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        let foe = h.side == .e
+        let fresh = foe && h.round == vm.state?.round && vm.state?.turn == .p
+        Button { vm.peekItem = h } label: {
+            ZStack {
+                RadialGradient(colors: foe ? [Color(hex: "#4a2a2a"), Color(hex: "#1a0c0c")] : [Color(hex: "#3a3046"), Color(hex: "#17121c")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 20)
+                if Paintings.has(h.key) { ArtThumb(key: h.key, width: size, height: size) }
+                else { Image("art_\(h.key)").resizable().scaledToFit().scaleEffect(1.5) }
+            }
+            .frame(width: size, height: size)
+            .clipShape(RoundedRectangle(cornerRadius: 7))
+            .overlay(RoundedRectangle(cornerRadius: 7).stroke(foe ? Color(hex: "#a0483f") : Theme.kelp, lineWidth: 2))
+            .shadow(color: fresh ? Theme.blood.opacity(0.75) : .clear, radius: fresh ? 6 : 0)
+        }
+        .buttonStyle(.plain)
     }
 }

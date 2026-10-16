@@ -252,6 +252,8 @@ struct Tx {
     var tapClose: String { pick("Tap anywhere to close", "点击任意位置关闭", "タップで閉じる") }
     var fWard: String { pick("Ward", "护盾", "結界") }
     var fFreeze: String { pick("Frozen", "冻结", "凍結") }
+    var tapPlay: String { pick("Tap the card again to play it.", "再点一次这张牌即可打出。", "もう一度タップで使用します。") }
+    var tapPreview: String { pick("Tap a card in your hand to see it.", "点一张手牌查看。", "手札のカードをタップして確認。") }
     var fSilence: String { pick("Silenced", "沉默", "沈黙") }
     var fDestroy: String { pick("Destroyed", "消灭", "破壊") }
     func spKw(_ n: Int) -> String { pick("Spell +\(n)", "法伤+\(n)", "呪文+\(n)") }

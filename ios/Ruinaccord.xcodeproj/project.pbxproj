@@ -31,6 +31,7 @@
 		F4718328AED7FDF6B8EB0020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB8548AE18AE9BAA895F2B8 /* Assets.xcassets */; };
 		F5B49A914418393AA4E4B3F6 /* DuelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA8A742A17EE606385C7A5 /* DuelView.swift */; };
 		F7C8AEB2C0167E794509EA91 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AEFFFACFCDF9F697C70720A2 /* FirebaseFirestore */; };
+		FAE9AF9225B8BE3378F62756 /* DuelLand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4C7CDD0E2CC6903A904940 /* DuelLand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		BB346BC7649F3118FD6D2CEE /* Screens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
 		C0B8AF488CBA9B96B345E7C1 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		D4304DEDFC22EB55CB3F75C1 /* CardViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViews.swift; sourceTree = "<group>"; };
+		DB4C7CDD0E2CC6903A904940 /* DuelLand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelLand.swift; sourceTree = "<group>"; };
 		DC2E664762FABBA9BAF60AD9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 			children = (
 				3D6D2FA6143E636B3581CB32 /* BuilderView.swift */,
 				D4304DEDFC22EB55CB3F75C1 /* CardViews.swift */,
+				DB4C7CDD0E2CC6903A904940 /* DuelLand.swift */,
 				07BA8A742A17EE606385C7A5 /* DuelView.swift */,
 				5FC700070828DEC542AC94CF /* RootView.swift */,
 				BB346BC7649F3118FD6D2CEE /* Screens.swift */,
@@ -309,6 +312,7 @@
 				1E3B9EB9FFE18EB48DF7982B /* BuilderView.swift in Sources */,
 				25E4B615B2D93D57E56F13B3 /* CardViews.swift in Sources */,
 				28A69FAF6CE7AC607CA8CACD /* Cards.swift in Sources */,
+				FAE9AF9225B8BE3378F62756 /* DuelLand.swift in Sources */,
 				F5B49A914418393AA4E4B3F6 /* DuelView.swift in Sources */,
 				EA25C31BFAE434EF7E9E959D /* Engine.swift in Sources */,
 				C7F471E9F9A1B6A86EF94A74 /* FirebaseBackend.swift in Sources */,

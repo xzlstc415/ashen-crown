@@ -44,6 +44,23 @@ enum DebugLaunch {
             case "decks": vm.goDecks()
             default: break
             }
+            // -card <key>: put a card in hand and on both boards; -zoom <key>: open its large view (art checks).
+            // -card a,b,c: these cards go in your hand; minions among them also on both boards
+            if let ks = value("-card"), vm.state != nil {
+                try? await Task.sleep(for: .milliseconds(600))
+                for k in ks.split(separator: ",").map(String.init) where GameData.shared.card(k) != nil {
+                    vm.state?.p.hand.insert(k, at: 0)
+                    if GameData.shared.card(k)?.isMinion == true { vm.state?.summon(.p, k); vm.state?.summon(.e, k) }
+                }
+                let extra = (vm.state?.p.hand.count ?? 0) - 10
+                if extra > 0 { vm.state?.p.hand.removeLast(extra) }
+            }
+            if let k = value("-zoom"), GameData.shared.card(k) != nil { vm.zoomCard = k }
+            // -landscape: rotate to landscape (simulator screenshots); -sel <n>: preview that hand card
+            if args.contains("-landscape"), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                scene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight)) { _ in }
+            }
+            if let n = value("-sel").flatMap(Int.init) { vm.hsel = n }
             if args.contains("-autoplay") { await autoplay(vm) }
         }
     }

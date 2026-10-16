@@ -33,10 +33,17 @@ struct GameRoot: View {
     var body: some View {
         ZStack {
             if vm.screen == .duel {
-                VStack(spacing: 6) { TopBar(); DuelView() }
-                    .padding(.horizontal, 16).padding(.vertical, 8)
-                    .frame(maxWidth: 640)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                GeometryReader { g in
+                    if g.size.width > g.size.height && g.size.width >= 560 {
+                        // Landscape: rail | board | preview + hand
+                        DuelLandView().padding(.vertical, 6)
+                    } else {
+                        VStack(spacing: 6) { TopBar(); DuelView() }
+                            .padding(.horizontal, 16).padding(.vertical, 8)
+                            .frame(maxWidth: 640)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                }
             } else {
             ScrollView(.vertical) {
                 VStack(spacing: 6) {

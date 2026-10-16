@@ -108,6 +108,8 @@ final class GameVM {
     var lungeOffset: [EID: CGSize] = [:]
     var fx: [FXItem] = []
     var hiddenHand: Int?
+    /// Landscape duel: the hand card shown in the preview (tap it again to play).
+    var hsel: Int?
     var zoomCard: String?
     var peekItem: HistItem?
     var deaths: Set<EID> = []
