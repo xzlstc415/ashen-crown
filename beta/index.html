@@ -78,6 +78,12 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .crystals i.on{background:#5aa3e0;border-color:#8cc4f0}
 .crystals b{font-size:12px;margin-left:4px;color:#8cc4f0;font-variant-numeric:tabular-nums}
 .crystals .sm{display:inline-flex;gap:2px;margin-left:6px}
+.smb{display:inline-flex;align-items:center;gap:3px;margin-left:8px;padding:1px 7px;border-radius:999px;border:1px solid #a77be8;background:#2a1f3a;color:#d2b8ff;font-size:11px;font-weight:700;white-space:nowrap}
+.smb i{width:7px;height:7px;transform:rotate(45deg);border-radius:1px;background:#2a2234;border:1px solid #6a5590}
+.smb i.on{background:#a77be8;border-color:#d2b8ff}
+.smb b{font-size:11px;margin-left:2px;color:#d2b8ff}
+.smb.zero{opacity:.6}
+.lsm.bsm{height:auto;margin-top:2px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:center}.lsm.bsm i.off{opacity:.3}.lsm.bsm b{font-size:9px;color:#d2b8ff;margin-left:2px}
 .crystals .sm i{width:8px;height:8px;transform:rotate(45deg);border-radius:1px;background:#a77be8;border:1px solid #d2b8ff}
 .power{flex:none;width:58px;height:58px;border-radius:50%;border:2px solid var(--gold);background:radial-gradient(circle at 40% 35%, #4a3a2a, #1e160f);
   font-size:10px;font-weight:700;line-height:1.15;display:grid;place-items:center;text-align:center;padding:4px;position:relative}
@@ -1166,6 +1172,8 @@ const costOf=(side,k)=>{const o=ovrOf(side,k);return o&&o.c!=null?o.c:CARDS[k].c
 const cardPray=(side,k)=>{const o=ovrOf(side,k);return o&&o.pray||CARDS[k].pray};
 const altarMax=s=>tal(s,'ho_altar')?3:ALTAR_MAX;
 const smCap=s=>tal(s,'fi_bank')?5:3;
+const SML=()=>['Spell','法术','呪文'][li()];
+const SMH=()=>['Spell mana: mana you leave unspent is banked for spells only (up to 3). Spells use it first.','法术法力：回合结束时没用完的法力会存下来，只能用于法术（最多3点），施法时优先消耗。','呪文マナ：使い残したマナは呪文専用に貯まる（最大3）。呪文はこちらから先に使う。'][li()];
 // Spell Surge boosts per card in hand; kept in step with the hand.
 function hbOf(s){if(!s.hb)s.hb=[];while(s.hb.length<s.hand.length)s.hb.push(0);if(s.hb.length>s.hand.length)s.hb.length=s.hand.length;return s.hb}
 function takeHand(side,i){const s=S[side];hbOf(s);s.castHb=s.hb[i]||0;s.hb.splice(i,1);return s.hand.splice(i,1)[0]}
@@ -2293,7 +2301,9 @@ function classHTML(){
 }
 function crystals(s){
   let h='';for(let i=0;i<s.maxMana;i++)h+=`<i class="${i<s.mana?'on':''}"></i>`;
-  const sm=s.sm?`<span class="sm" aria-label="${T('smAria',s.sm)}">${'<i></i>'.repeat(s.sm)}</span>`:'';
+  // Beta: spell mana is always shown with a label and its cap, so leftover spell mana is never a surprise.
+  const sm=BETA?`<span class="smb${s.sm?'':' zero'}" title="${SMH()}" aria-label="${T('smAria',s.sm||0)}">${SML()} ${'<i class="on"></i>'.repeat(s.sm||0)}${'<i></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}/${smCap(s)}</b></span>`
+    :s.sm?`<span class="sm" aria-label="${T('smAria',s.sm)}">${'<i></i>'.repeat(s.sm)}</span>`:'';
   return `<div class="crystals" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${h}<b>${s.mana}/${s.maxMana}</b>${sm}</div>`;
 }
 function tclass(id){
@@ -2396,7 +2406,7 @@ function railHero(s){
   const face=`<button class="face${tclass(id)}" data-t="${id}" title="${name}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
     ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
   const mana=`<div><div class="lmana${s.mana?'':' none'}" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${s.mana}<small>/${s.maxMana}</small></div>
-    <div class="lsm">${'<i></i>'.repeat(s.sm||0)}</div></div>`;
+    <div class="lsm${BETA?' bsm':''}" title="${BETA?SMH():''}">${BETA?`${'<i></i>'.repeat(s.sm||0)}${'<i class="off"></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}</b>`:'<i></i>'.repeat(s.sm||0)}</div></div>`;
   let power;
   if(!foe){const p=curPower(),ok=!powerBlocked();
     power=`<button class="power mini" data-go="power" ${ok?'':'disabled'} title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),p.c,pd(p))}"><span class="pc">${p.c}</span><span class="pn">${pn(p)}</span></button>`}
