@@ -421,6 +421,7 @@ svg{-webkit-user-drag:none}
 .mbox h2{margin:0}.mbox p{margin:0;color:var(--muted);font-size:13px;max-width:440px}
 .mcards{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding-top:8px}
 .mc{position:relative;cursor:pointer}.mc .card{font-size:clamp(7px,2.5vh,10.8px);transition:filter .15s,transform .15s}
+.mcards.many{gap:10px}.mcards.many .mc .card{font-size:min(clamp(7px,2.5vh,10.8px),2.5vw)}
 .mc.x .card{filter:grayscale(.85) brightness(.45);transform:translateY(6px)}
 .mx{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:800;color:var(--blood);pointer-events:none;text-shadow:0 2px 6px #000}
 /* landscape board: minions are just their picture plus Attack/Health (name and keywords live in the long-press view) */
@@ -1491,10 +1492,12 @@ function powerBlocked(){
 function startDuel(){
   const o=OPP[R.stage];
   const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,sm:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false,ember:0,altar:[],grave:[]});
-  S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',o.hp,o.deck)};
+  // Beta · talent classes: both sides open with 5 cards and the enemy has 40% more Health.
+  const tc=hasTal(R.cls),ehp=tc?Math.round(o.hp*1.4):o.hp;
+  S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',ehp,o.deck)};
   S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;S.p.cls=R.cls;S.e.cls=null;setupTalents(S.p,R.cls,R.tal);
   say('rises',()=>heroName(S.e));
-  draw('p',3);draw('e',4);
+  draw('p',tc?5:3);draw('e',tc?5:4);
   beginMulligan(()=>{S.e.hand.push('coin');startTurn('p');render();banner(T('bannerYou'))});
 }
 // ---------- opening mulligan ----------
@@ -1524,7 +1527,7 @@ function mullTry(){
 function mullHTML(){
   const m=S.mull;
   return `<div class="mull" role="dialog" aria-label="${T('mullTitle')}"><div class="mbox"><h2>${T('mullTitle')}</h2><p>${T('mullSub')}</p>
-    <div class="mcards">${S.p.hand.map((k,i)=>`<div class="mc${m.pick.has(i)?' x':''}" data-mull="${i}">${cardFace(k,'md','div')}${m.pick.has(i)?'<span class="mx">✕</span>':''}</div>`).join('')}</div>
+    <div class="mcards${S.p.hand.length>4?' many':''}">${S.p.hand.map((k,i)=>`<div class="mc${m.pick.has(i)?' x':''}" data-mull="${i}">${cardFace(k,'md','div')}${m.pick.has(i)?'<span class="mx">✕</span>':''}</div>`).join('')}</div>
     ${m.mine?`<p aria-live="polite">${T('mullWait')}</p>`:`<button class="btn" data-go="mullok">${m.pick.size?T('mullSwap',m.pick.size):T('mullKeep')}</button>`}</div></div>`;
 }
 function startTurn(side){
