@@ -265,6 +265,12 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .tnode.on b{color:var(--tc)}
 .tnode.lock{opacity:.42}
 .trow.cap .tnode{border-style:dashed}.trow.cap .tnode.on{border-style:solid}
+.packs{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:760px}
+@media (max-width:640px){.packs{grid-template-columns:1fr}}
+.pack{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--tc);border-radius:12px;padding:10px;display:grid;gap:8px;justify-items:center}
+.pack h3{margin:0;color:var(--tc);font-size:16px}
+.pcards{display:flex;gap:8px;justify-content:center}
+.phint{margin:0;font-size:12.5px;color:var(--muted);text-align:center}.phint b{color:var(--tc)}
 .tvl{list-style:none;margin:0;padding:0;display:grid;gap:6px;text-align:left;max-width:460px}
 .tvl li{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--tc);border-radius:8px;padding:6px 9px;font-size:12.5px}
 .tvl li b{color:var(--tc);margin-right:6px}
@@ -818,6 +824,11 @@ const ART={
   // beta (class resources)
   emberbolt:'<circle cx="50" cy="34" r="22" fill="#ff8a3a" opacity=".15"/><path d="M50 12Q60 26 56 34Q62 30 61 24Q70 36 62 48Q56 56 50 56Q40 56 36 46Q32 34 42 26Q42 34 46 36Q42 24 50 12Z" fill="#f39a3a"/><path d="M50 30Q55 38 53 44Q50 50 46 46Q44 40 50 30Z" fill="#ffe08a"/><circle cx="26" cy="20" r="1.6" fill="#ffb070"/><circle cx="74" cy="16" r="1.3" fill="#ffb070"/><circle cx="72" cy="44" r="1.8" fill="#ffb070"/>',
   icelance:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".16"/><path d="M16 58L74 12" stroke="#c4e6ff" stroke-width="5" stroke-linecap="round"/><path d="M70 8l16-4-4 16z" fill="#ffffff"/><g fill="#e8f4ff"><path d="M28 22l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/><path d="M74 44l1.6 3 3 1.6-3 1.6-1.6 3-1.6-3-3-1.6 3-1.6z"/></g>',
+  frostele:'<circle cx="50" cy="34" r="27" fill="#8fd0ff" opacity=".14"/><path d="M50 6l12 16 16-4-6 16 12 10-16 4 2 16-14-8-6 12-6-12-14 8 2-16-16-4 12-10-6-16 16 4z" fill="#c4e6ff" stroke="#e8f4ff" stroke-width="1.6" stroke-linejoin="round"/><circle cx="43" cy="34" r="3" fill="#2a5a8a"/><circle cx="57" cy="34" r="3" fill="#2a5a8a"/>',
+  shatter:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".14"/><g fill="#c4e6ff" stroke="#e8f4ff" stroke-width="1.2" stroke-linejoin="round"><path d="M46 30l-18-16 6 20z"/><path d="M54 30l20-18-4 22z"/><path d="M46 36l-22 10 20 6z"/><path d="M54 36l18 14-20 2z"/><path d="M50 40l-4 20 10-6z"/></g><circle cx="50" cy="33" r="4" fill="#ffffff"/>',
+  voidacolyte:portrait({race:'human',robe:'#2a1a40',trim:'#9a6aff',head:'hood',hood:'#1a1030',eyes:'#c47fe0',prop:'book',bookc:'#6a3aa0',glow:'#9a6aff'}),
+  wordruin:'<circle cx="50" cy="32" r="26" fill="#4a2a6a" opacity=".35"/><path d="M30 14l40 36M70 14L30 50" stroke="#c4b4ff" stroke-width="5" stroke-linecap="round"/><path d="M50 8v48" stroke="#9a6aff" stroke-width="2" stroke-dasharray="4 4"/>',
+  wordtorment:'<circle cx="50" cy="32" r="29" fill="#1a0a2a" opacity=".7"/><path d="M50 4q20 0 20 20 0 12-8 16v12H38V40q-8-4-8-16 0-20 20-20z" fill="#3a1a5a" stroke="#c4b4ff" stroke-width="2"/><ellipse cx="42" cy="24" rx="5" ry="6" fill="#ff6a8a"/><ellipse cx="58" cy="24" rx="5" ry="6" fill="#ff6a8a"/><path d="M14 60q10-14 20-6M86 60q-10-14-20-6" stroke="#9a6aff" stroke-width="3" fill="none"/>',
   icebarrier:'<circle cx="50" cy="32" r="28" fill="#8fd0ff" opacity=".14"/><path d="M50 4l24 9v18q0 20-24 31-24-11-24-31V13z" fill="#c4e6ff" opacity=".55" stroke="#e8f4ff" stroke-width="2.4"/><path d="M50 16v32M36 24l28 16M36 40l28-16" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>',
   scorch:'<circle cx="18" cy="44" r="10" fill="#ffe08a" opacity=".5"/><path d="M18 44L96 14" stroke="#f39a3a" stroke-width="8" stroke-linecap="round" opacity=".55"/><path d="M18 44L96 14" stroke="#ffe08a" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="44" r="5" fill="#fff8d8"/><g stroke="#ff8a3a" stroke-width="1.5"><path d="M80 10l6-6M84 24l8 2M70 12l-2-8"/></g>',
   firestorm:'<circle cx="50" cy="30" r="30" fill="#cf4a3f" opacity=".15"/><path d="M50 8a22 22 0 1 1-20 30" stroke="#f39a3a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M50 18a12 12 0 1 1-11 16" stroke="#ffe08a" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M0 64Q10 46 20 52Q26 36 36 50Q44 34 52 50Q60 36 68 50Q76 38 82 52Q92 44 100 64Z" fill="#e2763a"/><path d="M10 64Q20 54 30 58Q40 48 50 58Q60 50 70 58Q80 52 90 64Z" fill="#ffb070"/>',
@@ -929,6 +940,11 @@ const CARDS={
   // beta: Mage Embers / Priest Prayers (only on /beta/, removed elsewhere)
   emberbolt:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{dmg:2,tgt:'any'},n:['Ember Flick','余烬火花','残り火の閃き'],f:['Small fire, patient hands.','小小的火，耐心的手。','小さな火と、辛抱強い手。']},
   icelance:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{icelance:4,tgt:'foe'},n:['Ice Lance','冰枪术','アイスランス'],x:['Freeze an enemy minion. If it was already Frozen, deal 4 damage to it instead.','冻结一个敌方随从。如果它已被冻结，改为对它造成4点伤害。','敵のミニオン1体を凍結させる。すでに凍結しているなら、代わりに4ダメージを与える。'],f:['Cold first. Then sharp.','先冷，再锋利。','まず冷たく、次に鋭く。']},
+  frostele:{beta:1,c:4,t:'m',a:3,h:6,r:'r',race:'elemental',cls:'mage',bc:{freeze:1,tgt:'foe'},n:['Frost Elemental','寒冰元素','氷の精霊'],x:['On play: Freeze an enemy minion.','登场：冻结一个敌方随从。','登場時：敵のミニオン1体を凍結させる。'],f:['It does not hate you. It is just very, very cold.','它不恨你，只是非常非常冷。','憎んではいない。ただ、とても冷たい。']},
+  shatter:{beta:1,c:2,t:'s',r:'r',cls:'mage',fx:{destroy:1,cond:'frozen',tgt:'foe'},n:['Shatter','碎冰','砕氷'],x:['Destroy a Frozen enemy minion.','消灭一个被冻结的敌方随从。','凍結している敵のミニオン1体を破壊する。'],f:['Ice remembers every crack.','冰记得每一道裂痕。','氷はすべてのひびを覚えている。']},
+  voidacolyte:{beta:1,c:2,t:'m',a:2,h:1,r:'c',race:'human',cls:'priest',bc:{silence:1,tgt:'minion'},n:['Void Acolyte','虚空侍僧','虚無の侍僧'],x:['On play: Silence a minion.','登场：沉默一个随从。','登場時：ミニオン1体を沈黙させる。'],f:['She listens to the quiet between prayers.','她聆听祷文之间的寂静。','祈りと祈りの間の静けさに耳を澄ます。']},
+  wordruin:{beta:1,c:2,t:'s',r:'r',cls:'priest',fx:{destroy:1,cond:'damaged',tgt:'foe'},n:['Word of Ruin','暗言术：毁','破滅の言葉'],x:['Destroy a damaged enemy minion.','消灭一个受伤的敌方随从。','ダメージを受けている敵のミニオン1体を破壊する。'],f:['Finish what the blade began.','把刀刃开始的事做完。','刃が始めたことを終わらせる。']},
+  wordtorment:{beta:1,c:6,t:'s',r:'e',cls:'priest',fx:{destroy:1,tgt:'foe'},n:['Word of Torment','暗言术：狱','責苦の言葉'],x:['Destroy an enemy minion.','消灭一个敌方随从。','敵のミニオン1体を破壊する。'],f:['Spoken once. Heard forever.','只说一次，永远回响。','一度だけ唱え、永遠に響く。']},
   icebarrier:{beta:1,c:3,t:'s',r:'r',cls:'mage',fx:{armor:5,freezeBig:1},n:['Ice Barrier','寒冰屏障','アイスバリア'],x:['Gain 5 Armor. Freeze the enemy minion with the highest Attack.','获得5点护甲。冻结攻击力最高的敌方随从。','装甲を5獲得する。攻撃力が最も高い敵のミニオンを凍結させる。'],f:['The wall is clear. So is the message.','冰墙透明，意思也很明白。','壁は透明だ。言いたいことも。']},
   emberadept:{beta:1,c:2,t:'m',a:2,h:3,r:'c',race:'human',cls:'mage',n:['Ember Adept','余烬学徒','残り火の徒弟'],f:['Burns her notes after memorizing them.','背下来就把笔记烧掉。','覚えたらノートは燃やす。']},
   scorch:{beta:1,c:3,t:'s',r:'c',cls:'mage',fx:{dmg:4,tgt:'minion'},n:['Scorching Ray','灼热射线','灼熱光線'],f:['Aim for the seams in the armor.','瞄准铠甲的缝隙。','鎧の継ぎ目を狙え。']},
@@ -961,9 +977,9 @@ if(!BETA)for(const k in CARDS)if(CARDS[k].beta){delete CARDS[k];delete ART[k]}
 const EMBER_MAX=5,ALTAR_MAX=2;
 // Beta · talents. Each class card can carry a school (sc) that talents point at.
 if(BETA)Object.entries({maelstrom:'fire',firelem:'fire',emberbolt:'fire',emberadept:'fire',scorch:'fire',emberele:'fire',phoenix:'fire',firestorm:'fire',
-  frostbolt:'frost',frostnova:'frost',mirror:'frost',icelance:'frost',icebarrier:'frost',
+  frostbolt:'frost',frostnova:'frost',mirror:'frost',icelance:'frost',icebarrier:'frost',frostele:'frost',shatter:'frost',voidacolyte:'shadow',wordruin:'shadow',wordtorment:'shadow',
   holysmite:'holy',mend:'holy',pwshield:'holy',matins:'holy',vigil:'holy',sanctuary:'holy',requiem:'holy',judgment:'holy',revelation:'holy',
-  swpain:'shadow',swdeath:'shadow',dispel:'shadow',spellbreaker:'shadow'}).forEach(([k,v])=>{if(CARDS[k]){CARDS[k].sc=v;if(k==='swpain'||k==='swdeath')CARDS[k].sw=1}});
+  swpain:'shadow',swdeath:'shadow',dispel:'shadow',spellbreaker:'shadow'}).forEach(([k,v])=>{if(CARDS[k]){CARDS[k].sc=v;if(['swpain','swdeath','wordruin','wordtorment'].includes(k))CARDS[k].sw=1}});
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
 // Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
@@ -1097,12 +1113,12 @@ const TALENTS=BETA?{
       [TN('fr_deep',['Deep Freeze','深寒','深き凍え'],['Frozen enemy minions take 2 extra damage from everything.','被冻结的敌方随从受到的所有伤害+2。','凍結した敵のミニオンが受けるダメージ+2。'])]]}],
   priest:[
     {id:'holy',sc:'holy',col:'#ffe08a',n:['Holy','圣光','聖光'],tiers:[
-      [TN('ho_devout',['Devout','虔诚','敬虔'],['Your hero starts with +3 Health.','英雄起始生命值+3。','ヒーローの初期体力+3。']),
+      [TN('ho_devout',['Devout','虔诚','敬虔'],['Your hero starts with +5 Health.','英雄起始生命值+5。','ヒーローの初期体力+5。']),
        TN('ho_smite',['Chastise','惩戒','懲戒'],['Holy Smite deals 1 extra damage.','神圣惩击多造成1点伤害。','ホーリースマイトのダメージ+1。']),
        TN('ho_light',['Bright Mending','愈光','癒しの輝き'],['Healing Light restores 2 more Health.','治愈之光额外恢复2点生命值。','癒しの光の回復量+2。'])],
       [TN('ho_shield',['Steadfast Word','坚定真言','揺るがぬ言葉'],['Word of Shielding gives +0/+1 more.','真言术：盾额外+0/+1。','守りの言葉がさらに+0/+1を与える。']),
        TN('ho_dawn',['First Light','晨光','曙光'],['Dawn Prayer counts down from 1.','晨祷的倒计时改为1。','暁の祈りのカウントが1になる。']),
-       TN('ho_grace',['Grace','神恩','恩寵'],['Whenever one of your Prayers is answered, restore 3 Health to your hero.','每当你的祷文应验，为你的英雄恢复3点生命值。','自分の祈祷が成就するたび、ヒーローの体力を3回復する。'])],
+       TN('ho_grace',['Grace','神恩','恩寵'],['Whenever one of your Prayers is answered, restore 3 Health to your hero and deal 2 damage to the enemy minion with the highest Attack.','每当你的祷文应验，为你的英雄恢复3点生命值，并对攻击力最高的敌方随从造成2点伤害。','自分の祈祷が成就するたび、ヒーローの体力を3回復し、攻撃力が最も高い敵のミニオンに2ダメージを与える。'])],
       [TN('ho_pray',['Supplication','祈愿','祈願'],['Your hero power also counts your Prayers down by 1.','英雄技能同时让你的祷文倒计时-1。','ヒーローパワーが自分の祈祷のカウントも1進める。']),
        TN('ho_hymn',['Choir','圣咏','聖歌'],['Hymn of Return revives two minions.','复苏圣咏改为复活两个随从。','帰還の聖歌が2体蘇らせる。'])],
       [TN('ho_altar',['Holy Altar','神圣祭坛','聖なる祭壇'],['Your altar holds 3 Prayers, and each Prayer starts 1 lower (at least 1).','祭坛增加到3个位置；祷文放上祭坛时倒计时-1（至少为1）。','祭壇が3枠になり、祈祷は置いた時にカウント-1（最低1）。'])]]},
@@ -1111,8 +1127,8 @@ const TALENTS=BETA?{
        TN('sh_insight',['Insight','洞察','洞察'],['Dispel also draws a card.','驱散额外抽一张牌。','ディスペルでカードを1枚引く。']),
        TN('sh_breaker',['Spellrend','破法','破魔'],['Elven Spellbreaker has +1 Attack.','精灵破法者+1攻击力。','エルフの呪文破りの攻撃力+1。'])],
       [TN('sh_death',['Oblivion','寂灭','寂滅'],['Word of Death costs 1 less.','暗言术：灭的费用-1。','死の言葉のコスト-1。']),
-       TN('sh_echo',['Echo of Pain','痛苦回响','苦痛の残響'],['Whenever your Word spell destroys a minion, deal 2 damage to the enemy hero.','你的暗言术每消灭一个随从，对敌方英雄造成2点伤害。','自分の「言葉」の呪文がミニオンを破壊するたび、敵ヒーローに2ダメージ。']),
-       TN('sh_void',['Void','虚空','虚無'],['Your Silence effects also deal 2 damage to the target.','你的沉默效果同时对目标造成2点伤害。','自分の沈黙効果が対象に2ダメージも与える。'])],
+       TN('sh_echo',['Echo of Pain','痛苦回响','苦痛の残響'],['Whenever your Word spell destroys a minion, deal 1 damage to the enemy hero.','你的暗言术每消灭一个随从，对敌方英雄造成1点伤害。','自分の「言葉」の呪文がミニオンを破壊するたび、敵ヒーローに1ダメージ。']),
+       TN('sh_void',['Void','虚空','虚無'],['Your Silence effects also deal 1 damage to the target.','你的沉默效果同时对目标造成1点伤害。','自分の沈黙効果が対象に1ダメージも与える。'])],
       [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion.','英雄技能改为「对一个随从造成2点伤害」。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。']),
        TN('sh_drain',['Drain','汲取','吸収'],['Whenever your spell kills an enemy minion, restore 2 Health to your hero.','你的法术每消灭一个敌方随从，为你的英雄恢复2点生命值。','自分の呪文が敵のミニオンを倒すたび、ヒーローの体力を2回復する。'])],
       [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand.','你的暗言术消灭随从后，将它的一张复制置入你的手牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加える。'])]]}],
@@ -1159,7 +1175,8 @@ function talPreset(cls,i){
 function setupTalents(s,cls,sel){
   s.tal=new Set(hasTal(cls)&&validTal(cls,sel||[])?sel:[]);s.ovr={};s.hb=[];s.tf={};s.castHb=0;
   for(const id of s.tal){const o=TOVR[id];if(o)for(const k in o)if(CARDS[k])s.ovr[k]={...s.ovr[k],...o[k]()}}
-  if(tal(s,'fr_blood')||tal(s,'ho_devout')){s.hp+=3;s.max+=3}
+  if(tal(s,'fr_blood')){s.hp+=3;s.max+=3}
+  if(tal(s,'ho_devout')){s.hp+=5;s.max+=5}
   let p=CBY[cls]?CBY[cls].power:s.power;
   if(p&&tal(s,'fi_spark'))p={...p,fx:{...p.fx,dmg:2}};
   if(p&&tal(s,'fr_spark'))p={...p,fx:{...p.fx,freeze:1}};
@@ -1196,6 +1213,8 @@ const TX={
   fight:()=>['To battle','开始战斗','戦いへ'][li()],
   yours:()=>['Your talents','你的天赋','自分のタレント'][li()],foes:()=>['Enemy talents','敌方天赋','敵のタレント'][li()],
   close:()=>['Close','关闭','閉じる'][li()],
+  teaches:()=>['Works with:','配合天赋：','相性の良いタレント：'][li()],takePack:n=>[`Take the ${n} pack`,`选择${n}牌包`,`${n}パックを取る`][li()],
+  packText:(n,o)=>[`Choose a pack for your deck (${n} cards). Next: ${o}.`,`选一个牌包加入牌组（现在${n}张）。下一关：${o}。`,`デッキに加えるパックを選ぶ（現在${n}枚）。次：${o}。`][li()],
   rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. Spend 12 points in the deck builder; in Adventure you earn them duel by duel.','<b>天赋（测试）：</b>法师和牧师各有两页天赋。在组牌界面分配12点；冒险模式中逐关获得。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ。デッキ編集で12ポイントを振り、冒険では1戦ごとに増える。'][li()],
 };
 // Adventure: points before duel s (0-based): 1, 2, 3, 4, then +2 a duel, 12 at the final duel.
@@ -1225,6 +1244,33 @@ function tviewHTML(){
   const s=S[S.tview];if(!s||!s.tal)return '';
   const list=talNames([...s.tal]).map(nd=>`<li style="--tc:${TAL_PAGE[nd.id].col}"><b>${nd.n[li()]}</b>${nd.d[li()]}</li>`).join('');
   return `<div class="mull" role="dialog" aria-label="${TX.talents()}" data-go="tclose"><div class="mbox"><h2>${S.tview==='p'?TX.yours():TX.foes()}</h2><ul class="tvl">${list}</ul><button class="btn" data-go="tclose">${TX.close()}</button></div></div>`;
+}
+// Beta · Adventure for talent classes: a neutral starting deck with one seed card per school, and after each
+// duel a choice of two fixed packs, one per talent page, each naming the talents it teaches.
+const ADV=BETA?{
+  mage:{deck:[...rep('apprentice',2),'wyrmling','missiles','lance','emberbolt','frostbolt',...rep('goblin',2),...rep('harpooneer',2),'geomancer',...rep('lurker',2),'hexer','diver','golem','ogre','archmage','tidepool'],
+    packs:[[[['emberbolt','emberbolt'],['fi_ignite','fi_burn']],[['icelance','icelance'],['fr_blood','fr_armor']]],
+      [[['emberadept','emberadept'],['fi_heart']],[['frostnova','frostnova'],['fr_nova']]],
+      [[['maelstrom','scorch'],['fi_fireball','fi_wildfire']],[['frostbolt','mirror'],['fr_bolt','fr_mirror']]],
+      [[['emberele','emberele'],['fi_heart','fi_bank']],[['frostele','icelance'],['fr_perma']]],
+      [[['scorch','firelem'],['fi_flamearmor','fi_spark']],[['icebarrier','frostele'],['fr_barrier','fr_spark']]],
+      [[['phoenix','firestorm'],['fi_boost']],[['shatter','frostbolt'],['fr_deep']]],
+      [[['maelstrom','missiles'],['fi_boost']],[['frostele','shatter'],['fr_deep']]]]},
+  priest:{deck:[...rep('pearl',2),'holysmite','matins','dispel','swpain',...rep('goblin',2),...rep('harpooneer',2),'burglar',...rep('cleric',2),...rep('lurker',2),'hexer','diver','golem','ogre','treant'],
+    packs:[[[['matins','holysmite'],['ho_smite','ho_devout']],[['dispel','voidacolyte'],['sh_insight','sh_pain']]],
+      [[['mend','holysmite'],['ho_light']],[['spellbreaker','dispel'],['sh_breaker']]],
+      [[['pwshield','matins'],['ho_shield','ho_dawn']],[['swdeath','voidacolyte'],['sh_death','sh_echo']]],
+      [[['cantor','radiant'],['ho_grace']],[['voidacolyte','voidacolyte'],['sh_void']]],
+      [[['requiem','judgment'],['ho_pray','ho_hymn']],[['wordruin','dispel'],['sh_touch','sh_drain']]],
+      [[['revelation','radiant'],['ho_altar']],[['wordtorment','voidacolyte'],['sh_steal']]],
+      [[['judgment','revelation'],['ho_altar']],[['wordtorment','spellbreaker'],['sh_steal']]]]},
+}:{};
+const advPacks=()=>{const a=ADV[R.cls];return a&&a.packs[R.stage]?a.packs[R.stage].map(([cards,hint],i)=>({cards,hint,pg:TALENTS[R.cls][i]})):null};
+function packsHTML(ps){
+  return `<div class="packs">${ps.map((p,i)=>`<div class="pack" style="--tc:${p.pg.col}"><h3>${p.pg.n[li()]}</h3>
+    <div class="pcards">${p.cards.map(k=>cardFace(k,'md','button',`data-zoom="${k}"`)).join('')}</div>
+    <p class="phint">${TX.teaches()} ${p.hint.map(id=>`<b>${TAL_NODE[id].n[li()]}</b>`).join('、')}</p>
+    <button class="btn" data-pack="${i}">${TX.takePack(p.pg.n[li()])}</button></div>`).join('')}</div>`;
 }
 function goStage(){if(hasTal(R.cls)){view='tal';render();scrollTo(0,0)}else startDuel()}
 // ---------- quick match ----------
@@ -1433,7 +1479,7 @@ function startQuick(diff){
     if(pFirst){startTurn('p');render();banner(T('bannerYou'))}else{render();aiTurn()}});
 }
 function goClass(){view='class';render();scrollTo(0,0)}
-function pickClass(id){R.cls=id;R.deck=[...CBY[id].deck];R.tal=[];goStage()}
+function pickClass(id){R.cls=id;R.deck=[...(ADV[id]?ADV[id].deck:CBY[id].deck)];R.tal=[];goStage()}
 const curPower=()=>S&&S.p&&S.p.power||CBY[R.cls].power;
 function powerBlocked(){
   const p=curPower(),me=S.p;
@@ -1507,7 +1553,8 @@ function tickAltar(side,n){
   const done=s.altar.filter(p=>p.cd<=0);if(!done.length)return;
   s.altar=s.altar.filter(p=>p.cd>0);
   for(const p of done){applyFx(side,cardPray(side,p.key).fx,null);pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key));
-    if(tal(s,'ho_grace')){const h=Math.min(3,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)')}}
+    if(tal(s,'ho_grace')){const h=Math.min(3,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)');
+      const t=[...S[other(side)].board].filter(m=>m.hp>0).sort((a,b)=>b.atk-a.atk||a.uid-b.uid)[0];if(t)damage(t,2)}}
 }
 function draw(side,n){
   const s=S[side];
@@ -1544,7 +1591,7 @@ function targetsFor(side,tgt,cond){
   else if(tgt==='friend')v=[S[side],...S[side].board];
   else if(tgt==='enemy')v=[op,...op.board];
   else if(tgt==='foe')v=op.board;
-  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:o.atk>=5)):v;
+  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:cond==='frozen'?!!o.frozen:o.atk>=5)):v;
 }
 function applyFx(side,fx,t,bonus=0,faceB=0){
   const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null;
@@ -1556,7 +1603,7 @@ function applyFx(side,fx,t,bonus=0,faceB=0){
   if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0));if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
   if(mt){
     if(fx.destroy){mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}
-    if(fx.silence){silence(mt);if(tal(me,'sh_void'))damage(mt,2)}
+    if(fx.silence){silence(mt);if(tal(me,'sh_void'))damage(mt,1)}
     if(fx.setAtk){mt.atk=fx.setAtk;mt.tmp=0;float(mt,`${fx.setAtk}/${mt.hp}`,'#cfd8dc')}
     if(fx.setHp){mt.hp=mt.max=fx.setHp;float(mt,`${mt.atk}/${fx.setHp}`,'#cfd8dc')}
     if(fx.freeze&&!fx.icelance)freezeM(side,mt);
@@ -1611,7 +1658,7 @@ function castSpell(side,k,t){
       if(dead.length){
         if(fire&&tal(s,'fi_wildfire'))damage(op,1);
         if(tal(s,'sh_drain')){const h=Math.min(2*dead.length,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)')}
-        if(c.sw&&tal(s,'sh_echo'))damage(op,2*dead.length);
+        if(c.sw&&tal(s,'sh_echo'))damage(op,dead.length);
         if(c.sw&&tal(s,'sh_steal'))dead.forEach(m=>{if(!CARDS[m.key].token&&s.hand.length<10){s.hand.push(m.key);float(s,cn(m.key),'#c4b4ff')}});
       }
       if(fire&&tal(s,'fi_flamearmor')){s.armor+=1;float(s,T('armorN',1),'#cfd8dc')}
@@ -1826,6 +1873,7 @@ function aiPlan(k){
     if(e.board.length>=BOARD_MAX)return null;
     const bc=cardBc('e',k);
     if(bc&&bc.silence)return {t:aiSilenceTarget()};
+    if(bc&&bc.freeze)return {t:[...foes].filter(m=>!m.frozen).sort((a,b)=>b.atk-a.atk)[0]||null};
     if(bc&&bc.tgt==='ally')return {t:aiBestAlly()};
     if(bc&&bc.tgt)return {t:aiDamageTarget(bc.dmg,bc.tgt)};
     return {t:null};
@@ -2494,6 +2542,10 @@ function render(){
   }
   FX=[];
   if(view==='reward'){
+    const ps=advPacks();
+    if(ps){app.innerHTML=header()+routeRow()+`<div class="screen" style="justify-content:flex-start"><h2>${T('defeated',oppName(R.stage))}</h2>
+      <p>${TX.packText(R.deck.length,oppName(R.stage+1))}</p>${packsHTML(ps)}
+      <div class="btns"><button class="btn ghost" data-go="skip">${T('skip')}</button></div></div>`;return}
     app.innerHTML=header()+routeRow()+`<div class="screen"><h2>${T('defeated',oppName(R.stage))}</h2>
       <p>${T('rewardText',R.deck.length,oppName(R.stage+1))}</p>
       <div class="picks">${picks.map((k,i)=>cardFace(k,'md','button',`data-pick="${i}"`)).join('')}</div>
@@ -2512,11 +2564,12 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview]');
+  const b=ev.target.closest('[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview],[data-pack]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.zoom!==undefined)return showZoom(b.dataset.zoom);
   if(b.dataset.tal!==undefined)return talClick(b.dataset.tal);
+  if(b.dataset.pack!==undefined){const ps=advPacks();if(ps){R.deck.push(...ps[+b.dataset.pack].cards);R.stage++;goStage()}return}
   if(b.dataset.tpre!==undefined)return talPresetClick(b.dataset.tpre);
   if(b.dataset.btab!==undefined){Q.btab=b.dataset.btab;return render()}
   if(b.dataset.tview!==undefined){if(S){S.tview=b.dataset.tview;render()}return}
@@ -2631,9 +2684,9 @@ document.addEventListener('click',ev=>{if(lpFired){lpFired=false;ev.stopPropagat
 document.addEventListener('contextmenu',ev=>{if(cardKeyOf(ev.target))ev.preventDefault()});
 initEmbers();
 newRun();
-// Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
+// Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids>&ehp=<n> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
-  if(dc&&CBY[dc]){pickClass(dc);const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
+  if(dc&&CBY[dc]){pickClass(dc);if(view==='tal')startDuel();if(+q.get('ehp'))S.e.hp=+q.get('ehp');const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
     const mins=CBY[dc].deck.filter(k=>CARDS[k].t==='m');for(let i=0;i<Math.min(5,+q.get('board')||0);i++){summon('p',mins[i%mins.length]);summon('e',mins[(i+3)%mins.length])}
     for(let i=0;i<Math.min(8,+q.get('hist')||0);i++)pushHist(i%2?'e':'p',mins[i%mins.length],null);
     // &cards=a,b,c: these cards go in your hand, and the minions among them also on both boards (art checks)
