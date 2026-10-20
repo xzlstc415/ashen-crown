@@ -1450,7 +1450,7 @@ function startQuick(diff){
   const pFirst=Math.random()<.5;
   view='duel';
   const first=pFirst?'p':'e',second=other(first);
-  draw(first,3);draw(second,4);S.turn=first;
+  draw(first,BETA?5:3);draw(second,BETA?5:4);S.turn=first;
   beginMulligan(()=>{S[second].hand.push('coin');say(pFirst?'goFirst':'goSecond');
     if(pFirst){startTurn('p');render();banner(T('bannerYou'))}else{render();aiTurn()}});
 }
@@ -2079,7 +2079,7 @@ function startOnline(d){
   S.e.power=CBY[foeC].power;S.p.cls=myC;S.e.cls=foeC;
   setupTalents(S.p,myC,h?d.ht:d.gt);setupTalents(S.e,foeC,h?d.gt:d.ht);
   const [a,b]=iFirst?['p','e']:['e','p'];
-  draw(a,3);draw(b,4);me.foeMull=null;
+  draw(a,BETA?5:3);draw(b,BETA?5:4);me.foeMull=null;
   beginMulligan(()=>{S[b].hand.push('coin');say(iFirst?'goFirst':'goSecond');startTurn(a);render();banner(iFirst?T('bannerYou'):T('bannerFoe'),!iFirst)});
 }
 // Compact fingerprint of everything both copies must agree on, host's side first.
