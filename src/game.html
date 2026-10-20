@@ -221,6 +221,28 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .aslot.empty{border-style:dashed;opacity:.45}
 .lhero .hres{justify-content:center;margin-top:4px}.lhero .ember{font-size:10px;padding:0 5px}.lhero .aslot{width:26px;height:18px}
 .card.ign{box-shadow:0 0 0 2px #ff8a3a,0 0 14px #ff8a3aaa}
+.hboost{position:absolute;top:-.5em;right:-.4em;z-index:2;background:#ff8a3a;color:#2a130a;font-weight:800;font-size:.95em;border-radius:999px;padding:0 .45em;line-height:1.5em}
+.card .cost.down{background:#2f8a4a}
+.talbtn{font-size:11.5px;font-weight:800;color:var(--gold);background:#2a2430;border:1px solid #e8c35a88;border-radius:999px;padding:1px 8px;line-height:18px}
+.lhero .talbtn{font-size:10px;padding:0 5px}
+.talp{display:grid;gap:10px;width:100%}
+.talhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.talpages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:640px){.talpages{grid-template-columns:1fr}}
+.tpage{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--tc);border-radius:12px;padding:10px;display:grid;gap:8px;min-width:0}
+.tpage h3{margin:0;font-size:15px;display:flex;justify-content:space-between;color:var(--tc)}
+.tpage h3 span{color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+.trow{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:6px}
+.treq{grid-column:1/-1;font-size:11px;color:var(--muted);text-align:left}
+.tnode{display:grid;gap:3px;align-content:start;text-align:left;border:1px solid var(--line);background:#1e1922;color:var(--parch);border-radius:9px;padding:7px 8px;min-width:0}
+.tnode b{font-size:12.5px}.tnode span{font-size:11px;color:var(--muted);line-height:1.35}
+.tnode.on{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 18%,#1e1922);box-shadow:0 0 0 1px var(--tc) inset}
+.tnode.on b{color:var(--tc)}
+.tnode.lock{opacity:.42}
+.trow.cap .tnode{border-style:dashed}.trow.cap .tnode.on{border-style:solid}
+.tvl{list-style:none;margin:0;padding:0;display:grid;gap:6px;text-align:left;max-width:460px}
+.tvl li{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--tc);border-radius:8px;padding:6px 9px;font-size:12.5px}
+.tvl li b{color:var(--tc);margin-right:6px}
 .foot .concede{padding:7px 10px;font-size:12.5px}
 .mode{display:grid;gap:4px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-left:4px solid var(--cc,var(--ember));transition:transform .15s}
 .mode:hover{transform:translateY(-2px)}
@@ -764,7 +786,8 @@ const ART={
   hound:wolfArt('#a07a4a'),
   // beta (class resources)
   emberbolt:'<circle cx="50" cy="34" r="22" fill="#ff8a3a" opacity=".15"/><path d="M50 12Q60 26 56 34Q62 30 61 24Q70 36 62 48Q56 56 50 56Q40 56 36 46Q32 34 42 26Q42 34 46 36Q42 24 50 12Z" fill="#f39a3a"/><path d="M50 30Q55 38 53 44Q50 50 46 46Q44 40 50 30Z" fill="#ffe08a"/><circle cx="26" cy="20" r="1.6" fill="#ffb070"/><circle cx="74" cy="16" r="1.3" fill="#ffb070"/><circle cx="72" cy="44" r="1.8" fill="#ffb070"/>',
-  banked:'<ellipse cx="50" cy="52" rx="32" ry="8" fill="#3a3238"/><path d="M20 52Q30 34 50 32Q70 34 80 52Z" fill="#5a4e52"/><path d="M36 50Q42 40 50 40Q58 40 64 50Z" fill="#e2763a"/><path d="M44 50Q47 44 50 44Q53 44 56 50Z" fill="#ffe08a"/><g fill="#8a7e80"><circle cx="30" cy="46" r="2"/><circle cx="68" cy="45" r="2.4"/><circle cx="56" cy="36" r="1.6"/></g><path d="M50 30q-3-8 2-14q-1 7 3 10" stroke="#9a8a8a" stroke-width="1.5" fill="none" opacity=".7"/>',
+  icelance:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".16"/><path d="M16 58L74 12" stroke="#c4e6ff" stroke-width="5" stroke-linecap="round"/><path d="M70 8l16-4-4 16z" fill="#ffffff"/><g fill="#e8f4ff"><path d="M28 22l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/><path d="M74 44l1.6 3 3 1.6-3 1.6-1.6 3-1.6-3-3-1.6 3-1.6z"/></g>',
+  icebarrier:'<circle cx="50" cy="32" r="28" fill="#8fd0ff" opacity=".14"/><path d="M50 4l24 9v18q0 20-24 31-24-11-24-31V13z" fill="#c4e6ff" opacity=".55" stroke="#e8f4ff" stroke-width="2.4"/><path d="M50 16v32M36 24l28 16M36 40l28-16" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>',
   scorch:'<circle cx="18" cy="44" r="10" fill="#ffe08a" opacity=".5"/><path d="M18 44L96 14" stroke="#f39a3a" stroke-width="8" stroke-linecap="round" opacity=".55"/><path d="M18 44L96 14" stroke="#ffe08a" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="44" r="5" fill="#fff8d8"/><g stroke="#ff8a3a" stroke-width="1.5"><path d="M80 10l6-6M84 24l8 2M70 12l-2-8"/></g>',
   firestorm:'<circle cx="50" cy="30" r="30" fill="#cf4a3f" opacity=".15"/><path d="M50 8a22 22 0 1 1-20 30" stroke="#f39a3a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M50 18a12 12 0 1 1-11 16" stroke="#ffe08a" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M0 64Q10 46 20 52Q26 36 36 50Q44 34 52 50Q60 36 68 50Q76 38 82 52Q92 44 100 64Z" fill="#e2763a"/><path d="M10 64Q20 54 30 58Q40 48 50 58Q60 50 70 58Q80 52 90 64Z" fill="#ffb070"/>',
   emberele:'<circle cx="50" cy="34" r="26" fill="#ff6a2a" opacity=".16"/><path d="M50 6Q62 22 58 30Q66 26 66 18Q78 34 70 50Q62 62 50 62Q38 62 30 50Q22 34 34 18Q34 26 42 30Q38 22 50 6Z" fill="#7a3a2a"/><path d="M50 22Q58 34 56 42Q62 40 62 34Q68 46 60 54Q54 60 50 60Q42 60 38 52Q34 42 42 34Q42 42 46 44Q44 32 50 22Z" fill="#ff8a3a"/><circle cx="44" cy="44" r="2.2" fill="#ffe08a"/><circle cx="56" cy="44" r="2.2" fill="#ffe08a"/><g fill="#ffb070"><circle cx="22" cy="20" r="1.5"/><circle cx="80" cy="14" r="1.8"/><circle cx="84" cy="44" r="1.4"/></g>',
@@ -873,13 +896,14 @@ const CARDS={
   spellbreaker:{cls:'priest',c:4,t:'m',a:4,h:3,r:'r',race:'elf',bc:{silence:1,tgt:'minion'},n:['Elven Spellbreaker','精灵破法者','エルフの呪文破り'],x:['On play: Silence a minion.','登场：沉默一个随从。','登場時：ミニオン1体を沈黙させる。'],f:['Magic is a habit. She breaks habits.','魔法是一种习惯，而她专破习惯。','魔法は癖だ。彼女は癖を断つ。']},
   bubble:{c:1,t:'m',a:2,h:1,r:'t',race:'undead',token:1,n:['Restless Spirit','怨灵','怨霊'],f:['It remembers being angry.','它记得自己曾经很愤怒。','怒っていたことだけは覚えている。']},
   // beta: Mage Embers / Priest Prayers (only on /beta/, removed elsewhere)
-  emberbolt:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{dmg:2,tgt:'any'},ig:{n:2,fx:{dmg:4,tgt:'any'}},n:['Ember Flick','余烬火花','残り火の閃き'],f:['Small fire, patient hands.','小小的火，耐心的手。','小さな火と、辛抱強い手。']},
-  banked:{beta:1,c:1,t:'s',r:'r',cls:'mage',fx:{ember:2,draw:1},n:['Banked Fire','封存火种','埋み火'],f:['Ash on top, heat underneath.','上面是灰，下面是火。','上は灰、下は熱。']},
-  emberadept:{beta:1,c:2,t:'m',a:2,h:3,r:'c',race:'human',cls:'mage',ig:{n:1,st:[1,1]},n:['Ember Adept','余烬学徒','残り火の徒弟'],f:['Burns her notes after memorizing them.','背下来就把笔记烧掉。','覚えたらノートは燃やす。']},
-  scorch:{beta:1,c:3,t:'s',r:'c',cls:'mage',fx:{dmg:4,tgt:'minion'},ig:{n:2,fx:{dmg:4,tgt:'minion',face:3}},n:['Scorching Ray','灼热射线','灼熱光線'],f:['Aim for the seams in the armor.','瞄准铠甲的缝隙。','鎧の継ぎ目を狙え。']},
-  emberele:{beta:1,c:4,t:'m',a:4,h:4,r:'r',race:'elemental',cls:'mage',ig:{n:2,st:[2,2]},n:['Ember Elemental','余烬元素','残り火の精霊'],f:['Every breath of mana you saved made it bigger.','你省下的每一口法力都让它更大。','残した魔力の一息ごとに、大きくなった。']},
-  phoenix:{beta:1,c:5,t:'m',a:5,h:4,r:'e',race:'beast',cls:'mage',ig:{n:3,bc:{dmg:4,tgt:'any'}},n:['Ash Phoenix','灰烬凤凰','灰の不死鳥'],f:['It does not rise from the ashes. It is the ashes.','它不是从灰烬中重生，它就是灰烬。','灰から蘇るのではない。灰そのものだ。']},
-  firestorm:{beta:1,c:6,t:'s',r:'e',cls:'mage',fx:{aoe:3,face:3},ig:{n:3,fx:{aoe:4,face:4}},n:['Firestorm','烈焰风暴','火炎嵐'],f:['The sky remembers every spark.','天空记得每一颗火星。','空はすべての火の粉を覚えている。']},
+  emberbolt:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{dmg:2,tgt:'any'},n:['Ember Flick','余烬火花','残り火の閃き'],f:['Small fire, patient hands.','小小的火，耐心的手。','小さな火と、辛抱強い手。']},
+  icelance:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{icelance:4,tgt:'foe'},n:['Ice Lance','冰枪术','アイスランス'],x:['Freeze an enemy minion. If it was already Frozen, deal 4 damage to it instead.','冻结一个敌方随从。如果它已被冻结，改为对它造成4点伤害。','敵のミニオン1体を凍結させる。すでに凍結しているなら、代わりに4ダメージを与える。'],f:['Cold first. Then sharp.','先冷，再锋利。','まず冷たく、次に鋭く。']},
+  icebarrier:{beta:1,c:3,t:'s',r:'r',cls:'mage',fx:{armor:5,freezeBig:1},n:['Ice Barrier','寒冰屏障','アイスバリア'],x:['Gain 5 Armor. Freeze the enemy minion with the highest Attack.','获得5点护甲。冻结攻击力最高的敌方随从。','装甲を5獲得する。攻撃力が最も高い敵のミニオンを凍結させる。'],f:['The wall is clear. So is the message.','冰墙透明，意思也很明白。','壁は透明だ。言いたいことも。']},
+  emberadept:{beta:1,c:2,t:'m',a:2,h:3,r:'c',race:'human',cls:'mage',n:['Ember Adept','余烬学徒','残り火の徒弟'],f:['Burns her notes after memorizing them.','背下来就把笔记烧掉。','覚えたらノートは燃やす。']},
+  scorch:{beta:1,c:3,t:'s',r:'c',cls:'mage',fx:{dmg:4,tgt:'minion'},n:['Scorching Ray','灼热射线','灼熱光線'],f:['Aim for the seams in the armor.','瞄准铠甲的缝隙。','鎧の継ぎ目を狙え。']},
+  emberele:{beta:1,c:4,t:'m',a:4,h:5,r:'r',race:'elemental',cls:'mage',n:['Ember Elemental','余烬元素','残り火の精霊'],f:['Every breath of mana you saved made it bigger.','你省下的每一口法力都让它更大。','残した魔力の一息ごとに、大きくなった。']},
+  phoenix:{beta:1,c:5,t:'m',a:5,h:4,r:'e',race:'beast',cls:'mage',bc:{dmg:2,tgt:'any'},n:['Ash Phoenix','灰烬凤凰','灰の不死鳥'],f:['It does not rise from the ashes. It is the ashes.','它不是从灰烬中重生，它就是灰烬。','灰から蘇るのではない。灰そのものだ。']},
+  firestorm:{beta:1,c:6,t:'s',r:'e',cls:'mage',fx:{aoe:3,face:3},n:['Firestorm','烈焰风暴','火炎嵐'],f:['The sky remembers every spark.','天空记得每一颗火星。','空はすべての火の粉を覚えている。']},
   matins:{beta:1,c:1,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:2,fx:{heal:8,draw:1}},n:['Dawn Prayer','晨祷','暁の祈り'],f:['Said before sunrise, answered after.','日出前念诵，日出后应验。','日の出前に唱え、日の出後に叶う。']},
   vigil:{beta:1,c:2,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:1,fx:{summon:['acolyte','acolyte']}},n:['Night Vigil','守夜祈祷','夜の祈り'],f:['Two candles, two watchers.','两盏烛火，两位守夜人。','二つの蝋燭、二人の見張り。']},
   sanctuary:{beta:1,c:2,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:2,fx:{team:[1,2]}},n:['Sanctuary','圣所庇佑','聖域の加護'],f:['The walls are thin. The faith is not.','墙很薄，信仰不薄。','壁は薄い。信仰は薄くない。']},
@@ -904,6 +928,11 @@ const CARDS={
 const BETA=typeof ASHEN_BETA!=='undefined'?!!ASHEN_BETA:typeof location!=='undefined'&&/\/beta(\/|$)/.test(location.pathname);
 if(!BETA)for(const k in CARDS)if(CARDS[k].beta){delete CARDS[k];delete ART[k]}
 const EMBER_MAX=5,ALTAR_MAX=2;
+// Beta · talents. Each class card can carry a school (sc) that talents point at.
+if(BETA)Object.entries({maelstrom:'fire',firelem:'fire',emberbolt:'fire',emberadept:'fire',scorch:'fire',emberele:'fire',phoenix:'fire',firestorm:'fire',
+  frostbolt:'frost',frostnova:'frost',mirror:'frost',icelance:'frost',icebarrier:'frost',
+  holysmite:'holy',mend:'holy',pwshield:'holy',matins:'holy',vigil:'holy',sanctuary:'holy',requiem:'holy',judgment:'holy',revelation:'holy',
+  swpain:'shadow',swdeath:'shadow',dispel:'shadow',spellbreaker:'shadow'}).forEach(([k,v])=>{if(CARDS[k]){CARDS[k].sc=v;if(k==='swpain'||k==='swdeath')CARDS[k].sw=1}});
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
 // Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
@@ -928,18 +957,19 @@ function fxText(fx,tgt){
   if(fx.purge)out.push(F.purge(fx.purge));
   if(fx.revive)out.push(F.revive);
   if(fx.hasten)out.push(F.hasten(fx.hasten));
+  if(BETA&&fx.freeze)out.push(['Freeze it.','并冻结目标。','対象を凍結させる。'][li()]);
   return out.join(F.sep);
 }
 function cardText(k){
-  const c=CARDS[k],F=I18N[L].fx;
-  if(c.x)return c.x[li()];
+  const c0=CARDS[k],ov=FOV&&FOV[k],c=ov?{...c0,...ov}:c0,F=I18N[L].fx;
+  if(ov&&ov.x)return ov.x[li()];
+  if(c.x&&!(ov&&(ov.fx||ov.pray)))return c.x[li()];
   const kws=['guard','ward','surge'].filter(x=>c[x]).map(x=>F.kw[x]);
   let s=kws.length?kws.join(F.kwSep)+F.end:'';
   if(c.bc)s+=(s?F.sep:'')+F.onPlay+fxText(c.bc,c.bc.tgt);
   if(c.gasp){const g=CARDS[c.gasp];s+=(s?F.sep:'')+F.last+F.summon(1,g.a,g.h,cn(c.gasp))}
   if(c.fx)s+=fxText(c.fx,c.fx.tgt);
   if(c.pray)s+=F.pray(c.pray.cd)+fxText(c.pray.fx);
-  if(c.ig){const g=c.ig;s+=(s?F.sep:'')+F.ignite(g.n)+(g.st?F.stat(g.st[0],g.st[1])+F.end:g.bc?F.onPlay+fxText(g.bc,g.bc.tgt):fxText(g.fx,g.fx.tgt))}
   return s;
 }
 const ct=cardText;
@@ -962,7 +992,9 @@ const COLLECT=Object.keys(CARDS).filter(k=>!CARDS[k].token);
 const forCls=(k,cls)=>!CARDS[k].cls||CARDS[k].cls===cls;
 function rollRewards(stage){
   const w={c:3,r:2,e:1,l:stage>=2?1:0},pool=[];
-  COLLECT.filter(k=>forCls(k,R.cls)).forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
+  // Beta: cards of the schools you have talents in come up three times as often.
+  const sch=new Set((R.tal||[]).map(id=>TAL_PAGE[id]&&TAL_PAGE[id].sc));
+  COLLECT.filter(k=>forCls(k,R.cls)).forEach(k=>{for(let i=0;i<w[CARDS[k].r]*(CARDS[k].sc&&sch.has(CARDS[k].sc)?3:1);i++)pool.push(k)});
   const out=[];
   while(out.length<3){const k=pool[Math.random()*pool.length|0];if(!out.includes(k))out.push(k)}
   return out;
@@ -998,15 +1030,170 @@ const CLASSES=[
 ];
 if(BETA){
   const cm=CLASSES.find(c=>c.id==='mage'),cp=CLASSES.find(c=>c.id==='priest');
-  cm.power={...cm.power,fx:{dmg:1,ember:1}};
-  cm.tag=['Leave mana unspent to store Embers, then Ignite stronger cards.','把法力留成余烬，再点燃更强的卡牌。','マナを残して残り火を溜め、強化カードに点火する。'];
-  cm.deck=[...rep('apprentice',2),'banked','emberbolt','wyrmling',...rep('emberadept',2),...rep('frostbolt',2),'frostnova','lance','maelstrom','scorch','diver',...rep('emberele',2),'phoenix','archmage','firelem','firestorm'];
-  cp.power={...cp.power,fx:{healT:2,hasten:1}};
-  cp.tag=['Place Prayers on the altar and hold out until they are answered.','把祷文放上祭坛，撑到它们应验。','祭壇に祈祷を置き、成就するまで耐え抜く。'];
+  cm.tag=['Talents: Fire grows your spells, Frost freezes and shatters.','天赋：火焰养大法术，冰霜冻结再击碎。','タレント：炎は呪文を育て、氷は凍らせて砕く。'];
+  cm.deck=[...rep('apprentice',2),'emberbolt','icelance','wyrmling',...rep('emberadept',2),...rep('frostbolt',2),'frostnova','lance','maelstrom','scorch','icebarrier',...rep('emberele',2),'phoenix','archmage','firelem','firestorm'];
+  cp.tag=['Talents: Holy hastens Prayers, Shadow destroys key minions.','天赋：圣光加快祷文，暗影拆掉关键随从。','タレント：聖光は祈祷を早め、影は要のミニオンを消す。'];
   cp.deck=['dispel','goblin','holysmite',...rep('matins',2),'pearl','pwshield',...rep('vigil',2),...rep('cantor',2),'cleric','hymn','swpain','diver','swdeath','golem','revelation','shark','treant'];
 }
 const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
 const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
+// ---------- beta · talents ----------
+// Two pages per class, 4 tiers of 3/3/2/1 nodes. A tier opens once that page has 0/2/4/6 points in the tiers
+// below it. 12 points in all; Adventure hands them out stage by stage.
+const TAL_MAX=12,TIER_REQ=[0,2,4,6];
+const TN=(id,n,d)=>({id,n,d});
+const TALENTS=BETA?{
+  mage:[
+    {id:'fire',sc:'fire',col:'#e2763a',n:['Fire','火焰','炎'],tiers:[
+      [TN('fi_ignite',['Kindle','引燃','着火'],['The first Fire spell you cast each turn deals 1 extra damage.','每回合你施放的第一个火系法术伤害+1。','毎ターン最初に使う火の呪文のダメージ+1。']),
+       TN('fi_heart',['Heart of Flame','炎心','炎の心'],['Your Fire minions have +1 Attack.','你的火系随从+1攻击力。','自分の火のミニオンは攻撃力+1。']),
+       TN('fi_burn',['Searing','灼烧','灼熱'],['Your Fire spells deal 1 extra damage to the enemy hero.','你的火系法术对敌方英雄多造成1点伤害。','自分の火の呪文が敵ヒーローに与えるダメージ+1。'])],
+      [TN('fi_fireball',['Fireball Mastery','火球专精','火球の極意'],['Fireball costs 1 less.','火球术的费用-1。','ファイアボールのコスト-1。']),
+       TN('fi_wildfire',['Wildfire','燎原','燎原'],['When your Fire spell kills a minion, deal 1 damage to the enemy hero (once per spell).','你的火系法术消灭随从时，对敌方英雄造成1点伤害（每个法术一次）。','自分の火の呪文がミニオンを倒した時、敵ヒーローに1ダメージ（呪文1回につき1度）。']),
+       TN('fi_bank',['Banked Heat','积蓄','蓄熱'],['Spell mana can bank up to 5 instead of 3.','法术法力上限从3提高到5。','呪文マナの上限が3から5になる。'])],
+      [TN('fi_spark',['Searing Spark','灼热火花','灼熱の火花'],['Your hero power deals 2 damage.','英雄技能改为造成2点伤害。','ヒーローパワーのダメージが2になる。']),
+       TN('fi_flamearmor',['Flame Armor','焰甲','炎の鎧'],['Whenever you cast a Fire spell, gain 1 Armor.','每当你施放一个火系法术，获得1点护甲。','火の呪文を使うたび、装甲を1獲得する。'])],
+      [TN('fi_boost',['Spell Surge','法术增幅','呪文増幅'],['Whenever you cast a spell, Fire spells in your hand deal +1 damage (up to +3 each).','每当你施放一个法术，手牌中的火系法术伤害+1（每张最多+3）。','呪文を使うたび、手札の火の呪文のダメージ+1（1枚につき最大+3）。'])]]},
+    {id:'frost',sc:'frost',col:'#8fd0ff',n:['Frost','冰霜','氷'],tiers:[
+      [TN('fr_blood',['Cold Blood','冰冷血脉','冷たい血'],['Your hero starts with +3 Health.','英雄起始生命值+3。','ヒーローの初期体力+3。']),
+       TN('fr_armor',['Frost Armor','霜甲','霜の鎧'],['After you use your hero power, gain 1 Armor.','使用英雄技能后获得1点护甲。','ヒーローパワーを使った後、装甲を1獲得する。']),
+       TN('fr_nova',['Hoarfrost','寒霜','霜降'],['Frost Nova costs 1 less.','冰霜新星的费用-1。','フロストノヴァのコスト-1。'])],
+      [TN('fr_bolt',['Frostbolt Mastery','寒冰箭精通','フロストボルトの極意'],['Frostbolt deals 1 extra damage.','寒冰箭多造成1点伤害。','フロストボルトのダメージ+1。']),
+       TN('fr_mirror',['Hall of Mirrors','镜中人','鏡の間'],['Mirror Image summons three.','镜像改为召唤三个。','ミラーイメージが3体になる。']),
+       TN('fr_perma',['Permafrost','永冻','永久凍土'],['Minions you Freeze stay Frozen for an extra turn.','你冻结的随从多冻结一回合。','自分が凍結させたミニオンは1ターン長く凍る。'])],
+      [TN('fr_spark',['Frost Spark','冰霜火花','氷の火花'],['Your hero power also Freezes its target.','英雄技能同时冻结目标。','ヒーローパワーが対象を凍結させる。']),
+       TN('fr_barrier',['Ice Ward','冰屏','氷の守り'],['The first time you Freeze an enemy minion each turn, gain 2 Armor.','每回合你第一次冻结敌方随从时，获得2点护甲。','毎ターン最初に敵のミニオンを凍結させた時、装甲を2獲得する。'])],
+      [TN('fr_deep',['Deep Freeze','深寒','深き凍え'],['Frozen enemy minions take 2 extra damage from everything.','被冻结的敌方随从受到的所有伤害+2。','凍結した敵のミニオンが受けるダメージ+2。'])]]}],
+  priest:[
+    {id:'holy',sc:'holy',col:'#ffe08a',n:['Holy','圣光','聖光'],tiers:[
+      [TN('ho_devout',['Devout','虔诚','敬虔'],['Your hero starts with +3 Health.','英雄起始生命值+3。','ヒーローの初期体力+3。']),
+       TN('ho_smite',['Chastise','惩戒','懲戒'],['Holy Smite deals 1 extra damage.','神圣惩击多造成1点伤害。','ホーリースマイトのダメージ+1。']),
+       TN('ho_light',['Bright Mending','愈光','癒しの輝き'],['Healing Light restores 2 more Health.','治愈之光额外恢复2点生命值。','癒しの光の回復量+2。'])],
+      [TN('ho_shield',['Steadfast Word','坚定真言','揺るがぬ言葉'],['Word of Shielding gives +0/+1 more.','真言术：盾额外+0/+1。','守りの言葉がさらに+0/+1を与える。']),
+       TN('ho_dawn',['First Light','晨光','曙光'],['Dawn Prayer counts down from 1.','晨祷的倒计时改为1。','暁の祈りのカウントが1になる。']),
+       TN('ho_grace',['Grace','神恩','恩寵'],['Whenever one of your Prayers is answered, restore 3 Health to your hero.','每当你的祷文应验，为你的英雄恢复3点生命值。','自分の祈祷が成就するたび、ヒーローの体力を3回復する。'])],
+      [TN('ho_pray',['Supplication','祈愿','祈願'],['Your hero power also counts your Prayers down by 1.','英雄技能同时让你的祷文倒计时-1。','ヒーローパワーが自分の祈祷のカウントも1進める。']),
+       TN('ho_hymn',['Choir','圣咏','聖歌'],['Hymn of Return revives two minions.','复苏圣咏改为复活两个随从。','帰還の聖歌が2体蘇らせる。'])],
+      [TN('ho_altar',['Holy Altar','神圣祭坛','聖なる祭壇'],['Your altar holds 3 Prayers, and each Prayer starts 1 lower (at least 1).','祭坛增加到3个位置；祷文放上祭坛时倒计时-1（至少为1）。','祭壇が3枠になり、祈祷は置いた時にカウント-1（最低1）。'])]]},
+    {id:'shadow',sc:'shadow',col:'#9a6aff',n:['Shadow','暗影','影'],tiers:[
+      [TN('sh_pain',['Spreading Pain','扩展之痛','広がる苦痛'],['Word of Pain can destroy minions with 4 or less Attack.','暗言术：痛可以消灭攻击力不高于4的随从。','苦痛の言葉が攻撃力4以下を破壊できる。']),
+       TN('sh_insight',['Insight','洞察','洞察'],['Dispel also draws a card.','驱散额外抽一张牌。','ディスペルでカードを1枚引く。']),
+       TN('sh_breaker',['Spellrend','破法','破魔'],['Elven Spellbreaker has +1 Attack.','精灵破法者+1攻击力。','エルフの呪文破りの攻撃力+1。'])],
+      [TN('sh_death',['Oblivion','寂灭','寂滅'],['Word of Death costs 1 less.','暗言术：灭的费用-1。','死の言葉のコスト-1。']),
+       TN('sh_echo',['Echo of Pain','痛苦回响','苦痛の残響'],['Whenever your Word spell destroys a minion, deal 2 damage to the enemy hero.','你的暗言术每消灭一个随从，对敌方英雄造成2点伤害。','自分の「言葉」の呪文がミニオンを破壊するたび、敵ヒーローに2ダメージ。']),
+       TN('sh_void',['Void','虚空','虚無'],['Your Silence effects also deal 2 damage to the target.','你的沉默效果同时对目标造成2点伤害。','自分の沈黙効果が対象に2ダメージも与える。'])],
+      [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion.','英雄技能改为「对一个随从造成2点伤害」。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。']),
+       TN('sh_drain',['Drain','汲取','吸収'],['Whenever your spell kills an enemy minion, restore 2 Health to your hero.','你的法术每消灭一个敌方随从，为你的英雄恢复2点生命值。','自分の呪文が敵のミニオンを倒すたび、ヒーローの体力を2回復する。'])],
+      [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand.','你的暗言术消灭随从后，将它的一张复制置入你的手牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加える。'])]]}],
+}:{};
+const TAL_NODE={},TAL_PAGE={};
+for(const cls in TALENTS)TALENTS[cls].forEach(pg=>pg.tiers.forEach((row,t)=>row.forEach(nd=>{nd.t=t;TAL_NODE[nd.id]=nd;TAL_PAGE[nd.id]=pg})));
+const hasTal=cls=>!!TALENTS[cls];
+// Card changes from talents, per card (cost c, effect fx, prayer, rules text x).
+const TOVR={
+  fi_fireball:{maelstrom:()=>({c:CARDS.maelstrom.c-1})},
+  fr_nova:{frostnova:()=>({c:CARDS.frostnova.c-1})},
+  fr_bolt:{frostbolt:()=>({fx:{...CARDS.frostbolt.fx,dmg:CARDS.frostbolt.fx.dmg+1},x:[`Deal ${CARDS.frostbolt.fx.dmg+1} damage and Freeze the target.`,`造成${CARDS.frostbolt.fx.dmg+1}点伤害，并冻结目标。`,`${CARDS.frostbolt.fx.dmg+1}ダメージを与え、対象を凍結させる。`]})},
+  fr_mirror:{mirror:()=>({fx:{summon:['mirrorimg','mirrorimg','mirrorimg']},x:['Summon three 1/3 Mirror Images with Guard.','召唤三个1/3并具有守护的镜像。','ガードを持つ1/3のミラーイメージを3体召喚する。']})},
+  ho_smite:{holysmite:()=>({fx:{...CARDS.holysmite.fx,dmg:CARDS.holysmite.fx.dmg+1}})},
+  ho_light:{mend:()=>({fx:{...CARDS.mend.fx,heal:CARDS.mend.fx.heal+2}})},
+  ho_shield:{pwshield:()=>({fx:{...CARDS.pwshield.fx,buff:[CARDS.pwshield.fx.buff[0],CARDS.pwshield.fx.buff[1]+1]}})},
+  ho_dawn:{matins:()=>({pray:{...CARDS.matins.pray,cd:1}})},
+  ho_hymn:{requiem:()=>({pray:{...CARDS.requiem.pray,fx:{revive:2}}})},
+  sh_pain:{swpain:()=>({fx:{...CARDS.swpain.fx,cond:'atk<=4'},x:['Destroy an enemy minion with 4 or less Attack.','消灭一个攻击力小于或等于4的敌方随从。','攻撃力4以下の敵のミニオン1体を破壊する。']})},
+  sh_insight:{dispel:()=>({fx:{...CARDS.dispel.fx,draw:1},x:['Silence a minion. Draw a card.','沉默一个随从。抽一张牌。','ミニオン1体を沈黙させる。カードを1枚引く。']})},
+  sh_death:{swdeath:()=>({c:CARDS.swdeath.c-1})},
+};
+const tal=(s,id)=>!!(s&&s.tal&&s.tal.has(id));
+// Points spent in a page below tier t.
+const pageBelow=(sel,pg,t)=>sel.filter(id=>TAL_PAGE[id]===pg&&TAL_NODE[id].t<t).length;
+function validTal(cls,sel){
+  if(!Array.isArray(sel))return false;
+  if(!sel.length)return true;
+  if(!TALENTS[cls]||sel.length>TAL_MAX||new Set(sel).size!==sel.length)return false;
+  return sel.every(id=>TAL_NODE[id]&&TALENTS[cls].includes(TAL_PAGE[id])&&pageBelow(sel,TAL_PAGE[id],TAL_NODE[id].t)>=TIER_REQ[TAL_NODE[id].t]);
+}
+// Drop nodes whose tier no longer has enough points under it (after a node below was removed).
+function pruneTal(sel){let a=[...sel],ch=true;while(ch){ch=false;const b=a.filter(id=>pageBelow(a,TAL_PAGE[id],TAL_NODE[id].t)>=TIER_REQ[TAL_NODE[id].t]);if(b.length<a.length){a=b;ch=true}}return a}
+// Presets: 0 = spec into the first page (tiers 1-2 and its capstone, 7) plus 5 in the second; 1 = the reverse;
+// 2 = six and six.
+function talPreset(cls,i){
+  const P=TALENTS[cls];if(!P)return [];
+  const six=pg=>[...pg.tiers[0],...pg.tiers[1]].map(n=>n.id);
+  if(i===2)return [...six(P[0]),...six(P[1])];
+  const [a,b]=i?[P[1],P[0]]:[P[0],P[1]];
+  return [...six(a),a.tiers[3][0].id,...six(b).slice(0,5)];
+}
+// Applies a talent list to a duel side: Health, hero power and card overrides.
+function setupTalents(s,cls,sel){
+  s.tal=new Set(hasTal(cls)&&validTal(cls,sel||[])?sel:[]);s.ovr={};s.hb=[];s.tf={};s.castHb=0;
+  for(const id of s.tal){const o=TOVR[id];if(o)for(const k in o)if(CARDS[k])s.ovr[k]={...s.ovr[k],...o[k]()}}
+  if(tal(s,'fr_blood')||tal(s,'ho_devout')){s.hp+=3;s.max+=3}
+  let p=CBY[cls]?CBY[cls].power:s.power;
+  if(p&&tal(s,'fi_spark'))p={...p,fx:{...p.fx,dmg:2}};
+  if(p&&tal(s,'fr_spark'))p={...p,fx:{...p.fx,freeze:1}};
+  if(p&&tal(s,'sh_touch'))p={...p,tgt:'minion',fx:{dmg:2}};
+  if(p&&tal(s,'ho_pray'))p={...p,fx:{...p.fx,hasten:1}};
+  if(p)s.power=p;
+}
+const ovrOf=(side,k)=>{const s=S&&S[side];return s&&s.ovr&&s.ovr[k]||null};
+const costOf=(side,k)=>{const o=ovrOf(side,k);return o&&o.c!=null?o.c:CARDS[k].c};
+const cardPray=(side,k)=>{const o=ovrOf(side,k);return o&&o.pray||CARDS[k].pray};
+const altarMax=s=>tal(s,'ho_altar')?3:ALTAR_MAX;
+const smCap=s=>tal(s,'fi_bank')?5:3;
+// Spell Surge boosts per card in hand; kept in step with the hand.
+function hbOf(s){if(!s.hb)s.hb=[];while(s.hb.length<s.hand.length)s.hb.push(0);if(s.hb.length>s.hand.length)s.hb.length=s.hand.length;return s.hb}
+function takeHand(side,i){const s=S[side];hbOf(s);s.castHb=s.hb[i]||0;s.hb.splice(i,1);return s.hand.splice(i,1)[0]}
+function afterPower(side){const s=S[side];if(tal(s,'fr_armor')){s.armor+=1;float(s,T('armorN',1),'#cfd8dc')}}
+// Freezing (Permafrost keeps it a turn longer; Ice Ward gives Armor once a turn).
+function freezeM(side,m){
+  const s=S[side];m.frozen=Math.max(+m.frozen||0,tal(s,'fr_perma')&&m.side!==side?2:1);float(m,T('fFreeze'),'var(--foam)');
+  if(m.side!==side&&tal(s,'fr_barrier')&&s.tf&&!s.tf.bar){s.tf.bar=1;s.armor+=2;float(s,T('armorN',2),'#cfd8dc')}
+}
+// Talent summary text for a side (duel info button).
+function talNames(sel){return sel.map(id=>TAL_NODE[id]).filter(Boolean)}
+function ovrFor(sel){const o={};(sel||[]).forEach(id=>{const t=TOVR[id];if(t)for(const k in t)if(CARDS[k])o[k]={...o[k],...t[k]()}});return o}
+const TX={
+  talents:()=>['Talents','天赋','タレント'][li()],cards:()=>['Cards','卡牌','カード'][li()],
+  pts:(n,m)=>[`Points ${n}/${m}`,`天赋点 ${n}/${m}`,`ポイント ${n}/${m}`][li()],
+  bal:()=>['Balanced','均衡','バランス'][li()],reset:()=>['Clear','清空','リセット'][li()],
+  need:n=>[`Opens at ${n} points in this page`,`本页投入${n}点后解锁`,`このページに${n}ポイントで解放`][li()],
+  advT:n=>[`Talents · Duel ${n}`,`第${n}关 · 分配天赋`,`第${n}戦・タレント`][li()],
+  advS:n=>[`You have ${n} talent point${n>1?'s':''}. You can move them before every duel.`,`你现在有${n}点天赋，每关开始前都可以重新分配。`,`タレントポイントは${n}。毎戦の前に振り直せる。`][li()],
+  fight:()=>['To battle','开始战斗','戦いへ'][li()],
+  yours:()=>['Your talents','你的天赋','自分のタレント'][li()],foes:()=>['Enemy talents','敌方天赋','敵のタレント'][li()],
+  close:()=>['Close','关闭','閉じる'][li()],
+  rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. Spend 12 points in the deck builder; in Adventure you earn them duel by duel.','<b>天赋（测试）：</b>法师和牧师各有两页天赋。在组牌界面分配12点；冒险模式中逐关获得。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ。デッキ編集で12ポイントを振り、冒険では1戦ごとに増える。'][li()],
+};
+// Adventure: points before duel s (0-based): 1, 2, 3, 4, then +2 a duel, 12 at the final duel.
+const advPts=()=>Math.min(TAL_MAX,1+Math.min(R.stage,3)+2*Math.max(0,R.stage-3));
+function talCtx(){
+  if(view==='build')return {cls:Q.cls,sel:Q.tal||[],budget:TAL_MAX,set:v=>{Q.tal=v;Q.dirty=true;Q.toast=''}};
+  return {cls:R.cls,sel:R.tal||[],budget:advPts(),set:v=>{R.tal=v}};
+}
+function talClick(id){
+  const c=talCtx(),sel=c.sel,nd=TAL_NODE[id];if(!nd)return;
+  if(sel.includes(id))c.set(pruneTal(sel.filter(x=>x!==id)));
+  else if(sel.length<c.budget&&pageBelow(sel,TAL_PAGE[id],nd.t)>=TIER_REQ[nd.t])c.set([...sel,id]);
+  render();
+}
+function talPanel(){
+  const c=talCtx(),sel=c.sel,P=TALENTS[c.cls];if(!P)return '';
+  const pages=P.map(pg=>{const n=sel.filter(id=>TAL_PAGE[id]===pg).length;
+    const rows=pg.tiers.map((row,t)=>{const open=pageBelow(sel,pg,t)>=TIER_REQ[t];
+      return `<div class="trow${t===3?' cap':''}" style="--n:${row.length}">${open?'':`<span class="treq">🔒 ${TX.need(TIER_REQ[t])}</span>`}${row.map(nd=>{const on=sel.includes(nd.id),ok=on||(open&&sel.length<c.budget);
+        return `<button class="tnode ${on?'on':ok?'avail':'lock'}" data-tal="${nd.id}" aria-pressed="${on}" ${ok?'':'aria-disabled="true"'}><b>${nd.n[li()]}</b><span>${nd.d[li()]}</span></button>`}).join('')}</div>`}).join('');
+    return `<div class="tpage" style="--tc:${pg.col}"><h3>${pg.n[li()]}<span>${n}</span></h3>${rows}</div>`}).join('');
+  const pre=[[0,P[0].n[li()]],[1,P[1].n[li()]],[2,TX.bal()]].map(([i,t])=>`<button class="chip" data-tpre="${i}">${t}</button>`).join('');
+  return `<div class="talp"><div class="talhead"><span class="count ${sel.length===c.budget?'ok':''}">${TX.pts(sel.length,c.budget)}</span><div class="chips">${pre}<button class="chip" data-tpre="x">${TX.reset()}</button></div></div><div class="talpages">${pages}</div></div>`;
+}
+function talPresetClick(v){const c=talCtx();c.set(v==='x'?[]:talPreset(c.cls,+v).slice(0,c.budget));render()}
+function tviewHTML(){
+  const s=S[S.tview];if(!s||!s.tal)return '';
+  const list=talNames([...s.tal]).map(nd=>`<li style="--tc:${TAL_PAGE[nd.id].col}"><b>${nd.n[li()]}</b>${nd.d[li()]}</li>`).join('');
+  return `<div class="mull" role="dialog" aria-label="${TX.talents()}" data-go="tclose"><div class="mbox"><h2>${S.tview==='p'?TX.yours():TX.foes()}</h2><ul class="tvl">${list}</ul><button class="btn" data-go="tclose">${TX.close()}</button></div></div>`;
+}
+function goStage(){if(hasTal(R.cls)){view='tal';render();scrollTo(0,0)}else startDuel()}
 // ---------- quick match ----------
 const DECK_SIZE=25;
 const DIFFS={easy:{rar:['c'],col:'#6aa57e'},normal:{rar:['r','e'],col:'#5a8ae0'},hard:{rar:['e','l'],col:'#cf4a3f'}};
@@ -1046,6 +1233,7 @@ function saveCurrent(asNew){
   let d=!asNew&&Q.editId&&list.find(x=>x.id===Q.editId);
   if(d){d.name=name;d.cards=[...Q.deck];d.t=Date.now()}
   else{d={id:'d'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name,cls:Q.cls,cards:[...Q.deck],t:Date.now()};list.unshift(d);Q.editId=d.id}
+  if(hasTal(Q.cls))d.tal=[...(Q.tal||[])];
   storeSaved(list);Q.dirty=false;Q.toast=T('saved',name);
 }
 function sanitizeDeck(d,cls){const out=[];d.forEach(k=>{if(CARDS[k]&&!CARDS[k].token&&forCls(k,cls)&&copies(out,k)<maxCopies(k)&&out.length<DECK_SIZE)out.push(k)});return out}
@@ -1185,14 +1373,17 @@ function initEmbers(){
 function newRun(){R={stage:0,deck:[],cls:null};S=null;view='intro';render()}
 function goQuick(){Q.delArm=null;Q.ret=null;view='decks';render();scrollTo(0,0)}
 function goNewDeck(){view='qclass';render();scrollTo(0,0)}
+// Beta: a saved deck keeps its talents; older decks start from the first preset.
+const deckTal=d=>hasTal(d.cls)?(Array.isArray(d.tal)&&validTal(d.cls,d.tal)?[...d.tal]:talPreset(d.cls,0)):[];
 function openBuilder(cls,id){
   const d=id&&loadSaved().find(x=>x.id===id);
-  if(d){Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name}
-  else{Q.cls=cls;Q.deck=[...CBY[cls].deck];Q.editId=null;Q.name=nextDefaultName(cls)}
+  if(d){Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name;Q.tal=deckTal(d)}
+  else{Q.cls=cls;Q.deck=[...CBY[cls].deck];Q.editId=null;Q.name=nextDefaultName(cls);Q.tal=talPreset(cls,0)}
+  Q.btab='cards';
   Q.dirty=!d;Q.toast='';view='build';render();scrollTo(0,0);
 }
 function playSaved(id){const d=loadSaved().find(x=>x.id===id);if(!d||d.cards.length!==DECK_SIZE)return;
-  Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name;Q.dirty=false;view='diff';render();scrollTo(0,0)}
+  Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name;Q.tal=deckTal(d);Q.dirty=false;view='diff';render();scrollTo(0,0)}
 function startQuick(diff){
   Q.diff=diff;R={stage:0,deck:[...Q.deck],cls:Q.cls};
   const ecls=CLASSES[Math.random()*CLASSES.length|0].id;
@@ -1200,6 +1391,7 @@ function startQuick(diff){
   S={mode:'quick',diff,ecls,turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
      p:mk('p',30,Q.deck),e:mk('e',30,padDeck(CBY[ecls].deck,DIFFS[diff].rar,ecls))};
   S.e.power=CBY[ecls].power;S.p.cls=Q.cls;S.e.cls=ecls;
+  setupTalents(S.p,Q.cls,Q.tal);setupTalents(S.e,ecls,talPreset(ecls,Math.random()*3|0));
   const pFirst=Math.random()<.5;
   view='duel';
   const first=pFirst?'p':'e',second=other(first);
@@ -1208,8 +1400,8 @@ function startQuick(diff){
     if(pFirst){startTurn('p');render();banner(T('bannerYou'))}else{render();aiTurn()}});
 }
 function goClass(){view='class';render();scrollTo(0,0)}
-function pickClass(id){R.cls=id;R.deck=[...CBY[id].deck];startDuel()}
-const curPower=()=>CBY[R.cls].power;
+function pickClass(id){R.cls=id;R.deck=[...CBY[id].deck];R.tal=[];goStage()}
+const curPower=()=>S&&S.p&&S.p.power||CBY[R.cls].power;
 function powerBlocked(){
   const p=curPower(),me=S.p;
   if(S.turn!=='p'||S.busy||S.over||S.mull||S.pending||me.powerUsed||me.mana<p.c)return true;
@@ -1221,7 +1413,7 @@ function startDuel(){
   const o=OPP[R.stage];
   const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,sm:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false,ember:0,altar:[],grave:[]});
   S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',o.hp,o.deck)};
-  S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;S.p.cls=R.cls;S.e.cls=null;
+  S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;S.p.cls=R.cls;S.e.cls=null;setupTalents(S.p,R.cls,R.tal);
   say('rises',()=>heroName(S.e));
   draw('p',3);draw('e',4);
   beginMulligan(()=>{S.e.hand.push('coin');startTurn('p');render();banner(T('bannerYou'))});
@@ -1231,7 +1423,7 @@ function startDuel(){
 // copies of an online game reach the same hands.
 function mulligan(side,idx){
   const s=S[side],pick=[...new Set(idx)].filter(i=>Number.isInteger(i)&&i>=0&&i<s.hand.length);
-  const back=pick.map(i=>s.hand[i]);s.hand=s.hand.filter((k,i)=>!pick.includes(i));
+  const back=pick.map(i=>s.hand[i]);s.hand=s.hand.filter((k,i)=>!pick.includes(i));s.hb=[];
   for(let n=0;n<back.length&&s.deck.length;n++){s.hand.push(s.deck.pop());if(side==='p')S.drew++}
   s.deck.unshift(...back);
 }
@@ -1260,34 +1452,29 @@ function startTurn(side){
   const s=S[side],o=S[other(side)];
   // The side whose turn just ended banks its unspent mana as spell mana (up to 3), its frozen minions thaw
   // and temporary Attack wears off. Minions frozen during the other turn sit this turn out.
-  // Beta: a Mage banks it as Embers (up to 5) instead.
-  if(BETA&&o.cls==='mage'){const g=Math.min(EMBER_MAX-(o.ember||0),Math.max(0,o.mana));if(g>0){o.ember=(o.ember||0)+g;float(o,T('fEmber',g),'#ffb070')}}
-  else o.sm=Math.min(3,(o.sm||0)+Math.max(0,o.mana));
+  // Beta talents: Banked Heat raises the cap to 5; Permafrost keeps a minion frozen one more turn.
+  o.sm=Math.min(smCap(o),(o.sm||0)+Math.max(0,o.mana));
   o.mana=0;
-  o.board.forEach(m=>{m.frozen=false;if(m.tmp){m.atk-=m.tmp;m.tmp=0}});
+  o.board.forEach(m=>{m.frozen=m.frozen>1?m.frozen-1:false;if(m.tmp){m.atk-=m.tmp;m.tmp=0}});
+  if(s.tf)s.tf={};
   s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
   s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen});
   tickAltar(side,1);
   // Whoever goes first skips the draw on the opening turn (offsets the first-player advantage).
   if(S.opened)draw(side,1);else S.opened=true;
 }
-// Beta · Ignite: with enough Embers a Mage card spends them automatically and uses its stronger version.
-const igniteOf=(side,k)=>{const g=CARDS[k].ig;return g&&(S[side].ember||0)>=g.n?g:null};
-const cardFx=(side,k)=>{const g=igniteOf(side,k);return g&&g.fx?g.fx:CARDS[k].fx};
-const cardBc=(side,k)=>{const g=igniteOf(side,k);return g&&g.bc?g.bc:CARDS[k].bc};
-function spendIgnite(side,k,m){
-  const g=igniteOf(side,k);if(!g)return;S[side].ember-=g.n;
-  if(g.st&&m){m.atk+=g.st[0];m.hp+=g.st[1];m.max+=g.st[1]}
-  float(m||S[side],T('fIgnite'),'#ff8a3a');
-}
+// Beta · talents can change a card's effect for one side.
+const cardFx=(side,k)=>{const o=ovrOf(side,k);return o&&o.fx||CARDS[k].fx};
+const cardBc=(side,k)=>{const o=ovrOf(side,k);return o&&o.bc||CARDS[k].bc};
 // Beta · Prayers wait on the altar and resolve when their countdown reaches 0.
-function placePrayer(side,k){S[side].altar.push({key:k,cd:CARDS[k].pray.cd})}
+function placePrayer(side,k){const s=S[side];s.altar.push({key:k,cd:Math.max(1,cardPray(side,k).cd-(tal(s,'ho_altar')?1:0))})}
 function tickAltar(side,n){
   const s=S[side];if(!s.altar||!s.altar.length)return;
   s.altar.forEach(p=>p.cd-=n);
   const done=s.altar.filter(p=>p.cd<=0);if(!done.length)return;
   s.altar=s.altar.filter(p=>p.cd>0);
-  for(const p of done){applyFx(side,CARDS[p.key].pray.fx,null);pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key))}
+  for(const p of done){applyFx(side,cardPray(side,p.key).fx,null);pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key));
+    if(tal(s,'ho_grace')){const h=Math.min(3,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)')}}
 }
 function draw(side,n){
   const s=S[side];
@@ -1301,13 +1488,14 @@ function summon(side,key){
   const s=S[side];if(s.board.length>=BOARD_MAX)return null;
   const c=CARDS[key];
   const m={uid:++U,key,side,atk:c.a,hp:c.h,max:c.h,base:[c.a,c.h],guard:!!c.guard,ward:!!c.ward,sleep:!c.surge,attacked:false,frozen:false,silenced:false,tmp:0,enter:true};
+  if(s.tal&&((c.sc==='fire'&&tal(s,'fi_heart'))||(key==='spellbreaker'&&tal(s,'sh_breaker'))))m.atk+=1;
   s.board.push(m);return m;
 }
 function damage(o,n){
   if(n<=0)return;
   if(isHero(o)){const a=Math.min(o.armor,n);o.armor-=a;n-=a;o.hp-=n;float(o,n?'-'+n:T('fArmor',a),n?'var(--blood)':'#aab',true)}
   else if(o.ward){o.ward=false;float(o,T('fWard'),'var(--foam)',true)}
-  else{o.hp-=n;float(o,'-'+n,'var(--blood)',true)}
+  else{if(o.frozen&&tal(S[other(o.side)],'fr_deep'))n+=2;o.hp-=n;float(o,'-'+n,'var(--blood)',true)}
 }
 function canAttack(m){return S.turn===m.side&&!m.sleep&&!m.attacked&&m.atk>0}
 function attackTargets(side){
@@ -1323,21 +1511,22 @@ function targetsFor(side,tgt,cond){
   else if(tgt==='friend')v=[S[side],...S[side].board];
   else if(tgt==='enemy')v=[op,...op.board];
   else if(tgt==='foe')v=op.board;
-  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:o.atk>=5)):v;
+  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:o.atk>=5)):v;
 }
-function applyFx(side,fx,t,bonus=0){
+function applyFx(side,fx,t,bonus=0,faceB=0){
   const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null;
   if(fx.selfDmg)damage(me,fx.selfDmg);
+  if(fx.icelance&&mt){if(mt.frozen)damage(mt,fx.icelance+bonus);else freezeM(side,mt)}
   let dmg=fx.dmg||0;
   if(fx.dmgBeast&&me.board.some(m=>CARDS[m.key].race==='beast'))dmg=fx.dmgBeast;
   if(fx.armorDmg)dmg=me.armor;
-  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus);if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
+  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0));if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
   if(mt){
     if(fx.destroy){mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}
-    if(fx.silence)silence(mt);
+    if(fx.silence){silence(mt);if(tal(me,'sh_void'))damage(mt,2)}
     if(fx.setAtk){mt.atk=fx.setAtk;mt.tmp=0;float(mt,`${fx.setAtk}/${mt.hp}`,'#cfd8dc')}
     if(fx.setHp){mt.hp=mt.max=fx.setHp;float(mt,`${mt.atk}/${fx.setHp}`,'#cfd8dc')}
-    if(fx.freeze){mt.frozen=true;float(mt,T('fFreeze'),'var(--foam)')}
+    if(fx.freeze&&!fx.icelance)freezeM(side,mt);
     if(fx.tempAtk){mt.atk+=fx.tempAtk;mt.tmp=(mt.tmp||0)+fx.tempAtk;float(mt,T('fAtk',fx.tempAtk),'var(--ready)')}
     if(fx.buff){mt.atk+=fx.buff[0];mt.hp+=fx.buff[1];mt.max+=fx.buff[1];
       float(mt,fx.buff[0]?T('fAtk',fx.buff[0]):T('fHp',fx.buff[1]),'var(--ready)')}
@@ -1346,9 +1535,10 @@ function applyFx(side,fx,t,bonus=0){
     if(fx.bounce){const o=S[mt.side];ghost(idOf(mt));o.board=o.board.filter(m=>m!==mt);if(o.hand.length<10)o.hand.push(mt.key)}
   }
   if(fx.aoe)[...op.board].forEach(m=>damage(m,fx.aoe+bonus));
-  if(fx.face)damage(op,fx.face+bonus);
+  if(fx.face)damage(op,fx.face+bonus+faceB);
   if(fx.sweep){[...me.board,...op.board].forEach(m=>damage(m,fx.sweep+bonus));if(fx.heroes){damage(op,fx.sweep+bonus);damage(me,fx.sweep+bonus)}}
-  if(fx.freezeAll)op.board.forEach(m=>{m.frozen=true;float(m,T('fFreeze'),'var(--foam)')});
+  if(fx.freezeAll)op.board.forEach(m=>freezeM(side,m));
+  if(fx.freezeBig){const m=[...op.board].sort((a,b)=>b.atk-a.atk)[0];if(m)freezeM(side,m)}
   if(fx.team)me.board.forEach(m=>{m.atk+=fx.team[0];m.hp+=fx.team[1];m.max+=fx.team[1];
     float(m,fx.team[0]?T('fAtk',fx.team[0]):T('fHp',fx.team[1]),'var(--ready)')});
   if(fx.summon)[].concat(fx.summon).forEach(k=>summon(side,k));
@@ -1358,9 +1548,8 @@ function applyFx(side,fx,t,bonus=0){
   if(fx.armor){me.armor+=fx.armor;float(me,T('armorN',fx.armor),'#cfd8dc')}
   if(fx.draw)draw(side,fx.draw);
   if(fx.mana)me.mana+=fx.mana;
-  if(fx.ember){me.ember=Math.min(EMBER_MAX,(me.ember||0)+fx.ember);float(me,T('fEmber',fx.ember),'#ffb070')}
   if(fx.purge)[...me.board,...op.board].forEach(m=>{if(m.atk>=fx.purge){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
-  if(fx.revive){const g=me.grave||[],k=[...g].reverse().find(x=>!CARDS[x].token);
+  for(let r=0;r<(fx.revive||0);r++){const g=me.grave||[],k=[...g].reverse().find(x=>!CARDS[x].token);
     if(k&&me.board.length<BOARD_MAX){g.splice(g.lastIndexOf(k),1);const m=summon(side,k);if(m)float(m,T('fRevive'),'var(--ready)')}}
   if(fx.hasten)tickAltar(side,fx.hasten);
 }
@@ -1370,18 +1559,40 @@ function silence(m){
   m.atk=m.base[0];m.max=m.base[1];if(m.hp>m.max)m.hp=m.max;
   float(m,T('fSilence'),'#aab');
 }
-const spellBonus=side=>S[side].board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].sp||0),0);
+// Spell Damage from minions, plus (beta talents) Kindle on the first Fire spell of a turn and Spell Surge.
+function spellBonus(side,k){
+  const s=S[side];let n=s.board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].sp||0),0);
+  if(k&&s.tal&&CARDS[k].sc==='fire'){if(tal(s,'fi_ignite')&&!(s.tf&&s.tf.fire))n+=1;n+=s.castHb||0}
+  return n;
+}
 // A spell: its effect (plus Spell Damage), then "whenever you cast a spell" minions react.
 function castSpell(side,k,t){
-  if(CARDS[k].pray)placePrayer(side,k);
-  else{const fx=cardFx(side,k);spendIgnite(side,k,null);applyFx(side,fx,t,spellBonus(side))}
+  const s=S[side],op=S[other(side)],c=CARDS[k],fire=c.sc==='fire';
+  if(c.pray)placePrayer(side,k);
+  else{
+    const fx=cardFx(side,k),bonus=spellBonus(side,k),alive=op.board.filter(m=>m.hp>0);
+    if(fire&&s.tf)s.tf.fire=1;
+    applyFx(side,fx,t,bonus,fire&&tal(s,'fi_burn')?1:0);
+    if(s.tal&&s.tal.size){
+      const dead=alive.filter(m=>m.hp<=0);
+      if(dead.length){
+        if(fire&&tal(s,'fi_wildfire'))damage(op,1);
+        if(tal(s,'sh_drain')){const h=Math.min(2*dead.length,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)')}
+        if(c.sw&&tal(s,'sh_echo'))damage(op,2*dead.length);
+        if(c.sw&&tal(s,'sh_steal'))dead.forEach(m=>{if(!CARDS[m.key].token&&s.hand.length<10){s.hand.push(m.key);float(s,cn(m.key),'#c4b4ff')}});
+      }
+      if(fire&&tal(s,'fi_flamearmor')){s.armor+=1;float(s,T('armorN',1),'#cfd8dc')}
+    }
+  }
+  s.castHb=0;
+  if(tal(s,'fi_boost'))hbOf(s).forEach((v,i)=>{const h=CARDS[s.hand[i]];if(h.sc==='fire'&&h.t==='s'&&v<3)s.hb[i]=v+1});
   S[side].board.forEach(m=>{const o=!m.silenced&&CARDS[m.key].onSpell;if(o&&m.hp>0){m.atk+=o[0];m.hp+=o[1];m.max+=o[1];float(m,T('fAtk',o[0]),'var(--ready)')}});
 }
 // Spells spend banked spell mana first; minions use normal mana only.
-const canPay=(side,k)=>CARDS[k].c<=S[side].mana+(CARDS[k].t==='s'?S[side].sm||0:0);
+const canPay=(side,k)=>costOf(side,k)<=S[side].mana+(CARDS[k].t==='s'?S[side].sm||0:0);
 function pay(side,k){
-  const s=S[side],c=CARDS[k];
-  if(c.t==='s'){const u=Math.min(s.sm||0,c.c);s.sm=(s.sm||0)-u;s.mana-=c.c-u}else s.mana-=c.c;
+  const s=S[side],c=CARDS[k],cost=costOf(side,k);
+  if(c.t==='s'){const u=Math.min(s.sm||0,cost);s.sm=(s.sm||0)-u;s.mana-=cost-u}else s.mana-=cost;
 }
 // Visual for an effect, played before the state change.
 async function fxAnim(fx,srcSel,t,side){
@@ -1443,23 +1654,24 @@ async function playHand(i){
   if(c.t==='m'){
     if(S.p.board.length>=BOARD_MAX){say('boardFull');return render()}
     S.busy=true;await flyCard(i,'[data-board="p"]');
-    pay('p',k);S.p.hand.splice(i,1);
-    const bc=cardBc('p',k),m=summon('p',k),ph=pushHist('p',k,null);spendIgnite('p',k,m);say('summon',()=>cn(k));netAct({t:'play',i,k});
+    pay('p',k);takeHand('p',i);
+    const bc=cardBc('p',k),m=summon('p',k),ph=pushHist('p',k,null);say('summon',()=>cn(k));netAct({t:'play',i,k});
     if(bc){
       if(bc.tgt){const v=targetsFor('p',bc.tgt,bc.cond).map(idOf).filter(id=>id!==idOf(m));if(v.length)S.pending={type:'bc',fx:bc,valid:v,key:k,src:idOf(m),hist:ph}}
       else{render();await fxAnim(bc,`[data-t="${idOf(m)}"]`,null,'p');applyFx('p',bc,null)}
     }
     S.busy=false;return after();
   }
-  if(c.pray&&S.p.altar.length>=ALTAR_MAX){say('altarFull');return render()}
-  if(c.fx.tgt){
-    const v=targetsFor('p',c.fx.tgt,c.fx.cond).map(idOf);
+  if(c.pray&&S.p.altar.length>=altarMax(S.p)){say('altarFull');return render()}
+  const cfx=cardFx('p',k);
+  if(cfx.tgt){
+    const v=targetsFor('p',cfx.tgt,cfx.cond).map(idOf);
     if(!v.length){say('noTargets');return render()}
     S.pending={type:'spell',idx:i,valid:v,key:k};return render();
   }
-  S.busy=true;await flyCard(i,c.fx.aoe?'[data-board="e"]':'[data-t="p:h"]');
-  pay('p',k);S.p.hand.splice(i,1);render();
-  await fxAnim(c.fx,'[data-t="p:h"]',null,'p');
+  S.busy=true;await flyCard(i,cfx.aoe?'[data-board="e"]':'[data-t="p:h"]');
+  pay('p',k);takeHand('p',i);render();
+  await fxAnim(cfx,'[data-t="p:h"]',null,'p');
   castSpell('p',k,null);pushHist('p',k,null);say('cast',()=>cn(k));netAct({t:'cast',i,k,tgt:null});S.busy=false;after();
 }
 async function usePower(){
@@ -1468,7 +1680,7 @@ async function usePower(){
   if(p.tgt){S.pending={type:'power',valid:targetsFor('p',p.tgt).map(idOf),key:null};return render()}
   S.busy=true;render();
   await fxAnim(p.fx,'[data-go="power"]',null,'p');
-  S.p.mana-=p.c;S.p.powerUsed=true;applyFx('p',p.fx,null);say('powerUse',()=>pn(p),null);netAct({t:'power',tgt:null});
+  S.p.mana-=p.c;S.p.powerUsed=true;applyFx('p',p.fx,null);afterPower('p');say('powerUse',()=>pn(p),null);netAct({t:'power',tgt:null});
   S.busy=false;after();
 }
 function pendingLabel(){return S.pending.key?cn(S.pending.key):pn(curPower())}
@@ -1477,8 +1689,8 @@ async function resolvePending(t){
   if(p.type==='spell'){
     const k=S.p.hand[p.idx],c=CARDS[k];
     await flyCard(p.idx,`[data-t="${idOf(t)}"]`);
-    pay('p',k);S.p.hand.splice(p.idx,1);render();
-    await fxAnim(c.fx,'[data-t="p:h"]',t,'p');
+    pay('p',k);takeHand('p',p.idx);render();
+    await fxAnim(cardFx('p',k),'[data-t="p:h"]',t,'p');
     castSpell('p',k,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));netAct({t:'cast',i:p.idx,k,tgt:netRef(t)});
   }else if(p.type==='bc'){
     if(p.hist)p.hist.t=t;
@@ -1486,7 +1698,7 @@ async function resolvePending(t){
   }else if(p.type==='power'){
     const pw=curPower();
     await fxAnim(pw.fx,'[data-go="power"]',t,'p');
-    S.p.mana-=pw.c;S.p.powerUsed=true;applyFx('p',pw.fx,t);say('powerUse',()=>pn(pw),()=>nm(t));netAct({t:'power',tgt:netRef(t)});
+    S.p.mana-=pw.c;S.p.powerUsed=true;applyFx('p',pw.fx,t);afterPower('p');say('powerUse',()=>pn(pw),()=>nm(t));netAct({t:'power',tgt:netRef(t)});
   }
   S.busy=false;after();
 }
@@ -1543,7 +1755,7 @@ async function aiPower(){
   else if(!aiWorth(fx))return;
   e.mana-=p.c;
   if(t)await aimAt(t);if(S!==G0)return;
-  await fxAnim(fx,'[data-epow]',t,'e');if(S!==G0)return;applyFx('e',fx,t);
+  await fxAnim(fx,'[data-epow]',t,'e');if(S!==G0)return;applyFx('e',fx,t);afterPower('e');
   say('ePower',()=>heroName(e),()=>pn(p),t?()=>nm(t):null);cleanup();render();await wait(600);if(S!==G0)return;
 }
 function aiBestAlly(){return [...S.e.board].sort((a,b)=>b.atk-a.atk)[0]||null}
@@ -1566,8 +1778,8 @@ function aiSilenceTarget(){
     .sort((a,b)=>val(b)-val(a))[0]||null;
 }
 function aiPrayOk(k){
-  const e=S.e,p=S.p,fx=CARDS[k].pray.fx;
-  if(e.altar.length>=ALTAR_MAX)return false;
+  const e=S.e,p=S.p,fx=cardPray('e',k).fx;
+  if(e.altar.length>=altarMax(e))return false;
   if(fx.revive)return e.grave.some(x=>!CARDS[x].token);
   if(fx.purge){const big=s=>s.board.filter(m=>m.atk>=fx.purge).length;return big(p)>big(e)}
   if(fx.heal&&!fx.draw)return e.hp<=e.max-6;
@@ -1577,8 +1789,6 @@ function aiPrayOk(k){
 function aiPlan(k){
   const c=CARDS[k],e=S.e,foes=S.p.board;
   if(c.pray)return aiPrayOk(k)?{t:null}:null;
-  // Hold an Ignite card for a turn when saving this turn's mana would light it.
-  if(c.ig&&BETA&&e.cls==='mage'&&(e.ember||0)<c.ig.n&&(e.ember||0)+e.mana>=c.ig.n&&!aiEasy())return null;
   if(c.t==='m'){
     if(e.board.length>=BOARD_MAX)return null;
     const bc=cardBc('e',k);
@@ -1587,8 +1797,10 @@ function aiPlan(k){
     if(bc&&bc.tgt)return {t:aiDamageTarget(bc.dmg,bc.tgt)};
     return {t:null};
   }
-  const fx=cardFx('e',k),bonus=spellBonus('e');
+  const fx=cardFx('e',k),bonus=spellBonus('e',k);
   const pick=(list,score)=>list.slice().sort((a,b)=>score(b)-score(a))[0]||null;
+  if(fx.icelance){const fr=foes.filter(m=>m.frozen&&!m.ward);const t=pick(fr.filter(m=>m.hp<=fx.icelance+bonus+(tal(e,'fr_deep')?2:0)),m=>m.atk)||pick(fr,m=>m.atk)||pick(foes.filter(m=>m.atk>=3&&!m.frozen),m=>m.atk);return t?{t}:null}
+  if(fx.freezeBig&&!foes.length&&e.hp>e.max-5)return null;
   if(fx.destroy){const t=pick(targetsFor('e',fx.tgt,fx.cond),val);return t&&val(t)>=(c.c>=3?8:5)?{t}:null}
   if(fx.silence){const t=aiSilenceTarget();return t?{t}:null}
   if(fx.setAtk){const t=pick(foes.filter(m=>m.atk>=4),m=>m.atk);return t?{t}:null}
@@ -1636,16 +1848,17 @@ async function aiTurn(){
   S.busy=true;S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));cleanup();render();banner(T('bannerFoe'),true);await wait(900);if(S!==G0)return;
   const e=S.e,en=()=>heroName(e);
   for(let g=0;g<12&&!S.over;g++){
-    const opts=e.hand.map((k,i)=>({k,i})).filter(o=>canPay('e',o.k)).sort((a,b)=>CARDS[b.k].c-CARDS[a.k].c);
+    const opts=e.hand.map((k,i)=>({k,i})).filter(o=>canPay('e',o.k)).sort((a,b)=>costOf('e',b.k)-costOf('e',a.k));
     let did=false;
     for(const o of opts){
+      e.castHb=hbOf(e)[o.i]||0;
       const plan=aiPlan(o.k);if(!plan)continue;
-      const c=CARDS[o.k],k=o.k;let t=plan.t;pay('e',k);e.hand.splice(o.i,1);
+      const c=CARDS[o.k],k=o.k;let t=plan.t;pay('e',k);takeHand('e',o.i);
       if(c.t==='m'){
         const bc=cardBc('e',k),shown=bc&&bc.tgt?t:null;
         say('eSummon',en,()=>cn(k));render();
         const sp=showPlay('e',k,shown);await wait(1100);if(S!==G0)return;
-        const m=summon('e',k);pushHist('e',k,shown);spendIgnite('e',k,m);render();
+        const m=summon('e',k);pushHist('e',k,shown);render();
         if(bc){
           if(bc.tgt==='ally'&&!t)t=m;
           if(bc.tgt)await aimAt(t);if(S!==G0)return;
@@ -1658,7 +1871,7 @@ async function aiTurn(){
         const sp=showPlay('e',k,t);await wait(1400);if(S!==G0)return;
         pushHist('e',k,t);render();
         await aimAt(t);if(S!==G0)return;
-        await fxAnim(c.fx,sp.card,t,'e');if(S!==G0)return;castSpell('e',k,t);
+        await fxAnim(cardFx('e',k),sp.card,t,'e');if(S!==G0)return;castSpell('e',k,t);
         sp.close();
       }
       did=true;cleanup();render();await wait(500);if(S!==G0)return;break;
@@ -1687,7 +1900,7 @@ let NET=null;
 const O={sel:null,code:'',err:'',toast:'',concedeArm:false,w:0,l:0,lost:null,conceded:false};
 function onlineDecks(){
   // Friend matches use your own saved 25-card decks only, so both sides play the same deck size.
-  return loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards,d.cls)).map(d=>({id:'s:'+d.id,sid:d.id,cls:d.cls,cards:[...d.cards],name:d.name}));
+  return loadSaved().filter(d=>d.cards.length===DECK_SIZE&&validDeck(d.cards,d.cls)).map(d=>({id:'s:'+d.id,sid:d.id,cls:d.cls,cards:[...d.cards],name:d.name,tal:deckTal(d)}));
 }
 function curOnlineDeck(){const l=onlineDecks();return l.find(d=>d.id===O.sel)||l[0]}
 function goOnline(){
@@ -1749,7 +1962,7 @@ async function netStart(host,code){
 function netAttach(c){
   const me=NET;me.conn=c;
   c.on('open',()=>{if(NET!==me)return;clearTimeout(me.to);me.last=Date.now();
-    c.send({t:'hello',v:NET_V,cls:me.deck.cls,deck:me.deck.cards});
+    c.send({t:'hello',v:NET_V,cls:me.deck.cls,deck:me.deck.cards,tal:me.deck.tal||[]});
     me.hb=setInterval(()=>{if(NET!==me)return;netSend({t:'ping'});netWatch()},3000)});
   c.on('data',d=>{if(NET===me)netRecv(d)});
   c.on('close',()=>{if(NET===me)netLost()});
@@ -1777,9 +1990,9 @@ function netRecv(d){
   if(d.t==='ping')return netWatch();
   if(d.t==='hello'){
     if(d.v!==NET_V){netSend({t:'err',k:'errVersion'});return netFail('errVersion')}
-    const ok=Array.isArray(d.deck)&&d.deck.length>=20&&validDeck(d.deck,d.cls)&&CBY[d.cls];
+    const ok=Array.isArray(d.deck)&&d.deck.length>=20&&validDeck(d.deck,d.cls)&&CBY[d.cls]&&validTal(d.cls,d.tal||[]);
     if(!ok){netSend({t:'err',k:'errDeck'});return netFail('errDeck')}
-    me.foe={cls:d.cls,deck:d.deck};me.state='live';
+    me.foe={cls:d.cls,deck:d.deck,tal:d.tal||[]};me.state='live';
     if(me.host)netDeal();else render();
     return;
   }
@@ -1792,7 +2005,7 @@ function netRecv(d){
 }
 function netDeal(){
   const me=NET;me.again=me.foeAgain=false;
-  const d={t:'start',first:Math.random()<.5?'h':'g',hc:me.deck.cls,gc:me.foe.cls,hd:shuffle([...me.deck.cards]),gd:shuffle([...me.foe.deck])};
+  const d={t:'start',first:Math.random()<.5?'h':'g',hc:me.deck.cls,gc:me.foe.cls,hd:shuffle([...me.deck.cards]),gd:shuffle([...me.foe.deck]),ht:me.deck.tal||[],gt:me.foe.tal||[]};
   netSend(d);startOnline(d);
 }
 function startOnline(d){
@@ -1805,19 +2018,20 @@ function startOnline(d){
   S={mode:'online',ecls:foeC,turn:iFirst?'p':'e',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
      order:h?['p','e']:['e','p'],p:mk('p',myD),e:mk('e',foeD)};
   S.e.power=CBY[foeC].power;S.p.cls=myC;S.e.cls=foeC;
+  setupTalents(S.p,myC,h?d.ht:d.gt);setupTalents(S.e,foeC,h?d.gt:d.ht);
   const [a,b]=iFirst?['p','e']:['e','p'];
   draw(a,3);draw(b,4);me.foeMull=null;
   beginMulligan(()=>{S[b].hand.push('coin');say(iFirst?'goFirst':'goSecond');startTurn(a);render();banner(iFirst?T('bannerYou'):T('bannerFoe'),!iFirst)});
 }
 // Compact fingerprint of everything both copies must agree on, host's side first.
 function netHash(){
-  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.ember||0,(s.altar||[]).map(p=>p.key+p.cd),(s.grave||[]).length,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,m.frozen?1:0,m.silenced?1:0,m.tmp||0])];
+  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.ember||0,(s.altar||[]).map(p=>p.key+p.cd),(s.grave||[]).length,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,+m.frozen||0,m.silenced?1:0,m.tmp||0]),...(BETA?[hbOf(s).join(''),JSON.stringify(s.tf||{})]:[])];
   const str=JSON.stringify([S.order.map(k=>sd(S[k])),S.turn===S.order[0]?'h':'g']);
   let x=0;for(let i=0;i<str.length;i++)x=(x*31+str.charCodeAt(i))|0;return x;
 }
 function netSnap(){
   const side=s=>({hp:s.hp,max:s.max,armor:s.armor,mana:s.mana,maxMana:s.maxMana,sm:s.sm||0,deck:[...s.deck],hand:[...s.hand],fat:s.fat,powerUsed:s.powerUsed,ember:s.ember||0,altar:(s.altar||[]).map(p=>({...p})),grave:[...(s.grave||[])],
-    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:!!m.frozen,silenced:!!m.silenced,tmp:m.tmp||0}))});
+    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:m.frozen||false,silenced:!!m.silenced,tmp:m.tmp||0})),...(BETA?{hb:[...hbOf(s)],tf:{...(s.tf||{})}}:{})});
   return {h:side(S[S.order[0]]),g:side(S[S.order[1]]),turn:S.turn===S.order[0]?'h':'g',opened:S.opened,U};
 }
 function netApplySnap(st){
@@ -1861,11 +2075,11 @@ async function remoteAct(a){
   S.busy=true;
   if(a.t==='play'||a.t==='cast'){
     const k=e.hand[a.i];if(k!==a.k)throw new Error('hand out of step');
-    const c=CARDS[k];pay('e',k);e.hand.splice(a.i,1);
+    const c=CARDS[k];pay('e',k);takeHand('e',a.i);
     if(c.t==='m'){
       say('eSummon',en,()=>cn(k));render();
       const sp=showPlay('e',k,null);await wait(900);
-      const bc=cardBc('e',k),m=summon('e',k),hh=pushHist('e',k,null);spendIgnite('e',k,m);S.lastE={m,h:hh,bc};render();
+      const bc=cardBc('e',k),m=summon('e',k),hh=pushHist('e',k,null);S.lastE={m,h:hh,bc};render();
       if(bc&&!bc.tgt){await fxAnim(bc,sp.card,null,'e');applyFx('e',bc,null)}
       sp.close();
     }else{
@@ -1873,7 +2087,7 @@ async function remoteAct(a){
       if(t)say('eCastOn',en,()=>cn(k),()=>nm(t));else say('eCast',en,()=>cn(k));render();
       const sp=showPlay('e',k,t);await wait(1100);pushHist('e',k,t);render();
       if(t)await aimAt(t);
-      await fxAnim(c.fx,sp.card,t,'e');castSpell('e',k,t);sp.close();
+      await fxAnim(cardFx('e',k),sp.card,t,'e');castSpell('e',k,t);sp.close();
     }
   }else if(a.t==='bc'){
     const last=S.lastE,t=netDeref(a.tgt);if(!last||(a.tgt&&!t))throw new Error('battlecry out of step');
@@ -1883,7 +2097,7 @@ async function remoteAct(a){
     const p=e.power,t=netDeref(a.tgt);if(a.tgt&&!t)throw new Error('target missing');
     e.mana-=p.c;e.powerUsed=true;
     if(t)await aimAt(t);
-    await fxAnim(p.fx,'[data-epow]',t,'e');applyFx('e',p.fx,t);say('ePower',en,()=>pn(p),t?()=>nm(t):null);
+    await fxAnim(p.fx,'[data-epow]',t,'e');applyFx('e',p.fx,t);afterPower('e');say('ePower',en,()=>pn(p),t?()=>nm(t):null);
   }else if(a.t==='atk'){
     const m=e.board.find(x=>x.uid===a.a),t=netDeref(a.tgt);if(!m||!t)throw new Error('attack out of step');
     say('attacks',()=>nm(m),()=>nm(t));render();
@@ -1954,13 +2168,15 @@ function oresultHTML(){
 }
 
 // ---------- render ----------
-function cardFace(k,size,tag='button',attrs='',extra=''){
-  const c=CARDS[k],m=c.t==='m';
+// FOV: talent overrides to show (your hand, the deck builder); boost: Spell Surge bonus on a hand card.
+let FOV=null;
+function cardFace(k,size,tag='button',attrs='',extra='',boost=0){
+  const c=CARDS[k],m=c.t==='m',ov=FOV&&FOV[k],cost=ov&&ov.c!=null?ov.c:c.c;
   // The frame colour shows minion or spell; the line names what matters in play: the race (Beasts count for
   // Kill Command) and, for class cards, the class.
   const typ=[m&&T('race')[c.race],c.pray&&T('prayerT'),c.cls&&CBY[c.cls].n[li()]].filter(Boolean).join(' · ');
   return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''} ${size} ${extra}" ${attrs}>
-    <span class="art">${art(k)}</span><span class="cost">${c.c}</span>
+    <span class="art">${art(k)}</span><span class="cost${cost<c.c?' down':''}">${cost}</span>${boost?`<span class="hboost">+${boost}</span>`:''}
     <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span>${typ?`<span class="typ">${typ}</span>`:''}<span class="tx">${kwBold(ct(k))}</span></span>
     ${m?`<span class="stat a">${c.a}</span><span class="stat h">${c.h}</span>`:''}</${tag}>`;
 }
@@ -1991,7 +2207,7 @@ function decksHTML(){
   const list=loadSaved();
   const cards=list.map(d=>{const c=CBY[d.cls],ok=d.cards.length===DECK_SIZE,arm=Q.delArm===d.id;
     return `<div class="dk" style="--cc:${c.col}"><span class="cport">${classArt(c)}</span>
-      <span class="dkt"><b>${esc(d.name)}</b><span class="${ok?'':'warn'}">${c.n[li()]} · ${ok?T('cardsN',d.cards.length):T('notReady',d.cards.length)}</span></span>
+      <span class="dkt"><b>${esc(d.name)}</b><span class="${ok?'':'warn'}">${c.n[li()]} · ${ok?T('cardsN',d.cards.length):T('notReady',d.cards.length)}${hasTal(d.cls)?' · ✦ '+TALENTS[d.cls].map(pg=>pg.n[li()]+' '+deckTal(d).filter(id=>TAL_PAGE[id]===pg).length).join(' / '):''}</span></span>
       <span class="dkb"><button class="btn" data-play="${d.id}" ${ok?'':'disabled'}>${T('playDeck')}</button><button class="btn ghost" data-edit="${d.id}">${T('editShort')}</button><button class="btn ghost ${arm?'danger':''}" data-del="${d.id}">${arm?T('confirmDelete'):T('deleteDeck')}</button></span></div>`}).join('');
   return navRow(['menu',T('toMenu')])+`<div class="screen" style="justify-content:flex-start"><h2>${T('myDecks')}</h2><p>${T('myDecksSub')}</p>
     <div class="btns"><button class="btn" data-go="newdeck">＋ ${T('newDeck')}</button></div>
@@ -2011,14 +2227,16 @@ function builderHTML(){
   const costs=[[0,T('filterAll')],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']];
   const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
     .sort((a,b)=>!!CARDS[b].cls-!!CARDS[a].cls||CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
+  FOV=hasTal(Q.cls)?ovrFor(Q.tal):null;
   const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
-    return `<div class="cslot${CARDS[k].cls?' clsc':''}" style="--cc:${c.col}">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');
-  const toOnline=Q.ret==='online';
+    return `<div class="cslot${CARDS[k].cls?' clsc':''}" style="--cc:${c.col}">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');FOV=null;
+  const toOnline=Q.ret==='online',tt=hasTal(Q.cls);
+  const tabs=tt?`<div class="chips" style="margin:2px 0 8px"><button class="chip ${Q.btab!=='tal'?'on':''}" data-btab="cards">${TX.cards()} ${d.length}/${DECK_SIZE}</button><button class="chip ${Q.btab==='tal'?'on':''}" data-btab="tal">✦ ${TX.talents()} ${(Q.tal||[]).length}/${TAL_MAX}</button></div>`:'';
   return navRow(toOnline?['online',T('modeOnline')]:['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="bhead"><h2>${T('deckTitle',c.n[li()])}</h2><span class="count ${need?'':'ok'}">${d.length}/${DECK_SIZE}</span></div>
     <div class="namebar"><input id="deckname" type="text" maxlength="28" autocomplete="off" aria-label="${T('deckName')}" placeholder="${T('deckName')}" value="${esc(Q.name)}">
       <button class="btn ${Q.dirty?'':'ghost'}" data-go="savedeck">${Q.dirty?T('saveDeck'):'✓ '+T('savedState')}</button>
       ${Q.editId?`<button class="btn ghost" data-go="saveasnew">${T('saveAsNew')}</button>`:''}</div>
-    <p class="bnote">${T('deckRules',DECK_SIZE)} ${T('tapAdd')}</p>
+    ${tabs}${tt&&Q.btab==='tal'?talPanel():`<p class="bnote">${T('deckRules',DECK_SIZE)} ${T('tapAdd')}</p>
     <div class="bwrap">
       <div class="bdeck">
         <div class="meta">${T('curve')}</div>${curve}
@@ -2030,7 +2248,7 @@ function builderHTML(){
         <div class="chips" style="margin-top:6px">${costs.map(([v,t])=>`<button class="chip ${Q.cost===v?'on':''}" data-fcost="${v}">${t}</button>`).join('')}</div>
         <div class="coll">${coll}</div>
       </div>
-    </div>
+    </div>`}
     <div class="bfoot"><span class="toast" aria-live="polite">${Q.toast||(Q.dirty&&Q.editId?T('unsaved'):need?T('deckNeed',need):T('deckReady'))}</span>
       ${toOnline?`<button class="btn" data-go="ouse" ${need?'disabled':''}>${T('useDeck')}</button>`:`<button class="btn" data-go="todiff" ${need?'disabled':''}>${T('nextDiff')}</button>`}</div>`;
 }
@@ -2058,13 +2276,14 @@ function tclass(id){
   if(S.sel!=null&&id[0]==='e'&&attackTargets('p').map(idOf).includes(id))return ' target';
   return '';
 }
-// Beta class resources next to the hero: Mage Embers and the Priest altar (tap a Prayer to read it).
+// Beta: the Priest altar next to the hero (tap a Prayer to read it) and a button listing the side's talents.
 function resHTML(s){
   if(!BETA)return '';
-  const em=s.cls==='mage'||s.ember?`<span class="ember" aria-label="${T('emberLbl',s.ember||0)}">${T('emberLbl',s.ember||0)}</span>`:'';
-  const al=s.cls==='priest'||(s.altar&&s.altar.length)?`<span class="altar" aria-label="${T('altarLbl')}">${[0,1].map(i=>{const p=s.altar[i];
+  const n=altarMax(s);
+  const al=s.cls==='priest'||(s.altar&&s.altar.length)?`<span class="altar" aria-label="${T('altarLbl')}">${Array.from({length:n},(_,i)=>{const p=s.altar[i];
     return p?`<button class="aslot" data-zoom="${p.key}" aria-label="${cn(p.key)}: ${p.cd}">${art(p.key)}<b>${p.cd}</b></button>`:'<span class="aslot empty"></span>'}).join('')}</span>`:'';
-  return em||al?`<span class="hres">${em}${al}</span>`:'';
+  const tb=s.tal&&s.tal.size?`<button class="talbtn" data-tview="${s.side}" aria-label="${TX.talents()}: ${s.tal.size}">✦${s.tal.size}</button>`:'';
+  return al||tb?`<span class="hres">${tb}${al}</span>`:'';
 }
 function heroHTML(s){
   const id=idOf(s),foe=s.side==='e',name=heroName(s);
@@ -2111,19 +2330,20 @@ function handHTML(){
   const newFrom=S.p.hand.length-S.drew;
   return S.p.hand.map((k,i)=>{
     const c=CARDS[k];let ex='';
-    const ok=S.turn==='p'&&!S.busy&&!S.over&&canPay('p',k)&&!S.pending&&!(c.pray&&S.p.altar.length>=ALTAR_MAX);
+    const ok=S.turn==='p'&&!S.busy&&!S.over&&canPay('p',k)&&!S.pending&&!(c.pray&&S.p.altar.length>=altarMax(S.p));
     if(ok)ex+=' play';else if(!canPay('p',k))ex+=' off';
-    if(c.ig&&(S.p.ember||0)>=c.ig.n)ex+=' ign';
+    const hb=S.p.tal?hbOf(S.p)[i]:0;if(hb)ex+=' ign';
     if(S.pending&&S.pending.type==='spell'&&S.pending.idx===i)ex+=' pend';
     if(S.hsel===i&&LAND.matches)ex+=' hsel';
     let st='';if(i>=newFrom){ex+=' drawn';st=`style="--d:${(i-newFrom)*110}ms"`}
-    const aria=T('cardAria',cn(k),c.c,c.t==='m'?T('statsAria',c.a,c.h):'',ct(k));
-    return cardFace(k,'sm','button',`data-hand="${i}" ${st} aria-label="${aria}"`,ex);
+    FOV=S.p.ovr||null;
+    const aria=T('cardAria',cn(k),costOf('p',k),c.t==='m'?T('statsAria',c.a,c.h):'',ct(k))+(hb?' +'+hb:'');
+    const h=cardFace(k,'sm','button',`data-hand="${i}" ${st} aria-label="${aria}"`,ex,hb);FOV=null;return h;
   }).join('');
 }
 function hasMoves(){
   const p=S.p;
-  return p.hand.some(k=>canPay('p',k)&&(CARDS[k].pray?p.altar.length<ALTAR_MAX:CARDS[k].t==='s'||p.board.length<BOARD_MAX))||p.board.some(canAttack)||!powerBlocked();
+  return p.hand.some(k=>canPay('p',k)&&(CARDS[k].pray?p.altar.length<altarMax(p):CARDS[k].t==='s'||p.board.length<BOARD_MAX))||p.board.some(canAttack)||!powerBlocked();
 }
 function galleryHTML(){
   const keys=Object.keys(CARDS);
@@ -2200,6 +2420,8 @@ function render(){
   const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
   const app=$('#app');app.classList.toggle('duelland',view==='duel'&&LAND.matches);
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
+  if(view==='tal'){app.innerHTML=header()+routeRow()+`<div class="screen" style="justify-content:flex-start"><h2>${TX.advT(R.stage+1)}</h2><p>${TX.advS(advPts())}</p>${talPanel()}
+    <div class="btns"><button class="btn" data-go="talgo">${TX.fight()}</button></div></div>`;FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
   if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
   if(view==='qclass'){app.innerHTML=header()+navRow(Q.ret==='online'?['online',T('modeOnline')]:['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('pickClassNew')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
@@ -2214,11 +2436,11 @@ function render(){
       <div class="modes"><button class="mode" style="--cc:var(--ember)" data-go="start"><b>${T('modeCamp')}</b><span>${T('modeCampSub')}</span></button>
         <button class="mode" style="--cc:var(--arcane)" data-go="quick"><b>${T('modeQuick')}</b><span>${T('modeQuickSub')}</span></button>
         <button class="mode" style="--cc:var(--kelp)" data-go="online"><b>${T('modeOnline')}</b><span>${T('modeOnlineSub')}</span></button></div>
-      <ul class="rules">${[...T('rules'),...(BETA?[T('rEmber'),T('rPrayer')]:[]),T('lpHint')].map(r=>`<li>${r}</li>`).join('')}</ul>
+      <ul class="rules">${[...T('rules'),...(BETA?[TX.rule(),T('rPrayer')]:[]),T('lpHint')].map(r=>`<li>${r}</li>`).join('')}</ul>
       <div class="btns"><button class="btn ghost" data-go="gallery">${T('viewCards')}</button></div></div>`;
     return;
   }
-  if(view==='duel'&&LAND.matches){app.innerHTML=duelLandHTML()+(S.mull?mullHTML():'');S.drew=0;fitHand();afterDuelRender();return}
+  if(view==='duel'&&LAND.matches){app.innerHTML=duelLandHTML()+(S.mull?mullHTML():'')+(S.tview?tviewHTML():'');S.drew=0;fitHand();afterDuelRender();return}
   if(view==='duel'){
     const pend=S.pending?`<span>${T('chooseTarget',pendingLabel())}</span><button class="btn ghost" data-go="cancel">${T('cancel')}</button>`:`<span>${logText()}</span>`;
     const myTurn=S.turn==='p'&&!S.busy&&!S.over;
@@ -2231,7 +2453,7 @@ function render(){
       <div class="foot"><span class="meta">${S.turn==='p'?T('yourTurn'):T('acting',heroName(S.e))}</span>
         ${S.mode==='online'&&!S.over?`<button class="btn ghost concede ${O.concedeArm?'danger':''}" data-go="concede">${O.concedeArm?T('concedeSure'):'⚑ '+T('concede')}</button>`:''}
         ${S.mode!=='online'?`<button class="btn ghost concede ${Q.quitArm?'danger':''}" data-go="quit" aria-label="${T('quitAria')}">${Q.quitArm?T('quitSure'):'⌂ '+T('toMenu')}</button>`:''}
-        <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`+(S.mull?mullHTML():'');
+        <button class="btn ${myTurn&&!hasMoves()?'glow':''}" data-go="end" ${myTurn?'':'disabled'}>${T('endTurn')}</button></div>`+(S.mull?mullHTML():'')+(S.tview?tviewHTML():'');
     S.drew=0;afterDuelRender();
     return;
   }
@@ -2255,20 +2477,25 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom]');
+  const b=ev.target.closest('[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.zoom!==undefined)return showZoom(b.dataset.zoom);
+  if(b.dataset.tal!==undefined)return talClick(b.dataset.tal);
+  if(b.dataset.tpre!==undefined)return talPresetClick(b.dataset.tpre);
+  if(b.dataset.btab!==undefined){Q.btab=b.dataset.btab;return render()}
+  if(b.dataset.tview!==undefined){if(S){S.tview=b.dataset.tview;render()}return}
+  if(b.dataset.go==='tclose'){if(S){S.tview=null;render()}return}
   if(b.dataset.go==='peekclose')return closePeek();
   if(b.dataset.t)return clickTarget(b.dataset.t);
   if(b.dataset.mull!==undefined){const m=S&&S.mull;if(m&&!m.mine){const i=+b.dataset.mull;m.pick.has(i)?m.pick.delete(i):m.pick.add(i);render()}return}
   if(b.dataset.hand!==undefined){const i=+b.dataset.hand;
     // Landscape: the first tap previews a card; a spell that needs a target goes straight to choosing it.
     const hk=S&&S.p.hand[i],hc=hk&&CARDS[hk];
-    const aim=hc&&hc.t==='s'&&hc.fx&&hc.fx.tgt&&canPay('p',hk)&&S.turn==='p'&&!S.busy&&!S.over;
+    const aim=hc&&hc.t==='s'&&hc.fx&&cardFx('p',hk).tgt&&canPay('p',hk)&&S.turn==='p'&&!S.busy&&!S.over;
     if(LAND.matches&&S&&S.hsel!==i&&!S.pending&&!aim){S.hsel=i;return render()}
     if(S)S.hsel=null;return playHand(i)}
-  if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return startDuel()}
+  if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return goStage()}
   if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
   if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
   if(b.dataset.add!==undefined){const k=b.dataset.add;
@@ -2289,11 +2516,12 @@ document.addEventListener('click',ev=>{
   if(g==='gallery'){if(view!=='gallery'){prevView=view;view='gallery';render();scrollTo(0,0)}}
   else if(g==='back'){view=prevView;render()}
   else if(g==='start')goClass();
-  else if(g==='retry')startDuel();
+  else if(g==='retry')goStage();
+  else if(g==='talgo')startDuel();
   else if(g==='end')endTurn();
   else if(g==='power')usePower();
   else if(g==='cancel'){S.pending=null;render()}
-  else if(g==='skip'){R.stage++;startDuel()}
+  else if(g==='skip'){R.stage++;goStage()}
   else if(g==='newrun')newRun();
   else if(g==='quick'||g==='qclassback')goQuick();
   else if(g==='menu'){netClose(true);newRun();scrollTo(0,0)}
