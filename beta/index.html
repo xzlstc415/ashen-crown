@@ -1004,7 +1004,7 @@ const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
 // Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
 // id -> content hash, and the hash in the URL makes a replaced painting skip any cached copy.
-const PAINTED={"direwolf":"ff584692","frostbolt":"13aed245","knight":"36becf70","leviathan":"1c8ac206"};
+const PAINTED={"apprentice":"46224d5c","breath":"601b3b42","bubble":"56846410","coin":"555c2f4d","darkpact":"d10c68cd","direwolf":"ff584692","dispel":"a52e283b","frostbolt":"13aed245","frostnova":"ccabc9f9","goblin":"33701e4d","hellfire":"a4466326","holysmite":"b62b8551","huntmark":"7f2c0bf7","inferno":"0e203c90","killcmd":"74683904","knight":"36becf70","lance":"e79b2b90","leviathan":"1c8ac206","maelstrom":"13175e15","mend":"6b138dd5","mirror":"88d85999","mirrorimg":"11eef552","missiles":"75c228cc","pearl":"f65c8c13","radiant":"1b3da94f","raisedead":"d0e66099","shieldslam":"2789a381","shieldwall":"ad5929c8","skeleton":"eabb6f65","swdeath":"2aafd3f2","tidepool":"90a64938","undertow":"814ba88e","wyrmling":"45a07597"};
 const art=k=>PAINTED[k]?`<img src="img/cards/${k}.jpg?v=${PAINTED[k]}" alt="" loading="lazy" decoding="async">`:`<svg viewBox="0 0 100 64" aria-hidden="true">${ART[k]||''}</svg>`;
 function fxText(fx,tgt){
   const F=I18N[L].fx,out=[];
