@@ -63,21 +63,20 @@ private struct HandSlot: View {
         let fan = mode != .dormant
         let aboveLine = dragging && (vm.drag?.aboveLine ?? false)
 
-        // Slot in the hand: a straight row right-aligned beside your hero, overlapping as much as needed (right card on top).
-        let spacing = n > 1 ? min(hm.cardW * 0.62, (hm.handMaxX - hm.handMinX - hm.cardW) / CGFloat(n - 1)) : 0
-        let fx = hm.handMaxX - hm.cardW / 2 - CGFloat(n - 1 - index) * spacing
+        // Slot in the hand: a straight row centred under your hero, overlapping as much as needed (right card on top).
+        let rowMax = 2 * min(hm.heroX - hm.handMinX, hm.handMaxX - hm.heroX)
+        let spacing = n > 1 ? min(hm.cardW * 0.8, (rowMax - hm.cardW) / CGFloat(n - 1)) : 0
+        let fx = hm.heroX + (CGFloat(index) - CGFloat(n - 1) / 2) * spacing
         let rot: CGFloat = 0
-        let fy = hm.baseY + (pend ? -16 : 0)
+        let fy = hm.baseY + (pend ? -hm.lift : 0)
 
         var pos: CGPoint, scale: CGFloat, angle: CGFloat, z: Double
         if dragging, let d = vm.drag {
             pos = CGPoint(x: d.pt.x - origin.x, y: d.pt.y - origin.y - hm.cardH * 0.18)
             scale = aboveLine ? 0.92 : 1.06; angle = 0; z = 100
         } else if lifted {
-            let sc = hm.liftScale
-            let half = hm.cardW * sc / 2
-            pos = CGPoint(x: min(max(fx, hm.leftW + half + 4), hm.handMaxX - half), y: hm.line - hm.cardH * sc / 2 - 2)
-            scale = sc; angle = 0; z = 100
+            pos = CGPoint(x: fx, y: hm.baseY - hm.lift)
+            scale = 1; angle = 0; z = 100
         } else if fan {
             pos = CGPoint(x: fx, y: fy); scale = 1; angle = rot; z = Double(index)
         } else {

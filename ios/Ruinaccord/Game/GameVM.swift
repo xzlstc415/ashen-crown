@@ -128,6 +128,13 @@ final class GameVM {
     var drag: Drag?
     /// The battle log panel (every play of the game, by turn).
     var showLog = false
+    /// A board minion being held down: its card shows in the info panel.
+    var infoKey: String?
+    /// The card described in the top-left panel: the lifted hand card, else the held minion.
+    var infoCard: Card? {
+        if let i = hsel, let k = state?.p.hand[safe: i], let c = gd.card(k) { return c }
+        return infoKey.flatMap(gd.card)
+    }
     /// Single-player duels: first tap on Leave arms it; `abandoned` stops the game without a result screen.
     var quitArm = false
     var abandoned = false
@@ -356,7 +363,7 @@ final class GameVM {
     private func resetDuelUI() {
         log = nil; pending = nil; sel = nil; busy = false; hist = []; floats = []; hitTick = [:]; drewCount = 0
         reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil
-        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil; showLog = false
+        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil; showLog = false; infoKey = nil
     }
 
     func startQuick(_ diff: Difficulty) {

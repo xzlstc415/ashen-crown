@@ -197,7 +197,8 @@ struct MinionView: View {
         .reportFrame { vm.frames[m.id] = $0 }
         .contentShape(Rectangle())
         .pressDrag(onTap: { vm.tap(m.id) },
-                   onHold: { vm.zoomCard = m.key },
+                   onHold: { vm.infoKey = m.key },
+                   onHoldEnd: { if vm.infoKey == m.key { vm.infoKey = nil } },
                    onDrag: { p in if m.side == .p { vm.dragMinion(m.id, to: p) } },
                    onDrop: { _ in vm.dropMinion() })
         .accessibilityLabel(Text("\(tx.name(m.card.names)), \(m.atk)/\(m.hp) \(kws.joined(separator: " "))"))
@@ -362,14 +363,14 @@ struct HeroFace: View {
                 .background(ShieldShape().fill(LinearGradient(colors: [Color(hex: "#e0564a"), Color(hex: "#8a1f18")], startPoint: .top, endPoint: .bottom)))
                 .overlay(ShieldShape().stroke(Color(hex: "#f3c97a"), lineWidth: 1.5))
                 .shadow(color: .black.opacity(0.6), radius: 2, y: 1)
-                .offset(x: 20 * k, y: -size * 0.18)
+                .offset(x: 22 * k, y: -6)
                 .accessibilityHidden(true)
         }
-        .overlay(alignment: .bottomLeading) {
-            StatGem(value: h.armor, colors: [Color(hex: "#9aa3ad"), Color(hex: "#4a525c")], dim: h.armor == 0, label: tx.armor).offset(x: -9, y: 6)
+        .overlay(alignment: .topLeading) {
+            StatGem(value: h.armor, colors: [Color(hex: "#9aa3ad"), Color(hex: "#4a525c")], dim: h.armor == 0, label: tx.armor).offset(x: -10, y: -6)
         }
-        .overlay(alignment: .bottomTrailing) {
-            StatGem(value: h.spellMana, colors: [Color(hex: "#b48cf0"), Color(hex: "#5a3a9a")], dim: h.spellMana == 0, label: tx.spellManaShort).offset(x: 9, y: 6)
+        .overlay(alignment: .topTrailing) {
+            StatGem(value: h.spellMana, colors: [Color(hex: "#b48cf0"), Color(hex: "#5a3a9a")], dim: h.spellMana == 0, label: tx.spellManaShort).offset(x: 10, y: -6)
         }
         .shake(tick: vm.hitTick[id] ?? 0)
         .overlay(alignment: .top) { FloatStack(eid: id) }

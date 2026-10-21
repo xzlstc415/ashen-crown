@@ -5,6 +5,8 @@ import SwiftUI
 /// right of your hero, mana / end turn / hero power in a column on the right, menu and battle log on the left.
 struct HandMetrics: Equatable {
     let size: CGSize
+    /// The screen continues this far below the duel area (home indicator); cards may hang into it.
+    var bottomInset: CGFloat = 0
     var leftW: CGFloat { 54 }
     var rightW: CGFloat { 116 }
     /// Height of the strip holding the enemy hero, their hand backs and counts.
@@ -15,28 +17,33 @@ struct HandMetrics: Equatable {
     /// Card size: whatever height is left under the boards, capped for big screens.
     var em: CGFloat {
         let free = size.height - 12 - topH - 2 * rowH - lineH - 16
-        return min(11, max(6, (free - 4) / (15.6 * 0.92)))
+        return min(11, max(6, (free - 24 + bottomInset) / (15.6 * 0.7)))
     }
     var cardW: CGFloat { 10 * em }
     var cardH: CGFloat { 15.6 * em }
-    /// How far the hand cards hang below the bottom edge.
-    var sink: CGFloat { cardH * 0.08 }
+    /// The hand hangs off the bottom edge (Shadowverse): only the top part of each card shows until it is lifted.
+    var sink: CGFloat { cardH * 0.3 }
+    /// The part of a hand card inside the duel area.
+    var visible: CGFloat { cardH - sink - bottomInset }
     /// Height the board column leaves free at the bottom for your hero and the hand.
-    var reserve: CGFloat { cardH - sink + 4 }
+    var reserve: CGFloat { visible + 24 }
     /// Local y above which a dragged card counts as played.
     var line: CGFloat { size.height - reserve - 12 }
-    /// Centre x of the heroes (the middle of the board column).
+    /// Centre x of the heroes and of the hand (the middle of the board column).
     var heroX: CGFloat { leftW + (size.width - leftW - rightW) / 2 }
-    /// The hand sits to the right of your hero, up to the right column.
-    var handMinX: CGFloat { heroX + 48 }
+    /// Centre y of your hero's portrait: its lower half sits behind the hand.
+    var heroY: CGFloat { size.height - visible - 10 }
+    var heroSize: CGFloat { 52 }
+    /// The hand may spread across the whole board column.
+    var handMinX: CGFloat { leftW + 70 }
     var handMaxX: CGFloat { size.width - rightW - 4 }
     /// Centre y of a card in the hand.
-    var baseY: CGFloat { size.height - cardH / 2 + sink }
+    var baseY: CGFloat { size.height + bottomInset + sink - cardH / 2 }
     var cornerScale: CGFloat { 0.42 }
-    /// Where the parked hand stacks and drawn cards come from: the deck, at the hand's right end.
+    /// Where the parked hand stacks and drawn cards come from: the deck, at the right end of the hand area.
     var corner: CGPoint { CGPoint(x: handMaxX - cardW * cornerScale / 2 - 2, y: size.height - cardH * cornerScale / 2 - 6) }
-    /// Scale of a lifted card: as big as fits above the play line.
-    var liftScale: CGFloat { min(1.8, (line - 10) / cardH) }
+    /// A lifted card rises until it is fully visible.
+    var lift: CGFloat { sink + 10 }
 }
 
 struct DuelView: View {
@@ -57,7 +64,7 @@ struct DuelView: View {
                 Color.clear.frame(height: hm.reserve)
             }
             .overlay(alignment: .bottom) {
-                HeroCluster(side: .p).frame(maxWidth: .infinity, alignment: .center).offset(y: -2)
+                HeroFace(side: .p, size: hm.heroSize).offset(y: hm.heroY - (hm.size.height - 6 - hm.heroSize / 2))
             }
             RightColumn(hm: hm).frame(width: hm.rightW)
         })
@@ -472,6 +479,46 @@ private struct LogPlayRow: View {
             .overlay(RoundedRectangle(cornerRadius: 6).stroke(foe ? Color(hex: "#6d3a33") : Color(hex: "#3a5a8a"), lineWidth: 1))
         }
         .buttonStyle(.plain)
+    }
+}
+
+/// Shadowverse-style card description, top left: cost, name, type, stats and rules text of the lifted hand card
+/// or the held board minion.
+struct CardInfoPanel: View {
+    let card: Card
+    let hm: HandMetrics
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        let tx = vm.tx, cjk = vm.lang.isCJK
+        let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 8) {
+                Text("\(card.cost)").font(Theme.body(14, .heavy)).foregroundStyle(.white)
+                    .frame(width: 28, height: 28)
+                    .background(RadialGradient(colors: [Color(hex: "#7cb8ee"), Theme.mana], center: UnitPoint(x: 0.35, y: 0.3), startRadius: 0, endRadius: 18), in: Hexagon())
+                    .overlay(Hexagon().stroke(Color(hex: "#bfe0fa"), lineWidth: 1))
+                Text(tx.name(card.names)).font(Theme.display(16, cjk: cjk)).foregroundStyle(Theme.parch).lineLimit(1).minimumScaleFactor(0.7)
+                Spacer(minLength: 4)
+                if card.isMinion {
+                    StatBubble(value: card.atk ?? 0, attack: true, em: 8)
+                    StatBubble(value: card.hp ?? 0, attack: false, em: 8)
+                }
+            }
+            if !typ.isEmpty {
+                Text(typ).font(Theme.body(10.5, .semibold)).tracking(0.5).foregroundStyle(Color(hex: "#9fc4ee")).textCase(.uppercase)
+                    .padding(.horizontal, 6).padding(.vertical, 1).overlay(Capsule().stroke(Color(hex: "#4a6a9a"), lineWidth: 1))
+            }
+            RichText(text: tx.cardText(card), keywords: tx.keywords, font: Theme.body(12.5), color: Theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(tx.name(card.flavor)).font(Theme.body(11)).italic().foregroundStyle(Theme.muted).lineLimit(2)
+        }
+        .padding(10)
+        .frame(width: min(270, hm.size.width * 0.34), alignment: .leading)
+        .background(LinearGradient(colors: [Color(hex: "#1c2a44"), Color(hex: "#0d1320")], startPoint: .top, endPoint: .bottom), in: RoundedRectangle(cornerRadius: 8))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.gold.opacity(0.8), lineWidth: 1.2))
+        .shadow(color: .black.opacity(0.7), radius: 10, y: 4)
+        .allowsHitTesting(false)
+        .transition(.move(edge: .leading).combined(with: .opacity))
     }
 }
 

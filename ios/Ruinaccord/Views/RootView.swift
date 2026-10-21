@@ -34,12 +34,16 @@ struct GameRoot: View {
         ZStack {
             if vm.screen == .duel {
                 GeometryReader { g in
-                    let hm = HandMetrics(size: g.size)
+                    let hm = HandMetrics(size: g.size, bottomInset: g.safeAreaInsets.bottom)
                     ZStack(alignment: .topLeading) {
                         DuelView(hm: hm).padding(.vertical, 6)
                         HandLayer(hm: hm, origin: g.frame(in: .global).origin).zIndex(10)
+                        if let c = vm.infoCard, vm.state?.mulligan != true {
+                            CardInfoPanel(card: c, hm: hm).padding(.leading, hm.leftW + 2).padding(.top, 4).zIndex(15).id(c.id)
+                        }
                         if vm.state?.mulligan == true { MulliganView().zIndex(20) }
                     }
+                    .animation(.easeOut(duration: 0.18), value: vm.infoCard?.id)
                 }
             } else {
             ScrollView(.vertical) {
