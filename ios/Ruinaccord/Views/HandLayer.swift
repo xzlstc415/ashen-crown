@@ -17,13 +17,7 @@ struct HandLayer: View {
         let hand = s.p.hand, n = hand.count
         let mode: HandMode = vm.handActive ? .active : (vm.handPeek ? .peek : .dormant)
         let newFrom = max(0, n - vm.drewCount)
-        let tx = vm.tx
         return AnyView(ZStack(alignment: .topLeading) {
-            // Your counts, above the deck corner.
-            Text(tx.handDeck(n, s.p.deck.count)).font(Theme.body(11.5)).foregroundStyle(Theme.muted).monospacedDigit().lineLimit(1)
-                .fixedSize()
-                .position(x: hm.corner.x, y: hm.corner.y - hm.cardH * hm.cornerScale / 2 - 12)
-                .allowsHitTesting(false)
             ForEach(Array(hand.enumerated()), id: \.offset) { i, k in
                 if let c = GameData.shared.card(k) {
                     HandSlot(card: c, index: i, n: n, hm: hm, mode: mode, origin: origin,
@@ -69,13 +63,11 @@ private struct HandSlot: View {
         let fan = mode != .dormant
         let aboveLine = dragging && (vm.drag?.aboveLine ?? false)
 
-        // Slot in the fan
-        let mid = CGFloat(n - 1) / 2
-        let spacing = n > 1 ? min(hm.cardW * 0.74, (hm.fanWidth - hm.cardW) / CGFloat(n - 1)) : 0
-        let fx = hm.fanCenterX + (CGFloat(index) - mid) * spacing
-        let spread: CGFloat = n > 6 ? 3.0 : 4.2
-        let rot = max(-15, min(15, (CGFloat(index) - mid) * spread))
-        let fy = hm.baseY + pow(CGFloat(index) - mid, 2) * (n > 6 ? 1.8 : 2.8) + (pend ? -16 : 0)
+        // Slot in the hand: a straight row right-aligned beside your hero, overlapping as much as needed (right card on top).
+        let spacing = n > 1 ? min(hm.cardW * 0.62, (hm.handMaxX - hm.handMinX - hm.cardW) / CGFloat(n - 1)) : 0
+        let fx = hm.handMaxX - hm.cardW / 2 - CGFloat(n - 1 - index) * spacing
+        let rot: CGFloat = 0
+        let fy = hm.baseY + (pend ? -16 : 0)
 
         var pos: CGPoint, scale: CGFloat, angle: CGFloat, z: Double
         if dragging, let d = vm.drag {
@@ -84,7 +76,7 @@ private struct HandSlot: View {
         } else if lifted {
             let sc = hm.liftScale
             let half = hm.cardW * sc / 2
-            pos = CGPoint(x: min(max(fx, hm.railW + hm.gap + half + 4), hm.size.width - half - 4), y: hm.line - hm.cardH * sc / 2 - 2)
+            pos = CGPoint(x: min(max(fx, hm.leftW + half + 4), hm.handMaxX - half), y: hm.line - hm.cardH * sc / 2 - 2)
             scale = sc; angle = 0; z = 100
         } else if fan {
             pos = CGPoint(x: fx, y: fy); scale = 1; angle = rot; z = Double(index)

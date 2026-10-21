@@ -249,6 +249,12 @@ struct Tx {
     func played(_ x: String) -> String { pick("\(x) played", "\(x)打出", "\(x)がプレイ") }
     func target(_ t: String) -> String { pick("Target: \(t)", "目标：\(t)", "対象：\(t)") }
     var history: String { pick("Recent plays", "最近出牌", "最近のプレイ") }
+    var battleLog: String { pick("Battle log", "战场记录", "戦場記録") }
+    var logEmpty: String { pick("Nothing has been played yet.", "还没有打出任何牌。", "まだ何もプレイされていません。") }
+    func turnRound(_ you: Bool, _ n: Int) -> String { you ? pick("YOUR TURN (\(n))", "你的回合（\(n)）", "あなたのターン（\(n)）") : pick("ENEMY TURN (\(n))", "敌方回合（\(n)）", "敵のターン（\(n)）") }
+    var manaShort: String { pick("Mana", "法力", "マナ") }
+    var armor: String { pick("Armor", "护甲", "装甲") }
+    var spellManaShort: String { pick("Spell", "法术", "呪文") }
     var tapClose: String { pick("Tap anywhere to close", "点击任意位置关闭", "タップで閉じる") }
     var fWard: String { pick("Ward", "护盾", "結界") }
     var fFreeze: String { pick("Frozen", "冻结", "凍結") }

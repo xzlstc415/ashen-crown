@@ -156,30 +156,30 @@ struct MinionView: View {
             // The picture fills the tile; lasting effects show as icons down the left edge.
             ZStack {
                 RadialGradient(colors: [Color(hex: "#5a4636"), Color(hex: "#17110d")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 50)
-                if Paintings.has(m.key) { ArtThumb(key: m.key, width: 56, height: 80) }
-                else { Image(m.card.artName).resizable().scaledToFit().frame(width: 72).offset(y: -4) }
+                if Paintings.has(m.key) { ArtThumb(key: m.key, width: 48, height: 70) }
+                else { Image(m.card.artName).resizable().scaledToFit().frame(width: 62).offset(y: -3) }
             }
-            .frame(width: 56, height: 80)
+            .frame(width: 48, height: 70)
             .clipShape(RoundedRectangle(cornerRadius: m.hasGuard ? 4 : 10))
             .grayscale(m.silenced ? 0.85 : 0)
             .padding(.top, 2)
             HStack {
-                Text("\(m.atk)").font(Theme.body(12, .heavy)).foregroundStyle(Color(hex: "#2a1d08"))
-                    .frame(width: 22, height: 22).background(Theme.gold, in: Circle())
+                Text("\(m.atk)").font(Theme.body(11, .heavy)).foregroundStyle(Color(hex: "#2a1d08"))
+                    .frame(width: 20, height: 20).background(Theme.gold, in: Circle())
                     .overlay(Circle().stroke(Theme.ready, lineWidth: m.atk > m.baseAtk ? 2 : 0))
                 Spacer()
-                Text("\(m.hp)").font(Theme.body(12, .heavy)).foregroundStyle(m.hp < m.max ? Color(hex: "#ffb3a9") : .white)
-                    .frame(width: 22, height: 22).background(m.hp < m.max ? Color(hex: "#8a1f18") : Theme.blood, in: Circle())
+                Text("\(m.hp)").font(Theme.body(11, .heavy)).foregroundStyle(m.hp < m.max ? Color(hex: "#ffb3a9") : .white)
+                    .frame(width: 20, height: 20).background(m.hp < m.max ? Color(hex: "#8a1f18") : Theme.blood, in: Circle())
                     .overlay(Circle().stroke(Theme.ready, lineWidth: m.max > m.baseHp && m.hp >= m.max ? 2 : 0))
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
-            .padding(.horizontal, -7).padding(.bottom, -7)
+            .padding(.horizontal, -6).padding(.bottom, -6)
             if sleeping {
                 Text("zz").font(Theme.body(11, .heavy)).foregroundStyle(Theme.muted)
                     .frame(maxWidth: .infinity, alignment: .trailing).offset(x: 6, y: -9)
             }
         }
-        .frame(width: 60, height: 84)
+        .frame(width: 52, height: 74)
         .saturation(sleeping ? 0.6 : 1).brightness(sleeping ? -0.08 : 0)
         .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).fill(Color(hex: "#8fd0ff").opacity(m.frozen ? 0.22 : 0)).allowsHitTesting(false))
         .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Color(hex: "#8fd0ff"), lineWidth: m.frozen ? 3 : 0).padding(-1.5))
@@ -355,23 +355,63 @@ struct HeroFace: View {
         .overlay(Circle().stroke(foe ? Color(hex: "#6d3a33") : Color(hex: "#5a4a6a"), lineWidth: 2))
         .overlay(Circle().stroke(aimed || target ? Theme.blood : .clear, lineWidth: aimed ? 3 : 2).padding(-4))
         .shadow(color: aimed ? Theme.blood.opacity(0.85) : .clear, radius: aimed ? 9 : 0)
-        .overlay(alignment: .bottomTrailing) {
-            Text("\(h.hp)").font(Theme.body(13 * max(k, 0.92), .heavy)).foregroundStyle(.white).monospacedDigit()
-                .frame(minWidth: 24 * max(k, 0.92)).frame(height: 24 * max(k, 0.92)).padding(.horizontal, 4)
-                .background(Theme.blood, in: Capsule()).offset(x: 8, y: 6)
+        // Health on a shield at the right, Armor (grey) and banked spell mana (purple) as gems at the bottom corners.
+        .overlay(alignment: .trailing) {
+            Text("\(h.hp)").font(Theme.body(15 * max(k, 0.9), .heavy)).foregroundStyle(.white).monospacedDigit()
+                .frame(width: 30 * max(k, 0.9), height: 34 * max(k, 0.9))
+                .background(ShieldShape().fill(LinearGradient(colors: [Color(hex: "#e0564a"), Color(hex: "#8a1f18")], startPoint: .top, endPoint: .bottom)))
+                .overlay(ShieldShape().stroke(Color(hex: "#f3c97a"), lineWidth: 1.5))
+                .shadow(color: .black.opacity(0.6), radius: 2, y: 1)
+                .offset(x: 20 * k, y: -size * 0.18)
+                .accessibilityHidden(true)
         }
         .overlay(alignment: .bottomLeading) {
-            if h.armor > 0 {
-                Text("\(h.armor)").font(Theme.body(12, .heavy)).foregroundStyle(.white)
-                    .frame(minWidth: 22).frame(height: 22).background(Color(hex: "#5e6670"), in: RoundedRectangle(cornerRadius: 6)).offset(x: -8, y: 6)
-            }
+            StatGem(value: h.armor, colors: [Color(hex: "#9aa3ad"), Color(hex: "#4a525c")], dim: h.armor == 0, label: tx.armor).offset(x: -9, y: 6)
+        }
+        .overlay(alignment: .bottomTrailing) {
+            StatGem(value: h.spellMana, colors: [Color(hex: "#b48cf0"), Color(hex: "#5a3a9a")], dim: h.spellMana == 0, label: tx.spellManaShort).offset(x: 9, y: 6)
         }
         .shake(tick: vm.hitTick[id] ?? 0)
         .overlay(alignment: .top) { FloatStack(eid: id) }
         .reportFrame { vm.frames[id] = $0 }
         .contentShape(Circle())
         .onTapGesture { vm.tap(id) }
-        .accessibilityLabel(Text("\(name), \(h.hp)")))
+        .accessibilityLabel(Text("\(name), \(h.hp), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana)")))
+    }
+}
+
+/// Small hexagonal number gem beside a hero portrait.
+struct StatGem: View {
+    let value: Int
+    let colors: [Color]
+    var dim = false
+    var label = ""
+    var body: some View {
+        Text("\(value)").font(Theme.body(11, .heavy)).foregroundStyle(.white).monospacedDigit()
+            .frame(width: 22, height: 24)
+            .background(Hexagon().fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)))
+            .overlay(Hexagon().stroke(Color.white.opacity(0.55), lineWidth: 1))
+            .opacity(dim ? 0.45 : 1)
+            .shadow(color: .black.opacity(0.5), radius: 1.5, y: 1)
+            .accessibilityLabel(Text("\(label) \(value)"))
+    }
+}
+
+/// Shadowverse-style health shield: flat top, pointed bottom.
+struct ShieldShape: Shape {
+    func path(in r: CGRect) -> Path {
+        var p = Path()
+        let c: CGFloat = r.width * 0.12
+        p.move(to: CGPoint(x: r.minX + c, y: r.minY))
+        p.addLine(to: CGPoint(x: r.maxX - c, y: r.minY))
+        p.addQuadCurve(to: CGPoint(x: r.maxX, y: r.minY + c), control: CGPoint(x: r.maxX, y: r.minY))
+        p.addLine(to: CGPoint(x: r.maxX, y: r.minY + r.height * 0.62))
+        p.addLine(to: CGPoint(x: r.midX, y: r.maxY))
+        p.addLine(to: CGPoint(x: r.minX, y: r.minY + r.height * 0.62))
+        p.addLine(to: CGPoint(x: r.minX, y: r.minY + c))
+        p.addQuadCurve(to: CGPoint(x: r.minX + c, y: r.minY), control: CGPoint(x: r.minX, y: r.minY))
+        p.closeSubpath()
+        return p
     }
 }
 

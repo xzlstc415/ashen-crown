@@ -62,6 +62,8 @@ enum DebugLaunch {
             if let n = value("-sel").flatMap(Int.init) { vm.hsel = n }
             // -dragtest (with -card frostbolt,goblin,berserker): drive the drag-and-drop calls the hand and board make.
             if args.contains("-dragtest"), vm.state != nil { await dragTest(vm) }
+            // -log: open the battle log panel (after -autoplay it has entries)
+            if args.contains("-log") { vm.showLog = true }
             // -quittest: end the turn, leave in the middle of the AI's turn, then start a new game
             if args.contains("-quittest") {
                 for round in 0..<3 {
@@ -83,6 +85,8 @@ enum DebugLaunch {
     /// Drops a minion on the board, a spell on the enemy hero, drags an attack and the hero power; prints what happened.
     @MainActor static func dragTest(_ vm: GameVM) async {
         func c(_ r: CGRect?) -> CGPoint { r.map { CGPoint(x: $0.midX, y: $0.midY) } ?? .zero }
+        // The enemy may go first: wait for your turn.
+        for _ in 0..<100 where !(vm.state?.turn == .p && !vm.busy) { try? await Task.sleep(for: .milliseconds(100)) }
         try? await Task.sleep(for: .seconds(1))
         vm.state?.p.mana = 10
         if let i = vm.state?.p.hand.firstIndex(of: "goblin") {
@@ -104,9 +108,10 @@ enum DebugLaunch {
         if let m = vm.state?.p.board.first(where: { $0.key == "berserker" }), let t = vm.state?.e.board.first(where: { $0.key == "goblin" }) {
             vm.dragMinion(m.id, to: c(vm.frames[t.id]))
             print("dragtest attack: over \(String(describing: vm.drag?.over)) arrow \(vm.arrowFrom != nil)")
+            print("dragtest attack: busy \(vm.busy) sel \(String(describing: vm.sel)) foe board \(vm.state?.e.board.map { "\($0.uid):\($0.key)" } ?? [])")
             vm.dropMinion()
             try? await Task.sleep(for: .seconds(1.2))
-            print("dragtest attack: enemy goblin alive \(vm.state?.e.board.contains { $0.key == "goblin" } ?? true) attacked \(vm.state?.minion(m.id)?.attacked ?? false)")
+            print("dragtest attack: enemy goblin alive \(vm.state?.e.board.contains { $0.key == "goblin" } ?? true) attacked \(vm.state?.minion(m.id)?.attacked ?? false) log '\(vm.logText())' my board \(vm.state?.p.board.map { "\($0.uid):\($0.key)" } ?? [])")
         }
         if vm.curPower.tgt != nil {
             let hp = vm.state?.e.hp ?? 0

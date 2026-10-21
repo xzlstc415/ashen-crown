@@ -126,6 +126,8 @@ final class GameVM {
     var handPeek = false
     /// A finger dragging a hand card, a ready minion or the hero power.
     var drag: Drag?
+    /// The battle log panel (every play of the game, by turn).
+    var showLog = false
     /// Single-player duels: first tap on Leave arms it; `abandoned` stops the game without a result screen.
     var quitArm = false
     var abandoned = false
@@ -354,7 +356,7 @@ final class GameVM {
     private func resetDuelUI() {
         log = nil; pending = nil; sel = nil; busy = false; hist = []; floats = []; hitTick = [:]; drewCount = 0
         reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil
-        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil
+        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil; showLog = false
     }
 
     func startQuick(_ diff: Difficulty) {

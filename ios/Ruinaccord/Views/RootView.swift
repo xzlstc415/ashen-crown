@@ -75,10 +75,12 @@ struct GameRoot: View {
                 VStack { Text(vm.tx.netSlow).font(Theme.body(12.5)).foregroundStyle(Theme.parch).padding(.horizontal, 12).padding(.vertical, 6)
                     .background(Color(hex: "#3a1f1a"), in: Capsule()).overlay(Capsule().stroke(Theme.ember, lineWidth: 1)); Spacer() }
             }
+            if vm.showLog { LogView().zIndex(40) }
             if let k = vm.zoomCard { CardZoom(key: k).zIndex(50) }
             if let h = vm.peekItem { PeekView(h: h).zIndex(50) }
         }
         .animation(.easeOut(duration: 0.2), value: vm.zoomCard)
+        .animation(.easeOut(duration: 0.2), value: vm.showLog)
         .animation(.easeOut(duration: 0.2), value: vm.peekItem?.id)
     }
 }
