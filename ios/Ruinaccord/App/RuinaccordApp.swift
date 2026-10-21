@@ -58,11 +58,10 @@ enum DebugLaunch {
                 if extra > 0 { vm.state?.p.hand.removeLast(extra) }
             }
             if let k = value("-zoom"), GameData.shared.card(k) != nil { vm.zoomCard = k }
-            // -landscape: rotate to landscape (simulator screenshots); -sel <n>: preview that hand card
-            if args.contains("-landscape"), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                scene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight)) { _ in }
-            }
+            // -sel <n>: lift that hand card
             if let n = value("-sel").flatMap(Int.init) { vm.hsel = n }
+            // -dragtest (with -card frostbolt,goblin,berserker): drive the drag-and-drop calls the hand and board make.
+            if args.contains("-dragtest"), vm.state != nil { await dragTest(vm) }
             // -quittest: end the turn, leave in the middle of the AI's turn, then start a new game
             if args.contains("-quittest") {
                 for round in 0..<3 {
@@ -79,6 +78,45 @@ enum DebugLaunch {
             }
             if args.contains("-autoplay") { await autoplay(vm) }
         }
+    }
+
+    /// Drops a minion on the board, a spell on the enemy hero, drags an attack and the hero power; prints what happened.
+    @MainActor static func dragTest(_ vm: GameVM) async {
+        func c(_ r: CGRect?) -> CGPoint { r.map { CGPoint(x: $0.midX, y: $0.midY) } ?? .zero }
+        try? await Task.sleep(for: .seconds(1))
+        vm.state?.p.mana = 10
+        if let i = vm.state?.p.hand.firstIndex(of: "goblin") {
+            let p = c(vm.boardFrames[.p])
+            vm.dragHand(i, to: p, line: p.y + 60)
+            print("dragtest minion: aboveLine \(vm.drag?.aboveLine ?? false) glow \(vm.dropGlow)")
+            vm.dropHand(i)
+            try? await Task.sleep(for: .seconds(1.3))
+            print("dragtest minion: board \(vm.state?.p.board.count ?? -1) hand has goblin \(vm.state?.p.hand.contains("goblin") ?? true)")
+        }
+        if let i = vm.state?.p.hand.firstIndex(of: "frostbolt") {
+            let p = c(vm.frames[.hero(.e)])
+            vm.dragHand(i, to: p, line: p.y + 60)
+            print("dragtest spell: over \(String(describing: vm.drag?.over)) valid \(vm.drag?.valid.count ?? 0)")
+            vm.dropHand(i)
+            try? await Task.sleep(for: .seconds(1.6))
+            print("dragtest spell: enemy hp \(vm.state?.e.hp ?? -1) (expect 26) pending \(vm.pending != nil)")
+        }
+        if let m = vm.state?.p.board.first(where: { $0.key == "berserker" }), let t = vm.state?.e.board.first(where: { $0.key == "goblin" }) {
+            vm.dragMinion(m.id, to: c(vm.frames[t.id]))
+            print("dragtest attack: over \(String(describing: vm.drag?.over)) arrow \(vm.arrowFrom != nil)")
+            vm.dropMinion()
+            try? await Task.sleep(for: .seconds(1.2))
+            print("dragtest attack: enemy goblin alive \(vm.state?.e.board.contains { $0.key == "goblin" } ?? true) attacked \(vm.state?.minion(m.id)?.attacked ?? false)")
+        }
+        if vm.curPower.tgt != nil {
+            let hp = vm.state?.e.hp ?? 0
+            vm.dragPower(to: c(vm.frames[.hero(.e)]))
+            print("dragtest power: over \(String(describing: vm.drag?.over))")
+            vm.dropPower()
+            try? await Task.sleep(for: .seconds(1.2))
+            print("dragtest power: enemy hp \(hp) -> \(vm.state?.e.hp ?? -1) used \(vm.state?.p.powerUsed ?? false)")
+        }
+        print("dragtest done")
     }
 
     /// Plays the player's side with simple choices through the same calls the UI makes (debug builds only).

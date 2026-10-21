@@ -45,8 +45,10 @@ targets:
         UIRequiredDeviceCapabilities: [arm64]
         UIStatusBarStyle: UIStatusBarStyleLightContent
         UIUserInterfaceStyle: Dark
-        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
-        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        # Landscape only (like the duel); iPad needs full screen when it does not support every orientation.
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UIRequiresFullScreen: true
         FirebaseAutomaticScreenReportingEnabled: false
     entitlements:
       path: Ruinaccord/Ruinaccord.entitlements
@@ -79,3 +81,4 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.hermes-eris.ruinaccord.tests
+        GENERATE_INFOPLIST_FILE: YES

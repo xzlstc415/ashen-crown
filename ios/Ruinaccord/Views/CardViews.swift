@@ -7,15 +7,6 @@ enum CardSize { case sm, md, big, fit(CGFloat)
     }
 }
 
-/// True inside the landscape duel: board minions show just their picture and effect icons.
-private struct DuelLandscapeKey: EnvironmentKey { static let defaultValue = false }
-extension EnvironmentValues {
-    var duelLandscape: Bool {
-        get { self[DuelLandscapeKey.self] }
-        set { self[DuelLandscapeKey.self] = newValue }
-    }
-}
-
 /// A full card face: art, cost, name plate, rarity gem, rules text and (for minions) stats.
 struct CardView: View {
     let card: Card
@@ -141,7 +132,6 @@ struct StatBubble: View {
 struct MinionView: View {
     let m: Minion
     @Environment(GameVM.self) private var vm
-    @Environment(\.duelLandscape) private var compact
 
     var body: some View {
         let tx = vm.tx, s = vm.state
@@ -150,7 +140,7 @@ struct MinionView: View {
         let ready = m.side == .p && myTurn && vm.pending == nil && !vm.busy && (s?.canAttack(m) ?? false)
         let selected = vm.sel == m.uid
         let target = vm.isValidTarget(m.id)
-        let aimed = vm.aimed == m.id
+        let aimed = vm.aimed == m.id || vm.drag?.over == m.id
         let sleeping = m.sleep && m.side == .p && myTurn
         var kws: [String] = []
         if m.frozen { kws.append(tx.fFreeze) }
@@ -163,32 +153,16 @@ struct MinionView: View {
             RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12)
                 .fill(LinearGradient(colors: foe ? [Color(hex: "#4a2826"), Color(hex: "#24130f")] : [Color(hex: "#3a3046"), Color(hex: "#211b29")], startPoint: .top, endPoint: .bottom))
                 .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(m.hasGuard ? Theme.gold : (foe ? Color(hex: "#6d3a33") : Color(hex: "#5a4a6a")), lineWidth: m.hasGuard ? 3 : 2))
-            if compact {
-                // Landscape board: the picture fills the tile; lasting effects show as icons down the left edge.
-                ZStack {
-                    RadialGradient(colors: [Color(hex: "#5a4636"), Color(hex: "#17110d")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 50)
-                    if Paintings.has(m.key) { ArtThumb(key: m.key, width: 56, height: 80) }
-                    else { Image(m.card.artName).resizable().scaledToFit().frame(width: 72).offset(y: -4) }
-                }
-                .frame(width: 56, height: 80)
-                .clipShape(RoundedRectangle(cornerRadius: m.hasGuard ? 4 : 10))
-                .grayscale(m.silenced ? 0.85 : 0)
-                .padding(.top, 2)
-            } else {
-                VStack(spacing: 1) {
-                    ZStack {
-                        RadialGradient(colors: [Color(hex: "#5a4636"), Color(hex: "#17110d")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 40)
-                        ArtThumb(key: m.key, width: 54, height: 32)
-                    }
-                    .grayscale(m.silenced ? 0.85 : 0)
-                    .frame(width: 54, height: 32)
-                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 10, bottomLeadingRadius: 4, bottomTrailingRadius: 4, topTrailingRadius: 10))
-                    Text(tx.name(m.card.names)).font(Theme.body(9.5, .heavy)).foregroundStyle(Theme.ink)
-                        .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.75).frame(height: 21)
-                    Text(kws.joined(separator: " ")).font(Theme.body(7.5, .bold)).foregroundStyle(Theme.gold).textCase(.uppercase).lineLimit(1).minimumScaleFactor(0.6)
-                }
-                .padding(.top, 3).padding(.horizontal, 3)
+            // The picture fills the tile; lasting effects show as icons down the left edge.
+            ZStack {
+                RadialGradient(colors: [Color(hex: "#5a4636"), Color(hex: "#17110d")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 50)
+                if Paintings.has(m.key) { ArtThumb(key: m.key, width: 56, height: 80) }
+                else { Image(m.card.artName).resizable().scaledToFit().frame(width: 72).offset(y: -4) }
             }
+            .frame(width: 56, height: 80)
+            .clipShape(RoundedRectangle(cornerRadius: m.hasGuard ? 4 : 10))
+            .grayscale(m.silenced ? 0.85 : 0)
+            .padding(.top, 2)
             HStack {
                 Text("\(m.atk)").font(Theme.body(12, .heavy)).foregroundStyle(Color(hex: "#2a1d08"))
                     .frame(width: 22, height: 22).background(Theme.gold, in: Circle())
@@ -214,16 +188,20 @@ struct MinionView: View {
         .overlay(RoundedRectangle(cornerRadius: 14).stroke(aimed ? Theme.blood : target ? Theme.blood : selected ? Theme.ember : ready ? Theme.ready : .clear, lineWidth: aimed ? 3 : 2).padding(-4))
         .shadow(color: aimed ? Theme.blood.opacity(0.85) : .clear, radius: aimed ? 9 : 0)
         .offset(y: selected ? -8 : 0)
+        .scaleEffect(vm.drag?.src == .minion(m.id) ? 1.08 : 1)
         .offset(vm.lungeOffset[m.id] ?? .zero)
         .zIndex(vm.lungeOffset[m.id] != nil ? 10 : 0)
         .shake(tick: vm.hitTick[m.id] ?? 0)
-        .overlay(alignment: .topLeading) { if compact { MinionIcons(m: m).offset(x: -7, y: 6) } }
+        .overlay(alignment: .topLeading) { MinionIcons(m: m).offset(x: -7, y: 6) }
         .overlay(alignment: .top) { FloatStack(eid: m.id) }
         .reportFrame { vm.frames[m.id] = $0 }
         .contentShape(Rectangle())
-        .onTapGesture { vm.tap(m.id) }
-        .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = m.key }
+        .pressDrag(onTap: { vm.tap(m.id) },
+                   onHold: { vm.zoomCard = m.key },
+                   onDrag: { p in if m.side == .p { vm.dragMinion(m.id, to: p) } },
+                   onDrop: { _ in vm.dropMinion() })
         .accessibilityLabel(Text("\(tx.name(m.card.names)), \(m.atk)/\(m.hp) \(kws.joined(separator: " "))"))
+        .accessibilityAddTraits(.isButton)
         .animation(.spring(duration: 0.25), value: selected)
     }
 }
@@ -254,84 +232,6 @@ private struct FloatLabel: View {
             .offset(y: up ? -30 : 0)
             .opacity(up ? 0 : 1)
             .onAppear { withAnimation(.easeOut(duration: 0.9)) { up = true } }
-    }
-}
-
-/// A hero row: face with health, name, mana crystals, hand/deck counts, hero power.
-struct HeroView: View {
-    let side: Side
-    @Environment(GameVM.self) private var vm
-
-    var body: some View {
-        guard let s = vm.state else { return AnyView(EmptyView()) }
-        let h = s[side], tx = vm.tx, foe = side == .e
-        let id = h.id
-        let name = vm.heroName(side)
-        let portrait: HeroClass? = !foe ? vm.curClass : (s.mode != .camp ? vm.enemyClass : nil)
-        let initials = foe && s.mode == .camp ? tx.name(GameData.shared.opponents[s.stage].initials) : tx.heroInit
-        let target = vm.isValidTarget(id)
-        let aimed = vm.aimed == id
-        return AnyView(HStack(spacing: 10) {
-            HeroFace(side: side, size: 50).padding(.trailing, 6)
-            // Info
-            VStack(alignment: .leading, spacing: 3) {
-                Text(name).font(Theme.display(17, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch).lineLimit(1)
-                HStack(spacing: 3) {
-                    ForEach(0..<h.maxMana, id: \.self) { i in
-                        RoundedRectangle(cornerRadius: 2).fill(i < h.mana ? Theme.manaLight : Color(hex: "#2a2234"))
-                            .overlay(RoundedRectangle(cornerRadius: 2).stroke(i < h.mana ? Color(hex: "#8cc4f0") : Color(hex: "#3d3150"), lineWidth: 1))
-                            .frame(width: 9, height: 12)
-                            .transformEffect(CGAffineTransform(a: 1, b: 0, c: -0.21, d: 1, tx: 0, ty: 0))
-                    }
-                    Text("\(h.mana)/\(h.maxMana)").font(Theme.body(12, .semibold)).foregroundStyle(Color(hex: "#8cc4f0")).monospacedDigit().padding(.leading, 4)
-                    if h.spellMana > 0 {
-                        HStack(spacing: 2) {
-                            ForEach(0..<h.spellMana, id: \.self) { _ in
-                                Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
-                                    .frame(width: 7, height: 7).rotationEffect(.degrees(45))
-                            }
-                        }.padding(.leading, 5)
-                    }
-                }
-                .accessibilityLabel(Text(tx.mana(h.mana, h.maxMana) + (h.spellMana > 0 ? ", " + tx.spellMana(h.spellMana) : "")))
-                Text(tx.handDeck(h.hand.count, h.deck.count)).font(Theme.body(12)).foregroundStyle(Theme.muted).monospacedDigit()
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            // Power
-            PowerButton(side: side, power: h.power)
-        }
-        .padding(.horizontal, 10).padding(.vertical, 6)
-        .panel(radius: 10))
-    }
-}
-
-struct PowerButton: View {
-    let side: Side
-    let power: Power
-    @Environment(GameVM.self) private var vm
-    @State private var pulse = false
-    var body: some View {
-        let tx = vm.tx, foe = side == .e
-        let enabled = !foe && !vm.powerBlocked
-        Button { if !foe { vm.usePower() } } label: {
-            ZStack {
-                Circle().fill(RadialGradient(colors: [Color(hex: "#4a3a2a"), Color(hex: "#1e160f")], center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 34))
-                Text(tx.powerName(power)).font(Theme.body(10, .bold)).foregroundStyle(Theme.ink)
-                    .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.7).frame(width: 50)
-            }
-            .frame(width: 58, height: 58)
-            .overlay(Circle().stroke(foe ? Color(hex: "#6d3a33") : Theme.gold, lineWidth: 2))
-            .overlay(alignment: .top) {
-                Text("\(power.cost)").font(Theme.body(11, .heavy)).foregroundStyle(.white).frame(width: 20, height: 20).background(Theme.mana, in: Circle()).offset(y: -6)
-            }
-            .shadow(color: enabled && pulse ? Theme.gold.opacity(0.6) : .clear, radius: 10)
-            .opacity(foe ? 0.75 : enabled ? 1 : 0.4)
-        }
-        .buttonStyle(.plain)
-        .disabled(foe)
-        .reportFrame { if foe { vm.epowFrame = $0 } else { vm.powerFrame = $0 } }
-        .onAppear { withAnimation(.easeInOut(duration: 1).repeatForever()) { pulse = true } }
-        .accessibilityLabel(Text("\(tx.heroPower) \(tx.powerName(power)), \(power.cost): \(tx.powerDesc(power))"))
     }
 }
 
@@ -444,7 +344,7 @@ struct HeroFace: View {
         let name = vm.heroName(side)
         let portrait: HeroClass? = !foe ? vm.curClass : (s.mode != .camp ? vm.enemyClass : nil)
         let initials = foe && s.mode == .camp ? tx.name(GameData.shared.opponents[s.stage].initials) : tx.heroInit
-        let target = vm.isValidTarget(id), aimed = vm.aimed == id
+        let target = vm.isValidTarget(id), aimed = vm.aimed == id || vm.drag?.over == id
         let k = size / 50
         return AnyView(ZStack {
             Circle().fill(RadialGradient(colors: foe ? [Color(hex: "#5a2a26"), Color(hex: "#1e0e0c")] : [Color(hex: "#4a3a5a"), Color(hex: "#1b1422")], center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 30 * k))

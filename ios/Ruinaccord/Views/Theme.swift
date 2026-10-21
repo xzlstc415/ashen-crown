@@ -173,3 +173,76 @@ struct Embers: View {
         .allowsHitTesting(false)
     }
 }
+
+/// Light taps for picking up, aiming at and dropping cards.
+enum Haptics {
+    private static let light = UIImpactFeedbackGenerator(style: .light)
+    private static let medium = UIImpactFeedbackGenerator(style: .medium)
+    private static let note = UINotificationFeedbackGenerator()
+    static func lift() { light.impactOccurred(intensity: 0.7) }
+    static func tick() { light.impactOccurred(intensity: 0.5) }
+    static func drop() { medium.impactOccurred() }
+    static func fail() { note.notificationOccurred(.error) }
+}
+
+/// One finger-down gesture that tells a tap, a hold and a drag apart, so a card can be tapped to lift, held to
+/// read and dragged to play without the gestures fighting each other (as separate SwiftUI gestures would).
+/// Locations are in global coordinates.
+struct PressDrag: ViewModifier {
+    var enabled = true
+    var holdAfter: Double = 0.4
+    var slack: CGFloat = 9
+    var onTap: () -> Void = {}
+    var onHold: () -> Void = {}
+    var onHoldEnd: () -> Void = {}
+    var onDrag: (CGPoint) -> Void = { _ in }
+    var onDrop: (CGPoint) -> Void = { _ in }
+
+    @State private var phase = Phase.idle
+    @State private var holdTask: Task<Void, Never>?
+    private enum Phase { case idle, pressed, held, dragging }
+
+    func body(content: Content) -> some View {
+        content.gesture(
+            DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                .onChanged { v in
+                    guard enabled else { return }
+                    let moved = hypot(v.translation.width, v.translation.height) > slack
+                    switch phase {
+                    case .idle:
+                        phase = .pressed
+                        holdTask?.cancel()
+                        holdTask = Task { @MainActor in
+                            try? await Task.sleep(for: .seconds(holdAfter))
+                            if !Task.isCancelled, phase == .pressed { phase = .held; onHold() }
+                        }
+                    case .pressed:
+                        if moved { holdTask?.cancel(); phase = .dragging; onDrag(v.location) }
+                    case .held:
+                        if moved { phase = .dragging; onHoldEnd(); onDrag(v.location) }
+                    case .dragging:
+                        onDrag(v.location)
+                    }
+                }
+                .onEnded { v in
+                    holdTask?.cancel()
+                    let was = phase
+                    phase = .idle
+                    guard enabled else { return }
+                    switch was {
+                    case .pressed: onTap()
+                    case .held: onHoldEnd()
+                    case .dragging: onDrop(v.location)
+                    case .idle: break
+                    }
+                },
+            including: enabled ? .all : .subviews
+        )
+    }
+}
+extension View {
+    func pressDrag(enabled: Bool = true, holdAfter: Double = 0.4, onTap: @escaping () -> Void = {}, onHold: @escaping () -> Void = {},
+                   onHoldEnd: @escaping () -> Void = {}, onDrag: @escaping (CGPoint) -> Void = { _ in }, onDrop: @escaping (CGPoint) -> Void = { _ in }) -> some View {
+        modifier(PressDrag(enabled: enabled, holdAfter: holdAfter, onTap: onTap, onHold: onHold, onHoldEnd: onHoldEnd, onDrag: onDrag, onDrop: onDrop))
+    }
+}

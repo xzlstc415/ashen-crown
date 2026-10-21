@@ -26,6 +26,18 @@ struct HistItem: Identifiable, Hashable {
     let round: Int
 }
 
+/// A drag in progress. `over` is the valid target under the finger; `aboveLine` means the hand card has been
+/// pulled up out of the hand far enough to count as playing it.
+struct Drag {
+    enum Source: Equatable { case hand(Int), minion(EID), power }
+    var src: Source
+    var pt: CGPoint
+    var over: EID?
+    var aboveLine = false
+    /// Targets this drag may end on (a targeted spell, an attacker's reach, a targeted hero power).
+    var valid: [EID] = []
+}
+
 struct FloatFX: Identifiable { let id = UUID(); let eid: EID; let kind: FloatKind }
 struct Banner: Equatable { let text: String; let foe: Bool }
 struct Reveal: Identifiable { let id = UUID(); let side: Side; let key: String; var target: NameRef? }
@@ -108,8 +120,12 @@ final class GameVM {
     var lungeOffset: [EID: CGSize] = [:]
     var fx: [FXItem] = []
     var hiddenHand: Int?
-    /// Landscape duel: the hand card shown in the preview (tap it again to play).
+    /// The lifted hand card: tapped once (tap it again to play) or held down to read it.
     var hsel: Int?
+    /// While the hand is parked in the corner (enemy turn), a tap on it fans the cards out to read for a moment.
+    var handPeek = false
+    /// A finger dragging a hand card, a ready minion or the hero power.
+    var drag: Drag?
     /// Single-player duels: first tap on Leave arms it; `abandoned` stops the game without a result screen.
     var quitArm = false
     var abandoned = false
@@ -338,7 +354,7 @@ final class GameVM {
     private func resetDuelUI() {
         log = nil; pending = nil; sel = nil; busy = false; hist = []; floats = []; hitTick = [:]; drewCount = 0
         reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil
-        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil
+        gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil
     }
 
     func startQuick(_ diff: Difficulty) {
@@ -514,14 +530,15 @@ final class GameVM {
         }
     }
 
-    func playHand(_ i: Int) {
+    /// Plays hand card `i`. A targeted spell dropped straight onto `target` resolves at once instead of asking.
+    func playHand(_ i: Int, target: EID? = nil) {
         guard !blocked, pending == nil, i < S.p.hand.count, let c = gd.card(S.p.hand[i]) else { return }
-        sel = nil
+        sel = nil; hsel = nil
         if !S.canPay(.p, c.id) { S.log(.noMana); drain(); return }
-        Task { await playHandAsync(i, c) }
+        Task { await playHandAsync(i, c, target: target) }
     }
 
-    private func playHandAsync(_ i: Int, _ c: Card) async {
+    private func playHandAsync(_ i: Int, _ c: Card, target: EID? = nil) async {
         let k = c.id
         if c.isMinion {
             if S.p.board.count >= DuelState.boardMax { S.log(.boardFull); drain(); return }
@@ -553,6 +570,7 @@ final class GameVM {
             let v = S.targetsFor(.p, tgt, fx.cond)
             if v.isEmpty { S.log(.noTargets); drain(); return }
             pending = Pending(kind: .spell(idx: i), valid: v, key: k)
+            if let target, v.contains(target) { await resolvePending(target) }
             return
         }
         busy = true
@@ -632,6 +650,7 @@ final class GameVM {
     }
 
     func tap(_ id: EID) {
+        hsel = nil
         guard !blocked, S.exists(id) else { return }
         if let p = pending {
             if p.valid.contains(id) { Task { await resolvePending(id) } }
@@ -668,8 +687,130 @@ final class GameVM {
     func isValidTarget(_ id: EID) -> Bool {
         guard let s = state else { return false }
         if let p = pending { return p.valid.contains(id) }
+        if let d = drag {
+            if case .hand = d.src, !d.aboveLine { return false }
+            return d.valid.contains(id)
+        }
         if sel != nil && id.side == .e { return s.attackTargets(.p).contains(id) }
         return false
+    }
+
+    // MARK: - Drag and drop
+
+    /// The hand is fanned out at the bottom during your turn and parked in the corner otherwise.
+    var handActive: Bool { state.map { $0.turn == .p && !$0.over && !$0.mulligan } ?? false }
+
+    /// The minion or hero whose tile is under `p` (a little slack around each tile for fingers).
+    func entity(at p: CGPoint) -> EID? {
+        guard let s = state else { return nil }
+        var best: (EID, CGFloat)?
+        for (id, f) in frames where s.exists(id) {
+            let r = f.insetBy(dx: -6, dy: -6)
+            guard r.contains(p) else { continue }
+            let d = hypot(p.x - r.midX, p.y - r.midY)
+            if best == nil || d < best!.1 { best = (id, d) }
+        }
+        return best?.0
+    }
+
+    /// Minion dropped on the board, or a spell pulled up past the hand: the own board glows.
+    var dropGlow: Bool {
+        guard let d = drag, case .hand(let i) = d.src, d.aboveLine, let s = state, let c = s.p.hand[safe: i].flatMap(gd.card) else { return false }
+        return c.isMinion && s.p.board.count < DuelState.boardMax
+    }
+
+    /// Finger moved while holding hand card `i`; `line` is the screen y above which the card counts as played.
+    func dragHand(_ i: Int, to p: CGPoint, line: CGFloat) {
+        guard handActive, let s = state, let c = s.p.hand[safe: i].flatMap(gd.card) else { drag = nil; return }
+        hsel = nil
+        var d = drag ?? Drag(src: .hand(i), pt: p)
+        d.src = .hand(i); d.pt = p
+        d.aboveLine = p.y < line
+        let playable = !blocked && pending == nil && s.canPay(.p, c.id)
+        if playable, let fx = c.fx, let t = fx.tgt {
+            d.valid = s.targetsFor(.p, t, fx.cond)
+            let o = entity(at: p)
+            let over = d.aboveLine ? o.flatMap { d.valid.contains($0) ? $0 : nil } : nil
+            if over != d.over, over != nil { Haptics.tick() }
+            d.over = over
+        } else { d.valid = []; d.over = nil }
+        drag = d
+    }
+
+    /// Finger lifted while dragging hand card `i`.
+    func dropHand(_ i: Int) {
+        guard let d = drag, case .hand = d.src else { drag = nil; return }
+        withAnimation(.spring(duration: 0.4, bounce: 0.25)) { drag = nil }
+        guard d.aboveLine, !blocked, pending == nil, let s = state, let c = s.p.hand[safe: i].flatMap(gd.card) else { return }
+        if !s.canPay(.p, c.id) { S.log(.noMana); drain(); Haptics.fail(); return }
+        if c.isMinion && s.p.board.count >= DuelState.boardMax { S.log(.boardFull); drain(); Haptics.fail(); return }
+        if c.fx?.tgt != nil, d.over == nil, d.valid.isEmpty { S.log(.noTargets); drain(); Haptics.fail(); return }
+        Haptics.drop()
+        playHand(i, target: d.over)
+    }
+
+    /// Finger moved while holding one of your minions: aim an attack.
+    func dragMinion(_ id: EID, to p: CGPoint) {
+        guard !blocked, pending == nil, let m = S.minion(id), m.side == .p, S.canAttack(m) else { drag = nil; return }
+        hsel = nil
+        if drag == nil { sel = m.uid; Haptics.lift() }
+        var d = drag ?? Drag(src: .minion(id), pt: p)
+        d.src = .minion(id); d.pt = p; d.aboveLine = true
+        d.valid = S.attackTargets(.p)
+        let over = entity(at: p).flatMap { d.valid.contains($0) ? $0 : nil }
+        if over != d.over, over != nil { Haptics.tick() }
+        d.over = over
+        drag = d
+    }
+
+    func dropMinion() {
+        guard let d = drag, case .minion = d.src else { drag = nil; return }
+        drag = nil
+        if let t = d.over { Haptics.drop(); tap(t) } else { sel = nil; log = nil }
+    }
+
+    /// Finger moved while holding the hero power button (only a targeted power drags).
+    func dragPower(to p: CGPoint) {
+        guard !powerBlocked, let t = curPower.tgt else { drag = nil; return }
+        if drag == nil { Haptics.lift() }
+        var d = drag ?? Drag(src: .power, pt: p)
+        d.src = .power; d.pt = p; d.aboveLine = true
+        d.valid = S.targetsFor(.p, t)
+        let over = entity(at: p).flatMap { d.valid.contains($0) ? $0 : nil }
+        if over != d.over, over != nil { Haptics.tick() }
+        d.over = over
+        drag = d
+    }
+
+    func dropPower() {
+        guard let d = drag, case .power = d.src else { drag = nil; return }
+        drag = nil
+        guard let t = d.over, !powerBlocked else { return }
+        Haptics.drop()
+        pending = Pending(kind: .power, valid: d.valid, key: nil)
+        Task { await resolvePending(t) }
+    }
+
+    /// Where a targeting arrow starts, if the current drag draws one.
+    var arrowFrom: CGPoint? {
+        guard let d = drag else { return nil }
+        switch d.src {
+        case .minion(let id): return center(id)
+        case .power: return powerFrame.map { CGPoint(x: $0.midX, y: $0.midY) }
+        case .hand: return nil
+        }
+    }
+
+    /// Tap on the parked hand: fan it out for a moment to read.
+    func peekHand() {
+        guard !handActive else { return }
+        withAnimation(.spring(duration: 0.45, bounce: 0.2)) { handPeek = true }
+        let token = gameToken
+        Task {
+            await wait(3200)
+            guard gameToken == token else { return }
+            withAnimation(.spring(duration: 0.45)) { handPeek = false }
+        }
     }
 
     func hasMoves() -> Bool {

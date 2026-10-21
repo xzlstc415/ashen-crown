@@ -1,46 +1,207 @@
 import SwiftUI
 
-/// The one-screen duel: enemy hero, enemy board, recent plays, log, your board, your hero, hand, end-turn bar.
+/// Sizes shared by the duel layout and the hand layer, all from the duel area's size (landscape only).
+struct HandMetrics: Equatable {
+    let size: CGSize
+    var em: CGFloat { min(12.5, max(6, size.height * 0.0235)) }
+    var cardW: CGFloat { 10 * em }
+    var cardH: CGFloat { 15.6 * em }
+    /// How far the fanned cards hang below the bottom edge.
+    var sink: CGFloat { cardH * 0.08 }
+    /// Height the board column leaves free at the bottom for the fanned hand.
+    var reserve: CGFloat { cardH - sink + 6 }
+    /// Local y above which a dragged card counts as played.
+    var line: CGFloat { size.height - reserve - 14 }
+    var railW: CGFloat { 64 }
+    var gap: CGFloat { 10 }
+    /// Centre of the fan: the middle of the board column.
+    var fanCenterX: CGFloat { railW + gap + (size.width - railW - gap) / 2 }
+    var fanWidth: CGFloat { min((size.width - railW - gap) * 0.78, 7.5 * cardW) }
+    /// Centre y of a card in the fan.
+    var baseY: CGFloat { size.height - cardH / 2 + sink }
+    var cornerScale: CGFloat { 0.42 }
+    /// Centre of the parked hand (bottom-right corner).
+    var corner: CGPoint { CGPoint(x: size.width - cardW * cornerScale / 2 - 10, y: size.height - cardH * cornerScale / 2 - 6) }
+    /// Scale of a lifted card: as big as fits above the play line.
+    var liftScale: CGFloat { min(1.7, (line - 10) / cardH) }
+}
+
+/// The duel: a slim status rail on the left and the two boards in the middle. The hand is drawn by HandLayer
+/// on top of this view, fanned along the bottom during your turn and parked in the corner otherwise.
 struct DuelView: View {
+    let hm: HandMetrics
     @Environment(GameVM.self) private var vm
 
     var body: some View {
+        HStack(spacing: hm.gap) {
+            LandRail().frame(width: hm.railW)
+            LandBoard(hm: hm)
+        }
+    }
+}
+
+// MARK: - Left rail
+
+private struct LandRail: View {
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        VStack(spacing: 6) {
+            RailHero(side: .e)
+            RailHist()
+            RailHero(side: .p)
+            EndTurnButton()
+        }
+    }
+}
+
+private struct RailHero: View {
+    let side: Side
+    var body: some View {
+        let row = HStack(spacing: 5) { ManaGem(side: side); MiniPower(side: side) }
+        VStack(spacing: 6) {
+            if side == .e { HeroFace(side: side, size: 46); row } else { row; HeroFace(side: side, size: 46) }
+        }
+    }
+}
+
+/// Mana as one hexagon gem (current / max), with banked spell mana as small diamonds under it.
+private struct ManaGem: View {
+    let side: Side
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        guard let s = vm.state else { return AnyView(EmptyView()) }
+        let h = s[side], on = h.mana > 0
+        return AnyView(VStack(spacing: 2) {
+            ZStack {
+                Hexagon().fill(LinearGradient(colors: on ? [Color(hex: "#7cb8ee"), Theme.mana] : [Color(hex: "#3d3150"), Color(hex: "#2a2234")],
+                                              startPoint: .topLeading, endPoint: .bottomTrailing))
+                VStack(spacing: -2) {
+                    Text("\(h.mana)").font(Theme.body(13, .heavy)).foregroundStyle(on ? .white : Color(hex: "#8c7fa0")).monospacedDigit()
+                    Text("/\(h.maxMana)").font(Theme.body(8, .bold)).foregroundStyle(on ? .white.opacity(0.85) : Color(hex: "#8c7fa0")).monospacedDigit()
+                }
+            }
+            .frame(width: 30, height: 34)
+            HStack(spacing: 2) {
+                ForEach(0..<h.spellMana, id: \.self) { _ in
+                    Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
+                        .frame(width: 5, height: 5).rotationEffect(.degrees(45))
+                }
+            }
+            .frame(height: 6)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(vm.tx.mana(h.mana, h.maxMana) + (h.spellMana > 0 ? ", " + vm.tx.spellMana(h.spellMana) : ""))))
+    }
+}
+
+/// Hero power as a small icon button with its cost on top. Tap to use; a targeted power can also be dragged onto its target.
+private struct MiniPower: View {
+    let side: Side
+    @Environment(GameVM.self) private var vm
+    @State private var pulse = false
+    var body: some View {
+        guard let s = vm.state else { return AnyView(EmptyView()) }
+        let power = s[side].power, foe = side == .e, tx = vm.tx
+        let enabled = !foe && !vm.powerBlocked
+        let dragging = vm.drag?.src == .power
+        return AnyView(ZStack {
+            Circle().fill(RadialGradient(colors: [Color(hex: "#4a3a2a"), Color(hex: "#1e160f")], center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 20))
+            Image(systemName: "sparkle").font(.system(size: 14, weight: .bold)).foregroundStyle(Theme.gold)
+        }
+        .frame(width: 32, height: 32)
+        .overlay(Circle().stroke(foe ? Color(hex: "#6d3a33") : Theme.gold, lineWidth: 2))
+        .overlay(alignment: .top) {
+            Text("\(power.cost)").font(Theme.body(10, .heavy)).foregroundStyle(.white).frame(width: 16, height: 16).background(Theme.mana, in: Circle()).offset(y: -7)
+        }
+        .shadow(color: enabled && (pulse || dragging) ? Theme.gold.opacity(dragging ? 0.9 : 0.6) : .clear, radius: 8)
+        .scaleEffect(dragging ? 1.15 : 1)
+        .opacity(foe ? 0.75 : enabled ? 1 : 0.4)
+        .reportFrame { if foe { vm.epowFrame = $0 } else { vm.powerFrame = $0 } }
+        .contentShape(Circle())
+        .pressDrag(enabled: !foe, onTap: { vm.usePower() }, onDrag: { vm.dragPower(to: $0) }, onDrop: { _ in vm.dropPower() })
+        .animation(.spring(duration: 0.2), value: dragging)
+        .onAppear { withAnimation(.easeInOut(duration: 1).repeatForever()) { pulse = true } }
+        .accessibilityLabel(Text("\(tx.heroPower) \(tx.powerName(power)), \(power.cost): \(tx.powerDesc(power))"))
+        .accessibilityAddTraits(.isButton))
+    }
+}
+
+/// The newest plays (up to four) that fit completely, top to bottom.
+private struct RailHist: View {
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        GeometryReader { g in
+            let fit = max(0, min(4, Int((g.size.height + 4) / 32)))
+            VStack(spacing: 4) {
+                ForEach(vm.hist.suffix(fit)) { h in HistChip(h: h, size: 28) }
+            }
+            .frame(width: g.size.width, height: g.size.height)
+        }
+        .frame(maxHeight: .infinity)
+    }
+}
+
+private struct EndTurnButton: View {
+    @Environment(GameVM.self) private var vm
+    @State private var glow = false
+    var body: some View {
+        guard let s = vm.state else { return AnyView(EmptyView()) }
+        let myTurn = s.turn == .p && !vm.busy && !s.over
+        let nudge = myTurn && !vm.hasMoves()
+        return AnyView(Button { vm.endTurn() } label: {
+            Image(systemName: "arrow.clockwise").font(.system(size: 17, weight: .heavy)).foregroundStyle(.white)
+                .frame(width: 42, height: 42)
+                .background(RadialGradient(colors: [Color(hex: "#f0a060"), Color(hex: "#a8401a")], center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 26), in: Circle())
+                .overlay(Circle().stroke(Color(hex: "#f3c97a"), lineWidth: 2))
+                .shadow(color: nudge && glow ? Color(hex: "#f3a060").opacity(0.9) : .black.opacity(0.5), radius: nudge && glow ? 10 : 2, y: nudge && glow ? 0 : 2)
+        }
+        .buttonStyle(.plain)
+        .disabled(!myTurn)
+        .saturation(myTurn ? 1 : 0.15).brightness(myTurn ? 0 : -0.25)
+        .onAppear { withAnimation(.easeInOut(duration: 0.7).repeatForever()) { glow = true } }
+        .accessibilityLabel(Text(vm.tx.endTurn)))
+    }
+}
+
+// MARK: - Boards
+
+private struct LandBoard: View {
+    let hm: HandMetrics
+    @Environment(GameVM.self) private var vm
+    var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         let tx = vm.tx
-        let myTurn = s.turn == .p && !vm.busy && !s.over
-        return AnyView(VStack(spacing: 6) {
-            HeroView(side: .e)
+        let liftedPlayable: Bool = {
+            guard let i = vm.hsel, vm.pending == nil, vm.handActive, !vm.busy, let k = s.p.hand[safe: i] else { return false }
+            return s.canPay(.p, k)
+        }()
+        return AnyView(VStack(spacing: 4) {
             BoardView(side: .e, minions: s.e.board, empty: tx.noEnemy)
-            HistStrip()
-            // Log / target prompt
             HStack(spacing: 10) {
                 if vm.pending != nil {
-                    Text(tx.chooseTarget(vm.pendingLabel())).font(Theme.body(13)).foregroundStyle(Theme.muted)
+                    Text(tx.chooseTarget(vm.pendingLabel())).font(Theme.body(12.5)).foregroundStyle(Theme.muted)
                     Button(tx.cancel) { vm.cancelPending() }.ghost(compact: true)
+                } else if liftedPlayable {
+                    Text(tx.tapPlay).font(Theme.body(12.5)).foregroundStyle(Theme.muted)
                 } else {
-                    Text(vm.logText()).font(Theme.body(13)).foregroundStyle(Theme.muted).multilineTextAlignment(.center)
+                    Text(vm.logText()).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center)
                         .lineLimit(2).minimumScaleFactor(0.85)
                 }
             }
-            .frame(minHeight: 28)
+            .frame(minHeight: 22)
             .accessibilityElement(children: .combine)
             BoardView(side: .p, minions: s.p.board, empty: tx.playMinions)
-            HeroView(side: .p)
-            HandView()
-            HStack(spacing: 10) {
-                Text(s.turn == .p ? tx.yourTurn : tx.acting(vm.heroName(.e))).font(Theme.body(12)).foregroundStyle(Theme.muted)
-                Spacer()
-                if s.mode == .online && !s.over {
-                    Button(vm.o.concedeArm ? tx.concedeSure : "⚑ " + tx.concede) { vm.concede() }.ghost(compact: true, danger: vm.o.concedeArm)
-                }
-                if s.mode != .online {
-                    Button(vm.quitArm ? tx.quitSure : "⌂ " + tx.toMenu) { vm.quitDuel() }.ghost(compact: true, danger: vm.quitArm)
+            Color.clear.frame(height: hm.reserve)
+        }
+        .overlay(alignment: .topTrailing) {
+            HStack(spacing: 8) {
+                Text("\(vm.heroName(.e)) · \(tx.handDeck(s.e.hand.count, s.e.deck.count))").font(Theme.body(11.5)).foregroundStyle(Theme.muted).lineLimit(1)
+                if s.mode == .online {
+                    if !s.over { Button(vm.o.concedeArm ? tx.concedeSure : "⚑") { vm.concede() }.ghost(compact: true, danger: vm.o.concedeArm) }
+                } else {
+                    Button(vm.quitArm ? tx.quitSure : "⌂") { vm.quitDuel() }.ghost(compact: true, danger: vm.quitArm)
                         .accessibilityLabel(Text(tx.quitAria))
                 }
-                Button(tx.endTurn) { vm.endTurn() }
-                    .primary(glow: myTurn && !vm.hasMoves())
-                    .disabled(!myTurn)
-                    .opacity(myTurn ? 1 : 0.45)
             }
         })
     }
@@ -52,6 +213,7 @@ struct BoardView: View {
     let empty: String
     @Environment(GameVM.self) private var vm
     var body: some View {
+        let glow = side == .p && vm.dropGlow
         HStack(spacing: 8) {
             if minions.isEmpty {
                 Text(empty).font(Theme.body(12)).foregroundStyle(Theme.muted.opacity(0.6))
@@ -65,250 +227,50 @@ struct BoardView: View {
         .animation(.spring(duration: 0.5, bounce: 0.35), value: minions.map(\.uid))
         .frame(maxWidth: .infinity, minHeight: 98, maxHeight: .infinity)
         .padding(.vertical, 4)
+        .background(RoundedRectangle(cornerRadius: 14).fill(Theme.ready.opacity(glow ? 0.12 : 0)))
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Theme.ready.opacity(glow ? 0.9 : 0), lineWidth: 2))
+        .shadow(color: Theme.ready.opacity(glow ? 0.5 : 0), radius: glow ? 10 : 0)
+        .animation(.easeOut(duration: 0.18), value: glow)
         .reportFrame { vm.boardFrames[side] = $0 }
     }
 }
 
-struct HandView: View {
+/// Opening hand: tap cards to replace them, then confirm (online: wait for the opponent).
+struct MulliganView: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
-        let newFrom = s.p.hand.count - vm.drewCount
-        return AnyView(ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 7) {
-                ForEach(Array(s.p.hand.enumerated()), id: \.offset) { i, k in
-                    if let c = GameData.shared.card(k) {
-                        let ok = s.turn == .p && !vm.busy && !s.over && s.canPay(.p, k) && vm.pending == nil
-                        let off = !s.canPay(.p, k)
-                        let pend: Bool = { if let p = vm.pending, case .spell(let idx) = p.kind { return idx == i }; return false }()
-                        HandCard(card: c, index: i, ok: ok, off: off, pend: pend, fresh: i >= newFrom, delay: Double(max(0, i - newFrom)) * 0.11)
+        let tx = vm.tx, hand = s.p.hand, n = max(1, hand.count)
+        return AnyView(GeometryReader { g in
+            let em = max(6, min(10.8, (g.size.height - 170) / 15.6, (g.size.width - 40 - CGFloat(n - 1) * 18) / (CGFloat(n) * 10)))
+            VStack(spacing: 10) {
+                Text(tx.mullTitle).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                Text(tx.mullSub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
+                HStack(spacing: 18) {
+                    ForEach(Array(hand.enumerated()), id: \.offset) { i, k in
+                        if let c = GameData.shared.card(k) {
+                            let x = vm.mullPicks.contains(i)
+                            CardView(card: c, size: .fit(em))
+                                .saturation(x ? 0.15 : 1).brightness(x ? -0.35 : 0)
+                                .offset(y: x ? 6 : 0)
+                                .overlay { if x { Text("✕").font(.system(size: 44, weight: .heavy)).foregroundStyle(Theme.blood).shadow(radius: 4) } }
+                                .contentShape(Rectangle())
+                                .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { vm.toggleMulligan(i) } }
+                                .accessibilityAddTraits(x ? .isSelected : [])
+                        }
                     }
                 }
-            }
-            .padding(.horizontal, 6).padding(.top, 12).padding(.bottom, 8)
-        }
-        .fixedSize(horizontal: false, vertical: true)
-        .padding(.horizontal, -6)
-        .onChange(of: s.p.hand.count) { _, _ in Task { await vm.wait(600); vm.drewCount = 0 } })
-    }
-}
-
-struct HandCard: View {
-    let card: Card
-    let index: Int
-    let ok: Bool, off: Bool, pend: Bool, fresh: Bool
-    let delay: Double
-    var size: CardSize = .sm
-    /// Landscape: the first tap previews the card, a second tap plays it.
-    var previewFirst = false
-    @Environment(GameVM.self) private var vm
-    @State private var shown = false
-    var body: some View {
-        let selected = previewFirst && vm.hsel == index
-        CardView(card: card, size: size)
-            .overlay(RoundedRectangle(cornerRadius: 0.9 * size.em).stroke(selected ? Theme.gold : pend ? Theme.ember : ok ? Theme.ready : .clear, lineWidth: 2))
-            .shadow(color: selected ? Theme.gold.opacity(0.7) : pend ? Theme.ember.opacity(0.6) : ok ? Theme.ready.opacity(0.5) : .clear, radius: ok || pend || selected ? 8 : 0)
-            .saturation(off ? 0.5 : 1).brightness(off ? -0.15 : 0)
-            .offset(y: pend || selected ? -10 : 0)
-            .opacity(vm.hiddenHand == index ? 0 : 1)
-            .offset(x: shown ? 0 : 80).rotationEffect(.degrees(shown ? 0 : 10)).opacity(shown ? 1 : 0)
-            .onAppear {
-                if fresh && !vm.reduceMotion { withAnimation(.spring(duration: 0.45, bounce: 0.3).delay(delay)) { shown = true } } else { shown = true }
-            }
-            .reportFrame { vm.handFrames[index] = $0 }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                // A spell that needs a target goes straight to choosing it; other cards preview first.
-                let aim: Bool = {
-                    guard card.fx?.tgt != nil, let st = vm.state else { return false }
-                    return st.turn == .p && !vm.busy && !st.over && st.canPay(.p, card.id)
-                }()
-                if previewFirst && vm.hsel != index && vm.pending == nil && !aim { vm.hsel = index }
-                else { vm.hsel = nil; vm.playHand(index) }
-            }
-            .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = card.id }
-            .accessibilityLabel(Text("\(vm.tx.name(card.names)), \(card.cost)"))
-    }
-}
-
-/// Small chips of the last plays; tap one to see the card.
-struct HistStrip: View {
-    @Environment(GameVM.self) private var vm
-    var body: some View {
-        guard let s = vm.state else { return AnyView(EmptyView()) }
-        return AnyView(HStack(spacing: 4) {
-            if !vm.hist.isEmpty {
-                Text(vm.tx.history).font(Theme.body(11)).foregroundStyle(Theme.muted).padding(.trailing, 4)
-                ForEach(vm.hist) { h in HistChip(h: h) }
-            }
-        }
-        .frame(maxWidth: .infinity, minHeight: 30))
-    }
-}
-
-/// Overlay layers that float above the duel: projectiles, bursts, sparks, waves, flying cards.
-struct FXLayer: View {
-    @Environment(GameVM.self) private var vm
-    var body: some View {
-        ZStack(alignment: .topLeading) {
-            ForEach(vm.fx) { item in
-                switch item {
-                case .orb(_, let from, let to, let color): OrbView(from: from, to: to, color: color)
-                case .burst(_, let at, let color): BurstView(at: at, color: color)
-                case .spark(_, let at, let dx, let dy, let size): SparkView(at: at, dx: dx, dy: dy, size: size)
-                case .wave(_, let rect): WaveView(rect: rect)
-                case .fly(_, let key, let from, let to): FlyView(key: key, from: from, to: to)
+                .padding(.top, 6)
+                if vm.mullMine != nil {
+                    Text(tx.mullWait).font(Theme.body(13)).foregroundStyle(Theme.muted)
+                } else {
+                    Button(vm.mullPicks.isEmpty ? tx.mullKeep : tx.mullSwap(vm.mullPicks.count)) { vm.confirmMulligan() }.primary()
                 }
             }
+            .padding(16)
+            .frame(width: g.size.width, height: g.size.height)
+            .background(Color(hex: "#0a070e").opacity(0.86))
         }
-        .ignoresSafeArea()
-        .allowsHitTesting(false)
-    }
-}
-
-private struct OrbView: View {
-    let from: CGPoint, to: CGPoint, color: Color
-    @State private var p: CGFloat = 0
-    var body: some View {
-        let x = from.x + (to.x - from.x) * p
-        let y = from.y + (to.y - from.y) * p - 30 * sin(p * .pi)
-        Circle().fill(RadialGradient(colors: [.white, color, color.opacity(0)], center: .center, startRadius: 1, endRadius: 10))
-            .frame(width: 18, height: 18).shadow(color: color, radius: 8)
-            .scaleEffect(0.5 + p)
-            .position(x: x, y: y)
-            .onAppear { withAnimation(.easeIn(duration: 0.42)) { p = 1 } }
-    }
-}
-private struct BurstView: View {
-    let at: CGPoint, color: Color
-    @State private var on = false
-    var body: some View {
-        Circle().stroke(color, lineWidth: 3).frame(width: 46, height: 46)
-            .scaleEffect(on ? 1.7 : 0.2).opacity(on ? 0 : 1)
-            .position(at)
-            .onAppear { withAnimation(.easeOut(duration: 0.42)) { on = true } }
-    }
-}
-private struct SparkView: View {
-    let at: CGPoint, dx: CGFloat, dy: CGFloat, size: CGFloat
-    @State private var on = false
-    var body: some View {
-        Circle().fill(Theme.ember2).frame(width: size, height: size).shadow(color: Theme.ember2, radius: 3)
-            .position(at).offset(x: on ? dx : 0, y: on ? dy : 0).opacity(on ? 0 : 1)
-            .onAppear { withAnimation(.easeOut(duration: 0.7 + .random(in: 0...0.4))) { on = true } }
-    }
-}
-private struct WaveView: View {
-    let rect: CGRect
-    @State private var on = false
-    var body: some View {
-        LinearGradient(colors: [.clear, Theme.ember2.opacity(0.65), .clear], startPoint: .leading, endPoint: .trailing)
-            .frame(width: rect.width * 0.45, height: rect.height)
-            .position(x: rect.minX + (on ? rect.width * 1.3 : -rect.width * 0.3), y: rect.midY)
-            .opacity(on ? 0 : 1)
-            .mask(Rectangle().frame(width: rect.width, height: rect.height).position(x: rect.midX, y: rect.midY))
-            .onAppear { withAnimation(.easeInOut(duration: 0.62)) { on = true } }
-    }
-}
-private struct FlyView: View {
-    let key: String, from: CGRect, to: CGPoint
-    @State private var on = false
-    @Environment(GameVM.self) private var vm
-    var body: some View {
-        if let c = GameData.shared.card(key) {
-            CardView(card: c, size: .sm)
-                .scaleEffect(on ? 0.45 : 1).rotationEffect(.degrees(on ? -6 : 0)).opacity(on ? 0 : 1)
-                .position(x: on ? to.x : from.midX, y: on ? to.y : from.midY)
-                .onAppear { withAnimation(.easeIn(duration: 0.34)) { on = true } }
-        }
-    }
-}
-
-/// "Your turn" / "Enemy turn" ribbon.
-struct BannerView: View {
-    let banner: Banner
-    @Environment(GameVM.self) private var vm
-    @State private var on = false
-    var body: some View {
-        Text(banner.text)
-            .font(Theme.display(30, cjk: vm.lang.isCJK)).tracking(vm.lang.isCJK ? 6 : 3)
-            .foregroundStyle(banner.foe ? Color(hex: "#f0b0a6") : Theme.parch)
-            .frame(maxWidth: .infinity).padding(.vertical, 12)
-            .background(LinearGradient(colors: [.clear, Theme.bg.opacity(0.94), Theme.bg.opacity(0.94), .clear], startPoint: .leading, endPoint: .trailing))
-            .overlay(VStack { Rectangle().frame(height: 1.5); Spacer(); Rectangle().frame(height: 1.5) }.foregroundStyle(banner.foe ? Theme.blood : Theme.gold).padding(.horizontal, 40))
-            .scaleEffect(y: on ? 1 : 0.2)
-            .onAppear { withAnimation(.easeOut(duration: 0.28)) { on = true } }
-            .allowsHitTesting(false)
-    }
-}
-
-/// Spotlight of the card the opponent is playing.
-struct RevealView: View {
-    let r: Reveal
-    @Environment(GameVM.self) private var vm
-    @State private var on = false
-    var body: some View {
-        if let c = GameData.shared.card(r.key) {
-            VStack(spacing: 8) {
-                Text(vm.tx.played(vm.heroName(r.side))).font(Theme.body(13, .heavy)).foregroundStyle(Color(hex: "#f0b0a6"))
-                    .padding(.horizontal, 12).padding(.vertical, 3).background(Theme.bg.opacity(0.92), in: Capsule()).overlay(Capsule().stroke(Color(hex: "#7a3f39"), lineWidth: 1))
-                CardView(card: c, size: .md).reportFrame { vm.revealFrame = $0 }
-                if let t = r.target {
-                    Text(vm.tx.target(vm.name(t))).font(Theme.body(13, .heavy)).foregroundStyle(.white)
-                        .padding(.horizontal, 12).padding(.vertical, 3).background(Theme.blood.opacity(0.9), in: Capsule())
-                }
-            }
-            .shadow(color: .black.opacity(0.8), radius: 12, y: 10)
-            .scaleEffect(on ? 1 : 0.6).opacity(on ? 1 : 0).rotation3DEffect(.degrees(on ? 0 : 80), axis: (0, 1, 0))
-            .onAppear { withAnimation(.easeOut(duration: 0.3)) { on = true } }
-            .allowsHitTesting(false)
-        }
-    }
-}
-
-/// Full-screen look at a card from the history strip.
-struct PeekView: View {
-    let h: HistItem
-    @Environment(GameVM.self) private var vm
-    var body: some View {
-        if let c = GameData.shared.card(h.key) {
-            ZStack {
-                Color(hex: "#0a080c").opacity(0.82).ignoresSafeArea()
-                VStack(spacing: 10) {
-                    Text(vm.tx.played(vm.heroName(h.side))).font(Theme.body(13, .heavy)).foregroundStyle(h.side == .e ? Color(hex: "#f0b0a6") : Theme.ready)
-                        .padding(.horizontal, 12).padding(.vertical, 3).background(Theme.bg.opacity(0.92), in: Capsule()).overlay(Capsule().stroke(h.side == .e ? Color(hex: "#7a3f39") : Theme.kelp, lineWidth: 1))
-                    CardView(card: c, size: .md)
-                    if let t = h.target {
-                        Text(vm.tx.target(vm.name(t))).font(Theme.body(13, .heavy)).foregroundStyle(.white).padding(.horizontal, 12).padding(.vertical, 3).background(Theme.blood.opacity(0.9), in: Capsule())
-                    }
-                    Text(vm.tx.tapClose).font(Theme.body(12)).foregroundStyle(Theme.muted)
-                }
-            }
-            .contentShape(Rectangle())
-            .onTapGesture { vm.peekItem = nil }
-        }
-    }
-}
-
-/// One recent play; tap it to see the card.
-struct HistChip: View {
-    let h: HistItem
-    var size: CGFloat = 30
-    @Environment(GameVM.self) private var vm
-    var body: some View {
-        let foe = h.side == .e
-        let fresh = foe && h.round == vm.state?.round && vm.state?.turn == .p
-        Button { vm.peekItem = h } label: {
-            ZStack {
-                RadialGradient(colors: foe ? [Color(hex: "#4a2a2a"), Color(hex: "#1a0c0c")] : [Color(hex: "#3a3046"), Color(hex: "#17121c")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 20)
-                if Paintings.has(h.key) { ArtThumb(key: h.key, width: size, height: size) }
-                else { Image("art_\(h.key)").resizable().scaledToFit().scaleEffect(1.5) }
-            }
-            .frame(width: size, height: size)
-            .clipShape(RoundedRectangle(cornerRadius: 7))
-            .overlay(RoundedRectangle(cornerRadius: 7).stroke(foe ? Color(hex: "#a0483f") : Theme.kelp, lineWidth: 2))
-            .shadow(color: fresh ? Theme.blood.opacity(0.75) : .clear, radius: fresh ? 6 : 0)
-        }
-        .buttonStyle(.plain)
+        .ignoresSafeArea())
     }
 }

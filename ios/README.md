@@ -1,6 +1,8 @@
 # Ruinaccord iOS App（原生版）
 
-这个文件夹是一个完整的原生 iOS 工程（SwiftUI，iOS 17+）。游戏规则、卡牌、AI 和三种语言都是用 Swift 重写的，不再内嵌网页。
+这个文件夹是一个完整的原生 iOS 工程（SwiftUI，iOS 17+，只支持横屏）。游戏规则、卡牌、AI 和三种语言都是用 Swift 重写的，不再内嵌网页。
+
+战斗操作是拖拽式的：手牌在自己回合扇形排在底部，拖到场上打出（指向性法术直接拖到目标上），点一下抬起、再点一下也能打出，按住可以放大看；对方回合手牌收到右下角，点一下可以临时展开。随从从自己这边拖出箭头指向目标即可攻击，英雄技能同样可拖；点选操作仍然保留。
 
 - **账号**：通过 Apple 登录（Sign in with Apple），也可以以游客身份玩单机模式。
 - **数据**：牌组、语言和战绩保存在 Firebase 的云数据库（Cloud Firestore）里，换设备也在；游客升级为 Apple 账号时牌组会一起带过去。
@@ -63,7 +65,7 @@
 - 发版：先提交并推送改动，然后在仓库根目录运行 `scripts/testflight.sh`。它会把版本号加一位（例如 2.0.1 变成 2.0.2，也可以写 `scripts/testflight.sh 2.1.0` 指定），打包、上传到 TestFlight，再提交 "Release x.y.z"、打标签并推送。Build 号自动用当前时间。签名用的是本机的 Apple Distribution 证书和 "Ruinaccord App Store" 描述文件（2027-10-07 到期），上传用 `~/.appstoreconnect/private_keys` 里的团队 API 密钥。
 - 跑测试：`xcodebuild test -project ios/Ruinaccord.xcodeproj -scheme Ruinaccord -destination 'platform=iOS Simulator,name=iPhone 17'`。
   测试里的 `testClassBalance` 会让 AI 两边对打约 1800 局，并打印各职业胜率（BALANCE 一行）；改卡牌后看一眼，胜率应在 30%–70% 之间。
-- 模拟器截图：加启动参数 `-local`（不签名的模拟器构建无法使用 Firebase 钥匙串），例如 `-local -screen duel -autoplay -lang zh`。
+- 模拟器截图：加启动参数 `-local`（不签名的模拟器构建无法使用 Firebase 钥匙串），例如 `-local -screen duel -autoplay -lang zh`。`-sel 1` 抬起第二张手牌；`-card frostbolt,goblin,berserker -dragtest` 用代码走一遍拖拽出牌、拖法术到敌方英雄、拖随从攻击和拖英雄技能，并在控制台打印结果（`xcrun simctl launch --console-pty`）。
 
 ## 在线对战是怎么工作的
 
