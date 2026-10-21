@@ -1086,7 +1086,7 @@ if(BETA){
   cm.tag=['Talents: Fire grows your spells, Frost freezes and shatters.','天赋：火焰养大法术，冰霜冻结再击碎。','タレント：炎は呪文を育て、氷は凍らせて砕く。'];
   cm.deck=['apprentice','emberbolt','icelance','icelance','wyrmling','emberadept','frostbolt','frostbolt','frostnova','shatter','icebarrier','lance','maelstrom','diver','emberele','frostele','phoenix','archmage','firelem','firestorm'];
   cp.tag=['Talents: Holy hastens Prayers, Shadow destroys key minions.','天赋：圣光加快祷文，暗影拆掉关键随从。','タレント：聖光は祈祷を早め、影は要のミニオンを消す。'];
-  cp.deck=['dispel','voidacolyte','holysmite','matins','matins','pearl','pwshield','vigil','mend','cantor','cleric','hymn','swpain','spellbreaker','swdeath','golem','revelation','shark','treant','diver'];
+  cp.deck=['dispel','voidacolyte','holysmite','matins','matins','pearl','pwshield','vigil','mend','cantor','cleric','hymn','swpain','spellbreaker','swdeath','golem','revelation','shark','treant','swpain'];
 }
 const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
 const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
@@ -1103,28 +1103,28 @@ const TALENTS=BETA?{
        TN('fi_burn',['Searing','灼烧','灼熱'],['Your Fire spells deal 1 extra damage to the enemy hero.','你的火系法术对敌方英雄多造成1点伤害。','自分の火の呪文が敵ヒーローに与えるダメージ+1。'])],
       [TN('fi_fireball',['Fireball Mastery','火球专精','火球の極意'],['Fireball costs 1 less.','火球术的费用-1。','ファイアボールのコスト-1。']),
        TN('fi_wildfire',['Wildfire','燎原','燎原'],['When your Fire spell kills a minion, deal 1 damage to the enemy hero (once per spell).','你的火系法术消灭随从时，对敌方英雄造成1点伤害（每个法术一次）。','自分の火の呪文がミニオンを倒した時、敵ヒーローに1ダメージ（呪文1回につき1度）。']),
-       TN('fi_bank',['Banked Heat','积蓄','蓄熱'],['Spell mana can bank up to 5 instead of 3.','法术法力上限从3提高到5。','呪文マナの上限が3から5になる。'])],
+       TN('fi_bank',['Banked Heat','积蓄','蓄熱'],['Spell mana can bank up to 5 instead of 3. Start the game with 1 Spell mana.','法术法力上限从3提高到5。开局获得1点法术法力。','呪文マナの上限が3から5になる。ゲーム開始時に呪文マナを1得る。'])],
       [TN('fi_spark',['Searing Spark','灼热火花','灼熱の火花'],['Your hero power deals 2 damage.','英雄技能改为造成2点伤害。','ヒーローパワーのダメージが2になる。']),
        TN('fi_flamearmor',['Flame Armor','焰甲','炎の鎧'],['Whenever you cast a Fire spell, gain 1 Armor.','每当你施放一个火系法术，获得1点护甲。','火の呪文を使うたび、装甲を1獲得する。'])],
       [TN('fi_boost',['Spell Surge','法术增幅','呪文増幅'],['Whenever you cast a spell, Fire spells in your hand deal +1 damage (up to +2 each).','每当你施放一个法术，手牌中的火系法术伤害+1（每张最多+2）。','呪文を使うたび、手札の火の呪文のダメージ+1（1枚につき最大+2）。'])]]},
     {id:'frost',sc:'frost',col:'#8fd0ff',n:['Frost','冰霜','氷'],tiers:[
-      [TN('fr_blood',['Cold Blood','冰冷血脉','冷たい血'],['Your hero starts with +5 Health.','英雄起始生命值+5。','ヒーローの初期体力+5。']),
+      [TN('fr_blood',['Cold Blood','冰冷血脉','冷たい血'],['Your hero starts with +7 Health.','英雄起始生命值+7。','ヒーローの初期体力+7。']),
        TN('fr_armor',['Frost Armor','霜甲','霜の鎧'],['After you use your hero power, gain 2 Armor.','使用英雄技能后获得2点护甲。','ヒーローパワーを使った後、装甲を2獲得する。']),
        TN('fr_nova',['Hoarfrost','寒霜','霜降'],['Frost Nova costs 1 less.','冰霜新星的费用-1。','フロストノヴァのコスト-1。'])],
       [TN('fr_bolt',['Frostbolt Mastery','寒冰箭精通','フロストボルトの極意'],['Frostbolt deals 1 extra damage.','寒冰箭多造成1点伤害。','フロストボルトのダメージ+1。']),
        TN('fr_mirror',['Hall of Mirrors','镜中人','鏡の間'],['Mirror Image summons three.','镜像改为召唤三个。','ミラーイメージが3体になる。']),
-       TN('fr_perma',['Permafrost','永冻','永久凍土'],['Minions you Freeze stay Frozen for an extra turn.','你冻结的随从多冻结一回合。','自分が凍結させたミニオンは1ターン長く凍る。'])],
+       TN('fr_perma',['Permafrost','永冻','永久凍土'],['Minions you Freeze stay Frozen for an extra turn. Frozen enemy minions take 1 extra damage.','你冻结的随从多冻结一回合。被冻结的敌方随从受到的伤害+1。','自分が凍結させたミニオンは1ターン長く凍る。凍結した敵のミニオンが受けるダメージ+1。'])],
       [TN('fr_spark',['Frost Spark','冰霜火花','氷の火花'],['Your hero power also Freezes its target.','英雄技能同时冻结目标。','ヒーローパワーが対象を凍結させる。']),
        TN('fr_barrier',['Ice Ward','冰屏','氷の守り'],['The first time you Freeze an enemy minion each turn, gain 3 Armor.','每回合你第一次冻结敌方随从时，获得3点护甲。','毎ターン最初に敵のミニオンを凍結させた時、装甲を3獲得する。'])],
-      [TN('fr_deep',['Deep Freeze','深寒','深き凍え'],['Frozen enemy minions take 3 extra damage from everything.','被冻结的敌方随从受到的所有伤害+3。','凍結した敵のミニオンが受けるダメージ+3。'])]]}],
+      [TN('fr_deep',['Deep Freeze','深寒','深き凍え'],['Frozen enemy minions take 2 extra damage from everything.','被冻结的敌方随从受到的所有伤害+2。','凍結した敵のミニオンが受けるダメージ+2。'])]]}],
   priest:[
     {id:'holy',sc:'holy',col:'#ffe08a',n:['Holy','圣光','聖光'],tiers:[
-      [TN('ho_devout',['Devout','虔诚','敬虔'],['Your hero starts with +3 Health.','英雄起始生命值+3。','ヒーローの初期体力+3。']),
+      [TN('ho_devout',['Devout','虔诚','敬虔'],['Your hero starts with +6 Health.','英雄起始生命值+6。','ヒーローの初期体力+6。']),
        TN('ho_smite',['Chastise','惩戒','懲戒'],['Holy Smite deals 1 extra damage.','神圣惩击多造成1点伤害。','ホーリースマイトのダメージ+1。']),
        TN('ho_light',['Bright Mending','愈光','癒しの輝き'],['Healing Light restores 2 more Health.','治愈之光额外恢复2点生命值。','癒しの光の回復量+2。'])],
       [TN('ho_shield',['Steadfast Word','坚定真言','揺るがぬ言葉'],['Word of Shielding gives +0/+1 more.','真言术：盾额外+0/+1。','守りの言葉がさらに+0/+1を与える。']),
        TN('ho_dawn',['First Light','晨光','曙光'],['Dawn Prayer counts down from 1.','晨祷的倒计时改为1。','暁の祈りのカウントが1になる。']),
-       TN('ho_grace',['Grace','神恩','恩寵'],['Whenever one of your Prayers is answered, restore 3 Health to your hero and deal 2 damage to the enemy minion with the highest Attack.','每当你的祷文应验，为你的英雄恢复3点生命值，并对攻击力最高的敌方随从造成2点伤害。','自分の祈祷が成就するたび、ヒーローの体力を3回復し、攻撃力が最も高い敵のミニオンに2ダメージを与える。'])],
+       TN('ho_grace',['Grace','神恩','恩寵'],['Whenever one of your Prayers is answered, restore 3 Health to your hero and deal 1 damage to the enemy minion with the highest Attack.','每当你的祷文应验，为你的英雄恢复3点生命值，并对攻击力最高的敌方随从造成1点伤害。','自分の祈祷が成就するたび、ヒーローの体力を3回復し、攻撃力が最も高い敵のミニオンに1ダメージを与える。'])],
       [TN('ho_pray',['Supplication','祈愿','祈願'],['Your hero power also counts your Prayers down by 1.','英雄技能同时让你的祷文倒计时-1。','ヒーローパワーが自分の祈祷のカウントも1進める。']),
        TN('ho_hymn',['Choir','圣咏','聖歌'],['Hymn of Return revives two minions.','复苏圣咏改为复活两个随从。','帰還の聖歌が2体蘇らせる。'])],
       [TN('ho_altar',['Holy Altar','神圣祭坛','聖なる祭壇'],['Your altar holds 3 Prayers, and each Prayer starts 1 lower (at least 1).','祭坛增加到3个位置；祷文放上祭坛时倒计时-1（至少为1）。','祭壇が3枠になり、祈祷は置いた時にカウント-1（最低1）。'])]]},
@@ -1137,15 +1137,15 @@ const TALENTS=BETA?{
        TN('sh_void',['Void','虚空','虚無'],['Your Silence effects also deal 2 damage to the target.','你的沉默效果同时对目标造成2点伤害。','自分の沈黙効果が対象に2ダメージも与える。'])],
       [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion.','英雄技能改为「对一个随从造成2点伤害」。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。']),
        TN('sh_drain',['Drain','汲取','吸収'],['Whenever your spell kills an enemy minion, restore 2 Health to your hero.','你的法术每消灭一个敌方随从，为你的英雄恢复2点生命值。','自分の呪文が敵のミニオンを倒すたび、ヒーローの体力を2回復する。'])],
-      [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand.','你的暗言术消灭随从后，将它的一张复制置入你的手牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加える。'])]]}],
+      [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand and draw a card.','你的暗言术消灭随从后，将它的一张复制置入你的手牌，并抽一张牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加え、カードを1枚引く。'])]]}],
   warrior:[
     {id:'prot',sc:'prot',col:'#a9b4c2',n:['Protection','防护','守護'],tiers:[
-      [TN('wa_tough',['Hardened','坚韧','強靭'],['Start the game with 5 Armor.','开局获得5点护甲。','ゲーム開始時に装甲を5得る。']),
+      [TN('wa_tough',['Hardened','坚韧','強靭'],['Start the game with 7 Armor.','开局获得7点护甲。','ゲーム開始時に装甲を7得る。']),
        TN('wa_wall',['Thick Shield','厚盾','厚い盾'],['Shield Wall gives 2 more Armor.','盾墙额外获得2点护甲。','盾の壁の装甲+2。']),
        TN('wa_crab',['Shield Drill','盾卫训练','盾持ちの訓練'],['Dwarf Shieldbearer has +0/+2.','矮人盾卫+0/+2。','ドワーフの盾持ちに+0/+2。'])],
       [TN('wa_slam',['Heavy Slam','重击','重撃'],['Shield Slam deals 1 extra damage.','盾牌猛击额外造成1点伤害。','シールドスラムのダメージ+1。']),
        TN('wa_thane',["Thane's Mail",'领主之甲','領主の鎧'],['Dwarf Thane gives 2 more Armor.','矮人领主登场时额外获得2点护甲。','ドワーフの領主の装甲+2。']),
-       TN('wa_iron',['Ironguard','铁卫','鉄の守り'],['Your Guard minions have +0/+1.','你的守护随从+0/+1。','自分のガードを持つミニオンに+0/+1。'])],
+       TN('wa_iron',['Ironguard','铁卫','鉄の守り'],['Your Guard minions have +0/+2.','你的守护随从+0/+2。','自分のガードを持つミニオンに+0/+2。'])],
       [TN('wa_heavy',['Heavy Armor','重甲','重装'],['Armor Up gives 1 more Armor.','英雄技能多获得1点护甲。','ヒーローパワーの装甲+1。']),
        TN('wa_counter',['Riposte','反击','反撃'],['When an enemy minion attacks your hero while you have Armor, deal 1 damage to it.','敌方随从攻击你的英雄时，若你有护甲，对它造成1点伤害。','装甲がある時に敵のミニオンがヒーローを攻撃すると、そのミニオンに1ダメージ。'])],
       [TN('wa_bulwark',['Bulwark','坚壁','堅壁'],['When short on mana, every 3 Armor can pay for 1 mana.','法力不足时，每3点护甲可以抵1点法力出牌。','マナが足りない時、装甲3でマナ1の代わりに払える。'])]]},
@@ -1169,7 +1169,7 @@ const TALENTS=BETA?{
        TN('pa_array',['Formation','列阵','布陣'],['With 5 minions, your hero power costs 1 less.','你控制5个随从时，英雄技能费用-1。','ミニオンが5体いる時、ヒーローパワーのコスト-1。'])],
       [TN('pa_double',['Double Muster','双重征召','二重召集'],['Muster summons two Recruits and costs 3.','征召改为召唤两个民兵，费用变为3。','召集が民兵2体になり、コストは3になる。']),
        TN('pa_banner',['War Banner','战旗','軍旗'],['Whenever you summon a token, your leftmost minion gets +1 Attack.','每当你召唤一个衍生物，你最左边的随从+1攻击力。','トークンを召喚するたび、一番左のミニオンの攻撃力+1。'])],
-      [TN('pa_coop',['Unity','协作','連携'],['Once you have summoned 10 minions this game, your minions get +1 Attack for good (new ones too).','本局你召唤满10个友方随从后，你的所有随从永久+1攻击力（新上场的也算）。','このゲームで味方を10体召喚すると、自分のミニオン全体の攻撃力が永続+1（新しく出るものも）。'])]]},
+      [TN('pa_coop',['Unity','协作','連携'],['Once you have summoned 12 minions this game, your minions get +1 Attack for good (new ones too).','本局你召唤满12个友方随从后，你的所有随从永久+1攻击力（新上场的也算）。','このゲームで味方を12体召喚すると、自分のミニオン全体の攻撃力が永続+1（新しく出るものも）。'])]]},
     {id:'aegis',sc:'aegis',col:'#ffe9a0',n:['Aegis','圣盾','聖盾'],tiers:[
       [TN('pa_first',['Opening Blessing','开场祝福','開幕の祝福'],['The first minion you summon each game gets Ward.','每局你召唤的第一个随从获得护盾。','各ゲーム最初に召喚したミニオンが結界を得る。']),
        TN('pa_bless',['Sheltering','护佑','加護'],['Sacred Aegis also gives +0/+2.','圣盾术的目标额外+0/+2。','聖なる盾の対象に+0/+2。']),
@@ -1179,15 +1179,15 @@ const TALENTS=BETA?{
        TN('pa_vshield',["Vanguard's Shield",'先锋之盾','先鋒の盾'],['Paladin Vanguard has +1 Attack and enters with Ward.','圣骑士先锋+1攻击力，登场时获得护盾。','聖騎士の先鋒は攻撃力+1、結界を持って登場する。'])],
       [TN('pa_lightcall',['Call of Light','圣光征召','聖光の召集'],['Recruits from Muster have Ward.','征召召唤的民兵带护盾。','召集の民兵は結界を持つ。']),
        TN('pa_echo',['Shield Echo','盾之回响','盾の残響'],["Whenever one of your minions' Ward breaks, restore 2 Health to your hero.",'你的随从的护盾被打破时，为你的英雄恢复2点生命值。','自分のミニオンの結界が破れるたび、ヒーローの体力を2回復する。'])],
-      [TN('pa_sanct',['Divine Shelter','神圣庇护','神聖な庇護'],["Whenever one of your minions' Ward breaks, draw a card (up to 2 a turn).",'你的随从的护盾被打破时，抽一张牌（每回合最多2张）。','自分のミニオンの結界が破れるたび、カードを1枚引く（毎ターン2枚まで）。'])]]}],
+      [TN('pa_sanct',['Divine Shelter','神圣庇护','神聖な庇護'],["Whenever one of your minions' Ward breaks, draw a card and restore 2 Health to your hero (up to 3 times a turn).",'你的随从的护盾被打破时，抽一张牌并为你的英雄恢复2点生命值（每回合最多3次）。','自分のミニオンの結界が破れるたび、カードを1枚引き、ヒーローの体力を2回復する（毎ターン3回まで）。'])]]}],
   hunter:[
     {id:'beast',sc:'beast',col:'#6aa57e',n:['Beasts','野兽','獣'],tiers:[
       [TN('hu_pack',['Pack Leader','狼群','群れの長'],['Dire Wolf has +1/+1.','恐狼+1/+1。','ダイアウルフに+1/+1。']),
        TN('hu_tame',['Tamer','驯兽','調教'],['Your Wolves have +1/+1.','你的狼+1/+1。','自分の狼に+1/+1。']),
        TN('hu_pounce',['Big Pounce','猛扑','猛襲'],['Pounce gives +3 Attack.','扑击改为+3攻击力。','飛びかかりが攻撃力+3になる。'])],
-      [TN('hu_kill',['Thrill','兴奋','高揚'],['Kill Command deals 1 more damage.','杀戮命令伤害+1。','キルコマンドのダメージ+1。']),
+      [TN('hu_kill',['Thrill','兴奋','高揚'],['Kill Command deals 2 more damage.','杀戮命令伤害+2。','キルコマンドのダメージ+2。']),
        TN('hu_hound',['Vicious Hounds','恶犬','猛犬'],['Your Hounds have +1 Attack.','你的猎犬+1攻击力。','自分の猟犬の攻撃力+1。']),
-       TN('hu_wild',['Wild','野性','野性'],['From the 3rd card you play each turn, your Beasts can attack the turn they arrive.','每回合从你打出的第3张牌起，你的野兽登场时获得冲锋。','毎ターン3枚目以降のカードから、自分の獣は登場したターンに攻撃できる。'])],
+       TN('hu_wild',['Wild','野性','野性'],['From the 2nd card you play each turn, your Beasts can attack the turn they arrive.','每回合从你打出的第2张牌起，你的野兽登场时获得冲锋。','毎ターン2枚目以降のカードから、自分の獣は登場したターンに攻撃できる。'])],
       [TN('hu_master',['Houndmaster','犬群主人','猟犬使い'],['Your hero power becomes: summon a 2/1 Hound.','英雄技能改为「召唤一只2/1猎犬」。','ヒーローパワーが「2/1の猟犬を召喚」になる。']),
        TN('hu_whistle',['Hound Whistle','猎犬哨','猟犬の笛'],['After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand.','每回合你打出第一个野兽后，将一张0费「猎犬哨」加入手牌。','毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える。'])],
       [TN('hu_combo',['Combo','连击','連撃'],['The 3rd and later cards you play each turn cost 1 less.','每回合你打出的第3张及之后的牌费用-1。','毎ターン3枚目以降に使うカードのコスト-1。'])]]},
@@ -1197,10 +1197,10 @@ const TALENTS=BETA?{
        TN('hu_quiver',['Quiver','箭袋','矢筒'],['Start with an extra Arcane Shot in hand.','起手额外获得一张奥术射击。','開始時、手札にアーケインショットが1枚増える。'])],
       [TN('hu_deadly',['Deadly Aim','致命','致命'],['Deadly Shot costs 1 less.','致命射击的费用-1。','必殺の射撃のコスト-1。']),
        TN('hu_griffon',['Griffon Wings','狮鹫之翼','グリフォンの翼'],['Griffon Rider has +1 Attack.','狮鹫骑士+1攻击力。','グリフォンライダーの攻撃力+1。']),
-       TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 1 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+1。','自分の呪文が敵ヒーローに与えるダメージ+1。'])],
+       TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 2 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+2。','自分の呪文が敵ヒーローに与えるダメージ+2。'])],
       [TN('hu_rapid',['Rapid Fire','速射','速射'],['Piercing Arrow costs 1 less.','英雄技能「穿刺之箭」费用-1。','ヒーローパワー「貫きの矢」のコスト-1。']),
        TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow ignores Armor.','穿刺之箭无视护甲。','貫きの矢は装甲を無視する。'])],
-      [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Piercing Arrow can target minions and deals 1 more damage.','穿刺之箭可以指定随从，且伤害+1。','貫きの矢でミニオンも狙え、ダメージ+1。'])]]}],
+      [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Piercing Arrow can target minions.','穿刺之箭可以指定随从。','貫きの矢でミニオンも狙える。'])]]}],
   warlock:[
     {id:'undead',sc:'undead',col:'#8ac08a',n:['Undeath','亡灵','不死'],tiers:[
       [TN('wl_bone',['Hard Bones','坚骨','硬い骨'],['Grave Thrall has +1/+1.','墓穴仆从+1/+1。','墓所の下僕に+1/+1。']),
@@ -1211,17 +1211,17 @@ const TALENTS=BETA?{
        TN('wl_coil',['Tight Coil','缠绕','締めつけ'],['Mortal Coil deals 1 extra damage.','死亡缠绕伤害+1。','デスコイルのダメージ+1。'])],
       [TN('wl_tide',['Corpse Tide','尸潮','屍の潮'],['The first time a friendly minion dies each turn, summon a 1/1 Skeleton.','每回合第一个友方随从死亡时，召唤一个1/1骷髅。','毎ターン最初に味方のミニオンが死んだ時、1/1のスケルトンを召喚する。']),
        TN('wl_harvest',['Soul Harvest','灵魂收割','魂の収穫'],['The second friendly minion to die in a turn draws you a card.','一回合内死亡的第二个友方随从，让你抽一张牌。','1ターンに2体目の味方のミニオンが死んだ時、カードを1枚引く。'])],
-      [TN('wl_soul',['Souls','魂','魂'],['Gain 1 Soul whenever a friendly minion dies (up to 10). At the end of your turn, with 6 Souls spend 6 to summon a 2/2 Bone Warrior.','友方随从每死亡一个，获得1魂（上限10）；你的回合结束时若有6魂，消耗6魂召唤一个2/2骷髅战士。','味方のミニオンが死ぬたび魂+1（最大10）。ターン終了時に6あれば消費し、2/2の骸骨戦士を召喚する。'])]]},
+      [TN('wl_soul',['Souls','魂','魂'],['Gain 1 Soul whenever a friendly minion dies (up to 10). At the end of your turn, with 7 Souls spend 7 to summon a 2/2 Bone Warrior.','友方随从每死亡一个，获得1魂（上限10）；你的回合结束时若有7魂，消耗7魂召唤一个2/2骷髅战士。','味方のミニオンが死ぬたび魂+1（最大10）。ターン終了時に7あれば消費し、2/2の骸骨戦士を召喚する。'])]]},
     {id:'blood',sc:'blood',col:'#c0405a',n:['Blood','鲜血','血'],tiers:[
       [TN('wl_pact',['Blood Pact','血契','血の盟約'],['Dark Pact draws 3 cards.','黑暗契约改为抽3张。','闇の契約で3枚引く。']),
        TN('wl_soulfire',['Soul Flame','灵魂火焰','魂の炎'],['Soulfire deals 1 extra damage.','灵魂之火伤害+1。','ソウルファイアのダメージ+1。']),
-       TN('wl_flesh',['Flesh','血肉','血肉'],['Your hero starts with +5 Health.','英雄起始生命值+5。','ヒーローの初期体力+5。'])],
+       TN('wl_flesh',['Flesh','血肉','血肉'],['Your hero starts with +2 Health.','英雄起始生命值+2。','ヒーローの初期体力+2。'])],
       [TN('wl_hell',['Lord of Hell','地狱之主','地獄の主'],['Hellfire no longer damages your hero.','地狱烈焰不再伤害你的英雄。','ヘルファイアが自分のヒーローに当たらなくなる。']),
        TN('wl_pain',['Agony','痛楚','苦悶'],['The first time you damage yourself each turn, deal 2 damage to the enemy hero.','每回合你第一次对自己造成伤害时，对敌方英雄造成2点伤害。','毎ターン最初に自分にダメージを与えた時、敵ヒーローに2ダメージ。']),
-       TN('wl_mutate',['Dark Gift','突变','闇の賜物'],['Blood Pact also gives you 3 Armor.','鲜血契约同时获得3点护甲。','血の契約で装甲も3得る。'])],
+       TN('wl_mutate',['Dark Gift','突变','闇の賜物'],['Blood Pact also gives you 5 Armor.','鲜血契约同时获得5点护甲。','血の契約で装甲も5得る。'])],
       [TN('wl_bloodmana',['Blood Mana','鲜血魔力','血の魔力'],['After you damage yourself the first time each turn, gain 1 mana.','每回合你第一次对自己造成伤害后，获得1点法力。','毎ターン最初に自分にダメージを与えた後、マナを1得る。']),
        TN('wl_tap',['Life Tap','生命分流','生命分流'],['Blood Pact draws 2 cards and deals 3 damage to you.','鲜血契约改为抽2张、自伤3点。','血の契約が2枚引き、自分に3ダメージになる。'])],
-      [TN('wl_veng',['Vengeance','复仇','復讐'],['While your hero has 15 or less Health, your spells deal 2 extra damage and Blood Pact no longer damages you.','你的生命值不高于15时，你的法术伤害+2，鲜血契约不再对你造成伤害。','ヒーローの体力が15以下の間、呪文ダメージ+2、血の契約でダメージを受けない。'])]]}],
+      [TN('wl_veng',['Vengeance','复仇','復讐'],['While your hero has 15 or less Health, your spells deal 1 extra damage and Blood Pact no longer damages you.','你的生命值不高于15时，你的法术伤害+1，鲜血契约不再对你造成伤害。','ヒーローの体力が15以下の間、呪文ダメージ+1、血の契約でダメージを受けない。'])]]}],
 }:{};
 const TAL_NODE={},TAL_PAGE={};
 for(const cls in TALENTS)TALENTS[cls].forEach(pg=>pg.tiers.forEach((row,t)=>row.forEach(nd=>{nd.t=t;TAL_NODE[nd.id]=nd;TAL_PAGE[nd.id]=pg})));
@@ -1255,7 +1255,7 @@ const TOVR={
   pa_kings:{kings:()=>({c:CARDS.kings.c-1})},
   pa_humble:{humility:()=>({fx:{...CARDS.humility.fx,draw:1},x:["Change an enemy minion's Attack to 1. Draw a card.",'使一个敌方随从的攻击力变为1。抽一张牌。','敵のミニオン1体の攻撃力を1にする。カードを1枚引く。']})},
   hu_pounce:{pounce:()=>({fx:{...CARDS.pounce.fx,tempAtk:3},x:['Give a friendly minion +3 Attack this turn.','本回合中，使一个友方随从获得+3攻击力。','このターンの間、味方のミニオン1体の攻撃力+3。']})},
-  hu_kill:{killcmd:()=>({fx:{...CARDS.killcmd.fx,dmg:CARDS.killcmd.fx.dmg+1,dmgBeast:CARDS.killcmd.fx.dmgBeast+1},x:['Deal 4 damage. If you control a Beast, deal 6 instead.','造成4点伤害。如果你控制一只野兽，改为造成6点伤害。','4ダメージを与える。獣がいるなら6ダメージ。']})},
+  hu_kill:{killcmd:()=>({fx:{...CARDS.killcmd.fx,dmg:CARDS.killcmd.fx.dmg+2,dmgBeast:CARDS.killcmd.fx.dmgBeast+2},x:['Deal 5 damage. If you control a Beast, deal 7 instead.','造成5点伤害。如果你控制一只野兽，改为造成7点伤害。','5ダメージを与える。獣がいるなら7ダメージ。']})},
   hu_precise:{spray:()=>({fx:{...CARDS.spray.fx,dmg:CARDS.spray.fx.dmg+1}})},
   hu_eagle:{huntmark:()=>({c:0})},
   hu_deadly:{riptide:()=>({c:CARDS.riptide.c-1})},
@@ -1290,10 +1290,10 @@ function talPreset(cls,i){
 function setupTalents(s,cls,sel){
   s.tal=new Set(hasTal(cls)&&validTal(cls,sel||[])?sel:[]);s.ovr={};s.hb=[];s.tf={};s.castHb=0;
   for(const id of s.tal){const o=TOVR[id];if(o)for(const k in o)if(CARDS[k])s.ovr[k]={...s.ovr[k],...o[k]()}}
-  if(tal(s,'wl_flesh')){s.hp+=5;s.max+=5}
-  if(tal(s,'fr_blood')){s.hp+=5;s.max+=5}
+  if(tal(s,'wl_flesh')){s.hp+=2;s.max+=2}
+  if(tal(s,'fr_blood')){s.hp+=7;s.max+=7}
   if(tal(s,'wa_reckless')){s.hp-=3;s.max-=3}
-  if(tal(s,'ho_devout')){s.hp+=3;s.max+=3}
+  if(tal(s,'ho_devout')){s.hp+=6;s.max+=6}
   let p=CBY[cls]?CBY[cls].power:s.power;
   if(p&&tal(s,'fi_spark'))p={...p,fx:{...p.fx,dmg:2}};
   if(p&&tal(s,'fr_spark'))p={...p,fx:{...p.fx,freeze:1}};
@@ -1305,7 +1305,7 @@ function setupTalents(s,cls,sel){
   if(p&&tal(s,'pa_double'))p={...p,c:3,fx:{...p.fx,summon:['minnow','minnow']}};
   if(p&&tal(s,'pa_lightcall'))p={...p,fx:{...p.fx,wardSummon:1}};
   if(p&&tal(s,'hu_master'))p={c:2,fx:{summon:'phound'},n:rn('hu_master')};
-  if(p&&tal(s,'hu_heart')&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face+1}};
+  if(p&&tal(s,'hu_heart')&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};
   if(p&&tal(s,'hu_pierce'))p={...p,fx:{...p.fx,pierce:1}};
   if(p&&tal(s,'hu_rapid'))p={...p,c:Math.max(0,p.c-1)};
   if(p&&tal(s,'wl_tap'))p={...p,fx:{...p.fx,selfDmg:3,draw:2}};
@@ -1319,7 +1319,8 @@ const costOf=(side,k)=>{const o=ovrOf(side,k),s=S&&S[side];let c=o&&o.c!=null?o.
 const pcost=side=>{const s=S[side],p=s.power||CBY[R.cls].power;return Math.max(0,p.c-(tal(s,'pa_array')&&s.board.length>=5?1:0))};
 const powerBonus=side=>S[side].board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].pw||0),0);
 function talOpen(side){const s=S[side];if(!s.tal||!s.tal.size)return;
-  if(tal(s,'wa_tough'))s.armor+=5;
+  if(tal(s,'fi_bank'))s.sm=1;
+  if(tal(s,'wa_tough'))s.armor+=7;
   if(tal(s,'wa_reckless'))draw(side,1);
   if(tal(s,'hu_quiver')&&s.hand.length<10&&CARDS.spray)s.hand.push('spray');
 }
@@ -1340,7 +1341,7 @@ function talSummon(s,m,key,c){
   if(c.sc==='fire'&&H('fi_heart'))a++;
   if(key==='spellbreaker'&&H('sh_breaker'))a++;
   if(key==='crab'&&H('wa_crab'))h+=2;
-  if(m.guard&&H('wa_iron'))h++;
+  if(m.guard&&H('wa_iron')){h+=2}
   if(key==='berserker'&&H('wa_berserk'))a++;
   if(key==='minnow'&&H('pa_drill'))h++;
   if(key==='direwolf'&&H('hu_pack')){a++;h++}
@@ -1353,9 +1354,9 @@ function talSummon(s,m,key,c){
   if(key==='knight'&&H('pa_vshield')){m.ward=true;a++}
   if(!c.token&&H('pa_first')&&!s.firstSum){s.firstSum=1;m.ward=true}
   if(s.tf){s.tf.sum=(s.tf.sum||0)+1;if(s.tf.sum===3&&H('pa_step')){a++;h++}}
-  if(H('pa_coop')){s.coopN=(s.coopN||0)+1;const nb=Math.min(1,Math.floor(s.coopN/10)),ob=s.coopB||0;
+  if(H('pa_coop')){s.coopN=(s.coopN||0)+1;const nb=Math.min(1,Math.floor(s.coopN/12)),ob=s.coopB||0;
     if(nb>ob){s.board.forEach(x=>{x.atk+=nb-ob});s.coopB=nb}a+=s.coopB||0}
-  if(c.race==='beast'&&H('hu_wild')&&s.tf&&(s.tf.played||0)>=3)m.sleep=false;
+  if(c.race==='beast'&&H('hu_wild')&&s.tf&&(s.tf.played||0)>=2)m.sleep=false;
   if(c.token&&H('pa_banner')&&s.board.length)s.board[0].atk+=1;
   if(!c.token&&c.race==='beast'&&H('hu_whistle')&&s.tf&&!s.tf.wh&&s.hand.length<10&&CARDS.whistle){s.tf.wh=1;s.hand.push('whistle')}
   m.atk+=a;m.hp+=h;m.max+=h;
@@ -1388,7 +1389,7 @@ const TX={
   yours:()=>['Your talents','你的天赋','自分のタレント'][li()],foes:()=>['Enemy talents','敌方天赋','敵のタレント'][li()],
   close:()=>['Close','关闭','閉じる'][li()],
   rageGo:()=>['Rage!','怒气爆发！','怒気解放！'][li()],rage:(n)=>[`Rage ${n}/10`,`怒气 ${n}/10`,`怒気 ${n}/10`][li()],
-  soul:(n)=>[`Souls ${n}/10`,`魂 ${n}/10`,`魂 ${n}/10`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/10`,`协作 ${n}/10`,`連携 ${n}/10`][li()],
+  soul:(n)=>[`Souls ${n}/10`,`魂 ${n}/10`,`魂 ${n}/10`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/12`,`协作 ${n}/12`,`連携 ${n}/12`][li()],
   teaches:()=>['Works with:','配合天赋：','相性の良いタレント：'][li()],takePack:n=>[`Take the ${n} pack`,`选择${n}牌包`,`${n}パックを取る`][li()],
   packText:(n,o)=>[`Choose a pack for your deck (${n} cards). Next: ${o}.`,`选一个牌包加入牌组（现在${n}张）。下一关：${o}。`,`デッキに加えるパックを選ぶ（現在${n}枚）。次：${o}。`][li()],
   rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. Spend 12 points in the deck builder; in Adventure you earn them duel by duel.','<b>天赋（测试）：</b>法师和牧师各有两页天赋。在组牌界面分配12点；冒险模式中逐关获得。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ。デッキ編集で12ポイントを振り、冒険では1戦ごとに増える。'][li()],
@@ -1748,7 +1749,7 @@ function startTurn(side){
   o.mana=0;
   o.board.forEach(m=>{m.frozen=m.frozen>1?m.frozen-1:false;if(m.tmp){m.atk-=m.tmp;m.tmp=0}});
   if(s.tf)s.tf={};if(o.tf)o.tf={};
-  if(tal(o,'wl_soul')&&(o.soul||0)>=6){o.soul-=6;const m=summon(other(side),'bonewarr');if(m)float(m,T('fRevive'),'#8ac08a')}
+  if(tal(o,'wl_soul')&&(o.soul||0)>=7){o.soul-=7;const m=summon(other(side),'bonewarr');if(m)float(m,T('fRevive'),'#8ac08a')}
   if(tal(s,'wa_fury')&&(s.rage||0)>=3){s.rage-=3;s.board.forEach(m=>{m.atk+=2;m.tmp=(m.tmp||0)+2});float(s,TX.rageGo(),'#e0563f')}
   s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
   s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen});
@@ -1768,7 +1769,7 @@ function tickAltar(side,n){
   s.altar=s.altar.filter(p=>p.cd>0);
   for(const p of done){applyFx(side,cardPray(side,p.key).fx,null);pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key));
     if(tal(s,'ho_grace')){const h=Math.min(3,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)');
-      const t=[...S[other(side)].board].filter(m=>m.hp>0).sort((a,b)=>b.atk-a.atk||a.uid-b.uid)[0];if(t)damage(t,2)}}
+      const t=[...S[other(side)].board].filter(m=>m.hp>0).sort((a,b)=>b.atk-a.atk||a.uid-b.uid)[0];if(t)damage(t,1)}}
 }
 function draw(side,n){
   const s=S[side];
@@ -1793,8 +1794,8 @@ function damage(o,n,pierce){
   else if(o.ward){o.ward=false;float(o,T('fWard'),'var(--foam)',true);
     if(own&&own.tal&&own.tal.size){
       if(tal(own,'pa_echo')){const h=Math.min(2,own.max-own.hp);own.hp+=h;if(h)float(own,'+'+h,'var(--ready)')}
-      if(tal(own,'pa_sanct')&&own.tf&&(own.tf.sd||0)<2){own.tf.sd=(own.tf.sd||0)+1;draw(o.side,1)}}}
-  else{if(o.frozen&&tal(S[other(o.side)],'fr_deep'))n+=3;o.hp-=n;float(o,'-'+n,'var(--blood)',true);
+      if(tal(own,'pa_sanct')&&own.tf&&(own.tf.sd||0)<3){own.tf.sd=(own.tf.sd||0)+1;draw(o.side,1);const h=Math.min(2,own.max-own.hp);own.hp+=h;if(h)float(own,'+'+h,'var(--ready)')}}}
+  else{if(o.frozen){const fo=S[other(o.side)];n+=(tal(fo,'fr_deep')?2:0)+(tal(fo,'fr_perma')?1:0)}o.hp-=n;float(o,'-'+n,'var(--blood)',true);
     if(!o.bled&&tal(own,'wa_bloodied')){o.bled=1;o.atk+=1}}
 }
 function canAttack(m){return S.turn===m.side&&!m.sleep&&!m.attacked&&m.atk>0}
@@ -1849,7 +1850,7 @@ function applyFx(side,fx,t,bonus=0,faceB=0){
   if(fx.healT&&t){const h=Math.min(fx.healT,t.max-t.hp);t.hp+=h;float(t,'+'+h,'var(--ready)')}
   if(fx.armor){me.armor+=fx.armor;float(me,T('armorN',fx.armor),'#cfd8dc')}
   if(fx.draw){const n0=me.hand.length;draw(side,fx.draw);
-    if(isPw&&tal(me,'wl_mutate')){me.armor+=3;float(me,T('armorN',3),'#cfd8dc')}}
+    if(isPw&&tal(me,'wl_mutate')){me.armor+=5;float(me,T('armorN',5),'#cfd8dc')}}
   if(fx.mana)me.mana+=fx.mana;
   if(fx.purge)[...me.board,...op.board].forEach(m=>{if(m.atk>=fx.purge){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
   for(let r=0;r<(fx.revive||0);r++){const g=me.grave||[],k=[...g].reverse().find(x=>!CARDS[x].token);
@@ -1866,7 +1867,7 @@ function silence(m){
 function spellBonus(side,k){
   const s=S[side];let n=s.board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].sp||0),0);
   if(k&&s.tal&&CARDS[k].sc==='fire'){if(tal(s,'fi_ignite')&&!(s.tf&&s.tf.fire))n+=1;n+=s.castHb||0}
-  if(k&&tal(s,'wl_veng')&&s.hp<=15)n+=2;
+  if(k&&tal(s,'wl_veng')&&s.hp<=15)n+=1;
   return n;
 }
 // A spell: its effect (plus Spell Damage), then "whenever you cast a spell" minions react.
@@ -1876,14 +1877,14 @@ function castSpell(side,k,t){
   else{
     const fx=cardFx(side,k),bonus=spellBonus(side,k),alive=op.board.filter(m=>m.hp>0);
     if(fire&&s.tf)s.tf.fire=1;
-    applyFx(side,fx,t,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?1:0));
+    applyFx(side,fx,t,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0));
     if(s.tal&&s.tal.size){
       const dead=alive.filter(m=>m.hp<=0);
       if(dead.length){
         if(fire&&tal(s,'fi_wildfire'))damage(op,1);
         if(tal(s,'sh_drain')){const h=Math.min(2*dead.length,s.max-s.hp);s.hp+=h;if(h)float(s,'+'+h,'var(--ready)')}
         if(c.sw&&tal(s,'sh_echo'))damage(op,2*dead.length);
-        if(c.sw&&tal(s,'sh_steal'))dead.forEach(m=>{if(!CARDS[m.key].token&&s.hand.length<10){s.hand.push(m.key);float(s,cn(m.key),'#c4b4ff')}});
+        if(c.sw&&tal(s,'sh_steal')){dead.forEach(m=>{if(!CARDS[m.key].token&&s.hand.length<10){s.hand.push(m.key);float(s,cn(m.key),'#c4b4ff')}});draw(side,1)}
       }
       if(fire&&tal(s,'fi_flamearmor')){s.armor+=1;float(s,T('armorN',1),'#cfd8dc')}
     }
@@ -2112,7 +2113,7 @@ function aiPlan(k){
   }
   const fx=cardFx('e',k),bonus=spellBonus('e',k);
   const pick=(list,score)=>list.slice().sort((a,b)=>score(b)-score(a))[0]||null;
-  if(fx.icelance){const fr=foes.filter(m=>m.frozen&&!m.ward);const t=pick(fr.filter(m=>m.hp<=fx.icelance+bonus+(tal(e,'fr_deep')?3:0)),m=>m.atk)||pick(fr,m=>m.atk)||pick(foes.filter(m=>m.atk>=3&&!m.frozen),m=>m.atk);return t?{t}:null}
+  if(fx.icelance){const fr=foes.filter(m=>m.frozen&&!m.ward);const t=pick(fr.filter(m=>m.hp<=fx.icelance+bonus+(tal(e,'fr_deep')?2:0)+(tal(e,'fr_perma')?1:0)),m=>m.atk)||pick(fr,m=>m.atk)||pick(foes.filter(m=>m.atk>=3&&!m.frozen),m=>m.atk);return t?{t}:null}
   if(fx.freezeBig&&!foes.length&&e.hp>e.max-5)return null;
   if(fx.destroy){const t=pick(targetsFor('e',fx.tgt,fx.cond),val);return t&&val(t)>=(c.c>=3?8:5)?{t}:null}
   if(fx.silence){const t=aiSilenceTarget();return t?{t}:null}
