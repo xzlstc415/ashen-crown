@@ -1,6 +1,7 @@
 # Ruinaccord 卡牌绘图提示词
 
-共 86 张（不含已经完成的圣骑士先锋、寒冰箭、恐狼、灰烬巨龙）。全部使用画风说明里的 **方向 B**，后缀已经接在每条后面，整段复制即可。
+共 113 张。已经有画的卡（direwolf、frostbolt、knight、leviathan）不在这里。标着「测试页」的是只在 /beta/ 出现的新卡。
+全部使用画风说明里的 **方向 B**，后缀已经接在每条后面，整段复制即可。每条都写了镜头角度和姿态，请不要删掉；如果生成出来的人物还是正面站立，在开头加一句 "dynamic pose, not standing straight, not facing the camera"。
 
 出图后把文件按标题里的文件名放进 `art/raw/`（例如 `goblin.png`），然后运行 `python3 art/build_art.py`。
 如果用的不是 Midjourney，删掉末尾的 `--ar 2:3 --no ...`，在工具里选竖图 2:3，并把 text、frame、border、card、letters、numbers 填进反向提示词。
@@ -10,97 +11,97 @@
 ### 哥布林扒手 Goblin Cutpurse — `goblin.png`
 1 费 · 随从 2/1 · 普通
 ```
-a skinny green goblin thief with big ears and a sly grin, clutching a stolen coin purse and a small dagger, crouching on a broken wall, warm firelight accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a skinny green goblin thief hanging upside down by his knees from a broken archway, grinning, a stolen coin purse dangling from his teeth and a small dagger in one hand, seen from below, warm firelight accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 半身人窃贼 Halfling Burglar — `burglar.png`
 2 费 · 随从 2/2 · 稀有
 ```
-a cheerful halfling burglar in a dark hooded cloak tiptoeing with a sack of loot and a lockpick, mischievous grin, cool moonlight accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a halfling burglar frozen mid-tiptoe on a rooftop ledge, caught in a beam of moonlight, eyes wide, one finger to his lips, a lumpy sack of loot over his shoulder, seen from a low angle, cool moonlight accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 侏儒地卜师 Gnome Geomancer — `geomancer.png`
 2 费 · 随从 2/2 · 普通
 ```
-a gnome geomancer woman with a blue wizard hat touching the ground, glowing cracks and floating pebbles rising around her, arcane violet accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a gnome geomancer woman seen from above, sitting cross-legged on the ground with both palms pressed flat, glowing cracks spreading outward from her hands and pebbles floating up around her blue hat, arcane violet accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 精灵弓手 Elven Archer — `harpooneer.png`
 2 费 · 随从 2/2 · 普通
 ```
-a calm elven archer with long golden hair drawing a bow, one arrow ready, standing on a mossy broken column, soft forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an elven archer seen in strict side profile facing left, kneeling on one knee on a mossy fallen column, bow fully drawn, long golden hair blowing back in the wind, soft forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 侏儒炼金师 Gnome Alchemist — `alchemist.png`
 3 费 · 随从 2/2 · 稀有
 ```
-a small gnome alchemist with wild orange hair and goggles, holding up a bubbling purple potion, smoke puffs around, violet accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a small gnome alchemist peering one-eyed through a bubbling purple potion held up to the light, goggles pushed up into wild orange hair, the potion lighting her face from below, close-up, violet accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 兽人掠夺者 Orc Raider — `eel.png`
 3 费 · 随从 3/2 · 稀有
 ```
-a fast orc raider with a black mohawk leaping over a broken gate, axe raised, war paint, ember red-orange accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an orc raider caught at the top of a leap over a broken gate, body twisted mid-air, axe swung back, black mohawk and war paint, dynamic foreshortened view from below, ember red-orange accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 侏儒工匠 Gnome Tinkerer — `diver.png`
 4 费 · 随从 3/4 · 稀有
 ```
-an old gnome tinkerer with a white beard and a red pointed hat, holding a giant wrench next to a sputtering clockwork gadget, warm brass accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an old gnome tinkerer lying on his back underneath a sputtering clockwork contraption, only his white beard, red pointed hat and a giant wrench poking out, sparks raining down, seen from the side, warm brass accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 兽人妖术师 Orc Hexer — `hexer.png`
 4 费 · 随从 3/4 · 普通
 ```
-an orc hexer shaman with a bone mask and a staff topped with a green skull, casting a curse of green smoke, sickly green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an orc hexer shaman crouched over a small fire, face hidden behind a bone mask, blowing green curse smoke that curls up into the shape of a skull, seen from a high angle, sickly green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 森林巨魔 Forest Troll — `lurker.png`
 4 费 · 随从 4/5 · 普通
 ```
-a big hunched forest troll with blue-green skin, long nose and tusks, holding a tree-branch club, moss growing on its shoulders, forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a big hunched forest troll leaning lazily against a ruined pillar, picking its tusk with a twig, club resting on the ground, moss on its shoulders, seen in three-quarter view facing right, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 石魔像 Stone Golem — `golem.png`
 5 费 · 随从 2/8 · 普通
 ```
-a massive stone golem made of carved temple blocks, glowing blue runes for eyes, standing guard in front of an empty doorway, cool blue accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a massive stone golem made of carved temple blocks seen from a worm's-eye angle, filling the doorway it guards, glowing blue rune eyes looking straight down at the viewer, tiny birds nesting on its shoulder, cool blue accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 火元素 Fire Elemental — `firelem.png`
 6 费 · 随从 5/5 · 稀有
 ```
-a fire elemental made of swirling flames shaped like a muscular figure, molten core in its chest, sparks flying, bright orange fire accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a fire elemental bursting up out of a cracked forge floor, arms flung wide, flames streaming upward like hair, molten core in its chest, seen head-on, bright orange fire accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 食人魔蛮兵 Ogre Brute — `ogre.png`
 6 费 · 随从 6/7 · 普通
 ```
-a huge dim-witted ogre brute with a single tooth and a giant wooden club, confused frown, patched leather clothes, warm firelight accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a huge dim-witted ogre brute sitting on a flattened wagon, scratching his head with a giant wooden club, a confused frown and a single tooth, patched leather clothes, seen in three-quarter view facing left, warm firelight accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 符文巨人 Runebound Giant — `shark.png`
 6 费 · 随从 6/6 · 史诗
 ```
-a towering hairless giant covered in glowing blue rune tattoos, a stone club over its shoulder, looking down, cool blue rune accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a towering hairless rune giant seen from far away and below, striding over the ruins toward the right edge, glowing blue rune tattoos, a stone club dragging behind it, clouds at its waist, cool blue rune accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 双足飞龙骑手 Wyvern Rider — `wyvern.png`
 6 费 · 随从 5/5 · 史诗
 ```
-a rider on a green wyvern swooping low, the wyvern with leathery wings and a long tail, rider holding a spear, wind streaks, sky blue accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a rider on a green wyvern banking hard in a steep dive, seen from above and behind so the wings fill the frame, rider leaning forward with a spear, wind streaks, sky blue accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 龙骑士 Dragon Knight — `dragonknight.png`
 7 费 · 随从 5/5 · 史诗
 ```
-a knight in dark red dragon-scale armor with a dragon-shaped helmet, a small red dragon perched on his shoulder, ember orange accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a knight in dark red dragon-scale armor seen from behind on a cliff edge, cape flowing, a small red dragon perched on his raised fist and roaring at the sky, ember orange accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 远古树人 Ancient Treant — `treant.png`
 7 费 · 随从 6/9 · 稀有
 ```
-an ancient treant with bark skin, a wise mossy face and branches full of leaves, roots gripping broken ruins, soft forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an ancient treant slowly turning its mossy face toward the viewer, half of its body still part of a ruined wall, roots and branches tangled through broken stone, fireflies around, soft forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ## 传说随从（3 张）
@@ -108,19 +109,19 @@ an ancient treant with bark skin, a wise mossy face and branches full of leaves,
 ### 石下之王索格林 Thorgrim, King Under Stone — `dwarfking.png`
 8 费 · 随从 7/7 · 传说
 ```
-Thorgrim, a mighty dwarf king with an enormous braided orange beard and a golden crown, sitting on a stone throne holding a great axe, golden accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+Thorgrim the dwarf king leaning forward on his stone throne, elbows on knees, glaring straight at the viewer, enormous braided orange beard spilling over a great axe across his lap, golden crown, golden accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 林地女王希尔瓦拉 Sylvara, Queen of the Glade — `elfqueen.png`
 8 费 · 随从 5/7 · 传说
 ```
-Sylvara, an elegant elf queen with long pale golden hair and a leaf crown, flowers blooming where she steps, a staff of living wood, forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+Sylvara the elf queen walking away through a field of flowers that bloom where she steps, turning her head to look back over her shoulder, long pale golden hair, leaf crown, staff of living wood, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 不朽者马拉卡 Malakar the Undying — `lich.png`
 8 费 · 随从 6/6 · 传说
 ```
-Malakar the lich king, a skeletal sorcerer in a dark purple robe with a crown of green flame, raising a staff, green soulfire swirling, fel green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+Malakar the lich king seen from a low angle, floating above a crumbling crypt with his ragged purple robe billowing upward, arms spread, a crown of green flame, green soulfire spiraling around him, fel green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ## 中立法术（6 张）
@@ -128,31 +129,31 @@ Malakar the lich king, a skeletal sorcerer in a dark purple robe with a crown of
 ### 战术撤退 Tactical Retreat — `retreat.png`
 1 费 · 法术 · 普通
 ```
-a wounded soldier stepping back behind a raised shield while a glowing card of light pulls him away, cool blue accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a soldier vanishing backward into a puff of grey smoke, only his raised shield and one boot still visible, a trail of footprints leading out of the frame, cool blue accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 战歌 Battle Hymn — `hymn.png`
 3 费 · 法术 · 稀有
 ```
-a group of soldiers singing a battle hymn under a waving banner, mouths open, musical notes of light rising, warm golden accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a ring of soldiers seen from below, arms around each other's shoulders, singing up into the sky under a waving banner, notes of light rising, warm golden accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 光耀爆发 Radiant Burst — `radiant.png`
 3 费 · 法术 · 稀有
 ```
-a burst of radiant golden light exploding outward in a star shape, warm rays, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a burst of radiant golden light exploding outward in a star shape from a cracked altar, warm rays sweeping across the ruins, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 学者的洞见 Scholar's Insight — `tidepool.png`
 3 费 · 法术 · 普通
 ```
-an open old book glowing with abstract golden symbols lifting off blank pages, a candle beside it, warm candle light accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an old open book seen from directly above on a stone desk, golden symbols lifting off the blank pages like moths and flying toward a single candle, warm candle light accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 惩击 Smite — `undertow.png`
 3 费 · 法术 · 稀有
 ```
-a pillar of holy light striking down from the clouds onto the ground, judgment beam, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a giant hammer made of golden light smashing down onto a monster from the side, cracks and dust spreading across the stone floor, close side view, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 龙息 Dragon's Breath — `breath.png`
@@ -161,36 +162,42 @@ a pillar of holy light striking down from the clouds onto the ground, judgment b
 a huge dragon head seen from the side breathing a wide stream of fire across the frame, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 战士专属法术（9 张）
-
-### 怒火中烧 Inner Rage — `innerrage.png`
-0 费 · 法术 · 普通 · 战士
-```
-a warrior gritting his teeth, a red rage flame igniting in his chest, veins glowing, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 盾牌猛击 Shield Slam — `shieldslam.png`
-1 费 · 法术 · 史诗 · 战士
-```
-a warrior smashing a heavy shield forward into an enemy, shockwave rings, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 旋风斩 Whirlwind — `whirlwind.png`
-1 费 · 法术 · 普通 · 战士
-```
-a warrior spinning with a giant two-handed axe, a red whirlwind of steel around him, dust and sparks flying, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
+## 战士职业牌（9 张）
 
 ### 兽人狂战士 Orc Berserker — `berserker.png`
 2 费 · 随从 2/1 · 普通 · 战士
 ```
-a wild orc berserker with green skin, horned helmet and a huge axe, roaring and charging forward, ember red-orange accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an orc berserker charging straight at the viewer, extreme foreshortening, huge axe swinging overhead, horned helmet, mouth open in a roar, flecks of dirt flying, ember red-orange accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 矮人盾卫 Dwarf Shieldbearer — `crab.png`
 2 费 · 随从 1/4 · 普通 · 战士
 ```
-a short stocky dwarf with a braided red beard hiding behind a huge battered round shield taller than himself, steady and stubborn, warm firelight accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a short stocky dwarf seen almost entirely from behind his huge battered round shield, only his braided red beard, helmet and one squinting eye peeking over the rim, arrows stuck in the shield, warm firelight accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 矮人领主 Dwarf Thane — `thane.png`
+5 费 · 随从 5/5 · 稀有 · 战士
+```
+a proud dwarf thane striding toward the left edge with a great hammer slung across both shoulders, winged helmet, heavy gold-trimmed armor, a stone hall gate behind him, seen from a low angle, warm golden accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 怒火中烧 Inner Rage — `innerrage.png`
+0 费 · 法术 · 普通 · 战士
+```
+a close-up of a warrior's clenched fist, cracks of red light glowing through the skin between the knuckles, steam rising, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 盾牌猛击 Shield Slam — `shieldslam.png`
+1 费 · 法术 · 史诗 · 战士
+```
+a heavy shield slammed into the ground in front of the viewer, a red shockwave ring blasting outward and knocking debris into the air, low angle, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 旋风斩 Whirlwind — `whirlwind.png`
+1 费 · 法术 · 普通 · 战士
+```
+a warrior seen from directly above spinning with a giant two-handed axe, a red ring of steel and dust around him, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 斩杀 Execute — `execute.png`
@@ -202,51 +209,99 @@ a heavy executioner axe coming down in a bright red arc, the edge glowing, ember
 ### 嗜血 Bloodlust — `frenzy.png`
 2 费 · 法术 · 稀有 · 战士
 ```
-a warrior roaring with red battle rage aura bursting around him, eyes glowing red, drops of blood in the air, crimson red accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a warrior with his back to the viewer, arms thrown wide, a red battle-rage aura erupting upward like a bonfire, ember red-orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 盾墙 Shield Wall — `shieldwall.png`
 2 费 · 法术 · 普通 · 战士
 ```
-a row of soldiers locking overlapping shields together into a wall, seen from the front, steel and gold, warm firelight accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a worm's-eye view from behind a line of mismatched dwarven shields locked edge to edge, arrows snapping and bouncing off the steel, earth-brown and iron grey with ember sparks, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 矮人领主 Dwarf Thane — `thane.png`
-5 费 · 随从 5/5 · 稀有 · 战士
-```
-a proud dwarf thane in heavy gold-trimmed armor and a winged helmet, leaning on a great hammer in front of a stone hall gate, warm golden accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-## 法师专属法术（8 张）
+## 法师职业牌（18 张）
 
 ### 法师学徒 Wizard's Apprentice — `apprentice.png`
 1 费 · 随从 1/2 · 普通 · 法师
 ```
-a nervous young wizard's apprentice in an oversized purple hat with singed eyebrows, a small flame sputtering from his wand, warm firelight accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 镜像 Mirror Image — `mirror.png`
-1 费 · 法术 · 普通 · 法师
-```
-a mage splitting into two translucent shimmering copies of herself, icy blue outlines, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 奥术飞弹 Arcane Missiles — `missiles.png`
-1 费 · 法术 · 普通 · 法师
-```
-three glowing arcane orbs streaking forward from a hand, violet star trails, arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a nervous young wizard's apprentice seen from behind and slightly above, glancing back over his shoulder in panic while his oversized purple hat smokes and a tiny flame sputters out of his wand, warm firelight accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 法力幼龙 Mana Wyrmling — `wyrmling.png`
 1 费 · 随从 2/3 · 稀有 · 法师
 ```
-a small blue mana wyrmling, a snake-like baby dragon, nibbling on a floating glowing rune, curious big eyes, arcane violet accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a small blue mana wyrmling curled in a loop around a floating glowing rune, chewing on its corner, big curious eyes looking at the viewer, top-down view, arcane violet accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 余烬学徒 Ember Adept — `emberadept.png`
+2 费 · 随从 2/3 · 普通 · 法师 · 测试页
+```
+a young fire mage girl seen from the side, burning her own notes over a candle with a satisfied smile, ashes drifting up, orange robe, bright orange fire accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 余烬元素 Ember Elemental — `emberele.png`
+4 费 · 随从 4/5 · 稀有 · 法师 · 测试页
+```
+a hulking elemental made of glowing coals and cooling ash, crouched low like a gorilla with knuckles on the ground, embers rising from its back, seen in three-quarter view facing left, bright orange fire accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 寒冰元素 Frost Elemental — `frostele.png`
+4 费 · 随从 3/6 · 稀有 · 法师 · 测试页
+```
+a jagged frost elemental made of stacked ice crystals sitting hunched on a frozen boulder, breath steaming, frost spreading over the ground around it, seen from a low angle, icy blue and arcane violet accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 灰烬凤凰 Ash Phoenix — `phoenix.png`
+5 费 · 随从 5/4 · 史诗 · 法师 · 测试页
+```
+a phoenix made of grey ash and glowing cracks seen from directly below as it spreads its wings across the whole sky, flakes of ash falling toward the viewer, bright orange fire accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 尖塔大法师 Archmage of the Spire — `archmage.png`
+6 费 · 随从 6/7 · 史诗 · 法师
+```
+an old archmage woman sitting in mid-air with her legs crossed, reading one book while a whirlwind of open books orbits around her, silver hair, tall blue hat, staff floating beside her, arcane blue accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 余烬火花 Ember Flick — `emberbolt.png`
+1 费 · 法术 · 普通 · 法师 · 测试页
+```
+a single ember flicked off a fingertip like a coin, glowing and trailing a tiny curl of smoke, extreme close-up of the hand, bright orange fire accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 冰枪术 Ice Lance — `icelance.png`
+1 费 · 法术 · 普通 · 法师 · 测试页
+```
+a slim shard of ice spinning end over end through the air, a frozen enemy shield cracking in the background, crisp and fast, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 镜像 Mirror Image — `mirror.png`
+1 费 · 法术 · 普通 · 法师
+```
+a mage standing between two tall shards of floating ice, each shard reflecting a different version of her stepping out of it, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 奥术飞弹 Arcane Missiles — `missiles.png`
+1 费 · 法术 · 普通 · 法师
+```
+three glowing arcane orbs zigzagging toward the viewer like fireflies, each leaving a curly violet trail, arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 冰霜新星 Frost Nova — `frostnova.png`
 2 费 · 法术 · 稀有 · 法师
 ```
-a ring of ice exploding outward from the ground, frost spikes freezing everything around, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a ring of ice exploding outward from the ground seen from directly above, frost spikes radiating like a snowflake, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 碎冰 Shatter — `shatter.png`
+2 费 · 法术 · 稀有 · 法师 · 测试页
+```
+a frozen monster bursting into a thousand glittering ice shards toward the viewer, frozen in the moment of breaking, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 寒冰屏障 Ice Barrier — `icebarrier.png`
+3 费 · 法术 · 稀有 · 法师 · 测试页
+```
+a mage standing inside a faceted crystal of ice like the inside of a geode, an enemy outside frozen mid-swing against the facets, seen from a three-quarter top view, icy blue and arcane violet accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 奥术长枪 Arcane Lance — `lance.png`
@@ -258,207 +313,297 @@ a long spear of pure arcane energy flying forward, violet sparks and stars trail
 ### 火球术 Fireball — `maelstrom.png`
 3 费 · 法术 · 史诗 · 法师
 ```
-a big ball of fire spinning toward a group of enemies, flames swirling around it, bright orange fire accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a big ball of fire spinning toward the viewer, flames swirling around it, bright orange fire accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 尖塔大法师 Archmage of the Spire — `archmage.png`
-6 费 · 随从 6/7 · 史诗 · 法师
+### 灼热射线 Scorching Ray — `scorch.png`
+3 费 · 法术 · 普通 · 法师 · 测试页
 ```
-an old archmage woman with silver hair and a tall blue hat, floating books circling her, a glowing staff, arcane blue accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-## 圣骑士专属法术（8 张）
-
-### 圣盾术 Sacred Aegis — `aegis.png`
-1 费 · 法术 · 普通 · 圣骑士
-```
-a golden bubble of holy light forming around a kneeling soldier, a glowing card of light floating beside, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a thin searing beam of orange light cutting diagonally across the frame through the seam of a knight's armor, molten drips, bright orange fire accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 信仰之盾 Shield of Faith — `brace.png`
-1 费 · 法术 · 普通 · 圣骑士
+### 烈焰风暴 Firestorm — `firestorm.png`
+6 费 · 法术 · 史诗 · 法师 · 测试页
 ```
-a radiant blue and gold shield of light forming in front of a soldier, holy star at its center, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 谦逊 Humility — `humility.png`
-2 费 · 法术 · 稀有 · 圣骑士
-```
-a huge armored brute kneeling and shrinking under a beam of golden light, head bowed, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a firestorm seen from a hilltop, a funnel of flames coming down from red clouds onto the ruins in the valley below, bright orange fire accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 侍从召集 Squire's Call — `squires.png`
-2 费 · 法术 · 普通 · 圣骑士
-```
-two eager young squires in oversized helmets running forward with wooden shields and buckets, golden light behind them, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 战斗号令 Call to Arms — `calltoarms.png`
-3 费 · 法术 · 普通 · 圣骑士
-```
-a farmer blowing a battle horn while villagers with pitchforks and old helmets gather, determined faces, warm sunrise accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 王者祝福 Blessing of Kings — `kings.png`
-4 费 · 法术 · 稀有 · 圣骑士
-```
-a golden crown of light descending onto a soldier, golden aura and wings of light, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
+## 圣骑士职业牌（8 张）
 
 ### 神殿祭司 Temple Priestess — `priestess.png`
 4 费 · 随从 3/4 · 稀有 · 圣骑士
 ```
-a serene temple priestess in white robes with a golden circlet, raising a staff that sheds golden blessings on unseen allies, holy gold accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a serene temple priestess walking toward the viewer down a ruined aisle, scattering petals of golden light from an open palm, white robes trailing, golden circlet, holy gold accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 骑士指挥官 Knight Commander — `commander.png`
 5 费 · 随从 4/4 · 史诗 · 圣骑士
 ```
-a veteran knight commander in red and gold armor with a short beard, raising a war banner and shouting an order, warm golden accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a veteran knight commander seen from behind his troops, standing on a broken wall and turning back to shout an order, red and gold armor, war banner snapping in the wind, warm golden accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 猎人专属法术（8 张）
-
-### 扑击 Pounce — `pounce.png`
-0 费 · 法术 · 普通 · 猎人
+### 圣盾术 Sacred Aegis — `aegis.png`
+1 费 · 法术 · 普通 · 圣骑士
 ```
-a big cat leaping forward with claws out, motion streaks, green leaves flying, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a single glowing golden feather drifting down onto a sleeping squire's shoulder, and where it touches a thin iridescent soap-bubble sphere blooming around him, top-down view, holy gold and pale pink, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 猎人印记 Hunter's Mark — `huntmark.png`
-1 费 · 法术 · 稀有 · 猎人
+### 信仰之盾 Shield of Faith — `brace.png`
+1 费 · 法术 · 普通 · 圣骑士
 ```
-a glowing green hunter target mark painted over a monster in the distance, an arrow nocked in the foreground, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 奥术射击 Arcane Shot — `spray.png`
-1 费 · 法术 · 普通 · 猎人
-```
-a hunter loosing a glowing arcane arrow that leaves a trail of green and violet sparks, quick and light, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a battered wooden tower shield planted in cracked ground, golden roots of light growing out of the earth and wrapping around it to anchor it in place, a gauntleted hand pressing against its back, low angle, amber and gold, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 杀戮命令 Kill Command — `killcmd.png`
-2 费 · 法术 · 普通 · 猎人
+### 谦逊 Humility — `humility.png`
+2 费 · 法术 · 稀有 · 圣骑士
 ```
-a hunter pointing forward and shouting while a wolf leaps past her toward the enemy, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a huge armored brute seen from behind, kneeling as its enormous shadow shrinks to a tiny shape under a small glowing hand held up in front of it, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
+
+### 侍从召集 Squire's Call — `squires.png`
+2 费 · 法术 · 普通 · 圣骑士
+```
+two eager young squires tumbling over each other as they run toward the left edge, oversized helmets falling over their eyes, wooden shields and a bucket, golden light behind them, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 战斗号令 Call to Arms — `calltoarms.png`
+3 费 · 法术 · 普通 · 圣骑士
+```
+a farmer on a rooftop blowing a battle horn, seen from behind, while villagers with pitchforks and old helmets pour into the square below, warm sunrise accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 王者祝福 Blessing of Kings — `kings.png`
+4 费 · 法术 · 稀有 · 圣骑士
+```
+a crown of light descending from above onto a kneeling soldier who looks up in awe, a royal cloak of deep red and gold light unfurling from his shoulders, low angle, regal crimson and gold, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+## 猎人职业牌（11 张）
 
 ### 精灵驯兽师 Elven Beastcaller — `beastcaller.png`
 3 费 · 随从 2/3 · 稀有 · 猎人
 ```
-an elven beastcaller woman whistling with two fingers, a wolf at her side, leaves swirling around her, forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an elven beastcaller sitting on a fallen log with a wolf's head resting in her lap, whistling softly with two fingers, leaves swirling, seen from the side, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 关门放狗 Unleash the Hounds — `hounds.png`
-3 费 · 法术 · 史诗 · 猎人
+### 神射手 Elven Marksman — `marksman.png`
+3 费 · 随从 3/3 · 稀有 · 猎人 · 测试页
 ```
-a pack of lean hunting hounds bursting out running toward the viewer, dust flying, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an elven marksman sitting high on a broken statue's shoulder, one leg dangling, sighting down an arrow at something far below, seen from a low angle, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 狮鹫骑士 Griffon Rider — `gull.png`
 5 费 · 随从 4/4 · 史诗 · 猎人
 ```
-a knight riding a griffon diving through the sky, the griffon with golden feathers and spread wings, lance pointing forward, warm sunrise accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a griffon rider landing hard on a ruined bell tower, the griffon rearing with wings spread wide and golden feathers flaring, rider pointing a lance down at the viewer, low angle, warm sunrise accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 扑击 Pounce — `pounce.png`
+0 费 · 法术 · 普通 · 猎人
+```
+a big spotted cat mid-leap from a high branch straight down at the viewer, claws out, leaves exploding around it, steep high angle, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 猎人印记 Hunter's Mark — `huntmark.png`
+1 费 · 法术 · 稀有 · 猎人
+```
+a view through a narrow gap in the leaves at a large monster in the distance, a glowing green target ring painted onto it, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 奥术射击 Arcane Shot — `spray.png`
+1 费 · 法术 · 普通 · 猎人
+```
+a glowing arcane arrow seen from behind the archer's shoulder as it leaves the string, a spiral trail of green and violet sparks, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 杀戮命令 Kill Command — `killcmd.png`
+2 费 · 法术 · 普通 · 猎人
+```
+a wolf leaping past the viewer's shoulder toward an enemy in the distance, a hunter's outstretched pointing arm at the edge of the frame, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 稳固射击 Steady Shot — `steady.png`
+2 费 · 法术 · 普通 · 猎人 · 测试页
+```
+an archer seen from behind her shoulder, perfectly still, breath misting in the cold air, the arrow tip aligned with a distant target, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 关门放狗 Unleash the Hounds — `hounds.png`
+3 费 · 法术 · 史诗 · 猎人
+```
+a pack of lean hunting hounds bursting through a broken gate straight toward the viewer, dust flying, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 爆裂射击 Explosive Shot — `explosive.png`
+4 费 · 法术 · 稀有 · 猎人 · 测试页
+```
+an arrow striking a monster and exploding into a starburst of orange sparks that spray the smaller creatures around it, forest green and orange accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 致命射击 Deadly Shot — `riptide.png`
 5 费 · 法术 · 史诗 · 猎人
 ```
-a single heavy arrow flying straight at a huge monster, a red target mark glowing on the beast, a hunter drawing a longbow at the edge, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a single heavy arrow frozen in flight in extreme close-up, a huge monster blurred far behind it with a red target mark, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 牧师专属法术（9 张）
-
-### 驱散 Dispel — `dispel.png`
-1 费 · 法术 · 稀有 · 牧师
-```
-a magic sigil shattering into fading pieces in front of an open palm, silence and calm, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 神圣惩击 Holy Smite — `holysmite.png`
-1 费 · 法术 · 普通 · 牧师
-```
-a small sun of white light striking a target, bright flare, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
+## 牧师职业牌（19 张）
 
 ### 神殿侍僧 Temple Acolyte — `pearl.png`
 1 费 · 随从 1/1 · 普通 · 牧师
 ```
-a young temple acolyte in white and gold robes, eyes closed in prayer, a soft bubble of pale light shielding her, warm holy light accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a young temple acolyte seen from above, kneeling on a cracked mosaic floor with her eyes closed in prayer, a soft bubble of pale light rising around her like a soap bubble, warm holy light accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 治愈之光 Healing Light — `mend.png`
-2 费 · 法术 · 稀有 · 牧师
+### 虚空侍僧 Void Acolyte — `voidacolyte.png`
+2 费 · 随从 2/1 · 普通 · 牧师 · 测试页
 ```
-warm golden healing light pouring down onto open hands, soft glowing particles, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a hooded acolyte seen in profile with a finger to her lips, the sound around her drained away into a swirling purple hush, dark purple accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 真言术：盾 Word of Shielding — `pwshield.png`
-2 费 · 法术 · 普通 · 牧师
+### 祭司长 High Cantor — `cantor.png`
+3 费 · 随从 2/4 · 稀有 · 牧师 · 测试页
 ```
-a soft white-gold shield of light wrapping around a soldier, glowing runes of protection, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a priestess conductor seen from behind, both arms raised mid-gesture, a choir of light silhouettes in front of her, musical ribbons of light, pale white-gold accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 矮人牧师 Dwarven Cleric — `cleric.png`
 3 费 · 随从 3/4 · 普通 · 牧师
 ```
-a jolly dwarven cleric with a grey beard, holy symbol on his chest, a big warhammer on his shoulder and a mug of ale, warm golden light accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 暗言术：痛 Word of Pain — `swpain.png`
-3 费 · 法术 · 稀有 · 牧师
-```
-dark purple shadow tendrils wrapping around a small creature, a whispering shadow priest hand, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a jolly dwarven cleric mid-laugh, head thrown back, raising a mug of ale in one hand while a big warhammer rests on his shoulder, holy symbol swinging on his chest, seen in three-quarter view facing right, warm golden light accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 精灵破法者 Elven Spellbreaker — `spellbreaker.png`
 4 费 · 随从 4/3 · 稀有 · 牧师
 ```
-an elven spellbreaker in crimson armor with a slim sword cutting through a glowing magic sigil that shatters into shards, crimson red accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an elven spellbreaker in crimson armor caught mid-spin, her slim sword slicing clean through a glowing magic sigil that shatters into shards around her, motion blur on the blade, crimson red accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 驱散 Dispel — `dispel.png`
+1 费 · 法术 · 稀有 · 牧师
+```
+an open palm pushing through a glowing magic sigil, the sigil breaking apart into fading paper-like flakes, quiet and calm, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 神圣惩击 Holy Smite — `holysmite.png`
+1 费 · 法术 · 普通 · 牧师
+```
+a small sun of white light dropping like a falling star onto a target, bright flare, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 晨祷 Dawn Prayer — `matins.png`
+1 费 · 法术 · 普通 · 牧师 · 测试页
+```
+a small bell tower at dawn seen from far away, the first sunbeam hitting a ringing bell, birds rising, prayer beads hanging from a window in the foreground, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 治愈之光 Healing Light — `mend.png`
+2 费 · 法术 · 稀有 · 牧师
+```
+a macro close-up of a cracked armored forearm, liquid golden light flowing into the cracks and sealing them like gold-mended pottery, holy gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 真言术：盾 Word of Shielding — `pwshield.png`
+2 费 · 法术 · 普通 · 牧师
+```
+a priest whispering into cupped hands, the whispered breath turning into long pale ribbons of light that wind around a distant soldier like bandages, side view, pale white-gold and soft blue, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 圣所庇佑 Sanctuary — `sanctuary.png`
+2 费 · 法术 · 普通 · 牧师 · 测试页
+```
+broken chapel walls rebuilding themselves out of translucent blocks of light around a few huddled soldiers, seen from above, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 守夜祈祷 Night Vigil — `vigil.png`
+2 费 · 法术 · 普通 · 牧师 · 测试页
+```
+two tall candles on a dark ruined altar at night, each flame guarded by a small hooded figure seen from behind, deep blue night with warm candle light, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 复苏圣咏 Hymn of Return — `requiem.png`
+3 费 · 法术 · 稀有 · 牧师 · 测试页
+```
+a lone singer walking slowly along a path of floating lanterns that leads a translucent fallen soldier back from the mist, seen from the side, pale white-gold and soft blue, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 暗言术：痛 Word of Pain — `swpain.png`
+3 费 · 法术 · 稀有 · 牧师
+```
+dark purple shadow tendrils curling around a small creature from all sides, a single whispering shadowy mouth at the edge of the frame, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 暗言术：毁 Word of Ruin — `wordruin.png`
+3 费 · 法术 · 稀有 · 牧师 · 测试页
+```
+a cracked stone ward-tablet on a wounded monster's chest breaking apart under a single purple spoken shockwave, close-up, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 审判之日 Day of Judgment — `judgment.png`
+4 费 · 法术 · 史诗 · 牧师 · 测试页
+```
+a huge cracked bronze bell in a ruined tower swinging toward the viewer, a ring of golden light rolling out across the land, low angle, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 暗言术：灭 Word of Death — `swdeath.png`
 4 费 · 法术 · 史诗 · 牧师
 ```
-a single word of shadow magic as a black and purple bolt piercing a huge monster, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a pale hand pointing one finger, a thin black thread of shadow running from the fingertip straight through the heart of a huge monster, the monster fading to grey, side view, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 术士专属法术（9 张）
-
-### 死亡缠绕 Mortal Coil — `coil.png`
-1 费 · 法术 · 普通 · 术士
+### 天启 Revelation — `revelation.png`
+5 费 · 法术 · 史诗 · 牧师 · 测试页
 ```
-a spiraling coil of dark shadow energy wrapping around a target, fel green core, fel green and dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+the clouds tearing open in a perfect circle above the ruins, a column of blinding light and wings of light pouring down, seen from far below, pale white-gold accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 黑暗契约 Dark Pact — `darkpact.png`
-1 费 · 法术 · 稀有 · 术士
+### 暗言术：狱 Word of Torment — `wordtorment.png`
+6 费 · 法术 · 史诗 · 牧师 · 测试页
 ```
-a glowing parchment scroll with an unreadable blood smear floating in the air, a skeletal hand holding a quill, purple shadow smoke, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-### 亡者复生 Raise Dead — `raisedead.png`
-1 费 · 法术 · 普通 · 术士
-```
-two skeleton hands bursting out of a grave with green ghostly light, dirt flying, fel green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a giant shadowy mouth opening in the sky above a battlefield, a beam of black and purple sound crushing one huge monster, seen from far away, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 灵魂之火 Soulfire — `soulfire.png`
-1 费 · 法术 · 稀有 · 术士
-```
-a warlock throwing a ball of green-purple soulfire, the flame also burning his own arm, fel green and dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
+## 术士职业牌（9 张）
 
 ### 墓穴仆从 Grave Thrall — `sailor.png`
 2 费 · 随从 1/2 · 稀有 · 术士
 ```
-a hunched skeletal grave thrall in rotting rags and a dented helmet, eyes glowing green, holding a rusty sword, pale green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a hunched skeletal grave thrall dragging itself up out of an open grave, one bony hand on the rim, dented helmet slipping over glowing green eyes, rusty sword in its teeth, seen from above, pale green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 古墓食尸鬼 Barrow Ghoul — `ghoul.png`
 3 费 · 随从 3/3 · 普通 · 术士
 ```
-a gaunt grey barrow ghoul crawling out of a crumbling tomb, long claws, hungry yellow eyes, pale sickly green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a gaunt grey barrow ghoul seen from inside a dark tomb looking out, clinging to the ceiling of the entrance upside down, long claws and hungry yellow eyes, pale sickly green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 死灵法师 Necromancer — `necro.png`
+4 费 · 随从 3/4 · 稀有 · 术士
+```
+a hooded necromancer kneeling on a graveyard path, tapping the earth with a staff topped by a green gem, ghostly hands rising out of the soil toward him, seen from a high angle, eerie green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 死亡缠绕 Mortal Coil — `coil.png`
+1 费 · 法术 · 普通 · 术士
+```
+a skull-shaped bolt of shadow corkscrewing toward a small creature, a wisp of green light lifting out of the creature like a page being drawn, fel green and dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 黑暗契约 Dark Pact — `darkpact.png`
+1 费 · 法术 · 稀有 · 术士
+```
+a glowing parchment contract floating in the dark, a skeletal hand holding a quill while a drop of blood falls from a fingertip onto it, purple shadow smoke, dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 亡者复生 Raise Dead — `raisedead.png`
+1 费 · 法术 · 普通 · 术士
+```
+two skeleton hands bursting out of a grave seen from directly above, green ghostly light and dirt flying, fel green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 灵魂之火 Soulfire — `soulfire.png`
+1 费 · 法术 · 稀有 · 术士
+```
+a warlock seen from the side hurling a ball of green-purple soulfire, the same flame crawling up his own sleeve, fel green and dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 地狱烈焰 Hellfire — `hellfire.png`
@@ -467,76 +612,94 @@ a gaunt grey barrow ghoul crawling out of a crumbling tomb, long claws, hungry y
 a rain of green and purple hellfire falling from the sky over a broken battlefield, fel green and dark purple accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 死灵法师 Necromancer — `necro.png`
-4 费 · 随从 3/4 · 稀有 · 术士
-```
-a hooded necromancer in black robes raising a staff with a green gem, ghostly spirits rising from the ground around him, eerie green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
 ### 炼狱烈焰 Inferno — `inferno.png`
 5 费 · 法术 · 史诗 · 术士
 ```
 a sea of roaring flames rising high, burning ground and silhouettes of broken pillars, bright orange fire accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 衍生物（游戏中召唤或获得的牌）（10 张）
-
-### 幸运硬币 Lucky Coin — `coin.png`
-0 费 · 法术 · 衍生物
-```
-a single gold coin spinning in the air with a star on it, sparkles, warm golden accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
-```
+## 衍生物（游戏中召唤或获得的牌）（14 张）
 
 ### 镜像 Mirror Image — `mirrorimg.png`
 0 费 · 随从 1/3 · 衍生物
 ```
-a translucent shimmering copy of a mage made of ice-blue light, calm smile, icy blue accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a translucent ice-blue copy of a mage seen from behind, looking at its own reflection in a puddle, calm smile, icy blue accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 持烛侍僧 Candlebearer — `acolyte.png`
+1 费 · 随从 1/2 · 衍生物 · 测试页
+```
+a small candlebearer in white robes walking toward the viewer, cupping a candle flame against the wind, calm face lit from below, warm candle light, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 怨灵 Restless Spirit — `bubble.png`
 1 费 · 随从 2/1 · 衍生物
 ```
-an angry translucent blue spirit floating with a wailing face and wispy tail, cold pale blue accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+an angry translucent blue spirit swooping diagonally across the frame with a wailing face and a long wispy tail, cold pale blue accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 猎犬 Hound — `hound.png`
 1 费 · 随从 1/1 · 衍生物
 ```
-a small scrappy hunting hound with a red collar, mid-run, forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a small scrappy hunting hound with a red collar skidding to a stop, ears flying, seen from the front, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 民兵 Militia Recruit — `minnow.png`
 1 费 · 随从 1/1 · 衍生物
 ```
-a young militia recruit holding a pitchfork with a nervous but brave face, simple leather vest, warm sunrise accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a young militia recruit seen from a high angle, gripping a pitchfork too tightly, nervous but brave face looking up, simple leather vest, warm sunrise accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 群猎犬 Pack Hound — `phound.png`
+1 费 · 随从 2/1 · 衍生物 · 测试页
+```
+a scrappy pack hound leaping through tall grass toward the viewer, one ear inside out, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 骷髅 Skeleton — `skeleton.png`
 1 费 · 随从 1/1 · 衍生物
 ```
-a small rattling skeleton warrior with a rusty sword and green glowing eyes, goofy pose, fel green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a small rattling skeleton warrior tripping over its own rusty sword, arms flailing, green glowing eyes, goofy, fel green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 狼 Wolf — `elver.png`
 2 费 · 随从 2/1 · 衍生物
 ```
-a lean brown wolf running with its tongue out, eager eyes, forest green accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a lean brown wolf running across the frame from right to left, tongue out, eager eyes, forest green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 城镇卫兵 Town Guard — `reefling.png`
 2 费 · 随从 2/2 · 衍生物
 ```
-a town guard in a simple steel helmet holding a spear, raising a hand to say halt, warm firelight accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a town guard seen in three-quarter view facing left, steel helmet, spear planted, one hand raised palm-out to say halt, warm firelight accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 骷髅战士 Bone Warrior — `bonewarr.png`
+3 费 · 随从 2/2 · 衍生物 · 测试页
+```
+a skeleton warrior assembled from mismatched bones of many creatures, standing at attention with a rusted cleaver, green fire in its eye sockets, seen from a low angle, fel green accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 钢铁魔像 Iron Golem — `squire.png`
 3 费 · 随从 3/3 · 衍生物
 ```
-a small iron golem with a round body and glowing orange eyes, standing ready, warm brass accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a small round iron golem sitting on the ground with its legs stuck straight out, glowing orange eyes, steam puffing from its head, warm brass accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 幼龙 Dragon Whelp — `spawn.png`
 4 费 · 随从 4/4 · 衍生物
 ```
-a small red dragon whelp with stubby wings and a big head, puffing a little flame, ember orange accent, head and face in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a small red dragon whelp perched on a skull, puffing a tiny flame and looking surprised at it, stubby wings, ember orange accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 幸运硬币 Lucky Coin — `coin.png`
+0 费 · 法术 · 衍生物
+```
+a single gold coin spinning on its edge on a tavern table, caught at a tilt, sparkles flying, warm golden accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 猎犬哨 Hound Whistle — `whistle.png`
+0 费 · 法术 · 衍生物 · 猎人 · 测试页
+```
+a small carved bone whistle on a leather cord, mid-blow, sound rings rippling out and a hound's ears perking up in the distance, forest green accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```

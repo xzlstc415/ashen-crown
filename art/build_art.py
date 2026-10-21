@@ -16,6 +16,9 @@ raw = root / 'art' / 'raw'
 web = root / 'img' / 'cards'
 ios = root / 'ios' / 'Ruinaccord' / 'Assets.xcassets' / 'Paint'
 ids = {c['id'] for c in json.loads((root / 'ios' / 'Ruinaccord' / 'Resources' / 'GameData.json').read_text())['cards']}
+# Beta-only cards (/beta/ page) get the web image only; the app does not have them yet.
+import re
+beta = set(re.findall(r"^\s+(\w+):\{beta:1,", (root / 'src' / 'game.html').read_text(), re.M))
 
 def sips(*a):
     subprocess.run(['sips', *map(str, a)], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -34,7 +37,7 @@ with tempfile.TemporaryDirectory() as tmp:
         if src.suffix.lower() not in ('.png', '.jpg', '.jpeg', '.webp'):
             continue
         k = src.stem
-        if k not in ids:
+        if k not in ids and k not in beta:
             print(f'skip {src.name}: no card with id "{k}"', file=sys.stderr)
             continue
         t = pathlib.Path(tmp) / f'{k}.png'
@@ -45,11 +48,12 @@ with tempfile.TemporaryDirectory() as tmp:
         elif w * 3 < h * 2:    # too tall: trim mostly from the bottom
             nh = round(w * 3 / 2); sips('-c', nh, w, '--cropOffset', round((h - nh) * 0.3), 0, t)
         sips('-z', 540, 360, '-s', 'format', 'jpeg', '-s', 'formatOptions', 68, t, '--out', web / f'{k}.jpg')
+        done.add(k)
+        if k not in ids: continue
         d = ios / f'paint_{k}.imageset'
         shutil.rmtree(d, ignore_errors=True); d.mkdir()
         sips('-z', 900, 600, '-s', 'format', 'jpeg', '-s', 'formatOptions', 72, t, '--out', d / f'{k}.jpg')
         (d / 'Contents.json').write_text(json.dumps({'images': [{'filename': f'{k}.jpg', 'idiom': 'universal'}], 'info': {'author': 'xcode', 'version': 1}}, indent=2))
-        done.add(k)
 # paintings whose source was removed
 for f in web.glob('*.jpg'):
     if f.stem not in done: f.unlink()
