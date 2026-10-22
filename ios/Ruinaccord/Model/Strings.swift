@@ -262,6 +262,9 @@ struct Tx {
     var fWard: String { pick("Ward", "护盾", "結界") }
     var fFreeze: String { pick("Frozen", "冻结", "凍結") }
     var mullTitle: String { pick("Starting hand", "起手牌", "初期手札") }
+    func chooseTitle(_ n: Int) -> String { pick("Pick \(n) to return to your hand", "选\(n)张放回手牌", "\(n)枚選んで手札に戻す") }
+    var chooseSub: String { pick("They died this game. The rest stay in the grave.", "这些是本局死亡的随从，没选的留在墓地。", "このゲームで倒されたミニオン。選ばなかったものは墓地に残る。") }
+    var chooseOk: String { pick("Take", "拿回", "戻す") }
     var mullSub: String { pick("Tap the cards you want to replace. New cards are drawn, and the replaced ones go to the bottom of your deck.", "点选想替换的牌。会先补抽新牌，换掉的牌放回牌库底部。", "交換したいカードをタップ。新しいカードを引き、交換したカードはデッキの一番下に戻る。") }
     var mullKeep: String { pick("Keep this hand", "保留手牌", "このまま") }
     func mullSwap(_ n: Int) -> String { pick("Replace \(n) card\(n > 1 ? "s" : "")", "替换\(n)张", "\(n)枚交換") }
@@ -331,6 +334,7 @@ struct Tx {
         if fx.mana > 0 { out.append(pick("Gain \(fx.mana) mana this turn only.", "仅在本回合获得\(fx.mana)点法力值。", "このターンのみ、マナを\(fx.mana)獲得する。")) }
         if fx.purge > 0 { out.append(pick("Destroy all minions with \(fx.purge) or more Attack.", "消灭所有攻击力不低于\(fx.purge)的随从。", "攻撃力\(fx.purge)以上のミニオンをすべて破壊する。")) }
         if fx.revive > 0 { out.append(pick("Revive your most recently killed minion.", "复活你最近死亡的一个随从。", "最後に倒された味方ミニオンを1体蘇らせる。")) }
+        if fx.reclaim > 0 { out.append(pick("Look at 5 random minions that died this game and return \(fx.reclaim) of them to your hand.", "从本局死亡的随从中随机展示五张，选\(fx.reclaim)张放回你的手牌。", "このゲームで倒されたミニオンから無作為に5枚を見て、\(fx.reclaim)枚を手札に戻す。")) }
         if fx.hasten > 0 { out.append(pick("Your Prayers count down \(fx.hasten).", "你的所有祷文倒计时减\(fx.hasten)。", "自分の祈祷のカウントを\(fx.hasten)進める。")) }
         if fx.freeze { out.append(pick("Freeze it.", "并冻结目标。", "対象を凍結させる。")) }
         if fx.tempAtk > 0 { out.append(pick("+\(fx.tempAtk) Attack this turn.", "本回合+\(fx.tempAtk)攻击力。", "このターン攻撃力+\(fx.tempAtk)。")) }

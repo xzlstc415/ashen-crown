@@ -111,6 +111,7 @@ struct NetAct: Codable, Hashable {
     var k: String?              // card key
     var a: Int?                 // attacker uid
     var tgt: NetRef?
+    var ks: [String]?           // cards taken back from the grave (pick)
 }
 
 /// The shared match document. `state` is always stored from the host's point of view (p = host, e = guest).

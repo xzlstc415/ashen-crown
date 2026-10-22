@@ -791,3 +791,9 @@ a tattered banner planted on a hilltop at sunrise with three distant farmers wal
 ```
 a sword raised toward a dusk sky with a ring of smaller raised swords around it, golden light breaking through purple clouds, gold and violet palette, the raised sword centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
+
+### 墓园招魂师 Graveyard Summoner — `gravecaller.png`
+4 费 · 随从 3/3 · 史诗 · 术士 · 亡灵 · 测试页
+```
+a gaunt undead summoner in tattered violet robes standing among leaning gravestones at night, one bony hand raised as five pale ghostly silhouettes rise from the ground around them, cold green-violet palette with a single warm candle glow, the figure centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```

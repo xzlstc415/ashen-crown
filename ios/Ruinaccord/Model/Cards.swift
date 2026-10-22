@@ -38,10 +38,11 @@ struct Effect: Codable, Hashable {
     var plus = 0               // added to Armor-based damage
     var foeExtra = 0           // sweep damage added against enemy minions
     var noSelf = false         // a sweep that hits heroes spares your own
+    var reclaim = 0            // show 5 random dead minions, this many come back to the hand
     private enum CodingKeys: String, CodingKey {
         case dmg, aoe, face, healT, heal, armor, draw, mana, selfDmg, grantGuard = "guard", ward, buff, team, summon, tgt
         case cond, destroy, silence, freeze, freezeAll, setAtk, setHp, sweep, heroes, armorDmg, dmgBeast, drawIfKill, tempAtk, bounce, perFoe
-        case purge, revive, hasten, rush, pierce, wardSummon, splash, icelance, freezeBig, plus, foeExtra, noSelf
+        case purge, revive, hasten, rush, pierce, wardSummon, splash, icelance, freezeBig, plus, foeExtra, noSelf, reclaim
     }
     init() {}
     init(from decoder: Decoder) throws {
@@ -57,7 +58,7 @@ struct Effect: Codable, Hashable {
         setAtk = i(.setAtk); setHp = i(.setHp); sweep = i(.sweep); heroes = b(.heroes); armorDmg = b(.armorDmg); dmgBeast = i(.dmgBeast)
         drawIfKill = b(.drawIfKill); tempAtk = i(.tempAtk); bounce = b(.bounce); perFoe = try c.decodeIfPresent(String.self, forKey: .perFoe)
         purge = i(.purge); revive = i(.revive); hasten = i(.hasten); rush = b(.rush); pierce = b(.pierce); wardSummon = b(.wardSummon)
-        splash = i(.splash); icelance = i(.icelance); freezeBig = b(.freezeBig); plus = i(.plus); foeExtra = i(.foeExtra); noSelf = b(.noSelf)
+        splash = i(.splash); icelance = i(.icelance); freezeBig = b(.freezeBig); plus = i(.plus); foeExtra = i(.foeExtra); noSelf = b(.noSelf); reclaim = i(.reclaim)
     }
     var dealsDamage: Bool { dmg > 0 || armorDmg }
 }
@@ -175,8 +176,8 @@ final class GameData: Decodable {
         for (cls, pgs) in talents.pages.sorted(by: { $0.key < $1.key }) { for pg in pgs { mix("\(cls)|\(pg.id)|\(pg.tiers.map { $0.map(\.id) })") } }
         for (node, byCard) in talents.overrides.sorted(by: { $0.key < $1.key }) { for (card, o) in byCard.sorted(by: { $0.key < $1.key }) { mix("\(node)|\(card)|\(o)") } }
         // The prefix is the online protocol: raise it whenever two app versions would play a match differently
-        // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8-v9: class resources, Oaths, Beasts).
-        return "v9-\(String(UInt32(bitPattern: h), radix: 36))"
+        // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8-v9: class resources, Oaths, Beasts; v10: Graveyard Summoner picks).
+        return "v10-\(String(UInt32(bitPattern: h), radix: 36))"
     }()
 
     private enum CodingKeys: String, CodingKey { case cards, classes, opponents, boardMax, deckSize, fortify, talents }

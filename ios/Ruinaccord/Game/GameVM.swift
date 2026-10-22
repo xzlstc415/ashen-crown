@@ -13,6 +13,13 @@ struct Run {
     var tal: [String] = []
 }
 
+/// A choice of cards shown to the player (Graveyard Summoner): tap `n`, then take them.
+struct Choice {
+    var offer: [String]
+    var n: Int
+    var picks: Set<Int> = []
+}
+
 struct Pending {
     enum Kind { case spell(idx: Int), battlecry(fx: Effect, src: EID, hist: UUID?), power }
     var kind: Kind
@@ -152,6 +159,7 @@ final class GameVM {
     var quitArm = false
     var abandoned = false
     /// Opening mulligan: hand cards picked for replacement; `mullMine` is set once confirmed (online: until the foe confirms).
+    var choice: Choice?
     var mullPicks: Set<Int> = []
     var mullMine: [Int]?
     private var mullCont: (() -> Void)?
@@ -428,7 +436,7 @@ final class GameVM {
 
     private func resetDuelUI() {
         log = nil; pending = nil; sel = nil; busy = false; hist = []; floats = []; hitTick = [:]; drewCount = 0
-        reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil
+        reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil; choice = nil
         gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil; showLog = false; infoKey = nil
     }
 
@@ -572,7 +580,7 @@ final class GameVM {
 
     // MARK: - Player actions
 
-    var blocked: Bool { state == nil || S.turn != .p || busy || S.over || S.mulligan }
+    var blocked: Bool { state == nil || S.turn != .p || busy || S.over || S.mulligan || choice != nil }
 
     func after() {
         let ended = S.cleanup()
@@ -658,6 +666,10 @@ final class GameVM {
                     await wait(60)
                     await fxAnim(bc, from: center(m.id), target: nil, side: .p)
                     S.applyFx(.p, bc, nil)
+                    if bc.reclaim > 0 {
+                        let offer = S.reclaimOffer(.p)
+                        if !offer.isEmpty { choice = Choice(offer: offer, n: Swift.min(bc.reclaim, offer.count)) }
+                    }
                 }
             }
             busy = false
@@ -692,7 +704,7 @@ final class GameVM {
     var powerBlocked: Bool {
         guard let s = state else { return true }
         let p = s.p.power
-        if s.turn != .p || busy || s.over || s.mulligan || pending != nil || s.p.powerUsed || s.p.mana < s.pcost(.p) { return true }
+        if s.turn != .p || busy || s.over || s.mulligan || choice != nil || pending != nil || s.p.powerUsed || s.p.mana < s.pcost(.p) { return true }
         if !p.fx.summon.isEmpty && s.p.board.count >= DuelState.boardMax { return true }
         if let t = p.tgt, s.targetsFor(.p, t).isEmpty { return true }
         return false
@@ -990,6 +1002,7 @@ final class GameVM {
                         await fxAnim(bc, from: revealCenter, target: t, side: .e)
                         guard gameToken == token else { return }
                         S.applyFx(.e, bc, t)
+                        if bc.reclaim > 0 { S.aiReclaim(.e, bc.reclaim) }
                     }
                     reveal = nil
                 } else if let fx = S.cardFx(.e, c.id) {
@@ -1310,6 +1323,8 @@ final class GameVM {
                 S.castSpell(.e, c.id, t)
                 reveal = nil
             }
+        case "pick":
+            S.reclaimTake(.e, a.ks ?? [])
         case "bc":
             guard let last = lastEnemyMinion, let m = S.minion(EID(side: .e, uid: last.uid)), let fx = S.cardBc(.e, m.key) else { throw NetError.outOfStep }
             let t = netDeref(a.tgt)
@@ -1392,6 +1407,20 @@ final class GameVM {
     }
 
     // MARK: - Opening mulligan
+
+    func toggleChoice(_ i: Int) {
+        guard var c = choice else { return }
+        if c.picks.contains(i) { c.picks.remove(i) } else if c.picks.count < c.n { c.picks.insert(i) }
+        choice = c
+    }
+    func confirmChoice() {
+        guard let c = choice, c.picks.count == c.n else { return }
+        choice = nil
+        let ks = c.picks.sorted().map { c.offer[$0] }
+        S.reclaimTake(.p, ks)
+        netAct(NetAct(n: 0, t: "pick", ks: ks))
+        after()
+    }
 
     func toggleMulligan(_ i: Int) {
         guard state?.mulligan == true, mullMine == nil else { return }

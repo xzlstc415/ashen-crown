@@ -46,6 +46,7 @@ struct GameRoot: View {
                             CardInfoPanel(card: c, hm: hm).padding(.leading, hm.heroX + 48).padding(.top, 4).zIndex(15).id(c.id)
                         }
                         if vm.state?.mulligan == true { MulliganView().zIndex(20) }
+                        if vm.choice != nil { ChoiceView().zIndex(21) }
                     }
                     .animation(.easeOut(duration: 0.18), value: vm.infoCard?.id)
                 }

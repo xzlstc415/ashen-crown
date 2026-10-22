@@ -633,6 +633,39 @@ struct CardInfoPanel: View {
 }
 
 /// Opening hand: tap cards to replace them, then confirm (online: wait for the opponent).
+/// Graveyard Summoner: the dead on offer; tap `n`, then take them.
+struct ChoiceView: View {
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        guard let c = vm.choice else { return AnyView(EmptyView()) }
+        let tx = vm.tx, n = max(1, c.offer.count)
+        return AnyView(GeometryReader { g in
+            let em = max(6, min(10.8, (g.size.height - 170) / 15.6, (g.size.width - 40 - CGFloat(n - 1) * 18) / (CGFloat(n) * 10)))
+            VStack(spacing: 10) {
+                Text(tx.chooseTitle(c.n)).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                Text(tx.chooseSub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
+                HStack(spacing: 18) {
+                    ForEach(Array(c.offer.enumerated()), id: \.offset) { i, k in
+                        if let card = GameData.shared.card(k) {
+                            let on = c.picks.contains(i)
+                            CardView(card: card, size: .fit(em), ring: on ? Theme.ready : .clear)
+                                .offset(y: on ? -8 : 0)
+                                .contentShape(Rectangle())
+                                .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { vm.toggleChoice(i) } }
+                                .accessibilityAddTraits(on ? .isSelected : [])
+                        }
+                    }
+                }
+                .padding(.top, 6)
+                Button("\(tx.chooseOk) \(c.picks.count)/\(c.n)") { vm.confirmChoice() }.primary().disabled(c.picks.count != c.n).opacity(c.picks.count == c.n ? 1 : 0.5)
+            }
+            .frame(width: g.size.width, height: g.size.height)
+        }
+        .background(Color.black.opacity(0.84).ignoresSafeArea())
+        .transition(.opacity))
+    }
+}
+
 struct MulliganView: View {
     @Environment(GameVM.self) private var vm
     var body: some View {

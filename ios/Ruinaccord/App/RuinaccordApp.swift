@@ -51,6 +51,8 @@ enum DebugLaunch {
             // -card <key>: put a card in hand and on both boards; -zoom <key>: open its large view (art checks).
             // The opening mulligan is confirmed (keeping the hand) unless -mull asks to see it.
             if vm.state?.mulligan == true && !args.contains("-mull") { vm.confirmMulligan() }
+            // -choice: the Graveyard Summoner's offer, for a look at the dialog
+            if args.contains("-choice"), vm.state != nil { vm.choice = Choice(offer: ["goblin", "golem", "ogre", "treant", "eel"], n: 2) }
             // -fatigue: your deck is empty and you are at 1 health, then the turn ends (the fatigue draw must end the game)
             if args.contains("-fatigue"), vm.state != nil {
                 vm.state?.p.deck = []; vm.state?.p.hp = 1; vm.state?.turn = .p

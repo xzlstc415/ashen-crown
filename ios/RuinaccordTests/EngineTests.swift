@@ -4,7 +4,7 @@ import XCTest
 final class EngineTests: XCTestCase {
     func testDataLoads() {
         let gd = GameData.shared
-        XCTAssertEqual(gd.cards.count, 123)
+        XCTAssertEqual(gd.cards.count, 124)
         XCTAssertEqual(gd.classes.count, 6)
         XCTAssertEqual(gd.opponents.count, 8)
         XCTAssertEqual(gd.deckSize, 25)
@@ -92,6 +92,15 @@ final class EngineTests: XCTestCase {
         for _ in 0..<(gd.card("oathmuster")!.pray!.cd) { s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p) }
         XCTAssertTrue(s.p.altar.isEmpty); XCTAssertEqual(s.p.board.filter { $0.key == "minnow" }.count, 3); XCTAssertEqual(s.p.board[0].atk, a0 + 1)
         s.p.board = []; s.p.altar = []
+        // Graveyard Summoner: five of the dead on offer (no tokens), the chosen come back to the hand.
+        s.setupTalents(.p, cls: "warlock", []); s.p.hand = []; s.p.hb = []
+        s.p.grave = ["goblin", "minnow", "golem", "ogre", "treant", "eel", "lurker"]
+        let offer = s.reclaimOffer(.p)
+        XCTAssertEqual(offer.count, 5); XCTAssertFalse(offer.contains("minnow"))
+        s.reclaimTake(.p, Array(offer.prefix(2)))
+        XCTAssertEqual(s.p.hand.count, 2); XCTAssertEqual(s.p.grave.count, 5); XCTAssertEqual(s.p.hb.count, 2)
+        XCTAssertEqual(s.aiReclaim(.p, 2).count, 2); XCTAssertEqual(s.p.hand.count, 4)
+        XCTAssertEqual(gd.card("gravecaller")?.bc?.reclaim, 2)
         // Prayers wait on the altar and resolve after their countdown.
         s.setupTalents(.p, cls: "priest", [])
         s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.count, 1)

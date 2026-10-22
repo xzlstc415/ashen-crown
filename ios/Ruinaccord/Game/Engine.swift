@@ -496,6 +496,29 @@ struct DuelState: Codable {
     }
 
     /// Restores Health (never above the maximum), floating the amount actually healed.
+    /// Graveyard Summoner: up to five random dead (non-token) minions are shown; `reclaimTake` brings the chosen back.
+    func reclaimOffer(_ side: Side) -> [String] {
+        var g = self[side].grave.filter { Self.gd.card($0)?.token == false }
+        var out: [String] = []
+        while out.count < 5, !g.isEmpty { out.append(g.remove(at: Int.random(in: 0..<g.count))) }
+        return out
+    }
+    mutating func reclaimTake(_ side: Side, _ keys: [String]) {
+        for k in keys {
+            guard let i = self[side].grave.firstIndex(of: k), self[side].hand.count < 10 else { continue }
+            self[side].grave.remove(at: i)
+            self[side].hand.append(k); self[side].hb.append(0)
+            float(.hero(side), .revived)
+        }
+    }
+    /// The computer takes the dearest of the offer.
+    @discardableResult
+    mutating func aiReclaim(_ side: Side, _ n: Int) -> [String] {
+        let ks = Array(reclaimOffer(side).sorted { (Self.gd.card($0)?.cost ?? 0) > (Self.gd.card($1)?.cost ?? 0) }.prefix(n))
+        if !ks.isEmpty { reclaimTake(side, ks) }
+        return ks
+    }
+
     /// Heals a hero or minion; a Priest banks the overflow as Light.
     mutating func heal(_ id: EID, _ n: Int) {
         var h = 0
