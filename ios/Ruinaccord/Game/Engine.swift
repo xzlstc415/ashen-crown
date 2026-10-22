@@ -27,15 +27,56 @@ struct Minion: Codable, Hashable, Identifiable {
     var ward: Bool
     var sleep: Bool
     var attacked: Bool
-    var frozen = false       // misses its owner's next turn
+    /// Turns it still misses (Permafrost freezes for two).
+    var frozen = 0
     var silenced = false     // lost its keywords and card effects
     var tmp = 0              // Attack that wears off when this turn ends
+    var bled = false         // already got the Bloodied bonus
     var id: EID { EID(side: side, uid: uid) }
+    var isFrozen: Bool { frozen > 0 }
     /// Card effects still active (a silenced minion has none).
     var gasp: String? { silenced ? nil : card.gasp }
     var spellDamage: Int { silenced ? 0 : card.sp }
     var onSpell: [Int]? { silenced ? nil : card.onSpell }
     var card: Card { GameData.shared.card(key)! }
+
+    private enum CodingKeys: String, CodingKey { case uid, key, side, atk, hp, max, baseAtk, baseHp, hasGuard, ward, sleep, attacked, frozen, silenced, tmp, bled }
+    init(uid: Int, key: String, side: Side, atk: Int, hp: Int, max: Int, baseAtk: Int, baseHp: Int, hasGuard: Bool, ward: Bool, sleep: Bool, attacked: Bool) {
+        self.uid = uid; self.key = key; self.side = side; self.atk = atk; self.hp = hp; self.max = max; self.baseAtk = baseAtk; self.baseHp = baseHp
+        self.hasGuard = hasGuard; self.ward = ward; self.sleep = sleep; self.attacked = attacked
+    }
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        uid = try c.decode(Int.self, forKey: .uid); key = try c.decode(String.self, forKey: .key); side = try c.decode(Side.self, forKey: .side)
+        atk = try c.decode(Int.self, forKey: .atk); hp = try c.decode(Int.self, forKey: .hp); max = try c.decode(Int.self, forKey: .max)
+        baseAtk = try c.decode(Int.self, forKey: .baseAtk); baseHp = try c.decode(Int.self, forKey: .baseHp)
+        hasGuard = try c.decode(Bool.self, forKey: .hasGuard); ward = try c.decode(Bool.self, forKey: .ward)
+        sleep = try c.decode(Bool.self, forKey: .sleep); attacked = try c.decode(Bool.self, forKey: .attacked)
+        if let n = try? c.decodeIfPresent(Int.self, forKey: .frozen) { frozen = n } else if let b = try? c.decodeIfPresent(Bool.self, forKey: .frozen) { frozen = b ? 1 : 0 }
+        silenced = try c.decodeIfPresent(Bool.self, forKey: .silenced) ?? false
+        tmp = try c.decodeIfPresent(Int.self, forKey: .tmp) ?? 0
+        bled = try c.decodeIfPresent(Bool.self, forKey: .bled) ?? false
+    }
+}
+
+/// A Prayer waiting on the altar.
+struct AltarSlot: Codable, Hashable {
+    var key: String
+    var cd: Int
+}
+
+/// Talent counters that reset every turn.
+struct TurnFlags: Codable, Hashable {
+    var fire = false      // a Fire spell was cast (Kindle)
+    var pain = false      // Agony fired
+    var bm = false        // Blood Mana fired
+    var tide = false      // Corpse Tide fired
+    var bar = false       // Ice Ward fired
+    var wh = false        // Whistle fired
+    var sd = 0            // Sanctuary draws so far
+    var sum = 0           // minions summoned
+    var played = 0        // cards played
+    var deaths = 0        // own minions that died
 }
 
 struct Hero: Codable, Hashable {
@@ -45,7 +86,7 @@ struct Hero: Codable, Hashable {
     var armor = 0
     var mana = 0
     var maxMana = 0
-    /// Unspent mana banked for spells (up to 3).
+    /// Unspent mana banked for spells (up to 3, or 5 with Banked Heat).
     var spellMana = 0
     var deck: [String]
     var hand: [String] = []
@@ -53,7 +94,51 @@ struct Hero: Codable, Hashable {
     var fat = 0
     var powerUsed = false
     var power: Power
+    /// Class of this side, nil for an Adventure foe.
+    var cls: String?
+    /// Prayers waiting to resolve.
+    var altar: [AltarSlot] = []
+    /// Keys of minions that died (for Revive), oldest first.
+    var grave: [String] = []
+    /// Chosen talents, and the card changes they make.
+    var tal: [String] = []
+    var ovr: [String: CardOverride] = [:]
+    /// Spell Surge boosts per card in hand (kept in step with the hand); `castHb` is the boost of the spell being cast.
+    var hb: [Int] = []
+    var castHb = 0
+    var tf = TurnFlags()
+    var rage = 0, soul = 0, coopN = 0, coopB = 0
+    var firstSum = false
     var id: EID { .hero(side) }
+
+    func has(_ talent: String) -> Bool { tal.contains(talent) }
+    var hasTalents: Bool { !tal.isEmpty }
+
+    private enum CodingKeys: String, CodingKey {
+        case side, hp, max, armor, mana, maxMana, spellMana, deck, hand, board, fat, powerUsed, power, cls, altar, grave, tal, ovr, hb, castHb, tf, rage, soul, coopN, coopB, firstSum
+    }
+    init(side: Side, hp: Int, max: Int, deck: [String], power: Power) {
+        self.side = side; self.hp = hp; self.max = max; self.deck = deck; self.power = power
+    }
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        side = try c.decode(Side.self, forKey: .side); hp = try c.decode(Int.self, forKey: .hp); max = try c.decode(Int.self, forKey: .max)
+        armor = try c.decode(Int.self, forKey: .armor); mana = try c.decode(Int.self, forKey: .mana); maxMana = try c.decode(Int.self, forKey: .maxMana)
+        spellMana = try c.decodeIfPresent(Int.self, forKey: .spellMana) ?? 0
+        deck = try c.decode([String].self, forKey: .deck); hand = try c.decode([String].self, forKey: .hand); board = try c.decode([Minion].self, forKey: .board)
+        fat = try c.decode(Int.self, forKey: .fat); powerUsed = try c.decode(Bool.self, forKey: .powerUsed); power = try c.decode(Power.self, forKey: .power)
+        cls = try c.decodeIfPresent(String.self, forKey: .cls)
+        altar = try c.decodeIfPresent([AltarSlot].self, forKey: .altar) ?? []
+        grave = try c.decodeIfPresent([String].self, forKey: .grave) ?? []
+        tal = try c.decodeIfPresent([String].self, forKey: .tal) ?? []
+        ovr = try c.decodeIfPresent([String: CardOverride].self, forKey: .ovr) ?? [:]
+        hb = try c.decodeIfPresent([Int].self, forKey: .hb) ?? []
+        castHb = try c.decodeIfPresent(Int.self, forKey: .castHb) ?? 0
+        tf = try c.decodeIfPresent(TurnFlags.self, forKey: .tf) ?? TurnFlags()
+        rage = try c.decodeIfPresent(Int.self, forKey: .rage) ?? 0; soul = try c.decodeIfPresent(Int.self, forKey: .soul) ?? 0
+        coopN = try c.decodeIfPresent(Int.self, forKey: .coopN) ?? 0; coopB = try c.decodeIfPresent(Int.self, forKey: .coopB) ?? 0
+        firstSum = try c.decodeIfPresent(Bool.self, forKey: .firstSum) ?? false
+    }
 }
 
 enum GameMode: String, Codable { case camp, quick, online }
@@ -72,11 +157,13 @@ enum LogEntry: Hashable {
     case ready(String), already(String), noAtk(String), nextTurn(String), guardWay, info(String, Int, Int)
     case eTurn, eSummon(String), eCast(String), eCastOn(String, NameRef), yourTurn, goFirst, goSecond
     case powerUse(Power, NameRef?), ePower(Power, NameRef?), cantPower
+    case prayed(String), ePrayed(String), prayerDone(Side, String), altarFull
 }
 
 enum FloatKind: Hashable {
     case dmg(Int), armorAbsorb(Int), ward, heal(Int), armorGain(Int), atkUp(Int), hpUp(Int)
     case frozen, silenced, destroyed, stats(Int, Int)
+    case answered, revived, rage, named(String), manaUp(Int)
     var isHit: Bool { switch self { case .dmg, .armorAbsorb, .ward: return true; default: return false } }
 }
 
@@ -113,6 +200,7 @@ struct DuelState: Codable {
     private enum CodingKeys: String, CodingKey { case mode, pcls, ecls, diff, stage, turn, over, opened, mulligan, round, nextUid, p, e, order, result }
 
     static let boardMax = GameData.shared.boardMax
+    static var gd: GameData { GameData.shared }
 
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
@@ -135,6 +223,7 @@ struct DuelState: Codable {
 
     init(mode: GameMode, pcls: String, ecls: String? = nil, diff: Difficulty? = nil, stage: Int = 0, p: Hero, e: Hero) {
         self.mode = mode; self.pcls = pcls; self.ecls = ecls; self.diff = diff; self.stage = stage; self.p = p; self.e = e
+        self.p.cls = pcls; self.e.cls = ecls
     }
 
     static func makeHero(_ side: Side, hp: Int, deck: [String], power: Power) -> Hero {
@@ -159,23 +248,168 @@ struct DuelState: Codable {
     mutating func log(_ l: LogEntry) { events.append(.log(l)) }
     private mutating func float(_ id: EID, _ k: FloatKind) { events.append(.float(id, k)) }
 
+    // MARK: - Talents: setup and lookups
+
+    func tal(_ side: Side, _ id: String) -> Bool { self[side].tal.contains(id) }
+
+    /// Applies a talent list to a side: Health, hero power and card overrides.
+    mutating func setupTalents(_ side: Side, cls: String?, _ sel: [String]) {
+        let gd = Self.gd
+        let ok = cls.map { gd.hasTalents($0) && gd.validTalents($0, sel) } ?? false
+        self[side].tal = ok ? sel : []
+        self[side].ovr = gd.overrides(for: self[side].tal)
+        self[side].hb = []; self[side].castHb = 0; self[side].tf = TurnFlags()
+        self[side].cls = cls
+        if tal(side, "wl_flesh") { self[side].hp += 2; self[side].max += 2 }
+        if tal(side, "fr_blood") { self[side].hp += 7; self[side].max += 7 }
+        if tal(side, "wa_reckless") { self[side].hp -= 3; self[side].max -= 3 }
+        if tal(side, "ho_devout") { self[side].hp += 6; self[side].max += 6 }
+        var p = cls.flatMap { gd.cls($0)?.power } ?? self[side].power
+        func mod(_ f: (inout Effect) -> Void) { var fx = p.fx; f(&fx); p = Power(cost: p.cost, tgt: p.tgt, fx: fx, names: p.names) }
+        if tal(side, "fi_spark") { mod { $0.dmg = 2 } }
+        if tal(side, "fr_spark") { mod { $0.freeze = true } }
+        if tal(side, "sh_touch"), let n = gd.talentNode("sh_touch") { var fx = Effect(); fx.dmg = 2; p = Power(cost: p.cost, tgt: .minion, fx: fx, names: n.names) }
+        if tal(side, "ho_pray") { mod { $0.hasten = 1 } }
+        if tal(side, "wa_heavy") { mod { $0.armor += 1 } }
+        if tal(side, "wa_roar"), let n = gd.talentNode("wa_roar") { var fx = Effect(); fx.tempAtk = 2; p = Power(cost: 2, tgt: .ally, fx: fx, names: n.names) }
+        if tal(side, "pa_double") { var fx = p.fx; fx.summon = ["minnow", "minnow"]; p = Power(cost: 3, tgt: p.tgt, fx: fx, names: p.names) }
+        if tal(side, "pa_lightcall") { mod { $0.wardSummon = true } }
+        if tal(side, "hu_master"), let n = gd.talentNode("hu_master") { var fx = Effect(); fx.summon = ["phound"]; p = Power(cost: 2, tgt: nil, fx: fx, names: n.names) }
+        if tal(side, "hu_heart"), p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
+        if tal(side, "hu_pierce") { mod { $0.pierce = true } }
+        if tal(side, "hu_rapid") { p = Power(cost: Swift.max(0, p.cost - 1), tgt: p.tgt, fx: p.fx, names: p.names) }
+        if tal(side, "wl_tap") { mod { $0.selfDmg = 3; $0.draw = 2 } }
+        self[side].power = p
+    }
+
+    /// Opening-hand talents, after the hands are dealt.
+    mutating func talOpen(_ side: Side) {
+        guard self[side].hasTalents else { return }
+        if tal(side, "fi_bank") { self[side].spellMana = 1 }
+        if tal(side, "wa_tough") { self[side].armor += 7 }
+        if tal(side, "wa_reckless") { draw(side, 1) }
+        if tal(side, "hu_quiver"), self[side].hand.count < 10, Self.gd.card("spray") != nil { self[side].hand.append("spray") }
+    }
+
+    func override(_ side: Side, _ k: String) -> CardOverride? { self[side].ovr[k] }
+    func cardFx(_ side: Side, _ k: String) -> Effect? { override(side, k)?.fx ?? Self.gd.card(k)?.fx }
+    func cardBc(_ side: Side, _ k: String) -> Effect? { override(side, k)?.bc ?? Self.gd.card(k)?.bc }
+    func cardPray(_ side: Side, _ k: String) -> Prayer? { override(side, k)?.pray ?? Self.gd.card(k)?.pray }
+    func costOf(_ side: Side, _ k: String) -> Int {
+        var c = override(side, k)?.cost ?? Self.gd.card(k)?.cost ?? 0
+        if tal(side, "hu_combo") && self[side].tf.played >= 2 { c = Swift.max(0, c - 1) }
+        return c
+    }
+    /// Hero power cost (Formation: 1 less with a full board).
+    func pcost(_ side: Side) -> Int { Swift.max(0, self[side].power.cost - (tal(side, "pa_array") && self[side].board.count >= 5 ? 1 : 0)) }
+    /// Hero power damage from Marksman minions.
+    func powerBonus(_ side: Side) -> Int { self[side].board.reduce(0) { $0 + ($1.silenced ? 0 : $1.card.pw) } }
+    func altarMax(_ side: Side) -> Int { tal(side, "ho_altar") ? 3 : 2 }
+    func smCap(_ side: Side) -> Int { tal(side, "fi_bank") ? 5 : 3 }
+    /// Bulwark: when short on mana, every 3 Armor pays for 1.
+    func armorMana(_ side: Side) -> Int { tal(side, "wa_bulwark") ? self[side].armor / 3 : 0 }
+
+    /// Spell Surge boosts, one per card in hand.
+    mutating func hbOf(_ side: Side) -> [Int] {
+        let n = self[side].hand.count
+        while self[side].hb.count < n { self[side].hb.append(0) }
+        if self[side].hb.count > n { self[side].hb.removeLast(self[side].hb.count - n) }
+        return self[side].hb
+    }
+    /// Removes card `i` from the hand to play it (keeps the boosts in step and counts the play).
+    @discardableResult
+    mutating func takeHand(_ side: Side, _ i: Int) -> String {
+        _ = hbOf(side)
+        self[side].castHb = self[side].hb[safe: i] ?? 0
+        if self[side].hb.indices.contains(i) { self[side].hb.remove(at: i) }
+        self[side].tf.played += 1
+        return self[side].hand.remove(at: i)
+    }
+
+    mutating func afterPower(_ side: Side) {
+        if tal(side, "fr_armor") { self[side].armor += 2; float(.hero(side), .armorGain(2)) }
+    }
+
+    /// Self-damage triggers (Agony, Blood Mana).
+    mutating func selfHurt(_ side: Side) {
+        if tal(side, "wl_pain") && !self[side].tf.pain { self[side].tf.pain = true; damage(.hero(side.other), 2) }
+        if tal(side, "wl_bloodmana") && !self[side].tf.bm { self[side].tf.bm = true; self[side].mana += 1 }
+    }
+
+    /// Deaths of a side's minions (Souls, Corpse Tide, Soul Harvest).
+    mutating func talDeaths(_ side: Side, _ n: Int) {
+        guard self[side].hasTalents else { return }
+        if tal(side, "wl_soul") { self[side].soul = Swift.min(10, self[side].soul + n) }
+        let d0 = self[side].tf.deaths
+        self[side].tf.deaths = d0 + n
+        if tal(side, "wl_tide") && !self[side].tf.tide { self[side].tf.tide = true; summon(side, "skeleton") }
+        if tal(side, "wl_harvest") && d0 < 2 && d0 + n >= 2 { draw(side, 1) }
+    }
+
+    /// Per-minion talent changes when it enters (stat bonuses, Ward, counters).
+    private mutating func talSummon(_ side: Side, _ m: inout Minion, _ c: Card) {
+        func h(_ id: String) -> Bool { tal(side, id) }
+        var a = 0, hp = 0
+        let key = c.id
+        if c.sc == "fire" && h("fi_heart") { a += 1 }
+        if key == "spellbreaker" && h("sh_breaker") { a += 1 }
+        if key == "crab" && h("wa_crab") { hp += 2 }
+        if m.hasGuard && h("wa_iron") { hp += 2 }
+        if key == "berserker" && h("wa_berserk") { a += 1 }
+        if key == "minnow" && h("pa_drill") { hp += 1 }
+        if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
+        if key == "elver" && h("hu_tame") { a += 1; hp += 1 }
+        if (key == "hound" || key == "phound") && h("hu_hound") { a += 1 }
+        if key == "gull" && h("hu_griffon") { a += 1 }
+        if key == "sailor" && h("wl_bone") { a += 1; hp += 1 }
+        if key == "bubble" && h("wl_wrath") { a += 1 }
+        if c.gasp != nil && h("wl_gasp") { a += 1 }
+        if key == "knight" && h("pa_vshield") { m.ward = true; a += 1 }
+        if !c.token && h("pa_first") && !self[side].firstSum { self[side].firstSum = true; m.ward = true }
+        self[side].tf.sum += 1
+        if self[side].tf.sum == 3 && h("pa_step") { a += 1; hp += 1 }
+        if h("pa_coop") {
+            self[side].coopN += 1
+            let nb = Swift.min(1, self[side].coopN / 12), ob = self[side].coopB
+            if nb > ob { for i in self[side].board.indices { self[side].board[i].atk += nb - ob }; self[side].coopB = nb }
+            a += self[side].coopB
+        }
+        if c.race == "beast" && h("hu_wild") && self[side].tf.played >= 2 { m.sleep = false }
+        if c.token && h("pa_banner") && !self[side].board.isEmpty { self[side].board[0].atk += 1 }
+        if !c.token && c.race == "beast" && h("hu_whistle") && !self[side].tf.wh && self[side].hand.count < 10 && Self.gd.card("whistle") != nil {
+            self[side].tf.wh = true; self[side].hand.append("whistle")
+        }
+        m.atk += a; m.hp += hp; m.max += hp
+    }
+
     // MARK: - Turn flow
 
     mutating func startTurn(_ side: Side) {
-        // The side whose turn just ended banks its unspent mana as spell mana (up to 3), its frozen minions
-        // thaw and temporary Attack wears off. Minions frozen during the other turn sit this turn out.
+        // The side whose turn just ended banks its unspent mana as spell mana, its frozen minions thaw
+        // (Permafrost keeps one a turn longer) and temporary Attack wears off.
         let o = side.other
-        self[o].spellMana = min(3, self[o].spellMana + max(0, self[o].mana))
+        self[o].spellMana = Swift.min(smCap(o), self[o].spellMana + Swift.max(0, self[o].mana))
         self[o].mana = 0
         for i in self[o].board.indices {
-            self[o].board[i].frozen = false
+            self[o].board[i].frozen = Swift.max(0, self[o].board[i].frozen - 1)
             self[o].board[i].atk -= self[o].board[i].tmp
             self[o].board[i].tmp = 0
         }
-        self[side].maxMana = min(10, self[side].maxMana + 1)
+        self[side].tf = TurnFlags(); self[o].tf = TurnFlags()
+        if tal(o, "wl_soul") && self[o].soul >= 7 {
+            self[o].soul -= 7
+            if let m = summon(o, "bonewarr") { float(m.id, .revived) }
+        }
+        if tal(side, "wa_fury") && self[side].rage >= 3 {
+            self[side].rage -= 3
+            for i in self[side].board.indices { self[side].board[i].atk += 2; self[side].board[i].tmp += 2 }
+            float(.hero(side), .rage)
+        }
+        self[side].maxMana = Swift.min(10, self[side].maxMana + 1)
         self[side].mana = self[side].maxMana
         self[side].powerUsed = false
-        for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].frozen }
+        for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].isFrozen }
+        tickAltar(side, 1)
         // Whoever goes first skips the draw on the opening turn.
         if opened { draw(side, 1) } else { opened = true }
     }
@@ -201,33 +435,65 @@ struct DuelState: Codable {
 
     @discardableResult
     mutating func summon(_ side: Side, _ key: String) -> Minion? {
-        guard self[side].board.count < Self.boardMax, let c = GameData.shared.card(key) else { return nil }
+        guard self[side].board.count < Self.boardMax, let c = Self.gd.card(key) else { return nil }
         nextUid += 1
-        let m = Minion(uid: nextUid, key: key, side: side, atk: c.atk ?? 0, hp: c.hp ?? 0, max: c.hp ?? 0,
+        var m = Minion(uid: nextUid, key: key, side: side, atk: c.atk ?? 0, hp: c.hp ?? 0, max: c.hp ?? 0,
                        baseAtk: c.atk ?? 0, baseHp: c.hp ?? 0, hasGuard: c.hasGuard, ward: c.ward, sleep: !c.surge, attacked: false)
+        if self[side].hasTalents { talSummon(side, &m, c) }
         self[side].board.append(m)
         return m
     }
 
-    mutating func damage(_ id: EID, _ n: Int) {
+    mutating func damage(_ id: EID, _ n: Int, pierce: Bool = false) {
         guard n > 0 else { return }
+        var n = n
+        let own = id.side
+        if tal(own, "wa_fury") { self[own].rage = Swift.min(10, self[own].rage + 1) }
         if id.isHero {
-            var h = self[id.side]
-            let a = min(h.armor, n)
+            var h = self[own]
+            let a = pierce ? 0 : Swift.min(h.armor, n)
             h.armor -= a
             let rest = n - a
             h.hp -= rest
-            self[id.side] = h
+            self[own] = h
             float(id, rest > 0 ? .dmg(rest) : .armorAbsorb(a))
-        } else if let i = self[id.side].board.firstIndex(where: { $0.uid == id.uid }) {
-            if self[id.side].board[i].ward {
-                self[id.side].board[i].ward = false
+        } else if let i = self[own].board.firstIndex(where: { $0.uid == id.uid }) {
+            if self[own].board[i].ward {
+                self[own].board[i].ward = false
                 float(id, .ward)
+                if tal(own, "pa_echo") { heal(.hero(own), 2) }
+                if tal(own, "pa_sanct") && self[own].tf.sd < 3 { self[own].tf.sd += 1; draw(own, 1); heal(.hero(own), 2) }
             } else {
-                self[id.side].board[i].hp -= n
+                if self[own].board[i].isFrozen {
+                    let fo = own.other
+                    n += (tal(fo, "fr_deep") ? 2 : 0) + (tal(fo, "fr_perma") ? 1 : 0)
+                }
+                self[own].board[i].hp -= n
                 float(id, .dmg(n))
+                if !self[own].board[i].bled && tal(own, "wa_bloodied") { self[own].board[i].bled = true; self[own].board[i].atk += 1 }
             }
         }
+    }
+
+    /// Restores Health (never above the maximum), floating the amount actually healed.
+    mutating func heal(_ id: EID, _ n: Int) {
+        if id.isHero {
+            let h = Swift.min(n, self[id.side].max - self[id.side].hp)
+            self[id.side].hp += h
+            float(id, .heal(h))
+        } else if let i = self[id.side].board.firstIndex(where: { $0.uid == id.uid }) {
+            let h = Swift.min(n, self[id.side].board[i].max - self[id.side].board[i].hp)
+            self[id.side].board[i].hp += h
+            float(id, .heal(h))
+        }
+    }
+
+    /// Freezes a minion for `side`'s benefit (Permafrost lasts a turn longer; Ice Ward gives Armor once a turn).
+    mutating func freezeM(_ side: Side, _ id: EID) {
+        guard let i = self[id.side].board.firstIndex(where: { $0.uid == id.uid }) else { return }
+        self[id.side].board[i].frozen = Swift.max(self[id.side].board[i].frozen, tal(side, "fr_perma") && id.side != side ? 2 : 1)
+        float(id, .frozen)
+        if id.side != side && tal(side, "fr_barrier") && !self[side].tf.bar { self[side].tf.bar = true; self[side].armor += 3; float(.hero(side), .armorGain(3)) }
     }
 
     func canAttack(_ m: Minion) -> Bool { turn == m.side && !m.sleep && !m.attacked && m.atk > 0 }
@@ -255,7 +521,33 @@ struct DuelState: Codable {
             switch cond {
             case "damaged": return m.hp < m.max
             case "atk<=3": return m.atk <= 3
+            case "atk<=4": return m.atk <= 4
+            case "frozen": return m.isFrozen
             default: return m.atk >= 5
+            }
+        }
+    }
+
+    // MARK: - Prayers
+
+    mutating func placePrayer(_ side: Side, _ k: String) {
+        guard let pr = cardPray(side, k) else { return }
+        self[side].altar.append(AltarSlot(key: k, cd: Swift.max(1, pr.cd - (tal(side, "ho_altar") ? 1 : 0))))
+    }
+
+    mutating func tickAltar(_ side: Side, _ n: Int) {
+        guard !self[side].altar.isEmpty else { return }
+        for i in self[side].altar.indices { self[side].altar[i].cd -= n }
+        let done = self[side].altar.filter { $0.cd <= 0 }
+        guard !done.isEmpty else { return }
+        self[side].altar.removeAll { $0.cd <= 0 }
+        for p in done {
+            if let pr = cardPray(side, p.key) { applyFx(side, pr.fx, nil) }
+            float(.hero(side), .answered)
+            log(.prayerDone(side, p.key))
+            if tal(side, "ho_grace") {
+                heal(.hero(side), 3)
+                if let t = self[side.other].board.filter({ $0.hp > 0 }).sorted(by: { $0.atk != $1.atk ? $0.atk > $1.atk : $0.uid < $1.uid }).first { damage(t.id, 1) }
             }
         }
     }
@@ -269,6 +561,7 @@ struct DuelState: Codable {
         let pick = Array(Set(idx.filter { hand.indices.contains($0) })).sorted()
         let back = pick.map { hand[$0] }
         self[side].hand = hand.enumerated().filter { !pick.contains($0.offset) }.map(\.element)
+        self[side].hb = []
         for _ in back where !self[side].deck.isEmpty {
             self[side].hand.append(self[side].deck.removeLast())
             events.append(.drew(side))
@@ -278,31 +571,80 @@ struct DuelState: Codable {
 
     /// The computer swaps out expensive cards (4 mana or more).
     func aiMulliganPicks(_ side: Side) -> [Int] {
-        self[side].hand.indices.filter { (GameData.shared.card(self[side].hand[$0])?.cost ?? 0) >= 4 }
+        self[side].hand.indices.filter { (Self.gd.card(self[side].hand[$0])?.cost ?? 0) >= 4 }
     }
 
     // MARK: - Spells
 
-    func spellBonus(_ side: Side) -> Int { self[side].board.reduce(0) { $0 + $1.spellDamage } }
+    /// Spell Damage from minions, plus Kindle on the first Fire spell of a turn, Spell Surge and Vengeance.
+    func spellBonus(_ side: Side, _ k: String? = nil) -> Int {
+        var n = self[side].board.reduce(0) { $0 + $1.spellDamage }
+        if let k, let c = Self.gd.card(k) {
+            if c.sc == "fire" && self[side].hasTalents {
+                if tal(side, "fi_ignite") && !self[side].tf.fire { n += 1 }
+                n += self[side].castHb
+            }
+            if tal(side, "wl_veng") && self[side].hp <= 15 { n += 1 }
+        }
+        return n
+    }
 
-    /// Spells may also spend banked spell mana; minions and hero powers use normal mana only.
+    /// Spells may also spend banked spell mana (and Bulwark Armor); minions and hero powers use normal mana only.
     func canPay(_ side: Side, _ key: String) -> Bool {
-        guard let c = GameData.shared.card(key) else { return false }
-        return c.cost <= self[side].mana + (c.isMinion ? 0 : self[side].spellMana)
+        guard let c = Self.gd.card(key) else { return false }
+        return costOf(side, key) <= self[side].mana + (c.isMinion ? 0 : self[side].spellMana) + armorMana(side)
     }
 
     mutating func pay(_ side: Side, _ key: String) {
-        guard let c = GameData.shared.card(key) else { return }
-        if c.isMinion { self[side].mana -= c.cost; return }
-        let use = min(self[side].spellMana, c.cost)
-        self[side].spellMana -= use
-        self[side].mana -= c.cost - use
+        guard let c = Self.gd.card(key) else { return }
+        var r = costOf(side, key)
+        if !c.isMinion {
+            let u = Swift.min(self[side].spellMana, r)
+            self[side].spellMana -= u
+            r -= u
+        }
+        if r > self[side].mana, armorMana(side) > 0 {
+            let x = Swift.min(armorMana(side), r - Swift.max(0, self[side].mana))
+            self[side].armor -= 3 * x
+            r -= x
+            float(.hero(side), .armorAbsorb(3 * x))
+        }
+        self[side].mana -= r
     }
 
-    /// A spell: its effect (plus Spell Damage), then "whenever you cast a spell" minions react.
+    /// A spell: its effect (plus Spell Damage) or, for a Prayer, a place on the altar; then "whenever you cast
+    /// a spell" minions react.
     mutating func castSpell(_ side: Side, _ key: String, _ t: EID?) {
-        guard let fx = GameData.shared.card(key)?.fx else { return }
-        applyFx(side, fx, t, bonus: spellBonus(side))
+        guard let c = Self.gd.card(key) else { return }
+        let fire = c.sc == "fire"
+        if c.isPrayer {
+            placePrayer(side, key)
+        } else if let fx = cardFx(side, key) {
+            let bonus = spellBonus(side, key)
+            let alive = self[side.other].board.filter { $0.hp > 0 }
+            if fire { self[side].tf.fire = true }
+            applyFx(side, fx, t, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0))
+            if self[side].hasTalents {
+                let dead = alive.filter { m in (minion(m.id)?.hp ?? 0) <= 0 }
+                if !dead.isEmpty {
+                    if fire && tal(side, "fi_wildfire") { damage(.hero(side.other), 1) }
+                    if tal(side, "sh_drain") { heal(.hero(side), 2 * dead.count) }
+                    if c.sw && tal(side, "sh_echo") { damage(.hero(side.other), 2 * dead.count) }
+                    if c.sw && tal(side, "sh_steal") {
+                        for m in dead where !m.card.token && self[side].hand.count < 10 { self[side].hand.append(m.key); float(.hero(side), .named(m.key)) }
+                        draw(side, 1)
+                    }
+                }
+                if fire && tal(side, "fi_flamearmor") { self[side].armor += 1; float(.hero(side), .armorGain(1)) }
+            }
+        }
+        self[side].castHb = 0
+        if tal(side, "fi_boost") {
+            _ = hbOf(side)
+            for i in self[side].hand.indices {
+                if let h = Self.gd.card(self[side].hand[i]), h.sc == "fire", !h.isMinion, self[side].hb[i] < 2 { self[side].hb[i] += 1 }
+            }
+        }
         for i in self[side].board.indices {
             guard let o = self[side].board[i].onSpell, self[side].board[i].hp > 0 else { continue }
             self[side].board[i].atk += o[0]
@@ -316,25 +658,30 @@ struct DuelState: Codable {
     mutating func silence(_ id: EID) {
         guard let i = self[id.side].board.firstIndex(where: { $0.uid == id.uid }) else { return }
         var m = self[id.side].board[i]
-        m.silenced = true; m.hasGuard = false; m.ward = false; m.frozen = false; m.tmp = 0
-        m.atk = m.baseAtk; m.max = m.baseHp; m.hp = min(m.hp, m.max)
+        m.silenced = true; m.hasGuard = false; m.ward = false; m.frozen = 0; m.tmp = 0
+        m.atk = m.baseAtk; m.max = m.baseHp; m.hp = Swift.min(m.hp, m.max)
         self[id.side].board[i] = m
         float(id, .silenced)
     }
 
-    mutating func applyFx(_ side: Side, _ fx: Effect, _ t: EID?, bonus: Int = 0) {
+    mutating func applyFx(_ side: Side, _ fx: Effect, _ t: EID?, bonus: Int = 0, faceBonus: Int = 0, isPower: Bool = false) {
         let op = side.other
-        if fx.selfDmg > 0 { damage(.hero(side), fx.selfDmg) }
-        if fx.dealsDamage, let t {
-            var n = fx.dmg
-            if fx.dmgBeast > 0 && self[side].board.contains(where: { $0.card.race == "beast" }) { n = fx.dmgBeast }
-            if fx.armorDmg { n = self[side].armor }
-            damage(t, n + bonus)
-            if fx.drawIfKill, let m = minion(t), m.hp <= 0 { draw(side, 1) }
+        let mt: EID? = (t?.isHero == false) ? t : nil
+        if fx.selfDmg > 0 && !(isPower && tal(side, "wl_veng") && self[side].hp <= 15) { damage(.hero(side), fx.selfDmg); selfHurt(side) }
+        if fx.icelance > 0, let mt {
+            if minion(mt)?.isFrozen == true { damage(mt, fx.icelance + bonus) } else { freezeM(side, mt) }
         }
-        if let t, let uid = t.uid, let i = self[t.side].board.firstIndex(where: { $0.uid == uid }) {
+        var dmg = fx.dmg
+        if fx.dmgBeast > 0 && self[side].board.contains(where: { $0.card.race == "beast" }) { dmg = fx.dmgBeast }
+        if fx.armorDmg { dmg = self[side].armor + fx.plus }
+        if fx.dealsDamage, let t {
+            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce && t.isHero)
+            if fx.splash > 0, let mt { for m in self[op].board where m.id != mt { damage(m.id, fx.splash) } }
+            if fx.drawIfKill, let mt, (minion(mt)?.hp ?? 0) <= 0 { draw(side, 1) }
+        }
+        if let t = mt, let uid = t.uid, let i = self[t.side].board.firstIndex(where: { $0.uid == uid }) {
             if fx.destroy { self[t.side].board[i].hp = 0; float(t, .destroyed) }
-            if fx.silence { silence(t) }
+            if fx.silence { silence(t); if tal(side, "sh_void") { damage(t, 2) } }
             if fx.setAtk > 0 {
                 self[t.side].board[i].atk = fx.setAtk; self[t.side].board[i].tmp = 0
                 float(t, .stats(fx.setAtk, self[t.side].board[i].hp))
@@ -343,7 +690,8 @@ struct DuelState: Codable {
                 self[t.side].board[i].hp = fx.setHp; self[t.side].board[i].max = fx.setHp
                 float(t, .stats(self[t.side].board[i].atk, fx.setHp))
             }
-            if fx.freeze { self[t.side].board[i].frozen = true; float(t, .frozen) }
+            if fx.freeze && fx.icelance == 0 { freezeM(side, t) }
+            if fx.rush { self[t.side].board[i].sleep = false }
             if fx.tempAtk > 0 {
                 self[t.side].board[i].atk += fx.tempAtk; self[t.side].board[i].tmp += fx.tempAtk
                 float(t, .atkUp(fx.tempAtk))
@@ -363,12 +711,13 @@ struct DuelState: Codable {
             }
         }
         if fx.aoe > 0 { for m in self[op].board { damage(m.id, fx.aoe + bonus) } }
-        if fx.face > 0 { damage(.hero(op), fx.face + bonus) }
+        if fx.face > 0 { damage(.hero(op), fx.face + bonus + faceBonus, pierce: fx.pierce) }
         if fx.sweep > 0 {
-            for m in self[side].board + self[op].board { damage(m.id, fx.sweep + bonus) }
-            if fx.heroes { damage(.hero(op), fx.sweep + bonus); damage(.hero(side), fx.sweep + bonus) }
+            for m in self[side].board + self[op].board { damage(m.id, fx.sweep + bonus + (m.side != side ? fx.foeExtra : 0)) }
+            if fx.heroes { damage(.hero(op), fx.sweep + bonus + faceBonus); if !fx.noSelf { damage(.hero(side), fx.sweep + bonus) } }
         }
-        if fx.freezeAll { for i in self[op].board.indices { self[op].board[i].frozen = true; float(self[op].board[i].id, .frozen) } }
+        if fx.freezeAll { for m in self[op].board { freezeM(side, m.id) } }
+        if fx.freezeBig, let m = self[op].board.max(by: { $0.atk < $1.atk }) { freezeM(side, m.id) }
         if let tm = fx.team {
             for i in self[side].board.indices {
                 self[side].board[i].atk += tm[0]
@@ -377,33 +726,35 @@ struct DuelState: Codable {
                 float(self[side].board[i].id, tm[0] > 0 ? .atkUp(tm[0]) : .hpUp(tm[1]))
             }
         }
-        for k in fx.summon { summon(side, k) }
+        for k in fx.summon {
+            if let m = summon(side, k), fx.wardSummon, let i = self[side].board.firstIndex(where: { $0.uid == m.uid }) { self[side].board[i].ward = true }
+        }
         if let k = fx.perFoe { for _ in 0..<self[op].board.count { summon(side, k) } }
-        if fx.heal > 0 {
-            let h = min(fx.heal, self[side].max - self[side].hp)
-            self[side].hp += h
-            float(.hero(side), .heal(h))
-        }
-        if fx.healT > 0, let t {
-            if t.isHero {
-                let h = min(fx.healT, self[t.side].max - self[t.side].hp)
-                self[t.side].hp += h
-                float(t, .heal(h))
-            } else if let i = self[t.side].board.firstIndex(where: { $0.uid == t.uid }) {
-                let h = min(fx.healT, self[t.side].board[i].max - self[t.side].board[i].hp)
-                self[t.side].board[i].hp += h
-                float(t, .heal(h))
-            }
-        }
+        if fx.heal > 0 { heal(.hero(side), fx.heal) }
+        if fx.healT > 0, let t { heal(t, fx.healT) }
         if fx.armor > 0 { self[side].armor += fx.armor; float(.hero(side), .armorGain(fx.armor)) }
-        if fx.draw > 0 { draw(side, fx.draw) }
+        if fx.draw > 0 {
+            draw(side, fx.draw)
+            if isPower && tal(side, "wl_mutate") { self[side].armor += 5; float(.hero(side), .armorGain(5)) }
+        }
         if fx.mana > 0 { self[side].mana += fx.mana }
+        if fx.purge > 0 {
+            for sd in [side, op] { for i in self[sd].board.indices where self[sd].board[i].atk >= fx.purge { self[sd].board[i].hp = 0; float(self[sd].board[i].id, .destroyed) } }
+        }
+        for _ in 0..<fx.revive {
+            guard let idx = self[side].grave.lastIndex(where: { Self.gd.card($0)?.token == false }), self[side].board.count < Self.boardMax else { break }
+            let k = self[side].grave.remove(at: idx)
+            if let m = summon(side, k) { float(m.id, .revived) }
+        }
+        if fx.hasten > 0 { tickAltar(side, fx.hasten) }
     }
 
     mutating func attack(_ attacker: EID, _ target: EID) {
         guard let m = minion(attacker) else { return }
         log(.attacks(name(attacker), name(target)))
+        let rip = target.isHero && self[target.side].armor > 0 && tal(target.side, "wa_counter")
         damage(target, m.atk)
+        if rip { damage(attacker, 1) }
         if !target.isHero, let t = minion(target) { damage(attacker, t.atk) }
         if let i = self[attacker.side].board.firstIndex(where: { $0.uid == attacker.uid }) { self[attacker.side].board[i].attacked = true }
     }
@@ -415,6 +766,8 @@ struct DuelState: Codable {
             let dead = self[sd].board.filter { $0.hp <= 0 }
             if dead.isEmpty { continue }
             self[sd].board.removeAll { $0.hp <= 0 }
+            for m in dead { self[sd].grave.append(m.key) }
+            talDeaths(sd, dead.count)
             for m in dead {
                 events.append(.died(m))
                 if let g = m.gasp, summon(sd, g) != nil { log(.burst(m.key)) }
@@ -437,8 +790,9 @@ struct DuelState: Codable {
     /// Fingerprint used online to confirm both copies agree (host side first).
     func hash(hostSide: Side) -> String {
         func sd(_ h: Hero) -> String {
-            let b = h.board.map { "\($0.uid),\($0.key),\($0.atk),\($0.hp),\($0.max),\($0.hasGuard ? 1 : 0),\($0.ward ? 1 : 0),\($0.sleep ? 1 : 0),\($0.attacked ? 1 : 0),\($0.frozen ? 1 : 0),\($0.silenced ? 1 : 0),\($0.tmp)" }.joined(separator: ";")
-            return "\(h.hp)|\(h.armor)|\(h.mana)|\(h.maxMana)|\(h.spellMana)|\(h.hand.joined(separator: ","))|\(h.deck.count)|\(h.fat)|\(h.powerUsed ? 1 : 0)|\(b)"
+            let b = h.board.map { "\($0.uid),\($0.key),\($0.atk),\($0.hp),\($0.max),\($0.hasGuard ? 1 : 0),\($0.ward ? 1 : 0),\($0.sleep ? 1 : 0),\($0.attacked ? 1 : 0),\($0.frozen),\($0.silenced ? 1 : 0),\($0.tmp)" }.joined(separator: ";")
+            let a = h.altar.map { "\($0.key)\($0.cd)" }.joined(separator: ",")
+            return "\(h.hp)|\(h.armor)|\(h.mana)|\(h.maxMana)|\(h.spellMana)|\(h.hand.joined(separator: ","))|\(h.deck.count)|\(h.fat)|\(h.powerUsed ? 1 : 0)|\(a)|\(h.grave.count)|\(b)|\(h.rage)|\(h.soul)|\(h.coopN)"
         }
         let s = sd(self[hostSide]) + "#" + sd(self[hostSide.other]) + "#" + (turn == hostSide ? "h" : "g")
         var x: Int32 = 0
@@ -496,11 +850,17 @@ enum Decks {
         }
     }
 
-    /// Three distinct reward cards after an adventure win; legendaries appear from the third foe on.
-    static func rollRewards(stage: Int, cls: String?) -> [String] {
+    /// Three distinct reward cards after an adventure win; legendaries appear from the third foe on, and cards of
+    /// the schools you have talents in come up three times as often.
+    static func rollRewards(stage: Int, cls: String?, talents: [String] = []) -> [String] {
+        let gd = GameData.shared
         let w = ["c": 3, "r": 2, "e": 1, "l": stage >= 2 ? 1 : 0]
+        let schools = Set(talents.compactMap { gd.talentPage(of: $0)?.sc })
         var pool: [String] = []
-        for c in GameData.shared.collectible where c.allowed(for: cls) { for _ in 0..<(w[c.rarity] ?? 0) { pool.append(c.id) } }
+        for c in gd.collectible where c.allowed(for: cls) {
+            let boost = c.sc.map { schools.contains($0) } == true ? 3 : 1
+            for _ in 0..<((w[c.rarity] ?? 0) * boost) { pool.append(c.id) }
+        }
         var out: [String] = []
         while out.count < 3, let k = pool.randomElement() { if !out.contains(k) { out.append(k) } }
         return out

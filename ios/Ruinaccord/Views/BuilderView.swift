@@ -41,6 +41,18 @@ struct BuilderView: View {
                     .buttonStyle(PrimaryButtonStyle(ghost: !vm.q.dirty, compact: true))
                 if vm.q.editId != nil { Button(tx.saveAsNew) { nameFocused = false; vm.saveAsNew() }.ghost(compact: true) }
             }
+            // Cards or talents
+            let tt = gd.hasTalents(clsId)
+            if tt {
+                HStack(spacing: 8) {
+                    Button("\(tx.cardsTab) \(d.count)/\(Decks.size)") { vm.q.showTalents = false }.buttonStyle(PrimaryButtonStyle(ghost: vm.q.showTalents, compact: true))
+                    Button("✦ \(tx.talents) \(vm.q.tal.count)/\(gd.talents.maxPts)") { vm.q.showTalents = true }.buttonStyle(PrimaryButtonStyle(ghost: !vm.q.showTalents, compact: true))
+                    Spacer()
+                }
+            }
+            if tt && vm.q.showTalents {
+                TalentPanel().padding(.bottom, 70)
+            } else {
             Text("\(tx.deckRules(Decks.size)) \(tx.tapAdd)").font(Theme.body(12.5)).foregroundStyle(Theme.muted).lineSpacing(2)
 
             // Deck panel
@@ -122,6 +134,7 @@ struct BuilderView: View {
             }
             .padding(.vertical, 6)
             .padding(.bottom, 70)
+            }
         }
         .safeAreaInset(edge: .bottom) {
             HStack(spacing: 10) {

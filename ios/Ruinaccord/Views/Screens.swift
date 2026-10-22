@@ -145,17 +145,24 @@ struct RewardView: View {
         let tx = vm.tx
         VStack(spacing: 6) {
             RouteRow()
-            Page(title: tx.defeated(tx.oppName(vm.run.stage)), subtitle: tx.rewardText(vm.run.deck.count, tx.oppName(vm.run.stage + 1))) {
-                HStack(spacing: 10) {
-                    ForEach(Array(vm.picks.enumerated()), id: \.offset) { i, k in
-                        if let c = GameData.shared.card(k) {
-                            Button { vm.pickReward(i) } label: { CardView(card: c, size: .md) }.buttonStyle(.plain)
-                                .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = k }
+            if let packs = vm.advPacks {
+                Page(title: tx.defeated(tx.oppName(vm.run.stage)), subtitle: tx.packText(vm.run.deck.count, tx.oppName(vm.run.stage + 1)), centered: false) {
+                    PackRow(packs: packs)
+                    Button(tx.skip) { vm.skipReward() }.ghost()
+                }
+            } else {
+                Page(title: tx.defeated(tx.oppName(vm.run.stage)), subtitle: tx.rewardText(vm.run.deck.count, tx.oppName(vm.run.stage + 1))) {
+                    HStack(spacing: 10) {
+                        ForEach(Array(vm.picks.enumerated()), id: \.offset) { i, k in
+                            if let c = GameData.shared.card(k) {
+                                Button { vm.pickReward(i) } label: { CardView(card: c, size: .md) }.buttonStyle(.plain)
+                                    .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = k }
+                            }
                         }
                     }
+                    .padding(.top, 8)
+                    Button(tx.skip) { vm.skipReward() }.ghost()
                 }
-                .padding(.top, 8)
-                Button(tx.skip) { vm.skipReward() }.ghost()
             }
         }
     }

@@ -49,8 +49,9 @@ private struct HandSlot: View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         let dragging: Bool = { if let d = vm.drag, d.src == .hand(index) { return true }; return false }()
         let lifted = vm.hsel == index && mode != .dormant && !dragging
-        let canPay = s.canPay(.p, card.id)
+        let canPay = s.canPay(.p, card.id) && !(card.isPrayer && s.p.altar.count >= s.altarMax(.p))
         let ok = vm.handActive && !vm.busy && canPay && vm.pending == nil
+        let boost = s.p.hb[safe: index] ?? 0
         let pend: Bool = { if let p = vm.pending, case .spell(let idx) = p.kind { return idx == index }; return false }()
         let fan = mode != .dormant
         // A single-target spell is not carried to its target: the card stays lifted and an arrow is drawn from it.
@@ -88,7 +89,14 @@ private struct HandSlot: View {
         let layoutKey = "\(mode)|\(n)|\(lifted)|\(dragging)|\(pend)"
         let anim: Animation? = dragging && !aiming ? nil : vm.reduceMotion ? .easeOut(duration: 0.12) : .spring(duration: 0.42, bounce: 0.22)
 
-        return AnyView(CardView(card: card, size: .fit(hm.em), ring: ring)
+        return AnyView(CardView(card: card, size: .fit(hm.em), ring: ring, ovr: s.p.ovr[card.id])
+            .overlay(alignment: .topTrailing) {
+                if boost > 0 {
+                    Text("+\(boost)").font(Theme.body(10, .heavy)).foregroundStyle(Color(hex: "#2a130a"))
+                        .padding(.horizontal, 5).frame(height: 18).background(Color(hex: "#ff8a3a"), in: Capsule())
+                        .offset(x: 4, y: -6)
+                }
+            }
             .shadow(color: ring == .clear ? .black.opacity(fan ? 0.5 : 0.3) : ring.opacity(0.6), radius: ring == .clear ? 6 : 9, y: ring == .clear ? 4 : 0)
             .saturation(!canPay && fan && !dragging ? 0.5 : 1).brightness(!canPay && fan && !dragging ? -0.15 : 0)
             .opacity(vm.hiddenHand == index ? 0 : fan ? 1 : 0.8)

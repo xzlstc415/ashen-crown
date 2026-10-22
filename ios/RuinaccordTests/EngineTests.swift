@@ -4,7 +4,7 @@ import XCTest
 final class EngineTests: XCTestCase {
     func testDataLoads() {
         let gd = GameData.shared
-        XCTAssertEqual(gd.cards.count, 90)
+        XCTAssertEqual(gd.cards.count, 117)
         XCTAssertEqual(gd.classes.count, 6)
         XCTAssertEqual(gd.opponents.count, 8)
         XCTAssertEqual(gd.deckSize, 25)
@@ -17,6 +17,44 @@ final class EngineTests: XCTestCase {
         XCTAssertTrue(Decks.isValid(["frostbolt", "retreat"], cls: "mage"))
         for c in gd.cards { for k in (c.fx?.summon ?? []) + [c.fx?.perFoe, c.gasp].compactMap({ $0 }) { XCTAssertNotNil(gd.card(k), c.id) } }
         for o in gd.opponents { XCTAssertTrue(o.deck.allSatisfy { gd.card($0) != nil }) }
+    }
+
+    func testTalents() {
+        let gd = GameData.shared
+        for cls in gd.classes {
+            XCTAssertTrue(gd.hasTalents(cls.id), cls.id)
+            for i in 0..<3 {
+                let p = gd.talentPreset(cls.id, i)
+                XCTAssertEqual(p.count, gd.talents.maxPts, "\(cls.id) preset \(i)")
+                XCTAssertTrue(gd.validTalents(cls.id, p), "\(cls.id) preset \(i)")
+            }
+            guard let adv = gd.talents.adv[cls.id] else { XCTFail(cls.id); continue }
+            XCTAssertEqual(adv.packs.count, gd.opponents.count - 1, cls.id)
+            XCTAssertTrue(Decks.isValid(adv.deck, cls: cls.id), cls.id)
+            for st in adv.packs { for p in st { for k in p.cards { XCTAssertNotNil(gd.card(k), k) }; for h in p.hint { XCTAssertNotNil(gd.talentNode(h), h) } } }
+            for lang in Lang.allCases { let tx = Tx(lang: lang); for pg in gd.talentPages(cls.id) { for row in pg.tiers { for n in row { XCTAssertFalse(tx.name(n.desc).isEmpty) } } } }
+        }
+        // Tier gating: a tier-2 node alone is not valid; pruning drops it when its support goes.
+        XCTAssertFalse(gd.validTalents("mage", ["fi_fireball"]))
+        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_heart", "fi_fireball"]))
+        XCTAssertEqual(gd.pruneTalents(["fi_ignite", "fi_fireball"]), ["fi_ignite"])
+        XCTAssertEqual(gd.advPoints(0), 1); XCTAssertEqual(gd.advPoints(3), 4); XCTAssertEqual(gd.advPoints(7), 12)
+        // Overrides change the owner's card: Frostbolt deals 5 with its talent, Frost Nova costs 1 less, Frost Blood adds Health.
+        var s = DuelState(mode: .quick, pcls: "mage", ecls: "warrior", diff: .normal,
+                          p: DuelState.makeHero(.p, hp: 30, deck: [], power: gd.cls("mage")!.power),
+                          e: DuelState.makeHero(.e, hp: 30, deck: [], power: gd.cls("warrior")!.power))
+        s.setupTalents(.p, cls: "mage", ["fr_blood", "fr_armor", "fr_nova", "fr_bolt"])
+        XCTAssertEqual(s.p.hp, 37)
+        XCTAssertEqual(s.costOf(.p, "frostnova"), gd.card("frostnova")!.cost - 1)
+        XCTAssertEqual(s.cardFx(.p, "frostbolt")?.dmg, 5)
+        s.p.mana = 10; s.castSpell(.p, "frostbolt", .hero(.e)); XCTAssertEqual(s.e.hp, 25)
+        XCTAssertFalse(Tx(lang: .zh).cardText(gd.card("frostbolt")!, ovr: s.p.ovr["frostbolt"]).isEmpty)
+        // Prayers wait on the altar and resolve after their countdown.
+        s.setupTalents(.p, cls: "priest", [])
+        s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.count, 1)
+        let cd = s.p.altar[0].cd
+        for _ in 0..<cd { s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p) }
+        XCTAssertTrue(s.p.altar.isEmpty)
     }
 
     func testCardTextInEveryLanguage() {
@@ -39,17 +77,18 @@ final class EngineTests: XCTestCase {
         for _ in 0..<12 where !s.over {
             var did = false
             for o in s.aiPlayable() {
+                s.e.castHb = s.hbOf(.e)[safe: o.index] ?? 0
                 guard let plan = s.aiPlan(o.key), let c = GameData.shared.card(o.key) else { continue }
                 var t = plan
                 s.pay(.e, c.id)
-                s.e.hand.remove(at: o.index)
+                s.takeHand(.e, o.index)
                 if c.isMinion {
                     let m = s.summon(.e, c.id)
-                    if let bc = c.bc, let m {
+                    if let bc = s.cardBc(.e, c.id), let m {
                         if bc.tgt == .ally && t == nil { t = m.id }
                         s.applyFx(.e, bc, t)
                     }
-                } else if c.fx != nil { s.castSpell(.e, c.id, t) }
+                } else if c.fx != nil || c.isPrayer { s.castSpell(.e, c.id, t) }
                 did = true
                 s.cleanup()
                 break
@@ -57,8 +96,8 @@ final class EngineTests: XCTestCase {
             if !did { break }
         }
         if !s.over, let plan = s.aiPowerPlan() {
-            s.e.mana -= s.e.power.cost; s.e.powerUsed = true
-            s.applyFx(.e, s.e.power.fx, plan); s.cleanup()
+            s.e.mana -= s.pcost(.e); s.e.powerUsed = true
+            s.applyFx(.e, s.e.power.fx, plan, bonus: s.powerBonus(.e), isPower: true); s.afterPower(.e); s.cleanup()
         }
         for m in s.e.board where !s.over {
             guard let cur = s.minion(m.id), s.canAttack(cur) else { continue }
@@ -72,8 +111,8 @@ final class EngineTests: XCTestCase {
         var results: [GameResult: Int] = [:]
         for g in 0..<60 {
             let a = gd.classes[g % 6], b = gd.classes[(g * 5 + 1) % 6]
-            var s = DuelState.onlineStart(hostCls: a.id, hostDeck: Decks.pad(a.deck, rarities: ["c", "r", "e", "l"], cls: a.id),
-                                          guestCls: b.id, guestDeck: Decks.pad(b.deck, rarities: ["c", "r", "e", "l"], cls: b.id))
+            var s = DuelState.onlineStart(hostCls: a.id, hostDeck: Decks.pad(a.deck, rarities: ["c", "r", "e", "l"], cls: a.id), hostTal: gd.talentPreset(a.id, g % 3),
+                                          guestCls: b.id, guestDeck: Decks.pad(b.deck, rarities: ["c", "r", "e", "l"], cls: b.id), guestTal: gd.talentPreset(b.id, (g + 1) % 3))
             open(&s)
             var rounds = 0
             while !s.over && rounds < 300 {
@@ -82,7 +121,7 @@ final class EngineTests: XCTestCase {
                 XCTAssertLessThanOrEqual(s.p.board.count, DuelState.boardMax)
                 XCTAssertLessThanOrEqual(s.e.board.count, DuelState.boardMax)
                 XCTAssertLessThanOrEqual(s.p.hand.count, 10)
-                for h in [s.p, s.e] { XCTAssertTrue((0...3).contains(h.spellMana)); XCTAssertGreaterThanOrEqual(h.mana, 0) }
+                for h in [s.p, s.e] { XCTAssertTrue((0...5).contains(h.spellMana)); XCTAssertGreaterThanOrEqual(h.mana, 0) }
             }
             XCTAssertTrue(s.over, "game \(g) did not finish")
             if let r = s.result { results[r, default: 0] += 1 }
@@ -180,9 +219,9 @@ final class EngineTests: XCTestCase {
         // Freeze: the frozen minion skips its next turn, then thaws.
         let f = s.summon(.e, "lurker")!
         s.castSpell(.p, "frostbolt", f.id)
-        XCTAssertEqual(s.minion(f.id)?.hp, 1); XCTAssertTrue(s.minion(f.id)!.frozen)   // Frostbolt: 4 damage
+        XCTAssertEqual(s.minion(f.id)?.hp, 1); XCTAssertTrue(s.minion(f.id)!.isFrozen)   // Frostbolt: 4 damage
         s.startTurn(.e); XCTAssertFalse(s.canAttack(s.minion(f.id)!))
-        s.startTurn(.p); XCTAssertFalse(s.minion(f.id)!.frozen)
+        s.startTurn(.p); XCTAssertFalse(s.minion(f.id)!.isFrozen)
         s.turn = .e; s.startTurn(.e); XCTAssertTrue(s.canAttack(s.minion(f.id)!))
 
         // Silence removes buffs, keywords and last breath.

@@ -8,8 +8,16 @@ struct SavedDeck: Codable, Identifiable, Hashable {
     var cls: String
     var cards: [String]
     var t: Double           // last change, seconds since 1970 (sorts newest first)
+    /// Chosen talents (missing on decks saved before talents existed).
+    var tal: [String]? = nil
 
     var isComplete: Bool { cards.count == Decks.size && Decks.isValid(cards, cls: cls) }
+    /// The talents this deck plays with: its own when valid, else the class's first preset.
+    var talents: [String] {
+        let gd = GameData.shared
+        if let t = tal, gd.validTalents(cls, t) { return t }
+        return gd.talentPreset(cls, 0)
+    }
     static func newId() -> String { "d" + String(Int(Date().timeIntervalSince1970), radix: 36) + String(UInt32.random(in: 0...UInt32.max), radix: 36) }
 }
 
@@ -114,6 +122,8 @@ struct MatchDoc: Codable {
     var gc: String
     var hDeck: [String]
     var gDeck: [String]
+    var hTal: [String]? = nil
+    var gTal: [String]? = nil
     var v: String
     var game: Int
     var state: DuelState?

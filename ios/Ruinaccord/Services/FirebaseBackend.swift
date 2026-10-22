@@ -161,7 +161,7 @@ final class FirebaseMatchService: MatchService {
     func findMatch(deck: SavedDeck) async throws -> OnlineMatch {
         let uid = try me()
         let ticket = db.collection("queue").document(uid)
-        try await ticket.setData(["uid": uid, "cls": deck.cls, "deck": deck.cards, "v": version, "state": "waiting",
+        try await ticket.setData(["uid": uid, "cls": deck.cls, "deck": deck.cards, "tal": deck.talents, "v": version, "state": "waiting",
                                   "createdAt": now, "updatedAt": now])
         var lastRefresh = now
         do {
@@ -208,7 +208,8 @@ final class FirebaseMatchService: MatchService {
                       let cls = t.get("cls") as? String, let cards = t.get("deck") as? [String],
                       GameData.shared.cls(cls) != nil, cards.count == Decks.size, Decks.isValid(cards, cls: cls) else { return nil }
                 let theirUid = their.documentID
-                let doc = self.initialDoc(h: myUid, hc: myDeck.cls, hDeck: myDeck.cards, g: theirUid, gc: cls, gDeck: cards)
+                let tal = (t.get("tal") as? [String]) ?? []
+                let doc = self.initialDoc(h: myUid, hc: myDeck.cls, hDeck: myDeck.cards, hTal: myDeck.talents, g: theirUid, gc: cls, gDeck: cards, gTal: tal)
                 tx.setData(try Firestore.Encoder().encode(doc), forDocument: matchRef)
                 tx.updateData(["state": "matched", "matchId": matchRef.documentID], forDocument: their)
                 tx.deleteDocument(mine)
@@ -232,7 +233,7 @@ final class FirebaseMatchService: MatchService {
             let snap = try await ref.getDocument(source: .server)
             let fresh = snap.exists && snap.get("state") as? String == "open" && (((snap.get("updatedAt") as? Double) ?? 0) > now - 180)
             if fresh { continue }
-            try await ref.setData(["host": uid, "cls": deck.cls, "deck": deck.cards, "v": version, "state": "open",
+            try await ref.setData(["host": uid, "cls": deck.cls, "deck": deck.cards, "tal": deck.talents, "v": version, "state": "open",
                                    "createdAt": now, "updatedAt": now])
             code = c
             break
@@ -271,7 +272,8 @@ final class FirebaseMatchService: MatchService {
                 if host == uid { return "notfound" }
                 if r.get("v") as? String != self.version { return "version" }
                 guard GameData.shared.cls(cls) != nil, cards.count == Decks.size, Decks.isValid(cards, cls: cls) else { return "deck" }
-                let doc = self.initialDoc(h: uid, hc: deck.cls, hDeck: deck.cards, g: host, gc: cls, gDeck: cards)
+                let tal = (r.get("tal") as? [String]) ?? []
+                let doc = self.initialDoc(h: uid, hc: deck.cls, hDeck: deck.cards, hTal: deck.talents, g: host, gc: cls, gDeck: cards, gTal: tal)
                 tx.setData(try Firestore.Encoder().encode(doc), forDocument: matchRef)
                 tx.updateData(["state": "matched", "matchId": matchRef.documentID, "updatedAt": self.now], forDocument: room)
                 return matchRef.documentID
@@ -290,9 +292,9 @@ final class FirebaseMatchService: MatchService {
 
     // MARK: Match documents
 
-    private func initialDoc(h: String, hc: String, hDeck: [String], g: String, gc: String, gDeck: [String]) -> MatchDoc {
-        MatchDoc(players: [h, g], h: h, g: g, hc: hc, gc: gc, hDeck: hDeck, gDeck: gDeck, v: version, game: 1,
-                 state: DuelState.onlineStart(hostCls: hc, hostDeck: hDeck, guestCls: gc, guestDeck: gDeck),
+    private func initialDoc(h: String, hc: String, hDeck: [String], hTal: [String], g: String, gc: String, gDeck: [String], gTal: [String]) -> MatchDoc {
+        MatchDoc(players: [h, g], h: h, g: g, hc: hc, gc: gc, hDeck: hDeck, gDeck: gDeck, hTal: hTal, gTal: gTal, v: version, game: 1,
+                 state: DuelState.onlineStart(hostCls: hc, hostDeck: hDeck, hostTal: hTal, guestCls: gc, guestDeck: gDeck, guestTal: gTal),
                  seq: 0, acts: [], actsBy: nil, again: [:], left: nil, beat: [h: now, g: now], createdAt: now, updatedAt: now)
     }
 

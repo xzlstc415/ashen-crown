@@ -325,8 +325,63 @@ struct Tx {
         if fx.armor > 0 { out.append(pick("Gain \(fx.armor) Armor.", "获得\(fx.armor)点护甲。", "装甲を\(fx.armor)獲得する。")) }
         if fx.draw > 0 { out.append(fx.draw > 1 ? pick("Draw \(fx.draw) cards.", "抽两张牌。", "カードを\(fx.draw)枚引く。") : pick("Draw a card.", "抽一张牌。", "カードを1枚引く。")) }
         if fx.mana > 0 { out.append(pick("Gain \(fx.mana) mana this turn only.", "仅在本回合获得\(fx.mana)点法力值。", "このターンのみ、マナを\(fx.mana)獲得する。")) }
+        if fx.purge > 0 { out.append(pick("Destroy all minions with \(fx.purge) or more Attack.", "消灭所有攻击力不低于\(fx.purge)的随从。", "攻撃力\(fx.purge)以上のミニオンをすべて破壊する。")) }
+        if fx.revive > 0 { out.append(pick("Revive your most recently killed minion.", "复活你最近死亡的一个随从。", "最後に倒された味方ミニオンを1体蘇らせる。")) }
+        if fx.hasten > 0 { out.append(pick("Your Prayers count down \(fx.hasten).", "你的所有祷文倒计时减\(fx.hasten)。", "自分の祈祷のカウントを\(fx.hasten)進める。")) }
+        if fx.freeze { out.append(pick("Freeze it.", "并冻结目标。", "対象を凍結させる。")) }
+        if fx.tempAtk > 0 { out.append(pick("+\(fx.tempAtk) Attack this turn.", "本回合+\(fx.tempAtk)攻击力。", "このターン攻撃力+\(fx.tempAtk)。")) }
+        if fx.rush { out.append(pick("It can attack this turn.", "它本回合可以攻击。", "このターン攻撃できる。")) }
+        if fx.pierce { out.append(pick("Ignores Armor.", "无视护甲。", "装甲を無視する。")) }
+        if fx.wardSummon { out.append(pick("With Ward.", "带护盾。", "結界付き。")) }
+        if fx.splash > 0 { out.append(pick("\(fx.splash) damage to the other enemy minions.", "对其他敌方随从各造成\(fx.splash)点伤害。", "他の敵のミニオンに\(fx.splash)ダメージ。")) }
         return out.joined(separator: lang == .en ? " " : "")
     }
+    func kwPray(_ cd: Int) -> String { pick("Prayer \(cd): ", "祷文\(cd)：", "祈祷\(cd)：") }
+    var prayerT: String { pick("Prayer", "祷文", "祈祷") }
+    /// Rules text of a card as its owner's talents changed it.
+    func cardText(_ c: Card, ovr: CardOverride?) -> String {
+        guard let ovr else { return cardText(c) }
+        if let t = ovr.text { return name(t) }
+        if c.text != nil && ovr.fx == nil && ovr.pray == nil && ovr.bc == nil { return cardText(c) }
+        var kws: [String] = []
+        if c.hasGuard { kws.append(guardKw) }
+        if c.ward { kws.append(wardKw) }
+        if c.surge { kws.append(kwCharge) }
+        let sep = lang == .en ? " " : "", kwSep = lang == .en ? ". " : "。", end = lang == .en ? "." : "。"
+        var s = kws.isEmpty ? "" : kws.joined(separator: kwSep) + end
+        if let bc = ovr.bc ?? c.bc { s += (s.isEmpty ? "" : sep) + kwOnPlay + fxText(bc, bc.tgt) }
+        if let g = c.gasp, let gc = GameData.shared.card(g) { s += (s.isEmpty ? "" : sep) + kwLast + summonText(1, gc.atk ?? 0, gc.hp ?? 0, name(gc.names)) }
+        if let pr = ovr.pray ?? c.pray { s += kwPray(pr.cd) + fxText(pr.fx, nil) }
+        else if let fx = ovr.fx ?? c.fx { s += fxText(fx, fx.tgt) }
+        return s
+    }
+    // Talents and prayers
+    var talents: String { pick("Talents", "天赋", "タレント") }
+    var cardsTab: String { pick("Cards", "卡牌", "カード") }
+    func talPts(_ n: Int, _ m: Int) -> String { pick("Points \(n)/\(m)", "天赋点 \(n)/\(m)", "ポイント \(n)/\(m)") }
+    var talBalanced: String { pick("Balanced", "均衡", "バランス") }
+    var talClear: String { pick("Clear", "清空", "リセット") }
+    func talNeed(_ n: Int) -> String { pick("Opens at \(n) points in this page", "本页投入\(n)点后解锁", "このページに\(n)ポイントで解放") }
+    func talAdvTitle(_ n: Int) -> String { pick("Talents · Duel \(n)", "第\(n)关 · 分配天赋", "第\(n)戦・タレント") }
+    func talAdvSub(_ n: Int) -> String { pick("You have \(n) talent point\(n > 1 ? "s" : ""). You can move them before every duel.", "你现在有\(n)点天赋，每关开始前都可以重新分配。", "タレントポイントは\(n)。毎戦の前に振り直せる。") }
+    var talFight: String { pick("To battle", "开始战斗", "戦いへ") }
+    var closeLbl: String { pick("Close", "关闭", "閉じる") }
+    var talYours: String { pick("Your talents", "你的天赋", "自分のタレント") }
+    var talFoes: String { pick("Enemy talents", "敌方天赋", "敵のタレント") }
+    var rageGo: String { pick("Rage!", "怒气爆发！", "怒気解放！") }
+    func rage(_ n: Int) -> String { pick("Rage \(n)/10", "怒气 \(n)/10", "怒気 \(n)/10") }
+    func souls(_ n: Int) -> String { pick("Souls \(n)/10", "魂 \(n)/10", "魂 \(n)/10") }
+    func unity(_ b: Int, _ n: Int) -> String { b > 0 ? pick("Unity +1", "协作 +1", "連携 +1") : pick("Unity \(n)/12", "协作 \(n)/12", "連携 \(n)/12") }
+    var talTeaches: String { pick("Works with:", "配合天赋：", "相性の良いタレント：") }
+    func talTakePack(_ n: String) -> String { pick("Take the \(n) pack", "选择\(n)牌包", "\(n)パックを取る") }
+    func packText(_ n: Int, _ o: String) -> String { pick("Choose a pack for your deck (\(n) cards). Next: \(o).", "选一个牌包加入牌组（现在\(n)张）。下一关：\(o)。", "デッキに加えるパックを選ぶ（現在\(n)枚）。次：\(o)。") }
+    var altarLbl: String { pick("Altar", "祭坛", "祭壇") }
+    var altarFull: String { pick("Your altar is full.", "祭坛已满。", "祭壇がいっぱいです。") }
+    func prayed(_ c: String) -> String { pick("You place \(c) on your altar.", "你把\(c)放上了祭坛。", "\(c)を祭壇に置いた。") }
+    func ePrayed(_ x: String, _ c: String) -> String { pick("\(x) places \(c) on the altar.", "\(x)把\(c)放上了祭坛。", "\(x)が\(c)を祭壇に置いた。") }
+    func prayerDone(_ x: String, _ c: String) -> String { pick("\(x): \(c) is answered.", "\(x)的\(c)应验了。", "\(x)の\(c)が成就した。") }
+    var fPray: String { pick("Answered", "应验", "成就") }
+    var fRevive: String { pick("Revived", "复活", "復活") }
     private func stat(_ a: Int, _ h: Int) -> String {
         if a > 0 && h > 0 { return "+\(a)/+\(h)" }
         if a > 0 { return pick("+\(a) Attack", "+\(a)攻击力", "攻撃力+\(a)") }
@@ -355,15 +410,16 @@ struct Tx {
         var s = kws.isEmpty ? "" : kws.joined(separator: kwSep) + end
         if let bc = c.bc { s += (s.isEmpty ? "" : sep) + kwOnPlay + fxText(bc, bc.tgt) }
         if let g = c.gasp, let gc = GameData.shared.card(g) { s += (s.isEmpty ? "" : sep) + kwLast + summonText(1, gc.atk ?? 0, gc.hp ?? 0, name(gc.names)) }
-        if let fx = c.fx { s += fxText(fx, fx.tgt) }
+        if let pr = c.pray { s += kwPray(pr.cd) + fxText(pr.fx, nil) }
+        else if let fx = c.fx { s += fxText(fx, fx.tgt) }
         return s
     }
     /// Keywords that get bolded in card text.
     var keywords: [String] {
         switch lang {
-        case .en: return ["Guard", "Ward", "Charge", "On play", "Last breath", "Freeze", "Silence", "Spell Damage"]
-        case .zh: return ["守护", "护盾", "冲锋", "登场", "遗言", "冻结", "沉默", "法术伤害"]
-        case .ja: return ["ガード", "結界", "突撃", "登場時", "断末魔", "凍結", "沈黙", "呪文ダメージ"]
+        case .en: return ["Guard", "Ward", "Charge", "On play", "Last breath", "Freeze", "Silence", "Spell Damage", "Prayer"]
+        case .zh: return ["守护", "护盾", "冲锋", "登场", "遗言", "冻结", "沉默", "法术伤害", "祷文"]
+        case .ja: return ["ガード", "結界", "突撃", "登場時", "断末魔", "凍結", "沈黙", "呪文ダメージ", "祈祷"]
         }
     }
     func cardName(_ id: String) -> String { GameData.shared.card(id).map { name($0.names) } ?? id }

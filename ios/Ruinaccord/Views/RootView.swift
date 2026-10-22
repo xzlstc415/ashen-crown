@@ -52,6 +52,7 @@ struct GameRoot: View {
                     switch vm.screen {
                     case .intro: IntroView()
                     case .classPick: ClassPickView()
+                    case .talents: TalentScreen()
                     case .duel: EmptyView()
                     case .reward: RewardView()
                     case .lost: LostView()
@@ -80,6 +81,7 @@ struct GameRoot: View {
                     .background(Color(hex: "#3a1f1a"), in: Capsule()).overlay(Capsule().stroke(Theme.ember, lineWidth: 1)); Spacer() }
             }
             if vm.showLog { LogView().zIndex(40) }
+            if vm.showTalentPanel { TalentsOverlay().zIndex(40) }
             if let k = vm.zoomCard { CardZoom(key: k).zIndex(50) }
             if let h = vm.peekItem { PeekView(h: h).zIndex(50) }
         }

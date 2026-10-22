@@ -2,15 +2,18 @@ import Foundation
 
 extension DuelState {
     /// Fresh online game from the host's point of view (p = host, e = guest). Both clients load it from the match document.
-    static func onlineStart(hostCls: String, hostDeck: [String], guestCls: String, guestDeck: [String]) -> DuelState {
+    static func onlineStart(hostCls: String, hostDeck: [String], hostTal: [String] = [], guestCls: String, guestDeck: [String], guestTal: [String] = []) -> DuelState {
         let gd = GameData.shared
         let hp = gd.cls(hostCls)?.power ?? gd.fortify, gp = gd.cls(guestCls)?.power ?? gd.fortify
         var s = DuelState(mode: .online, pcls: hostCls, ecls: guestCls,
                           p: makeHero(.p, hp: 30, deck: hostDeck.shuffled(), power: hp),
                           e: makeHero(.e, hp: 30, deck: guestDeck.shuffled(), power: gp))
+        s.setupTalents(.p, cls: hostCls, hostTal)
+        s.setupTalents(.e, cls: guestCls, guestTal)
         let first: Side = Bool.random() ? .p : .e
         s.turn = first
-        s.draw(first, 3); s.draw(first.other, 4)
+        s.draw(first, 5); s.draw(first.other, 5)
+        s.talOpen(first); s.talOpen(first.other)
         s.mulligan = true        // the coin and the first turn come after both players mulligan
         s.events = []
         return s

@@ -13,10 +13,13 @@ struct CardView: View {
     var size: CardSize = .sm
     /// A coloured ring on the frame (playable, lifted, aimed); drawn under the corner gems so they stay readable.
     var ring: Color = .clear
+    /// The owner's talent changes to this card (cost, text), if any.
+    var ovr: CardOverride? = nil
     @Environment(GameVM.self) private var vm
 
     var body: some View {
         let em = size.em, cjk = vm.lang.isCJK, tx = vm.tx
+        let cost = ovr?.cost ?? card.cost
         let spell = !card.isMinion, leg = card.isLegendary
         let frame = leg ? Color(hex: "#e8b24a") : spell ? Color(hex: "#6c58b8") : Color(hex: "#8a6a3a")
         let artBg: [Color] = leg ? [Color(hex: "#6a2a1a"), Color(hex: "#1a0806")] : spell ? [Color(hex: "#3d2f6e"), Color(hex: "#100a20")] : [Color(hex: "#5a4636"), Color(hex: "#120d16")]
@@ -47,12 +50,12 @@ struct CardView: View {
                     .lineLimit(2).minimumScaleFactor(0.7)
                     .multilineTextAlignment(.leading)
                 // The frame colour shows minion or spell; this line names the race (Beasts matter in play) and the class.
-                let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
+                let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.isPrayer ? tx.prayerT : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
                 if !typ.isEmpty { Text(typ)
                     .font(Theme.body(0.76 * em, .medium)).tracking(0.5)
                     .foregroundStyle(Color(hex: "#9fc4ee"))
                     .textCase(.uppercase).lineLimit(1).minimumScaleFactor(0.7) }
-                RichText(text: tx.cardText(card), keywords: tx.keywords, font: Theme.body(0.96 * em), color: Color(hex: "#f3e9d4"))
+                RichText(text: tx.cardText(card, ovr: ovr), keywords: tx.keywords, font: Theme.body(0.96 * em), color: Color(hex: "#f3e9d4"))
                     .multilineTextAlignment(.leading)
                     .minimumScaleFactor(0.65)
             }
@@ -73,7 +76,7 @@ struct CardView: View {
             .padding(0.35 * em)
             .frame(maxHeight: .infinity, alignment: .bottom)
             // The gems ride on the corners of the card, a little past its edge.
-            GemView(kind: .cost, value: card.cost, size: 2.9 * em)
+            GemView(kind: .cost, value: cost, size: 2.9 * em, numberColor: cost < card.cost ? Theme.ready : nil)
                 .offset(x: -0.8 * em, y: -0.8 * em)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             if card.isMinion {
@@ -143,7 +146,7 @@ struct MinionView: View {
         let aimed = vm.aimed == m.id || vm.drag?.over == m.id
         let sleeping = m.sleep && m.side == .p && myTurn
         var kws: [String] = []
-        if m.frozen { kws.append(tx.fFreeze) }
+        if m.isFrozen { kws.append(tx.fFreeze) }
         if m.hasGuard { kws.append(tx.guardKw) }
         if m.ward { kws.append(tx.wardKw) }
         if m.gasp != nil { kws.append(tx.gaspKw) }
@@ -177,8 +180,8 @@ struct MinionView: View {
         }
         .frame(width: 44, height: 63)
         .saturation(sleeping ? 0.6 : 1).brightness(sleeping ? -0.08 : 0)
-        .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).fill(Color(hex: "#8fd0ff").opacity(m.frozen ? 0.22 : 0)).allowsHitTesting(false))
-        .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Color(hex: "#8fd0ff"), lineWidth: m.frozen ? 3 : 0).padding(-1.5))
+        .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).fill(Color(hex: "#8fd0ff").opacity(m.isFrozen ? 0.22 : 0)).allowsHitTesting(false))
+        .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Color(hex: "#8fd0ff"), lineWidth: m.isFrozen ? 3 : 0).padding(-1.5))
         .shadow(color: m.ward ? Theme.foam.opacity(0.7) : .clear, radius: m.ward ? 7 : 0)
         .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Theme.foam.opacity(0.6), lineWidth: m.ward ? 3 : 0).padding(-3))
         .overlay(RoundedRectangle(cornerRadius: 14).stroke(aimed ? Theme.blood : target ? Theme.blood : selected ? Theme.ember : ready ? Theme.ready : .clear, lineWidth: aimed ? 3 : 2).padding(-4))
@@ -413,7 +416,7 @@ struct MinionIcons: View {
             m.gasp != nil ? ("skull", Color(hex: "#d8d3c2"), tx.gaspKw) : nil,
             m.spellDamage > 0 ? ("sparkle", Color(hex: "#c4a3ff"), tx.spKw(m.spellDamage)) : nil,
             m.onSpell != nil ? ("arrow.up", Color(hex: "#8fe08f"), "") : nil,
-            m.frozen ? ("snowflake", Color(hex: "#8fd0ff"), tx.fFreeze) : nil,
+            m.isFrozen ? ("snowflake", Color(hex: "#8fd0ff"), tx.fFreeze) : nil,
             m.silenced ? ("nosign", Color(hex: "#a6a0aa"), tx.fSilence) : nil,
         ].compactMap { $0 }
         VStack(spacing: 2) {

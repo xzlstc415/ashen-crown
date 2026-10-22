@@ -2,13 +2,15 @@ import SwiftUI
 import Observation
 
 enum Screen: Hashable {
-    case intro, classPick, duel, reward, lost, champ, decks, qclass, build, diff, qresult, gallery, online, oresult
+    case intro, classPick, talents, duel, reward, lost, champ, decks, qclass, build, diff, qresult, gallery, online, oresult
 }
 
 struct Run {
     var stage = 0
     var deck: [String] = []
     var cls: String?
+    /// Talents chosen for this adventure (points come duel by duel).
+    var tal: [String] = []
 }
 
 struct Pending {
@@ -58,6 +60,9 @@ enum FXItem: Identifiable {
 struct Builder {
     var cls: String?
     var deck: [String] = []
+    var tal: [String] = []
+    /// Builder tab: the card list or the talent pages.
+    var showTalents = false
     var diff: Difficulty = .normal
     var typeFilter = "all"
     var costFilter = 0
@@ -128,6 +133,8 @@ final class GameVM {
     var drag: Drag?
     /// The battle log panel (every play of the game, by turn).
     var showLog = false
+    /// The talents of both sides, listed.
+    var showTalentPanel = false
     /// A board minion being held down: its card shows in the info panel.
     var infoKey: String?
     /// The card described in the top-left panel: the lifted hand card, else the held minion.
@@ -238,6 +245,10 @@ final class GameVM {
         case .powerUse(let p, let r): return t.powerUse(t.powerName(p), r.map(name))
         case .ePower(let p, let r): return t.ePower(heroName(.e), t.powerName(p), r.map(name))
         case .cantPower: return t.cantPower
+        case .prayed(let k): return t.prayed(t.cardName(k))
+        case .ePrayed(let k): return t.ePrayed(heroName(.e), t.cardName(k))
+        case .prayerDone(let s, let k): return t.prayerDone(heroName(s), t.cardName(k))
+        case .altarFull: return t.altarFull
         }
     }
 
@@ -254,6 +265,11 @@ final class GameVM {
         case .silenced: return (tx.fSilence, Color(white: 0.7))
         case .destroyed: return (tx.fDestroy, Theme.blood)
         case .stats(let a, let h): return ("\(a)/\(h)", Color(hex: "#cfd8dc"))
+        case .answered: return (tx.fPray, Color(hex: "#ffe9a0"))
+        case .revived: return (tx.fRevive, Theme.ready)
+        case .rage: return (tx.rageGo, Color(hex: "#e0563f"))
+        case .named(let k): return (tx.cardName(k), Color(hex: "#c4b4ff"))
+        case .manaUp(let n): return ("+\(n)", Theme.manaLight)
         }
     }
 
@@ -300,12 +316,43 @@ final class GameVM {
 
     func openBuilder(cls: String?, id: String? = nil) {
         if let id, let d = decks.first(where: { $0.id == id }) {
-            q.cls = d.cls; q.deck = d.cards; q.editId = d.id; q.name = d.name; q.dirty = false
+            q.cls = d.cls; q.deck = d.cards; q.editId = d.id; q.name = d.name; q.dirty = false; q.tal = d.talents
         } else if let cls {
-            q.cls = cls; q.deck = gd.cls(cls)?.deck ?? []; q.editId = nil; q.name = nextDefaultName(cls); q.dirty = true
+            q.cls = cls; q.deck = gd.cls(cls)?.deck ?? []; q.editId = nil; q.name = nextDefaultName(cls); q.dirty = true; q.tal = gd.talentPreset(cls, 0)
         }
-        q.toast = ""
+        q.toast = ""; q.showTalents = false
         go(.build)
+    }
+
+    // MARK: - Talents
+
+    /// Where talent picks go: the deck being built, or the adventure run (with the points earned so far).
+    var talentContext: (cls: String, sel: [String], budget: Int)? {
+        if screen == .build, let cls = q.cls { return (cls, q.tal, gd.talents.maxPts) }
+        if let cls = run.cls { return (cls, run.tal, gd.advPoints(run.stage)) }
+        return nil
+    }
+    private func setTalents(_ v: [String]) {
+        if screen == .build { q.tal = v; q.dirty = true; q.toast = "" } else { run.tal = v }
+    }
+    func talClick(_ id: String) {
+        guard let c = talentContext, let pg = gd.talentPage(of: id) else { return }
+        let t = gd.talentTier(of: id)
+        if c.sel.contains(id) { setTalents(gd.pruneTalents(c.sel.filter { $0 != id })) }
+        else if c.sel.count < c.budget && gd.pointsBelow(c.sel, pg, t) >= gd.talents.tierReq[t] { setTalents(c.sel + [id]) }
+    }
+    /// Presets 0, 1, 2; nil clears.
+    func talPreset(_ i: Int?) {
+        guard let c = talentContext else { return }
+        setTalents(i.map { Array(gd.talentPreset(c.cls, $0).prefix(c.budget)) } ?? [])
+    }
+    /// Adventure: the talent screen before each duel.
+    func goStage() { if gd.hasTalents(run.cls) { go(.talents) } else { startDuel() } }
+    /// Packs offered after the duel just won (talent classes), or nil for the three random cards.
+    var advPacks: [TalentPack]? { run.cls.flatMap { gd.advPacks($0, stage: run.stage) } }
+    func pickPack(_ i: Int) {
+        guard let ps = advPacks, let p = ps[safe: i] else { return }
+        run.deck.append(contentsOf: p.cards); run.stage += 1; goStage()
     }
 
     func addCard(_ k: String) {
@@ -332,6 +379,7 @@ final class GameVM {
             d = SavedDeck(id: SavedDeck.newId(), name: name, cls: cls, cards: q.deck, t: Date().timeIntervalSince1970)
             q.editId = d.id
         }
+        d.tal = q.tal
         q.dirty = false
         q.toast = tx.saved(name)
         Task { try? await backend.save(d) }
@@ -352,7 +400,7 @@ final class GameVM {
 
     func playSaved(_ id: String) {
         guard let d = decks.first(where: { $0.id == id }), d.cards.count == Decks.size else { return }
-        q.cls = d.cls; q.deck = d.cards; q.editId = d.id; q.name = d.name; q.dirty = false
+        q.cls = d.cls; q.deck = d.cards; q.editId = d.id; q.name = d.name; q.dirty = false; q.tal = d.talents
         go(.diff)
     }
 
@@ -370,14 +418,16 @@ final class GameVM {
         abandoned = false; quitArm = false
         guard let cls = q.cls else { return }
         q.diff = diff
-        run = Run(stage: 0, deck: q.deck, cls: cls)
+        run = Run(stage: 0, deck: q.deck, cls: cls, tal: q.tal)
         let ecls = gd.classes.randomElement()!
         var s = DuelState(mode: .quick, pcls: cls, ecls: ecls.id, diff: diff,
                           p: DuelState.makeHero(.p, hp: 30, deck: q.deck.shuffled(), power: curPower),
                           e: DuelState.makeHero(.e, hp: 30, deck: Decks.pad(ecls.deck, rarities: diff.rarities, cls: ecls.id).shuffled(), power: ecls.power))
+        s.setupTalents(.p, cls: cls, q.tal)
+        s.setupTalents(.e, cls: ecls.id, gd.talentPreset(ecls.id, Int.random(in: 0..<3)))
         resetDuelUI()
         let first: Side = Bool.random() ? .p : .e
-        s.draw(first, 3); s.draw(first.other, 4); s.turn = first; s.mulligan = true
+        s.draw(first, 5); s.draw(first.other, 5); s.talOpen(first); s.talOpen(first.other); s.turn = first; s.mulligan = true
         state = s; drain(); go(.duel)
         mullCont = { [self] in
             S[first.other].hand.append("coin")
@@ -387,17 +437,23 @@ final class GameVM {
         }
     }
 
-    func pickClass(_ id: String) { run.cls = id; run.deck = gd.cls(id)?.deck ?? []; startDuel() }
+    func pickClass(_ id: String) {
+        run.cls = id; run.deck = gd.talents.adv[id]?.deck ?? gd.cls(id)?.deck ?? []; run.tal = []
+        goStage()
+    }
 
     func startDuel() {
         abandoned = false; quitArm = false
         let o = gd.opponents[run.stage]
+        // Talent classes: both sides open with 5 cards and the foe has 40% more Health.
+        let tc = gd.hasTalents(run.cls), ehp = tc ? Int((Double(o.hp) * 1.4).rounded()) : o.hp
         var s = DuelState(mode: .camp, pcls: run.cls ?? "", stage: run.stage,
                           p: DuelState.makeHero(.p, hp: 30, deck: run.deck.shuffled(), power: curPower),
-                          e: DuelState.makeHero(.e, hp: o.hp, deck: o.deck.shuffled(), power: gd.fortify))
+                          e: DuelState.makeHero(.e, hp: ehp, deck: o.deck.shuffled(), power: gd.fortify))
+        s.setupTalents(.p, cls: run.cls, run.tal)
         resetDuelUI()
         s.log(.rises)
-        s.draw(.p, 3); s.draw(.e, 4); s.mulligan = true
+        s.draw(.p, tc ? 5 : 3); s.draw(.e, tc ? 5 : 4); s.talOpen(.p); s.mulligan = true
         state = s; drain()
         go(.duel)
         mullCont = { [self] in
@@ -406,8 +462,8 @@ final class GameVM {
         }
     }
 
-    func pickReward(_ i: Int) { run.deck.append(picks[i]); run.stage += 1; startDuel() }
-    func skipReward() { run.stage += 1; startDuel() }
+    func pickReward(_ i: Int) { run.deck.append(picks[i]); run.stage += 1; goStage() }
+    func skipReward() { run.stage += 1; goStage() }
 
     func showBanner(_ text: String, foe: Bool) {
         guard !reduceMotion else { return }
@@ -534,7 +590,7 @@ final class GameVM {
             case .camp:
                 if !won { go(.lost) }
                 else if run.stage == gd.opponents.count - 1 { go(.champ) }
-                else { picks = Decks.rollRewards(stage: run.stage, cls: run.cls); go(.reward) }
+                else { picks = Decks.rollRewards(stage: run.stage, cls: run.cls, talents: run.tal); go(.reward) }
             }
         }
     }
@@ -549,17 +605,31 @@ final class GameVM {
 
     private func playHandAsync(_ i: Int, _ c: Card, target: EID? = nil) async {
         let k = c.id
+        if c.isPrayer {
+            if S.p.altar.count >= S.altarMax(.p) { S.log(.altarFull); drain(); return }
+            busy = true
+            await flyCard(i, to: center(.hero(.p)))
+            S.pay(.p, k)
+            S.takeHand(.p, i)
+            S.castSpell(.p, k, nil)
+            pushHist(.p, k, nil)
+            S.log(.prayed(k))
+            netAct(NetAct(n: 0, t: "cast", i: i, k: k))
+            busy = false
+            after()
+            return
+        }
         if c.isMinion {
             if S.p.board.count >= DuelState.boardMax { S.log(.boardFull); drain(); return }
             busy = true
             await flyCard(i, to: boardCenter(.p))
             S.pay(.p, k)
-            S.p.hand.remove(at: i)
+            S.takeHand(.p, i)
             let m = S.summon(.p, k)
             let h = pushHist(.p, k, nil)
             S.log(.summon(k))
             netAct(NetAct(n: 0, t: "play", i: i, k: k))
-            if let bc = c.bc, let m {
+            if let bc = S.cardBc(.p, k), let m {
                 if let tgt = bc.tgt {
                     let v = S.targetsFor(.p, tgt, bc.cond).filter { $0 != m.id }
                     if !v.isEmpty { pending = Pending(kind: .battlecry(fx: bc, src: m.id, hist: h), valid: v, key: k) }
@@ -574,7 +644,7 @@ final class GameVM {
             after()
             return
         }
-        guard let fx = c.fx else { return }
+        guard let fx = S.cardFx(.p, k) else { return }
         if let tgt = fx.tgt {
             let v = S.targetsFor(.p, tgt, fx.cond)
             if v.isEmpty { S.log(.noTargets); drain(); return }
@@ -585,7 +655,7 @@ final class GameVM {
         busy = true
         await flyCard(i, to: fx.aoe > 0 ? boardCenter(.e) : center(.hero(.p)))
         S.pay(.p, k)
-        S.p.hand.remove(at: i)
+        S.takeHand(.p, i)
         drain()
         await fxAnim(fx, from: center(.hero(.p)), target: nil, side: .p)
         S.castSpell(.p, k, nil)
@@ -596,10 +666,13 @@ final class GameVM {
         after()
     }
 
+    /// Your hero power as talents shaped it (the class power until a duel starts).
+    var myPower: Power { state?.p.power ?? curPower }
+
     var powerBlocked: Bool {
         guard let s = state else { return true }
-        let p = curPower
-        if s.turn != .p || busy || s.over || s.mulligan || pending != nil || s.p.powerUsed || s.p.mana < p.cost { return true }
+        let p = s.p.power
+        if s.turn != .p || busy || s.over || s.mulligan || pending != nil || s.p.powerUsed || s.p.mana < s.pcost(.p) { return true }
         if !p.fx.summon.isEmpty && s.p.board.count >= DuelState.boardMax { return true }
         if let t = p.tgt, s.targetsFor(.p, t).isEmpty { return true }
         return false
@@ -607,14 +680,14 @@ final class GameVM {
 
     func usePower() {
         if powerBlocked { if state != nil { S.log(.cantPower); drain() }; return }
-        let p = curPower
+        let p = S.p.power
         sel = nil
         if let t = p.tgt { pending = Pending(kind: .power, valid: S.targetsFor(.p, t), key: nil); return }
         Task {
             busy = true
             await fxAnim(p.fx, from: powerFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: nil, side: .p)
-            S.p.mana -= p.cost; S.p.powerUsed = true
-            S.applyFx(.p, p.fx, nil)
+            S.p.mana -= S.pcost(.p); S.p.powerUsed = true
+            S.applyFx(.p, p.fx, nil, bonus: S.powerBonus(.p), isPower: true); S.afterPower(.p)
             S.log(.powerUse(p, nil))
             netAct(NetAct(n: 0, t: "power"))
             busy = false
@@ -622,7 +695,7 @@ final class GameVM {
         }
     }
 
-    func pendingLabel() -> String { pending?.key.map(tx.cardName) ?? tx.powerName(curPower) }
+    func pendingLabel() -> String { pending?.key.map(tx.cardName) ?? tx.powerName(myPower) }
     func cancelPending() { pending = nil }
 
     private func resolvePending(_ t: EID) async {
@@ -631,10 +704,10 @@ final class GameVM {
         busy = true
         switch p.kind {
         case .spell(let idx):
-            guard idx < S.p.hand.count, let c = gd.card(S.p.hand[idx]), let fx = c.fx else { busy = false; return }
+            guard idx < S.p.hand.count, let c = gd.card(S.p.hand[idx]), let fx = S.cardFx(.p, c.id) else { busy = false; return }
             await flyCard(idx, to: center(t))
             S.pay(.p, c.id)
-            S.p.hand.remove(at: idx)
+            S.takeHand(.p, idx)
             drain()
             await fxAnim(fx, from: center(.hero(.p)), target: t, side: .p)
             S.castSpell(.p, c.id, t)
@@ -647,10 +720,10 @@ final class GameVM {
             S.applyFx(.p, fx, t)
             netAct(NetAct(n: 0, t: "bc", tgt: netRef(t)))
         case .power:
-            let pw = curPower
+            let pw = S.p.power
             await fxAnim(pw.fx, from: powerFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: t, side: .p)
-            S.p.mana -= pw.cost; S.p.powerUsed = true
-            S.applyFx(.p, pw.fx, t)
+            S.p.mana -= S.pcost(.p); S.p.powerUsed = true
+            S.applyFx(.p, pw.fx, t, bonus: S.powerBonus(.p), isPower: true); S.afterPower(.p)
             S.log(.powerUse(pw, S.name(t)))
             netAct(NetAct(n: 0, t: "power", tgt: netRef(t)))
         }
@@ -831,7 +904,7 @@ final class GameVM {
     func hasMoves() -> Bool {
         guard let s = state else { return false }
         let p = s.p
-        return p.hand.contains { k in (gd.card(k).map { s.canPay(.p, k) && (!$0.isMinion || p.board.count < DuelState.boardMax) } ?? false) }
+        return p.hand.contains { k in (gd.card(k).map { s.canPay(.p, k) && ($0.isPrayer ? p.altar.count < s.altarMax(.p) : (!$0.isMinion || p.board.count < DuelState.boardMax)) } ?? false) }
             || p.board.contains(where: s.canAttack) || !powerBlocked
     }
 
@@ -874,12 +947,14 @@ final class GameVM {
         for _ in 0..<12 where !S.over {
             var did = false
             for o in S.aiPlayable() {
+                S.e.castHb = S.hbOf(.e)[safe: o.index] ?? 0
                 guard let plan = S.aiPlan(o.key), let c = gd.card(o.key) else { continue }
                 var t = plan
                 S.pay(.e, c.id)
-                S.e.hand.remove(at: o.index)
+                S.takeHand(.e, o.index)
                 if c.isMinion {
-                    let shown: EID? = (c.bc?.tgt != nil) ? t : nil
+                    let bc = S.cardBc(.e, c.id)
+                    let shown: EID? = (bc?.tgt != nil) ? t : nil
                     S.log(.eSummon(c.id)); drain()
                     reveal = Reveal(side: .e, key: c.id, target: shown.map { S.name($0) })
                     await wait(1100)
@@ -887,7 +962,7 @@ final class GameVM {
                     let m = S.summon(.e, c.id)
                     pushHist(.e, c.id, shown.map { S.name($0) })
                     drain()
-                    if let bc = c.bc, let m {
+                    if let bc, let m {
                         if bc.tgt == .ally && t == nil { t = m.id }
                         if bc.tgt != nil { await aimAt(t) }
                         guard gameToken == token else { return }
@@ -896,8 +971,8 @@ final class GameVM {
                         S.applyFx(.e, bc, t)
                     }
                     reveal = nil
-                } else if let fx = c.fx {
-                    S.log(t.map { .eCastOn(c.id, S.name($0)) } ?? .eCast(c.id)); drain()
+                } else if let fx = S.cardFx(.e, c.id) {
+                    S.log(c.isPrayer ? .ePrayed(c.id) : t.map { .eCastOn(c.id, S.name($0)) } ?? .eCast(c.id)); drain()
                     reveal = Reveal(side: .e, key: c.id, target: t.map { S.name($0) })
                     await wait(1400)
                     guard gameToken == token else { return }
@@ -945,12 +1020,12 @@ final class GameVM {
         let token = gameToken
         guard let plan = S.aiPowerPlan() else { return }
         let p = S.e.power
-        S.e.mana -= p.cost
+        S.e.mana -= S.pcost(.e); S.e.powerUsed = true
         if let t = plan { await aimAt(t) }
         guard gameToken == token else { return }
         await fxAnim(p.fx, from: epowFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: plan, side: .e)
         guard gameToken == token else { return }
-        S.applyFx(.e, p.fx, plan)
+        S.applyFx(.e, p.fx, plan, bonus: S.powerBonus(.e), isPower: true); S.afterPower(.e)
         S.log(.ePower(p, plan.map { S.name($0) }))
         S.cleanup(); drain()
         await wait(600)
@@ -1093,7 +1168,7 @@ final class GameVM {
     private func startOnline(_ hostState: DuelState, isHost: Bool) {
         var s = isHost ? hostState : hostState.flipped()
         s.events = []
-        run = Run(stage: 0, deck: s.p.deck, cls: s.pcls)
+        run = Run(stage: 0, deck: s.p.deck, cls: s.pcls, tal: s.p.tal)
         resetDuelUI()
         netOut = []; turnActs = []; netN = 0; appliedN = 0; seq = 0; netQueue = []
         o.lost = nil; o.conceded = false; o.concedeArm = false; o.again = false; o.foeAgain = false
@@ -1186,7 +1261,7 @@ final class GameVM {
         case "play", "cast":
             guard let i = a.i, i < S.e.hand.count, S.e.hand[i] == a.k, let c = gd.card(S.e.hand[i]) else { throw NetError.outOfStep }
             S.pay(.e, c.id)
-            S.e.hand.remove(at: i)
+            S.takeHand(.e, i)
             if c.isMinion {
                 S.log(.eSummon(c.id)); drain()
                 reveal = Reveal(side: .e, key: c.id)
@@ -1195,14 +1270,14 @@ final class GameVM {
                 let hid = pushHist(.e, c.id, nil)
                 if let m { lastEnemyMinion = (m.uid, hid) }
                 drain()
-                if let bc = c.bc, bc.tgt == nil, let m {
+                if let bc = S.cardBc(.e, c.id), bc.tgt == nil, let m {
                     await fxAnim(bc, from: revealCenter, target: nil, side: .e); S.applyFx(.e, bc, nil); _ = m
                 }
                 reveal = nil
-            } else if let fx = c.fx {
+            } else if let fx = S.cardFx(.e, c.id) {
                 let t = netDeref(a.tgt)
                 if a.tgt != nil && t == nil { throw NetError.outOfStep }
-                S.log(t.map { .eCastOn(c.id, S.name($0)) } ?? .eCast(c.id)); drain()
+                S.log(c.isPrayer ? .ePrayed(c.id) : t.map { .eCastOn(c.id, S.name($0)) } ?? .eCast(c.id)); drain()
                 reveal = Reveal(side: .e, key: c.id, target: t.map { S.name($0) })
                 await wait(1100)
                 pushHist(.e, c.id, t.map { S.name($0) })
@@ -1212,7 +1287,7 @@ final class GameVM {
                 reveal = nil
             }
         case "bc":
-            guard let last = lastEnemyMinion, let m = S.minion(EID(side: .e, uid: last.uid)), let fx = m.card.bc else { throw NetError.outOfStep }
+            guard let last = lastEnemyMinion, let m = S.minion(EID(side: .e, uid: last.uid)), let fx = S.cardBc(.e, m.key) else { throw NetError.outOfStep }
             let t = netDeref(a.tgt)
             if a.tgt != nil && t == nil { throw NetError.outOfStep }
             if let t {
@@ -1225,10 +1300,10 @@ final class GameVM {
             let p = S.e.power
             let t = netDeref(a.tgt)
             if a.tgt != nil && t == nil { throw NetError.outOfStep }
-            S.e.mana -= p.cost; S.e.powerUsed = true
+            S.e.mana -= S.pcost(.e); S.e.powerUsed = true
             if t != nil { await aimAt(t) }
             await fxAnim(p.fx, from: epowFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: t, side: .e)
-            S.applyFx(.e, p.fx, t)
+            S.applyFx(.e, p.fx, t, bonus: S.powerBonus(.e), isPower: true); S.afterPower(.e)
             S.log(.ePower(p, t.map { S.name($0) }))
         case "atk":
             guard let uid = a.a, let m = S.minion(EID(side: .e, uid: uid)), let t = netDeref(a.tgt) else { throw NetError.outOfStep }
@@ -1351,7 +1426,7 @@ final class GameVM {
 
     private func netDeal() async {
         guard let m = match, m.isHost, let d = m.doc else { return }
-        let st = DuelState.onlineStart(hostCls: d.hc, hostDeck: d.hDeck, guestCls: d.gc, guestDeck: d.gDeck)
+        let st = DuelState.onlineStart(hostCls: d.hc, hostDeck: d.hDeck, hostTal: d.hTal ?? [], guestCls: d.gc, guestDeck: d.gDeck, guestTal: d.gTal ?? [])
         try? await m.resetGame(state: st)
     }
 

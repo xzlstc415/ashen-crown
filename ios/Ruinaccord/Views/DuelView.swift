@@ -225,6 +225,9 @@ private struct LeftColumn: View {
                         Circle().fill(Theme.blood).frame(width: 9, height: 9).offset(x: 2, y: -2)
                     }
                 }
+            if s.p.hasTalents || s.e.hasTalents {
+                SideButton(system: "sparkles", text: nil, danger: false, label: tx.talents) { vm.showTalentPanel = true }
+            }
             Spacer()
             CountPill(hand: s.p.hand.count, deck: s.p.deck.count).fixedSize()
                 .frame(width: hm.leftW + 60, alignment: .leading)
@@ -314,6 +317,28 @@ private struct StatusBox: View {
                 .lineLimit(1).minimumScaleFactor(0.7)
             }
             ManaBox(side: side)
+            // Talent counters and the altar (Prayers waiting, with turns left).
+            let counters: [String] = [
+                s.tal(side, "wa_fury") ? tx.rage(h.rage) : nil,
+                s.tal(side, "wl_soul") ? tx.souls(h.soul) : nil,
+                s.tal(side, "pa_coop") ? tx.unity(h.coopB, h.coopN) : nil,
+            ].compactMap { $0 }
+            if !counters.isEmpty {
+                Text(counters.joined(separator: " · ")).font(Theme.body(8.5, .bold)).foregroundStyle(Theme.gold).lineLimit(1).minimumScaleFactor(0.7)
+            }
+            if !h.altar.isEmpty {
+                HStack(spacing: 3) {
+                    ForEach(Array(h.altar.enumerated()), id: \.offset) { _, a in
+                        HStack(spacing: 2) {
+                            Text(tx.cardName(a.key)).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#ffe9a0")).lineLimit(1)
+                            Text("\(a.cd)").font(Theme.body(8, .heavy)).foregroundStyle(.white).frame(width: 12, height: 12).background(Color(hex: "#8a6a1a"), in: Circle())
+                        }
+                        .padding(.horizontal, 4).frame(height: 15).background(Color.black.opacity(0.4), in: Capsule())
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityLabel(Text(tx.altarLbl + ": " + h.altar.map { "\(tx.cardName($0.key)) \($0.cd)" }.joined(separator: ", ")))
+            }
         }
         .padding(.horizontal, 8).padding(.vertical, 6)
         .frame(maxWidth: .infinity, alignment: .leading)

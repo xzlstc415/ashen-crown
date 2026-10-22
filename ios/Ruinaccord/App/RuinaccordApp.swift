@@ -34,7 +34,7 @@ enum DebugLaunch {
             for _ in 0..<50 where vm.backend.auth.account == nil { try? await Task.sleep(for: .milliseconds(100)) }
             switch s {
             case "duel":
-                vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck
+                vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; vm.q.tal = GameData.shared.talentPreset("mage", 0)
                 Decks.autoFill(&vm.q.deck, cls: "mage")
                 vm.startQuick(.normal)
             case "camp": vm.pickClass("paladin")
@@ -98,6 +98,7 @@ enum DebugLaunch {
             print("dragtest minion: board \(vm.state?.p.board.count ?? -1) hand has goblin \(vm.state?.p.hand.contains("goblin") ?? true)")
         }
         if let i = vm.state?.p.hand.firstIndex(of: "frostbolt") {
+            vm.state?.e.armor = 0; vm.state?.e.hp = 30      // talents may have changed both
             let p = c(vm.frames[.hero(.e)])
             vm.dragHand(i, to: p, line: p.y + 60)
             print("dragtest spell: over \(String(describing: vm.drag?.over)) valid \(vm.drag?.valid.count ?? 0)")

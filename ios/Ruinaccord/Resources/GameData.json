@@ -21,14 +21,19 @@
    "fx": null,
    "names": [
     "Goblin Cutpurse",
-    "哥布林扒手",
+    "暗巷哥布林",
     "ゴブリンのスリ"
    ],
    "flavor": [
     "Your purse was lighter than he hoped.",
     "你的钱袋比他预想的还轻。",
     "財布は期待より軽かった。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "pearl",
@@ -58,7 +63,12 @@
     "Her prayers land before the blows do.",
     "她的祷告总比拳头先到。",
     "祈りは拳より先に届く。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "apprentice",
@@ -107,19 +117,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Wizard's Apprentice",
-    "法师学徒",
+    "见习法师",
     "魔術師の弟子"
    ],
    "flavor": [
     "Only singed the eyebrows. This time.",
     "这次只烧掉了眉毛。",
     "今回は眉毛が焦げただけ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "crab",
@@ -149,7 +176,12 @@
     "The shield is older than he is.",
     "这面盾比他还老。",
     "その盾は彼より年上だ。"
-   ]
+   ],
+   "sc": "prot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "harpooneer",
@@ -198,7 +230,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -210,7 +254,12 @@
     "She has never needed a second arrow.",
     "她从来不需要第二支箭。",
     "二本目の矢は必要なかった。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "direwolf",
@@ -240,7 +289,12 @@
     "The pack is never far behind.",
     "狼群从不远离。",
     "群れはすぐ後ろにいる。"
-   ]
+   ],
+   "sc": "beast",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "cleric",
@@ -289,7 +343,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -301,7 +367,12 @@
     "Prayer, ale, and a very large hammer.",
     "祷告、麦酒，还有一把很大的锤子。",
     "祈りとエールと、とても大きなハンマー。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "berserker",
@@ -331,7 +402,12 @@
     "Thinks with his axe. Thinks fast.",
     "用斧头思考，而且想得很快。",
     "斧で考える。考えるのは速い。"
-   ]
+   ],
+   "sc": "fury",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "burglar",
@@ -380,19 +456,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Halfling Burglar",
-    "半身人窃贼",
+    "半身人飞贼",
     "ハーフリングの泥棒"
    ],
    "flavor": [
     "Finders keepers.",
     "谁捡到就是谁的。",
     "見つけた者の物。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "eel",
@@ -415,14 +508,19 @@
    "fx": null,
    "names": [
     "Orc Raider",
-    "兽人掠夺者",
+    "兽人劫掠者",
     "オークの略奪者"
    ],
    "flavor": [
     "First through the gate. Always.",
     "永远第一个冲进城门。",
     "門をくぐるのはいつも一番乗り。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "lurker",
@@ -445,14 +543,19 @@
    "fx": null,
    "names": [
     "Forest Troll",
-    "森林巨魔",
+    "密林巨魔",
     "森のトロール"
    ],
    "flavor": [
     "Leave a toll, or become one.",
     "留下买路钱，或者把你自己留下。",
     "通行料を置いていけ。さもなくばお前が通行料だ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "sailor",
@@ -475,14 +578,19 @@
    "fx": null,
    "names": [
     "Grave Thrall",
-    "墓穴仆从",
+    "守墓亡仆",
     "墓所の下僕"
    ],
    "flavor": [
     "Death was only a change of employer.",
     "死亡只是换了个雇主。",
     "死は雇い主が変わっただけ。"
-   ]
+   ],
+   "sc": "undead",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "beastcaller",
@@ -533,19 +641,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Elven Beastcaller",
-    "精灵驯兽师",
+    "精灵兽语者",
     "エルフの獣使い"
    ],
    "flavor": [
     "She whistles once. Something always answers.",
     "她吹一声口哨，总会有东西回应。",
     "口笛ひとつで、必ず何かが応える。"
-   ]
+   ],
+   "sc": "beast",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "ghoul",
@@ -568,14 +693,19 @@
    "fx": null,
    "names": [
     "Barrow Ghoul",
-    "古墓食尸鬼",
+    "古冢食尸鬼",
     "塚の食屍鬼"
    ],
    "flavor": [
     "Hungry even after the end.",
     "死后依旧饥饿。",
     "終わりの後も飢えている。"
-   ]
+   ],
+   "sc": "undead",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "alchemist",
@@ -627,7 +757,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -639,7 +781,12 @@
     "Drink this. Don't ask what's in it.",
     "喝了它。别问里面是什么。",
     "これを飲め。中身は聞くな。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "knight",
@@ -669,7 +816,12 @@
     "Behind her, no one falls.",
     "在她身后，无人倒下。",
     "彼女の後ろで倒れる者はいない。"
-   ]
+   ],
+   "sc": "aegis",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "diver",
@@ -718,19 +870,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Gnome Tinkerer",
-    "侏儒工匠",
+    "侏儒巧匠",
     "ノームの技師"
    ],
    "flavor": [
     "It works. Mostly. Twice so far.",
     "它能用。大部分时候。目前成功过两次。",
     "動く。たいてい。今のところ二回は。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "gull",
@@ -760,7 +929,12 @@
     "Arrives before the war horns finish.",
     "战号还没吹完，他就到了。",
     "角笛が鳴り終わる前に到着する。"
-   ]
+   ],
+   "sc": "beast",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "commander",
@@ -812,19 +986,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Knight Commander",
-    "骑士指挥官",
+    "骑士统领",
     "騎士団長"
    ],
    "flavor": [
     "Hold the line, then break theirs.",
     "守住阵线，再冲破他们的。",
     "戦線を守れ。それから奴らのを崩せ。"
-   ]
+   ],
+   "sc": "legion",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "golem",
@@ -847,14 +1038,19 @@
    "fx": null,
    "names": [
     "Stone Golem",
-    "石魔像",
+    "守门石像",
     "ストーンゴーレム"
    ],
    "flavor": [
     "It was told to guard the door. The door is long gone.",
     "它被命令守门，可那扇门早就没了。",
     "扉を守れと命じられた。扉はとうに無い。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "shark",
@@ -884,7 +1080,12 @@
     "Every rune is a spell someone wasted on it.",
     "每道符文，都是有人白费在它身上的法术。",
     "ルーンの一つ一つが、誰かが無駄にした呪文だ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "firelem",
@@ -933,7 +1134,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -945,7 +1158,12 @@
     "Do not offer it a hand to shake.",
     "千万别向它伸手握手。",
     "握手を求めてはいけない。"
-   ]
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "ogre",
@@ -968,14 +1186,19 @@
    "fx": null,
    "names": [
     "Ogre Brute",
-    "食人魔蛮兵",
+    "食人魔莽夫",
     "オーガの蛮兵"
    ],
    "flavor": [
     "Two heads would be smarter. He has one.",
     "两个脑袋会聪明些，可他只有一个。",
     "頭が二つなら賢かったろう。彼には一つしかない。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "archmage",
@@ -1024,7 +1247,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -1036,7 +1271,12 @@
     "She has read every book in the tower. Twice.",
     "塔里的每本书她都读过两遍。",
     "塔の本は全て読んだ。二度ずつ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "hexer",
@@ -1085,19 +1325,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Orc Hexer",
-    "兽人妖术师",
+    "兽人咒术师",
     "オークの呪術師"
    ],
    "flavor": [
     "Every curse is a promise kept.",
     "每一道诅咒，都是兑现的承诺。",
     "呪いはすべて、守られた約束だ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "priestess",
@@ -1149,7 +1406,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -1161,7 +1430,12 @@
     "She blesses the brave and the foolish alike.",
     "无论勇敢还是愚蠢，她一视同仁地祝福。",
     "勇者にも愚者にも、等しく祝福を。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "necro",
@@ -1212,7 +1486,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -1224,7 +1510,12 @@
     "Nobody stays dead on his watch.",
     "在他看守下，没人能安息。",
     "彼の見張りの下では、誰も死んだままでいられない。"
-   ]
+   ],
+   "sc": "undead",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "thane",
@@ -1273,7 +1564,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -1285,7 +1588,12 @@
     "His hall has never fallen. Neither has he.",
     "他的大厅从未陷落，他本人也是。",
     "彼の広間は一度も落ちていない。彼自身もだ。"
-   ]
+   ],
+   "sc": "prot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "wyvern",
@@ -1308,14 +1616,19 @@
    "fx": null,
    "names": [
     "Wyvern Rider",
-    "双足飞龙骑手",
+    "飞龙骑手",
     "ワイバーンライダー"
    ],
    "flavor": [
     "The sky is just another road.",
     "天空只是另一条路。",
     "空もまた、ただの道だ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "treant",
@@ -1345,7 +1658,12 @@
     "It was old when the first king was crowned.",
     "第一位国王加冕时，它就已经很老了。",
     "最初の王が戴冠した時、すでに老いていた。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "dragonknight",
@@ -1375,7 +1693,12 @@
     "When he falls, his dragon does not.",
     "他倒下时，他的龙不会。",
     "彼が倒れても、竜は倒れない。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "leviathan",
@@ -1424,7 +1747,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -1436,7 +1771,12 @@
     "The crown was forged in his breath.",
     "那顶王冠，正是在他的龙息中锻成。",
     "王冠は彼の吐息で鍛えられた。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "lich",
@@ -1485,7 +1825,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -1497,7 +1849,12 @@
     "He has died eleven times. He is getting better at it.",
     "他已经死过十一次了，而且越来越熟练。",
     "十一度死んだ。だんだん上手くなっている。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "dwarfking",
@@ -1549,19 +1906,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Thorgrim, King Under Stone",
-    "石下之王索格林",
+    "山心之王索格林",
     "石下の王ソーグリム"
    ],
    "flavor": [
     "His beard has its own throne.",
     "他的胡子都有自己的王座。",
     "彼の髭には専用の玉座がある。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "elfqueen",
@@ -1610,19 +1984,36 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
     "Sylvara, Queen of the Glade",
-    "林地女王希尔瓦拉",
+    "翠林女王希尔瓦拉",
     "森の女王シルヴァラ"
    ],
    "flavor": [
     "The forest kneels when she walks.",
     "她走过时，森林为之屈膝。",
     "彼女が歩けば、森がひざまずく。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "spray",
@@ -1672,7 +2063,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Arcane Shot",
@@ -1683,7 +2086,12 @@
     "Quicker than a thought, and twice as sharp.",
     "比念头更快，也更锋利。",
     "思考より速く、二倍鋭い。"
-   ]
+   ],
+   "sc": "shot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "brace",
@@ -1736,7 +2144,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Shield of Faith",
@@ -1747,7 +2167,12 @@
     "Belief, hammered into steel.",
     "把信念锻打成钢。",
     "信念を鋼に打ち込む。"
-   ]
+   ],
+   "sc": "aegis",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "darkpact",
@@ -1797,7 +2222,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Dark Pact",
@@ -1808,7 +2245,12 @@
     "Sign here. And here. And in blood, here.",
     "在这里签字。这里也是。还有这里，用血签。",
     "ここに署名を。ここにも。そしてここは血で。"
-   ]
+   ],
+   "sc": "blood",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "frenzy",
@@ -1861,7 +2303,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Bloodlust",
@@ -1872,7 +2326,12 @@
     "One taste is enough.",
     "尝一口就够了。",
     "一口で十分だ。"
-   ]
+   ],
+   "sc": "fury",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "tidepool",
@@ -1922,18 +2381,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Scholar's Insight",
-    "学者的洞见",
+    "典籍启示",
     "賢者の洞察"
    ],
    "flavor": [
     "Footnotes are where the real magic hides.",
     "真正的魔法都藏在脚注里。",
     "本当の魔法は脚注に隠れている。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "mend",
@@ -1983,7 +2459,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Healing Light",
@@ -1994,7 +2482,12 @@
     "Warm as a hearth, quick as a prayer.",
     "像炉火一样温暖，像祷告一样迅速。",
     "暖炉のように温かく、祈りのように速い。"
-   ]
+   ],
+   "sc": "holy",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "shieldwall",
@@ -2044,7 +2537,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Shield Wall",
@@ -2055,7 +2560,12 @@
     "Lock shields. Lock eyes. Hold.",
     "盾牌相扣，目光相接，守住。",
     "盾を組め。目を据えろ。踏みとどまれ。"
-   ]
+   ],
+   "sc": "prot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "calltoarms",
@@ -2109,18 +2619,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Call to Arms",
-    "战斗号令",
+    "征召号角",
     "召集令"
    ],
    "flavor": [
     "Farmers today. Heroes, maybe, tomorrow.",
     "今天是农夫，明天也许就是英雄。",
     "今日は農夫。明日は、たぶん英雄。"
-   ]
+   ],
+   "sc": "legion",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "undertow",
@@ -2170,18 +2697,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Smite",
-    "惩击",
+    "天罚",
     "天罰"
    ],
    "flavor": [
     "Judgment, delivered from above.",
     "来自天上的审判。",
     "天上より下される裁き。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "radiant",
@@ -2231,18 +2775,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Radiant Burst",
-    "光耀爆发",
+    "圣光迸发",
     "光輝の爆発"
    ],
    "flavor": [
     "Light that burns the wicked and warms the faithful.",
     "灼烧邪恶、温暖信徒的光。",
     "悪を焼き、信じる者を温める光。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "hymn",
@@ -2295,18 +2856,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Battle Hymn",
-    "战歌",
+    "激昂战歌",
     "戦いの賛歌"
    ],
    "flavor": [
     "Off-key, but very loud.",
     "跑调了，但非常响亮。",
     "音程は外れているが、とても大きい。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "lance",
@@ -2356,18 +2934,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Arcane Lance",
-    "奥术长枪",
+    "奥术之矛",
     "秘術の槍"
    ],
    "flavor": [
     "Pierce, then ponder.",
     "先刺穿，再思考。",
     "貫いてから、考えよ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "maelstrom",
@@ -2417,7 +3012,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Fireball",
@@ -2428,7 +3035,12 @@
     "Aim for the middle.",
     "瞄准中间就行。",
     "真ん中を狙え。"
-   ]
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "riptide",
@@ -2478,7 +3090,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Deadly Shot",
@@ -2489,7 +3113,12 @@
     "One breath. One arrow. One less problem.",
     "一次呼吸，一支箭，少一个麻烦。",
     "一呼吸、一矢、厄介事が一つ減る。"
-   ]
+   ],
+   "sc": "shot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "breath",
@@ -2539,7 +3168,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Dragon's Breath",
@@ -2550,7 +3191,12 @@
     "The last thing the castle walls ever felt.",
     "城墙感受到的最后一样东西。",
     "城壁が最後に感じたもの。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "inferno",
@@ -2600,18 +3246,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Inferno",
-    "炼狱烈焰",
+    "焦土烈焰",
     "業火"
    ],
    "flavor": [
     "Nothing grows here anymore. Nothing will.",
     "这里已寸草不生，以后也不会再有。",
     "もう何も育たない。これからも。"
-   ]
+   ],
+   "sc": "blood",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "innerrage",
@@ -2668,7 +3331,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Inner Rage",
@@ -2679,7 +3354,12 @@
     "Pain is a fine whetstone.",
     "痛苦是最好的磨刀石。",
     "痛みは良い砥石だ。"
-   ]
+   ],
+   "sc": "fury",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "whirlwind",
@@ -2733,7 +3413,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Whirlwind",
@@ -2744,7 +3436,12 @@
     "Friends should stand further back.",
     "朋友们最好站远一点。",
     "味方はもっと離れて立つべきだ。"
-   ]
+   ],
+   "sc": "fury",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "shieldslam",
@@ -2798,7 +3495,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Shield Slam",
@@ -2809,7 +3518,12 @@
     "The best defense is a very heavy offense.",
     "最好的防守，是非常沉重的进攻。",
     "最大の防御は、とても重い攻撃だ。"
-   ]
+   ],
+   "sc": "prot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "execute",
@@ -2863,7 +3577,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Execute",
@@ -2874,7 +3600,12 @@
     "Finish what you started.",
     "把开始的事做完。",
     "始めたことは終わらせろ。"
-   ]
+   ],
+   "sc": "fury",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "missiles",
@@ -2924,7 +3655,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Arcane Missiles",
@@ -2935,7 +3678,12 @@
     "Not aimed. Not needed.",
     "无需瞄准，也不需要瞄准。",
     "狙いは要らない。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "mirror",
@@ -2953,7 +3701,7 @@
    "cls": "mage",
    "text": [
     "Summon two 1/3 Mirror Images with Guard.",
-    "召唤两个1/3并具有守护的镜像。",
+    "召唤两个1/3并具有守护的镜影。",
     "ガードを持つ1/3のミラーイメージを2体召喚する。"
    ],
    "sp": 0,
@@ -2992,18 +3740,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Mirror Image",
-    "镜像",
+    "镜影分身",
     "ミラーイメージ"
    ],
    "flavor": [
     "Which one is real? Neither.",
     "哪个是真的？都不是。",
     "どれが本物？どれでもない。"
-   ]
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "frostbolt",
@@ -3057,7 +3822,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Frostbolt",
@@ -3068,7 +3845,12 @@
     "Chill out.",
     "冷静一下。",
     "頭を冷やせ。"
-   ]
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "frostnova",
@@ -3122,7 +3904,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Frost Nova",
@@ -3133,7 +3927,12 @@
     "Everyone hold still.",
     "所有人都别动。",
     "全員、動くな。"
-   ]
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "squires",
@@ -3186,18 +3985,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Squire's Call",
-    "侍从召集",
+    "侍从集结",
     "従者の召集"
    ],
    "flavor": [
     "Bring your own bucket.",
     "自带水桶。",
     "バケツは各自持参。"
-   ]
+   ],
+   "sc": "legion",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "humility",
@@ -3251,18 +4067,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Humility",
-    "谦逊",
+    "谦卑",
     "謙虚"
    ],
    "flavor": [
     "Kneel, and be smaller.",
     "跪下，然后变得渺小。",
     "ひざまずき、小さくなれ。"
-   ]
+   ],
+   "sc": "aegis",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "aegis",
@@ -3316,7 +4149,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Sacred Aegis",
@@ -3327,7 +4172,12 @@
     "The light catches the first blow.",
     "圣光会接下第一击。",
     "光が最初の一撃を受け止める。"
-   ]
+   ],
+   "sc": "aegis",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "kings",
@@ -3380,7 +4230,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Blessing of Kings",
@@ -3391,7 +4253,12 @@
     "Crowned for one glorious battle.",
     "为一场荣耀之战而加冕。",
     "栄光の一戦のための戴冠。"
-   ]
+   ],
+   "sc": "aegis",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "pounce",
@@ -3445,18 +4312,35 @@
     "drawIfKill": false,
     "tempAtk": 2,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Pounce",
-    "扑击",
+    "猛扑",
     "飛びかかり"
    ],
    "flavor": [
     "Now.",
     "就是现在。",
     "今だ。"
-   ]
+   ],
+   "sc": "beast",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "huntmark",
@@ -3510,18 +4394,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Hunter's Mark",
-    "猎人印记",
+    "猎手印记",
     "狩人の印"
    ],
    "flavor": [
     "Marked, then missed by no one.",
     "被标记之后，再没人会失手。",
     "印をつけたら、もう誰も外さない。"
-   ]
+   ],
+   "sc": "shot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "killcmd",
@@ -3575,18 +4476,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Kill Command",
-    "杀戮命令",
+    "猎杀令",
     "キルコマンド"
    ],
    "flavor": [
     "One word. Many teeth.",
     "一个字，许多牙。",
     "一言で、牙が並ぶ。"
-   ]
+   ],
+   "sc": "beast",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "hounds",
@@ -3640,18 +4558,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": "hound"
+    "perFoe": "hound",
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Unleash the Hounds",
-    "关门放狗",
+    "群犬出猎",
     "猟犬を放て"
    ],
    "flavor": [
     "Let them hunt.",
     "让它们去猎吧。",
     "狩らせろ。"
-   ]
+   ],
+   "sc": "beast",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "pwshield",
@@ -3704,18 +4639,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Word of Shielding",
-    "真言术：盾",
+    "庇护之言",
     "守りの言葉"
    ],
    "flavor": [
     "Spoken softly. Struck hard.",
     "轻声念出，重重挡下。",
     "静かに唱え、強く守る。"
-   ]
+   ],
+   "sc": "holy",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "holysmite",
@@ -3765,7 +4717,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Holy Smite",
@@ -3776,7 +4740,12 @@
     "A small sun, very briefly.",
     "一个小太阳，转瞬即逝。",
     "ほんの一瞬の、小さな太陽。"
-   ]
+   ],
+   "sc": "holy",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "dispel",
@@ -3830,7 +4799,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Dispel",
@@ -3841,7 +4822,12 @@
     "Hush.",
     "嘘。",
     "静かに。"
-   ]
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "swpain",
@@ -3895,18 +4881,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Word of Pain",
-    "暗言术：痛",
+    "苦痛之言",
     "苦痛の言葉"
    ],
    "flavor": [
     "The small ones go quietly.",
     "小家伙们走得很安静。",
     "小さき者は静かに逝く。"
-   ]
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": true,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "swdeath",
@@ -3960,18 +4963,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Word of Death",
-    "暗言术：灭",
+    "死亡之言",
     "死の言葉"
    ],
    "flavor": [
     "The bigger they are.",
     "块头越大……",
     "大きい者ほど。"
-   ]
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": true,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "soulfire",
@@ -4025,7 +5045,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Soulfire",
@@ -4036,7 +5068,12 @@
     "Burns twice: once out, once in.",
     "烧两次：一次向外，一次向内。",
     "二度焼く。外へ一度、内へ一度。"
-   ]
+   ],
+   "sc": "blood",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "coil",
@@ -4090,7 +5127,19 @@
     "drawIfKill": true,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Mortal Coil",
@@ -4101,7 +5150,12 @@
     "Every ending is a lesson.",
     "每次终结都是一堂课。",
     "終わりはすべて教訓だ。"
-   ]
+   ],
+   "sc": "undead",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "raisedead",
@@ -4119,7 +5173,7 @@
    "cls": "warlock",
    "text": [
     "Summon two 1/1 Skeletons. Your hero takes 1 damage.",
-    "召唤两个1/1的骷髅。你的英雄受到1点伤害。",
+    "召唤两个1/1的骷髅兵。你的英雄受到1点伤害。",
     "1/1のスケルトンを2体召喚する。自分のヒーローは1ダメージを受ける。"
    ],
    "sp": 0,
@@ -4158,7 +5212,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Raise Dead",
@@ -4169,7 +5235,12 @@
     "Up. Up! Good bones.",
     "起来，起来！好骨头。",
     "起きろ、起きろ！良い骨だ。"
-   ]
+   ],
+   "sc": "undead",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "hellfire",
@@ -4223,7 +5294,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Hellfire",
@@ -4234,7 +5317,12 @@
     "It does not ask whose side you are on.",
     "它不问你站在哪一边。",
     "どちらの味方かは問わない。"
-   ]
+   ],
+   "sc": "blood",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "retreat",
@@ -4288,18 +5376,35 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": true,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Tactical Retreat",
-    "战术撤退",
+    "暂避锋芒",
     "戦術的撤退"
    ],
    "flavor": [
     "Live to charge again.",
     "活下来，才能再冲锋。",
     "生きて、もう一度突撃しよう。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "wyrmling",
@@ -4336,7 +5441,12 @@
     "It eats spells. It is always hungry.",
     "它以法术为食，而且永远吃不饱。",
     "呪文を食べる。いつも腹ぺこだ。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "geomancer",
@@ -4363,14 +5473,19 @@
    "fx": null,
    "names": [
     "Gnome Geomancer",
-    "侏儒地卜师",
+    "侏儒地脉师",
     "ノームの地相術師"
    ],
    "flavor": [
     "The ground hums along with her.",
     "大地随她一同低吟。",
     "大地が彼女と共に唸る。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "spellbreaker",
@@ -4423,7 +5538,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "fx": null,
    "names": [
@@ -4435,7 +5562,12 @@
     "Magic is a habit. She breaks habits.",
     "魔法是一种习惯，而她专破习惯。",
     "魔法は癖だ。彼女は癖を断つ。"
-   ]
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "bubble",
@@ -4465,7 +5597,2180 @@
     "It remembers being angry.",
     "它记得自己曾经很愤怒。",
     "怒っていたことだけは覚えている。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
+  },
+  {
+   "id": "emberbolt",
+   "cost": 1,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 2,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Ember Flick",
+    "余烬火花",
+    "残り火の閃き"
+   ],
+   "flavor": [
+    "Small fire, patient hands.",
+    "小小的火，耐心的手。",
+    "小さな火と、辛抱強い手。"
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "icelance",
+   "cost": 1,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": [
+    "Freeze an enemy minion. If it was already Frozen, deal 4 damage to it instead.",
+    "冻结一个敌方随从。如果它已被冻结，改为对它造成4点伤害。",
+    "敵のミニオン1体を凍結させる。すでに凍結しているなら、代わりに4ダメージを与える。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "foe",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 4,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Ice Lance",
+    "冰枪术",
+    "アイスランス"
+   ],
+   "flavor": [
+    "Cold first. Then sharp.",
+    "先冷，再锋利。",
+    "まず冷たく、次に鋭く。"
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "frostele",
+   "cost": 4,
+   "type": "m",
+   "atk": 3,
+   "hp": 6,
+   "rarity": "r",
+   "race": "elemental",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": [
+    "On play: Freeze an enemy minion.",
+    "登场：冻结一个敌方随从。",
+    "登場時：敵のミニオン1体を凍結させる。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "foe",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": true,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "fx": null,
+   "names": [
+    "Frost Elemental",
+    "寒冰元素",
+    "氷の精霊"
+   ],
+   "flavor": [
+    "It does not hate you. It is just very, very cold.",
+    "它不恨你，只是非常非常冷。",
+    "憎んではいない。ただ、とても冷たい。"
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "shatter",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": [
+    "Destroy a Frozen enemy minion.",
+    "消灭一个被冻结的敌方随从。",
+    "凍結している敵のミニオン1体を破壊する。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "foe",
+    "cond": "frozen",
+    "destroy": true,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Shatter",
+    "碎冰",
+    "砕氷"
+   ],
+   "flavor": [
+    "Ice remembers every crack.",
+    "冰记得每一道裂痕。",
+    "氷はすべてのひびを覚えている。"
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "voidacolyte",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 1,
+   "rarity": "c",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": [
+    "On play: Silence a minion.",
+    "登场：沉默一个随从。",
+    "登場時：ミニオン1体を沈黙させる。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "minion",
+    "cond": null,
+    "destroy": false,
+    "silence": true,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "fx": null,
+   "names": [
+    "Void Acolyte",
+    "虚空侍僧",
+    "虚無の侍僧"
+   ],
+   "flavor": [
+    "She listens to the quiet between prayers.",
+    "她聆听祷文之间的寂静。",
+    "祈りと祈りの間の静けさに耳を澄ます。"
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "wordruin",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": [
+    "Destroy a damaged enemy minion.",
+    "消灭一个受伤的敌方随从。",
+    "ダメージを受けている敵のミニオン1体を破壊する。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "foe",
+    "cond": "damaged",
+    "destroy": true,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Word of Ruin",
+    "毁灭之言",
+    "破滅の言葉"
+   ],
+   "flavor": [
+    "Finish what the blade began.",
+    "把刀刃开始的事做完。",
+    "刃が始めたことを終わらせる。"
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": true,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "wordtorment",
+   "cost": 6,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": [
+    "Destroy an enemy minion.",
+    "消灭一个敌方随从。",
+    "敵のミニオン1体を破壊する。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "foe",
+    "cond": null,
+    "destroy": true,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Word of Torment",
+    "折磨之言",
+    "責苦の言葉"
+   ],
+   "flavor": [
+    "Spoken once. Heard forever.",
+    "只说一次，永远回响。",
+    "一度だけ唱え、永遠に響く。"
+   ],
+   "sc": "shadow",
+   "pray": null,
+   "sw": true,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "steady",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "hunter",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 3,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Steady Shot",
+    "稳固射击",
+    "着実な射撃"
+   ],
+   "flavor": [
+    "Breathe out. Then let go.",
+    "呼气，然后放手。",
+    "息を吐いて、放つ。"
+   ],
+   "sc": "shot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "explosive",
+   "cost": 4,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "hunter",
+   "text": [
+    "Deal 4 damage to an enemy minion and 1 to the other enemy minions.",
+    "对一个敌方随从造成4点伤害，并对其他敌方随从各造成1点伤害。",
+    "敵のミニオン1体に4ダメージ、他の敵のミニオンに1ダメージ。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 4,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "foe",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 1,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Explosive Shot",
+    "爆裂射击",
+    "爆裂射撃"
+   ],
+   "flavor": [
+    "Aim for the one in the middle.",
+    "瞄准中间那个。",
+    "真ん中を狙え。"
+   ],
+   "sc": "shot",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "marksman",
+   "cost": 3,
+   "type": "m",
+   "atk": 3,
+   "hp": 3,
+   "rarity": "r",
+   "race": "elf",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "hunter",
+   "text": [
+    "Your hero power deals 1 extra damage.",
+    "你的英雄技能伤害+1。",
+    "ヒーローパワーのダメージ+1。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Elven Marksman",
+    "精灵神射手",
+    "エルフの名射手"
+   ],
+   "flavor": [
+    "Never misses twice.",
+    "从不连续失手。",
+    "二度は外さない。"
+   ],
+   "sc": "shot",
+   "pray": null,
+   "sw": false,
+   "pw": 1,
+   "beta": true
+  },
+  {
+   "id": "whistle",
+   "cost": 0,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "t",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "cls": "hunter",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [
+     "hound"
+    ],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Hound Whistle",
+    "唤犬哨",
+    "猟犬の笛"
+   ],
+   "flavor": [
+    "One short, one long.",
+    "一短，一长。",
+    "短く一回、長く一回。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "phound",
+   "cost": 1,
+   "type": "m",
+   "atk": 2,
+   "hp": 1,
+   "rarity": "t",
+   "race": "beast",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "cls": null,
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Pack Hound",
+    "群猎犬",
+    "群れの猟犬"
+   ],
+   "flavor": [
+    "Follows the loudest voice.",
+    "跟着最响的声音走。",
+    "一番大きな声についていく。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "bonewarr",
+   "cost": 3,
+   "type": "m",
+   "atk": 2,
+   "hp": 2,
+   "rarity": "t",
+   "race": "undead",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "cls": null,
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Bone Warrior",
+    "骷髅战士",
+    "骸骨戦士"
+   ],
+   "flavor": [
+    "Built from many. Loyal to one.",
+    "由许多人拼成，只效忠一人。",
+    "多くから組まれ、一人に仕える。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "icebarrier",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": [
+    "Gain 5 Armor. Freeze the enemy minion with the highest Attack.",
+    "获得5点护甲。冻结攻击力最高的敌方随从。",
+    "装甲を5獲得する。攻撃力が最も高い敵のミニオンを凍結させる。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 5,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": true,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Ice Barrier",
+    "寒冰屏障",
+    "アイスバリア"
+   ],
+   "flavor": [
+    "The wall is clear. So is the message.",
+    "冰墙透明，意思也很明白。",
+    "壁は透明だ。言いたいことも。"
+   ],
+   "sc": "frost",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "emberadept",
+   "cost": 2,
+   "type": "m",
+   "atk": 2,
+   "hp": 3,
+   "rarity": "c",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Ember Adept",
+    "余烬学徒",
+    "残り火の徒弟"
+   ],
+   "flavor": [
+    "Burns her notes after memorizing them.",
+    "背下来就把笔记烧掉。",
+    "覚えたらノートは燃やす。"
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "scorch",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 4,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "minion",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Scorching Ray",
+    "灼热射线",
+    "灼熱光線"
+   ],
+   "flavor": [
+    "Aim for the seams in the armor.",
+    "瞄准铠甲的缝隙。",
+    "鎧の継ぎ目を狙え。"
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "emberele",
+   "cost": 4,
+   "type": "m",
+   "atk": 4,
+   "hp": 5,
+   "rarity": "r",
+   "race": "elemental",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Ember Elemental",
+    "余烬元素",
+    "残り火の精霊"
+   ],
+   "flavor": [
+    "Every breath of mana you saved made it bigger.",
+    "你省下的每一口法力都让它更大。",
+    "残した魔力の一息ごとに、大きくなった。"
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "phoenix",
+   "cost": 5,
+   "type": "m",
+   "atk": 5,
+   "hp": 4,
+   "rarity": "e",
+   "race": "beast",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": {
+    "dmg": 2,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": "any",
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "fx": null,
+   "names": [
+    "Ash Phoenix",
+    "灰烬凤凰",
+    "灰の不死鳥"
+   ],
+   "flavor": [
+    "It does not rise from the ashes. It is the ashes.",
+    "它不是从灰烬中重生，它就是灰烬。",
+    "灰から蘇るのではない。灰そのものだ。"
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "firestorm",
+   "cost": 6,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "mage",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 3,
+    "face": 3,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Firestorm",
+    "烈焰风暴",
+    "火炎嵐"
+   ],
+   "flavor": [
+    "The sky remembers every spark.",
+    "天空记得每一颗火星。",
+    "空はすべての火の粉を覚えている。"
+   ],
+   "sc": "fire",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "matins",
+   "cost": 1,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Dawn Prayer",
+    "晨祷",
+    "暁の祈り"
+   ],
+   "flavor": [
+    "Said before sunrise, answered after.",
+    "日出前念诵，日出后应验。",
+    "日の出前に唱え、日の出後に叶う。"
+   ],
+   "sc": "holy",
+   "pray": {
+    "cd": 2,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 8,
+     "armor": 0,
+     "draw": 1,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null,
+     "cond": null,
+     "destroy": false,
+     "silence": false,
+     "freeze": false,
+     "freezeAll": false,
+     "setAtk": 0,
+     "setHp": 0,
+     "sweep": 0,
+     "heroes": false,
+     "armorDmg": false,
+     "dmgBeast": 0,
+     "drawIfKill": false,
+     "tempAtk": 0,
+     "bounce": false,
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
+    }
+   },
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "vigil",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Night Vigil",
+    "守夜祷文",
+    "夜の祈り"
+   ],
+   "flavor": [
+    "Two candles, two watchers.",
+    "两盏烛火，两位守夜人。",
+    "二つの蝋燭、二人の見張り。"
+   ],
+   "sc": "holy",
+   "pray": {
+    "cd": 1,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [
+      "acolyte",
+      "acolyte"
+     ],
+     "tgt": null,
+     "cond": null,
+     "destroy": false,
+     "silence": false,
+     "freeze": false,
+     "freezeAll": false,
+     "setAtk": 0,
+     "setHp": 0,
+     "sweep": 0,
+     "heroes": false,
+     "armorDmg": false,
+     "dmgBeast": 0,
+     "drawIfKill": false,
+     "tempAtk": 0,
+     "bounce": false,
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
+    }
+   },
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "sanctuary",
+   "cost": 2,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "c",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Sanctuary",
+    "圣所庇佑",
+    "聖域の加護"
+   ],
+   "flavor": [
+    "The walls are thin. The faith is not.",
+    "墙很薄，信仰不薄。",
+    "壁は薄い。信仰は薄くない。"
+   ],
+   "sc": "holy",
+   "pray": {
+    "cd": 2,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": [
+      1,
+      2
+     ],
+     "summon": [],
+     "tgt": null,
+     "cond": null,
+     "destroy": false,
+     "silence": false,
+     "freeze": false,
+     "freezeAll": false,
+     "setAtk": 0,
+     "setHp": 0,
+     "sweep": 0,
+     "heroes": false,
+     "armorDmg": false,
+     "dmgBeast": 0,
+     "drawIfKill": false,
+     "tempAtk": 0,
+     "bounce": false,
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
+    }
+   },
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "cantor",
+   "cost": 3,
+   "type": "m",
+   "atk": 2,
+   "hp": 4,
+   "rarity": "r",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 1,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "fx": null,
+   "names": [
+    "High Cantor",
+    "领唱祭司",
+    "聖歌隊長"
+   ],
+   "flavor": [
+    "She sets the tempo. Heaven keeps time.",
+    "她定节拍，天堂来守拍。",
+    "彼女が拍子を取り、天が刻む。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "requiem",
+   "cost": 3,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "r",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Hymn of Return",
+    "归来圣咏",
+    "帰還の聖歌"
+   ],
+   "flavor": [
+    "Sung slowly, so the dead can find the way back.",
+    "唱得很慢，好让亡者找到回来的路。",
+    "死者が帰り道を見つけられるよう、ゆっくり歌う。"
+   ],
+   "sc": "holy",
+   "pray": {
+    "cd": 2,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null,
+     "cond": null,
+     "destroy": false,
+     "silence": false,
+     "freeze": false,
+     "freezeAll": false,
+     "setAtk": 0,
+     "setHp": 0,
+     "sweep": 0,
+     "heroes": false,
+     "armorDmg": false,
+     "dmgBeast": 0,
+     "drawIfKill": false,
+     "tempAtk": 0,
+     "bounce": false,
+     "perFoe": null,
+     "purge": 0,
+     "revive": 1,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
+    }
+   },
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "judgment",
+   "cost": 4,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Day of Judgment",
+    "审判之日",
+    "審判の日"
+   ],
+   "flavor": [
+    "Everyone hears the bell. Not everyone is ready.",
+    "钟声人人都听得见，但不是人人都准备好了。",
+    "鐘は誰にも聞こえる。誰もが備えているわけではない。"
+   ],
+   "sc": "holy",
+   "pray": {
+    "cd": 3,
+    "fx": {
+     "dmg": 0,
+     "aoe": 0,
+     "face": 0,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null,
+     "cond": null,
+     "destroy": false,
+     "silence": false,
+     "freeze": false,
+     "freezeAll": false,
+     "setAtk": 0,
+     "setHp": 0,
+     "sweep": 0,
+     "heroes": false,
+     "armorDmg": false,
+     "dmgBeast": 0,
+     "drawIfKill": false,
+     "tempAtk": 0,
+     "bounce": false,
+     "perFoe": null,
+     "purge": 5,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
+    }
+   },
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "revelation",
+   "cost": 5,
+   "type": "s",
+   "atk": null,
+   "hp": null,
+   "rarity": "e",
+   "race": null,
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "priest",
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": null,
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
+   },
+   "names": [
+    "Revelation",
+    "天启",
+    "天啓"
+   ],
+   "flavor": [
+    "The heavens open. Briefly. Loudly.",
+    "天门大开，短暂而震耳。",
+    "天が開く。短く、轟々と。"
+   ],
+   "sc": "holy",
+   "pray": {
+    "cd": 2,
+    "fx": {
+     "dmg": 0,
+     "aoe": 3,
+     "face": 3,
+     "healT": 0,
+     "heal": 0,
+     "armor": 0,
+     "draw": 0,
+     "mana": 0,
+     "selfDmg": 0,
+     "guard": false,
+     "ward": false,
+     "buff": null,
+     "team": null,
+     "summon": [],
+     "tgt": null,
+     "cond": null,
+     "destroy": false,
+     "silence": false,
+     "freeze": false,
+     "freezeAll": false,
+     "setAtk": 0,
+     "setHp": 0,
+     "sweep": 0,
+     "heroes": false,
+     "armorDmg": false,
+     "dmgBeast": 0,
+     "drawIfKill": false,
+     "tempAtk": 0,
+     "bounce": false,
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
+    }
+   },
+   "sw": false,
+   "pw": 0,
+   "beta": true
+  },
+  {
+   "id": "acolyte",
+   "cost": 1,
+   "type": "m",
+   "atk": 1,
+   "hp": 2,
+   "rarity": "t",
+   "race": "human",
+   "guard": false,
+   "ward": true,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "cls": null,
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Candlebearer",
+    "持烛侍僧",
+    "燭台の侍者"
+   ],
+   "flavor": [
+    "Holds the light. Holds the line.",
+    "举着灯，守着线。",
+    "灯を掲げ、線を守る。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true
   },
   {
    "id": "minnow",
@@ -4488,14 +7793,19 @@
    "fx": null,
    "names": [
     "Militia Recruit",
-    "民兵",
+    "义勇民兵",
     "民兵"
    ],
    "flavor": [
     "Pitchfork sold separately.",
     "干草叉需另购。",
     "熊手は別売り。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "reefling",
@@ -4518,14 +7828,19 @@
    "fx": null,
    "names": [
     "Town Guard",
-    "城镇卫兵",
+    "城门守卫",
     "町の衛兵"
    ],
    "flavor": [
     "Halt. Please.",
     "站住。拜托了。",
     "止まれ。お願いだから。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "elver",
@@ -4548,14 +7863,19 @@
    "fx": null,
    "names": [
     "Wolf",
-    "狼",
+    "灰狼",
     "狼"
    ],
    "flavor": [
     "Teeth first, questions never.",
     "先下口，从不提问。",
     "まず牙。質問はなし。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "squire",
@@ -4585,7 +7905,12 @@
     "Forged in an afternoon. Built to last forever.",
     "一个下午锻成，却要永远守护。",
     "午後一つで鍛え、永遠に持つよう造られた。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "coin",
@@ -4635,7 +7960,19 @@
     "drawIfKill": false,
     "tempAtk": 0,
     "bounce": false,
-    "perFoe": null
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false
    },
    "names": [
     "Lucky Coin",
@@ -4646,7 +7983,12 @@
     "Going second has its perks.",
     "后手也有后手的好处。",
     "後攻にも良いことはある。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "skeleton",
@@ -4669,14 +8011,19 @@
    "fx": null,
    "names": [
     "Skeleton",
-    "骷髅",
+    "骷髅兵",
     "スケルトン"
    ],
    "flavor": [
     "Rattles when it walks.",
     "走起路来咔咔作响。",
     "歩くとカラカラ鳴る。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "mirrorimg",
@@ -4699,14 +8046,19 @@
    "fx": null,
    "names": [
     "Mirror Image",
-    "镜像",
+    "镜影",
     "ミラーイメージ"
    ],
    "flavor": [
     "Smile. It will smile back.",
     "微笑吧，它也会对你微笑。",
     "笑え。向こうも笑い返す。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "hound",
@@ -4736,7 +8088,12 @@
     "Already running.",
     "它已经在跑了。",
     "もう走っている。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   },
   {
    "id": "spawn",
@@ -4766,7 +8123,12 @@
     "Small now. Not for long.",
     "现在还小，不会太久。",
     "今は小さい。長くはない。"
-   ]
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false
   }
  ],
  "classes": [
@@ -4785,18 +8147,18 @@
    ],
    "deck": [
     "innerrage",
-    "berserker",
-    "berserker",
-    "crab",
-    "crab",
-    "frenzy",
-    "whirlwind",
-    "shieldwall",
     "shieldslam",
+    "whirlwind",
+    "berserker",
+    "berserker",
+    "crab",
+    "crab",
     "execute",
     "execute",
+    "frenzy",
+    "shieldwall",
     "eel",
-    "hymn",
+    "diver",
     "lurker",
     "golem",
     "golem",
@@ -4814,7 +8176,7 @@
      "face": 0,
      "healT": 0,
      "heal": 0,
-     "armor": 2,
+     "armor": 3,
      "draw": 0,
      "mana": 0,
      "selfDmg": 0,
@@ -4838,7 +8200,19 @@
      "drawIfKill": false,
      "tempAtk": 0,
      "bounce": false,
-     "perFoe": null
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
     },
     "names": [
      "Armor Up",
@@ -4856,31 +8230,31 @@
     "魔法使い"
    ],
    "tags": [
-    "Spells that burn the board and refill your hand.",
-    "以法术清场灼敌，并补充手牌。",
-    "呪文で盤面を焼き払い、手札を補う。"
+    "Talents: Fire grows your spells, Frost freezes and shatters.",
+    "天赋：火焰养大法术，冰霜冻结再击碎。",
+    "タレント：炎は呪文を育て、氷は凍らせて砕く。"
    ],
    "deck": [
     "apprentice",
-    "apprentice",
-    "lance",
-    "missiles",
+    "emberbolt",
+    "icelance",
+    "icelance",
     "wyrmling",
-    "geomancer",
-    "harpooneer",
+    "emberadept",
     "frostbolt",
     "frostbolt",
-    "lurker",
-    "diver",
-    "hexer",
-    "hexer",
-    "maelstrom",
-    "maelstrom",
     "frostnova",
-    "wyrmling",
+    "shatter",
+    "icebarrier",
+    "lance",
+    "maelstrom",
+    "diver",
+    "emberele",
+    "frostele",
+    "phoenix",
+    "archmage",
     "firelem",
-    "ogre",
-    "archmage"
+    "firestorm"
    ],
    "power": {
     "cost": 2,
@@ -4915,7 +8289,19 @@
      "drawIfKill": false,
      "tempAtk": 0,
      "bounce": false,
-     "perFoe": null
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
     },
     "names": [
      "Arcane Spark",
@@ -4938,25 +8324,25 @@
     "小さな軍勢を集め、祝福し、癒す。"
    ],
    "deck": [
-    "brace",
-    "harpooneer",
-    "priestess",
-    "priestess",
-    "squires",
-    "humility",
-    "calltoarms",
     "aegis",
-    "ogre",
+    "brace",
+    "humility",
+    "geomancer",
+    "squires",
+    "calltoarms",
     "radiant",
     "radiant",
-    "knight",
-    "knight",
+    "tidepool",
     "kings",
+    "kings",
+    "knight",
     "lurker",
+    "priestess",
     "commander",
     "commander",
     "golem",
-    "golem",
+    "ogre",
+    "wyvern",
     "dragonknight"
    ],
    "power": {
@@ -4994,7 +8380,19 @@
      "drawIfKill": false,
      "tempAtk": 0,
      "bounce": false,
-     "perFoe": null
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
     },
     "names": [
      "Muster",
@@ -5018,25 +8416,25 @@
    ],
    "deck": [
     "pounce",
-    "spray",
-    "huntmark",
     "goblin",
-    "direwolf",
+    "huntmark",
+    "spray",
+    "spray",
+    "burglar",
     "direwolf",
     "harpooneer",
+    "killcmd",
     "beastcaller",
     "beastcaller",
-    "killcmd",
-    "killcmd",
     "eel",
-    "undertow",
+    "hounds",
     "hounds",
     "gull",
     "gull",
     "riptide",
+    "firelem",
     "shark",
-    "wyvern",
-    "dragonknight"
+    "wyvern"
    ],
    "power": {
     "cost": 2,
@@ -5071,7 +8469,19 @@
      "drawIfKill": false,
      "tempAtk": 0,
      "bounce": false,
-     "perFoe": null
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
     },
     "names": [
      "Piercing Arrow",
@@ -5089,31 +8499,31 @@
     "司祭"
    ],
    "tags": [
-    "Healing and Ward to outlast every foe.",
-    "以治疗和护盾拖垮每一个敌人。",
-    "回復と結界で、どんな敵よりも長く耐える。"
+    "Talents: Holy hastens Prayers, Shadow destroys key minions.",
+    "天赋：圣光加快祷文，暗影拆掉关键随从。",
+    "タレント：聖光は祈祷を早め、影は要のミニオンを消す。"
    ],
    "deck": [
-    "pwshield",
-    "pearl",
-    "pearl",
-    "pwshield",
-    "holysmite",
-    "mend",
-    "cleric",
-    "cleric",
     "dispel",
-    "radiant",
-    "undertow",
-    "diver",
-    "spellbreaker",
+    "voidacolyte",
+    "holysmite",
+    "matins",
+    "matins",
+    "pearl",
+    "pwshield",
+    "vigil",
+    "mend",
+    "cantor",
+    "cleric",
+    "hymn",
     "swpain",
     "spellbreaker",
-    "golem",
     "swdeath",
+    "golem",
+    "revelation",
     "shark",
     "treant",
-    "treant"
+    "swpain"
    ],
    "power": {
     "cost": 2,
@@ -5148,7 +8558,19 @@
      "drawIfKill": false,
      "tempAtk": 0,
      "bounce": false,
-     "perFoe": null
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
     },
     "names": [
      "Mending Touch",
@@ -5171,23 +8593,23 @@
     "体力を手札に換え、アンデッドを操る。"
    ],
    "deck": [
-    "hexer",
-    "soulfire",
     "coil",
+    "darkpact",
     "raisedead",
-    "lurker",
+    "soulfire",
+    "soulfire",
     "sailor",
     "sailor",
     "ghoul",
-    "ghoul",
-    "firelem",
     "hellfire",
-    "inferno",
+    "darkpact",
+    "lurker",
     "necro",
     "necro",
     "golem",
-    "darkpact",
+    "inferno",
     "breath",
+    "firelem",
     "ogre",
     "shark",
     "dragonknight"
@@ -5225,7 +8647,19 @@
      "drawIfKill": false,
      "tempAtk": 0,
      "bounce": false,
-     "perFoe": null
+     "perFoe": null,
+     "purge": 0,
+     "revive": 0,
+     "hasten": 0,
+     "rush": false,
+     "pierce": false,
+     "wardSummon": false,
+     "splash": 0,
+     "icelance": 0,
+     "freezeBig": false,
+     "plus": 0,
+     "foeExtra": 0,
+     "noSelf": false
     },
     "names": [
      "Blood Pact",
@@ -5519,6 +8953,4614 @@
  ],
  "boardMax": 5,
  "deckSize": 25,
+ "talents": {
+  "maxPts": 12,
+  "tierReq": [
+   0,
+   2,
+   4,
+   6
+  ],
+  "pages": {
+   "mage": [
+    {
+     "id": "fire",
+     "sc": "fire",
+     "color": "#e2763a",
+     "names": [
+      "Fire",
+      "火焰",
+      "炎"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "fi_ignite",
+        "names": [
+         "Kindle",
+         "引燃",
+         "着火"
+        ],
+        "desc": [
+         "The first Fire spell you cast each turn deals 1 extra damage.",
+         "每回合你施放的第一个火系法术伤害+1。",
+         "毎ターン最初に使う火の呪文のダメージ+1。"
+        ]
+       },
+       {
+        "id": "fi_heart",
+        "names": [
+         "Heart of Flame",
+         "炎心",
+         "炎の心"
+        ],
+        "desc": [
+         "Your Fire minions have +1 Attack.",
+         "你的火系随从+1攻击力。",
+         "自分の火のミニオンは攻撃力+1。"
+        ]
+       },
+       {
+        "id": "fi_burn",
+        "names": [
+         "Searing",
+         "灼烧",
+         "灼熱"
+        ],
+        "desc": [
+         "Your Fire spells deal 1 extra damage to the enemy hero.",
+         "你的火系法术对敌方英雄多造成1点伤害。",
+         "自分の火の呪文が敵ヒーローに与えるダメージ+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "fi_fireball",
+        "names": [
+         "Fireball Mastery",
+         "火球专精",
+         "火球の極意"
+        ],
+        "desc": [
+         "Fireball costs 1 less.",
+         "火球术的费用-1。",
+         "ファイアボールのコスト-1。"
+        ]
+       },
+       {
+        "id": "fi_wildfire",
+        "names": [
+         "Wildfire",
+         "燎原",
+         "燎原"
+        ],
+        "desc": [
+         "When your Fire spell kills a minion, deal 1 damage to the enemy hero (once per spell).",
+         "你的火系法术消灭随从时，对敌方英雄造成1点伤害（每个法术一次）。",
+         "自分の火の呪文がミニオンを倒した時、敵ヒーローに1ダメージ（呪文1回につき1度）。"
+        ]
+       },
+       {
+        "id": "fi_bank",
+        "names": [
+         "Banked Heat",
+         "积蓄",
+         "蓄熱"
+        ],
+        "desc": [
+         "Spell mana can bank up to 5 instead of 3. Start the game with 1 Spell mana.",
+         "法术法力上限从3提高到5。开局获得1点法术法力。",
+         "呪文マナの上限が3から5になる。ゲーム開始時に呪文マナを1得る。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "fi_spark",
+        "names": [
+         "Searing Spark",
+         "灼热火花",
+         "灼熱の火花"
+        ],
+        "desc": [
+         "Your hero power deals 2 damage.",
+         "英雄技能改为造成2点伤害。",
+         "ヒーローパワーのダメージが2になる。"
+        ]
+       },
+       {
+        "id": "fi_flamearmor",
+        "names": [
+         "Flame Armor",
+         "焰甲",
+         "炎の鎧"
+        ],
+        "desc": [
+         "Whenever you cast a Fire spell, gain 1 Armor.",
+         "每当你施放一个火系法术，获得1点护甲。",
+         "火の呪文を使うたび、装甲を1獲得する。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "fi_boost",
+        "names": [
+         "Spell Surge",
+         "法术增幅",
+         "呪文増幅"
+        ],
+        "desc": [
+         "Whenever you cast a spell, Fire spells in your hand deal +1 damage (up to +2 each).",
+         "每当你施放一个法术，手牌中的火系法术伤害+1（每张最多+2）。",
+         "呪文を使うたび、手札の火の呪文のダメージ+1（1枚につき最大+2）。"
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "frost",
+     "sc": "frost",
+     "color": "#8fd0ff",
+     "names": [
+      "Frost",
+      "冰霜",
+      "氷"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "fr_blood",
+        "names": [
+         "Cold Blood",
+         "冰冷血脉",
+         "冷たい血"
+        ],
+        "desc": [
+         "Your hero starts with +7 Health.",
+         "英雄起始生命值+7。",
+         "ヒーローの初期体力+7。"
+        ]
+       },
+       {
+        "id": "fr_armor",
+        "names": [
+         "Frost Armor",
+         "霜甲",
+         "霜の鎧"
+        ],
+        "desc": [
+         "After you use your hero power, gain 2 Armor.",
+         "使用英雄技能后获得2点护甲。",
+         "ヒーローパワーを使った後、装甲を2獲得する。"
+        ]
+       },
+       {
+        "id": "fr_nova",
+        "names": [
+         "Hoarfrost",
+         "寒霜",
+         "霜降"
+        ],
+        "desc": [
+         "Frost Nova costs 1 less.",
+         "冰霜新星的费用-1。",
+         "フロストノヴァのコスト-1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "fr_bolt",
+        "names": [
+         "Frostbolt Mastery",
+         "寒冰箭精通",
+         "フロストボルトの極意"
+        ],
+        "desc": [
+         "Frostbolt deals 1 extra damage.",
+         "寒冰箭多造成1点伤害。",
+         "フロストボルトのダメージ+1。"
+        ]
+       },
+       {
+        "id": "fr_mirror",
+        "names": [
+         "Hall of Mirrors",
+         "镜中人",
+         "鏡の間"
+        ],
+        "desc": [
+         "Mirror Image summons three.",
+         "镜影分身改为召唤三个。",
+         "ミラーイメージが3体になる。"
+        ]
+       },
+       {
+        "id": "fr_perma",
+        "names": [
+         "Permafrost",
+         "永冻",
+         "永久凍土"
+        ],
+        "desc": [
+         "Minions you Freeze stay Frozen for an extra turn. Frozen enemy minions take 1 extra damage.",
+         "你冻结的随从多冻结一回合。被冻结的敌方随从受到的伤害+1。",
+         "自分が凍結させたミニオンは1ターン長く凍る。凍結した敵のミニオンが受けるダメージ+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "fr_spark",
+        "names": [
+         "Frost Spark",
+         "冰霜火花",
+         "氷の火花"
+        ],
+        "desc": [
+         "Your hero power also Freezes its target.",
+         "英雄技能同时冻结目标。",
+         "ヒーローパワーが対象を凍結させる。"
+        ]
+       },
+       {
+        "id": "fr_barrier",
+        "names": [
+         "Ice Ward",
+         "冰屏",
+         "氷の守り"
+        ],
+        "desc": [
+         "The first time you Freeze an enemy minion each turn, gain 3 Armor.",
+         "每回合你第一次冻结敌方随从时，获得3点护甲。",
+         "毎ターン最初に敵のミニオンを凍結させた時、装甲を3獲得する。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "fr_deep",
+        "names": [
+         "Deep Freeze",
+         "深寒",
+         "深き凍え"
+        ],
+        "desc": [
+         "Frozen enemy minions take 2 extra damage from everything.",
+         "被冻结的敌方随从受到的所有伤害+2。",
+         "凍結した敵のミニオンが受けるダメージ+2。"
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "priest": [
+    {
+     "id": "holy",
+     "sc": "holy",
+     "color": "#ffe08a",
+     "names": [
+      "Holy",
+      "圣光",
+      "聖光"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "ho_devout",
+        "names": [
+         "Devout",
+         "虔诚",
+         "敬虔"
+        ],
+        "desc": [
+         "Your hero starts with +6 Health.",
+         "英雄起始生命值+6。",
+         "ヒーローの初期体力+6。"
+        ]
+       },
+       {
+        "id": "ho_smite",
+        "names": [
+         "Chastise",
+         "惩戒",
+         "懲戒"
+        ],
+        "desc": [
+         "Holy Smite deals 1 extra damage.",
+         "神圣惩击多造成1点伤害。",
+         "ホーリースマイトのダメージ+1。"
+        ]
+       },
+       {
+        "id": "ho_light",
+        "names": [
+         "Bright Mending",
+         "愈光",
+         "癒しの輝き"
+        ],
+        "desc": [
+         "Healing Light restores 2 more Health.",
+         "治愈之光额外恢复2点生命值。",
+         "癒しの光の回復量+2。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "ho_shield",
+        "names": [
+         "Steadfast Word",
+         "坚定真言",
+         "揺るがぬ言葉"
+        ],
+        "desc": [
+         "Word of Shielding gives +0/+1 more.",
+         "庇护之言额外+0/+1。",
+         "守りの言葉がさらに+0/+1を与える。"
+        ]
+       },
+       {
+        "id": "ho_dawn",
+        "names": [
+         "First Light",
+         "晨光",
+         "曙光"
+        ],
+        "desc": [
+         "Dawn Prayer counts down from 1.",
+         "晨祷的倒计时改为1。",
+         "暁の祈りのカウントが1になる。"
+        ]
+       },
+       {
+        "id": "ho_grace",
+        "names": [
+         "Grace",
+         "神恩",
+         "恩寵"
+        ],
+        "desc": [
+         "Whenever one of your Prayers is answered, restore 3 Health to your hero and deal 1 damage to the enemy minion with the highest Attack.",
+         "每当你的祷文应验，为你的英雄恢复3点生命值，并对攻击力最高的敌方随从造成1点伤害。",
+         "自分の祈祷が成就するたび、ヒーローの体力を3回復し、攻撃力が最も高い敵のミニオンに1ダメージを与える。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "ho_pray",
+        "names": [
+         "Supplication",
+         "祈愿",
+         "祈願"
+        ],
+        "desc": [
+         "Your hero power also counts your Prayers down by 1.",
+         "英雄技能同时让你的祷文倒计时-1。",
+         "ヒーローパワーが自分の祈祷のカウントも1進める。"
+        ]
+       },
+       {
+        "id": "ho_hymn",
+        "names": [
+         "Choir",
+         "圣咏",
+         "聖歌"
+        ],
+        "desc": [
+         "Hymn of Return revives two minions.",
+         "归来圣咏改为复活两个随从。",
+         "帰還の聖歌が2体蘇らせる。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "ho_altar",
+        "names": [
+         "Holy Altar",
+         "神圣祭坛",
+         "聖なる祭壇"
+        ],
+        "desc": [
+         "Your altar holds 3 Prayers, and each Prayer starts 1 lower (at least 1).",
+         "祭坛增加到3个位置；祷文放上祭坛时倒计时-1（至少为1）。",
+         "祭壇が3枠になり、祈祷は置いた時にカウント-1（最低1）。"
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "shadow",
+     "sc": "shadow",
+     "color": "#9a6aff",
+     "names": [
+      "Shadow",
+      "暗影",
+      "影"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "sh_pain",
+        "names": [
+         "Spreading Pain",
+         "扩展之痛",
+         "広がる苦痛"
+        ],
+        "desc": [
+         "Word of Pain can destroy minions with 4 or less Attack.",
+         "苦痛之言可以消灭攻击力不高于4的随从。",
+         "苦痛の言葉が攻撃力4以下を破壊できる。"
+        ]
+       },
+       {
+        "id": "sh_insight",
+        "names": [
+         "Insight",
+         "洞察",
+         "洞察"
+        ],
+        "desc": [
+         "Dispel also draws a card.",
+         "驱散额外抽一张牌。",
+         "ディスペルでカードを1枚引く。"
+        ]
+       },
+       {
+        "id": "sh_breaker",
+        "names": [
+         "Spellrend",
+         "破法",
+         "破魔"
+        ],
+        "desc": [
+         "Elven Spellbreaker has +1 Attack.",
+         "精灵破法者+1攻击力。",
+         "エルフの呪文破りの攻撃力+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "sh_death",
+        "names": [
+         "Oblivion",
+         "寂灭",
+         "寂滅"
+        ],
+        "desc": [
+         "Word of Death costs 1 less.",
+         "死亡之言的费用-1。",
+         "死の言葉のコスト-1。"
+        ]
+       },
+       {
+        "id": "sh_echo",
+        "names": [
+         "Echo of Pain",
+         "痛苦回响",
+         "苦痛の残響"
+        ],
+        "desc": [
+         "Whenever your Word spell destroys a minion, deal 2 damage to the enemy hero.",
+         "你的真言每消灭一个随从，对敌方英雄造成2点伤害。",
+         "自分の「言葉」の呪文がミニオンを破壊するたび、敵ヒーローに2ダメージ。"
+        ]
+       },
+       {
+        "id": "sh_void",
+        "names": [
+         "Void",
+         "虚空",
+         "虚無"
+        ],
+        "desc": [
+         "Your Silence effects also deal 2 damage to the target.",
+         "你的沉默效果同时对目标造成2点伤害。",
+         "自分の沈黙効果が対象に2ダメージも与える。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "sh_touch",
+        "names": [
+         "Shadow Touch",
+         "暗影之触",
+         "影の手"
+        ],
+        "desc": [
+         "Your hero power becomes: deal 2 damage to a minion.",
+         "英雄技能改为「对一个随从造成2点伤害」。",
+         "ヒーローパワーが「ミニオン1体に2ダメージ」になる。"
+        ]
+       },
+       {
+        "id": "sh_drain",
+        "names": [
+         "Drain",
+         "汲取",
+         "吸収"
+        ],
+        "desc": [
+         "Whenever your spell kills an enemy minion, restore 2 Health to your hero.",
+         "你的法术每消灭一个敌方随从，为你的英雄恢复2点生命值。",
+         "自分の呪文が敵のミニオンを倒すたび、ヒーローの体力を2回復する。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "sh_steal",
+        "names": [
+         "Mind Theft",
+         "心灵窃取",
+         "心盗み"
+        ],
+        "desc": [
+         "Whenever your Word spell destroys a minion, add a copy of it to your hand and draw a card.",
+         "你的真言消灭随从后，将它的一张复制置入你的手牌，并抽一张牌。",
+         "自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加え、カードを1枚引く。"
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "warrior": [
+    {
+     "id": "prot",
+     "sc": "prot",
+     "color": "#a9b4c2",
+     "names": [
+      "Protection",
+      "防护",
+      "守護"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "wa_tough",
+        "names": [
+         "Hardened",
+         "坚韧",
+         "強靭"
+        ],
+        "desc": [
+         "Start the game with 7 Armor.",
+         "开局获得7点护甲。",
+         "ゲーム開始時に装甲を7得る。"
+        ]
+       },
+       {
+        "id": "wa_wall",
+        "names": [
+         "Thick Shield",
+         "厚盾",
+         "厚い盾"
+        ],
+        "desc": [
+         "Shield Wall gives 2 more Armor.",
+         "盾墙额外获得2点护甲。",
+         "盾の壁の装甲+2。"
+        ]
+       },
+       {
+        "id": "wa_crab",
+        "names": [
+         "Shield Drill",
+         "盾卫训练",
+         "盾持ちの訓練"
+        ],
+        "desc": [
+         "Dwarf Shieldbearer has +0/+2.",
+         "矮人盾卫+0/+2。",
+         "ドワーフの盾持ちに+0/+2。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wa_slam",
+        "names": [
+         "Heavy Slam",
+         "重击",
+         "重撃"
+        ],
+        "desc": [
+         "Shield Slam deals 1 extra damage.",
+         "盾牌猛击额外造成1点伤害。",
+         "シールドスラムのダメージ+1。"
+        ]
+       },
+       {
+        "id": "wa_thane",
+        "names": [
+         "Thane's Mail",
+         "领主之甲",
+         "領主の鎧"
+        ],
+        "desc": [
+         "Dwarf Thane gives 2 more Armor.",
+         "矮人领主登场时额外获得2点护甲。",
+         "ドワーフの領主の装甲+2。"
+        ]
+       },
+       {
+        "id": "wa_iron",
+        "names": [
+         "Ironguard",
+         "铁卫",
+         "鉄の守り"
+        ],
+        "desc": [
+         "Your Guard minions have +0/+2.",
+         "你的守护随从+0/+2。",
+         "自分のガードを持つミニオンに+0/+2。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wa_heavy",
+        "names": [
+         "Heavy Armor",
+         "重甲",
+         "重装"
+        ],
+        "desc": [
+         "Armor Up gives 1 more Armor.",
+         "英雄技能多获得1点护甲。",
+         "ヒーローパワーの装甲+1。"
+        ]
+       },
+       {
+        "id": "wa_counter",
+        "names": [
+         "Riposte",
+         "反击",
+         "反撃"
+        ],
+        "desc": [
+         "When an enemy minion attacks your hero while you have Armor, deal 1 damage to it.",
+         "敌方随从攻击你的英雄时，若你有护甲，对它造成1点伤害。",
+         "装甲がある時に敵のミニオンがヒーローを攻撃すると、そのミニオンに1ダメージ。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wa_bulwark",
+        "names": [
+         "Bulwark",
+         "坚壁",
+         "堅壁"
+        ],
+        "desc": [
+         "When short on mana, every 3 Armor can pay for 1 mana.",
+         "法力不足时，每3点护甲可以抵1点法力出牌。",
+         "マナが足りない時、装甲3でマナ1の代わりに払える。"
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "fury",
+     "sc": "fury",
+     "color": "#e0563f",
+     "names": [
+      "Fury",
+      "狂怒",
+      "憤怒"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "wa_berserk",
+        "names": [
+         "Battle Hunger",
+         "嗜战",
+         "戦闘欲"
+        ],
+        "desc": [
+         "Orc Berserker has +1 Attack.",
+         "兽人狂战士+1攻击力。",
+         "オークの狂戦士の攻撃力+1。"
+        ]
+       },
+       {
+        "id": "wa_rage",
+        "names": [
+         "Seething",
+         "怒火",
+         "激昂"
+        ],
+        "desc": [
+         "Inner Rage gives +1 more Attack.",
+         "怒火中烧额外+1攻击力。",
+         "内なる怒りの攻撃力+1。"
+        ]
+       },
+       {
+        "id": "wa_reckless",
+        "names": [
+         "Reckless",
+         "破釜",
+         "背水"
+        ],
+        "desc": [
+         "Draw an extra card at the start. Your hero starts with 3 less Health.",
+         "起手多抽一张牌，英雄起始生命值-3。",
+         "開始時に1枚多く引く。ヒーローの初期体力-3。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wa_whirl",
+        "names": [
+         "Cyclone",
+         "旋风",
+         "旋風"
+        ],
+        "desc": [
+         "Whirlwind deals 1 extra damage to enemy minions.",
+         "旋风斩对敌方随从额外造成1点伤害。",
+         "旋風斬りが敵のミニオンに与えるダメージ+1。"
+        ]
+       },
+       {
+        "id": "wa_exec",
+        "names": [
+         "Executioner",
+         "斩杀专精",
+         "処刑の極意"
+        ],
+        "desc": [
+         "Execute costs 1 less.",
+         "斩杀的费用-1。",
+         "処刑のコスト-1。"
+        ]
+       },
+       {
+        "id": "wa_frenzy",
+        "names": [
+         "Frenzy",
+         "狂乱",
+         "狂乱"
+        ],
+        "desc": [
+         "Bloodlust also lets the minion attack this turn.",
+         "嗜血的目标同时获得冲锋。",
+         "血の渇きの対象はこのターン攻撃できる。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wa_roar",
+        "names": [
+         "War Cry",
+         "怒吼",
+         "雄叫び"
+        ],
+        "desc": [
+         "Your hero power becomes: give a friendly minion +2 Attack this turn.",
+         "英雄技能改为「本回合一个友方随从+2攻击力」。",
+         "ヒーローパワーが「味方のミニオン1体にこのターン攻撃力+2」になる。"
+        ]
+       },
+       {
+        "id": "wa_bloodied",
+        "names": [
+         "Blood Fight",
+         "血战",
+         "血戦"
+        ],
+        "desc": [
+         "The first time each of your minions is damaged, it gains +1 Attack.",
+         "你的随从第一次受伤后+1攻击力。",
+         "自分のミニオンは初めてダメージを受けた後、攻撃力+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wa_fury",
+        "names": [
+         "Rage",
+         "怒气",
+         "怒気"
+        ],
+        "desc": [
+         "Gain 1 Rage whenever your hero or minions take damage (up to 10). At the start of your turn, with 3 Rage spend 3: your minions get +2 Attack this turn.",
+         "你的英雄或随从每受到一次伤害获得1点怒气（上限10）；你的回合开始时若有3点，消耗3点，本回合所有友方随从+2攻击力。",
+         "ヒーローかミニオンがダメージを受けるたび怒気+1（最大10）。ターン開始時に3あれば消費し、このターン味方のミニオン全体の攻撃力+2。"
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "paladin": [
+    {
+     "id": "legion",
+     "sc": "legion",
+     "color": "#e8c35a",
+     "names": [
+      "Legion",
+      "军团",
+      "軍団"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "pa_drill",
+        "names": [
+         "Militia Drill",
+         "民兵训练",
+         "民兵の訓練"
+        ],
+        "desc": [
+         "Your Militia Recruits are 1/2.",
+         "你的民兵改为1/2。",
+         "自分の民兵は1/2になる。"
+        ]
+       },
+       {
+        "id": "pa_horn",
+        "names": [
+         "War Horn",
+         "号角",
+         "角笛"
+        ],
+        "desc": [
+         "Call to Arms costs 1 less.",
+         "征召号角的费用-1。",
+         "召集令のコスト-1。"
+        ]
+       },
+       {
+        "id": "pa_squires",
+        "names": [
+         "Many Squires",
+         "侍从成群",
+         "従者の群れ"
+        ],
+        "desc": [
+         "Squire's Call summons one more Recruit.",
+         "侍从集结多召唤一个义勇民兵。",
+         "従者の召集で民兵がもう1体。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "pa_command",
+        "names": [
+         "Marshal",
+         "统帅",
+         "元帥"
+        ],
+        "desc": [
+         "Knight Commander gives your minions +1/+1 instead.",
+         "骑士统领登场改为所有友方随从+1/+1。",
+         "騎士団長の効果が味方全体+1/+1になる。"
+        ]
+       },
+       {
+        "id": "pa_step",
+        "names": [
+         "In Step",
+         "齐步",
+         "足並み"
+        ],
+        "desc": [
+         "The third minion you summon each turn gets +1/+1.",
+         "每回合你召唤的第三个随从+1/+1。",
+         "毎ターン3体目に召喚したミニオンに+1/+1。"
+        ]
+       },
+       {
+        "id": "pa_array",
+        "names": [
+         "Formation",
+         "列阵",
+         "布陣"
+        ],
+        "desc": [
+         "With 5 minions, your hero power costs 1 less.",
+         "你控制5个随从时，英雄技能费用-1。",
+         "ミニオンが5体いる時、ヒーローパワーのコスト-1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "pa_double",
+        "names": [
+         "Double Muster",
+         "双重征召",
+         "二重召集"
+        ],
+        "desc": [
+         "Muster summons two Recruits and costs 3.",
+         "征召改为召唤两个民兵，费用变为3。",
+         "召集が民兵2体になり、コストは3になる。"
+        ]
+       },
+       {
+        "id": "pa_banner",
+        "names": [
+         "War Banner",
+         "战旗",
+         "軍旗"
+        ],
+        "desc": [
+         "Whenever you summon a token, your leftmost minion gets +1 Attack.",
+         "每当你召唤一个衍生物，你最左边的随从+1攻击力。",
+         "トークンを召喚するたび、一番左のミニオンの攻撃力+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "pa_coop",
+        "names": [
+         "Unity",
+         "协作",
+         "連携"
+        ],
+        "desc": [
+         "Once you have summoned 12 minions this game, your minions get +1 Attack for good (new ones too).",
+         "本局你召唤满12个友方随从后，你的所有随从永久+1攻击力（新上场的也算）。",
+         "このゲームで味方を12体召喚すると、自分のミニオン全体の攻撃力が永続+1（新しく出るものも）。"
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "aegis",
+     "sc": "aegis",
+     "color": "#ffe9a0",
+     "names": [
+      "Aegis",
+      "圣盾",
+      "聖盾"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "pa_first",
+        "names": [
+         "Opening Blessing",
+         "开场祝福",
+         "開幕の祝福"
+        ],
+        "desc": [
+         "The first minion you summon each game gets Ward.",
+         "每局你召唤的第一个随从获得护盾。",
+         "各ゲーム最初に召喚したミニオンが結界を得る。"
+        ]
+       },
+       {
+        "id": "pa_bless",
+        "names": [
+         "Sheltering",
+         "护佑",
+         "加護"
+        ],
+        "desc": [
+         "Sacred Aegis also gives +0/+2.",
+         "圣盾术的目标额外+0/+2。",
+         "聖なる盾の対象に+0/+2。"
+        ]
+       },
+       {
+        "id": "pa_hold",
+        "names": [
+         "Hold Fast",
+         "坚守",
+         "堅守"
+        ],
+        "desc": [
+         "Shield of Faith also gives Ward.",
+         "信仰之盾的目标同时获得护盾。",
+         "信仰の盾の対象が結界も得る。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "pa_kings",
+        "names": [
+         "Royal Line",
+         "王者",
+         "王統"
+        ],
+        "desc": [
+         "Blessing of Kings costs 1 less.",
+         "王者祝福的费用-1。",
+         "王の祝福のコスト-1。"
+        ]
+       },
+       {
+        "id": "pa_humble",
+        "names": [
+         "Meekness",
+         "谦卑",
+         "柔和"
+        ],
+        "desc": [
+         "Humility also draws a card.",
+         "谦卑额外抽一张牌。",
+         "謙虚でカードを1枚引く。"
+        ]
+       },
+       {
+        "id": "pa_vshield",
+        "names": [
+         "Vanguard's Shield",
+         "先锋之盾",
+         "先鋒の盾"
+        ],
+        "desc": [
+         "Paladin Vanguard has +1 Attack and enters with Ward.",
+         "圣骑士先锋+1攻击力，登场时获得护盾。",
+         "聖騎士の先鋒は攻撃力+1、結界を持って登場する。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "pa_lightcall",
+        "names": [
+         "Call of Light",
+         "圣光征召",
+         "聖光の召集"
+        ],
+        "desc": [
+         "Recruits from Muster have Ward.",
+         "征召召唤的民兵带护盾。",
+         "召集の民兵は結界を持つ。"
+        ]
+       },
+       {
+        "id": "pa_echo",
+        "names": [
+         "Shield Echo",
+         "盾之回响",
+         "盾の残響"
+        ],
+        "desc": [
+         "Whenever one of your minions' Ward breaks, restore 2 Health to your hero.",
+         "你的随从的护盾被打破时，为你的英雄恢复2点生命值。",
+         "自分のミニオンの結界が破れるたび、ヒーローの体力を2回復する。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "pa_sanct",
+        "names": [
+         "Divine Shelter",
+         "神圣庇护",
+         "神聖な庇護"
+        ],
+        "desc": [
+         "Whenever one of your minions' Ward breaks, draw a card and restore 2 Health to your hero (up to 3 times a turn).",
+         "你的随从的护盾被打破时，抽一张牌并为你的英雄恢复2点生命值（每回合最多3次）。",
+         "自分のミニオンの結界が破れるたび、カードを1枚引き、ヒーローの体力を2回復する（毎ターン3回まで）。"
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "hunter": [
+    {
+     "id": "beast",
+     "sc": "beast",
+     "color": "#6aa57e",
+     "names": [
+      "Beasts",
+      "野兽",
+      "獣"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "hu_pack",
+        "names": [
+         "Pack Leader",
+         "狼群",
+         "群れの長"
+        ],
+        "desc": [
+         "Dire Wolf has +1/+1.",
+         "恐狼+1/+1。",
+         "ダイアウルフに+1/+1。"
+        ]
+       },
+       {
+        "id": "hu_tame",
+        "names": [
+         "Tamer",
+         "驯兽",
+         "調教"
+        ],
+        "desc": [
+         "Your Wolves have +1/+1.",
+         "你的狼+1/+1。",
+         "自分の狼に+1/+1。"
+        ]
+       },
+       {
+        "id": "hu_pounce",
+        "names": [
+         "Big Pounce",
+         "猛扑",
+         "猛襲"
+        ],
+        "desc": [
+         "Pounce gives +3 Attack.",
+         "猛扑改为+3攻击力。",
+         "飛びかかりが攻撃力+3になる。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "hu_kill",
+        "names": [
+         "Thrill",
+         "兴奋",
+         "高揚"
+        ],
+        "desc": [
+         "Kill Command deals 2 more damage.",
+         "猎杀令伤害+2。",
+         "キルコマンドのダメージ+2。"
+        ]
+       },
+       {
+        "id": "hu_hound",
+        "names": [
+         "Vicious Hounds",
+         "恶犬",
+         "猛犬"
+        ],
+        "desc": [
+         "Your Hounds have +1 Attack.",
+         "你的猎犬+1攻击力。",
+         "自分の猟犬の攻撃力+1。"
+        ]
+       },
+       {
+        "id": "hu_wild",
+        "names": [
+         "Wild",
+         "野性",
+         "野性"
+        ],
+        "desc": [
+         "From the 2nd card you play each turn, your Beasts can attack the turn they arrive.",
+         "每回合从你打出的第2张牌起，你的野兽登场时获得冲锋。",
+         "毎ターン2枚目以降のカードから、自分の獣は登場したターンに攻撃できる。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "hu_master",
+        "names": [
+         "Houndmaster",
+         "犬群主人",
+         "猟犬使い"
+        ],
+        "desc": [
+         "Your hero power becomes: summon a 2/1 Hound.",
+         "英雄技能改为「召唤一只2/1猎犬」。",
+         "ヒーローパワーが「2/1の猟犬を召喚」になる。"
+        ]
+       },
+       {
+        "id": "hu_whistle",
+        "names": [
+         "Hound Whistle",
+         "唤犬哨",
+         "猟犬の笛"
+        ],
+        "desc": [
+         "After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand.",
+         "每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌。",
+         "毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "hu_combo",
+        "names": [
+         "Combo",
+         "连击",
+         "連撃"
+        ],
+        "desc": [
+         "The 3rd and later cards you play each turn cost 1 less.",
+         "每回合你打出的第3张及之后的牌费用-1。",
+         "毎ターン3枚目以降に使うカードのコスト-1。"
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "shot",
+     "sc": "shot",
+     "color": "#d9b45a",
+     "names": [
+      "Marksman",
+      "射击",
+      "射撃"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "hu_precise",
+        "names": [
+         "Precision",
+         "精准",
+         "精密"
+        ],
+        "desc": [
+         "Arcane Shot deals 1 extra damage.",
+         "奥术射击伤害+1。",
+         "アーケインショットのダメージ+1。"
+        ]
+       },
+       {
+        "id": "hu_eagle",
+        "names": [
+         "Eagle Eye",
+         "鹰眼",
+         "鷹の目"
+        ],
+        "desc": [
+         "Hunter's Mark costs 0.",
+         "猎手印记的费用变为0。",
+         "狩人の印のコストが0になる。"
+        ]
+       },
+       {
+        "id": "hu_quiver",
+        "names": [
+         "Quiver",
+         "箭袋",
+         "矢筒"
+        ],
+        "desc": [
+         "Start with an extra Arcane Shot in hand.",
+         "起手额外获得一张奥术射击。",
+         "開始時、手札にアーケインショットが1枚増える。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "hu_deadly",
+        "names": [
+         "Deadly Aim",
+         "致命",
+         "致命"
+        ],
+        "desc": [
+         "Deadly Shot costs 1 less.",
+         "致命射击的费用-1。",
+         "必殺の射撃のコスト-1。"
+        ]
+       },
+       {
+        "id": "hu_griffon",
+        "names": [
+         "Griffon Wings",
+         "狮鹫之翼",
+         "グリフォンの翼"
+        ],
+        "desc": [
+         "Griffon Rider has +1 Attack.",
+         "狮鹫骑士+1攻击力。",
+         "グリフォンライダーの攻撃力+1。"
+        ]
+       },
+       {
+        "id": "hu_aim",
+        "names": [
+         "Take Aim",
+         "瞄准",
+         "照準"
+        ],
+        "desc": [
+         "Your spells deal 2 extra damage to the enemy hero.",
+         "你的法术对敌方英雄的伤害+2。",
+         "自分の呪文が敵ヒーローに与えるダメージ+2。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "hu_rapid",
+        "names": [
+         "Rapid Fire",
+         "速射",
+         "速射"
+        ],
+        "desc": [
+         "Piercing Arrow costs 1 less.",
+         "英雄技能「穿刺之箭」费用-1。",
+         "ヒーローパワー「貫きの矢」のコスト-1。"
+        ]
+       },
+       {
+        "id": "hu_pierce",
+        "names": [
+         "Armor Piercing",
+         "破甲",
+         "徹甲"
+        ],
+        "desc": [
+         "Piercing Arrow ignores Armor.",
+         "穿刺之箭无视护甲。",
+         "貫きの矢は装甲を無視する。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "hu_heart",
+        "names": [
+         "Heartseeker",
+         "穿心",
+         "心穿ち"
+        ],
+        "desc": [
+         "Piercing Arrow can target minions.",
+         "穿刺之箭可以指定随从。",
+         "貫きの矢でミニオンも狙える。"
+        ]
+       }
+      ]
+     ]
+    }
+   ],
+   "warlock": [
+    {
+     "id": "undead",
+     "sc": "undead",
+     "color": "#8ac08a",
+     "names": [
+      "Undeath",
+      "亡灵",
+      "不死"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "wl_bone",
+        "names": [
+         "Hard Bones",
+         "坚骨",
+         "硬い骨"
+        ],
+        "desc": [
+         "Grave Thrall has +1/+1.",
+         "守墓亡仆+1/+1。",
+         "墓所の下僕に+1/+1。"
+        ]
+       },
+       {
+        "id": "wl_raise",
+        "names": [
+         "Bone Swarm",
+         "尸骨成群",
+         "骨の群れ"
+        ],
+        "desc": [
+         "Raise Dead no longer damages you.",
+         "亡者复生不再对你造成伤害。",
+         "死者の蘇生でダメージを受けなくなる。"
+        ]
+       },
+       {
+        "id": "wl_wrath",
+        "names": [
+         "Spiteful Dead",
+         "怨灵之怒",
+         "怨霊の怒り"
+        ],
+        "desc": [
+         "Your Restless Spirits have +1 Attack.",
+         "你的怨灵+1攻击力。",
+         "自分の怨霊の攻撃力+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wl_gasp",
+        "names": [
+         "Last Words",
+         "亡语",
+         "遺言"
+        ],
+        "desc": [
+         "Your minions with a Last Breath have +1 Attack.",
+         "你的带遗言的随从+1攻击力。",
+         "遺言を持つ自分のミニオンの攻撃力+1。"
+        ]
+       },
+       {
+        "id": "wl_ghoul",
+        "names": [
+         "Ghoul Pits",
+         "食尸",
+         "屍食い"
+        ],
+        "desc": [
+         "Barrow Ghoul costs 1 less.",
+         "古冢食尸鬼的费用-1。",
+         "塚の食屍鬼のコスト-1。"
+        ]
+       },
+       {
+        "id": "wl_coil",
+        "names": [
+         "Tight Coil",
+         "缠绕",
+         "締めつけ"
+        ],
+        "desc": [
+         "Mortal Coil deals 1 extra damage.",
+         "死亡缠绕伤害+1。",
+         "デスコイルのダメージ+1。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wl_tide",
+        "names": [
+         "Corpse Tide",
+         "尸潮",
+         "屍の潮"
+        ],
+        "desc": [
+         "The first time a friendly minion dies each turn, summon a 1/1 Skeleton.",
+         "每回合第一个友方随从死亡时，召唤一个1/1骷髅兵。",
+         "毎ターン最初に味方のミニオンが死んだ時、1/1のスケルトンを召喚する。"
+        ]
+       },
+       {
+        "id": "wl_harvest",
+        "names": [
+         "Soul Harvest",
+         "灵魂收割",
+         "魂の収穫"
+        ],
+        "desc": [
+         "The second friendly minion to die in a turn draws you a card.",
+         "一回合内死亡的第二个友方随从，让你抽一张牌。",
+         "1ターンに2体目の味方のミニオンが死んだ時、カードを1枚引く。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wl_soul",
+        "names": [
+         "Souls",
+         "魂",
+         "魂"
+        ],
+        "desc": [
+         "Gain 1 Soul whenever a friendly minion dies (up to 10). At the end of your turn, with 7 Souls spend 7 to summon a 2/2 Bone Warrior.",
+         "友方随从每死亡一个，获得1魂（上限10）；你的回合结束时若有7魂，消耗7魂召唤一个2/2骷髅战士。",
+         "味方のミニオンが死ぬたび魂+1（最大10）。ターン終了時に7あれば消費し、2/2の骸骨戦士を召喚する。"
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "id": "blood",
+     "sc": "blood",
+     "color": "#c0405a",
+     "names": [
+      "Blood",
+      "鲜血",
+      "血"
+     ],
+     "tiers": [
+      [
+       {
+        "id": "wl_pact",
+        "names": [
+         "Blood Pact",
+         "血契",
+         "血の盟約"
+        ],
+        "desc": [
+         "Dark Pact draws 3 cards.",
+         "黑暗契约改为抽3张。",
+         "闇の契約で3枚引く。"
+        ]
+       },
+       {
+        "id": "wl_soulfire",
+        "names": [
+         "Soul Flame",
+         "灵魂火焰",
+         "魂の炎"
+        ],
+        "desc": [
+         "Soulfire deals 1 extra damage.",
+         "灵魂之火伤害+1。",
+         "ソウルファイアのダメージ+1。"
+        ]
+       },
+       {
+        "id": "wl_flesh",
+        "names": [
+         "Flesh",
+         "血肉",
+         "血肉"
+        ],
+        "desc": [
+         "Your hero starts with +2 Health.",
+         "英雄起始生命值+2。",
+         "ヒーローの初期体力+2。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wl_hell",
+        "names": [
+         "Lord of Hell",
+         "地狱之主",
+         "地獄の主"
+        ],
+        "desc": [
+         "Hellfire no longer damages your hero.",
+         "地狱烈焰不再伤害你的英雄。",
+         "ヘルファイアが自分のヒーローに当たらなくなる。"
+        ]
+       },
+       {
+        "id": "wl_pain",
+        "names": [
+         "Agony",
+         "痛楚",
+         "苦悶"
+        ],
+        "desc": [
+         "The first time you damage yourself each turn, deal 2 damage to the enemy hero.",
+         "每回合你第一次对自己造成伤害时，对敌方英雄造成2点伤害。",
+         "毎ターン最初に自分にダメージを与えた時、敵ヒーローに2ダメージ。"
+        ]
+       },
+       {
+        "id": "wl_mutate",
+        "names": [
+         "Dark Gift",
+         "突变",
+         "闇の賜物"
+        ],
+        "desc": [
+         "Blood Pact also gives you 5 Armor.",
+         "鲜血契约同时获得5点护甲。",
+         "血の契約で装甲も5得る。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wl_bloodmana",
+        "names": [
+         "Blood Mana",
+         "鲜血魔力",
+         "血の魔力"
+        ],
+        "desc": [
+         "After you damage yourself the first time each turn, gain 1 mana.",
+         "每回合你第一次对自己造成伤害后，获得1点法力。",
+         "毎ターン最初に自分にダメージを与えた後、マナを1得る。"
+        ]
+       },
+       {
+        "id": "wl_tap",
+        "names": [
+         "Life Tap",
+         "生命分流",
+         "生命分流"
+        ],
+        "desc": [
+         "Blood Pact draws 2 cards and deals 3 damage to you.",
+         "鲜血契约改为抽2张、自伤3点。",
+         "血の契約が2枚引き、自分に3ダメージになる。"
+        ]
+       }
+      ],
+      [
+       {
+        "id": "wl_veng",
+        "names": [
+         "Vengeance",
+         "复仇",
+         "復讐"
+        ],
+        "desc": [
+         "While your hero has 15 or less Health, your spells deal 1 extra damage and Blood Pact no longer damages you.",
+         "你的生命值不高于15时，你的法术伤害+1，鲜血契约不再对你造成伤害。",
+         "ヒーローの体力が15以下の間、呪文ダメージ+1、血の契約でダメージを受けない。"
+        ]
+       }
+      ]
+     ]
+    }
+   ]
+  },
+  "overrides": {
+   "fi_fireball": {
+    "maelstrom": {
+     "cost": 2,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "fr_nova": {
+    "frostnova": {
+     "cost": 1,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "fr_bolt": {
+    "frostbolt": {
+     "cost": null,
+     "fx": {
+      "dmg": 5,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "any",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": true,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 5 damage and Freeze the target.",
+      "造成5点伤害，并冻结目标。",
+      "5ダメージを与え、対象を凍結させる。"
+     ]
+    }
+   },
+   "fr_mirror": {
+    "mirror": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [
+       "mirrorimg",
+       "mirrorimg",
+       "mirrorimg"
+      ],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Summon three 1/3 Mirror Images with Guard.",
+      "召唤三个1/3并具有守护的镜影。",
+      "ガードを持つ1/3のミラーイメージを3体召喚する。"
+     ]
+    }
+   },
+   "ho_smite": {
+    "holysmite": {
+     "cost": null,
+     "fx": {
+      "dmg": 3,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "minion",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "ho_light": {
+    "mend": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 6,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "ho_shield": {
+    "pwshield": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 1,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": [
+       0,
+       3
+      ],
+      "team": null,
+      "summon": [],
+      "tgt": "ally",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "ho_dawn": {
+    "matins": {
+     "cost": null,
+     "fx": null,
+     "bc": null,
+     "pray": {
+      "cd": 1,
+      "fx": {
+       "dmg": 0,
+       "aoe": 0,
+       "face": 0,
+       "healT": 0,
+       "heal": 8,
+       "armor": 0,
+       "draw": 1,
+       "mana": 0,
+       "selfDmg": 0,
+       "guard": false,
+       "ward": false,
+       "buff": null,
+       "team": null,
+       "summon": [],
+       "tgt": null,
+       "cond": null,
+       "destroy": false,
+       "silence": false,
+       "freeze": false,
+       "freezeAll": false,
+       "setAtk": 0,
+       "setHp": 0,
+       "sweep": 0,
+       "heroes": false,
+       "armorDmg": false,
+       "dmgBeast": 0,
+       "drawIfKill": false,
+       "tempAtk": 0,
+       "bounce": false,
+       "perFoe": null,
+       "purge": 0,
+       "revive": 0,
+       "hasten": 0,
+       "rush": false,
+       "pierce": false,
+       "wardSummon": false,
+       "splash": 0,
+       "icelance": 0,
+       "freezeBig": false,
+       "plus": 0,
+       "foeExtra": 0,
+       "noSelf": false
+      }
+     },
+     "text": null
+    }
+   },
+   "ho_hymn": {
+    "requiem": {
+     "cost": null,
+     "fx": null,
+     "bc": null,
+     "pray": {
+      "cd": 2,
+      "fx": {
+       "dmg": 0,
+       "aoe": 0,
+       "face": 0,
+       "healT": 0,
+       "heal": 0,
+       "armor": 0,
+       "draw": 0,
+       "mana": 0,
+       "selfDmg": 0,
+       "guard": false,
+       "ward": false,
+       "buff": null,
+       "team": null,
+       "summon": [],
+       "tgt": null,
+       "cond": null,
+       "destroy": false,
+       "silence": false,
+       "freeze": false,
+       "freezeAll": false,
+       "setAtk": 0,
+       "setHp": 0,
+       "sweep": 0,
+       "heroes": false,
+       "armorDmg": false,
+       "dmgBeast": 0,
+       "drawIfKill": false,
+       "tempAtk": 0,
+       "bounce": false,
+       "perFoe": null,
+       "purge": 0,
+       "revive": 2,
+       "hasten": 0,
+       "rush": false,
+       "pierce": false,
+       "wardSummon": false,
+       "splash": 0,
+       "icelance": 0,
+       "freezeBig": false,
+       "plus": 0,
+       "foeExtra": 0,
+       "noSelf": false
+      }
+     },
+     "text": null
+    }
+   },
+   "sh_pain": {
+    "swpain": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "foe",
+      "cond": "atk<=4",
+      "destroy": true,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Destroy an enemy minion with 4 or less Attack.",
+      "消灭一个攻击力小于或等于4的敌方随从。",
+      "攻撃力4以下の敵のミニオン1体を破壊する。"
+     ]
+    }
+   },
+   "sh_insight": {
+    "dispel": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 1,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "minion",
+      "cond": null,
+      "destroy": false,
+      "silence": true,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Silence a minion. Draw a card.",
+      "沉默一个随从。抽一张牌。",
+      "ミニオン1体を沈黙させる。カードを1枚引く。"
+     ]
+    }
+   },
+   "sh_death": {
+    "swdeath": {
+     "cost": 3,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "wa_wall": {
+    "shieldwall": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 6,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "wa_slam": {
+    "shieldslam": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "minion",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": true,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 1,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal damage to a minion equal to your Armor, +1.",
+      "对一个随从造成等同于你护甲值+1的伤害。",
+      "ミニオン1体に装甲値+1のダメージを与える。"
+     ]
+    }
+   },
+   "wa_thane": {
+    "thane": {
+     "cost": null,
+     "fx": null,
+     "bc": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 6,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "pray": null,
+     "text": null
+    }
+   },
+   "wa_rage": {
+    "innerrage": {
+     "cost": null,
+     "fx": {
+      "dmg": 1,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": [
+       3,
+       0
+      ],
+      "team": null,
+      "summon": [],
+      "tgt": "minion",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 1 damage to a minion and give it +3 Attack.",
+      "对一个随从造成1点伤害，并使其获得+3攻击力。",
+      "ミニオン1体に1ダメージを与え、攻撃力+3。"
+     ]
+    }
+   },
+   "wa_whirl": {
+    "whirlwind": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 1,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 1,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 1 damage to ALL minions, 2 to enemy minions.",
+      "对所有随从造成1点伤害，敌方随从改为2点。",
+      "全てのミニオンに1ダメージ（敵のミニオンには2）。"
+     ]
+    }
+   },
+   "wa_exec": {
+    "execute": {
+     "cost": 1,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "wa_frenzy": {
+    "frenzy": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": [
+       3,
+       0
+      ],
+      "team": null,
+      "summon": [],
+      "tgt": "ally",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": true,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "pa_horn": {
+    "calltoarms": {
+     "cost": 2,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "pa_squires": {
+    "squires": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [
+       "minnow",
+       "minnow",
+       "minnow"
+      ],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "pa_command": {
+    "commander": {
+     "cost": null,
+     "fx": null,
+     "bc": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": [
+       1,
+       1
+      ],
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "pray": null,
+     "text": null
+    }
+   },
+   "pa_bless": {
+    "aegis": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 1,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": true,
+      "buff": [
+       0,
+       2
+      ],
+      "team": null,
+      "summon": [],
+      "tgt": "ally",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Give a friendly minion +0/+2 and Ward. Draw a card.",
+      "使一个友方随从获得+0/+2和护盾。抽一张牌。",
+      "味方のミニオン1体に+0/+2と結界を与える。カードを1枚引く。"
+     ]
+    }
+   },
+   "pa_hold": {
+    "brace": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": true,
+      "ward": true,
+      "buff": [
+       0,
+       3
+      ],
+      "team": null,
+      "summon": [],
+      "tgt": "ally",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "pa_kings": {
+    "kings": {
+     "cost": 3,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "pa_humble": {
+    "humility": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 1,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "foe",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 1,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Change an enemy minion's Attack to 1. Draw a card.",
+      "使一个敌方随从的攻击力变为1。抽一张牌。",
+      "敵のミニオン1体の攻撃力を1にする。カードを1枚引く。"
+     ]
+    }
+   },
+   "hu_pounce": {
+    "pounce": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "ally",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 3,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Give a friendly minion +3 Attack this turn.",
+      "本回合中，使一个友方随从获得+3攻击力。",
+      "このターンの間、味方のミニオン1体の攻撃力+3。"
+     ]
+    }
+   },
+   "hu_kill": {
+    "killcmd": {
+     "cost": null,
+     "fx": {
+      "dmg": 5,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "any",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 7,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 5 damage. If you control a Beast, deal 7 instead.",
+      "造成5点伤害。如果你控制一只野兽，改为造成7点伤害。",
+      "5ダメージを与える。獣がいるなら7ダメージ。"
+     ]
+    }
+   },
+   "hu_precise": {
+    "spray": {
+     "cost": null,
+     "fx": {
+      "dmg": 3,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "any",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "hu_eagle": {
+    "huntmark": {
+     "cost": 0,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "hu_deadly": {
+    "riptide": {
+     "cost": 4,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "wl_raise": {
+    "raisedead": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [
+       "skeleton",
+       "skeleton"
+      ],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Summon two 1/1 Skeletons.",
+      "召唤两个1/1的骷髅兵。",
+      "1/1のスケルトンを2体召喚する。"
+     ]
+    }
+   },
+   "wl_ghoul": {
+    "ghoul": {
+     "cost": 2,
+     "fx": null,
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "wl_coil": {
+    "coil": {
+     "cost": null,
+     "fx": {
+      "dmg": 3,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "minion",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": true,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 3 damage to a minion. If that kills it, draw a card.",
+      "对一个随从造成3点伤害。如果它因此死亡，抽一张牌。",
+      "ミニオン1体に3ダメージ。それで倒したらカードを1枚引く。"
+     ]
+    }
+   },
+   "wl_pact": {
+    "darkpact": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 3,
+      "mana": 0,
+      "selfDmg": 2,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": null
+    }
+   },
+   "wl_soulfire": {
+    "soulfire": {
+     "cost": null,
+     "fx": {
+      "dmg": 5,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 2,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": "any",
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 0,
+      "heroes": false,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": false
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 5 damage. Your hero takes 2 damage.",
+      "造成5点伤害。你的英雄受到2点伤害。",
+      "5ダメージを与える。自分のヒーローに2ダメージ。"
+     ]
+    }
+   },
+   "wl_hell": {
+    "hellfire": {
+     "cost": null,
+     "fx": {
+      "dmg": 0,
+      "aoe": 0,
+      "face": 0,
+      "healT": 0,
+      "heal": 0,
+      "armor": 0,
+      "draw": 0,
+      "mana": 0,
+      "selfDmg": 0,
+      "guard": false,
+      "ward": false,
+      "buff": null,
+      "team": null,
+      "summon": [],
+      "tgt": null,
+      "cond": null,
+      "destroy": false,
+      "silence": false,
+      "freeze": false,
+      "freezeAll": false,
+      "setAtk": 0,
+      "setHp": 0,
+      "sweep": 3,
+      "heroes": true,
+      "armorDmg": false,
+      "dmgBeast": 0,
+      "drawIfKill": false,
+      "tempAtk": 0,
+      "bounce": false,
+      "perFoe": null,
+      "purge": 0,
+      "revive": 0,
+      "hasten": 0,
+      "rush": false,
+      "pierce": false,
+      "wardSummon": false,
+      "splash": 0,
+      "icelance": 0,
+      "freezeBig": false,
+      "plus": 0,
+      "foeExtra": 0,
+      "noSelf": true
+     },
+     "bc": null,
+     "pray": null,
+     "text": [
+      "Deal 3 damage to all minions and the enemy hero.",
+      "对所有随从和敌方英雄造成3点伤害。",
+      "全てのミニオンと敵ヒーローに3ダメージ。"
+     ]
+    }
+   }
+  },
+  "presets": {
+   "mage": [
+    [
+     "fi_ignite",
+     "fi_heart",
+     "fi_burn",
+     "fi_fireball",
+     "fi_wildfire",
+     "fi_bank",
+     "fi_boost",
+     "fr_blood",
+     "fr_armor",
+     "fr_nova",
+     "fr_bolt",
+     "fr_mirror"
+    ],
+    [
+     "fr_blood",
+     "fr_armor",
+     "fr_nova",
+     "fr_bolt",
+     "fr_mirror",
+     "fr_perma",
+     "fr_deep",
+     "fi_ignite",
+     "fi_heart",
+     "fi_burn",
+     "fi_fireball",
+     "fi_wildfire"
+    ],
+    [
+     "fi_ignite",
+     "fi_heart",
+     "fi_burn",
+     "fi_fireball",
+     "fi_wildfire",
+     "fi_bank",
+     "fr_blood",
+     "fr_armor",
+     "fr_nova",
+     "fr_bolt",
+     "fr_mirror",
+     "fr_perma"
+    ]
+   ],
+   "priest": [
+    [
+     "ho_devout",
+     "ho_smite",
+     "ho_light",
+     "ho_shield",
+     "ho_dawn",
+     "ho_grace",
+     "ho_altar",
+     "sh_pain",
+     "sh_insight",
+     "sh_breaker",
+     "sh_death",
+     "sh_echo"
+    ],
+    [
+     "sh_pain",
+     "sh_insight",
+     "sh_breaker",
+     "sh_death",
+     "sh_echo",
+     "sh_void",
+     "sh_steal",
+     "ho_devout",
+     "ho_smite",
+     "ho_light",
+     "ho_shield",
+     "ho_dawn"
+    ],
+    [
+     "ho_devout",
+     "ho_smite",
+     "ho_light",
+     "ho_shield",
+     "ho_dawn",
+     "ho_grace",
+     "sh_pain",
+     "sh_insight",
+     "sh_breaker",
+     "sh_death",
+     "sh_echo",
+     "sh_void"
+    ]
+   ],
+   "warrior": [
+    [
+     "wa_tough",
+     "wa_wall",
+     "wa_crab",
+     "wa_slam",
+     "wa_thane",
+     "wa_iron",
+     "wa_bulwark",
+     "wa_berserk",
+     "wa_rage",
+     "wa_reckless",
+     "wa_whirl",
+     "wa_exec"
+    ],
+    [
+     "wa_berserk",
+     "wa_rage",
+     "wa_reckless",
+     "wa_whirl",
+     "wa_exec",
+     "wa_frenzy",
+     "wa_fury",
+     "wa_tough",
+     "wa_wall",
+     "wa_crab",
+     "wa_slam",
+     "wa_thane"
+    ],
+    [
+     "wa_tough",
+     "wa_wall",
+     "wa_crab",
+     "wa_slam",
+     "wa_thane",
+     "wa_iron",
+     "wa_berserk",
+     "wa_rage",
+     "wa_reckless",
+     "wa_whirl",
+     "wa_exec",
+     "wa_frenzy"
+    ]
+   ],
+   "paladin": [
+    [
+     "pa_drill",
+     "pa_horn",
+     "pa_squires",
+     "pa_command",
+     "pa_step",
+     "pa_array",
+     "pa_coop",
+     "pa_first",
+     "pa_bless",
+     "pa_hold",
+     "pa_kings",
+     "pa_humble"
+    ],
+    [
+     "pa_first",
+     "pa_bless",
+     "pa_hold",
+     "pa_kings",
+     "pa_humble",
+     "pa_vshield",
+     "pa_sanct",
+     "pa_drill",
+     "pa_horn",
+     "pa_squires",
+     "pa_command",
+     "pa_step"
+    ],
+    [
+     "pa_drill",
+     "pa_horn",
+     "pa_squires",
+     "pa_command",
+     "pa_step",
+     "pa_array",
+     "pa_first",
+     "pa_bless",
+     "pa_hold",
+     "pa_kings",
+     "pa_humble",
+     "pa_vshield"
+    ]
+   ],
+   "hunter": [
+    [
+     "hu_pack",
+     "hu_tame",
+     "hu_pounce",
+     "hu_kill",
+     "hu_hound",
+     "hu_wild",
+     "hu_combo",
+     "hu_precise",
+     "hu_eagle",
+     "hu_quiver",
+     "hu_deadly",
+     "hu_griffon"
+    ],
+    [
+     "hu_precise",
+     "hu_eagle",
+     "hu_quiver",
+     "hu_deadly",
+     "hu_griffon",
+     "hu_aim",
+     "hu_heart",
+     "hu_pack",
+     "hu_tame",
+     "hu_pounce",
+     "hu_kill",
+     "hu_hound"
+    ],
+    [
+     "hu_pack",
+     "hu_tame",
+     "hu_pounce",
+     "hu_kill",
+     "hu_hound",
+     "hu_wild",
+     "hu_precise",
+     "hu_eagle",
+     "hu_quiver",
+     "hu_deadly",
+     "hu_griffon",
+     "hu_aim"
+    ]
+   ],
+   "warlock": [
+    [
+     "wl_bone",
+     "wl_raise",
+     "wl_wrath",
+     "wl_gasp",
+     "wl_ghoul",
+     "wl_coil",
+     "wl_soul",
+     "wl_pact",
+     "wl_soulfire",
+     "wl_flesh",
+     "wl_hell",
+     "wl_pain"
+    ],
+    [
+     "wl_pact",
+     "wl_soulfire",
+     "wl_flesh",
+     "wl_hell",
+     "wl_pain",
+     "wl_mutate",
+     "wl_veng",
+     "wl_bone",
+     "wl_raise",
+     "wl_wrath",
+     "wl_gasp",
+     "wl_ghoul"
+    ],
+    [
+     "wl_bone",
+     "wl_raise",
+     "wl_wrath",
+     "wl_gasp",
+     "wl_ghoul",
+     "wl_coil",
+     "wl_pact",
+     "wl_soulfire",
+     "wl_flesh",
+     "wl_hell",
+     "wl_pain",
+     "wl_mutate"
+    ]
+   ]
+  },
+  "adv": {
+   "mage": {
+    "deck": [
+     "apprentice",
+     "apprentice",
+     "wyrmling",
+     "missiles",
+     "lance",
+     "emberbolt",
+     "frostbolt",
+     "goblin",
+     "goblin",
+     "harpooneer",
+     "harpooneer",
+     "geomancer",
+     "lurker",
+     "lurker",
+     "hexer",
+     "diver",
+     "golem",
+     "ogre",
+     "archmage",
+     "tidepool"
+    ],
+    "packs": [
+     [
+      {
+       "cards": [
+        "emberbolt",
+        "emberbolt"
+       ],
+       "hint": [
+        "fi_ignite",
+        "fi_burn"
+       ]
+      },
+      {
+       "cards": [
+        "icelance",
+        "icelance"
+       ],
+       "hint": [
+        "fr_blood",
+        "fr_armor"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "emberadept",
+        "emberadept"
+       ],
+       "hint": [
+        "fi_heart"
+       ]
+      },
+      {
+       "cards": [
+        "frostnova",
+        "frostnova"
+       ],
+       "hint": [
+        "fr_nova"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "maelstrom",
+        "scorch"
+       ],
+       "hint": [
+        "fi_fireball",
+        "fi_wildfire"
+       ]
+      },
+      {
+       "cards": [
+        "frostbolt",
+        "mirror"
+       ],
+       "hint": [
+        "fr_bolt",
+        "fr_mirror"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "emberele",
+        "emberele"
+       ],
+       "hint": [
+        "fi_heart",
+        "fi_bank"
+       ]
+      },
+      {
+       "cards": [
+        "frostele",
+        "icelance"
+       ],
+       "hint": [
+        "fr_perma"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "scorch",
+        "firelem"
+       ],
+       "hint": [
+        "fi_flamearmor",
+        "fi_spark"
+       ]
+      },
+      {
+       "cards": [
+        "icebarrier",
+        "frostele"
+       ],
+       "hint": [
+        "fr_barrier",
+        "fr_spark"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "phoenix",
+        "firestorm"
+       ],
+       "hint": [
+        "fi_boost"
+       ]
+      },
+      {
+       "cards": [
+        "shatter",
+        "frostbolt"
+       ],
+       "hint": [
+        "fr_deep"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "maelstrom",
+        "missiles"
+       ],
+       "hint": [
+        "fi_boost"
+       ]
+      },
+      {
+       "cards": [
+        "frostele",
+        "shatter"
+       ],
+       "hint": [
+        "fr_deep"
+       ]
+      }
+     ]
+    ]
+   },
+   "priest": {
+    "deck": [
+     "pearl",
+     "pearl",
+     "holysmite",
+     "matins",
+     "dispel",
+     "swpain",
+     "goblin",
+     "goblin",
+     "harpooneer",
+     "harpooneer",
+     "burglar",
+     "cleric",
+     "cleric",
+     "lurker",
+     "lurker",
+     "hexer",
+     "diver",
+     "golem",
+     "ogre",
+     "treant"
+    ],
+    "packs": [
+     [
+      {
+       "cards": [
+        "matins",
+        "holysmite"
+       ],
+       "hint": [
+        "ho_smite",
+        "ho_devout"
+       ]
+      },
+      {
+       "cards": [
+        "swpain",
+        "voidacolyte"
+       ],
+       "hint": [
+        "sh_pain"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "mend",
+        "holysmite"
+       ],
+       "hint": [
+        "ho_light"
+       ]
+      },
+      {
+       "cards": [
+        "spellbreaker",
+        "dispel"
+       ],
+       "hint": [
+        "sh_breaker",
+        "sh_insight",
+        "sh_void"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "pwshield",
+        "matins"
+       ],
+       "hint": [
+        "ho_shield",
+        "ho_dawn"
+       ]
+      },
+      {
+       "cards": [
+        "swdeath",
+        "wordruin"
+       ],
+       "hint": [
+        "sh_death",
+        "sh_echo"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "cantor",
+        "radiant"
+       ],
+       "hint": [
+        "ho_grace"
+       ]
+      },
+      {
+       "cards": [
+        "wordruin",
+        "voidacolyte"
+       ],
+       "hint": [
+        "sh_echo",
+        "sh_void"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "requiem",
+        "judgment"
+       ],
+       "hint": [
+        "ho_pray",
+        "ho_hymn"
+       ]
+      },
+      {
+       "cards": [
+        "voidacolyte",
+        "voidacolyte"
+       ],
+       "hint": [
+        "sh_touch",
+        "sh_drain"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "revelation",
+        "radiant"
+       ],
+       "hint": [
+        "ho_altar"
+       ]
+      },
+      {
+       "cards": [
+        "wordtorment",
+        "voidacolyte"
+       ],
+       "hint": [
+        "sh_steal"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "judgment",
+        "revelation"
+       ],
+       "hint": [
+        "ho_altar"
+       ]
+      },
+      {
+       "cards": [
+        "wordtorment",
+        "spellbreaker"
+       ],
+       "hint": [
+        "sh_steal"
+       ]
+      }
+     ]
+    ]
+   },
+   "warrior": {
+    "deck": [
+     "crab",
+     "berserker",
+     "shieldwall",
+     "innerrage",
+     "eel",
+     "burglar",
+     "hymn",
+     "treant",
+     "tidepool",
+     "shark",
+     "goblin",
+     "goblin",
+     "harpooneer",
+     "harpooneer",
+     "lurker",
+     "lurker",
+     "hexer",
+     "diver",
+     "golem",
+     "ogre"
+    ],
+    "packs": [
+     [
+      {
+       "cards": [
+        "crab",
+        "shieldwall"
+       ],
+       "hint": [
+        "wa_tough",
+        "wa_wall",
+        "wa_crab"
+       ]
+      },
+      {
+       "cards": [
+        "berserker",
+        "innerrage"
+       ],
+       "hint": [
+        "wa_berserk",
+        "wa_rage"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "crab",
+        "shieldslam"
+       ],
+       "hint": [
+        "wa_crab"
+       ]
+      },
+      {
+       "cards": [
+        "berserker",
+        "whirlwind"
+       ],
+       "hint": [
+        "wa_reckless"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "shieldslam",
+        "thane"
+       ],
+       "hint": [
+        "wa_slam",
+        "wa_thane"
+       ]
+      },
+      {
+       "cards": [
+        "whirlwind",
+        "execute"
+       ],
+       "hint": [
+        "wa_whirl",
+        "wa_exec"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "golem",
+        "crab"
+       ],
+       "hint": [
+        "wa_iron"
+       ]
+      },
+      {
+       "cards": [
+        "frenzy",
+        "berserker"
+       ],
+       "hint": [
+        "wa_frenzy"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "shieldwall",
+        "thane"
+       ],
+       "hint": [
+        "wa_heavy",
+        "wa_counter"
+       ]
+      },
+      {
+       "cards": [
+        "frenzy",
+        "berserker"
+       ],
+       "hint": [
+        "wa_roar",
+        "wa_bloodied"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "thane",
+        "shieldslam"
+       ],
+       "hint": [
+        "wa_bulwark"
+       ]
+      },
+      {
+       "cards": [
+        "innerrage",
+        "lurker"
+       ],
+       "hint": [
+        "wa_fury"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "shieldwall",
+        "golem"
+       ],
+       "hint": [
+        "wa_bulwark"
+       ]
+      },
+      {
+       "cards": [
+        "execute",
+        "treant"
+       ],
+       "hint": [
+        "wa_fury"
+       ]
+      }
+     ]
+    ]
+   },
+   "paladin": {
+    "deck": [
+     "squires",
+     "aegis",
+     "priestess",
+     "radiant",
+     "hymn",
+     "burglar",
+     "eel",
+     "treant",
+     "tidepool",
+     "shark",
+     "goblin",
+     "goblin",
+     "harpooneer",
+     "harpooneer",
+     "lurker",
+     "lurker",
+     "hexer",
+     "diver",
+     "golem",
+     "ogre"
+    ],
+    "packs": [
+     [
+      {
+       "cards": [
+        "squires",
+        "squires"
+       ],
+       "hint": [
+        "pa_drill",
+        "pa_squires"
+       ]
+      },
+      {
+       "cards": [
+        "aegis",
+        "brace"
+       ],
+       "hint": [
+        "pa_first",
+        "pa_bless",
+        "pa_hold"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "calltoarms",
+        "goblin"
+       ],
+       "hint": [
+        "pa_horn"
+       ]
+      },
+      {
+       "cards": [
+        "knight",
+        "brace"
+       ],
+       "hint": [
+        "pa_vshield"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "commander",
+        "squires"
+       ],
+       "hint": [
+        "pa_command",
+        "pa_step"
+       ]
+      },
+      {
+       "cards": [
+        "kings",
+        "humility"
+       ],
+       "hint": [
+        "pa_kings",
+        "pa_humble"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "calltoarms",
+        "squires"
+       ],
+       "hint": [
+        "pa_array"
+       ]
+      },
+      {
+       "cards": [
+        "brace",
+        "humility"
+       ],
+       "hint": [
+        "pa_humble"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "commander",
+        "calltoarms"
+       ],
+       "hint": [
+        "pa_double",
+        "pa_banner"
+       ]
+      },
+      {
+       "cards": [
+        "knight",
+        "priestess"
+       ],
+       "hint": [
+        "pa_lightcall",
+        "pa_echo"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "squires",
+        "calltoarms"
+       ],
+       "hint": [
+        "pa_coop"
+       ]
+      },
+      {
+       "cards": [
+        "brace",
+        "humility"
+       ],
+       "hint": [
+        "pa_sanct"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "commander",
+        "squires"
+       ],
+       "hint": [
+        "pa_coop"
+       ]
+      },
+      {
+       "cards": [
+        "kings",
+        "brace"
+       ],
+       "hint": [
+        "pa_sanct"
+       ]
+      }
+     ]
+    ]
+   },
+   "hunter": {
+    "deck": [
+     "direwolf",
+     "spray",
+     "eel",
+     "burglar",
+     "hymn",
+     "treant",
+     "tidepool",
+     "shark",
+     "geomancer",
+     "alchemist",
+     "goblin",
+     "goblin",
+     "harpooneer",
+     "harpooneer",
+     "lurker",
+     "lurker",
+     "hexer",
+     "diver",
+     "golem",
+     "ogre"
+    ],
+    "packs": [
+     [
+      {
+       "cards": [
+        "direwolf",
+        "pounce"
+       ],
+       "hint": [
+        "hu_pack",
+        "hu_pounce"
+       ]
+      },
+      {
+       "cards": [
+        "spray",
+        "huntmark"
+       ],
+       "hint": [
+        "hu_precise",
+        "hu_eagle"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "beastcaller",
+        "direwolf"
+       ],
+       "hint": [
+        "hu_tame"
+       ]
+      },
+      {
+       "cards": [
+        "steady",
+        "gull"
+       ],
+       "hint": [
+        "hu_precise",
+        "hu_quiver"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "killcmd",
+        "hounds"
+       ],
+       "hint": [
+        "hu_kill",
+        "hu_hound"
+       ]
+      },
+      {
+       "cards": [
+        "riptide",
+        "gull"
+       ],
+       "hint": [
+        "hu_deadly",
+        "hu_griffon"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "direwolf",
+        "pounce"
+       ],
+       "hint": [
+        "hu_wild"
+       ]
+      },
+      {
+       "cards": [
+        "marksman",
+        "steady"
+       ],
+       "hint": [
+        "hu_aim"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "gull",
+        "beastcaller"
+       ],
+       "hint": [
+        "hu_master",
+        "hu_whistle"
+       ]
+      },
+      {
+       "cards": [
+        "marksman",
+        "gull"
+       ],
+       "hint": [
+        "hu_rapid",
+        "hu_pierce"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "killcmd",
+        "direwolf"
+       ],
+       "hint": [
+        "hu_combo"
+       ]
+      },
+      {
+       "cards": [
+        "explosive",
+        "gull"
+       ],
+       "hint": [
+        "hu_heart"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "hounds",
+        "gull"
+       ],
+       "hint": [
+        "hu_combo"
+       ]
+      },
+      {
+       "cards": [
+        "riptide",
+        "wyvern"
+       ],
+       "hint": [
+        "hu_heart"
+       ]
+      }
+     ]
+    ]
+   },
+   "warlock": {
+    "deck": [
+     "sailor",
+     "darkpact",
+     "eel",
+     "burglar",
+     "hymn",
+     "treant",
+     "tidepool",
+     "shark",
+     "geomancer",
+     "alchemist",
+     "goblin",
+     "goblin",
+     "harpooneer",
+     "harpooneer",
+     "lurker",
+     "lurker",
+     "hexer",
+     "diver",
+     "golem",
+     "ogre"
+    ],
+    "packs": [
+     [
+      {
+       "cards": [
+        "sailor",
+        "raisedead"
+       ],
+       "hint": [
+        "wl_bone",
+        "wl_raise"
+       ]
+      },
+      {
+       "cards": [
+        "darkpact",
+        "soulfire"
+       ],
+       "hint": [
+        "wl_pact",
+        "wl_soulfire"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "necro",
+        "sailor"
+       ],
+       "hint": [
+        "wl_wrath"
+       ]
+      },
+      {
+       "cards": [
+        "soulfire",
+        "coil"
+       ],
+       "hint": [
+        "wl_flesh",
+        "wl_soulfire"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "ghoul",
+        "ghoul"
+       ],
+       "hint": [
+        "wl_gasp",
+        "wl_ghoul"
+       ]
+      },
+      {
+       "cards": [
+        "hellfire",
+        "darkpact"
+       ],
+       "hint": [
+        "wl_hell",
+        "wl_pain"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "coil",
+        "raisedead"
+       ],
+       "hint": [
+        "wl_coil"
+       ]
+      },
+      {
+       "cards": [
+        "soulfire",
+        "darkpact"
+       ],
+       "hint": [
+        "wl_mutate"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "necro",
+        "ghoul"
+       ],
+       "hint": [
+        "wl_tide",
+        "wl_harvest"
+       ]
+      },
+      {
+       "cards": [
+        "hellfire",
+        "soulfire"
+       ],
+       "hint": [
+        "wl_bloodmana",
+        "wl_tap"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "raisedead",
+        "sailor"
+       ],
+       "hint": [
+        "wl_soul"
+       ]
+      },
+      {
+       "cards": [
+        "darkpact",
+        "inferno"
+       ],
+       "hint": [
+        "wl_veng"
+       ]
+      }
+     ],
+     [
+      {
+       "cards": [
+        "necro",
+        "raisedead"
+       ],
+       "hint": [
+        "wl_soul"
+       ]
+      },
+      {
+       "cards": [
+        "soulfire",
+        "hellfire"
+       ],
+       "hint": [
+        "wl_veng"
+       ]
+      }
+     ]
+    ]
+   }
+  }
+ },
  "fortify": {
   "cost": 2,
   "tgt": null,
@@ -5552,7 +13594,19 @@
    "drawIfKill": false,
    "tempAtk": 0,
    "bounce": false,
-   "perFoe": null
+   "perFoe": null,
+   "purge": 0,
+   "revive": 0,
+   "hasten": 0,
+   "rush": false,
+   "pierce": false,
+   "wardSummon": false,
+   "splash": 0,
+   "icelance": 0,
+   "freezeBig": false,
+   "plus": 0,
+   "foeExtra": 0,
+   "noSelf": false
   },
   "names": [
    "Fortify",
