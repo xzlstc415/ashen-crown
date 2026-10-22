@@ -143,22 +143,30 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .card.leg .art{background:radial-gradient(circle at 50% 28%,#6a2a1a,#1a0806 72%)}
 .card .art svg{position:absolute;left:0;top:.45em;width:100%;height:auto;aspect-ratio:100/64;display:block}
 .card .art img{width:100%;height:100%;object-fit:cover;display:block}
-.card .cost{position:absolute;top:-.55em;left:-.5em;width:2em;height:2em;font-size:1.3em;font-weight:800;color:#fff;display:grid;place-items:center;z-index:2;
-  background:radial-gradient(circle at 35% 30%,#7cb8ee,#2f6fa8);border:.1em solid #bfe0fa;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
-.card .tbox{position:absolute;left:.35em;right:.35em;bottom:.35em;min-height:40%;display:flex;flex-direction:column;align-items:center;gap:.18em;
+/* Number gems ride on the corners of the card, a little past its edge. Painted stones: flat facets, an ink
+   outline, a thin inner line, a brush dab of light and a grain of paint. Cost is a blue hexagon, Attack an
+   amber diamond, Health a polished red shield. */
+.card .cost,.card .stat{position:absolute;display:grid;place-items:center;z-index:2;font-weight:900;color:#fff8e6;font-variant-numeric:tabular-nums;
+  background:no-repeat center/100% 100%;filter:drop-shadow(0 .08em .15em rgba(0,0,0,.8));
+  text-shadow:-.06em 0 var(--ink2),.06em 0 var(--ink2),0 -.06em var(--ink2),0 .06em var(--ink2),0 .1em .15em rgba(0,0,0,.6)}
+.card .cost{top:-.65em;left:-.65em;width:2.4em;height:2.4em;font-size:1.2em;--ink2:#0c1a36;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cdefs%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.06 0 0 0 0 0.02 0 0 0 0.4 0'/%3E%3C/filter%3E%3CclipPath id='c'%3E%3Cpolygon points='14,1 26,7.5 26,20.5 14,27 2,20.5 2,7.5'/%3E%3C/clipPath%3E%3C/defs%3E%3Cpolygon points='14,1 26,7.5 26,20.5 14,27 2,20.5 2,7.5' fill='%233578c8'/%3E%3Cpolygon points='14,1 2,7.5 14,14' fill='%239ad8ff'/%3E%3Cpolygon points='14,1 26,7.5 14,14' fill='%235aa8e8'/%3E%3Cpolygon points='2,7.5 2,20.5 14,14' fill='%233a80d0'/%3E%3Cpolygon points='26,7.5 26,20.5 14,14' fill='%232a5cae'/%3E%3Cpolygon points='2,20.5 14,27 14,14' fill='%231c4284'/%3E%3Cpolygon points='14,27 26,20.5 14,14' fill='%23122c60'/%3E%3Crect width='28' height='28' clip-path='url(%23c)' filter='url(%23g)'/%3E%3Cpolygon points='14,3.6 23.4,8.7 23.4,19.3 14,24.4 4.6,19.3 4.6,8.7' fill='none' stroke='%239ad8ff' stroke-width='.7' opacity='.5'/%3E%3Cpath d='M6.5 7.5L12.5 4' stroke='%23e8f6ff' stroke-width='1.7' stroke-linecap='round' opacity='.85'/%3E%3Cpolygon points='14,1 26,7.5 26,20.5 14,27 2,20.5 2,7.5' fill='none' stroke='%230c1a36' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.card .tbox{position:absolute;left:.35em;right:.35em;bottom:.35em;min-height:40%;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:.18em;
   background:rgba(14,10,18,.66);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);border:.08em solid rgba(232,195,90,.35);
-  border-radius:.5em;padding:.85em .45em 1.25em;line-height:1.22;color:#f3e9d4}
+  border-radius:.5em;padding:.85em .55em 1.25em;line-height:1.22;color:#f3e9d4}
 .card.s .tbox{padding-bottom:.55em}
 .card .plate{font-family:var(--display);font-size:1.12em;line-height:1.1;color:#fff4dc;text-shadow:0 .08em .2em #000}
 :is(:lang(zh),:lang(ja)) .card .plate{font-weight:600;font-size:1.04em;line-height:1.25}
 .card .gem{position:absolute;top:-.42em;left:50%;margin-left:-.375em;width:.75em;height:.75em;transform:rotate(45deg);border:.1em solid #0009}
 .gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
-.card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:#9fc4ee}
 .card .tx{font-size:.86em;line-height:1.24}
 .card .tx b{font-weight:800;color:#ffe2a0}
-.card .stat{position:absolute;bottom:-.45em;width:2em;height:2em;font-size:1.25em;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums;z-index:2}
-.card .stat.a{left:-.45em;background:radial-gradient(circle at 35% 30%,#f3d888,#b88a2a);color:#2a1d08;border-radius:50%;border:.08em solid #2a1d08}
-.card .stat.h{right:-.45em;background:radial-gradient(circle at 35% 30%,#ec7a6c,#9a2a20);color:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;border:.08em solid #3a0a05}
+.card .stat{bottom:-.65em;width:2.3em;height:2.3em;font-size:1.25em}
+.card .stat.a{left:-.65em;--ink2:#3a1c06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cdefs%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.06 0 0 0 0 0.02 0 0 0 0.4 0'/%3E%3C/filter%3E%3CclipPath id='c'%3E%3Cpolygon points='14,1.5 26.5,14 14,26.5 1.5,14'/%3E%3C/clipPath%3E%3C/defs%3E%3Cpolygon points='14,1.5 26.5,14 14,26.5 1.5,14' fill='%23e59a30'/%3E%3Cpolygon points='14,1.5 1.5,14 14,14' fill='%23f6c858'/%3E%3Cpolygon points='14,1.5 26.5,14 14,14' fill='%23e8a236'/%3E%3Cpolygon points='1.5,14 14,26.5 14,14' fill='%23b4641a'/%3E%3Cpolygon points='26.5,14 14,26.5 14,14' fill='%237c3c0c'/%3E%3Crect width='28' height='28' clip-path='url(%23c)' filter='url(%23g)'/%3E%3Cpolygon points='14,3.8 24.2,14 14,24.2 3.8,14' fill='none' stroke='%23ffd98a' stroke-width='.7' opacity='.5'/%3E%3Cpath d='M8.5 8.5L12.5 4.5' stroke='%23fff4cc' stroke-width='1.7' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M6.2 12.5l1.3-1.3' stroke='%23fff4cc' stroke-width='1.2' stroke-linecap='round' opacity='.6'/%3E%3Cpolygon points='14,1.5 26.5,14 14,26.5 1.5,14' fill='none' stroke='%233a1c06' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.card .stat.h{right:-.65em;height:2.46em;padding-bottom:.1em;--ink2:#3a0a06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 30'%3E%3Cdefs%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.06 0 0 0 0 0.02 0 0 0 0.4 0'/%3E%3C/filter%3E%3Cfilter id='s' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeGaussianBlur stdDeviation='1.6'/%3E%3C/filter%3E%3CradialGradient id='r' cx='38%25' cy='30%25' r='78%25'%3E%3Cstop offset='0' stop-color='%23ff9a86'/%3E%3Cstop offset='.45' stop-color='%23d63a2c'/%3E%3Cstop offset='1' stop-color='%235c0c08'/%3E%3C/radialGradient%3E%3CclipPath id='c'%3E%3Cpath d='M14 1.5L26 5.5v9c0 7-5.2 11.8-12 13.5C7.2 26.3 2 21.5 2 14.5v-9z'/%3E%3C/clipPath%3E%3C/defs%3E%3Cpath d='M14 1.5L26 5.5v9c0 7-5.2 11.8-12 13.5C7.2 26.3 2 21.5 2 14.5v-9z' fill='url(%23r)'/%3E%3Cg clip-path='url(%23c)'%3E%3Cellipse cx='9.5' cy='8' rx='6.5' ry='4' fill='%23ffd8cc' opacity='.6' filter='url(%23s)'/%3E%3Cellipse cx='15' cy='25' rx='10' ry='5' fill='%232a0404' opacity='.45' filter='url(%23s)'/%3E%3Crect width='28' height='30' filter='url(%23g)' opacity='.55'/%3E%3C/g%3E%3Cpath d='M14 4L23.5 7.3v7.2c0 5.6-4.2 9.6-9.5 11C9.2 24.1 4.5 20.1 4.5 14.5V7.3z' fill='none' stroke='%23ff9a88' stroke-width='.7' opacity='.5'/%3E%3Cpath d='M6.5 7.8L12.5 5' stroke='%23ffe0d8' stroke-width='1.7' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M5 11.5l.8 2' stroke='%23ffe0d8' stroke-width='1.1' stroke-linecap='round' opacity='.55'/%3E%3Cpath d='M14 1.5L26 5.5v9c0 7-5.2 11.8-12 13.5C7.2 26.3 2 21.5 2 14.5v-9z' fill='none' stroke='%233a0a06' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E")}
 .mart img,.hchip img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
 .card.leg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.35) 50%,transparent 65%);background-size:250% 100%;animation:shine 3.2s linear infinite}
@@ -247,7 +255,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .lhero .hres{justify-content:center;margin-top:4px}.lhero .ember{font-size:10px;padding:0 5px}.lhero .aslot{width:26px;height:18px}
 .card.ign{box-shadow:0 0 0 2px #ff8a3a,0 0 14px #ff8a3aaa}
 .hboost{position:absolute;top:-.5em;right:-.4em;z-index:2;background:#ff8a3a;color:#2a130a;font-weight:800;font-size:.95em;border-radius:999px;padding:0 .45em;line-height:1.5em}
-.card .cost.down{background:#2f8a4a}
+.card .cost.down{color:#9fe09f}
 .ctr{font-size:11px;font-weight:700;color:#ffd0a0;background:#3a2414;border:1px solid #8a5a2a;border-radius:999px;padding:1px 7px;white-space:nowrap}
 .lhero .ctr{font-size:9.5px;padding:0 4px}
 .talbtn{font-size:11.5px;font-weight:800;color:var(--gold);background:#2a2430;border:1px solid #e8c35a88;border-radius:999px;padding:1px 8px;line-height:18px}

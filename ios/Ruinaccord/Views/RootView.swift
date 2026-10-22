@@ -39,7 +39,7 @@ struct GameRoot: View {
                         DuelView(hm: hm).padding(.vertical, 6)
                         HandLayer(hm: hm, origin: g.frame(in: .global).origin).zIndex(10)
                         if let c = vm.infoCard, vm.state?.mulligan != true {
-                            CardInfoPanel(card: c, hm: hm).padding(.leading, hm.leftW + 2).padding(.top, 4).zIndex(15).id(c.id)
+                            CardInfoPanel(card: c, hm: hm).padding(.leading, hm.heroX + 48).padding(.top, 4).zIndex(15).id(c.id)
                         }
                         if vm.state?.mulligan == true { MulliganView().zIndex(20) }
                     }

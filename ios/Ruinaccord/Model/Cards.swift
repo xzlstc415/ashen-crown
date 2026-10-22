@@ -66,6 +66,8 @@ struct Card: Codable, Identifiable, Hashable {
 
     var isMinion: Bool { type == .minion }
     var isLegendary: Bool { rarity == "l" }
+    /// A spell cast on one chosen character (aimed with an arrow, like an attack); area spells are not.
+    var isTargetedSpell: Bool { !isMinion && fx?.tgt != nil }
     var maxCopies: Int { isLegendary ? 1 : 2 }
     var artName: String { "art_\(id)" }
     private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell }

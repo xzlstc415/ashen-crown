@@ -266,6 +266,8 @@ struct Tx {
     var quitSure: String { pick("Tap again to leave", "再点一次退出", "もう一度押して終了") }
     var quitAria: String { pick("Leave to the main menu", "退出到主菜单", "メインメニューに戻る") }
     var tapPlay: String { pick("Tap the card again to play it.", "再点一次这张牌即可打出。", "もう一度タップで使用します。") }
+    var foeTurn: String { pick("Opponent's turn", "对方的回合", "相手のターン") }
+    var healthShort: String { pick("Health", "生命", "体力") }
     var tapPreview: String { pick("Tap a card in your hand to see it.", "点一张手牌查看。", "手札のカードをタップして確認。") }
     var fSilence: String { pick("Silenced", "沉默", "沈黙") }
     var fDestroy: String { pick("Destroyed", "消灭", "破壊") }

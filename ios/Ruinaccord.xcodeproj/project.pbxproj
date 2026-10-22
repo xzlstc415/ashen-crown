@@ -25,6 +25,7 @@
 		8695586E6C55323C94F7F21B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F2F9D0F03C3C0126FA39EC0 /* FirebaseAuth */; };
 		8A22D4156FEC668CA6A76854 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 958D0FF258F88C68E61370DF /* PrivacyInfo.xcprivacy */; };
 		93C60E4357D19D17B0B8AFFD /* LocalBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E8AA0B886A534E391E96A9 /* LocalBackend.swift */; };
+		C5CF5868AA671F3FF4BC7EEE /* Gems.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7746D21A83F0C8444BA99F /* Gems.swift */; };
 		C7F471E9F9A1B6A86EF94A74 /* FirebaseBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418B2BC2834EDFD23BD3DA52 /* FirebaseBackend.swift */; };
 		CCD2C63C86600949ED86510D /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2A3E3FFE627500A1B95D7 /* Backend.swift */; };
 		E0400EF665034BEA5638BF07 /* RuinaccordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048B3A9F4BCC9BAF16D331C /* RuinaccordApp.swift */; };
@@ -71,6 +72,7 @@
 		A6A1B671EBB68906DA8ABE51 /* HandLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandLayer.swift; sourceTree = "<group>"; };
 		A6E61187E18BC316D45FFFF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA0E237C810DC453F183A579 /* GameVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVM.swift; sourceTree = "<group>"; };
+		AD7746D21A83F0C8444BA99F /* Gems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gems.swift; sourceTree = "<group>"; };
 		ADE2A3E3FFE627500A1B95D7 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		BB346BC7649F3118FD6D2CEE /* Screens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
 		C0B8AF488CBA9B96B345E7C1 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				D4304DEDFC22EB55CB3F75C1 /* CardViews.swift */,
 				0E7192B9B343177DE2DC1C6E /* DuelFX.swift */,
 				07BA8A742A17EE606385C7A5 /* DuelView.swift */,
+				AD7746D21A83F0C8444BA99F /* Gems.swift */,
 				A6A1B671EBB68906DA8ABE51 /* HandLayer.swift */,
 				5FC700070828DEC542AC94CF /* RootView.swift */,
 				BB346BC7649F3118FD6D2CEE /* Screens.swift */,
@@ -320,6 +323,7 @@
 				EA25C31BFAE434EF7E9E959D /* Engine.swift in Sources */,
 				C7F471E9F9A1B6A86EF94A74 /* FirebaseBackend.swift in Sources */,
 				49599BD1A502000263D2EFE4 /* GameVM.swift in Sources */,
+				C5CF5868AA671F3FF4BC7EEE /* Gems.swift in Sources */,
 				1E9FF5A7EEFC45BDC7E42D88 /* HandLayer.swift in Sources */,
 				93C60E4357D19D17B0B8AFFD /* LocalBackend.swift in Sources */,
 				6ECA26D602B2AF111F6511FD /* OnlineSetup.swift in Sources */,

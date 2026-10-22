@@ -1,8 +1,9 @@
 import SwiftUI
 
 /// Sizes shared by the duel layout and the hand layer, all from the duel area's size (landscape only).
-/// The layout follows Shadowverse: heroes top and bottom centre, boards between them, the hand at the bottom
-/// right of your hero, mana / end turn / hero power in a column on the right, menu and battle log on the left.
+/// Left to right: menu and battle log; the board column with both heroes at its left (enemy top, you bottom),
+/// the boards between them and the hand to the right of your hero; a status column on the right holding both
+/// heroes' numbers around the End Turn button. Your hero power is a round button at your hero's shoulder.
 struct HandMetrics: Equatable {
     let size: CGSize
     /// The screen continues this far below the duel area (home indicator); cards may hang into it.
@@ -10,40 +11,41 @@ struct HandMetrics: Equatable {
     var leftW: CGFloat { 54 }
     var rightW: CGFloat { 116 }
     /// Height of the strip holding the enemy hero, their hand backs and counts.
-    var topH: CGFloat { 104 }
+    var topH: CGFloat { 100 }
     /// Height of one board row (minion tile plus padding).
-    var rowH: CGFloat { 70 }
-    /// Card size: whatever height is left under the boards, capped for big screens.
+    var rowH: CGFloat { 66 }
+    /// Card size: a whole card stands in the zone under the boards on your turn; capped for big screens.
     var em: CGFloat {
-        let free = size.height - 12 - topH - 2 * rowH - 16
-        return min(11, max(6, (free - 30 + bottomInset) / (15.6 * 0.7)))
+        let free = size.height - 12 - topH - 2 * rowH - 12
+        return min(11, max(6, (free - 10) / 15.6))
     }
     var cardW: CGFloat { 10 * em }
     var cardH: CGFloat { 15.6 * em }
-    /// The hand hangs off the bottom edge (Shadowverse): only the top part of each card shows until it is lifted.
+    /// Off your turn the hand sinks this far below the bottom edge.
     var sink: CGFloat { cardH * 0.3 }
-    /// The part of a hand card inside the duel area.
-    var visible: CGFloat { cardH - sink - bottomInset }
     /// Height the board column leaves free at the bottom for your hero and the hand.
-    var reserve: CGFloat { visible + 30 }
+    var reserve: CGFloat { cardH + 4 }
     /// Local y above which a dragged card counts as played.
     var line: CGFloat { size.height - reserve - 12 }
-    /// Centre x of the heroes and of the hand (the middle of the board column).
-    var heroX: CGFloat { leftW + (size.width - leftW - rightW) / 2 }
-    /// Centre y of your hero's portrait: its lower part sits behind the fanned hand.
-    var heroY: CGFloat { size.height - visible - 4 }
+    /// Centre x of both heroes: the left part of the board column.
+    var heroX: CGFloat { leftW + 100 }
+    /// Centre y of your hero's portrait, in the hand zone, left of the cards.
+    var heroY: CGFloat { size.height - heroSize / 2 - 32 }
     /// Portrait diameter of both heroes (about a quarter of the screen height, like Shadowverse).
     var heroSize: CGFloat { 80 }
-    /// The hand may spread across the whole board column.
-    var handMinX: CGFloat { leftW + 70 }
+    /// The hand fans between your hero power and the status column.
+    var handMinX: CGFloat { heroX + 95 }
     var handMaxX: CGFloat { size.width - rightW - 4 }
-    /// Centre y of a card in the hand.
-    var baseY: CGFloat { size.height + bottomInset + sink - cardH / 2 }
+    var handCX: CGFloat { (handMinX + handMaxX) / 2 }
+    /// Centre y of a card in the hand on your turn: the whole card shows, its corner gems clear of the edge.
+    var baseY: CGFloat { size.height - 10 - cardH / 2 }
+    /// Centre y of a resting card (not your turn): three tenths hang below the edge.
+    var restY: CGFloat { size.height + sink - 10 - cardH / 2 }
     var cornerScale: CGFloat { 0.42 }
-    /// Where the parked hand stacks and drawn cards come from: the deck, at the right end of the hand area.
-    var corner: CGPoint { CGPoint(x: handMaxX - cardW * cornerScale / 2 - 2, y: size.height - cardH * cornerScale / 2 - 6) }
-    /// A lifted card rises until it is fully visible.
-    var lift: CGFloat { sink + 10 }
+    /// Where drawn cards come from: the deck pile behind the status column.
+    var corner: CGPoint { CGPoint(x: size.width - 34, y: size.height - 40) }
+    /// A lifted card rises this much out of the fan.
+    var lift: CGFloat { 14 }
 }
 
 struct DuelView: View {
@@ -55,8 +57,8 @@ struct DuelView: View {
         let tx = vm.tx
         return AnyView(HStack(spacing: 0) {
             LeftColumn(hm: hm).frame(width: hm.leftW)
-            // Middle: enemy strip, the two boards, your hero. The target prompt floats over the gap between
-            // the boards instead of taking a line of its own.
+            // Middle: enemy strip, the two boards, the hand zone with your hero. The target prompt floats over
+            // the gap between the boards instead of taking a line of its own.
             let vh = hm.size.height - 12
             let boardH = (vh - hm.topH - hm.reserve - 12) / 2
             VStack(spacing: 4) {
@@ -66,17 +68,23 @@ struct DuelView: View {
                 Color.clear.frame(height: hm.reserve)
             }
             .overlay { PromptPill().offset(y: hm.topH + 4 + boardH + 2 - vh / 2) }
-            .overlay(alignment: .bottom) {
-                HeroFace(side: .p, size: hm.heroSize, spread: vm.handActive)
-                    .offset(y: hm.heroY - (hm.size.height - 6 - hm.heroSize / 2))
+            .overlay(alignment: .topLeading) {
+                // Your hero, name above, with the hero power at the right shoulder. The column starts 6pt below
+                // the duel area, so hm's y values shift by that much.
+                let x = hm.heroX - hm.leftW, y = hm.heroY - 6
+                ZStack(alignment: .topLeading) {
+                    HeroCluster(side: .p).position(x: x, y: y - 10)
+                    PowerButton().position(x: x + 60, y: y - 30)
+                }
+                .frame(width: hm.size.width - hm.leftW - hm.rightW, height: vh)
             }
             RightColumn(hm: hm).frame(width: hm.rightW)
         })
     }
 }
 
-/// Floating pill between the boards, only while something is being targeted (with a cancel button) or a
-/// playable card is lifted. Plays are not narrated here any more; the battle log has them.
+/// Floating pill between the boards: the opponent's turn, something being targeted (with a cancel button) or
+/// a playable card lifted. Plays are not narrated here; the battle log has them.
 private struct PromptPill: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
@@ -86,45 +94,51 @@ private struct PromptPill: View {
             guard let i = vm.hsel, vm.pending == nil, vm.handActive, !vm.busy, let k = s.p.hand[safe: i] else { return false }
             return s.canPay(.p, k)
         }()
+        let foeTurn = s.turn == .e && !s.over && !s.mulligan
+        let shown = vm.pending != nil || liftedPlayable || foeTurn
         return AnyView(Group {
-            if vm.pending != nil || liftedPlayable {
+            if shown {
                 HStack(spacing: 10) {
                     if vm.pending != nil {
                         Text(tx.chooseTarget(vm.pendingLabel())).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
                         Button(tx.cancel) { vm.cancelPending() }.ghost(compact: true)
-                    } else {
+                    } else if liftedPlayable {
                         Text(tx.tapPlay).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
+                    } else {
+                        Circle().fill(Color(hex: "#f0a097")).frame(width: 6, height: 6)
+                        Text(tx.foeTurn).font(Theme.body(11.5, .bold)).foregroundStyle(Color(hex: "#f0a097"))
                     }
                 }
                 .lineLimit(1).minimumScaleFactor(0.8)
                 .padding(.horizontal, 12).padding(.vertical, 5)
                 .background(Color.black.opacity(0.72), in: Capsule())
-                .overlay(Capsule().stroke(Theme.gold.opacity(0.7), lineWidth: 1))
+                .overlay(Capsule().stroke(foeTurn && vm.pending == nil && !liftedPlayable ? Color(hex: "#6d3a33") : Theme.gold.opacity(0.7), lineWidth: 1))
                 .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
                 .transition(.opacity.combined(with: .scale(scale: 0.9)))
                 .accessibilityElement(children: .combine)
             }
         }
         .zIndex(5)
-        .animation(.easeOut(duration: 0.15), value: vm.pending != nil || liftedPlayable))
+        .animation(.easeOut(duration: 0.15), value: shown))
     }
 }
 
-// MARK: - Top strip: enemy hand backs, enemy hero, enemy counts
+// MARK: - Top strip: enemy hero at the left, their hand backs in the middle, their counts at the right
 
 private struct TopStrip: View {
     let hm: HandMetrics
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
-        return AnyView(ZStack {
+        return AnyView(ZStack(alignment: .topLeading) {
             HStack {
+                Spacer().frame(width: hm.handMinX - hm.leftW - 20)
                 EnemyHandBacks(n: s.e.hand.count)
                 Spacer()
                 CountPill(hand: s.e.hand.count, deck: s.e.deck.count)
             }
             .frame(maxHeight: .infinity, alignment: .top)
-            HeroCluster(side: .e)
+            HeroCluster(side: .e).position(x: hm.heroX - hm.leftW, y: 50)
         })
     }
 }
@@ -170,7 +184,7 @@ private struct CountPill: View {
     }
 }
 
-/// Portrait with health shield and gems, name underneath (enemy) or above (you).
+/// Portrait with the name underneath (enemy) or above (you).
 private struct HeroCluster: View {
     let side: Side
     @Environment(GameVM.self) private var vm
@@ -240,7 +254,7 @@ private struct SideButton: View {
     }
 }
 
-// MARK: - Right column: enemy mana, end turn, your mana, hero power, deck piles
+// MARK: - Right column: enemy status, end turn, your status, deck piles
 
 private struct RightColumn: View {
     let hm: HandMetrics
@@ -248,17 +262,64 @@ private struct RightColumn: View {
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         return AnyView(VStack(spacing: 8) {
-            ManaBox(side: .e).padding(.top, 10)
+            StatusBox(side: .e).padding(.top, 2)
             Spacer()
             EndTurnButton()
             Spacer()
-            ManaBox(side: .p)
-            PowerBar()
+            StatusBox(side: .p)
         }
         .padding(.horizontal, 4)
         .background(alignment: .topTrailing) { DeckPile(n: s.e.deck.count).offset(x: -4, y: -6) }
         .background(alignment: .bottomTrailing) { DeckPile(n: s.p.deck.count).offset(x: -4, y: 8) }
         .padding(.vertical, 2))
+    }
+}
+
+/// A hero's numbers in one box: the Health gem with Armor (and your banked spell mana) beside it, then mana as
+/// "x / max" over a row of ten crystals. The enemy's box is tinted red, yours blue; the acting hero's box glows.
+private struct StatusBox: View {
+    let side: Side
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        guard let s = vm.state else { return AnyView(EmptyView()) }
+        let h = s[side], tx = vm.tx, foe = side == .e
+        let acting = s.turn == side && !s.over
+        let label = foe ? Color(hex: "#f0a097") : Color(hex: "#9fc4ee")
+        return AnyView(VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 8) {
+                GemView(kind: .health, value: h.hp, size: 32)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(tx.healthShort).font(Theme.body(8, .bold)).tracking(1).foregroundStyle(label)
+                    HStack(spacing: 4) {
+                        if h.armor > 0 {
+                            StatGem(value: h.armor, colors: [Color(hex: "#c8ccd8"), Color(hex: "#6a7080")], label: tx.armor, scale: 0.75, dark: true)
+                            Text(tx.armor).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#9fa6b8"))
+                        }
+                        if h.spellMana > 0 {
+                            HStack(spacing: 3) {
+                                ForEach(0..<min(6, h.spellMana), id: \.self) { _ in
+                                    Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
+                                        .frame(width: 7, height: 7).rotationEffect(.degrees(45))
+                                }
+                            }
+                            .padding(.horizontal, 2)
+                            Text(tx.spellManaShort).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#d2b8ff"))
+                        }
+                    }
+                    .frame(height: 16)
+                }
+                .lineLimit(1).minimumScaleFactor(0.7)
+            }
+            ManaBox(side: side)
+        }
+        .padding(.horizontal, 8).padding(.vertical, 6)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(LinearGradient(colors: [Color(hex: foe ? "#2a1c22" : "#1c2a3a"), Color(hex: foe ? "#160c10" : "#0e1620")], startPoint: .top, endPoint: .bottom), in: RoundedRectangle(cornerRadius: 8))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(acting ? Theme.gold : (foe ? Color(hex: "#6d3a33") : Color(hex: "#4a6a9a")), lineWidth: 1.2))
+        .shadow(color: Theme.gold.opacity(acting ? 0.45 : 0), radius: acting ? 8 : 0)
+        .animation(.easeOut(duration: 0.25), value: acting)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("\(vm.heroName(side)), \(h.hp), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana), " + tx.mana(h.mana, h.maxMana))))
     }
 }
 
@@ -276,18 +337,19 @@ private struct DeckPile: View {
     }
 }
 
-/// Mana as "x / max" with a row of ten crystals, plus banked spell mana as purple diamonds.
+/// Mana as "x / max" with a row of ten crystals (inside a StatusBox).
 private struct ManaBox: View {
     let side: Side
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         let h = s[side], tx = vm.tx, foe = side == .e
-        return AnyView(VStack(spacing: 4) {
+        let label = foe ? Color(hex: "#f0a097") : Color(hex: "#9fc4ee")
+        return AnyView(VStack(alignment: .leading, spacing: 3) {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text(tx.manaShort).font(Theme.body(10, .bold)).foregroundStyle(Color(hex: "#9fc4ee")).textCase(.uppercase)
-                Text("\(h.mana)").font(Theme.body(17, .heavy)).foregroundStyle(.white).monospacedDigit()
-                Text("/\(h.maxMana)").font(Theme.body(10, .bold)).foregroundStyle(Color(hex: "#9fc4ee")).monospacedDigit()
+                Text(tx.manaShort).font(Theme.body(9, .bold)).tracking(1).foregroundStyle(label).textCase(.uppercase)
+                Text("\(h.mana)").font(Theme.body(15, .heavy)).foregroundStyle(.white).monospacedDigit()
+                Text("/\(h.maxMana)").font(Theme.body(9, .bold)).foregroundStyle(label).monospacedDigit()
             }
             HStack(spacing: 2.5) {
                 ForEach(0..<10, id: \.self) { i in
@@ -297,22 +359,8 @@ private struct ManaBox: View {
                         .shadow(color: i < h.mana ? Color(hex: "#5ad0ff").opacity(0.8) : .clear, radius: 2)
                 }
             }
-            if h.spellMana > 0 {
-                HStack(spacing: 3) {
-                    ForEach(0..<h.spellMana, id: \.self) { _ in
-                        Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
-                            .frame(width: 5, height: 5).rotationEffect(.degrees(45))
-                    }
-                }
-                .frame(height: 6)
-            }
         }
-        .padding(.horizontal, 8).padding(.vertical, 5)
-        .frame(maxWidth: .infinity)
-        .background(LinearGradient(colors: [Color(hex: foe ? "#2a1c22" : "#1c2a3a"), Color(hex: foe ? "#160c10" : "#0e1620")], startPoint: .top, endPoint: .bottom), in: RoundedRectangle(cornerRadius: 8))
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(foe ? Color(hex: "#6d3a33") : Color(hex: "#4a6a9a"), lineWidth: 1.2))
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(tx.mana(h.mana, h.maxMana) + (h.spellMana > 0 ? ", " + tx.spellMana(h.spellMana) : ""))))
+        .accessibilityHidden(true))
     }
 }
 
@@ -341,31 +389,45 @@ private struct EndTurnButton: View {
     }
 }
 
-/// Your hero power as an orange bar: cost badge and name. Tap to use; a targeted power can be dragged onto its target.
-private struct PowerBar: View {
+/// Your hero power: a round orange button at your hero's shoulder with the cost on its rim and the name under
+/// it. Tap to use; a targeted power can be dragged onto its target. Grey while it cannot be used.
+private struct PowerButton: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         let power = s.p.power, tx = vm.tx
         let enabled = !vm.powerBlocked
         let dragging = vm.drag?.src == .power
-        return AnyView(HStack(spacing: 6) {
-            Text("\(power.cost)").font(Theme.body(11, .heavy)).foregroundStyle(.white).frame(width: 20, height: 20).background(Theme.mana, in: Circle())
-                .overlay(Circle().stroke(Color(hex: "#bfe0fa"), lineWidth: 1))
-            Text(tx.powerName(power)).font(Theme.body(12, .heavy)).foregroundStyle(.white).lineLimit(2).minimumScaleFactor(0.7).multilineTextAlignment(.leading)
-            Spacer(minLength: 0)
+        return AnyView(VStack(spacing: 3) {
+            ZStack {
+                Circle().fill(RadialGradient(colors: enabled ? [Color(hex: "#f6a35a"), Color(hex: "#d8601e"), Color(hex: "#8a3212")] : [Color(hex: "#6a5a50"), Color(hex: "#4a3a32"), Color(hex: "#2a1e18")],
+                                             center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 26))
+                Image(systemName: "sparkles").font(.system(size: 20, weight: .bold)).foregroundStyle(enabled ? Color(hex: "#fff4dc") : Color(hex: "#c8bca8"))
+            }
+            .frame(width: 46, height: 46)
+            .overlay(Circle().stroke(enabled ? Color(hex: "#f3c97a") : Color(hex: "#7a6a4a"), lineWidth: 2))
+            .shadow(color: enabled ? Color(hex: "#f3c97a").opacity(dragging ? 0.95 : 0.5) : .clear, radius: dragging ? 14 : 8)
+            .shadow(color: .black.opacity(0.6), radius: 3, y: 2)
+            .overlay(alignment: .topLeading) {
+                Text("\(power.cost)").font(Theme.body(10, .heavy)).foregroundStyle(enabled ? .white : Color(hex: "#c8d0dc"))
+                    .frame(width: 18, height: 18)
+                    .background(enabled ? Theme.mana : Color(hex: "#2a3a50"), in: Circle())
+                    .overlay(Circle().stroke(enabled ? Color(hex: "#bfe0fa") : Color(hex: "#6a7a90"), lineWidth: 1))
+                    .offset(x: -8, y: -6)
+            }
+            .scaleEffect(dragging ? 1.08 : 1)
+            .reportFrame { vm.powerFrame = $0 }
+            .contentShape(Circle())
+            .pressDrag(onTap: { vm.usePower() }, onDrag: { vm.dragPower(to: $0) }, onDrop: { _ in vm.dropPower() })
+            Text(tx.powerName(power)).font(Theme.body(9, .bold)).foregroundStyle(enabled ? Theme.gold : Color(hex: "#9a8a6a"))
+                .lineLimit(1).minimumScaleFactor(0.7)
+                .padding(.horizontal, 6).frame(height: 15)
+                .background(Color.black.opacity(0.55), in: Capsule())
+                .allowsHitTesting(false)
         }
-        .padding(.horizontal, 6).padding(.vertical, 6)
-        .frame(maxWidth: .infinity, minHeight: 40)
-        .background(LinearGradient(colors: [Color(hex: "#f08a3a"), Color(hex: "#a8401a")], startPoint: .top, endPoint: .bottom), in: RoundedRectangle(cornerRadius: 8))
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "#f3c97a"), lineWidth: 1.2))
-        .shadow(color: dragging ? Theme.gold.opacity(0.9) : .clear, radius: 8)
-        .scaleEffect(dragging ? 1.06 : 1)
-        .saturation(enabled ? 1 : 0.15).opacity(enabled ? 1 : 0.55)
-        .reportFrame { vm.powerFrame = $0 }
-        .contentShape(RoundedRectangle(cornerRadius: 8))
-        .pressDrag(onTap: { vm.usePower() }, onDrag: { vm.dragPower(to: $0) }, onDrop: { _ in vm.dropPower() })
+        .opacity(enabled ? 1 : 0.75)
         .animation(.spring(duration: 0.2), value: dragging)
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("\(tx.heroPower) \(tx.powerName(power)), \(power.cost): \(tx.powerDesc(power))"))
         .accessibilityAddTraits(.isButton))
     }
@@ -513,8 +575,8 @@ struct CardInfoPanel: View {
                 Text(tx.name(card.names)).font(Theme.display(16, cjk: cjk)).foregroundStyle(Theme.parch).lineLimit(1).minimumScaleFactor(0.7)
                 Spacer(minLength: 4)
                 if card.isMinion {
-                    StatBubble(value: card.atk ?? 0, attack: true, em: 8)
-                    StatBubble(value: card.hp ?? 0, attack: false, em: 8)
+                    GemView(kind: .attack, value: card.atk ?? 0, size: 24)
+                    GemView(kind: .health, value: card.hp ?? 0, size: 24)
                 }
             }
             if !typ.isEmpty {
