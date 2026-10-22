@@ -88,8 +88,7 @@ private struct HandSlot: View {
         let layoutKey = "\(mode)|\(n)|\(lifted)|\(dragging)|\(pend)"
         let anim: Animation? = dragging && !aiming ? nil : vm.reduceMotion ? .easeOut(duration: 0.12) : .spring(duration: 0.42, bounce: 0.22)
 
-        return AnyView(CardView(card: card, size: .fit(hm.em))
-            .overlay(RoundedRectangle(cornerRadius: 0.9 * hm.em).stroke(ring, lineWidth: 2))
+        return AnyView(CardView(card: card, size: .fit(hm.em), ring: ring)
             .shadow(color: ring == .clear ? .black.opacity(fan ? 0.5 : 0.3) : ring.opacity(0.6), radius: ring == .clear ? 6 : 9, y: ring == .clear ? 4 : 0)
             .saturation(!canPay && fan && !dragging ? 0.5 : 1).brightness(!canPay && fan && !dragging ? -0.15 : 0)
             .opacity(vm.hiddenHand == index ? 0 : fan ? 1 : 0.8)

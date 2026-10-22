@@ -11,6 +11,8 @@ enum CardSize { case sm, md, big, fit(CGFloat)
 struct CardView: View {
     let card: Card
     var size: CardSize = .sm
+    /// A coloured ring on the frame (playable, lifted, aimed); drawn under the corner gems so they stay readable.
+    var ring: Color = .clear
     @Environment(GameVM.self) private var vm
 
     var body: some View {
@@ -34,6 +36,7 @@ struct CardView: View {
             .clipShape(inner)
             .padding(0.28 * em)
             RoundedRectangle(cornerRadius: 0.9 * em).strokeBorder(frame, lineWidth: 0.28 * em)
+            if ring != .clear { RoundedRectangle(cornerRadius: 0.9 * em).stroke(ring, lineWidth: 2) }
             // Translucent rules box: name, type and text start at the left edge, the part of a card that a
             // neighbour in the fanned hand never covers.
             VStack(alignment: .leading, spacing: 0.18 * em) {
