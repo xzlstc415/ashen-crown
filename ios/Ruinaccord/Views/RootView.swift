@@ -11,7 +11,11 @@ struct RootView: View {
     var body: some View {
         ZStack {
             Theme.bg.ignoresSafeArea()
-            RadialGradient(colors: [Color(hex: "#2a2030"), .clear], center: UnitPoint(x: 0.5, y: 0.45), startRadius: 0, endRadius: 420).ignoresSafeArea()
+            if vm.screen == .duel {
+                SceneBackdrop(name: vm.scene).transition(.opacity).id(vm.scene)
+            } else {
+                RadialGradient(colors: [Color(hex: "#2a2030"), .clear], center: UnitPoint(x: 0.5, y: 0.45), startRadius: 0, endRadius: 420).ignoresSafeArea()
+            }
             if !reduceMotion { Embers().ignoresSafeArea() }
             switch vm.backend.auth {
             case .loading: ProgressView().tint(Theme.gold)

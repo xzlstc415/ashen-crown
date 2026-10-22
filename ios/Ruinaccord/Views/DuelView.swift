@@ -78,6 +78,8 @@ struct DuelView: View {
                 ZStack(alignment: .topLeading) {
                     HeroCluster(side: .p).position(x: x, y: y - 10)
                     PowerButton().position(x: x + 60, y: y - 30)
+                    GemView(kind: .health, value: s.p.hp, size: 34).position(x: x + 60, y: y + 24)
+                        .accessibilityLabel(Text("\(tx.healthShort) \(s.p.hp)"))
                 }
                 .frame(width: hm.size.width - hm.leftW - hm.rightW, height: vh)
             }
@@ -142,6 +144,8 @@ private struct TopStrip: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             HeroCluster(side: .e).position(x: hm.heroX - hm.leftW, y: 52)
+            GemView(kind: .health, value: s.e.hp, size: 34).position(x: hm.heroX - hm.leftW + 60, y: 44)
+                .accessibilityLabel(Text("\(vm.tx.healthShort) \(s.e.hp)"))
         })
     }
 }
@@ -292,28 +296,25 @@ private struct StatusBox: View {
         let acting = s.turn == side && !s.over
         let label = foe ? Color(hex: "#f0a097") : Color(hex: "#9fc4ee")
         return AnyView(VStack(alignment: .leading, spacing: 5) {
-            HStack(spacing: 8) {
-                GemView(kind: .health, value: h.hp, size: 32)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(tx.healthShort).font(Theme.body(8, .bold)).tracking(1).foregroundStyle(label)
-                    HStack(spacing: 4) {
-                        if h.armor > 0 {
-                            StatGem(value: h.armor, colors: [Color(hex: "#c8ccd8"), Color(hex: "#6a7080")], label: tx.armor, scale: 0.75, dark: true)
-                            Text(tx.armor).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#9fa6b8"))
-                        }
-                        if h.spellMana > 0 {
-                            HStack(spacing: 3) {
-                                ForEach(0..<min(6, h.spellMana), id: \.self) { _ in
-                                    Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
-                                        .frame(width: 7, height: 7).rotationEffect(.degrees(45))
-                                }
-                            }
-                            .padding(.horizontal, 2)
-                            Text(tx.spellManaShort).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#d2b8ff"))
-                        }
+            // Health sits beside the portrait; here: Armor and banked spell mana, then mana.
+            if h.armor > 0 || h.spellMana > 0 {
+                HStack(spacing: 4) {
+                    if h.armor > 0 {
+                        StatGem(value: h.armor, colors: [Color(hex: "#c8ccd8"), Color(hex: "#6a7080")], label: tx.armor, scale: 0.75, dark: true)
+                        Text(tx.armor).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#9fa6b8"))
                     }
-                    .frame(height: 16)
+                    if h.spellMana > 0 {
+                        HStack(spacing: 3) {
+                            ForEach(0..<min(6, h.spellMana), id: \.self) { _ in
+                                Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
+                                    .frame(width: 7, height: 7).rotationEffect(.degrees(45))
+                            }
+                        }
+                        .padding(.horizontal, 2)
+                        Text(tx.spellManaShort).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#d2b8ff"))
+                    }
                 }
+                .frame(height: 16)
                 .lineLimit(1).minimumScaleFactor(0.7)
             }
             ManaBox(side: side)

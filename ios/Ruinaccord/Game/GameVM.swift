@@ -135,6 +135,8 @@ final class GameVM {
     var showLog = false
     /// The talents of both sides, listed.
     var showTalentPanel = false
+    /// The painted place behind the current duel (see `Scenes`).
+    var scene = "dawn"
     /// A board minion being held down: its card shows in the info panel.
     var infoKey: String?
     /// The card described in the top-left panel: the lifted hand card, else the held minion.
@@ -419,6 +421,7 @@ final class GameVM {
         guard let cls = q.cls else { return }
         q.diff = diff
         run = Run(stage: 0, deck: q.deck, cls: cls, tal: q.tal)
+        scene = Scenes.random()
         let ecls = gd.classes.randomElement()!
         var s = DuelState(mode: .quick, pcls: cls, ecls: ecls.id, diff: diff,
                           p: DuelState.makeHero(.p, hp: 30, deck: q.deck.shuffled(), power: curPower),
@@ -445,6 +448,7 @@ final class GameVM {
     func startDuel() {
         abandoned = false; quitArm = false
         let o = gd.opponents[run.stage]
+        scene = Scenes.forStage(run.stage)
         // Talent classes: both sides open with 5 cards and the foe has 40% more Health.
         let tc = gd.hasTalents(run.cls), ehp = tc ? Int((Double(o.hp) * 1.4).rounded()) : o.hp
         var s = DuelState(mode: .camp, pcls: run.cls ?? "", stage: run.stage,
@@ -1169,6 +1173,7 @@ final class GameVM {
         var s = isHost ? hostState : hostState.flipped()
         s.events = []
         run = Run(stage: 0, deck: s.p.deck, cls: s.pcls, tal: s.p.tal)
+        scene = Scenes.random()
         resetDuelUI()
         netOut = []; turnActs = []; netN = 0; appliedN = 0; seq = 0; netQueue = []
         o.lost = nil; o.conceded = false; o.concedeArm = false; o.again = false; o.foeAgain = false

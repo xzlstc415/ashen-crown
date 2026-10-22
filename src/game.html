@@ -19,6 +19,18 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15p
   background-image:radial-gradient(110% 55% at 50% 45%, #2a2030 0%, transparent 70%)}
 .embers{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
 .embers i{position:absolute;bottom:-12px;border-radius:50%;background:#f39a3a;box-shadow:0 0 6px 1px rgba(243,154,58,.7);animation:rise linear infinite;opacity:.7}
+/* A painted place behind each duel, darkened where the cards sit: a wash over the picture, a deeper pool over
+   the board, shaded edges, so gems and rules text keep their contrast. */
+body[data-scene]{background:#0a0710}
+body[data-scene]::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;filter:saturate(.9);
+  background:linear-gradient(180deg,rgba(6,4,10,.35),rgba(6,4,10,0) 20%,rgba(6,4,10,0) 65%,rgba(6,4,10,.55)),
+    linear-gradient(90deg,rgba(6,4,10,.7),rgba(6,4,10,0) 10%,rgba(6,4,10,0) 90%,rgba(6,4,10,.7)),
+    radial-gradient(ellipse at 50% 50%,rgba(10,7,16,.62) 0%,rgba(10,7,16,.5) 45%,rgba(10,7,16,0) 100%),
+    rgba(10,7,16,.32),var(--scene) center/cover no-repeat}
+body[data-scene=graveyard]{--scene:url(img/bg/graveyard.jpg)}
+body[data-scene=dawn]{--scene:url(img/bg/dawn.jpg)}
+body[data-scene=warfront]{--scene:url(img/bg/warfront.jpg)}
+body[data-scene=glade]{--scene:url(img/bg/glade.jpg)}
 @keyframes rise{0%{transform:translate(0,0)}50%{opacity:.8}100%{transform:translate(var(--dx),-108vh);opacity:0}}
 #app{position:relative;z-index:1;min-height:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:6px;box-sizing:border-box;
   padding-block:8px;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
@@ -1059,6 +1071,9 @@ function rollRewards(stage){
   return out;
 }
 const BOARD_MAX=5;
+// The painted places a duel is fought in: Adventure by stage, other modes at random.
+const SCENES=['graveyard','dawn','warfront','glade'],STAGE_SCENE=['dawn','warfront','glade','warfront','dawn','glade','graveyard','warfront'];
+const sceneFor=()=>S&&S.mode==='camp'?STAGE_SCENE[R.stage]||'dawn':SCENES[Math.random()*SCENES.length|0];
 
 // ---------- classes: each has one hero power and a themed starting deck ----------
 const CLASSES=[
@@ -1692,6 +1707,7 @@ function startQuick(diff){
   const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,sm:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false,ember:0,altar:[],grave:[]});
   S={mode:'quick',diff,ecls,turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
      p:mk('p',30,Q.deck),e:mk('e',30,padDeck(CBY[ecls].deck,DIFFS[diff].rar,ecls))};
+  S.scene=sceneFor();
   S.e.power=CBY[ecls].power;S.p.cls=Q.cls;S.e.cls=ecls;
   setupTalents(S.p,Q.cls,Q.tal);setupTalents(S.e,ecls,talPreset(ecls,Math.random()*3|0));
   const pFirst=Math.random()<.5;
@@ -1717,6 +1733,7 @@ function startDuel(){
   // Beta · talent classes: both sides open with 5 cards and the enemy has 40% more Health.
   const tc=hasTal(R.cls),ehp=tc?Math.round(o.hp*1.4):o.hp;
   S={mode:'camp',turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,p:mk('p',30,R.deck),e:mk('e',ehp,o.deck)};
+  S.scene=sceneFor();
   S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;S.p.cls=R.cls;S.e.cls=null;setupTalents(S.p,R.cls,R.tal);
   say('rises',()=>heroName(S.e));
   draw('p',tc?5:3);draw('e',tc?5:4);talOpen('p');
@@ -2343,6 +2360,7 @@ function startOnline(d){
   const mk=(side,deck)=>({side,hp:30,max:30,armor:0,mana:0,maxMana:0,sm:0,deck:[...deck],hand:[],board:[],fat:0,powerUsed:false,ember:0,altar:[],grave:[]});
   S={mode:'online',ecls:foeC,turn:iFirst?'p':'e',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
      order:h?['p','e']:['e','p'],p:mk('p',myD),e:mk('e',foeD)};
+  S.scene=sceneFor();
   S.e.power=CBY[foeC].power;S.p.cls=myC;S.e.cls=foeC;
   setupTalents(S.p,myC,h?d.ht:d.gt);setupTalents(S.e,foeC,h?d.gt:d.ht);
   const [a,b]=iFirst?['p','e']:['e','p'];
@@ -2748,6 +2766,7 @@ function render(){
   document.title='Ruinaccord';
   const ro=$('.rotate');if(ro)ro.textContent=T('rotate');
   const app=$('#app');app.classList.toggle('duelland',view==='duel'&&LAND.matches);
+  if(view==='duel'&&S&&S.scene)document.body.dataset.scene=S.scene;else delete document.body.dataset.scene;
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='tal'){app.innerHTML=header()+routeRow()+`<div class="screen" style="justify-content:flex-start"><h2>${TX.advT(R.stage+1)}</h2><p>${TX.advS(advPts())}</p>${talPanel()}
     <div class="btns"><button class="btn" data-go="talgo">${TX.fight()}</button></div></div>`;FX=[];return}
