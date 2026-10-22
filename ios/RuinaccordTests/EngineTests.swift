@@ -404,4 +404,16 @@ final class EngineTests: XCTestCase {
         m.receive(doc(beat: 90, actsBy: "foe", seq: 3))   // a move counts too
         XCTAssertLessThan(m.foeIdle, 0.1)
     }
+
+    func testRewardsRespectCopyLimits() {
+        let gd = GameData.shared
+        let legs = gd.collectible.filter(\.isLegendary).map(\.id)
+        for _ in 0..<30 {
+            let r = Decks.rollRewards(stage: 5, cls: "warlock", deck: legs)
+            XCTAssertEqual(r.count, 3)
+            XCTAssertTrue(r.allSatisfy { !legs.contains($0) }, "a Legendary the deck has is never offered again")
+        }
+        let twice = ["goblin", "goblin"]
+        for _ in 0..<30 { XCTAssertFalse(Decks.rollRewards(stage: 0, cls: nil, deck: twice).contains("goblin")) }
+    }
 }

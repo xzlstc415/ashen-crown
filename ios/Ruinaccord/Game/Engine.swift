@@ -972,13 +972,14 @@ enum Decks {
     }
 
     /// Three distinct reward cards after an adventure win; legendaries appear from the third foe on, and cards of
-    /// the schools you have talents in come up three times as often.
-    static func rollRewards(stage: Int, cls: String?, talents: [String] = []) -> [String] {
+    /// the schools you have talents in come up three times as often. Cards the deck already holds the most
+    /// copies of (a Legendary it has) are never offered.
+    static func rollRewards(stage: Int, cls: String?, talents: [String] = [], deck: [String] = []) -> [String] {
         let gd = GameData.shared
         let w = ["c": 3, "r": 2, "e": 1, "l": stage >= 2 ? 1 : 0]
         let schools = Set(talents.compactMap { gd.talentPage(of: $0)?.sc })
         var pool: [String] = []
-        for c in gd.collectible where c.allowed(for: cls) {
+        for c in gd.collectible where c.allowed(for: cls) && copies(deck, c.id) < c.maxCopies {
             let boost = c.sc.map { schools.contains($0) } == true ? 3 : 1
             for _ in 0..<((w[c.rarity] ?? 0) * boost) { pool.append(c.id) }
         }

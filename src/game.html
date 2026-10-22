@@ -1086,7 +1086,8 @@ function rollRewards(stage){
   const w={c:3,r:2,e:1,l:stage>=2?1:0},pool=[];
   // Beta: cards of the schools you have talents in come up three times as often.
   const sch=new Set((R.tal||[]).map(id=>TAL_PAGE[id]&&TAL_PAGE[id].sc));
-  COLLECT.filter(k=>forCls(k,R.cls)).forEach(k=>{for(let i=0;i<w[CARDS[k].r]*(CARDS[k].sc&&sch.has(CARDS[k].sc)?3:1);i++)pool.push(k)});
+  // Cards the deck already holds the most copies of (a Legendary it has) are never offered.
+  COLLECT.filter(k=>forCls(k,R.cls)&&copies(R.deck,k)<maxCopies(k)).forEach(k=>{for(let i=0;i<w[CARDS[k].r]*(CARDS[k].sc&&sch.has(CARDS[k].sc)?3:1);i++)pool.push(k)});
   const out=[];
   while(out.length<3){const k=pool[Math.random()*pool.length|0];if(!out.includes(k))out.push(k)}
   return out;
@@ -2938,7 +2939,7 @@ document.addEventListener('click',ev=>{
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.zoom!==undefined)return showZoom(b.dataset.zoom);
   if(b.dataset.tal!==undefined)return talClick(b.dataset.tal);
-  if(b.dataset.pack!==undefined){const ps=advPacks();if(ps){R.deck.push(...ps[+b.dataset.pack].cards);R.stage++;goStage()}return}
+  if(b.dataset.pack!==undefined){const ps=advPacks();if(ps){ps[+b.dataset.pack].cards.forEach(k=>{if(copies(R.deck,k)<maxCopies(k))R.deck.push(k)});R.stage++;goStage()}return}
   if(b.dataset.tpre!==undefined)return talPresetClick(b.dataset.tpre);
   if(b.dataset.btab!==undefined){Q.btab=b.dataset.btab;return render()}
   if(b.dataset.tview!==undefined){if(S){S.tview=b.dataset.tview;render()}return}

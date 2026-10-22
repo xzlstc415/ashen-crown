@@ -376,7 +376,9 @@ final class GameVM {
     var advPacks: [TalentPack]? { run.cls.flatMap { gd.advPacks($0, stage: run.stage) } }
     func pickPack(_ i: Int) {
         guard let ps = advPacks, let p = ps[safe: i] else { return }
-        run.deck.append(contentsOf: p.cards); run.stage += 1; goStage()
+        // A pack never pushes a card past its copy limit (one of a Legendary).
+        for k in p.cards where Decks.copies(run.deck, k) < Decks.maxCopies(k) { run.deck.append(k) }
+        run.stage += 1; goStage()
     }
 
     func addCard(_ k: String) {
@@ -636,7 +638,7 @@ final class GameVM {
             case .camp:
                 if !won { go(.lost) }
                 else if run.stage == gd.opponents.count - 1 { go(.champ) }
-                else { picks = Decks.rollRewards(stage: run.stage, cls: run.cls, talents: run.tal); go(.reward) }
+                else { picks = Decks.rollRewards(stage: run.stage, cls: run.cls, talents: run.tal, deck: run.deck); go(.reward) }
             }
         }
     }
