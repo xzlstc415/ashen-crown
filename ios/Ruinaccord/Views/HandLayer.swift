@@ -108,9 +108,7 @@ private struct HandSlot: View {
                     switch mode {
                     case .dormant: vm.peekHand()
                     case .peek: vm.hsel = vm.hsel == index ? nil : index
-                    case .active:
-                        if vm.hsel == index { if ok { vm.playHand(index) } else { vm.hsel = nil } }
-                        else { vm.hsel = index }
+                    case .active: vm.hsel = vm.hsel == index ? nil : index
                     }
                 },
                 onHold: {

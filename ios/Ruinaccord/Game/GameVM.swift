@@ -2,7 +2,7 @@ import SwiftUI
 import Observation
 
 enum Screen: Hashable {
-    case intro, classPick, talents, duel, reward, lost, champ, decks, qclass, build, diff, qresult, gallery, online, oresult
+    case intro, classPick, talents, duel, reward, lost, champ, decks, qclass, build, diff, qtalents, qresult, gallery, online, oresult
 }
 
 struct Run {
@@ -332,12 +332,12 @@ final class GameVM {
 
     /// Where talent picks go: the deck being built, or the adventure run (with the points earned so far).
     var talentContext: (cls: String, sel: [String], budget: Int)? {
-        if screen == .build, let cls = q.cls { return (cls, q.tal, gd.talents.maxPts) }
+        if screen == .build || screen == .qtalents, let cls = q.cls { return (cls, q.tal, gd.talents.maxPts) }
         if let cls = run.cls { return (cls, run.tal, gd.advPoints(run.stage)) }
         return nil
     }
     private func setTalents(_ v: [String]) {
-        if screen == .build { q.tal = v; q.dirty = true; q.toast = "" } else { run.tal = v }
+        if screen == .build || screen == .qtalents { q.tal = v; q.dirty = true; q.toast = "" } else { run.tal = v }
     }
     func talClick(_ id: String) {
         guard let c = talentContext, let pg = gd.talentPage(of: id) else { return }
@@ -409,6 +409,15 @@ final class GameVM {
     }
 
     func toDifficulty() { if q.deck.count == Decks.size { go(.diff) } }
+    /// Quick play: after the difficulty, classes with talents get the talent screen; the deck keeps the choice.
+    func pickDifficulty(_ d: Difficulty) {
+        q.diff = d
+        if gd.hasTalents(q.cls) { go(.qtalents) } else { startQuick(d) }
+    }
+    func startQuickFromTalents() {
+        if q.dirty, q.editId != nil { saveCurrent(asNew: false) }
+        startQuick(q.diff)
+    }
 
     // MARK: - Starting duels
 
@@ -863,7 +872,7 @@ final class GameVM {
 
     /// Finger moved while holding the hero power button (only a targeted power drags).
     func dragPower(to p: CGPoint) {
-        guard !powerBlocked, let t = curPower.tgt else { drag = nil; return }
+        guard !powerBlocked, let t = S.p.power.tgt else { drag = nil; return }
         if drag == nil { Haptics.lift() }
         var d = drag ?? Drag(src: .power, pt: p)
         d.src = .power; d.pt = p; d.aboveLine = true
@@ -922,7 +931,9 @@ final class GameVM {
             S.turn = .e; S.round += 1
             S.startTurn(.e)
             S.log(.eTurn)
-            S.cleanup(); drain(); netFlush()
+            let ended = S.cleanup()
+            drain(); netFlush()
+            if ended { onGameOver(); return }
             showBanner(tx.bannerFoe, foe: true)
             return
         }
@@ -1015,7 +1026,8 @@ final class GameVM {
         S.startTurn(.p)
         busy = false
         S.log(.yourTurn)
-        S.cleanup(); drain()
+        if S.cleanup() { drain(); onGameOver(); return }
+        drain()
         showBanner(tx.bannerYou, foe: false)
     }
 
@@ -1257,7 +1269,8 @@ final class GameVM {
             S.startTurn(.p)
             busy = false
             S.log(.yourTurn)
-            S.cleanup(); drain()
+            if S.cleanup() { drain(); onGameOver(); return }
+            drain()
             showBanner(tx.bannerYou, foe: false)
             return
         }

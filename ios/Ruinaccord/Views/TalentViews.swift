@@ -119,6 +119,22 @@ struct TalentScreen: View {
     }
 }
 
+/// Quick play: the 12 points before the duel, kept on the deck.
+struct QTalentScreen: View {
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        let tx = vm.tx
+        ScreenShell(scene: "warfront") {
+            VStack(spacing: 4) {
+                BarRow(back: (tx.diffTitle, { vm.go(.diff) }), title: tx.qTalTitle, subtitle: tx.qTalSub(tx.diff(vm.q.diff))) {
+                    Button(tx.talFight + " ›") { vm.startQuickFromTalents() }.primary(compact: true, glow: true)
+                }
+                TalentPanel().padding(.horizontal, 10).padding(.bottom, 8)
+            }
+        }
+    }
+}
+
 /// After an Adventure win: one pack per talent page, each naming the talents it goes with.
 struct PackRow: View {
     let packs: [TalentPack]

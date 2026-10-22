@@ -110,7 +110,8 @@ private struct PromptPill: View {
                         Text(tx.chooseTarget(vm.pendingLabel())).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
                         Button(tx.cancel) { vm.cancelPending() }.ghost(compact: true)
                     } else if liftedPlayable {
-                        Text(tx.tapPlay).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
+                        let targeted = vm.hsel.flatMap { s.p.hand[safe: $0] }.flatMap(GameData.shared.card)?.isTargetedSpell == true
+                        Text(targeted ? tx.dragTarget : tx.dragPlay).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
                     } else {
                         Circle().fill(Color(hex: "#f0a097")).frame(width: 6, height: 6)
                         Text(tx.foeTurn).font(Theme.body(11.5, .bold)).foregroundStyle(Color(hex: "#f0a097"))

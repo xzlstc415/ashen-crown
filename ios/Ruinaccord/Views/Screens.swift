@@ -337,7 +337,7 @@ struct DiffView: View {
                 BarRow(back: (tx.editDeck, { vm.go(.build) }), title: tx.diffTitle, subtitle: tx.diffSub)
                 HStack(spacing: 14) {
                     ForEach(Difficulty.allCases) { d in
-                        ModeTile(title: tx.diff(d), sub: tx.diffDesc(d), foot: "", color: Color(hex: d.colorHex), icon: d == .easy ? "leaf.fill" : d == .normal ? "shield.fill" : "flame.fill") { vm.startQuick(d) }
+                        ModeTile(title: tx.diff(d), sub: tx.diffDesc(d), foot: "", color: Color(hex: d.colorHex), icon: d == .easy ? "leaf.fill" : d == .normal ? "shield.fill" : "flame.fill") { vm.pickDifficulty(d) }
                     }
                 }
                 .frame(maxHeight: .infinity)

@@ -39,6 +39,10 @@ enum DebugLaunch {
                 vm.startQuick(.normal)
             case "camp": vm.pickClass("paladin")
             case "build": vm.openBuilder(cls: "warrior")
+            case "qtalents":
+                vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; vm.q.tal = GameData.shared.talentPreset("mage", 0)
+                Decks.autoFill(&vm.q.deck, cls: "mage")
+                vm.pickDifficulty(.hard)
             case "gallery": vm.openGallery()
             case "online": vm.goOnline()
             case "decks": vm.goDecks()
@@ -47,6 +51,11 @@ enum DebugLaunch {
             // -card <key>: put a card in hand and on both boards; -zoom <key>: open its large view (art checks).
             // The opening mulligan is confirmed (keeping the hand) unless -mull asks to see it.
             if vm.state?.mulligan == true && !args.contains("-mull") { vm.confirmMulligan() }
+            // -fatigue: your deck is empty and you are at 1 health, then the turn ends (the fatigue draw must end the game)
+            if args.contains("-fatigue"), vm.state != nil {
+                vm.state?.p.deck = []; vm.state?.p.hp = 1; vm.state?.turn = .p
+                Task { try? await Task.sleep(for: .seconds(1)); vm.endTurn() }
+            }
             // -card a,b,c: these cards go in your hand; minions among them also on both boards
             if let ks = value("-card"), vm.state != nil {
                 try? await Task.sleep(for: .milliseconds(600))

@@ -63,6 +63,7 @@ struct GameRoot: View {
                     case .qclass: QClassView()
                     case .build: BuilderView()
                     case .diff: DiffView()
+                    case .qtalents: QTalentScreen()
                     case .qresult: QResultView()
                     case .gallery: GalleryView()
                     case .online: OnlineView()
