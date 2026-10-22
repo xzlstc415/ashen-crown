@@ -2,7 +2,24 @@
 
 世界观回顾：灰烬之王曾统治这片大陆，他的王冠在灰烬巨龙伊格纳洛斯的龙息中锻成。王朝倾覆后，世界成了"阳光照进废墟、藤蔓爬上石柱"的样子。冒险者从哥布林战团一路打到灰烬之王，要把那顶王冠夺回来。六位英雄各有自己要戴上王冠的理由。
 
-头像是**圆形**的，截取画面中央。所以提示词全部是**正方形 1:1 的半身肖像**，脸在正中央、占画面一半以上，肩膀以下可以被裁掉。画风沿用卡牌的方向 B（手绘绘本风），后缀已接在每条末尾。出图后把文件按标题里的文件名放到 `art/heroes/`（例如 `hero_warrior.png`）。
+## 头像统一规范（2026-10-21 修订）
+
+第一批出图的问题：脸在画面上三分之一、铠甲占了一半画面（圆形头像一裁，中间是胸甲不是脸）；侏儒和半身人都画成了精灵（尖耳朵）；两张猎人和其余四张不是同一种笔触。所以这版把六条提示词改成**同一个框架**：
+
+- **构图固定**：平视镜头，头和肩膀，脸在画面正中央、占画面高度约三分之二，头顶贴近上边缘，肩膀在下边缘被裁掉。头像是圆形的，裁掉四角后剩下的必须是脸。
+- **光线固定**：左上方一盏主光，职业强调色只做轮廓光。
+- **背景固定**：阳光下长满藤蔓的废墟，虚化。
+- **种族特征放在最前面**，而且写明"不是精灵"：只有猎人有尖耳朵。
+- **主体描述尽量短**：细节越多，模型越往写实大头照跑。
+- **一次出完六张**：用同一个风格参考（例如 `--sref` 指向已通过的兽人头像或 `art/raw/knight.png`，`--sw 100`）和同一个 `--seed`，避免像第一批那样两张猎人跑成另一种笔触。
+
+六条提示词都用下面这段统一后缀：
+
+```
+head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
+```
+
+出图后把文件按标题里的文件名放到 `art/heroes/`（例如 `hero_warrior.png`）。
 
 | 职业 | 种族 | 名字 | 一句话 |
 |---|---|---|---|
@@ -22,7 +39,7 @@
 
 **头像提示词**
 ```
-square portrait of a heroic orc warrior chieftain, no helmet, face centered and filling most of the frame, a noble long face rather than a brutish wide one: dark moss-green skin, strong defined cheekbones, a firm squared chin, a straight heavy brow over sharp intelligent amber eyes, two clean moderate lower tusks, pointed ears with iron rings, a long black mane braided back with a few grey streaks and bone beads, three deep old battle scars across the face: one slashing from brow to cheek through a blind milky eye, one splitting the lower lip, one notching the jaw, white clan paint in a single bar across the nose, bare powerful shoulders, light armor only: a studded leather harness and a fur-trimmed strap across one shoulder, a bone and tooth necklace, head held high, looking slightly past the viewer with calm proud resolve, the bearing of a leader not a grunt, glowing ember red-orange accent light on one side of the face, sunlit overgrown ruins blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no helmet, plate armor, shield, weapon, wide flat face, human face, text, frame, border, card, letters, numbers, logo, watermark
+a scarred orc chieftain, moss-green skin, heavy brow, two moderate lower tusks, long black mane braided with bone beads, one blind milky eye with an old scar across it and another scar on the jaw, no helmet, bare shoulders with a studded leather harness, calm proud gaze slightly past the viewer, ember red-orange rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ## 法师 · 皮姆·霜烬 Pim Emberfrost — `hero_mage.png`
@@ -32,7 +49,7 @@ square portrait of a heroic orc warrior chieftain, no helmet, face centered and 
 
 **头像提示词**
 ```
-square portrait of a young gnome mage girl, face centered and filling most of the frame, large bright eyes, wild silver-white hair poking out from under an oversized patched blue wizard hat tilted to one side, a smudge of soot on one cheek, a mischievous half-smile, one small hand raised beside her face holding a flame that is orange on one side and icy blue on the other, glowing icy blue and arcane violet accent light, shelves of burnt books blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+a young gnome girl mage, clearly a gnome and not an elf: small round face, big button nose, large bright eyes, small rounded ears, wild silver hair under an oversized patched blue wizard hat tilted to one side, soot on one cheek, mischievous grin, a small flame half orange half icy blue hovering beside her face, icy blue and violet rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ## 圣骑士 · 奥德里克·晨誓 Aldric Dawnoath — `hero_paladin.png`
@@ -42,7 +59,7 @@ square portrait of a young gnome mage girl, face centered and filling most of th
 
 **头像提示词**
 ```
-square portrait of a human man paladin, face centered and filling most of the frame, calm steady gaze straight at the viewer, short dark hair cut unevenly, a close-trimmed beard, a thin pale scar across the bridge of his nose, tired but unbroken eyes, polished silver plate armor with gold trim at the shoulders, a white tabard with a faded gold sun, a soft golden halo of light behind his head, glowing holy gold accent light, morning sun breaking over ruined cathedral arches blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no helmet, text, frame, border, card, letters, numbers, logo, watermark
+a human man paladin about thirty, short dark hair, close-trimmed beard, a thin pale scar across the bridge of the nose, tired but steady eyes looking straight at the viewer, a plain steel gorget and the top of a white tabard with a gold sun, a soft golden halo behind the head, holy gold rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ## 猎人 · 凯尔温·荆径 Kaelwen Thornstride — `hero_hunter.png`
@@ -52,7 +69,7 @@ square portrait of a human man paladin, face centered and filling most of the fr
 
 **头像提示词**
 ```
-square portrait of a female elf hunter, face centered and filling most of the frame, sharp fine features and long pointed ears, dark-green hood pushed halfway back, auburn hair in a loose braid with a few strands across her brow, eyes narrowed and looking off to one side as if tracking something, two thin lines of dark war paint under one eye, a small healed cut on her chin, a snapped elven sigil hanging from a cord at her collar, a grey dire wolf's head just visible at the bottom corner of the frame, glowing forest green accent light, mossy forest ruins blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+a female elf ranger, the only hero with long pointed ears, sharp fine features, auburn hair in a loose braid, dark-green hood pushed back, two thin lines of green war paint under one eye, a small healed cut on the chin, eyes narrowed and looking off to one side, a snapped elven sigil on a cord at her collar, forest green rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ## 牧师 · 玛戈·烛芯 Margo Candlewick — `hero_priest.png`
@@ -62,7 +79,7 @@ square portrait of a female elf hunter, face centered and filling most of the fr
 
 **头像提示词**
 ```
-square portrait of an elderly halfling woman priest, face centered and filling most of the frame, round kind face with deep laugh lines, grey hair pinned up under a plain cream linen wimple, warm patient eyes looking straight at the viewer, a small gold circlet with a pale gem over her brow, both hands cupped just below her chin holding a lit candle whose light warms her face from below, glowing pale white-gold accent light, a half-collapsed chapel wall with ivy blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+an elderly halfling woman priest, clearly a halfling and not an elf: round soft face, small rounded ears, deep laugh lines, curly grey hair under a cream linen wimple, a thin gold circlet with a pale gem on her brow, warm patient eyes looking straight at the viewer, a lit candle held just below her chin lighting her face from below, pale white-gold rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ## 术士 · 莫文·残烛 Morwen Lastcandle — `hero_warlock.png`
@@ -72,7 +89,7 @@ square portrait of an elderly halfling woman priest, face centered and filling m
 
 **头像提示词**
 ```
-square portrait of an undead woman warlock, face centered and filling most of the frame, pale grey-blue skin cracked like old porcelain along one cheek, hollow eyes glowing fel green, long black hair gone white at the ends, a deep purple hood pulled low, a dark robe with a high stitched collar, thin lips with a faint knowing smile, one hand raised beside her face holding a small guttering candle whose flame burns green, glowing fel green and dark purple accent light, a ruined crypt doorway blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+an undead woman warlock, pale grey-blue skin cracked like old porcelain along one cheek, hollow eyes glowing fel green, long black hair gone white at the ends, a deep purple hood pulled low, a high stitched collar, faint knowing smile, a small guttering candle with a green flame held beside her face, fel green and dark purple rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ---
