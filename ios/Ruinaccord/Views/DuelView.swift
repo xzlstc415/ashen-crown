@@ -10,14 +10,13 @@ struct HandMetrics: Equatable {
     var leftW: CGFloat { 54 }
     var rightW: CGFloat { 116 }
     /// Height of the strip holding the enemy hero, their hand backs and counts.
-    var topH: CGFloat { 58 }
-    /// Height of one board row (minion tile plus padding) and of the message line between the rows.
-    var rowH: CGFloat { 80 }
-    var lineH: CGFloat { 18 }
+    var topH: CGFloat { 104 }
+    /// Height of one board row (minion tile plus padding).
+    var rowH: CGFloat { 70 }
     /// Card size: whatever height is left under the boards, capped for big screens.
     var em: CGFloat {
-        let free = size.height - 12 - topH - 2 * rowH - lineH - 16
-        return min(11, max(6, (free - 24 + bottomInset) / (15.6 * 0.7)))
+        let free = size.height - 12 - topH - 2 * rowH - 16
+        return min(11, max(6, (free - 30 + bottomInset) / (15.6 * 0.7)))
     }
     var cardW: CGFloat { 10 * em }
     var cardH: CGFloat { 15.6 * em }
@@ -26,14 +25,15 @@ struct HandMetrics: Equatable {
     /// The part of a hand card inside the duel area.
     var visible: CGFloat { cardH - sink - bottomInset }
     /// Height the board column leaves free at the bottom for your hero and the hand.
-    var reserve: CGFloat { visible + 24 }
+    var reserve: CGFloat { visible + 30 }
     /// Local y above which a dragged card counts as played.
     var line: CGFloat { size.height - reserve - 12 }
     /// Centre x of the heroes and of the hand (the middle of the board column).
     var heroX: CGFloat { leftW + (size.width - leftW - rightW) / 2 }
-    /// Centre y of your hero's portrait: its lower half sits behind the hand.
-    var heroY: CGFloat { size.height - visible - 10 }
-    var heroSize: CGFloat { 52 }
+    /// Centre y of your hero's portrait: its lower part sits behind the fanned hand.
+    var heroY: CGFloat { size.height - visible - 4 }
+    /// Portrait diameter of both heroes (about a quarter of the screen height, like Shadowverse).
+    var heroSize: CGFloat { 80 }
     /// The hand may spread across the whole board column.
     var handMinX: CGFloat { leftW + 70 }
     var handMaxX: CGFloat { size.width - rightW - 4 }
@@ -55,24 +55,29 @@ struct DuelView: View {
         let tx = vm.tx
         return AnyView(HStack(spacing: 0) {
             LeftColumn(hm: hm).frame(width: hm.leftW)
-            // Middle: enemy strip, the two boards, your hero.
+            // Middle: enemy strip, the two boards, your hero. The target prompt floats over the gap between
+            // the boards instead of taking a line of its own.
+            let vh = hm.size.height - 12
+            let boardH = (vh - hm.topH - hm.reserve - 12) / 2
             VStack(spacing: 4) {
                 TopStrip(hm: hm).frame(height: hm.topH)
                 BoardView(side: .e, minions: s.e.board, empty: tx.noEnemy)
-                LogLine()
                 BoardView(side: .p, minions: s.p.board, empty: tx.playMinions)
                 Color.clear.frame(height: hm.reserve)
             }
+            .overlay { PromptPill().offset(y: hm.topH + 4 + boardH + 2 - vh / 2) }
             .overlay(alignment: .bottom) {
-                HeroFace(side: .p, size: hm.heroSize).offset(y: hm.heroY - (hm.size.height - 6 - hm.heroSize / 2))
+                HeroFace(side: .p, size: hm.heroSize, spread: vm.handActive)
+                    .offset(y: hm.heroY - (hm.size.height - 6 - hm.heroSize / 2))
             }
             RightColumn(hm: hm).frame(width: hm.rightW)
         })
     }
 }
 
-/// One-line message between the boards: the target prompt, the lifted-card hint or the latest rule message.
-private struct LogLine: View {
+/// Floating pill between the boards, only while something is being targeted (with a cancel button) or a
+/// playable card is lifted. Plays are not narrated here any more; the battle log has them.
+private struct PromptPill: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
@@ -81,19 +86,27 @@ private struct LogLine: View {
             guard let i = vm.hsel, vm.pending == nil, vm.handActive, !vm.busy, let k = s.p.hand[safe: i] else { return false }
             return s.canPay(.p, k)
         }()
-        return AnyView(HStack(spacing: 10) {
-            if vm.pending != nil {
-                Text(tx.chooseTarget(vm.pendingLabel())).font(Theme.body(12.5)).foregroundStyle(Theme.muted)
-                Button(tx.cancel) { vm.cancelPending() }.ghost(compact: true)
-            } else if liftedPlayable {
-                Text(tx.tapPlay).font(Theme.body(12.5)).foregroundStyle(Theme.muted)
-            } else {
-                Text(vm.logText()).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center)
-                    .lineLimit(2).minimumScaleFactor(0.85)
+        return AnyView(Group {
+            if vm.pending != nil || liftedPlayable {
+                HStack(spacing: 10) {
+                    if vm.pending != nil {
+                        Text(tx.chooseTarget(vm.pendingLabel())).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
+                        Button(tx.cancel) { vm.cancelPending() }.ghost(compact: true)
+                    } else {
+                        Text(tx.tapPlay).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.parch)
+                    }
+                }
+                .lineLimit(1).minimumScaleFactor(0.8)
+                .padding(.horizontal, 12).padding(.vertical, 5)
+                .background(Color.black.opacity(0.72), in: Capsule())
+                .overlay(Capsule().stroke(Theme.gold.opacity(0.7), lineWidth: 1))
+                .shadow(color: .black.opacity(0.5), radius: 4, y: 2)
+                .transition(.opacity.combined(with: .scale(scale: 0.9)))
+                .accessibilityElement(children: .combine)
             }
         }
-        .frame(minHeight: 18)
-        .accessibilityElement(children: .combine))
+        .zIndex(5)
+        .animation(.easeOut(duration: 0.15), value: vm.pending != nil || liftedPlayable))
     }
 }
 
@@ -166,7 +179,7 @@ private struct HeroCluster: View {
             .padding(.horizontal, 8).padding(.vertical, 2).background(Color.black.opacity(0.45), in: Capsule())
         VStack(spacing: 3) {
             if side == .p { name }
-            HeroFace(side: side, size: 56)
+            HeroFace(side: side, size: 80)
             if side == .e { name }
         }
     }
@@ -378,7 +391,7 @@ struct BoardView: View {
             }
         }
         .animation(.spring(duration: 0.5, bounce: 0.35), value: minions.map(\.uid))
-        .frame(maxWidth: .infinity, minHeight: 74, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, minHeight: 66, maxHeight: .infinity)
         .padding(.vertical, 3)
         .background(RoundedRectangle(cornerRadius: 14).fill(Theme.ready.opacity(glow ? 0.12 : 0)))
         .overlay(RoundedRectangle(cornerRadius: 14).stroke(Theme.ready.opacity(glow ? 0.9 : 0), lineWidth: 2))

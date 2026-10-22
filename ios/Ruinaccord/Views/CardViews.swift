@@ -156,30 +156,30 @@ struct MinionView: View {
             // The picture fills the tile; lasting effects show as icons down the left edge.
             ZStack {
                 RadialGradient(colors: [Color(hex: "#5a4636"), Color(hex: "#17110d")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 50)
-                if Paintings.has(m.key) { ArtThumb(key: m.key, width: 48, height: 70) }
-                else { Image(m.card.artName).resizable().scaledToFit().frame(width: 62).offset(y: -3) }
+                if Paintings.has(m.key) { ArtThumb(key: m.key, width: 40, height: 59) }
+                else { Image(m.card.artName).resizable().scaledToFit().frame(width: 52).offset(y: -3) }
             }
-            .frame(width: 48, height: 70)
+            .frame(width: 40, height: 59)
             .clipShape(RoundedRectangle(cornerRadius: m.hasGuard ? 4 : 10))
             .grayscale(m.silenced ? 0.85 : 0)
             .padding(.top, 2)
             HStack {
-                Text("\(m.atk)").font(Theme.body(11, .heavy)).foregroundStyle(Color(hex: "#2a1d08"))
-                    .frame(width: 20, height: 20).background(Theme.gold, in: Circle())
+                Text("\(m.atk)").font(Theme.body(10, .heavy)).foregroundStyle(Color(hex: "#2a1d08"))
+                    .frame(width: 18, height: 18).background(Theme.gold, in: Circle())
                     .overlay(Circle().stroke(Theme.ready, lineWidth: m.atk > m.baseAtk ? 2 : 0))
                 Spacer()
-                Text("\(m.hp)").font(Theme.body(11, .heavy)).foregroundStyle(m.hp < m.max ? Color(hex: "#ffb3a9") : .white)
-                    .frame(width: 20, height: 20).background(m.hp < m.max ? Color(hex: "#8a1f18") : Theme.blood, in: Circle())
+                Text("\(m.hp)").font(Theme.body(10, .heavy)).foregroundStyle(m.hp < m.max ? Color(hex: "#ffb3a9") : .white)
+                    .frame(width: 18, height: 18).background(m.hp < m.max ? Color(hex: "#8a1f18") : Theme.blood, in: Circle())
                     .overlay(Circle().stroke(Theme.ready, lineWidth: m.max > m.baseHp && m.hp >= m.max ? 2 : 0))
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
-            .padding(.horizontal, -6).padding(.bottom, -6)
+            .padding(.horizontal, -5).padding(.bottom, -5)
             if sleeping {
                 Text("zz").font(Theme.body(11, .heavy)).foregroundStyle(Theme.muted)
                     .frame(maxWidth: .infinity, alignment: .trailing).offset(x: 6, y: -9)
             }
         }
-        .frame(width: 52, height: 74)
+        .frame(width: 44, height: 63)
         .saturation(sleeping ? 0.6 : 1).brightness(sleeping ? -0.08 : 0)
         .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).fill(Color(hex: "#8fd0ff").opacity(m.frozen ? 0.22 : 0)).allowsHitTesting(false))
         .overlay(RoundedRectangle(cornerRadius: m.hasGuard ? 6 : 12).stroke(Color(hex: "#8fd0ff"), lineWidth: m.frozen ? 3 : 0).padding(-1.5))
@@ -338,6 +338,8 @@ struct ArtThumb: View {
 struct HeroFace: View {
     let side: Side
     var size: CGFloat = 50
+    /// Your turn: the badges swing out beside the portrait, above the fanned hand, so the cards never cover them.
+    var spread = false
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
@@ -346,7 +348,7 @@ struct HeroFace: View {
         let portrait: HeroClass? = !foe ? vm.curClass : (s.mode != .camp ? vm.enemyClass : nil)
         let initials = foe && s.mode == .camp ? tx.name(GameData.shared.opponents[s.stage].initials) : tx.heroInit
         let target = vm.isValidTarget(id), aimed = vm.aimed == id || vm.drag?.over == id
-        let k = size / 50
+        let k = size / 50, b = min(k, 1.3)      // badges grow less than the portrait
         return AnyView(ZStack {
             Circle().fill(RadialGradient(colors: foe ? [Color(hex: "#5a2a26"), Color(hex: "#1e0e0c")] : [Color(hex: "#4a3a5a"), Color(hex: "#1b1422")], center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 30 * k))
             if let portrait { Image(portrait.artName).resizable().scaledToFill().frame(width: size - 4, height: size - 4).clipShape(Circle()) }
@@ -356,22 +358,7 @@ struct HeroFace: View {
         .overlay(Circle().stroke(foe ? Color(hex: "#6d3a33") : Color(hex: "#5a4a6a"), lineWidth: 2))
         .overlay(Circle().stroke(aimed || target ? Theme.blood : .clear, lineWidth: aimed ? 3 : 2).padding(-4))
         .shadow(color: aimed ? Theme.blood.opacity(0.85) : .clear, radius: aimed ? 9 : 0)
-        // Health on a shield at the right, Armor (grey) and banked spell mana (purple) as gems at the bottom corners.
-        .overlay(alignment: .trailing) {
-            Text("\(h.hp)").font(Theme.body(15 * max(k, 0.9), .heavy)).foregroundStyle(.white).monospacedDigit()
-                .frame(width: 30 * max(k, 0.9), height: 34 * max(k, 0.9))
-                .background(ShieldShape().fill(LinearGradient(colors: [Color(hex: "#e0564a"), Color(hex: "#8a1f18")], startPoint: .top, endPoint: .bottom)))
-                .overlay(ShieldShape().stroke(Color(hex: "#f3c97a"), lineWidth: 1.5))
-                .shadow(color: .black.opacity(0.6), radius: 2, y: 1)
-                .offset(x: 22 * k, y: -6)
-                .accessibilityHidden(true)
-        }
-        .overlay(alignment: .topLeading) {
-            StatGem(value: h.armor, colors: [Color(hex: "#9aa3ad"), Color(hex: "#4a525c")], dim: h.armor == 0, label: tx.armor).offset(x: -10, y: -6)
-        }
-        .overlay(alignment: .topTrailing) {
-            StatGem(value: h.spellMana, colors: [Color(hex: "#b48cf0"), Color(hex: "#5a3a9a")], dim: h.spellMana == 0, label: tx.spellManaShort).offset(x: 10, y: -6)
-        }
+        .overlay { HeroBadges(h: h, size: size, b: b, spread: spread) }
         .shake(tick: vm.hitTick[id] ?? 0)
         .overlay(alignment: .top) { FloatStack(eid: id) }
         .reportFrame { vm.frames[id] = $0 }
@@ -381,15 +368,61 @@ struct HeroFace: View {
     }
 }
 
+/// Health shield, Armor gem and spell-mana gem around a hero portrait. Resting: shield at the right, gems at the
+/// top corners. Spread (your turn): all three in a row level with the upper part of the portrait, gems left and
+/// shield right, so the fanned hand never covers them.
+private struct HeroBadges: View {
+    let h: Hero
+    let size: CGFloat
+    let b: CGFloat
+    let spread: Bool
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        let tx = vm.tx
+        let sw: CGFloat = 30 * b, shh: CGFloat = 34 * b, r: CGFloat = size / 2
+        let rowY: CGFloat = -20, cornerY: CGFloat = 8 - r
+        let gemL: CGFloat = -r - 11 * b - 4
+        let shieldX: CGFloat = spread ? r + sw / 2 + 4 : r + 2
+        let shieldY: CGFloat = spread ? rowY : size * 0.12
+        let armorX: CGFloat = spread ? gemL : 6 - r
+        let armorY: CGFloat = spread ? rowY : cornerY
+        let spellX: CGFloat = spread ? gemL - 26 * b : r - 6
+        let spellY: CGFloat = spread ? rowY : cornerY
+        let armorColors = [Color(hex: "#9aa3ad"), Color(hex: "#4a525c")]
+        let spellColors = [Color(hex: "#b48cf0"), Color(hex: "#5a3a9a")]
+        ZStack {
+            HealthShield(hp: h.hp, width: sw, height: shh).offset(x: shieldX, y: shieldY)
+            StatGem(value: h.armor, colors: armorColors, dim: h.armor == 0, label: tx.armor, scale: b).offset(x: armorX, y: armorY)
+            StatGem(value: h.spellMana, colors: spellColors, dim: h.spellMana == 0, label: tx.spellManaShort, scale: b).offset(x: spellX, y: spellY)
+        }
+        .animation(vm.reduceMotion ? .easeOut(duration: 0.12) : .spring(duration: 0.4, bounce: 0.2), value: spread)
+    }
+}
+
+/// The red health shield of a hero.
+private struct HealthShield: View {
+    let hp: Int
+    let width: CGFloat, height: CGFloat
+    var body: some View {
+        Text("\(hp)").font(Theme.body(height * 0.44, .heavy)).foregroundStyle(.white).monospacedDigit()
+            .frame(width: width, height: height)
+            .background(ShieldShape().fill(LinearGradient(colors: [Color(hex: "#e0564a"), Color(hex: "#8a1f18")], startPoint: .top, endPoint: .bottom)))
+            .overlay(ShieldShape().stroke(Color(hex: "#f3c97a"), lineWidth: 1.5))
+            .shadow(color: .black.opacity(0.6), radius: 2, y: 1)
+            .accessibilityHidden(true)
+    }
+}
+
 /// Small hexagonal number gem beside a hero portrait.
 struct StatGem: View {
     let value: Int
     let colors: [Color]
     var dim = false
     var label = ""
+    var scale: CGFloat = 1
     var body: some View {
-        Text("\(value)").font(Theme.body(11, .heavy)).foregroundStyle(.white).monospacedDigit()
-            .frame(width: 22, height: 24)
+        Text("\(value)").font(Theme.body(11 * scale, .heavy)).foregroundStyle(.white).monospacedDigit()
+            .frame(width: 22 * scale, height: 24 * scale)
             .background(Hexagon().fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)))
             .overlay(Hexagon().stroke(Color.white.opacity(0.55), lineWidth: 1))
             .opacity(dim ? 0.45 : 1)
