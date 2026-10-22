@@ -10,24 +10,26 @@ struct HandMetrics: Equatable {
     var bottomInset: CGFloat = 0
     var leftW: CGFloat { 54 }
     var rightW: CGFloat { 116 }
-    /// Height of the strip holding the enemy hero, their hand backs and counts (the name capsule hangs below it).
-    var topH: CGFloat { 84 }
-    /// Height of one board row (minion tile plus padding).
-    var rowH: CGFloat { 66 }
+    /// Height of the strip holding the enemy hand backs and counts. The enemy portrait is taller and hangs down
+    /// beside the enemy board row (the minions sit in the middle of the row, well right of it).
+    var topH: CGFloat { 48 }
+    /// Height of one board row: the minion tile plus its corner gems hanging below.
+    var rowH: CGFloat { 69 }
     /// Vertical padding of the duel column and the gaps between its rows.
     var pad: CGFloat { 2 }
     var gap: CGFloat { 3 }
-    /// Card size: a whole card stands in the zone under the boards on your turn; capped for big screens.
+    /// Card size: a whole card stands under the boards on your turn, clear of your minions' gems; capped so the
+    /// hand keeps the size the user chose on big screens.
     var em: CGFloat {
-        let free = size.height - 2 * pad - topH - 2 * rowH - 3 * gap
-        return min(12.5, max(6, (free - 8) / 15.6))
+        let free = size.height - 2 * pad - topH - 2 * rowH - 3 * gap - 8
+        return min(11, max(6, (free - 8) / 15.6))
     }
     var cardW: CGFloat { 10 * em }
     var cardH: CGFloat { 15.6 * em }
     /// Off your turn the hand sinks this far below the bottom edge.
     var sink: CGFloat { cardH * 0.3 }
-    /// Height the board column leaves free at the bottom for your hero and the hand.
-    var reserve: CGFloat { cardH + 4 }
+    /// Height the board column leaves free at the bottom for the hand (and the gems above it).
+    var reserve: CGFloat { cardH + 12 }
     /// Local y above which a dragged card counts as played.
     var line: CGFloat { size.height - reserve - 2 * pad }
     /// Centre x of both heroes: the left part of the board column.
@@ -483,7 +485,7 @@ struct BoardView: View {
             }
         }
         .animation(.spring(duration: 0.5, bounce: 0.35), value: minions.map(\.uid))
-        .frame(maxWidth: .infinity, minHeight: 66, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, minHeight: 63, maxHeight: .infinity)
         .padding(.vertical, 3)
         .background(RoundedRectangle(cornerRadius: 14).fill(Theme.ready.opacity(glow ? 0.12 : 0)))
         .overlay(RoundedRectangle(cornerRadius: 14).stroke(Theme.ready.opacity(glow ? 0.9 : 0), lineWidth: 2))
