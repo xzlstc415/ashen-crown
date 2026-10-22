@@ -77,12 +77,10 @@ extension GameData {
     func talentPage(of id: String) -> TalentPage? { var t = talents; return t.pageOf[id] }
     func talentTier(of id: String) -> Int { var t = talents; return t.tierOf[id] ?? 0 }
 
-    /// The pick in tier `t` of `page`, if any: one talent per tier.
-    func tierPick(_ sel: [String], _ page: TalentPage, _ t: Int) -> String? {
-        sel.first { talentPage(of: $0)?.id == page.id && talentTier(of: $0) == t }
-    }
-    /// Tier 1 is always open; a later tier opens once the tier above it in the same page has its pick.
-    func tierOpen(_ sel: [String], _ page: TalentPage, _ t: Int) -> Bool { t == 0 || tierPick(sel, page, t - 1) != nil }
+    /// The pick in tier `t` (either page), if any: one talent per tier.
+    func tierPick(_ sel: [String], _ t: Int) -> String? { sel.first { talentNode($0) != nil && talentTier(of: $0) == t } }
+    /// Tier 1 is always open; a later tier opens once the tier above it has its pick.
+    func tierOpen(_ sel: [String], _ t: Int) -> Bool { t == 0 || tierPick(sel, t - 1) != nil }
 
     func validTalents(_ cls: String, _ sel: [String]) -> Bool {
         if sel.isEmpty { return true }
@@ -90,7 +88,7 @@ extension GameData {
         return sel.allSatisfy { id in
             guard let pg = talentPage(of: id), pages.contains(where: { $0.id == pg.id }) else { return false }
             let t = talentTier(of: id)
-            return tierOpen(sel, pg, t) && sel.filter { talentPage(of: $0)?.id == pg.id && talentTier(of: $0) == t }.count == 1
+            return tierOpen(sel, t) && sel.filter { talentNode($0) != nil && talentTier(of: $0) == t }.count == 1
         }
     }
 
@@ -98,20 +96,17 @@ extension GameData {
     func pruneTalents(_ sel: [String]) -> [String] {
         var a = sel
         while true {
-            let b = a.filter { id in
-                guard let pg = talentPage(of: id) else { return false }
-                return tierOpen(a, pg, talentTier(of: id))
-            }
+            let b = a.filter { id in talentNode(id) != nil && tierOpen(a, talentTier(of: id)) }
             if b.count == a.count { return a }
             a = b
         }
     }
 
-    /// Presets 0-2: both pages climbed to the top, taking the first, second or third talent of each tier.
+    /// Presets: 0 = the first page top to bottom, 1 = the second, 2 = alternating pages.
     func talentPreset(_ cls: String, _ i: Int) -> [String] { talents.presets[cls]?[safe: i] ?? [] }
 
-    /// Adventure: one point a duel, so `stage` (0-based) plays with stage + 1 points, 8 at the final duel.
-    func advPoints(_ stage: Int) -> Int { min(talents.maxPts, stage + 1) }
+    /// Adventure: one point every two duels, so `stage` (0-based) plays with 1 + stage / 2 points, 4 at the last two.
+    func advPoints(_ stage: Int) -> Int { min(talents.maxPts, 1 + stage / 2) }
 
     /// The card changes a talent selection makes for its owner.
     func overrides(for sel: [String]) -> [String: CardOverride] {

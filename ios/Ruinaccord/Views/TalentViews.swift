@@ -15,7 +15,10 @@ struct TalentPanel: View {
                     .overlay(Capsule().stroke(c.sel.count == c.budget ? Theme.ready : Theme.line, lineWidth: 1.2))
                 Text(tx.talHint).font(Theme.body(11)).foregroundStyle(Theme.muted).lineLimit(1)
                 Spacer()
-                ForEach(0..<3, id: \.self) { i in Button(tx.talPre(i + 1)) { vm.talPreset(i) }.ghost(compact: true) }
+                ForEach(0..<2, id: \.self) { i in
+                    if let pg = pages[safe: i] { Button(tx.name(pg.names)) { vm.talPreset(i) }.ghost(compact: true) }
+                }
+                Button(tx.talBalanced) { vm.talPreset(2) }.ghost(compact: true)
                 Button(tx.talClear) { vm.talPreset(nil) }.ghost(compact: true, danger: true)
             }
             HStack(alignment: .top, spacing: 10) {
@@ -41,7 +44,7 @@ private struct TalentPageView: View {
                 Text("\(n)").font(Theme.body(13, .heavy)).foregroundStyle(col).monospacedDigit()
             }
             ForEach(Array(page.tiers.enumerated()), id: \.offset) { t, row in
-                TalentTierRow(row: row, open: gd.tierOpen(sel, page, t), taken: gd.tierPick(sel, page, t) != nil, sel: sel, budget: budget, col: col)
+                TalentTierRow(row: row, open: gd.tierOpen(sel, t), taken: gd.tierPick(sel, t) != nil, sel: sel, budget: budget, col: col)
             }
         }
         .padding(8)

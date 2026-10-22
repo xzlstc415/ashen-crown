@@ -363,12 +363,11 @@ struct Tx {
     var talBalanced: String { pick("Balanced", "均衡", "バランス") }
     var talClear: String { pick("Clear", "清空", "リセット") }
     var talNeed: String { pick("Pick a talent in the tier above first", "先在上一层选一个天赋", "上の段で1つ選ぶと開く") }
-    func talPre(_ n: Int) -> String { pick("Build \(n)", "方案\(n)", "構成\(n)") }
     func talAdvTitle(_ n: Int) -> String { pick("Talents · Duel \(n)", "第\(n)关 · 分配天赋", "第\(n)戦・タレント") }
     func talAdvSub(_ n: Int) -> String { pick("You have \(n) talent point\(n > 1 ? "s" : ""). You can move them before every duel.", "你现在有\(n)点天赋，每关开始前都可以重新分配。", "タレントポイントは\(n)。毎戦の前に振り直せる。") }
     var talFight: String { pick("To battle", "开始战斗", "戦いへ") }
     var qTalTitle: String { pick("Quick play · Talents", "自由对战 · 分配天赋", "フリー対戦・タレント") }
-    func qTalSub(_ diff: String) -> String { pick("8 points against a \(diff) opponent; the deck remembers them.", "对手难度：\(diff)。8 点天赋，会保存在这副牌组里。", "相手の難易度：\(diff)。8 ポイント、デッキに保存される。") }
+    func qTalSub(_ diff: String) -> String { pick("4 points against a \(diff) opponent; the deck remembers them.", "对手难度：\(diff)。4 点天赋，会保存在这副牌组里。", "相手の難易度：\(diff)。4 ポイント、デッキに保存される。") }
     var closeLbl: String { pick("Close", "关闭", "閉じる") }
     // Full-screen pages
     var nextPage: String { pick("Next page", "下一页", "次のページ") }
@@ -398,7 +397,7 @@ struct Tx {
         return race(r)
     }
     func roundN(_ n: Int) -> String { pick("Round \(n)", "第\(n)回合", "第\(n)ラウンド") }
-    var talHint: String { pick("One talent per tier; each pick opens the next tier. Both pages can be climbed.", "每层只能选一个，选了才解锁下一层；两页可以同时点。", "各段1つだけ。選ぶと次の段が開き、両ページとも登れる。") }
+    var talHint: String { pick("One talent a tier from either page; each pick opens the tier below.", "每层在两页中任选一个，选了才解锁下一层。", "各段でどちらかのページから1つ。選ぶと次の段が開く。") }
     var typeAll: String { pick("All", "全部", "すべて") }
     var costLbl: String { pick("Cost", "费用", "コスト") }
     var classCards: String { pick("Class", "职业", "クラス") }

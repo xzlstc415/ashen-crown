@@ -8954,7 +8954,7 @@
  "boardMax": 5,
  "deckSize": 25,
  "talents": {
-  "maxPts": 8,
+  "maxPts": 4,
   "pages": {
    "mage": [
     {
@@ -12253,30 +12253,18 @@
      "fi_ignite",
      "fi_fireball",
      "fi_spark",
-     "fi_boost",
+     "fi_boost"
+    ],
+    [
      "fr_blood",
      "fr_bolt",
      "fr_spark",
      "fr_deep"
     ],
     [
-     "fi_heart",
-     "fi_wildfire",
-     "fi_flamearmor",
-     "fi_boost",
-     "fr_armor",
-     "fr_mirror",
-     "fr_barrier",
-     "fr_deep"
-    ],
-    [
-     "fi_burn",
-     "fi_bank",
-     "fi_flamearmor",
-     "fi_boost",
-     "fr_nova",
-     "fr_perma",
-     "fr_barrier",
+     "fi_ignite",
+     "fr_bolt",
+     "fi_spark",
      "fr_deep"
     ]
    ],
@@ -12285,30 +12273,18 @@
      "ho_devout",
      "ho_shield",
      "ho_pray",
-     "ho_altar",
+     "ho_altar"
+    ],
+    [
      "sh_pain",
      "sh_death",
      "sh_touch",
      "sh_steal"
     ],
     [
-     "ho_smite",
-     "ho_dawn",
-     "ho_hymn",
-     "ho_altar",
-     "sh_insight",
-     "sh_echo",
-     "sh_drain",
-     "sh_steal"
-    ],
-    [
-     "ho_light",
-     "ho_grace",
-     "ho_hymn",
-     "ho_altar",
-     "sh_breaker",
-     "sh_void",
-     "sh_drain",
+     "ho_devout",
+     "sh_death",
+     "ho_pray",
      "sh_steal"
     ]
    ],
@@ -12317,30 +12293,18 @@
      "wa_tough",
      "wa_slam",
      "wa_heavy",
-     "wa_bulwark",
+     "wa_bulwark"
+    ],
+    [
      "wa_berserk",
      "wa_whirl",
      "wa_roar",
      "wa_fury"
     ],
     [
-     "wa_wall",
-     "wa_thane",
-     "wa_counter",
-     "wa_bulwark",
-     "wa_rage",
-     "wa_exec",
-     "wa_bloodied",
-     "wa_fury"
-    ],
-    [
-     "wa_crab",
-     "wa_iron",
-     "wa_counter",
-     "wa_bulwark",
-     "wa_reckless",
-     "wa_frenzy",
-     "wa_bloodied",
+     "wa_tough",
+     "wa_whirl",
+     "wa_heavy",
      "wa_fury"
     ]
    ],
@@ -12349,30 +12313,18 @@
      "pa_drill",
      "pa_command",
      "pa_double",
-     "pa_coop",
+     "pa_coop"
+    ],
+    [
      "pa_first",
      "pa_kings",
      "pa_lightcall",
      "pa_sanct"
     ],
     [
-     "pa_horn",
-     "pa_step",
-     "pa_banner",
-     "pa_coop",
-     "pa_bless",
-     "pa_humble",
-     "pa_echo",
-     "pa_sanct"
-    ],
-    [
-     "pa_squires",
-     "pa_array",
-     "pa_banner",
-     "pa_coop",
-     "pa_hold",
-     "pa_vshield",
-     "pa_echo",
+     "pa_drill",
+     "pa_kings",
+     "pa_double",
      "pa_sanct"
     ]
    ],
@@ -12381,30 +12333,18 @@
      "hu_pack",
      "hu_kill",
      "hu_master",
-     "hu_combo",
+     "hu_combo"
+    ],
+    [
      "hu_precise",
      "hu_deadly",
      "hu_rapid",
      "hu_heart"
     ],
     [
-     "hu_tame",
-     "hu_hound",
-     "hu_whistle",
-     "hu_combo",
-     "hu_eagle",
-     "hu_griffon",
-     "hu_pierce",
-     "hu_heart"
-    ],
-    [
-     "hu_pounce",
-     "hu_wild",
-     "hu_whistle",
-     "hu_combo",
-     "hu_quiver",
-     "hu_aim",
-     "hu_pierce",
+     "hu_pack",
+     "hu_deadly",
+     "hu_master",
      "hu_heart"
     ]
    ],
@@ -12413,30 +12353,18 @@
      "wl_bone",
      "wl_gasp",
      "wl_tide",
-     "wl_soul",
+     "wl_soul"
+    ],
+    [
      "wl_pact",
      "wl_hell",
      "wl_bloodmana",
      "wl_veng"
     ],
     [
-     "wl_raise",
-     "wl_ghoul",
-     "wl_harvest",
-     "wl_soul",
-     "wl_soulfire",
-     "wl_pain",
-     "wl_tap",
-     "wl_veng"
-    ],
-    [
-     "wl_wrath",
-     "wl_coil",
-     "wl_harvest",
-     "wl_soul",
-     "wl_flesh",
-     "wl_mutate",
-     "wl_tap",
+     "wl_bone",
+     "wl_hell",
+     "wl_tide",
      "wl_veng"
     ]
    ]

@@ -340,10 +340,10 @@ final class GameVM {
         if screen == .build || screen == .qtalents { q.tal = v; q.dirty = true; q.toast = "" } else { run.tal = v }
     }
     func talClick(_ id: String) {
-        guard let c = talentContext, let pg = gd.talentPage(of: id) else { return }
+        guard let c = talentContext, gd.talentNode(id) != nil else { return }
         let t = gd.talentTier(of: id)
         if c.sel.contains(id) { setTalents(gd.pruneTalents(c.sel.filter { $0 != id })) }
-        else if c.sel.count < c.budget && gd.tierOpen(c.sel, pg, t) && gd.tierPick(c.sel, pg, t) == nil { setTalents(c.sel + [id]) }
+        else if c.sel.count < c.budget && gd.tierOpen(c.sel, t) && gd.tierPick(c.sel, t) == nil { setTalents(c.sel + [id]) }
     }
     /// Presets 0, 1, 2; nil clears.
     func talPreset(_ i: Int?) {

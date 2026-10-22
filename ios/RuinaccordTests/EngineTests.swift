@@ -34,15 +34,16 @@ final class EngineTests: XCTestCase {
             for st in adv.packs { for p in st { for k in p.cards { XCTAssertNotNil(gd.card(k), k) }; for h in p.hint { XCTAssertNotNil(gd.talentNode(h), h) } } }
             for lang in Lang.allCases { let tx = Tx(lang: lang); for pg in gd.talentPages(cls.id) { for row in pg.tiers { for n in row { XCTAssertFalse(tx.name(n.desc).isEmpty) } } } }
         }
-        // Tier gating: a tier-2 node needs the tier-1 pick above it, one pick a tier, both pages at once; pruning
-        // drops a node when the pick above it goes.
+        // Tier gating: a tier-2 node needs a tier-1 pick above it (either page), one pick a tier across both pages;
+        // pruning drops a node when the pick above it goes.
         XCTAssertFalse(gd.validTalents("mage", ["fi_fireball"]))
         XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_fireball"]))
+        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fr_bolt", "fi_spark", "fr_deep"]))
         XCTAssertFalse(gd.validTalents("mage", ["fi_ignite", "fi_heart"]))
-        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_fireball", "fr_blood", "fr_bolt"]))
+        XCTAssertFalse(gd.validTalents("mage", ["fi_ignite", "fr_blood"]))
         XCTAssertEqual(gd.pruneTalents(["fi_fireball", "fi_spark"]), [])
-        XCTAssertEqual(gd.talents.maxPts, 8)
-        XCTAssertEqual(gd.advPoints(0), 1); XCTAssertEqual(gd.advPoints(3), 4); XCTAssertEqual(gd.advPoints(7), 8)
+        XCTAssertEqual(gd.talents.maxPts, 4)
+        XCTAssertEqual(gd.advPoints(0), 1); XCTAssertEqual(gd.advPoints(3), 2); XCTAssertEqual(gd.advPoints(7), 4)
         // Overrides change the owner's card: Frostbolt deals 5 with its talent, Frost Nova costs 1 less, Frost Blood adds Health.
         var s = DuelState(mode: .quick, pcls: "mage", ecls: "warrior", diff: .normal,
                           p: DuelState.makeHero(.p, hp: 30, deck: [], power: gd.cls("mage")!.power),
