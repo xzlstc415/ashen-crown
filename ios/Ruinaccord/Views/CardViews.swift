@@ -90,9 +90,11 @@ struct CardView: View {
                     .position(x: 5 * em + (0.5 - (g.x0 + g.x1) / 2) * w, y: 7.8 * em + (0.5 - (g.y0 + g.y1) / 2) * h)
                     .allowsHitTesting(false)
             }
-            // The gems ride on the corners of the card, a little past its edge.
+            // The gems ride on the corners of the card, a little past its edge; on a framed card the cost gem is the
+            // jewel of the frame's medallion.
+            let medal = framed ? (leg ? FrameGeo.gold : FrameGeo.purple).medal : CGPoint(x: 0.65, y: 0.65)
             GemView(kind: .cost, value: cost, size: 2.9 * em, numberColor: cost < card.cost ? Theme.ready : nil)
-                .offset(x: -0.8 * em, y: -0.8 * em)
+                .offset(x: (medal.x - 1.45) * em, y: (medal.y - 1.45) * em)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             if card.isMinion {
                 HStack {
@@ -109,11 +111,14 @@ struct CardView: View {
     }
 }
 
-/// Where the opening sits in a painted frame image, as fractions (printed by art/frames/build_frames.py).
+/// Where the opening sits in a painted frame image, as fractions, and the medallion's centre relative to the
+/// opening (art/frames/geometry.json, written by build_frames.py).
 private struct FrameGeo {
-    let aspect: CGFloat, x0: CGFloat, x1: CGFloat, y0: CGFloat, y1: CGFloat
-    static let gold = FrameGeo(aspect: 768 / 1075, x0: 0.1953, x1: 0.8138, y0: 0.1395, y1: 0.8288)
-    static let purple = FrameGeo(aspect: 768 / 1082, x0: 0.1758, x1: 0.8333, y0: 0.1155, y1: 0.8438)
+    let aspect: CGFloat, x0: CGFloat, x1: CGFloat, y0: CGFloat, y1: CGFloat, mx: CGFloat, my: CGFloat
+    static let gold = FrameGeo(aspect: 0.6611, x0: 0.1846, x1: 0.8877, y0: 0.1601, y1: 0.8852, mx: 0.1542, my: -0.0485)
+    static let purple = FrameGeo(aspect: 0.6675, x0: 0.1934, x1: 0.8760, y0: 0.1445, y1: 0.8554, mx: 0.0715, my: -0.0357)
+    /// The medallion's centre in card units (a 10 x 15.6 em card with the opening a quarter em in).
+    var medal: CGPoint { CGPoint(x: mx * 9.5 + 0.25, y: my * 14.82 + 0.39) }
 }
 
 private struct ArtShape: Shape {

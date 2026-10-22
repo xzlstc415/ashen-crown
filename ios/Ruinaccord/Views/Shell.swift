@@ -87,8 +87,8 @@ struct PagedGrid<Item: Identifiable, Cell: View>: View {
     @State private var page = 0
     @Environment(GameVM.self) private var vm
 
-    /// Room kept above and below the rows for gems and badges that hang over the card edges.
-    private let bleed: CGFloat = 9
+    /// Room kept above and below the rows for gems, badges and frame medallions that hang over the card edges.
+    private let bleed: CGFloat = 16
     private let footer: CGFloat = 18
 
     var body: some View {

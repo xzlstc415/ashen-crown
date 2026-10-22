@@ -136,8 +136,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    middle). Its opening sits on the card's edge (a quarter em in), so the ornaments hang outside and cover neither
    the art nor the rules; sizes come from the opening geometry art/frames/build_frames.py prints. */
 .card.leg::before,.card.uniq::before{content:"";position:absolute;background:url(img/frame_gold.png) center/100% 100% no-repeat;pointer-events:none;z-index:1;
-  width:15.36em;height:21.5em;left:-2.75em;top:-2.61em}
-.card.uniq::before{background-image:url(img/frame_purple.png);width:14.45em;height:20.36em;left:-2.29em;top:-1.97em}
+  width:13.51em;height:20.44em;left:-2.24em;top:-2.88em}
+.card.uniq::before{background-image:url(img/frame_purple.png);width:13.92em;height:20.85em;left:-2.44em;top:-2.62em}
+/* The cost gem sits on the frame's medallion (its own em is 1.2 card em, width 2.4 of them). */
+.card.leg .cost{left:0.23em;top:-1.47em}
+.card.uniq .cost{left:-0.43em;top:-1.32em}
 .card.md{font-size:10.8px}.card.big{font-size:14px}
 .card .art{position:absolute;inset:0;border-radius:.62em;overflow:hidden;background:radial-gradient(circle at 50% 28%,#5a4636,#120d16 72%)}
 .card.s .art{background:radial-gradient(circle at 50% 28%,#3d2f6e,#100a20 72%)}
