@@ -172,12 +172,11 @@ private struct EnemyHandBacks: View {
 struct CardBack: View {
     var width: CGFloat = 26
     var body: some View {
-        RoundedRectangle(cornerRadius: width * 0.14)
-            .fill(LinearGradient(colors: [Color(hex: "#2c3a5a"), Color(hex: "#141b2c")], startPoint: .top, endPoint: .bottom))
-            .overlay(RoundedRectangle(cornerRadius: width * 0.14).stroke(Color(hex: "#7fa6d8"), lineWidth: 1.2))
-            .overlay(Hexagon().stroke(Color(hex: "#7fa6d8").opacity(0.7), lineWidth: 1).padding(width * 0.22))
-            .overlay(Circle().fill(Color(hex: "#9fc4ee").opacity(0.8)).frame(width: width * 0.16))
+        let r = width * 0.14
+        Image("card_back").resizable().scaledToFill()
             .frame(width: width, height: width * 1.4)
+            .clipShape(RoundedRectangle(cornerRadius: r))
+            .overlay(RoundedRectangle(cornerRadius: r).stroke(Color(hex: "#c9a455").opacity(0.9), lineWidth: 1))
             .shadow(color: .black.opacity(0.6), radius: 2, y: 1)
     }
 }
