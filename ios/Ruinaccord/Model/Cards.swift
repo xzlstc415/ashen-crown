@@ -175,8 +175,8 @@ final class GameData: Decodable {
         for (cls, pgs) in talents.pages.sorted(by: { $0.key < $1.key }) { for pg in pgs { mix("\(cls)|\(pg.id)|\(pg.tiers.map { $0.map(\.id) })") } }
         for (node, byCard) in talents.overrides.sorted(by: { $0.key < $1.key }) { for (card, o) in byCard.sorted(by: { $0.key < $1.key }) { mix("\(node)|\(card)|\(o)") } }
         // The prefix is the online protocol: raise it whenever two app versions would play a match differently
-        // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8: class resources).
-        return "v8-\(String(UInt32(bitPattern: h), radix: 36))"
+        // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8-v9: class resources, Oaths, Beasts).
+        return "v9-\(String(UInt32(bitPattern: h), radix: 36))"
     }()
 
     private enum CodingKeys: String, CodingKey { case cards, classes, opponents, boardMax, deckSize, fortify, talents }

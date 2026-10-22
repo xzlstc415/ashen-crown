@@ -753,3 +753,41 @@ a small rattling skeleton warrior tripping over its own rusty sword, arms flaili
 ```
 a single gold coin spinning on its edge on a tavern table, caught at a tilt, sparkles flying, warm golden accent, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
+
+## 新增（2026-10-22）· 猎人野兽与圣骑士誓言（6 张）
+
+### 荆棘野猪 Thornback Boar — `boar.png`
+1 费 · 随从 2/1 · 普通 · 猎人 · 测试页
+```
+a small wild boar with a ridge of thorn-like bristles charging through undergrowth, tusks lowered, leaves flying, mossy green and earth-brown palette, the animal centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 雾林猎豹 Mistwood Panther — `panther.png`
+3 费 · 随从 4/2 · 稀有 · 猎人 · 冲锋 · 测试页
+```
+a sleek black panther mid-leap out of a misty forest, eyes glowing pale green, fog curling between tree trunks, blue-grey and black palette with a single green accent, the animal centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 巨角麋鹿 Greathorn Elk — `elk.png`
+4 费 · 随从 3/5 · 普通 · 猎人 · 守护 · 测试页
+```
+a huge elk with enormous moss-hung antlers standing firm on a forest path, head lowered, autumn gold and deep green palette, the animal centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 守护誓言 Oath of Shelter — `oathshelter.png`
+1 费 · 法术（誓言，2 回合）· 普通 · 圣骑士 · 测试页
+```
+a kneeling knight's gauntleted hand pressed to the ground as a translucent golden dome of light rises over a small village behind, white-gold and warm grey palette, the effect centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 集结誓言 Oath of Muster — `oathmuster.png`
+2 费 · 法术（誓言，2 回合）· 普通 · 圣骑士 · 测试页
+```
+a tattered banner planted on a hilltop at sunrise with three distant farmers walking up the slope carrying pitchforks and a scythe, warm gold and dusty blue palette, the banner centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```
+
+### 圣战誓言 Oath of Crusade — `oathcrusade.png`
+3 费 · 法术（誓言，2 回合）· 稀有 · 圣骑士 · 测试页
+```
+a sword raised toward a dusk sky with a ring of smaller raised swords around it, golden light breaking through purple clouds, gold and violet palette, the raised sword centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```

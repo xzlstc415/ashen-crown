@@ -510,7 +510,7 @@ const I18N={
     rPrayer:'<b>Priest · Prayers:</b> a Prayer goes on your altar (2 slots) and resolves after N of your turns.',
     rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
       'A <b>Mage</b> keeps unspent mana as up to 3 <b>spell mana</b>, which only spells can use. Other classes lose it.',
-      'Each class banks its own resource: a <b>Warrior</b> gains <b>Rage</b> from the hero power and hero damage (4 burst into +2 Attack for the board); a <b>Warlock</b> gains <b>Souls</b> from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a <b>Priest</b> turns healing past full into <b>Light</b> (2 Light take a turn off a Prayer).',
+      'Each class banks its own resource: a <b>Warrior</b> gains <b>Rage</b> from the hero power and hero damage (4 burst into +2 Attack for the board); a <b>Warlock</b> gains <b>Souls</b> from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a <b>Priest</b> turns healing past full into <b>Light</b> (2 Light take a turn off a Prayer); a <b>Hunter</b> gains <b>Ferocity</b> each turn for the Beasts in hand (the hero power spends 2 for +1 damage, a Beast played with 3 Charges); a <b>Paladin</b> swears <b>Oaths</b>, which wait on the altar like Prayers.',
       'Tap a glowing minion, then tap an enemy to <b>attack</b>. New minions wait a turn unless they have <b>Charge</b>.',
       'Enemies must hit <b>Guard</b> minions first. <b>Ward</b> blocks the next damage taken.',
       'Choose one of six <b>classes</b>. Each has its own <b>hero power</b>, usable once per turn, and its own starting deck.',
@@ -556,7 +556,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
-    fWard:'Ward',growKw:'Grows with spells',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fSoulPay:'Souls spent',fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fWard:'Ward',growKw:'Grows with spells',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fSoulPay:'Souls spent',fFero:'Ferocity!',fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
@@ -581,7 +581,7 @@ const I18N={
     rPrayer:'<b>牧师·祷文：</b>祷文打出后放上祭坛（两个位置），在你的N个回合后应验。',
     rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
       '<b>法师</b>没用完的法力会存为最多3点<b>法术法力</b>，只能用来施放法术；其他职业不会积累。',
-      '每个职业都有自己的资源：<b>战士</b>使用技能和英雄受伤获得<b>怒气</b>（攒到4点，回合开始爆发：全体随从本回合+2攻击）；<b>术士</b>友方随从死亡获得<b>魂</b>（鲜血契约可用2魂代替自伤，回合结束时5魂召唤骷髅战士）；<b>牧师</b>溢出的治疗化为<b>圣光</b>（祷文上祭坛时每2光倒计时-1）。',
+      '每个职业都有自己的资源：<b>战士</b>使用技能和英雄受伤获得<b>怒气</b>（攒到4点，回合开始爆发：全体随从本回合+2攻击）；<b>术士</b>友方随从死亡获得<b>魂</b>（鲜血契约可用2魂代替自伤，回合结束时5魂召唤骷髅战士）；<b>牧师</b>溢出的治疗化为<b>圣光</b>（祷文上祭坛时每2光倒计时-1）；<b>猎人</b>每回合开始按手牌中的野兽数获得<b>兽性</b>（穿刺之箭每2点多1伤害，有3点时打出的野兽获得冲锋）；<b>圣骑士</b>的<b>誓言</b>和祷文一样放上祭坛，几回合后应验。',
       '点击带绿框的随从，再点击敌人即可<b>攻击</b>。新随从要等一回合才能攻击，除非它有<b>冲锋</b>。',
       '敌人必须先攻击有<b>守护</b>的随从。<b>护盾</b>可以抵挡下一次伤害。',
       '从六个<b>职业</b>中选择一个。每个职业都有专属的<b>英雄技能</b>（每回合可用一次）和初始牌组。',
@@ -627,7 +627,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
-    fWard:'护盾',growKw:'施法成长',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fSoulPay:'魂代血',fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fWard:'护盾',growKw:'施法成长',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fSoulPay:'魂代血',fFero:'兽性！',fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
@@ -652,7 +652,7 @@ const I18N={
     rPrayer:'<b>司祭・祈祷：</b>祈祷は祭壇（2枠）に置かれ、自分のNターン後に成就する。',
     rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
       '<b>魔法使い</b>は使い切らなかったマナを最大3まで<b>呪文マナ</b>として貯め、呪文にだけ使える。他のクラスは貯まらない。',
-      'クラスごとに固有の資源がある。<b>戦士</b>はヒーローパワー使用と被ダメージで<b>怒気</b>（4で解放、味方全体がこのターン攻撃+2）。<b>ウォーロック</b>は味方の死亡で<b>魂</b>（血の契約は魂2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。<b>司祭</b>は余った回復が<b>聖光</b>になる（祈りを祭壇に置くとき聖光2で待ち時間-1）。',
+      'クラスごとに固有の資源がある。<b>戦士</b>はヒーローパワー使用と被ダメージで<b>怒気</b>（4で解放、味方全体がこのターン攻撃+2）。<b>ウォーロック</b>は味方の死亡で<b>魂</b>（血の契約は魂2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。<b>司祭</b>は余った回復が<b>聖光</b>になる（祈りを祭壇に置くとき聖光2で待ち時間-1）。<b>狩人</b>は手札の獣の数だけ毎ターン<b>野性</b>を得る（ヒーローパワーは2で+1ダメージ、3あれば出した獣が突撃）。<b>聖騎士</b>の<b>誓い</b>は祈りと同じく祭壇で待ち、数ターン後に成就する。',
       '光っているミニオンをタップし、敵をタップして<b>攻撃</b>。出したばかりのミニオンは<b>突撃</b>がない限り次のターンまで攻撃できない。',
       '敵は先に<b>ガード</b>を持つミニオンを攻撃しなければならない。<b>結界</b>は次に受けるダメージを1回防ぐ。',
       '6つの<b>クラス</b>から1つを選ぼう。クラスごとに専用の<b>ヒーローパワー</b>（1ターンに1回）と初期デッキがある。',
@@ -698,7 +698,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
-    fWard:'結界',growKw:'呪文で成長',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fSoulPay:'魂で支払う',fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fWard:'結界',growKw:'呪文で成長',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fSoulPay:'魂で支払う',fFero:'野性！',fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
     fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
@@ -993,6 +993,12 @@ const CARDS={
   emberele:{beta:1,c:4,t:'m',a:4,h:5,r:'r',race:'elemental',cls:'mage',n:['Ember Elemental','余烬元素','残り火の精霊'],f:['Every breath of mana you saved made it bigger.','你省下的每一口法力都让它更大。','残した魔力の一息ごとに、大きくなった。']},
   phoenix:{beta:1,c:5,t:'m',a:5,h:4,r:'e',race:'beast',cls:'mage',bc:{dmg:2,tgt:'any'},n:['Ash Phoenix','灰烬凤凰','灰の不死鳥'],f:['It does not rise from the ashes. It is the ashes.','它不是从灰烬中重生，它就是灰烬。','灰から蘇るのではない。灰そのものだ。']},
   firestorm:{beta:1,c:6,t:'s',r:'e',cls:'mage',fx:{aoe:3,face:3},n:['Firestorm','烈焰风暴','火炎嵐'],f:['The sky remembers every spark.','天空记得每一颗火星。','空はすべての火の粉を覚えている。']},
+  boar:{beta:1,cls:'hunter',c:1,t:'m',a:2,h:1,r:'c',race:'beast',n:['Thornback Boar','荆棘野猪','茨の猪'],f:['Small, fast, and all tusk.','又小又快，浑身是獠牙。','小さく速く、牙だらけ。']},
+  panther:{beta:1,cls:'hunter',c:3,t:'m',a:4,h:2,r:'r',race:'beast',surge:1,n:['Mistwood Panther','雾林猎豹','霧林の豹'],f:['You hear it after it lands.','落地之后你才听见它。','着地してから音が聞こえる。']},
+  elk:{beta:1,cls:'hunter',c:4,t:'m',a:3,h:5,r:'c',race:'beast',guard:1,n:['Greathorn Elk','巨角麋鹿','大角の鹿'],f:['The forest parts for it.','森林为它让路。','森がそれに道を譲る。']},
+  oathshelter:{beta:1,c:1,t:'s',r:'c',cls:'paladin',fx:{},pray:{cd:2,fx:{armor:5,team:[0,1]}},n:['Oath of Shelter','守护誓言','守護の誓い'],f:['No wall but us.','除了我们，没有城墙。','我らの他に壁はない。']},
+  oathmuster:{beta:1,c:2,t:'s',r:'c',cls:'paladin',fx:{},pray:{cd:2,fx:{summon:['minnow','minnow','minnow']}},n:['Oath of Muster','集结誓言','召集の誓い'],f:['Word travels. So do farmers.','消息传开了，农夫们也动身了。','噂は広まる。農夫も集まる。']},
+  oathcrusade:{beta:1,c:3,t:'s',r:'r',cls:'paladin',fx:{},pray:{cd:2,fx:{team:[1,1]}},n:['Oath of Crusade','圣战誓言','聖戦の誓い'],f:['Sworn at dusk. Kept at dawn.','黄昏立誓，黎明践行。','夕暮れに誓い、夜明けに果たす。']},
   matins:{beta:1,c:1,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:2,fx:{heal:8,draw:1}},n:['Dawn Prayer','晨祷','暁の祈り'],f:['Said before sunrise, answered after.','日出前念诵，日出后应验。','日の出前に唱え、日の出後に叶う。']},
   vigil:{beta:1,c:2,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:1,fx:{summon:['acolyte','acolyte']}},n:['Night Vigil','守夜祷文','夜の祈り'],f:['Two candles, two watchers.','两盏烛火，两位守夜人。','二つの蝋燭、二人の見張り。']},
   sanctuary:{beta:1,c:2,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:2,fx:{team:[1,2]}},n:['Sanctuary','圣所庇佑','聖域の加護'],f:['The walls are thin. The faith is not.','墙很薄，信仰不薄。','壁は薄い。信仰は薄くない。']},
@@ -1024,9 +1030,11 @@ if(BETA)Object.entries({maelstrom:'fire',firelem:'fire',emberbolt:'fire',emberad
   swpain:'shadow',swdeath:'shadow',dispel:'shadow',spellbreaker:'shadow',
   crab:'prot',shieldwall:'prot',shieldslam:'prot',thane:'prot',berserker:'fury',innerrage:'fury',whirlwind:'fury',frenzy:'fury',execute:'fury',
   squires:'legion',calltoarms:'legion',commander:'legion',aegis:'aegis',brace:'aegis',kings:'aegis',humility:'aegis',knight:'aegis',
-  direwolf:'beast',beastcaller:'beast',killcmd:'beast',hounds:'beast',pounce:'beast',gull:'beast',
+  direwolf:'beast',beastcaller:'beast',killcmd:'beast',hounds:'beast',pounce:'beast',gull:'beast',boar:'beast',panther:'beast',elk:'beast',oathshelter:'aegis',oathmuster:'legion',oathcrusade:'legion',
   spray:'shot',huntmark:'shot',riptide:'shot',steady:'shot',explosive:'shot',marksman:'shot',
   sailor:'undead',ghoul:'undead',raisedead:'undead',necro:'undead',coil:'undead',darkpact:'blood',soulfire:'blood',hellfire:'blood',inferno:'blood'}).forEach(([k,v])=>{if(CARDS[k]){CARDS[k].sc=v;if(['swpain','swdeath','wordruin','wordtorment'].includes(k))CARDS[k].sw=1}});
+// New cards without a painting yet borrow a neighbour's vector art.
+ART.boar=ART.direwolf;ART.panther=ART.gull;ART.elk=ART.direwolf;ART.oathshelter=ART.aegis;ART.oathmuster=ART.squires;ART.oathcrusade=ART.kings;
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
 // Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
@@ -1135,8 +1143,8 @@ if(BETA){
   cw.power={...cw.power,fx:{armor:3}};
   // Starter decks retuned with talents on (both schools of each class represented).
   CLASSES.find(c=>c.id==='warrior').deck=['innerrage','shieldslam','whirlwind','berserker','berserker','crab','crab','execute','execute','frenzy','shieldwall','eel','diver','lurker','golem','golem','thane','thane','ogre','treant'];
-  CLASSES.find(c=>c.id==='paladin').deck=['aegis','brace','humility','geomancer','squires','calltoarms','radiant','radiant','tidepool','kings','kings','knight','lurker','priestess','commander','commander','golem','ogre','wyvern','dragonknight'];
-  CLASSES.find(c=>c.id==='hunter').deck=['pounce','goblin','huntmark','spray','spray','burglar','direwolf','harpooneer','killcmd','beastcaller','beastcaller','eel','hounds','hounds','gull','gull','riptide','firelem','shark','wyvern'];
+  CLASSES.find(c=>c.id==='paladin').deck=['aegis','brace','humility','oathshelter','squires','calltoarms','radiant','radiant','tidepool','kings','kings','knight','oathmuster','priestess','commander','commander','golem','oathcrusade','wyvern','dragonknight'];
+  CLASSES.find(c=>c.id==='hunter').deck=['pounce','boar','huntmark','spray','spray','burglar','direwolf','harpooneer','killcmd','beastcaller','beastcaller','panther','hounds','hounds','gull','gull','riptide','elk','shark','wyvern'];
   CLASSES.find(c=>c.id==='warlock').deck=['coil','darkpact','raisedead','soulfire','soulfire','sailor','sailor','ghoul','hellfire','darkpact','lurker','necro','necro','golem','inferno','breath','firelem','ogre','shark','dragonknight'];
   cm.tag=['Talents: Fire grows your spells, Frost freezes and shatters.','天赋：火焰养大法术，冰霜冻结再击碎。','タレント：炎は呪文を育て、氷は凍らせて砕く。'];
   cm.deck=['apprentice','emberbolt','icelance','icelance','wyrmling','emberadept','frostbolt','frostbolt','frostnova','shatter','icebarrier','lance','maelstrom','diver','emberele','frostele','phoenix','archmage','firelem','firestorm'];
@@ -1224,7 +1232,7 @@ const TALENTS=BETA?{
        TN('pa_array',['Formation','列阵','布陣'],['With 5 minions, your hero power costs 1 less.','你控制5个随从时，英雄技能费用-1。','ミニオンが5体いる時、ヒーローパワーのコスト-1。'])],
       [TN('pa_double',['Double Muster','双重征召','二重召集'],['Muster summons two Recruits and costs 3.','征召改为召唤两个民兵，费用变为3。','召集が民兵2体になり、コストは3になる。']),
        TN('pa_banner',['War Banner','战旗','軍旗'],['Whenever you summon a token, your leftmost minion gets +1 Attack.','每当你召唤一个衍生物，你最左边的随从+1攻击力。','トークンを召喚するたび、一番左のミニオンの攻撃力+1。'])],
-      [TN('pa_coop',['Unity','协作','連携'],['Once you have summoned 12 minions this game, your minions get +1 Attack for good (new ones too).','本局你召唤满12个友方随从后，你的所有随从永久+1攻击力（新上场的也算）。','このゲームで味方を12体召喚すると、自分のミニオン全体の攻撃力が永続+1（新しく出るものも）。'])]]},
+      [TN('pa_coop',['Unity','协作','連携'],['Whenever one of your Oaths is answered, your minions get +1 Attack.','你的誓言应验时，你的所有随从+1攻击力。','誓いが成就するたび、味方のミニオン全体の攻撃力+1。'])]]},
     {id:'aegis',sc:'aegis',col:'#ffe9a0',n:['Aegis','圣盾','聖盾'],tiers:[
       [TN('pa_first',['Opening Blessing','开场祝福','開幕の祝福'],['The first minion you summon each game gets Ward.','每局你召唤的第一个随从获得护盾。','各ゲーム最初に召喚したミニオンが結界を得る。']),
        TN('pa_bless',['Sheltering','护佑','加護'],['Sacred Aegis also gives +0/+2.','圣盾术的目标额外+0/+2。','聖なる盾の対象に+0/+2。']),
@@ -1406,8 +1414,7 @@ function talSummon(s,m,key,c){
   if(key==='knight'&&H('pa_vshield')){m.ward=true;a++}
   if(!c.token&&H('pa_first')&&!s.firstSum){s.firstSum=1;m.ward=true}
   if(s.tf){s.tf.sum=(s.tf.sum||0)+1;if(s.tf.sum===3&&H('pa_step')){a++;h++}}
-  if(H('pa_coop')){s.coopN=(s.coopN||0)+1;const nb=Math.min(1,Math.floor(s.coopN/12)),ob=s.coopB||0;
-    if(nb>ob){s.board.forEach(x=>{x.atk+=nb-ob});s.coopB=nb}a+=s.coopB||0}
+
   if(c.race==='beast'&&H('hu_wild')&&s.tf&&(s.tf.played||0)>=2)m.sleep=false;
   if(c.token&&H('pa_banner')&&s.board.length)s.board[0].atk+=1;
   if(!c.token&&c.race==='beast'&&H('hu_whistle')&&s.tf&&!s.tf.wh&&s.hand.length<10&&CARDS.whistle){s.tf.wh=1;s.hand.push('whistle')}
@@ -1421,7 +1428,9 @@ const smCap=s=>s.cls==='mage'?(tal(s,'fi_bank')?5:3):0;
 // a turn (3 with Seething) burst into +2 Attack for the board. Warlock: Souls from friendly deaths
 // (cap 7); Blood Pact spends 2 instead of hurting, 5 at the end of a turn become a Bone Warrior. Priest:
 // healing past full becomes Light (cap 5); 2 Light take a turn off a Prayer as it goes on the altar.
-const RAGE_CAP=5,RAGE_NEED=4,SOUL_CAP=7,LIGHT_CAP=5;
+// Hunter: Ferocity at the start of a turn, one per Beast in hand (cap 5); the hero power spends 2 for +1
+// damage (up to +2), and a Beast played with 3 banked spends 3 to Charge. Paladin: Oaths are Prayers.
+const RAGE_CAP=5,RAGE_NEED=4,SOUL_CAP=7,LIGHT_CAP=5,FERO_CAP=5;
 const resCls=(s,c)=>!!s&&s.cls===c;
 function addRage(s,n){if(resCls(s,'warrior'))s.rage=Math.min(RAGE_CAP,(s.rage||0)+n)}
 // Heals a hero or minion; a Priest banks the overflow as Light.
@@ -1455,7 +1464,7 @@ const TX={
   yours:()=>['Your talents','你的天赋','自分のタレント'][li()],foes:()=>['Enemy talents','敌方天赋','敵のタレント'][li()],
   close:()=>['Close','关闭','閉じる'][li()],
   rageGo:()=>['Rage!','怒气爆发！','怒気解放！'][li()],rage:(n)=>[`Rage ${n}/${RAGE_CAP}`,`怒气 ${n}/${RAGE_CAP}`,`怒気 ${n}/${RAGE_CAP}`][li()],
-  soul:(n)=>[`Souls ${n}/${SOUL_CAP}`,`魂 ${n}/${SOUL_CAP}`,`魂 ${n}/${SOUL_CAP}`][li()],light:(n)=>[`Light ${n}/${LIGHT_CAP}`,`圣光 ${n}/${LIGHT_CAP}`,`聖光 ${n}/${LIGHT_CAP}`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/12`,`协作 ${n}/12`,`連携 ${n}/12`][li()],
+  soul:(n)=>[`Souls ${n}/${SOUL_CAP}`,`魂 ${n}/${SOUL_CAP}`,`魂 ${n}/${SOUL_CAP}`][li()],light:(n)=>[`Light ${n}/${LIGHT_CAP}`,`圣光 ${n}/${LIGHT_CAP}`,`聖光 ${n}/${LIGHT_CAP}`][li()],fero:(n)=>[`Ferocity ${n}/${FERO_CAP}`,`兽性 ${n}/${FERO_CAP}`,`野性 ${n}/${FERO_CAP}`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/12`,`协作 ${n}/12`,`連携 ${n}/12`][li()],
   teaches:()=>['Works with:','配合天赋：','相性の良いタレント：'][li()],takePack:n=>[`Take the ${n} pack`,`选择${n}牌包`,`${n}パックを取る`][li()],
   packText:(n,o)=>[`Choose a pack for your deck (${n} cards). Next: ${o}.`,`选一个牌包加入牌组（现在${n}张）。下一关：${o}。`,`デッキに加えるパックを選ぶ（現在${n}枚）。次：${o}。`][li()],
   rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. Four tiers; in each you pick one talent from either page, and a pick opens the tier below. Set the 4 points in the deck builder; in Adventure you earn one every two duels.','<b>天赋（测试）：</b>法师和牧师各有两页天赋，共四层。每层在两页中任选一个，选了才解锁下一层，一共 4 点。在组牌界面分配；冒险模式中每两关得一点。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ、4段。各段でどちらかのページから1つ選ぶと次の段が開く。合計4ポイント。デッキ編集で振り、冒険では2戦ごとに1ポイント。'][li()],
@@ -1517,7 +1526,7 @@ Object.assign(ADV,BETA?{
       [[['shieldwall','thane'],['wa_heavy','wa_counter']],[['frenzy','berserker'],['wa_roar','wa_bloodied']]],
       [[['thane','shieldslam'],['wa_bulwark']],[['innerrage','lurker'],['wa_fury']]],
       [[['shieldwall','golem'],['wa_bulwark']],[['execute','treant'],['wa_fury']]]]},
-  paladin:{deck:['squires','aegis','priestess','radiant','hymn','burglar','eel','treant','tidepool','shark',...rep('goblin',2),...rep('harpooneer',2),...rep('lurker',2),'hexer','diver','golem','ogre'],
+  paladin:{deck:['squires','aegis','priestess','radiant','hymn','burglar','eel','treant','tidepool','shark',...rep('goblin',2),...rep('harpooneer',2),...rep('lurker',2),'hexer','diver','golem','oathmuster'],
     packs:[[[['squires','squires'],['pa_drill','pa_squires']],[['aegis','brace'],['pa_first','pa_bless','pa_hold']]],
       [[['calltoarms','goblin'],['pa_horn']],[['knight','brace'],['pa_vshield']]],
       [[['commander','squires'],['pa_command','pa_step']],[['kings','humility'],['pa_kings','pa_humble']]],
@@ -1525,7 +1534,7 @@ Object.assign(ADV,BETA?{
       [[['commander','calltoarms'],['pa_double','pa_banner']],[['knight','priestess'],['pa_lightcall','pa_echo']]],
       [[['squires','calltoarms'],['pa_coop']],[['brace','humility'],['pa_sanct']]],
       [[['commander','squires'],['pa_coop']],[['kings','brace'],['pa_sanct']]]]},
-  hunter:{deck:['direwolf','spray','eel','burglar','hymn','treant','tidepool','shark','geomancer','alchemist',...rep('goblin',2),...rep('harpooneer',2),...rep('lurker',2),'hexer','diver','golem','ogre'],
+  hunter:{deck:['direwolf','spray','eel','burglar','hymn','treant','tidepool','shark','geomancer','boar',...rep('goblin',2),...rep('harpooneer',2),...rep('lurker',2),'hexer','diver','golem','ogre'],
     packs:[[[['direwolf','pounce'],['hu_pack','hu_pounce']],[['spray','huntmark'],['hu_precise','hu_eagle']]],
       [[['beastcaller','direwolf'],['hu_tame']],[['steady','gull'],['hu_precise','hu_quiver']]],
       [[['killcmd','hounds'],['hu_kill','hu_hound']],[['riptide','gull'],['hu_deadly','hu_griffon']]],
@@ -1821,6 +1830,7 @@ function startTurn(side){
   const rageNeed=RAGE_NEED-(tal(s,'wa_fury')?1:0);
   if(resCls(s,'warrior')&&(s.rage||0)>=rageNeed){s.rage-=rageNeed;s.board.forEach(m=>{m.atk+=2;m.tmp=(m.tmp||0)+2});if(tal(s,'wa_fury')){s.armor+=3;float(s,T('armorN',3),'#cfd8dc')}float(s,TX.rageGo(),'#e0563f')}
   s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
+  if(resCls(s,'hunter')){const b=s.hand.filter(k=>CARDS[k]&&CARDS[k].race==='beast').length;if(b){s.fero=Math.min(FERO_CAP,(s.fero||0)+b);float(s,'✦+'+b,'#9ad48a')}}
   s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen});
   tickAltar(side,1);
   // Whoever goes first skips the draw on the opening turn (offsets the first-player advantage).
@@ -1839,6 +1849,7 @@ function tickAltar(side,n){
   const done=s.altar.filter(p=>p.cd<=0);if(!done.length)return;
   s.altar=s.altar.filter(p=>p.cd>0);
   for(const p of done){applyFx(side,cardPray(side,p.key).fx,null);pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key));
+    if(tal(s,'pa_coop'))s.board.forEach(m=>{m.atk+=1;float(m,T('fAtk',1),'var(--ready)')});
     if(tal(s,'ho_grace')){heal(s,3);
       const t=[...S[other(side)].board].filter(m=>m.hp>0).sort((a,b)=>b.atk-a.atk||a.uid-b.uid)[0];if(t)damage(t,1)}}
 }
@@ -1855,6 +1866,7 @@ function summon(side,key){
   const c=CARDS[key];
   const m={uid:++U,key,side,atk:c.a,hp:c.h,max:c.h,base:[c.a,c.h],guard:!!c.guard,ward:!!c.ward,sleep:!c.surge,attacked:false,frozen:false,silenced:false,tmp:0,enter:true};
   if(s.tal&&s.tal.size)talSummon(s,m,key,c);
+  if(resCls(s,'hunter')&&c.race==='beast'&&!c.token&&m.sleep&&(s.fero||0)>=3){s.fero-=3;m.sleep=false;float(m,T('fFero'),'#9ad48a')}
   s.board.push(m);return m;
 }
 function damage(o,n,pierce){
@@ -1887,6 +1899,7 @@ function targetsFor(side,tgt,cond){
 }
 function applyFx(side,fx,t,bonus=0,faceB=0){
   const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null,isPw=!!(me.power&&fx===me.power.fx);
+  if(isPw&&resCls(me,'hunter')&&(fx.face||fx.dmg)){const k=Math.min(2,Math.floor((me.fero||0)/2));if(k){me.fero-=2*k;bonus+=k;float(me,T('fFero'),'#9ad48a')}}
   if(fx.selfDmg){
     if(isPw&&tal(me,'wl_veng')&&me.hp<=15){}
     else if(isPw&&resCls(me,'warlock')&&(me.soul||0)>=2){me.soul-=2;float(me,T('fSoulPay'),'#c4b4ff')}
@@ -2415,13 +2428,13 @@ function startOnline(d){
 }
 // Compact fingerprint of everything both copies must agree on, host's side first.
 function netHash(){
-  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.ember||0,(s.altar||[]).map(p=>p.key+p.cd),(s.grave||[]).length,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,+m.frozen||0,m.silenced?1:0,m.tmp||0]),...(BETA?[hbOf(s).join(''),JSON.stringify(s.tf||{}),s.rage||0,s.soul||0,s.coopN||0,s.coopB||0,s.firstSum||0,s.light||0,s.board.map(m=>m.bled?1:0).join('')]:[])];
+  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.ember||0,(s.altar||[]).map(p=>p.key+p.cd),(s.grave||[]).length,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,+m.frozen||0,m.silenced?1:0,m.tmp||0]),...(BETA?[hbOf(s).join(''),JSON.stringify(s.tf||{}),s.rage||0,s.soul||0,s.coopN||0,s.coopB||0,s.firstSum||0,s.light||0,s.fero||0,s.board.map(m=>m.bled?1:0).join('')]:[])];
   const str=JSON.stringify([S.order.map(k=>sd(S[k])),S.turn===S.order[0]?'h':'g']);
   let x=0;for(let i=0;i<str.length;i++)x=(x*31+str.charCodeAt(i))|0;return x;
 }
 function netSnap(){
   const side=s=>({hp:s.hp,max:s.max,armor:s.armor,mana:s.mana,maxMana:s.maxMana,sm:s.sm||0,deck:[...s.deck],hand:[...s.hand],fat:s.fat,powerUsed:s.powerUsed,ember:s.ember||0,altar:(s.altar||[]).map(p=>({...p})),grave:[...(s.grave||[])],
-    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:m.frozen||false,silenced:!!m.silenced,tmp:m.tmp||0})),...(BETA?{hb:[...hbOf(s)],tf:{...(s.tf||{})},rage:s.rage||0,soul:s.soul||0,coopN:s.coopN||0,coopB:s.coopB||0,firstSum:s.firstSum||0,light:s.light||0,bled:s.board.map(m=>m.bled?1:0)}:{})});
+    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:m.frozen||false,silenced:!!m.silenced,tmp:m.tmp||0})),...(BETA?{hb:[...hbOf(s)],tf:{...(s.tf||{})},rage:s.rage||0,soul:s.soul||0,coopN:s.coopN||0,coopB:s.coopB||0,firstSum:s.firstSum||0,light:s.light||0,fero:s.fero||0,bled:s.board.map(m=>m.bled?1:0)}:{})});
   return {h:side(S[S.order[0]]),g:side(S[S.order[1]]),turn:S.turn===S.order[0]?'h':'g',opened:S.opened,U};
 }
 function netApplySnap(st){
@@ -2674,7 +2687,7 @@ function resHTML(s){
   const n=altarMax(s);
   const al=s.cls==='priest'||(s.altar&&s.altar.length)?`<span class="altar" aria-label="${T('altarLbl')}">${Array.from({length:n},(_,i)=>{const p=s.altar[i];
     return p?`<button class="aslot" data-zoom="${p.key}" aria-label="${cn(p.key)}: ${p.cd}">${art(p.key)}<b>${p.cd}</b></button>`:'<span class="aslot empty"></span>'}).join('')}</span>`:'';
-  const ctr=[resCls(s,'warrior')&&TX.rage(s.rage||0),resCls(s,'warlock')&&TX.soul(s.soul||0),resCls(s,'priest')&&TX.light(s.light||0),tal(s,'pa_coop')&&TX.coop(s.coopB||0,s.coopN||0)].filter(Boolean).map(t=>`<span class="ctr">${t}</span>`).join('');
+  const ctr=[resCls(s,'warrior')&&TX.rage(s.rage||0),resCls(s,'warlock')&&TX.soul(s.soul||0),resCls(s,'priest')&&TX.light(s.light||0),resCls(s,'hunter')&&TX.fero(s.fero||0)].filter(Boolean).map(t=>`<span class="ctr">${t}</span>`).join('');
   const tb=s.tal&&s.tal.size?`<button class="talbtn" data-tview="${s.side}" aria-label="${TX.talents()}: ${s.tal.size}">✦${s.tal.size}</button>`:'';
   return al||tb||ctr?`<span class="hres">${tb}${ctr}${al}</span>`:'';
 }

@@ -325,7 +325,7 @@ private struct StatusBox: View {
                 s.isCls(side, "warrior") ? tx.rage(h.rage) : nil,
                 s.isCls(side, "warlock") ? tx.souls(h.soul) : nil,
                 s.isCls(side, "priest") ? tx.light(h.light) : nil,
-                s.tal(side, "pa_coop") ? tx.unity(h.coopB, h.coopN) : nil,
+                s.isCls(side, "hunter") ? tx.fero(h.fero) : nil,
             ].compactMap { $0 }
             if !counters.isEmpty {
                 Text(counters.joined(separator: " · ")).font(Theme.body(8.5, .bold)).foregroundStyle(Theme.gold).lineLimit(1).minimumScaleFactor(0.7)

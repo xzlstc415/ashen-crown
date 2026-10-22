@@ -108,7 +108,7 @@ struct Hero: Codable, Hashable {
     var castHb = 0
     var tf = TurnFlags()
     /// Class resources: Rage (Warrior), Souls (Warlock), Light (Priest); Unity counters (Paladin talent).
-    var rage = 0, soul = 0, light = 0, coopN = 0, coopB = 0
+    var rage = 0, soul = 0, light = 0, fero = 0, coopN = 0, coopB = 0
     var firstSum = false
     var id: EID { .hero(side) }
 
@@ -116,7 +116,7 @@ struct Hero: Codable, Hashable {
     var hasTalents: Bool { !tal.isEmpty }
 
     private enum CodingKeys: String, CodingKey {
-        case side, hp, max, armor, mana, maxMana, spellMana, deck, hand, board, fat, powerUsed, power, cls, altar, grave, tal, ovr, hb, castHb, tf, rage, soul, light, coopN, coopB, firstSum
+        case side, hp, max, armor, mana, maxMana, spellMana, deck, hand, board, fat, powerUsed, power, cls, altar, grave, tal, ovr, hb, castHb, tf, rage, soul, light, fero, coopN, coopB, firstSum
     }
     init(side: Side, hp: Int, max: Int, deck: [String], power: Power) {
         self.side = side; self.hp = hp; self.max = max; self.deck = deck; self.power = power
@@ -137,7 +137,7 @@ struct Hero: Codable, Hashable {
         castHb = try c.decodeIfPresent(Int.self, forKey: .castHb) ?? 0
         tf = try c.decodeIfPresent(TurnFlags.self, forKey: .tf) ?? TurnFlags()
         rage = try c.decodeIfPresent(Int.self, forKey: .rage) ?? 0; soul = try c.decodeIfPresent(Int.self, forKey: .soul) ?? 0
-        light = try c.decodeIfPresent(Int.self, forKey: .light) ?? 0
+        light = try c.decodeIfPresent(Int.self, forKey: .light) ?? 0; fero = try c.decodeIfPresent(Int.self, forKey: .fero) ?? 0
         coopN = try c.decodeIfPresent(Int.self, forKey: .coopN) ?? 0; coopB = try c.decodeIfPresent(Int.self, forKey: .coopB) ?? 0
         firstSum = try c.decodeIfPresent(Bool.self, forKey: .firstSum) ?? false
     }
@@ -165,7 +165,7 @@ enum LogEntry: Hashable {
 enum FloatKind: Hashable {
     case dmg(Int), armorAbsorb(Int), ward, heal(Int), armorGain(Int), atkUp(Int), hpUp(Int)
     case frozen, silenced, destroyed, stats(Int, Int)
-    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay
+    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero
     var isHit: Bool { switch self { case .dmg, .armorAbsorb, .ward: return true; default: return false } }
 }
 
@@ -314,7 +314,9 @@ struct DuelState: Codable {
     // a turn (3 with Seething) burst into +2 Attack for the board. Warlock: Souls from friendly deaths (cap 7);
     // Blood Pact spends 2 instead of hurting, 5 at the end of a turn become a Bone Warrior. Priest: healing past
     // full becomes Light (cap 5); 2 Light take a turn off a Prayer as it goes on the altar.
-    static let rageCap = 5, rageNeed = 4, soulCap = 7, lightCap = 5
+    // Hunter: Ferocity at the start of a turn, one per Beast in hand (cap 5); the hero power spends 2 for +1
+    // damage (up to +2), and a Beast played with 3 banked spends 3 to Charge. Paladin: Oaths are Prayers.
+    static let rageCap = 5, rageNeed = 4, soulCap = 7, lightCap = 5, feroCap = 5
     func isCls(_ side: Side, _ c: String) -> Bool { self[side].cls == c }
     mutating func addRage(_ side: Side, _ n: Int) { if isCls(side, "warrior") { self[side].rage = Swift.min(Self.rageCap, self[side].rage + n) } }
     /// Bulwark: when short on mana, every 3 Armor pays for 1.
@@ -380,12 +382,6 @@ struct DuelState: Codable {
         if !c.token && h("pa_first") && !self[side].firstSum { self[side].firstSum = true; m.ward = true }
         self[side].tf.sum += 1
         if self[side].tf.sum == 3 && h("pa_step") { a += 1; hp += 1 }
-        if h("pa_coop") {
-            self[side].coopN += 1
-            let nb = Swift.min(1, self[side].coopN / 12), ob = self[side].coopB
-            if nb > ob { for i in self[side].board.indices { self[side].board[i].atk += nb - ob }; self[side].coopB = nb }
-            a += self[side].coopB
-        }
         if c.race == "beast" && h("hu_wild") && self[side].tf.played >= 2 { m.sleep = false }
         if c.token && h("pa_banner") && !self[side].board.isEmpty { self[side].board[0].atk += 1 }
         if !c.token && c.race == "beast" && h("hu_whistle") && !self[side].tf.wh && self[side].hand.count < 10 && Self.gd.card("whistle") != nil {
@@ -427,6 +423,10 @@ struct DuelState: Codable {
         self[side].maxMana = Swift.min(10, self[side].maxMana + 1)
         self[side].mana = self[side].maxMana
         self[side].powerUsed = false
+        if isCls(side, "hunter") {
+            let b = self[side].hand.filter { Self.gd.card($0)?.race == "beast" }.count
+            if b > 0 { self[side].fero = Swift.min(Self.feroCap, self[side].fero + b); float(.hero(side), .light(b)) }
+        }
         for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].isFrozen }
         tickAltar(side, 1)
         // Whoever goes first skips the draw on the opening turn.
@@ -459,6 +459,7 @@ struct DuelState: Codable {
         var m = Minion(uid: nextUid, key: key, side: side, atk: c.atk ?? 0, hp: c.hp ?? 0, max: c.hp ?? 0,
                        baseAtk: c.atk ?? 0, baseHp: c.hp ?? 0, hasGuard: c.hasGuard, ward: c.ward, sleep: !c.surge, attacked: false)
         if self[side].hasTalents { talSummon(side, &m, c) }
+        if isCls(side, "hunter") && c.race == "beast" && !c.token && m.sleep && self[side].fero >= 3 { self[side].fero -= 3; m.sleep = false; float(m.id, .fero) }
         self[side].board.append(m)
         return m
     }
@@ -571,6 +572,7 @@ struct DuelState: Codable {
         for p in done {
             if let pr = cardPray(side, p.key) { applyFx(side, pr.fx, nil) }
             float(.hero(side), .answered)
+            if tal(side, "pa_coop") { for i in self[side].board.indices { self[side].board[i].atk += 1; float(self[side].board[i].id, .atkUp(1)) } }
             log(.prayerDone(side, p.key))
             if tal(side, "ho_grace") {
                 heal(.hero(side), 3)
@@ -694,6 +696,11 @@ struct DuelState: Codable {
     mutating func applyFx(_ side: Side, _ fx: Effect, _ t: EID?, bonus: Int = 0, faceBonus: Int = 0, isPower: Bool = false) {
         let op = side.other
         let mt: EID? = (t?.isHero == false) ? t : nil
+        var bonus = bonus
+        if isPower && isCls(side, "hunter") && (fx.face > 0 || fx.dmg > 0) {
+            let k = Swift.min(2, self[side].fero / 2)
+            if k > 0 { self[side].fero -= 2 * k; bonus += k; float(.hero(side), .fero) }
+        }
         if fx.selfDmg > 0 {
             if isPower && tal(side, "wl_veng") && self[side].hp <= 15 {}
             else if isPower && isCls(side, "warlock") && self[side].soul >= 2 { self[side].soul -= 2; float(.hero(side), .soulPay) }
@@ -823,7 +830,7 @@ struct DuelState: Codable {
         func sd(_ h: Hero) -> String {
             let b = h.board.map { "\($0.uid),\($0.key),\($0.atk),\($0.hp),\($0.max),\($0.hasGuard ? 1 : 0),\($0.ward ? 1 : 0),\($0.sleep ? 1 : 0),\($0.attacked ? 1 : 0),\($0.frozen),\($0.silenced ? 1 : 0),\($0.tmp)" }.joined(separator: ";")
             let a = h.altar.map { "\($0.key)\($0.cd)" }.joined(separator: ",")
-            return "\(h.hp)|\(h.armor)|\(h.mana)|\(h.maxMana)|\(h.spellMana)|\(h.hand.joined(separator: ","))|\(h.deck.count)|\(h.fat)|\(h.powerUsed ? 1 : 0)|\(a)|\(h.grave.count)|\(b)|\(h.rage)|\(h.soul)|\(h.light)|\(h.coopN)"
+            return "\(h.hp)|\(h.armor)|\(h.mana)|\(h.maxMana)|\(h.spellMana)|\(h.hand.joined(separator: ","))|\(h.deck.count)|\(h.fat)|\(h.powerUsed ? 1 : 0)|\(a)|\(h.grave.count)|\(b)|\(h.rage)|\(h.soul)|\(h.light)|\(h.fero)"
         }
         let s = sd(self[hostSide]) + "#" + sd(self[hostSide.other]) + "#" + (turn == hostSide ? "h" : "g")
         var x: Int32 = 0

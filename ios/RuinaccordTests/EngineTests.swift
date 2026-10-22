@@ -4,7 +4,7 @@ import XCTest
 final class EngineTests: XCTestCase {
     func testDataLoads() {
         let gd = GameData.shared
-        XCTAssertEqual(gd.cards.count, 117)
+        XCTAssertEqual(gd.cards.count, 123)
         XCTAssertEqual(gd.classes.count, 6)
         XCTAssertEqual(gd.opponents.count, 8)
         XCTAssertEqual(gd.deckSize, 25)
@@ -76,6 +76,22 @@ final class EngineTests: XCTestCase {
         s.heal(.hero(.p), 3); XCTAssertEqual(s.p.light, 3)
         s.p.light = 2; s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.last?.cd, gd.card("matins")!.pray!.cd - 1); XCTAssertEqual(s.p.light, 0)
         s.p.altar = []
+        // Hunter: Ferocity per Beast in hand at the start of a turn; the power spends 2 for +1 damage; a Beast with 3 Charges.
+        s.setupTalents(.p, cls: "hunter", []); s.p.fero = 0; s.p.hand = ["direwolf", "boar", "goblin"]; s.p.board = []
+        s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p)
+        XCTAssertEqual(s.p.fero, 2)
+        let ehp = s.e.hp
+        s.applyFx(.p, gd.cls("hunter")!.power.fx, nil, isPower: true)
+        XCTAssertEqual(s.e.hp, ehp - gd.cls("hunter")!.power.fx.face - 1); XCTAssertEqual(s.p.fero, 0)
+        s.p.fero = 3; s.summon(.p, "panther"); s.summon(.p, "direwolf")
+        XCTAssertFalse(s.p.board[1].sleep); XCTAssertEqual(s.p.fero, 0)
+        // Paladin: Oaths are Prayers; Unity gives +1 Attack when one is answered.
+        s.setupTalents(.p, cls: "paladin", ["pa_drill", "pa_command", "pa_double", "pa_coop"]); s.p.board = []; s.p.mana = 10
+        s.summon(.p, "goblin"); let a0 = s.p.board[0].atk
+        s.castSpell(.p, "oathmuster", nil); XCTAssertEqual(s.p.altar.count, 1)
+        for _ in 0..<(gd.card("oathmuster")!.pray!.cd) { s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p) }
+        XCTAssertTrue(s.p.altar.isEmpty); XCTAssertEqual(s.p.board.filter { $0.key == "minnow" }.count, 3); XCTAssertEqual(s.p.board[0].atk, a0 + 1)
+        s.p.board = []; s.p.altar = []
         // Prayers wait on the altar and resolve after their countdown.
         s.setupTalents(.p, cls: "priest", [])
         s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.count, 1)

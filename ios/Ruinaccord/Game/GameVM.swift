@@ -276,6 +276,7 @@ final class GameVM {
         case .manaUp(let n): return ("+\(n)", Theme.manaLight)
         case .light(let n): return ("✦+\(n)", Color(hex: "#ffe9a0"))
         case .soulPay: return (tx.fSoulPay, Color(hex: "#c4b4ff"))
+        case .fero: return (tx.fFero, Color(hex: "#9ad48a"))
         }
     }
 
