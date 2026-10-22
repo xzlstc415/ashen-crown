@@ -497,60 +497,63 @@ struct BoardView: View {
 
 // MARK: - Battle log
 
-/// Every play of the game, newest last, grouped by turn; tap an entry to see the card.
+/// Every play of the game, one round per page: your plays on the left, the foe's on the right. Arrows and
+/// round chips page through; nothing scrolls. Tap an entry to see the card.
 struct LogView: View {
     @Environment(GameVM.self) private var vm
+    @State private var shown: Int? = nil
     var body: some View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         let tx = vm.tx
-        // Turn headers: a new group whenever the round or the side changes.
-        var rows: [LogRow] = []
-        var lastKey: (Int, Side)? = nil
-        for h in vm.hist {
-            if lastKey == nil || lastKey! != (h.round, h.side) { rows.append(.turn(h.side, h.round)); lastKey = (h.round, h.side) }
-            rows.append(.play(h))
-        }
+        let rounds = Array(Set(vm.hist.map(\.round))).sorted()
+        let cur = shown.flatMap { rounds.contains($0) ? $0 : nil } ?? rounds.last ?? 0
+        let idx = rounds.firstIndex(of: cur) ?? 0
+        let mine = vm.hist.filter { $0.round == cur && $0.side == .p }, theirs = vm.hist.filter { $0.round == cur && $0.side == .e }
+        let perCol = 5
         return AnyView(ZStack {
             Color(hex: "#0a080c").opacity(0.7).ignoresSafeArea().contentShape(Rectangle()).onTapGesture { vm.showLog = false }
             VStack(spacing: 0) {
-                HStack {
-                    Text(tx.battleLog).font(Theme.display(20, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                HStack(spacing: 8) {
+                    Text(tx.battleLog).font(Theme.display(18, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
                     Spacer()
+                    if !rounds.isEmpty {
+                        Button { shown = rounds[max(0, idx - 1)] } label: { Image(systemName: "chevron.left").font(.system(size: 14, weight: .heavy)).frame(width: 30, height: 28) }
+                            .ghost(compact: true).disabled(idx == 0).opacity(idx == 0 ? 0.4 : 1)
+                        ForEach(rounds.suffix(from: max(0, min(idx - 2, rounds.count - 5))).prefix(5), id: \.self) { r in
+                            Button(tx.roundN(r + 1)) { shown = r }.buttonStyle(PrimaryButtonStyle(ghost: r != cur, compact: true))
+                        }
+                        Button { shown = rounds[min(rounds.count - 1, idx + 1)] } label: { Image(systemName: "chevron.right").font(.system(size: 14, weight: .heavy)).frame(width: 30, height: 28) }
+                            .ghost(compact: true).disabled(idx >= rounds.count - 1).opacity(idx >= rounds.count - 1 ? 0.4 : 1)
+                    }
                     Button { vm.showLog = false } label: {
                         Image(systemName: "xmark").font(.system(size: 15, weight: .heavy)).foregroundStyle(Theme.parch).frame(width: 34, height: 34)
                     }
                     .buttonStyle(.plain).accessibilityLabel(Text(tx.back))
                 }
-                .padding(.horizontal, 16).padding(.top, 10).padding(.bottom, 6)
+                .padding(.horizontal, 14).padding(.top, 8).padding(.bottom, 6)
                 Rectangle().fill(Theme.gold.opacity(0.5)).frame(height: 1).padding(.horizontal, 12)
-                ScrollViewReader { proxy in
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack(spacing: 6) {
-                            if rows.isEmpty {
-                                Text(tx.logEmpty).font(Theme.body(13)).foregroundStyle(Theme.muted).padding(.top, 30)
+                if rounds.isEmpty {
+                    Text(tx.logEmpty).font(Theme.body(13)).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    HStack(alignment: .top, spacing: 12) {
+                        ForEach([(Side.p, mine), (Side.e, theirs)], id: \.0) { side, items in
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(vm.heroName(side)).font(Theme.body(11, .heavy)).tracking(1).foregroundStyle(side == .p ? Color(hex: "#9fc4ee") : Color(hex: "#f0a097"))
+                                if items.isEmpty { Text("—").font(Theme.body(12)).foregroundStyle(Theme.muted) }
+                                ForEach(items.prefix(perCol)) { h in LogPlayRow(h: h) }
+                                if items.count > perCol { Text("+\(items.count - perCol)").font(Theme.body(11)).foregroundStyle(Theme.muted) }
+                                Spacer(minLength: 0)
                             }
-                            ForEach(Array(rows.enumerated()), id: \.offset) { i, row in
-                                switch row {
-                                case .turn(let side, let n):
-                                    Text(tx.turnRound(side == .p, n + 1)).font(Theme.display(15, cjk: vm.lang.isCJK)).tracking(1)
-                                        .foregroundStyle(side == .p ? Color(hex: "#9fc4ee") : Color(hex: "#f0a097"))
-                                        .frame(maxWidth: .infinity).padding(.vertical, 6)
-                                        .overlay(alignment: .bottom) { Rectangle().fill(Theme.gold.opacity(0.35)).frame(height: 1) }
-                                case .play(let h):
-                                    LogPlayRow(h: h).id(i)
-                                }
-                            }
-                            Color.clear.frame(height: 1).id("end")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                         }
-                        .padding(.horizontal, 14).padding(.vertical, 8)
                     }
-                    .onAppear { proxy.scrollTo("end", anchor: .bottom) }
+                    .padding(.horizontal, 14).padding(.vertical, 8)
                 }
             }
-            .frame(maxWidth: 520, maxHeight: .infinity)
+            .frame(maxWidth: 720, maxHeight: .infinity)
             .background(LinearGradient(colors: [Color(hex: "#1c2434"), Color(hex: "#0f1420")], startPoint: .top, endPoint: .bottom), in: RoundedRectangle(cornerRadius: 12))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color(hex: "#4a6a9a"), lineWidth: 1.5))
-            .padding(.vertical, 14)
+            .padding(.vertical, 12)
             .shadow(color: .black.opacity(0.7), radius: 16)
             .transition(.move(edge: .leading).combined(with: .opacity))
         }
@@ -558,7 +561,6 @@ struct LogView: View {
         .accessibilityAddTraits(.isModal)
         .onChange(of: s.round) { _, _ in vm.showLog = false })
     }
-    private enum LogRow { case turn(Side, Int), play(HistItem) }
 }
 
 /// One play in the battle log: coloured stripe, card picture, "<hero> played <card>", target.
@@ -576,7 +578,7 @@ private struct LogPlayRow: View {
                 }
                 .frame(width: 44, height: 32).clipShape(RoundedRectangle(cornerRadius: 6))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(tx.played(vm.heroName(h.side)) + " · " + tx.cardName(h.key)).font(Theme.body(13, .semibold)).foregroundStyle(Theme.ink).lineLimit(1)
+                    Text(tx.cardName(h.key)).font(Theme.body(12.5, .semibold)).foregroundStyle(Theme.ink).lineLimit(1)
                     if let t = h.target { Text(tx.target(vm.name(t))).font(Theme.body(11.5)).foregroundStyle(Theme.muted).lineLimit(1) }
                 }
                 Spacer(minLength: 0)

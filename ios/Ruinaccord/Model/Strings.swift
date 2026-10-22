@@ -366,6 +366,39 @@ struct Tx {
     func talAdvSub(_ n: Int) -> String { pick("You have \(n) talent point\(n > 1 ? "s" : ""). You can move them before every duel.", "你现在有\(n)点天赋，每关开始前都可以重新分配。", "タレントポイントは\(n)。毎戦の前に振り直せる。") }
     var talFight: String { pick("To battle", "开始战斗", "戦いへ") }
     var closeLbl: String { pick("Close", "关闭", "閉じる") }
+    // Full-screen pages
+    var nextPage: String { pick("Next page", "下一页", "次のページ") }
+    var prevPage: String { pick("Previous page", "上一页", "前のページ") }
+    func pageOf(_ n: Int, _ m: Int) -> String { pick("Page \(n) / \(m)", "第 \(n) / \(m) 页", "\(n) / \(m) ページ") }
+    var rulesBtn: String { pick("Rules", "规则", "ルール") }
+    var accountApple: String { pick("Apple account", "Apple 账号", "Appleアカウント") }
+    /// "3 won · 1 lost", or just a count when `l` is nil (adventure clears).
+    func statsShort(_ w: Int, _ l: Int?) -> String {
+        guard let l else { return pick("\(w) crowns won", "夺冠 \(w) 次", "王冠 \(w) 回") }
+        return pick("\(w) won · \(l) lost", "\(w) 胜 · \(l) 负", "\(w) 勝 · \(l) 敗")
+    }
+    var introBlurb: String { pick("Sunlight falls through the ruins and vines climb the pillars. Fight from the goblin warband to the Ashen King and take the crown back.", "阳光照进废墟，藤蔓爬上石柱。从哥布林战团一路打到灰烬之王，把那顶王冠夺回来。", "廃墟に陽が差し、蔦が柱を這う。ゴブリンの戦団から灰燼の王まで戦い抜き、王冠を取り戻せ。") }
+    func heroName(_ cls: String) -> String {
+        switch cls {
+        case "warrior": return pick("Rok Greytusk", "洛克·灰牙", "ロク・グレイタスク")
+        case "mage": return pick("Pim Emberfrost", "皮姆·霜烬", "ピム・エンバーフロスト")
+        case "paladin": return pick("Aldric Dawnoath", "奥德里克·晨誓", "アルドリック・ドーンオース")
+        case "hunter": return pick("Kaelwen Thornstride", "凯尔温·荆径", "ケルウェン・ソーンストライド")
+        case "priest": return pick("Margo Candlewick", "玛戈·烛芯", "マーゴ・キャンドルウィック")
+        case "warlock": return pick("Morwen Lastcandle", "莫文·残烛", "モーウェン・ラストキャンドル")
+        default: return ""
+        }
+    }
+    func heroRace(_ cls: String) -> String {
+        let r = ["warrior": "orc", "mage": "gnome", "paladin": "human", "hunter": "elf", "priest": "halfling", "warlock": "undead"][cls] ?? "human"
+        return race(r)
+    }
+    func roundN(_ n: Int) -> String { pick("Round \(n)", "第\(n)回合", "第\(n)ラウンド") }
+    var talHint: String { pick("A tier opens at 2 / 4 / 6 points in its page.", "每页投入 2 / 4 / 6 点解锁下一层。", "各ページ 2 / 4 / 6 ポイントで次の段が開く。") }
+    var typeAll: String { pick("All", "全部", "すべて") }
+    var costLbl: String { pick("Cost", "费用", "コスト") }
+    var classCards: String { pick("Class", "职业", "クラス") }
+    var neutralCards: String { pick("Neutral", "中立", "中立") }
     var talYours: String { pick("Your talents", "你的天赋", "自分のタレント") }
     var talFoes: String { pick("Enemy talents", "敌方天赋", "敵のタレント") }
     var rageGo: String { pick("Rage!", "怒气爆发！", "怒気解放！") }

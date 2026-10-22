@@ -13,6 +13,8 @@ enum Scenes {
 /// pool over the board column, and shaded edges under the side columns, so gems and rules text keep their contrast.
 struct SceneBackdrop: View {
     let name: String
+    /// Menus: one even, deeper wash instead of the duel's pool over the board.
+    var menu = false
     var body: some View {
         let ink = Color(hex: "#0a0710")
         GeometryReader { g in
@@ -21,9 +23,9 @@ struct SceneBackdrop: View {
                 .scaledToFill()
                 .frame(width: g.size.width, height: g.size.height)
                 .clipped()
-                .saturation(0.9)
-                .overlay(ink.opacity(0.32))
-                .overlay(RadialGradient(colors: [ink.opacity(0.62), ink.opacity(0.5), ink.opacity(0)],
+                .saturation(menu ? 0.85 : 0.9)
+                .overlay(ink.opacity(menu ? 0.64 : 0.32))
+                .overlay(RadialGradient(colors: [ink.opacity(menu ? 0 : 0.62), ink.opacity(menu ? 0 : 0.5), ink.opacity(0)],
                                         center: UnitPoint(x: 0.5, y: 0.5), startRadius: g.size.width * 0.1, endRadius: g.size.width * 0.62))
                 .overlay(LinearGradient(stops: [.init(color: ink.opacity(0.7), location: 0), .init(color: ink.opacity(0), location: 0.1),
                                                 .init(color: ink.opacity(0), location: 0.9), .init(color: ink.opacity(0.7), location: 1)],

@@ -137,6 +137,8 @@ final class GameVM {
     var showTalentPanel = false
     /// The painted place behind the current duel (see `Scenes`).
     var scene = "dawn"
+    /// The rules panel over the menu.
+    var showRules = false
     /// A board minion being held down: its card shows in the info panel.
     var infoKey: String?
     /// The card described in the top-left panel: the lifted hand card, else the held minion.
@@ -932,7 +934,6 @@ final class GameVM {
     func pushHist(_ side: Side, _ key: String, _ t: NameRef?) -> UUID {
         let h = HistItem(side: side, key: key, target: t, round: S.round)
         hist.append(h)
-        if hist.count > 8 { hist.removeFirst() }
         return h.id
     }
 

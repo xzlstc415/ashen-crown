@@ -36,6 +36,7 @@
 		EA6F7E62FB9B3B612D7E26EA /* EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9726708ED1BBD78C7E359 /* EngineTests.swift */; };
 		F4718328AED7FDF6B8EB0020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB8548AE18AE9BAA895F2B8 /* Assets.xcassets */; };
 		F5B49A914418393AA4E4B3F6 /* DuelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA8A742A17EE606385C7A5 /* DuelView.swift */; };
+		F71F2CC0A436ED3831D05090 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DD730CCCD5023EB3E03B8A /* Shell.swift */; };
 		F7C8AEB2C0167E794509EA91 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AEFFFACFCDF9F697C70720A2 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		01E8B964C8B1BD0034A3D1C0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		07BA8A742A17EE606385C7A5 /* DuelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelView.swift; sourceTree = "<group>"; };
 		0E7192B9B343177DE2DC1C6E /* DuelFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelFX.swift; sourceTree = "<group>"; };
+		29DD730CCCD5023EB3E03B8A /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		2BF527A51B1E8B26782748BB /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		35E8AA0B886A534E391E96A9 /* LocalBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBackend.swift; sourceTree = "<group>"; };
 		3D6D2FA6143E636B3581CB32 /* BuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				5FC700070828DEC542AC94CF /* RootView.swift */,
 				87906EE143CBA9606C47F20D /* SceneBackdrop.swift */,
 				BB346BC7649F3118FD6D2CEE /* Screens.swift */,
+				29DD730CCCD5023EB3E03B8A /* Shell.swift */,
 				DBDA149027DBF1318A0A65C8 /* TalentViews.swift */,
 				01E8B964C8B1BD0034A3D1C0 /* Theme.swift */,
 			);
@@ -340,6 +343,7 @@
 				E0400EF665034BEA5638BF07 /* RuinaccordApp.swift in Sources */,
 				20C527B2DC4EDE8978994589 /* SceneBackdrop.swift in Sources */,
 				4FF741F2824D49696226611E /* Screens.swift in Sources */,
+				F71F2CC0A436ED3831D05090 /* Shell.swift in Sources */,
 				6370F8EDA1AF1898F22A1E97 /* Strings.swift in Sources */,
 				A49000027FC8B33CBDFF8807 /* TalentViews.swift in Sources */,
 				D84C52D7E43B2B734B7CCEDE /* Talents.swift in Sources */,

@@ -50,9 +50,7 @@ struct GameRoot: View {
                     .animation(.easeOut(duration: 0.18), value: vm.infoCard?.id)
                 }
             } else {
-            ScrollView(.vertical) {
-                VStack(spacing: 6) {
-                    TopBar()
+                Group {
                     switch vm.screen {
                     case .intro: IntroView()
                     case .classPick: ClassPickView()
@@ -71,11 +69,8 @@ struct GameRoot: View {
                     case .oresult: OResultView()
                     }
                 }
-                .padding(.horizontal, 16).padding(.vertical, 8)
-                .frame(maxWidth: 640)
-                .frame(maxWidth: .infinity)
-            }
-            .scrollDismissesKeyboard(.interactively)
+                .id(vm.screen)
+                if vm.showRules { RulesOverlay().zIndex(40) }
             }
             FXLayer()
             if let r = vm.reveal { VStack { RevealView(r: r).padding(.top, 60); Spacer() }.transition(.opacity).id(r.id) }
@@ -91,37 +86,9 @@ struct GameRoot: View {
         }
         .animation(.easeOut(duration: 0.2), value: vm.zoomCard)
         .animation(.easeOut(duration: 0.2), value: vm.showLog)
+        .animation(.easeOut(duration: 0.2), value: vm.showRules)
+        .animation(.easeOut(duration: 0.25), value: vm.screen)
         .animation(.easeOut(duration: 0.2), value: vm.peekItem?.id)
-    }
-}
-
-struct TopBar: View {
-    @Environment(GameVM.self) private var vm
-    var body: some View {
-        let tx = vm.tx
-        HStack(spacing: 8) {
-            Text(tx.brand).font(Theme.display(21, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch).lineLimit(1)
-            Spacer()
-            if vm.screen != .gallery {
-                Button(tx.cardsBtn) { vm.openGallery() }
-                    .font(Theme.body(12, .bold)).foregroundStyle(Theme.muted)
-                    .padding(.horizontal, 9).padding(.vertical, 4).background(Theme.panel, in: Capsule()).overlay(Capsule().stroke(Theme.line, lineWidth: 1))
-            }
-            Button { vm.showSettings = true } label: {
-                Image(systemName: "gearshape.fill").font(.system(size: 13, weight: .bold)).foregroundStyle(Theme.muted)
-                    .padding(.horizontal, 9).padding(.vertical, 5).background(Theme.panel, in: Capsule()).overlay(Capsule().stroke(Theme.line, lineWidth: 1))
-            }
-            .accessibilityLabel(Text(tx.settings))
-            if let s = vm.state, vm.screen == .duel {
-                switch s.mode {
-                case .quick: Pill(text: tx.diff(s.diff ?? .normal), color: Color(hex: (s.diff ?? .normal).colorHex))
-                case .online: Pill(text: tx.onlinePill, color: Theme.arcane)
-                case .camp: Pill(text: tx.stageOf(vm.run.stage + 1, GameData.shared.opponents.count), color: Theme.ember)
-                }
-            } else if vm.state?.mode == .camp, [.reward, .lost, .champ, .classPick].contains(vm.screen) {
-                Pill(text: tx.stageOf(vm.run.stage + 1, GameData.shared.opponents.count), color: Theme.ember)
-            }
-        }
     }
 }
 
@@ -210,43 +177,29 @@ struct SettingsView: View {
     @State private var needReauth = false
     @State private var errMsg = ""
     var body: some View {
-        let tx = vm.tx, acct = vm.backend.auth.account, prof = vm.backend.profile
-        NavigationStack {
-            List {
-                Section(tx.language) {
-                    Picker(tx.language, selection: Binding(get: { vm.lang }, set: { vm.setLang($0) })) {
-                        ForEach(Lang.allCases) { l in Text(l.label).tag(l) }
-                    }
-                    .pickerStyle(.segmented)
+        let tx = vm.tx
+        // One screenful: language, account and about, side by side.
+        ZStack {
+            Theme.bg.ignoresSafeArea()
+            VStack(spacing: 10) {
+                HStack {
+                    Text(tx.settings).font(Theme.display(20, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                    Spacer()
+                    Button(tx.back) { dismiss() }.primary(compact: true)
                 }
-                Section(tx.account) {
-                    if !vm.backend.isCloud {
-                        Text(tx.offlineMode).font(.footnote).foregroundStyle(.secondary)
-                    } else if let acct {
-                        if acct.isAnonymous {
-                            Text(tx.guest)
-                            Text(tx.guestNote).font(.footnote).foregroundStyle(.secondary)
-                            AppleSignInButton { payload in
-                                do { try await vm.backend.signInWithApple(payload) } catch { errMsg = tx.signInFailed }
-                            } onError: { errMsg = tx.signInFailed }
-                            .frame(height: 44)
-                        } else {
-                            Text(tx.signedInAs + (acct.name.map { " · \($0)" } ?? ""))
+                HStack(alignment: .top, spacing: 12) {
+                    SettingsBox(title: tx.language) {
+                        Picker(tx.language, selection: Binding(get: { vm.lang }, set: { vm.setLang($0) })) {
+                            ForEach(Lang.allCases) { l in Text(l.label).tag(l) }
                         }
-                        Text(tx.stats(prof.onlineW, prof.onlineL)).font(.footnote).foregroundStyle(.secondary)
-                        Button(tx.signOut, role: .destructive) { try? vm.backend.signOut(); vm.newRun(); dismiss() }
-                        Button(tx.deleteAccount, role: .destructive) { confirmDelete = true }
+                        .pickerStyle(.segmented)
                     }
-                    if !errMsg.isEmpty { Text(errMsg).font(.footnote).foregroundStyle(Theme.ember) }
+                    accountBox
+                    aboutBox
                 }
-                Section {
-                    Link(tx.privacy, destination: URL(string: "https://ruinaccord.hermes-eris.com/privacy.html")!)
-                    LabeledContent("Version", value: (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") + " (" + (Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "") + ")")
-                }
+                Spacer(minLength: 0)
             }
-            .navigationTitle(tx.settings)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .confirmationAction) { Button(tx.back) { dismiss() } } }
+            .padding(16)
             .alert(tx.deleteAccount, isPresented: $confirmDelete) {
                 Button(tx.delete, role: .destructive) { Task { await deleteAccount(reauth: nil) } }
                 Button(tx.cancel, role: .cancel) {}
@@ -261,10 +214,62 @@ struct SettingsView: View {
             }
         }
     }
+    @ViewBuilder private var accountBox: some View {
+        let tx = vm.tx, acct = vm.backend.auth.account, prof = vm.backend.profile
+        SettingsBox(title: tx.account) {
+            if !vm.backend.isCloud {
+                Text(tx.offlineMode).font(Theme.body(12)).foregroundStyle(Theme.muted)
+            } else if let acct {
+                if acct.isAnonymous {
+                    Text(tx.guest).font(Theme.body(14, .bold)).foregroundStyle(Theme.parch)
+                    Text(tx.guestNote).font(Theme.body(11.5)).foregroundStyle(Theme.muted)
+                    AppleSignInButton { payload in
+                        do { try await vm.backend.signInWithApple(payload) } catch { errMsg = tx.signInFailed }
+                    } onError: { errMsg = tx.signInFailed }
+                    .frame(height: 40)
+                } else {
+                    Text(tx.signedInAs + (acct.name.map { " · \($0)" } ?? "")).font(Theme.body(14, .bold)).foregroundStyle(Theme.parch)
+                }
+                Text(tx.stats(prof.onlineW, prof.onlineL)).font(Theme.body(12)).foregroundStyle(Theme.muted)
+                HStack(spacing: 8) {
+                    Button(tx.signOut) { try? vm.backend.signOut(); vm.newRun(); dismiss() }.ghost(compact: true)
+                    Button(tx.deleteAccount) { confirmDelete = true }.ghost(compact: true, danger: true)
+                }
+            }
+            if !errMsg.isEmpty { Text(errMsg).font(Theme.body(12)).foregroundStyle(Theme.ember) }
+        }
+    }
+    @ViewBuilder private var aboutBox: some View {
+        let tx = vm.tx
+        let info = Bundle.main.infoDictionary ?? [:]
+        let short: String = info["CFBundleShortVersionString"] as? String ?? ""
+        let build: String = info["CFBundleVersion"] as? String ?? ""
+        SettingsBox(title: tx.brand) {
+            Link(tx.privacy, destination: URL(string: "https://ruinaccord.hermes-eris.com/privacy.html")!).font(Theme.body(13, .bold)).foregroundStyle(Color(hex: "#9fc4ee"))
+            Text("Version \(short) (\(build))").font(Theme.body(12)).foregroundStyle(Theme.muted)
+        }
+    }
     private func deleteAccount(reauth: AppleCredentialPayload?) async {
         do {
             try await vm.backend.deleteAccount(reauth: reauth)
             vm.newRun(); dismiss()
         } catch BackendError.requiresRecentLogin { needReauth = true } catch { errMsg = vm.tx.signInFailed }
+    }
+}
+
+/// A titled box on the settings screen.
+struct SettingsBox<Content: View>: View {
+    let title: String
+    @ViewBuilder var content: Content
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title).font(Theme.body(11, .heavy)).tracking(1.5).textCase(.uppercase).foregroundStyle(Theme.gold)
+            content
+            Spacer(minLength: 0)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Theme.panel, in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Theme.line, lineWidth: 1))
     }
 }

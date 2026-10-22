@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Deck builder: name, mana curve, deck list, filters and the collection grid.
+/// Deck builder, one screen: the bar (name, count, save, Cards / Talents tabs, next step), a filter row, the
+/// collection paged two rows at a time on the left, the deck as a list on the right. Nothing scrolls.
 struct BuilderView: View {
     @Environment(GameVM.self) private var vm
     @FocusState private var nameFocused: Bool
@@ -9,143 +10,151 @@ struct BuilderView: View {
         let tx = vm.tx, gd = GameData.shared
         guard let clsId = vm.q.cls, let cls = gd.cls(clsId) else { return AnyView(EmptyView()) }
         let d = vm.q.deck, need = Decks.size - d.count
-        let order: (String) -> Int = { k in (gd.card(k)?.cost ?? 0) * 100 + ((gd.card(k)?.isMinion ?? true) ? 0 : 50) }
-        let uniq = Array(Set(d)).sorted { order($0) != order($1) ? order($0) < order($1) : tx.cardName($0) < tx.cardName($1) }
-        var buckets = [Int](repeating: 0, count: 8)
-        for k in d { buckets[min(7, gd.card(k)?.cost ?? 0)] += 1 }
-        let mx = max(4, buckets.max() ?? 4)
+        let tt = gd.hasTalents(clsId)
+        let toOnline = vm.q.returnToOnline
         let list = gd.collectible.filter { c in
             c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter))
         }.sorted { a, b in (a.cls != nil) != (b.cls != nil) ? a.cls != nil : a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
-        let toOnline = vm.q.returnToOnline
 
-        return AnyView(VStack(alignment: .leading, spacing: 10) {
-            NavRow(items: [toOnline ? ("← " + tx.modeOnline, { vm.goOnline() }) : ("← " + tx.myDecks, { vm.goDecks() }), ("⌂ " + tx.toMenu, { vm.goMenu() })])
-            HStack(spacing: 10) {
-                Text(tx.deckTitle(tx.name(cls.names))).font(Theme.display(24, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch).lineLimit(1).minimumScaleFactor(0.7)
-                Spacer()
-                Text("\(d.count)/\(Decks.size)").font(Theme.body(13, .heavy)).monospacedDigit()
-                    .foregroundStyle(need > 0 ? Theme.ember : Theme.ready)
-                    .padding(.horizontal, 10).padding(.vertical, 3)
-                    .overlay(Capsule().stroke(need > 0 ? Theme.ember : Theme.ready, lineWidth: 1.5))
-            }
-            HStack(spacing: 8) {
-                TextField(tx.deckName, text: Binding(get: { vm.q.name }, set: { vm.q.name = String($0.prefix(28)); vm.q.dirty = true }))
-                    .focused($nameFocused)
-                    .font(Theme.body(15, .semibold)).foregroundStyle(Theme.parch)
-                    .padding(.horizontal, 11).padding(.vertical, 9)
-                    .background(Theme.panel, in: RoundedRectangle(cornerRadius: 8))
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.line, lineWidth: 1))
-                    .submitLabel(.done)
-                Button(vm.q.dirty ? tx.saveDeck : "✓ " + tx.savedState) { nameFocused = false; vm.saveCurrent(asNew: false) }
-                    .buttonStyle(PrimaryButtonStyle(ghost: !vm.q.dirty, compact: true))
-                if vm.q.editId != nil { Button(tx.saveAsNew) { nameFocused = false; vm.saveAsNew() }.ghost(compact: true) }
-            }
-            // Cards or talents
-            let tt = gd.hasTalents(clsId)
-            if tt {
+        return AnyView(ScreenShell(scene: "dawn") {
+            VStack(spacing: 2) {
+                // bar
                 HStack(spacing: 8) {
-                    Button("\(tx.cardsTab) \(d.count)/\(Decks.size)") { vm.q.showTalents = false }.buttonStyle(PrimaryButtonStyle(ghost: vm.q.showTalents, compact: true))
-                    Button("✦ \(tx.talents) \(vm.q.tal.count)/\(gd.talents.maxPts)") { vm.q.showTalents = true }.buttonStyle(PrimaryButtonStyle(ghost: !vm.q.showTalents, compact: true))
-                    Spacer()
-                }
-            }
-            if tt && vm.q.showTalents {
-                TalentPanel().padding(.bottom, 70)
-            } else {
-            Text("\(tx.deckRules(Decks.size)) \(tx.tapAdd)").font(Theme.body(12.5)).foregroundStyle(Theme.muted).lineSpacing(2)
-
-            // Deck panel
-            VStack(alignment: .leading, spacing: 8) {
-                Text(tx.curve).font(Theme.body(12)).foregroundStyle(Theme.muted)
-                HStack(alignment: .bottom, spacing: 3) {
-                    ForEach(0..<8, id: \.self) { i in
-                        VStack(spacing: 2) {
-                            UnevenRoundedRectangle(topLeadingRadius: 2, topTrailingRadius: 2).fill(Theme.manaLight)
-                                .frame(height: max(2, CGFloat(buckets[i]) / CGFloat(mx) * 46))
-                            Text(i == 7 ? "7+" : "\(i)").font(Theme.body(10)).foregroundStyle(Theme.muted).monospacedDigit()
-                        }
-                        .frame(maxWidth: .infinity, alignment: .bottom)
+                    Button("‹ " + (toOnline ? tx.modeOnline : tx.myDecks)) { toOnline ? vm.goOnline() : vm.goDecks() }.ghost(compact: true)
+                    TextField(tx.deckName, text: Binding(get: { vm.q.name }, set: { vm.q.name = String($0.prefix(28)); vm.q.dirty = true }))
+                        .focused($nameFocused)
+                        .font(Theme.body(13, .semibold)).foregroundStyle(Theme.parch)
+                        .padding(.horizontal, 10).frame(minWidth: 90, maxWidth: 150).frame(height: 32)
+                        .background(Theme.panel, in: RoundedRectangle(cornerRadius: 8))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.line, lineWidth: 1))
+                        .submitLabel(.done)
+                    Text("\(d.count)/\(Decks.size)").font(Theme.body(12, .heavy)).monospacedDigit()
+                        .foregroundStyle(need > 0 ? Theme.ember : Theme.ready)
+                        .padding(.horizontal, 10).frame(height: 26)
+                        .overlay(Capsule().stroke(need > 0 ? Theme.ember : Theme.ready, lineWidth: 1.5))
+                    Button(vm.q.dirty ? tx.saveDeck : "✓ " + tx.savedState) { nameFocused = false; vm.saveCurrent(asNew: false) }
+                        .buttonStyle(PrimaryButtonStyle(ghost: !vm.q.dirty, compact: true)).lineLimit(1)
+                    if vm.q.editId != nil {
+                        Button { nameFocused = false; vm.saveAsNew() } label: { Image(systemName: "doc.on.doc").font(.system(size: 13, weight: .bold)) }.ghost(compact: true)
+                            .accessibilityLabel(Text(tx.saveAsNew))
                     }
+                    if tt {
+                        HStack(spacing: 0) {
+                            Button(tx.cardsTab) { vm.q.showTalents = false }.buttonStyle(PrimaryButtonStyle(ghost: vm.q.showTalents, compact: true))
+                            Button("✦ \(vm.q.tal.count)/\(gd.talents.maxPts)") { vm.q.showTalents = true }.buttonStyle(PrimaryButtonStyle(ghost: !vm.q.showTalents, compact: true))
+                                .accessibilityLabel(Text(tx.talents))
+                        }
+                    }
+                    Spacer(minLength: 4)
+                    if !vm.q.toast.isEmpty { Text(vm.q.toast).font(Theme.body(11.5)).foregroundStyle(Theme.ember).lineLimit(1).minimumScaleFactor(0.7) }
+                    if toOnline { Button(tx.useDeck) { vm.useDeckOnline() }.primary(compact: true).disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
+                    else { Button(tx.nextDiff) { vm.toDifficulty() }.primary(compact: true).disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
                 }
-                .frame(height: 62, alignment: .bottom)
-                .accessibilityLabel(Text(tx.curve))
-                if uniq.isEmpty {
-                    Text(tx.emptyDeck).font(Theme.body(12.5)).foregroundStyle(Theme.muted)
+                .frame(height: 44).padding(.horizontal, 10)
+
+                if tt && vm.q.showTalents {
+                    TalentPanel().padding(.horizontal, 10).padding(.bottom, 8)
                 } else {
-                    ScrollView {
-                        VStack(spacing: 3) {
-                            ForEach(uniq, id: \.self) { k in
-                                if let c = gd.card(k) {
-                                    Button { vm.removeCard(k) } label: {
-                                        HStack(spacing: 7) {
-                                            Text("\(c.cost)").font(Theme.body(11, .heavy)).foregroundStyle(.white).frame(width: 20, height: 20).background(Theme.mana, in: Hexagon())
-                                            Text(tx.name(c.names)).font(Theme.body(13)).foregroundStyle(Theme.ink).lineLimit(1)
-                                            Spacer()
-                                            Text("×\(Decks.copies(d, k))").font(Theme.body(13, .heavy)).foregroundStyle(Theme.gold).monospacedDigit()
+                    HStack(alignment: .top, spacing: 8) {
+                        VStack(spacing: 0) {
+                            // filters
+                            HStack(spacing: 4) {
+                                Text(tx.costLbl).font(Theme.body(10.5)).foregroundStyle(Theme.muted)
+                                Tag(text: tx.typeAll, on: vm.q.costFilter == 0) { vm.q.costFilter = 0 }
+                                ForEach(1..<8, id: \.self) { n in Tag(text: n == 7 ? "7+" : "\(n)", on: vm.q.costFilter == n) { vm.q.costFilter = n } }
+                                Tag(text: "0", on: false) { vm.q.costFilter = 0 }.hidden().frame(width: 0)
+                                Rectangle().fill(Theme.line).frame(width: 1, height: 18).padding(.horizontal, 4)
+                                Tag(text: tx.typeAll, on: vm.q.typeFilter == "all") { vm.q.typeFilter = "all" }
+                                Tag(text: tx.minions, on: vm.q.typeFilter == "m") { vm.q.typeFilter = "m" }
+                                Tag(text: tx.spells, on: vm.q.typeFilter == "s") { vm.q.typeFilter = "s" }
+                                Tag(text: tx.classCards, on: vm.q.typeFilter == "cls") { vm.q.typeFilter = "cls" }
+                                Spacer(minLength: 0)
+                            }
+                            .frame(height: 30).padding(.leading, 48)
+                            PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 12) { c in
+                                let n = Decks.copies(d, c.id), full = n >= c.maxCopies
+                                Button { vm.addCard(c.id) } label: {
+                                    CardView(card: c, size: .fit(9.6), ring: full ? .clear : Theme.gold.opacity(0.0), ovr: tt ? gd.overrides(for: vm.q.tal)[c.id] : nil)
+                                        .saturation(full ? 0.3 : 1).opacity(full ? 0.55 : 1)
+                                        .overlay(alignment: .topTrailing) {
+                                            if n > 0 {
+                                                Text("\(n)/\(c.maxCopies)").font(Theme.body(10.5, .heavy)).foregroundStyle(Color(hex: "#10200f"))
+                                                    .padding(.horizontal, 6).frame(height: 20).background(Theme.ready, in: Capsule()).offset(x: 6, y: -6)
+                                            }
                                         }
-                                        .padding(.horizontal, 7).padding(.vertical, 4)
-                                        .background(Color(hex: "#2c2432"), in: RoundedRectangle(cornerRadius: 6))
-                                        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Theme.line, lineWidth: 1))
-                                        .overlay(alignment: .leading) { Rectangle().fill(Theme.rarityColor(c.rarity)).frame(width: 3).clipShape(UnevenRoundedRectangle(topLeadingRadius: 6, bottomLeadingRadius: 6)) }
-                                    }
-                                    .buttonStyle(.plain)
-                                    .accessibilityLabel(Text("\(tx.name(c.names)) ×\(Decks.copies(d, k))"))
                                 }
+                                .buttonStyle(.plain)
+                                .disabled(full)
+                                .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
+                                .accessibilityLabel(Text("\(tx.name(c.names)), \(c.cost)"))
                             }
                         }
+                        DeckList(deck: d, cls: cls)
+                            .frame(width: 176)
+                            .padding(.trailing, 8).padding(.bottom, 8)
                     }
-                    .frame(maxHeight: 250)
-                }
-                HStack(spacing: 6) {
-                    Button(tx.autoFill) { vm.autoFill() }.ghost(compact: true).disabled(need == 0).opacity(need == 0 ? 0.45 : 1)
-                    Button(tx.resetDeck) { vm.resetDeck() }.ghost(compact: true)
-                    Button(tx.clearDeck) { vm.clearDeck() }.ghost(compact: true).disabled(d.isEmpty).opacity(d.isEmpty ? 0.45 : 1)
                 }
             }
-            .padding(10).panel()
-
-            // Filters + collection
-            FlowChips {
-                ForEach([("all", tx.filterAll), ("m", tx.minions), ("s", tx.spells), ("cls", tx.name(cls.names))], id: \.0) { v, t in Chip(text: t, on: vm.q.typeFilter == v) { vm.q.typeFilter = v } }
-            }
-            FlowChips {
-                ForEach([(0, tx.filterAll), (1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5"), (6, "6"), (7, "7+")], id: \.0) { v, t in Chip(text: t, on: vm.q.costFilter == v) { vm.q.costFilter = v } }
-            }
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 94), spacing: 8)], spacing: 12) {
-                ForEach(list) { c in
-                    let n = Decks.copies(d, c.id), full = n >= c.maxCopies || d.count >= Decks.size
-                    Button { vm.addCard(c.id) } label: { CardView(card: c, size: .sm) }
-                        .buttonStyle(.plain)
-                        // class cards carry a glow in the class colour
-                        .overlay(RoundedRectangle(cornerRadius: 8.5).stroke(c.cls != nil ? Color(hex: cls.color) : .clear, lineWidth: 2.5).padding(-2))
-                        .shadow(color: c.cls != nil ? Color(hex: cls.color).opacity(0.55) : .clear, radius: 6)
-                        .saturation(full ? 0.3 : 1).brightness(full ? -0.25 : 0)
-                        .disabled(full)
-                        .overlay(alignment: .topTrailing) {
-                            if n > 0 {
-                                Text("\(n)/\(c.maxCopies)").font(Theme.body(11, .heavy)).foregroundStyle(Color(hex: "#10200f"))
-                                    .padding(.horizontal, 5).frame(height: 20).background(Theme.ready, in: Capsule()).offset(x: 6, y: -6)
-                            }
-                        }
-                        .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
-                        .accessibilityLabel(Text("\(tx.name(c.names)), \(c.cost)"))
-                }
-            }
-            .padding(.vertical, 6)
-            .padding(.bottom, 70)
-            }
-        }
-        .safeAreaInset(edge: .bottom) {
-            HStack(spacing: 10) {
-                Text(vm.q.toast.isEmpty ? (vm.q.dirty && vm.q.editId != nil ? tx.unsaved : need > 0 ? tx.deckNeed(need) : tx.deckReady) : vm.q.toast)
-                    .font(Theme.body(12.5)).foregroundStyle(Theme.ember).lineLimit(2)
-                Spacer()
-                if toOnline { Button(tx.useDeck) { vm.useDeckOnline() }.primary().disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
-                else { Button(tx.nextDiff) { vm.toDifficulty() }.primary().disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
-            }
-            .padding(.horizontal, 16).padding(.top, 14).padding(.bottom, 8)
-            .background(LinearGradient(colors: [Theme.bg.opacity(0), Theme.bg], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.3)))
         })
+    }
+}
+
+/// The deck as a list with its mana curve: tap a row to remove one copy.
+struct DeckList: View {
+    let deck: [String]
+    let cls: HeroClass
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        let tx = vm.tx, gd = GameData.shared
+        let order: (String) -> Int = { k in (gd.card(k)?.cost ?? 0) * 100 + ((gd.card(k)?.isMinion ?? true) ? 0 : 50) }
+        let uniq = Array(Set(deck)).sorted { order($0) != order($1) ? order($0) < order($1) : tx.cardName($0) < tx.cardName($1) }
+        let buckets = deck.reduce(into: [Int](repeating: 0, count: 8)) { $0[min(7, gd.card($1)?.cost ?? 0)] += 1 }
+        let mx = max(4, buckets.max() ?? 4)
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(alignment: .bottom, spacing: 3) {
+                ForEach(0..<8, id: \.self) { i in
+                    VStack(spacing: 1) {
+                        UnevenRoundedRectangle(topLeadingRadius: 2, topTrailingRadius: 2).fill(Theme.manaLight)
+                            .frame(height: max(2, CGFloat(buckets[i]) / CGFloat(mx) * 30))
+                        Text(i == 7 ? "7+" : "\(i)").font(Theme.body(8)).foregroundStyle(Theme.muted).monospacedDigit()
+                    }
+                    .frame(maxWidth: .infinity, alignment: .bottom)
+                }
+            }
+            .frame(height: 44, alignment: .bottom)
+            .accessibilityLabel(Text(tx.curve))
+            if uniq.isEmpty {
+                Text(tx.emptyDeck).font(Theme.body(11)).foregroundStyle(Theme.muted).padding(.top, 6)
+            }
+            VStack(spacing: 2) {
+                ForEach(uniq, id: \.self) { k in
+                    if let c = gd.card(k) {
+                        Button { vm.removeCard(k) } label: {
+                            HStack(spacing: 5) {
+                                Text("\(c.cost)").font(Theme.body(9, .heavy)).foregroundStyle(.white).frame(width: 14, height: 14).background(Theme.mana, in: Hexagon())
+                                Text(tx.name(c.names)).font(Theme.body(10.5, .semibold)).foregroundStyle(c.isLegendary ? Theme.gold : Theme.ink).lineLimit(1)
+                                Spacer(minLength: 2)
+                                Text("×\(Decks.copies(deck, k))").font(Theme.body(9.5, .heavy)).foregroundStyle(Theme.gold).monospacedDigit()
+                            }
+                            .padding(.horizontal, 4).frame(height: 15)
+                            .background(Color.black.opacity(0.25), in: RoundedRectangle(cornerRadius: 4))
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(Text("\(tx.name(c.names)) ×\(Decks.copies(deck, k))"))
+                    }
+                }
+            }
+            Spacer(minLength: 0)
+            HStack(spacing: 4) {
+                Button(tx.autoFill) { vm.autoFill() }.ghost(compact: true).frame(maxWidth: .infinity)
+                Button(tx.resetDeck) { vm.resetDeck() }.ghost(compact: true).frame(maxWidth: .infinity)
+                Button(tx.clearDeck) { vm.clearDeck() }.ghost(compact: true, danger: true)
+            }
+            .lineLimit(1).minimumScaleFactor(0.6)
+        }
+        .padding(8)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .background(Theme.panel.opacity(0.85), in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Theme.line, lineWidth: 1))
     }
 }
