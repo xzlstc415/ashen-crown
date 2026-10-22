@@ -33,7 +33,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "pearl",
@@ -68,7 +69,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "apprentice",
@@ -147,7 +149,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "crab",
@@ -182,7 +185,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "harpooneer",
@@ -261,7 +265,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "direwolf",
@@ -296,7 +301,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "cleric",
@@ -375,7 +381,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "berserker",
@@ -410,7 +417,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "burglar",
@@ -489,7 +497,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "eel",
@@ -524,7 +533,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "lurker",
@@ -559,7 +569,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "sailor",
@@ -594,7 +605,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "beastcaller",
@@ -675,7 +687,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "ghoul",
@@ -710,7 +723,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "alchemist",
@@ -792,7 +806,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "knight",
@@ -827,7 +842,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "diver",
@@ -906,7 +922,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "gull",
@@ -941,7 +958,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "commander",
@@ -1023,7 +1041,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "golem",
@@ -1058,7 +1077,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "shark",
@@ -1093,7 +1113,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "firelem",
@@ -1172,7 +1193,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "ogre",
@@ -1207,7 +1229,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "archmage",
@@ -1286,7 +1309,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "hexer",
@@ -1365,7 +1389,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "priestess",
@@ -1447,7 +1472,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "necro",
@@ -1528,7 +1554,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "thane",
@@ -1607,7 +1634,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "wyvern",
@@ -1642,7 +1670,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "treant",
@@ -1677,7 +1706,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "dragonknight",
@@ -1712,7 +1742,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "leviathan",
@@ -1791,7 +1822,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "lich",
@@ -1870,7 +1902,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "dwarfking",
@@ -1952,7 +1985,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "elfqueen",
@@ -2031,7 +2065,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "spray",
@@ -2110,7 +2145,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "brace",
@@ -2192,7 +2228,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "darkpact",
@@ -2271,7 +2308,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "frenzy",
@@ -2353,7 +2391,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "tidepool",
@@ -2432,7 +2471,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "mend",
@@ -2511,7 +2551,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "shieldwall",
@@ -2590,7 +2631,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "calltoarms",
@@ -2673,7 +2715,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "undertow",
@@ -2752,7 +2795,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "radiant",
@@ -2831,7 +2875,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "hymn",
@@ -2913,7 +2958,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "lance",
@@ -2992,7 +3038,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "maelstrom",
@@ -3071,7 +3118,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "riptide",
@@ -3150,7 +3198,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "breath",
@@ -3229,7 +3278,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "inferno",
@@ -3308,7 +3358,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "innerrage",
@@ -3394,7 +3445,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "whirlwind",
@@ -3477,7 +3529,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "shieldslam",
@@ -3560,7 +3613,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "execute",
@@ -3643,7 +3697,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "missiles",
@@ -3722,7 +3777,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "mirror",
@@ -3808,7 +3864,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "frostbolt",
@@ -3891,7 +3948,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "frostnova",
@@ -3974,7 +4032,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "squires",
@@ -4056,7 +4115,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "humility",
@@ -4139,7 +4199,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "aegis",
@@ -4222,7 +4283,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "kings",
@@ -4304,7 +4366,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "pounce",
@@ -4387,7 +4450,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "huntmark",
@@ -4470,7 +4534,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "killcmd",
@@ -4553,7 +4618,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "hounds",
@@ -4636,7 +4702,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "pwshield",
@@ -4718,7 +4785,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "holysmite",
@@ -4797,7 +4865,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "dispel",
@@ -4880,7 +4949,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "swpain",
@@ -4963,7 +5033,8 @@
    "pray": null,
    "sw": true,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "swdeath",
@@ -5046,7 +5117,8 @@
    "pray": null,
    "sw": true,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "soulfire",
@@ -5129,7 +5201,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "coil",
@@ -5212,7 +5285,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "raisedead",
@@ -5298,7 +5372,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "hellfire",
@@ -5381,7 +5456,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "retreat",
@@ -5464,7 +5540,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "wyrmling",
@@ -5506,7 +5583,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "geomancer",
@@ -5545,7 +5623,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "spellbreaker",
@@ -5628,7 +5707,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "bubble",
@@ -5663,7 +5743,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "emberbolt",
@@ -5742,7 +5823,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "icelance",
@@ -5825,7 +5907,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "frostele",
@@ -5908,7 +5991,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "shatter",
@@ -5991,7 +6075,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "voidacolyte",
@@ -6074,7 +6159,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "wordruin",
@@ -6157,7 +6243,8 @@
    "pray": null,
    "sw": true,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "wordtorment",
@@ -6240,7 +6327,8 @@
    "pray": null,
    "sw": true,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "steady",
@@ -6319,7 +6407,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "explosive",
@@ -6402,7 +6491,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "marksman",
@@ -6441,7 +6531,8 @@
    "pray": null,
    "sw": false,
    "pw": 1,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "whistle",
@@ -6522,7 +6613,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "phound",
@@ -6557,7 +6649,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "bonewarr",
@@ -6592,7 +6685,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "icebarrier",
@@ -6675,7 +6769,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "emberadept",
@@ -6710,7 +6805,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "scorch",
@@ -6789,7 +6885,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "emberele",
@@ -6824,7 +6921,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "phoenix",
@@ -6903,7 +7001,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "firestorm",
@@ -6982,7 +7081,48 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
+  },
+  {
+   "id": "bloodrite",
+   "cost": 6,
+   "type": "m",
+   "atk": 3,
+   "hp": 5,
+   "rarity": "l",
+   "race": "human",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": "warlock",
+   "text": [
+    "At the start of your turn, you may sacrifice an enemy minion: destroy it, your hero takes damage equal to its Attack, and a copy of it goes to your hand.",
+    "你的回合开始时，可以献祭一个敌方随从：消灭它，你的英雄受到等于其攻击力的伤害，并将它的一张复制加入你的手牌。",
+    "ターン開始時、敵のミニオン1体を生贄にできる：それを破壊し、自分のヒーローはその攻撃力ぶんのダメージを受け、そのコピーを手札に加える。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Blood Celebrant",
+    "血祭司",
+    "血の祭司"
+   ],
+   "flavor": [
+    "Every knife has two edges. She uses both.",
+    "每把刀都有两刃，她两边都用。",
+    "刃はどれも両刃。彼女は両方使う。"
+   ],
+   "sc": "blood",
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true,
+   "rite": true
   },
   {
    "id": "gravecaller",
@@ -7061,7 +7201,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "boar",
@@ -7096,7 +7237,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "panther",
@@ -7131,7 +7273,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "elk",
@@ -7166,7 +7309,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "oathshelter",
@@ -7295,7 +7439,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "oathmuster",
@@ -7425,7 +7570,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "oathcrusade",
@@ -7554,7 +7700,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "matins",
@@ -7680,7 +7827,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "vigil",
@@ -7809,7 +7957,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "sanctuary",
@@ -7938,7 +8087,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "cantor",
@@ -8017,7 +8167,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "requiem",
@@ -8143,7 +8294,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "judgment",
@@ -8269,7 +8421,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "revelation",
@@ -8395,7 +8548,8 @@
    },
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "acolyte",
@@ -8430,7 +8584,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": true
+   "beta": true,
+   "rite": false
   },
   {
    "id": "minnow",
@@ -8465,7 +8620,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "reefling",
@@ -8500,7 +8656,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "elver",
@@ -8535,7 +8692,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "squire",
@@ -8570,7 +8728,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "coin",
@@ -8649,7 +8808,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "skeleton",
@@ -8684,7 +8844,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "mirrorimg",
@@ -8719,7 +8880,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "hound",
@@ -8754,7 +8916,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   },
   {
    "id": "spawn",
@@ -8789,7 +8952,8 @@
    "pray": null,
    "sw": false,
    "pw": 0,
-   "beta": false
+   "beta": false,
+   "rite": false
   }
  ],
  "classes": [
@@ -9276,7 +9440,7 @@
     "inferno",
     "breath",
     "firelem",
-    "ogre",
+    "bloodrite",
     "shark",
     "dragonknight"
    ],
@@ -13952,7 +14116,7 @@
      "hexer",
      "diver",
      "golem",
-     "ogre"
+     "bloodrite"
     ],
     "packs": [
      [

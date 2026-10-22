@@ -797,3 +797,9 @@ a sword raised toward a dusk sky with a ring of smaller raised swords around it,
 ```
 a gaunt undead summoner in tattered violet robes standing among leaning gravestones at night, one bony hand raised as five pale ghostly silhouettes rise from the ground around them, cold green-violet palette with a single warm candle glow, the figure centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
+
+### 血祭司 Blood Celebrant — `bloodrite.png`
+6 费 · 随从 3/5 · 传说 · 术士 · 测试页
+```
+a pale priestess in crimson robes holding a curved ritual knife over a stone basin, dark red light pooling in the basin and rising as thin smoke, deep crimson and black palette with bone-white skin, the figure centered in the upper half of the frame, calm simple lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+```

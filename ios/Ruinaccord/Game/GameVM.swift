@@ -21,7 +21,7 @@ struct Choice {
 }
 
 struct Pending {
-    enum Kind { case spell(idx: Int), battlecry(fx: Effect, src: EID, hist: UUID?), power }
+    enum Kind { case spell(idx: Int), battlecry(fx: Effect, src: EID, hist: UUID?), power, rite(src: EID) }
     var kind: Kind
     var valid: [EID]
     var key: String?
@@ -459,7 +459,7 @@ final class GameVM {
         mullCont = { [self] in
             S[first.other].hand.append("coin")
             S.log(first == .p ? .goFirst : .goSecond)
-            if first == .p { S.startTurn(.p); drain(); showBanner(tx.bannerYou, foe: false) }
+            if first == .p { S.startTurn(.p); offerRite(); drain(); showBanner(tx.bannerYou, foe: false) }
             else { drain(); Task { await aiTurn() } }
         }
     }
@@ -485,7 +485,7 @@ final class GameVM {
         state = s; drain()
         go(.duel)
         mullCont = { [self] in
-            S.e.hand.append("coin"); S.startTurn(.p); drain()
+            S.e.hand.append("coin"); S.startTurn(.p); offerRite(); drain()
             showBanner(tx.bannerYou, foe: false)
         }
     }
@@ -729,6 +729,12 @@ final class GameVM {
 
     func pendingLabel() -> String { pending?.key.map(tx.cardName) ?? tx.powerName(myPower) }
     func cancelPending() { pending = nil }
+    /// Blood Celebrant: at the start of your turn, the enemy minions are offered for sacrifice (Cancel skips it).
+    func offerRite() {
+        guard let src = S.riteSource(.p) else { return }
+        let v = S.riteTargets(.p)
+        if !v.isEmpty { pending = Pending(kind: .rite(src: src.id), valid: v, key: src.key) }
+    }
 
     private func resolvePending(_ t: EID) async {
         guard let p = pending else { return }
@@ -751,6 +757,10 @@ final class GameVM {
             await fxAnim(fx, from: center(src), target: t, side: .p)
             S.applyFx(.p, fx, t)
             netAct(NetAct(n: 0, t: "bc", tgt: netRef(t)))
+        case .rite:
+            await aimAt(t)
+            S.doRite(.p, t)
+            netAct(NetAct(n: 0, t: "rite", tgt: netRef(t)))
         case .power:
             let pw = S.p.power
             await fxAnim(pw.fx, from: powerFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: t, side: .p)
@@ -977,6 +987,13 @@ final class GameVM {
         showBanner(tx.bannerFoe, foe: true)
         await wait(900)
         guard gameToken == token else { return }
+        if let t = S.aiRiteTarget() {
+            await aimAt(t)
+            guard gameToken == token else { return }
+            S.doRite(.e, t); S.cleanup(); drain()
+            await wait(500)
+            guard gameToken == token else { return }
+        }
         for _ in 0..<12 where !S.over {
             var did = false
             for o in S.aiPlayable() {
@@ -1045,7 +1062,7 @@ final class GameVM {
         busy = false
         S.log(.yourTurn)
         if S.cleanup() { drain(); onGameOver(); return }
-        drain()
+        offerRite(); drain()
         showBanner(tx.bannerYou, foe: false)
     }
 
@@ -1288,7 +1305,7 @@ final class GameVM {
             busy = false
             S.log(.yourTurn)
             if S.cleanup() { drain(); onGameOver(); return }
-            drain()
+            offerRite(); drain()
             showBanner(tx.bannerYou, foe: false)
             return
         }
@@ -1325,6 +1342,10 @@ final class GameVM {
             }
         case "pick":
             S.reclaimTake(.e, a.ks ?? [])
+        case "rite":
+            guard let t = netDeref(a.tgt) else { throw NetError.outOfStep }
+            await aimAt(t)
+            S.doRite(.e, t)
         case "bc":
             guard let last = lastEnemyMinion, let m = S.minion(EID(side: .e, uid: last.uid)), let fx = S.cardBc(.e, m.key) else { throw NetError.outOfStep }
             let t = netDeref(a.tgt)

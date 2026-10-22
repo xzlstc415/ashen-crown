@@ -77,6 +77,7 @@ struct TurnFlags: Codable, Hashable {
     var sum = 0           // minions summoned
     var played = 0        // cards played
     var deaths = 0        // own minions that died
+    var rite = false      // Blood Celebrant sacrificed this turn
 }
 
 struct Hero: Codable, Hashable {
@@ -517,6 +518,28 @@ struct DuelState: Codable {
         let ks = Array(reclaimOffer(side).sorted { (Self.gd.card($0)?.cost ?? 0) > (Self.gd.card($1)?.cost ?? 0) }.prefix(n))
         if !ks.isEmpty { reclaimTake(side, ks) }
         return ks
+    }
+
+    /// Blood Celebrant: once a turn while it stands, an enemy minion may be sacrificed: destroyed, its Attack dealt
+    /// to your hero, and a copy of it put in your hand.
+    func riteSource(_ side: Side) -> Minion? {
+        if self[side].tf.rite { return nil }
+        return self[side].board.first { $0.card.rite && !$0.silenced }
+    }
+    func riteTargets(_ side: Side) -> [EID] { riteSource(side) == nil ? [] : self[side.other].board.map(\.id) }
+    mutating func doRite(_ side: Side, _ t: EID) {
+        guard let m = minion(t), let i = self[t.side].board.firstIndex(where: { $0.uid == t.uid }) else { return }
+        self[side].tf.rite = true
+        if m.atk > 0 { damage(.hero(side), m.atk) }
+        selfHurt(side)
+        self[t.side].board[i].hp = 0; float(t, .destroyed)
+        if self[side].hand.count < 10 { self[side].hand.append(m.key); self[side].hb.append(0) }
+    }
+    /// The computer sacrifices the enemy minion worth most, keeping 8 Health in hand.
+    func aiRiteTarget() -> EID? {
+        let ts = riteTargets(.e).compactMap { minion($0) }
+        guard let t = ts.max(by: { aiValue($0) < aiValue($1) }), e.hp - t.atk >= 8 else { return nil }
+        return t.id
     }
 
     /// Heals a hero or minion; a Priest banks the overflow as Light.

@@ -969,6 +969,7 @@ const CARDS={
   emberele:{beta:1,c:4,t:'m',a:4,h:5,r:'r',race:'elemental',cls:'mage',n:['Ember Elemental','余烬元素','残り火の精霊'],f:['Every breath of mana you saved made it bigger.','你省下的每一口法力都让它更大。','残した魔力の一息ごとに、大きくなった。']},
   phoenix:{beta:1,c:5,t:'m',a:5,h:4,r:'e',race:'beast',cls:'mage',bc:{dmg:2,tgt:'any'},n:['Ash Phoenix','灰烬凤凰','灰の不死鳥'],f:['It does not rise from the ashes. It is the ashes.','它不是从灰烬中重生，它就是灰烬。','灰から蘇るのではない。灰そのものだ。']},
   firestorm:{beta:1,c:6,t:'s',r:'e',cls:'mage',fx:{aoe:3,face:3},n:['Firestorm','烈焰风暴','火炎嵐'],f:['The sky remembers every spark.','天空记得每一颗火星。','空はすべての火の粉を覚えている。']},
+  bloodrite:{beta:1,cls:'warlock',c:6,t:'m',a:3,h:5,r:'l',race:'human',rite:1,n:['Blood Celebrant','血祭司','血の祭司'],x:['At the start of your turn, you may sacrifice an enemy minion: destroy it, your hero takes damage equal to its Attack, and a copy of it goes to your hand.','你的回合开始时，可以献祭一个敌方随从：消灭它，你的英雄受到等于其攻击力的伤害，并将它的一张复制加入你的手牌。','ターン開始時、敵のミニオン1体を生贄にできる：それを破壊し、自分のヒーローはその攻撃力ぶんのダメージを受け、そのコピーを手札に加える。'],f:['Every knife has two edges. She uses both.','每把刀都有两刃，她两边都用。','刃はどれも両刃。彼女は両方使う。']},
   gravecaller:{beta:1,cls:'warlock',c:4,t:'m',a:3,h:3,r:'e',race:'undead',bc:{reclaim:2},n:['Graveyard Summoner','墓园招魂师','墓地の招魂師'],f:['They remember how they died. They come back anyway.','它们记得自己是怎么死的，但还是回来了。','死に方を覚えている。それでも戻ってくる。']},
   boar:{beta:1,cls:'hunter',c:1,t:'m',a:2,h:1,r:'c',race:'beast',n:['Thornback Boar','荆棘野猪','茨の猪'],f:['Small, fast, and all tusk.','又小又快，浑身是獠牙。','小さく速く、牙だらけ。']},
   panther:{beta:1,cls:'hunter',c:3,t:'m',a:4,h:2,r:'r',race:'beast',surge:1,n:['Mistwood Panther','雾林猎豹','霧林の豹'],f:['You hear it after it lands.','落地之后你才听见它。','着地してから音が聞こえる。']},
@@ -1007,11 +1008,11 @@ if(BETA)Object.entries({maelstrom:'fire',firelem:'fire',emberbolt:'fire',emberad
   swpain:'shadow',swdeath:'shadow',dispel:'shadow',spellbreaker:'shadow',
   crab:'prot',shieldwall:'prot',shieldslam:'prot',thane:'prot',berserker:'fury',innerrage:'fury',whirlwind:'fury',frenzy:'fury',execute:'fury',
   squires:'legion',calltoarms:'legion',commander:'legion',aegis:'aegis',brace:'aegis',kings:'aegis',humility:'aegis',knight:'aegis',
-  direwolf:'beast',beastcaller:'beast',killcmd:'beast',hounds:'beast',pounce:'beast',gull:'beast',boar:'beast',panther:'beast',elk:'beast',gravecaller:'undead',oathshelter:'aegis',oathmuster:'legion',oathcrusade:'legion',
+  direwolf:'beast',beastcaller:'beast',killcmd:'beast',hounds:'beast',pounce:'beast',gull:'beast',boar:'beast',panther:'beast',elk:'beast',gravecaller:'undead',bloodrite:'blood',oathshelter:'aegis',oathmuster:'legion',oathcrusade:'legion',
   spray:'shot',huntmark:'shot',riptide:'shot',steady:'shot',explosive:'shot',marksman:'shot',
   sailor:'undead',ghoul:'undead',raisedead:'undead',necro:'undead',coil:'undead',darkpact:'blood',soulfire:'blood',hellfire:'blood',inferno:'blood'}).forEach(([k,v])=>{if(CARDS[k]){CARDS[k].sc=v;if(['swpain','swdeath','wordruin','wordtorment'].includes(k))CARDS[k].sw=1}});
 // New cards without a painting yet borrow a neighbour's vector art.
-ART.gravecaller=ART.necro;ART.boar=ART.direwolf;ART.panther=ART.gull;ART.elk=ART.direwolf;ART.oathshelter=ART.aegis;ART.oathmuster=ART.squires;ART.oathcrusade=ART.kings;
+ART.gravecaller=ART.necro;ART.bloodrite=ART.soulfire;ART.boar=ART.direwolf;ART.panther=ART.gull;ART.elk=ART.direwolf;ART.oathshelter=ART.aegis;ART.oathmuster=ART.squires;ART.oathcrusade=ART.kings;
 const cn=k=>CARDS[k].n[li()];
 const cf=k=>CARDS[k].f[li()];
 // Cards with a painting (img/cards/<id>.jpg) show it; the rest keep their vector art. src/build.py fills in
@@ -1123,7 +1124,7 @@ if(BETA){
   CLASSES.find(c=>c.id==='warrior').deck=['innerrage','shieldslam','whirlwind','berserker','berserker','crab','crab','execute','execute','frenzy','shieldwall','eel','diver','lurker','golem','golem','thane','thane','ogre','treant'];
   CLASSES.find(c=>c.id==='paladin').deck=['aegis','brace','humility','oathshelter','squires','calltoarms','radiant','radiant','tidepool','kings','kings','knight','oathmuster','priestess','commander','commander','golem','oathcrusade','wyvern','dragonknight'];
   CLASSES.find(c=>c.id==='hunter').deck=['pounce','boar','huntmark','spray','spray','burglar','direwolf','harpooneer','killcmd','beastcaller','beastcaller','panther','hounds','hounds','gull','gull','riptide','elk','shark','wyvern'];
-  CLASSES.find(c=>c.id==='warlock').deck=['coil','darkpact','raisedead','soulfire','soulfire','sailor','sailor','ghoul','hellfire','darkpact','lurker','necro','necro','gravecaller','inferno','breath','firelem','ogre','shark','dragonknight'];
+  CLASSES.find(c=>c.id==='warlock').deck=['coil','darkpact','raisedead','soulfire','soulfire','sailor','sailor','ghoul','hellfire','darkpact','lurker','necro','necro','gravecaller','inferno','breath','firelem','bloodrite','shark','dragonknight'];
   cm.tag=['Talents: Fire grows your spells, Frost freezes and shatters.','天赋：火焰养大法术，冰霜冻结再击碎。','タレント：炎は呪文を育て、氷は凍らせて砕く。'];
   cm.deck=['apprentice','emberbolt','icelance','icelance','wyrmling','emberadept','frostbolt','frostbolt','frostnova','shatter','icebarrier','lance','maelstrom','diver','emberele','frostele','phoenix','archmage','firelem','firestorm'];
   cp.tag=['Talents: Holy hastens Prayers, Shadow destroys key minions.','天赋：圣光加快祷文，暗影拆掉关键随从。','タレント：聖光は祈祷を早め、影は要のミニオンを消す。'];
@@ -1416,6 +1417,16 @@ function reclaimOffer(side){const g=S[side].grave.map((k,i)=>[k,i]).filter(([k])
   const pick=[];while(pick.length<5&&g.length)pick.push(g.splice(Math.random()*g.length|0,1)[0]);return pick.map(([k])=>k)}
 function reclaimTake(side,keys){const s=S[side];for(const k of keys){const i=s.grave.indexOf(k);if(i<0||s.hand.length>=10)continue;s.grave.splice(i,1);s.hand.push(k);if(s.hb)s.hb.push(0);float(s,T('fRevive'),'#8ac08a')}}
 function aiReclaim(side,n){const offer=reclaimOffer(side);const ks=offer.slice().sort((a,b)=>CARDS[b].c-CARDS[a].c).slice(0,n);if(ks.length)reclaimTake(side,ks);return ks}
+// Blood Celebrant: once a turn while it stands, an enemy minion may be sacrificed: destroyed, its Attack dealt to
+// your hero, and a copy of it put in your hand.
+function riteSource(side){const s=S[side];if(s.tf&&s.tf.rite)return null;return s.board.find(m=>CARDS[m.key].rite&&!m.silenced)||null}
+function riteTargets(side){return riteSource(side)&&S[other(side)].board.length?S[other(side)].board.slice():[]}
+function doRite(side,t){const s=S[side];if(!s.tf)s.tf={};s.tf.rite=1;const atk=t.atk,k=t.key;
+  if(atk)damage(s,atk);selfHurt(side);t.hp=0;float(t,T('fDestroy'),'var(--blood)',true);
+  if(s.hand.length<10){s.hand.push(k);if(s.hb)s.hb.push(0)}}
+function aiRiteTarget(){const e=S.e,ts=riteTargets('e');if(!ts.length)return null;
+  const t=ts.slice().sort((a,b)=>aiValue(b)-aiValue(a))[0];return e.hp-t.atk>=8?t:null}
+function offerRite(){const v=riteTargets('p');if(v.length)S.pending={type:'rite',valid:v.map(idOf),key:'bloodrite',src:idOf(riteSource('p'))}}
 // Heals a hero or minion; a Priest banks the overflow as Light.
 function heal(o,n){
   const h=Math.min(n,o.max-o.hp);o.hp+=h;if(h)float(o,'+'+h,'var(--ready)');
@@ -1525,7 +1536,7 @@ Object.assign(ADV,BETA?{
       [[['gull','beastcaller'],['hu_master','hu_whistle']],[['marksman','gull'],['hu_rapid','hu_pierce']]],
       [[['killcmd','direwolf'],['hu_combo']],[['explosive','gull'],['hu_heart']]],
       [[['hounds','gull'],['hu_combo']],[['riptide','wyvern'],['hu_heart']]]]},
-  warlock:{deck:['sailor','darkpact','eel','burglar','hymn','treant','tidepool','shark','geomancer','gravecaller',...rep('goblin',2),...rep('harpooneer',2),...rep('lurker',2),'hexer','diver','golem','ogre'],
+  warlock:{deck:['sailor','darkpact','eel','burglar','hymn','treant','tidepool','shark','geomancer','gravecaller',...rep('goblin',2),...rep('harpooneer',2),...rep('lurker',2),'hexer','diver','golem','bloodrite'],
     packs:[[[['sailor','raisedead'],['wl_bone','wl_raise']],[['darkpact','soulfire'],['wl_pact','wl_soulfire']]],
       [[['necro','sailor'],['wl_wrath']],[['soulfire','coil'],['wl_flesh','wl_soulfire']]],
       [[['ghoul','ghoul'],['wl_gasp','wl_ghoul']],[['hellfire','darkpact'],['wl_hell','wl_pain']]],
@@ -1746,7 +1757,7 @@ function startQuick(diff){
   const first=pFirst?'p':'e',second=other(first);
   draw(first,BETA?5:3);draw(second,BETA?5:4);talOpen(first);talOpen(second);S.turn=first;
   beginMulligan(()=>{S[second].hand.push('coin');say(pFirst?'goFirst':'goSecond');
-    if(pFirst){startTurn('p');render();banner(T('bannerYou'))}else{render();aiTurn()}});
+    if(pFirst){startTurn('p');offerRite();render();banner(T('bannerYou'))}else{render();aiTurn()}});
 }
 function goClass(){view='class';render();scrollTo(0,0)}
 function pickClass(id){R.cls=id;R.deck=[...(ADV[id]?ADV[id].deck:CBY[id].deck)];R.tal=[];goStage()}
@@ -1768,7 +1779,7 @@ function startDuel(){
   S.e.maxMana=o.ramp||0;S.e.power=FORTIFY;S.p.cls=R.cls;S.e.cls=null;setupTalents(S.p,R.cls,R.tal);
   say('rises',()=>heroName(S.e));
   draw('p',tc?5:3);draw('e',tc?5:4);talOpen('p');
-  beginMulligan(()=>{S.e.hand.push('coin');startTurn('p');render();banner(T('bannerYou'))});
+  beginMulligan(()=>{S.e.hand.push('coin');startTurn('p');offerRite();render();banner(T('bannerYou'))});
 }
 // ---------- opening mulligan ----------
 // Replaced cards are swapped for new draws, then go to the bottom of the deck. No randomness, so both
@@ -2085,6 +2096,8 @@ async function resolvePending(t){
   }else if(p.type==='bc'){
     if(p.hist)p.hist.t=t;
     await fxAnim(p.fx,`[data-t="${p.src}"]`,t,'p');applyFx('p',p.fx,t);netAct({t:'bc',tgt:netRef(t)});
+  }else if(p.type==='rite'){
+    await aimAt(t);doRite('p',t);netAct({t:'rite',tgt:netRef(t)});
   }else if(p.type==='power'){
     const pw=curPower();
     await fxAnim(pw.fx,'[data-go="power"]',t,'p');
@@ -2240,6 +2253,7 @@ async function aiTurn(){
   const G0=S;
   S.busy=true;S.round++;startTurn('e');say('eTurn',()=>heroName(S.e));cleanup();render();banner(T('bannerFoe'),true);await wait(900);if(S!==G0)return;
   const e=S.e,en=()=>heroName(e);
+  {const t=aiRiteTarget();if(t){await aimAt(t);if(S!==G0)return;doRite('e',t);cleanup();render();await wait(500);if(S!==G0)return}}
   for(let g=0;g<12&&!S.over;g++){
     const opts=e.hand.map((k,i)=>({k,i})).filter(o=>canPay('e',o.k)).sort((a,b)=>costOf('e',b.k)-costOf('e',a.k));
     let did=false;
@@ -2280,7 +2294,7 @@ async function aiTurn(){
     await lunge(idOf(m),idOf(t));if(S!==G0)return;doAttack(m,t);cleanup();render();await wait(420);if(S!==G0)return;
   }
   if(S.over)return;
-  S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));
+  S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');if(!cleanup())offerRite();render();banner(T('bannerYou'));
 }
 
 // ---------- friend match (peer-to-peer, room code) ----------
@@ -2466,7 +2480,7 @@ async function netPump(){
 async function remoteAct(a){
   const e=S.e,en=()=>heroName(e);
   if(a.t==='concede'){O.conceded=true;e.hp=0;cleanup();render();return}
-  if(a.t==='end'){S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));return}
+  if(a.t==='end'){S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');if(!cleanup())offerRite();render();banner(T('bannerYou'));return}
   S.busy=true;
   if(a.t==='play'||a.t==='cast'){
     const k=e.hand[a.i];if(k!==a.k)throw new Error('hand out of step');
@@ -2486,6 +2500,8 @@ async function remoteAct(a){
     }
   }else if(a.t==='pick'){
     reclaimTake('e',a.ks||[]);render();
+  }else if(a.t==='rite'){
+    const t=netDeref(a.tgt);if(!t)throw new Error('target missing');await aimAt(t);doRite('e',t);
   }else if(a.t==='bc'){
     const last=S.lastE,t=netDeref(a.tgt);if(!last||(a.tgt&&!t))throw new Error('battlecry out of step');
     const fx=last.bc;if(!fx)throw new Error('battlecry out of step');if(t){last.h.t=t;render();await aimAt(t)}

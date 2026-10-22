@@ -4,7 +4,7 @@ import XCTest
 final class EngineTests: XCTestCase {
     func testDataLoads() {
         let gd = GameData.shared
-        XCTAssertEqual(gd.cards.count, 124)
+        XCTAssertEqual(gd.cards.count, 125)
         XCTAssertEqual(gd.classes.count, 6)
         XCTAssertEqual(gd.opponents.count, 8)
         XCTAssertEqual(gd.deckSize, 25)
@@ -101,6 +101,13 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.p.hand.count, 2); XCTAssertEqual(s.p.grave.count, 5); XCTAssertEqual(s.p.hb.count, 2)
         XCTAssertEqual(s.aiReclaim(.p, 2).count, 2); XCTAssertEqual(s.p.hand.count, 4)
         XCTAssertEqual(gd.card("gravecaller")?.bc?.reclaim, 2)
+        // Blood Celebrant: once a turn, an enemy minion is destroyed, its Attack hits your hero, a copy joins your hand.
+        s.p.board = []; s.e.board = []; s.p.hand = []; s.p.hb = []; s.p.tf = TurnFlags(); s.p.hp = 30; s.p.armor = 0
+        s.summon(.p, "bloodrite"); s.summon(.e, "ogre")
+        XCTAssertEqual(s.riteTargets(.p).count, 1)
+        s.doRite(.p, s.e.board[0].id); s.cleanup()
+        XCTAssertTrue(s.e.board.isEmpty); XCTAssertEqual(s.p.hand, ["ogre"]); XCTAssertEqual(s.p.hp, 30 - gd.card("ogre")!.atk!)
+        XCTAssertTrue(s.riteTargets(.p).isEmpty, "once a turn")
         // Prayers wait on the altar and resolve after their countdown.
         s.setupTalents(.p, cls: "priest", [])
         s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.count, 1)
