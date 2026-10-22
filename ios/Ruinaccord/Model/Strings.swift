@@ -417,6 +417,11 @@ struct Tx {
     func souls(_ n: Int) -> String { pick("Souls \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)") }
     func light(_ n: Int) -> String { pick("Light \(n)/\(DuelState.lightCap)", "圣光 \(n)/\(DuelState.lightCap)", "聖光 \(n)/\(DuelState.lightCap)") }
     var fSoulPay: String { pick("Souls spent", "魂代血", "魂で支払う") }
+    func fRite(_ n: Int) -> String { pick("Sacrificed \(n)", "献祭\(n)张", "生贄\(n)枚") }
+    func rites(_ n: Int) -> String { pick("Rites \(n)", "血祭 \(n)", "儀式 \(n)") }
+    var riteTitle: String { pick("Blood Rite: choose a Legendary", "血祭：任选一张传说牌", "血の儀式：伝説カードを選ぶ") }
+    func riteSub(_ n: Int) -> String { n > 1 ? pick("Two copies join your hand and cost (0) this game.", "两张复制加入你的手牌，本局打出不消耗法力值。", "コピー2枚が手札に加わり、このゲーム中マナを消費しない。") : pick("A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.", "一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。", "コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。") }
+    var riteOk: String { pick("Copy", "复制", "コピー") }
     func fero(_ n: Int) -> String { pick("Ferocity \(n)/\(DuelState.feroCap)", "兽性 \(n)/\(DuelState.feroCap)", "野性 \(n)/\(DuelState.feroCap)") }
     var fFero: String { pick("Ferocity!", "兽性！", "野性！") }
     func unity(_ b: Int, _ n: Int) -> String { b > 0 ? pick("Unity +1", "协作 +1", "連携 +1") : pick("Unity \(n)/12", "协作 \(n)/12", "連携 \(n)/12") }

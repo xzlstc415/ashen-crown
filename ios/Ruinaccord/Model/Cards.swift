@@ -104,7 +104,7 @@ struct Card: Codable, Identifiable, Hashable {
     let sw: Bool                // a Shadow Word (Shadow talents react to it)
     let pw: Int                 // hero power damage bonus while on the board
     let beta: Bool
-    let rite: Bool              // Blood Celebrant: may sacrifice an enemy minion each turn
+    let rite: Bool              // Blood Rite: sacrifices the hand for a free copy of a Legendary
 
     var isMinion: Bool { type == .minion }
     var isLegendary: Bool { rarity == "l" }
@@ -177,8 +177,8 @@ final class GameData: Decodable {
         for (cls, pgs) in talents.pages.sorted(by: { $0.key < $1.key }) { for pg in pgs { mix("\(cls)|\(pg.id)|\(pg.tiers.map { $0.map(\.id) })") } }
         for (node, byCard) in talents.overrides.sorted(by: { $0.key < $1.key }) { for (card, o) in byCard.sorted(by: { $0.key < $1.key }) { mix("\(node)|\(card)|\(o)") } }
         // The prefix is the online protocol: raise it whenever two app versions would play a match differently
-        // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8-v9: class resources, Oaths, Beasts; v10-v11: Graveyard Summoner picks, Blood Celebrant rite).
-        return "v11-\(String(UInt32(bitPattern: h), radix: 36))"
+        // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8-v9: class resources, Oaths, Beasts; v10-v11: Graveyard Summoner picks; v12: Blood Rite, a spell with free Legendary copies).
+        return "v12-\(String(UInt32(bitPattern: h), radix: 36))"
     }()
 
     private enum CodingKeys: String, CodingKey { case cards, classes, opponents, boardMax, deckSize, fortify, talents }

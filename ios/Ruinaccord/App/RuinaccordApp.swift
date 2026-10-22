@@ -53,6 +53,7 @@ enum DebugLaunch {
             if vm.state?.mulligan == true && !args.contains("-mull") { vm.confirmMulligan() }
             // -choice: the Graveyard Summoner's offer, for a look at the dialog
             if args.contains("-choice"), vm.state != nil { vm.choice = Choice(offer: ["goblin", "golem", "ogre", "treant", "eel"], n: 2) }
+            if args.contains("-rite"), vm.state != nil { vm.state?.p.rites = 3; vm.choice = Choice(offer: vm.state!.riteOffer(), n: 1, rite: true) }
             // -fatigue: your deck is empty and you are at 1 health, then the turn ends (the fatigue draw must end the game)
             if args.contains("-fatigue"), vm.state != nil {
                 vm.state?.p.deck = []; vm.state?.p.hp = 1; vm.state?.turn = .p

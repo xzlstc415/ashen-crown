@@ -326,6 +326,7 @@ private struct StatusBox: View {
                 s.isCls(side, "warlock") ? tx.souls(h.soul) : nil,
                 s.isCls(side, "priest") ? tx.light(h.light) : nil,
                 s.isCls(side, "hunter") ? tx.fero(h.fero) : nil,
+                h.rites > 0 ? tx.rites(h.rites) : nil,
             ].compactMap { $0 }
             if !counters.isEmpty {
                 Text(counters.joined(separator: " · ")).font(Theme.body(8.5, .bold)).foregroundStyle(Theme.gold).lineLimit(1).minimumScaleFactor(0.7)
@@ -633,17 +634,19 @@ struct CardInfoPanel: View {
 }
 
 /// Opening hand: tap cards to replace them, then confirm (online: wait for the opponent).
-/// Graveyard Summoner: the dead on offer; tap `n`, then take them.
+/// Graveyard Summoner: the dead on offer; tap `n`, then take them. Blood Rite: the Legendaries; pick one to copy.
 struct ChoiceView: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         guard let c = vm.choice else { return AnyView(EmptyView()) }
         let tx = vm.tx, n = max(1, c.offer.count)
+        let two = c.rite && (vm.state?.p.rites ?? 0) >= DuelState.riteNeed
+        let title = c.rite ? tx.riteTitle : tx.chooseTitle(c.n), sub = c.rite ? tx.riteSub(two ? 2 : 1) : tx.chooseSub, ok = c.rite ? tx.riteOk : tx.chooseOk
         return AnyView(GeometryReader { g in
             let em = max(6, min(10.8, (g.size.height - 170) / 15.6, (g.size.width - 40 - CGFloat(n - 1) * 18) / (CGFloat(n) * 10)))
             VStack(spacing: 10) {
-                Text(tx.chooseTitle(c.n)).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
-                Text(tx.chooseSub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
+                Text(title).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                Text(sub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
                 HStack(spacing: 18) {
                     ForEach(Array(c.offer.enumerated()), id: \.offset) { i, k in
                         if let card = GameData.shared.card(k) {
@@ -657,7 +660,7 @@ struct ChoiceView: View {
                     }
                 }
                 .padding(.top, 6)
-                Button("\(tx.chooseOk) \(c.picks.count)/\(c.n)") { vm.confirmChoice() }.primary().disabled(c.picks.count != c.n).opacity(c.picks.count == c.n ? 1 : 0.5)
+                Button("\(ok) \(c.picks.count)/\(c.n)") { vm.confirmChoice() }.primary().disabled(c.picks.count != c.n).opacity(c.picks.count == c.n ? 1 : 0.5)
             }
             .frame(width: g.size.width, height: g.size.height)
         }

@@ -77,7 +77,6 @@ struct TurnFlags: Codable, Hashable {
     var sum = 0           // minions summoned
     var played = 0        // cards played
     var deaths = 0        // own minions that died
-    var rite = false      // Blood Celebrant sacrificed this turn
 }
 
 struct Hero: Codable, Hashable {
@@ -111,13 +110,16 @@ struct Hero: Codable, Hashable {
     /// Class resources: Rage (Warrior), Souls (Warlock), Light (Priest); Unity counters (Paladin talent).
     var rage = 0, soul = 0, light = 0, fero = 0, coopN = 0, coopB = 0
     var firstSum = false
+    /// Blood Rites cast this game, and the copies in hand that cost (0), per card.
+    var rites = 0
+    var free: [String: Int] = [:]
     var id: EID { .hero(side) }
 
     func has(_ talent: String) -> Bool { tal.contains(talent) }
     var hasTalents: Bool { !tal.isEmpty }
 
     private enum CodingKeys: String, CodingKey {
-        case side, hp, max, armor, mana, maxMana, spellMana, deck, hand, board, fat, powerUsed, power, cls, altar, grave, tal, ovr, hb, castHb, tf, rage, soul, light, fero, coopN, coopB, firstSum
+        case side, hp, max, armor, mana, maxMana, spellMana, deck, hand, board, fat, powerUsed, power, cls, altar, grave, tal, ovr, hb, castHb, tf, rage, soul, light, fero, coopN, coopB, firstSum, rites, free
     }
     init(side: Side, hp: Int, max: Int, deck: [String], power: Power) {
         self.side = side; self.hp = hp; self.max = max; self.deck = deck; self.power = power
@@ -141,6 +143,8 @@ struct Hero: Codable, Hashable {
         light = try c.decodeIfPresent(Int.self, forKey: .light) ?? 0; fero = try c.decodeIfPresent(Int.self, forKey: .fero) ?? 0
         coopN = try c.decodeIfPresent(Int.self, forKey: .coopN) ?? 0; coopB = try c.decodeIfPresent(Int.self, forKey: .coopB) ?? 0
         firstSum = try c.decodeIfPresent(Bool.self, forKey: .firstSum) ?? false
+        rites = try c.decodeIfPresent(Int.self, forKey: .rites) ?? 0
+        free = try c.decodeIfPresent([String: Int].self, forKey: .free) ?? [:]
     }
 }
 
@@ -166,7 +170,7 @@ enum LogEntry: Hashable {
 enum FloatKind: Hashable {
     case dmg(Int), armorAbsorb(Int), ward, heal(Int), armorGain(Int), atkUp(Int), hpUp(Int)
     case frozen, silenced, destroyed, stats(Int, Int)
-    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero
+    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int)
     var isHit: Bool { switch self { case .dmg, .armorAbsorb, .ward: return true; default: return false } }
 }
 
@@ -299,6 +303,7 @@ struct DuelState: Codable {
     func cardBc(_ side: Side, _ k: String) -> Effect? { override(side, k)?.bc ?? Self.gd.card(k)?.bc }
     func cardPray(_ side: Side, _ k: String) -> Prayer? { override(side, k)?.pray ?? Self.gd.card(k)?.pray }
     func costOf(_ side: Side, _ k: String) -> Int {
+        if self[side].free[k, default: 0] > 0 { return 0 }
         var c = override(side, k)?.cost ?? Self.gd.card(k)?.cost ?? 0
         if tal(side, "hu_combo") && self[side].tf.played >= 2 { c = Swift.max(0, c - 1) }
         return c
@@ -337,7 +342,9 @@ struct DuelState: Codable {
         self[side].castHb = self[side].hb[safe: i] ?? 0
         if self[side].hb.indices.contains(i) { self[side].hb.remove(at: i) }
         self[side].tf.played += 1
-        return self[side].hand.remove(at: i)
+        let k = self[side].hand.remove(at: i)
+        if self[side].free[k, default: 0] > 0 { self[side].free[k]! -= 1 }
+        return k
     }
 
     mutating func afterPower(_ side: Side) {
@@ -520,26 +527,37 @@ struct DuelState: Codable {
         return ks
     }
 
-    /// Blood Celebrant: once a turn while it stands, an enemy minion may be sacrificed: destroyed, its Attack dealt
-    /// to your hero, and a copy of it put in your hand.
-    func riteSource(_ side: Side) -> Minion? {
-        if self[side].tf.rite { return nil }
-        return self[side].board.first { $0.card.rite && !$0.silenced }
+    /// Blood Rite: the rest of the hand is sacrificed; any Legendary card is copied into the hand and costs (0)
+    /// this game (`free` counts the free copies per card). From the third Rite of a game on, two copies come.
+    static let riteNeed = 3
+    func riteOffer() -> [String] { Self.gd.collectible.filter(\.isLegendary).sorted { $0.cost < $1.cost }.map(\.id) }
+    mutating func riteSacrifice(_ side: Side) {
+        let n = self[side].hand.count
+        self[side].hand = []; self[side].hb = []; self[side].free = [:]
+        self[side].rites += 1
+        if n > 0 { float(.hero(side), .rite(n)) }
     }
-    func riteTargets(_ side: Side) -> [EID] { riteSource(side) == nil ? [] : self[side.other].board.map(\.id) }
-    mutating func doRite(_ side: Side, _ t: EID) {
-        guard let m = minion(t), let i = self[t.side].board.firstIndex(where: { $0.uid == t.uid }) else { return }
-        self[side].tf.rite = true
-        if m.atk > 0 { damage(.hero(side), m.atk) }
-        selfHurt(side)
-        self[t.side].board[i].hp = 0; float(t, .destroyed)
-        if self[side].hand.count < 10 { self[side].hand.append(m.key); self[side].hb.append(0) }
+    mutating func ritePick(_ side: Side, _ k: String) {
+        guard Self.gd.card(k) != nil else { return }
+        let n = self[side].rites >= Self.riteNeed ? 2 : 1
+        for _ in 0..<n where self[side].hand.count < 10 {
+            self[side].hand.append(k); self[side].hb.append(0)
+            self[side].free[k, default: 0] += 1
+            float(.hero(side), .named(k))
+        }
     }
-    /// The computer sacrifices the enemy minion worth most, keeping 8 Health in hand.
-    func aiRiteTarget() -> EID? {
-        let ts = riteTargets(.e).compactMap { minion($0) }
-        guard let t = ts.max(by: { aiValue($0) < aiValue($1) }), e.hp - t.atk >= 8 else { return nil }
-        return t.id
+    /// The computer takes a Legendary minion for the moment: healing when hurt, a sweep against a wide board, else the biggest.
+    @discardableResult
+    mutating func aiRitePick(_ side: Side) -> [String] {
+        let o = riteOffer().filter { Self.gd.card($0)?.isMinion == true }
+        guard !o.isEmpty else { return [] }
+        let foes = self[side.other].board.count
+        let k: String
+        if self[side].hp <= 12, o.contains("elfqueen") { k = "elfqueen" }
+        else if foes >= 3, o.contains("lich") { k = "lich" }
+        else { k = o.max { a, b in Self.gd.card(a)!.atk! + Self.gd.card(a)!.hp! < Self.gd.card(b)!.atk! + Self.gd.card(b)!.hp! }! }
+        ritePick(side, k)
+        return [k]
     }
 
     /// Heals a hero or minion; a Priest banks the overflow as Light.
@@ -694,6 +712,8 @@ struct DuelState: Codable {
         let fire = c.sc == "fire"
         if c.isPrayer {
             placePrayer(side, key)
+        } else if c.rite {
+            riteSacrifice(side)
         } else if let fx = cardFx(side, key) {
             let bonus = spellBonus(side, key)
             let alive = self[side.other].board.filter { $0.hp > 0 }

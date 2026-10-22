@@ -101,13 +101,20 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.p.hand.count, 2); XCTAssertEqual(s.p.grave.count, 5); XCTAssertEqual(s.p.hb.count, 2)
         XCTAssertEqual(s.aiReclaim(.p, 2).count, 2); XCTAssertEqual(s.p.hand.count, 4)
         XCTAssertEqual(gd.card("gravecaller")?.bc?.reclaim, 2)
-        // Blood Celebrant: once a turn, an enemy minion is destroyed, its Attack hits your hero, a copy joins your hand.
-        s.p.board = []; s.e.board = []; s.p.hand = []; s.p.hb = []; s.p.tf = TurnFlags(); s.p.hp = 30; s.p.armor = 0
-        s.summon(.p, "bloodrite"); s.summon(.e, "ogre")
-        XCTAssertEqual(s.riteTargets(.p).count, 1)
-        s.doRite(.p, s.e.board[0].id); s.cleanup()
-        XCTAssertTrue(s.e.board.isEmpty); XCTAssertEqual(s.p.hand, ["ogre"]); XCTAssertEqual(s.p.hp, 30 - gd.card("ogre")!.atk!)
-        XCTAssertTrue(s.riteTargets(.p).isEmpty, "once a turn")
+        // Blood Rite: the rest of the hand is sacrificed, a chosen Legendary is copied in and costs (0); the third Rite copies twice.
+        s.p.hand = ["bloodrite", "goblin", "ogre"]; s.p.hb = [0, 0, 0]; s.p.mana = 2; s.p.spellMana = 0; s.p.armor = 0
+        XCTAssertTrue(gd.card("bloodrite")!.rite); XCTAssertFalse(gd.card("bloodrite")!.isMinion)
+        s.pay(.p, "bloodrite"); s.takeHand(.p, 0); s.castSpell(.p, "bloodrite", nil)
+        XCTAssertTrue(s.p.hand.isEmpty); XCTAssertEqual(s.p.rites, 1); XCTAssertEqual(s.p.mana, 0)
+        XCTAssertEqual(s.riteOffer().count, gd.collectible.filter(\.isLegendary).count); XCTAssertTrue(s.riteOffer().contains("bloodrite"))
+        s.ritePick(.p, "lich")
+        XCTAssertEqual(s.p.hand, ["lich"]); XCTAssertEqual(s.costOf(.p, "lich"), 0); XCTAssertTrue(s.canPay(.p, "lich"))
+        s.takeHand(.p, 0); XCTAssertEqual(s.costOf(.p, "lich"), gd.card("lich")!.cost, "only the copy was free")
+        s.p.rites = DuelState.riteNeed; s.ritePick(.p, "leviathan")
+        XCTAssertEqual(s.p.hand, ["leviathan", "leviathan"]); XCTAssertEqual(s.p.free["leviathan"], 2); XCTAssertEqual(s.p.hb.count, 2)
+        s.p.hand = []; s.p.hb = []; s.p.free = [:]; s.e.board = []; s.p.hp = 30
+        XCTAssertEqual(s.aiRitePick(.p), ["leviathan"], "the biggest body when healthy and the foe's board is small")
+        s.p.hand = []; s.p.hb = []; s.p.free = [:]
         // Prayers wait on the altar and resolve after their countdown.
         s.setupTalents(.p, cls: "priest", [])
         s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.count, 1)

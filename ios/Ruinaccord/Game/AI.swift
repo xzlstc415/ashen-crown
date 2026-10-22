@@ -58,6 +58,7 @@ extension DuelState {
     func aiPlan(_ k: String) -> EID?? {
         guard let c = GameData.shared.card(k) else { return nil }
         if c.isPrayer { return aiPrayOk(k) ? .some(nil) : nil }
+        if c.rite { return e.hand.count <= 3 ? .some(nil) : nil }
         if c.isMinion {
             if e.board.count >= Self.boardMax { return nil }
             let bc = cardBc(.e, k)

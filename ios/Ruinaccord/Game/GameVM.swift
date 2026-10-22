@@ -13,15 +13,16 @@ struct Run {
     var tal: [String] = []
 }
 
-/// A choice of cards shown to the player (Graveyard Summoner): tap `n`, then take them.
+/// A choice of cards shown to the player: the dead on offer (Graveyard Summoner) or the Legendaries (Blood Rite).
 struct Choice {
     var offer: [String]
     var n: Int
     var picks: Set<Int> = []
+    var rite = false
 }
 
 struct Pending {
-    enum Kind { case spell(idx: Int), battlecry(fx: Effect, src: EID, hist: UUID?), power, rite(src: EID) }
+    enum Kind { case spell(idx: Int), battlecry(fx: Effect, src: EID, hist: UUID?), power }
     var kind: Kind
     var valid: [EID]
     var key: String?
@@ -287,6 +288,7 @@ final class GameVM {
         case .light(let n): return ("✦+\(n)", Color(hex: "#ffe9a0"))
         case .soulPay: return (tx.fSoulPay, Color(hex: "#c4b4ff"))
         case .fero: return (tx.fFero, Color(hex: "#9ad48a"))
+        case .rite(let n): return (tx.fRite(n), Theme.blood)
         }
     }
 
@@ -459,7 +461,7 @@ final class GameVM {
         mullCont = { [self] in
             S[first.other].hand.append("coin")
             S.log(first == .p ? .goFirst : .goSecond)
-            if first == .p { S.startTurn(.p); offerRite(); drain(); showBanner(tx.bannerYou, foe: false) }
+            if first == .p { S.startTurn(.p); drain(); showBanner(tx.bannerYou, foe: false) }
             else { drain(); Task { await aiTurn() } }
         }
     }
@@ -485,7 +487,7 @@ final class GameVM {
         state = s; drain()
         go(.duel)
         mullCont = { [self] in
-            S.e.hand.append("coin"); S.startTurn(.p); offerRite(); drain()
+            S.e.hand.append("coin"); S.startTurn(.p); drain()
             showBanner(tx.bannerYou, foe: false)
         }
     }
@@ -694,6 +696,7 @@ final class GameVM {
         pushHist(.p, k, nil)
         S.log(.cast(k))
         netAct(NetAct(n: 0, t: "cast", i: i, k: k))
+        if c.rite { choice = Choice(offer: S.riteOffer(), n: 1, rite: true) }
         busy = false
         after()
     }
@@ -729,12 +732,6 @@ final class GameVM {
 
     func pendingLabel() -> String { pending?.key.map(tx.cardName) ?? tx.powerName(myPower) }
     func cancelPending() { pending = nil }
-    /// Blood Celebrant: at the start of your turn, the enemy minions are offered for sacrifice (Cancel skips it).
-    func offerRite() {
-        guard let src = S.riteSource(.p) else { return }
-        let v = S.riteTargets(.p)
-        if !v.isEmpty { pending = Pending(kind: .rite(src: src.id), valid: v, key: src.key) }
-    }
 
     private func resolvePending(_ t: EID) async {
         guard let p = pending else { return }
@@ -757,10 +754,6 @@ final class GameVM {
             await fxAnim(fx, from: center(src), target: t, side: .p)
             S.applyFx(.p, fx, t)
             netAct(NetAct(n: 0, t: "bc", tgt: netRef(t)))
-        case .rite:
-            await aimAt(t)
-            S.doRite(.p, t)
-            netAct(NetAct(n: 0, t: "rite", tgt: netRef(t)))
         case .power:
             let pw = S.p.power
             await fxAnim(pw.fx, from: powerFrame.map { CGPoint(x: $0.midX, y: $0.midY) }, target: t, side: .p)
@@ -987,13 +980,6 @@ final class GameVM {
         showBanner(tx.bannerFoe, foe: true)
         await wait(900)
         guard gameToken == token else { return }
-        if let t = S.aiRiteTarget() {
-            await aimAt(t)
-            guard gameToken == token else { return }
-            S.doRite(.e, t); S.cleanup(); drain()
-            await wait(500)
-            guard gameToken == token else { return }
-        }
         for _ in 0..<12 where !S.over {
             var did = false
             for o in S.aiPlayable() {
@@ -1033,6 +1019,7 @@ final class GameVM {
                     await fxAnim(fx, from: revealCenter, target: t, side: .e)
                     guard gameToken == token else { return }
                     S.castSpell(.e, c.id, t)
+                    if c.rite { S.aiRitePick(.e) }
                     reveal = nil
                 }
                 did = true
@@ -1062,7 +1049,7 @@ final class GameVM {
         busy = false
         S.log(.yourTurn)
         if S.cleanup() { drain(); onGameOver(); return }
-        offerRite(); drain()
+        drain()
         showBanner(tx.bannerYou, foe: false)
     }
 
@@ -1305,7 +1292,7 @@ final class GameVM {
             busy = false
             S.log(.yourTurn)
             if S.cleanup() { drain(); onGameOver(); return }
-            offerRite(); drain()
+            drain()
             showBanner(tx.bannerYou, foe: false)
             return
         }
@@ -1343,9 +1330,8 @@ final class GameVM {
         case "pick":
             S.reclaimTake(.e, a.ks ?? [])
         case "rite":
-            guard let t = netDeref(a.tgt) else { throw NetError.outOfStep }
-            await aimAt(t)
-            S.doRite(.e, t)
+            guard let k = a.ks?.first else { throw NetError.outOfStep }
+            S.ritePick(.e, k)
         case "bc":
             guard let last = lastEnemyMinion, let m = S.minion(EID(side: .e, uid: last.uid)), let fx = S.cardBc(.e, m.key) else { throw NetError.outOfStep }
             let t = netDeref(a.tgt)
@@ -1438,8 +1424,13 @@ final class GameVM {
         guard let c = choice, c.picks.count == c.n else { return }
         choice = nil
         let ks = c.picks.sorted().map { c.offer[$0] }
-        S.reclaimTake(.p, ks)
-        netAct(NetAct(n: 0, t: "pick", ks: ks))
+        if c.rite, let k = ks.first {
+            S.ritePick(.p, k)
+            netAct(NetAct(n: 0, t: "rite", ks: ks))
+        } else {
+            S.reclaimTake(.p, ks)
+            netAct(NetAct(n: 0, t: "pick", ks: ks))
+        }
         after()
     }
 

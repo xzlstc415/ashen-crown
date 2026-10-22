@@ -89,7 +89,7 @@ private struct HandSlot: View {
         let layoutKey = "\(mode)|\(n)|\(lifted)|\(dragging)|\(pend)"
         let anim: Animation? = dragging && !aiming ? nil : vm.reduceMotion ? .easeOut(duration: 0.12) : .spring(duration: 0.42, bounce: 0.22)
 
-        return AnyView(CardView(card: card, size: .fit(hm.em), ring: ring, ovr: s.p.ovr[card.id])
+        return AnyView(CardView(card: card, size: .fit(hm.em), ring: ring, ovr: handOvr(s.p, card.id))
             .overlay(alignment: .topTrailing) {
                 if boost > 0 {
                     Text("+\(boost)").font(Theme.body(10, .heavy)).foregroundStyle(Color(hex: "#2a130a"))
@@ -137,4 +137,12 @@ private struct HandSlot: View {
             .accessibilityLabel(Text("\(vm.tx.name(card.names)), \(card.cost)"))
             .accessibilityAddTraits(.isButton))
     }
+}
+
+/// The override a hand card is drawn with: its talent changes, and cost (0) while a Blood Rite copy of it is free.
+func handOvr(_ h: Hero, _ k: String) -> CardOverride? {
+    guard h.free[k, default: 0] > 0 else { return h.ovr[k] }
+    var o = h.ovr[k] ?? CardOverride()
+    o.cost = 0
+    return o
 }
