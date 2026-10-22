@@ -63,12 +63,19 @@ private struct HandSlot: View {
         let fan = mode != .dormant
         let aboveLine = dragging && (vm.drag?.aboveLine ?? false)
 
-        // Slot in the hand: a straight row centred under your hero, overlapping as much as needed (right card on top).
+        // Slot in the hand: a fan centred under your hero (right card on top). The cards sit on an arc around a
+        // pivot far below the screen, so each one is tilted a little more than its neighbour and the outer ones
+        // hang slightly lower, like a hand held in real life. The spread of the fan is capped so a full hand
+        // still fits the board column; with more cards the step between them shrinks.
         let rowMax = 2 * min(hm.heroX - hm.handMinX, hm.handMaxX - hm.heroX)
         let spacing = n > 1 ? min(hm.cardW * 0.8, (rowMax - hm.cardW) / CGFloat(n - 1)) : 0
-        let fx = hm.heroX + (CGFloat(index) - CGFloat(n - 1) / 2) * spacing
-        let rot: CGFloat = 0
-        let fy = hm.baseY + (pend ? -hm.lift : 0)
+        let t = CGFloat(index) - CGFloat(n - 1) / 2
+        let step: CGFloat = n > 1 ? min(6, 36 / CGFloat(n - 1)) : 0     // degrees between neighbours
+        let rot = t * step
+        let radius = step > 0 ? spacing / sin(step * .pi / 180) : 0
+        let fx = hm.heroX + (step > 0 ? radius * sin(rot * .pi / 180) : 0)
+        let dip = step > 0 ? radius * (1 - cos(rot * .pi / 180)) : 0
+        let fy = hm.baseY + dip + (pend ? -hm.lift : 0)
 
         var pos: CGPoint, scale: CGFloat, angle: CGFloat, z: Double
         if dragging, let d = vm.drag {
