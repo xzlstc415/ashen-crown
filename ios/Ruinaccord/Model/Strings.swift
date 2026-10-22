@@ -370,7 +370,8 @@ struct Tx {
     func talAdvSub(_ n: Int) -> String { pick("You have \(n) talent point\(n > 1 ? "s" : ""). You can move them before every duel.", "你现在有\(n)点天赋，每关开始前都可以重新分配。", "タレントポイントは\(n)。毎戦の前に振り直せる。") }
     var talFight: String { pick("To battle", "开始战斗", "戦いへ") }
     var qTalTitle: String { pick("Quick play · Talents", "自由对战 · 分配天赋", "フリー対戦・タレント") }
-    func qTalSub(_ diff: String) -> String { pick("4 points against a \(diff) opponent; the deck remembers them.", "对手难度：\(diff)。4 点天赋，会保存在这副牌组里。", "相手の難易度：\(diff)。4 ポイント、デッキに保存される。") }
+    var qTalSub: String { pick("4 points, one a tier; the deck remembers them.", "4 点天赋，每层一个，会保存在这副牌组里。", "4 ポイント、各段1つ。デッキに保存される。") }
+    var nextCards: String { pick("Next: cards", "下一步：选牌", "次へ：カード") }
     var closeLbl: String { pick("Close", "关闭", "閉じる") }
     // Full-screen pages
     var nextPage: String { pick("Next page", "下一页", "次のページ") }

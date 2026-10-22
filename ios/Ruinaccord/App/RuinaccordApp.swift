@@ -42,7 +42,7 @@ enum DebugLaunch {
             case "qtalents":
                 vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; vm.q.tal = GameData.shared.talentPreset("mage", 0)
                 Decks.autoFill(&vm.q.deck, cls: "mage")
-                vm.pickDifficulty(.hard)
+                vm.q.talNext = .diff; vm.go(.qtalents)
             case "gallery": vm.openGallery()
             case "online": vm.goOnline()
             case "decks": vm.goDecks()

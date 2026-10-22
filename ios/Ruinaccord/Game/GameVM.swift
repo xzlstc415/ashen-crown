@@ -63,6 +63,8 @@ struct Builder {
     var tal: [String] = []
     /// Builder tab: the card list or the talent pages.
     var showTalents = false
+    /// Where the quick-play talent screen leads: the builder (a new deck) or the difficulty (a chosen deck).
+    var talNext: Screen = .diff
     var diff: Difficulty = .normal
     var typeFilter = "all"
     var costFilter = 0
@@ -328,7 +330,8 @@ final class GameVM {
             q.cls = cls; q.deck = gd.cls(cls)?.deck ?? []; q.editId = nil; q.name = nextDefaultName(cls); q.dirty = true; q.tal = gd.talentPreset(cls, 0)
         }
         q.toast = ""; q.showTalents = false
-        go(.build)
+        // Quick play picks talents before cards: a new deck starts on the talent screen.
+        if id == nil, !q.returnToOnline, gd.hasTalents(q.cls) { q.talNext = .build; go(.qtalents) } else { go(.build) }
     }
 
     // MARK: - Talents
@@ -408,18 +411,17 @@ final class GameVM {
     func playSaved(_ id: String) {
         guard let d = decks.first(where: { $0.id == id }), d.cards.count == Decks.size else { return }
         q.cls = d.cls; q.deck = d.cards; q.editId = d.id; q.name = d.name; q.dirty = false; q.tal = d.talents
-        go(.diff)
+        if gd.hasTalents(d.cls) { q.talNext = .diff; go(.qtalents) } else { go(.diff) }
     }
 
     func toDifficulty() { if q.deck.count == Decks.size { go(.diff) } }
     /// Quick play: after the difficulty, classes with talents get the talent screen; the deck keeps the choice.
-    func pickDifficulty(_ d: Difficulty) {
-        q.diff = d
-        if gd.hasTalents(q.cls) { go(.qtalents) } else { startQuick(d) }
-    }
-    func startQuickFromTalents() {
+    func pickDifficulty(_ d: Difficulty) { q.diff = d; startQuick(d) }
+    /// Leaves the quick-play talent screen: on to the cards of a new deck, or to the difficulty with a chosen deck.
+    func talentsNext() {
+        if q.talNext == .build { go(.build); return }
         if q.dirty, q.editId != nil { saveCurrent(asNew: false) }
-        startQuick(q.diff)
+        go(.diff)
     }
 
     // MARK: - Starting duels

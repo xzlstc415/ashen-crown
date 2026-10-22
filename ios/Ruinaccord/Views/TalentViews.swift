@@ -126,8 +126,9 @@ struct QTalentScreen: View {
         let tx = vm.tx
         ScreenShell(scene: "warfront") {
             VStack(spacing: 4) {
-                BarRow(back: (tx.diffTitle, { vm.go(.diff) }), title: tx.qTalTitle, subtitle: tx.qTalSub(tx.diff(vm.q.diff))) {
-                    Button(tx.talFight + " ›") { vm.startQuickFromTalents() }.primary(compact: true, glow: true)
+                let toBuild = vm.q.talNext == .build
+                BarRow(back: toBuild ? (tx.pickClassNew, { vm.goNewDeck() }) : (tx.myDecks, { vm.goDecks() }), title: tx.qTalTitle, subtitle: tx.qTalSub) {
+                    IconButton(symbol: "arrow.right", label: toBuild ? tx.nextCards : tx.nextDiff, primary: true) { vm.talentsNext() }
                 }
                 TalentPanel().padding(.horizontal, 10).padding(.bottom, 8)
             }
