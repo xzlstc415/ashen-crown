@@ -153,7 +153,7 @@ struct Tag: View {
                 if !text.isEmpty { Text(text).font(Theme.body(11, .heavy)).lineLimit(1) }
             }
             .foregroundStyle(on ? Theme.gold : Theme.muted)
-                .frame(minWidth: 26).frame(height: 26).padding(.horizontal, 7)
+                .frame(minWidth: 26).frame(height: 26).padding(.horizontal, 4)
                 .background(on ? Theme.gold.opacity(0.2) : Theme.panel, in: Capsule())
                 .overlay(Capsule().stroke(on ? Theme.gold : Theme.line, lineWidth: 1))
         }

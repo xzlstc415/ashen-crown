@@ -83,6 +83,8 @@ struct Tx {
     var back: String { pick("Back", "返回", "戻る") }
     var minions: String { pick("Minions", "随从", "ミニオン") }
     var spells: String { pick("Spells", "法术", "呪文") }
+    /// Short rarity names for the builder's filter row.
+    func rarityShort(_ r: String) -> String { r == "l" ? pick("Legend", "传说", "伝説") : r == "e" ? pick("Epic", "史诗", "エピック") : rarity(r) }
     func rarity(_ r: String) -> String {
         switch r {
         case "c": return pick("Common", "普通", "コモン")

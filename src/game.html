@@ -1606,7 +1606,7 @@ function saveCurrent(asNew){
 }
 function sanitizeDeck(d,cls){const out=[];d.forEach(k=>{if(CARDS[k]&&!CARDS[k].token&&forCls(k,cls)&&copies(out,k)<maxCopies(k)&&out.length<DECK_SIZE)out.push(k)});return out}
 function validDeck(d,cls){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k)&&(!cls||forCls(k,cls)))}
-let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
+let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,rar:'all',w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
 
 const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
 const classArt=c=>`<svg viewBox="18 0 64 64" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${c.art}</svg>`;
@@ -2674,7 +2674,8 @@ function builderHTML(){
   const curve=`<div class="curve" aria-label="${T('curve')}">${buckets.map(n=>`<i style="height:${n/mx*100}%"></i>`).join('')}</div><div class="curvel">${['0','1','2','3','4','5','6','7+'].map(x=>`<span>${x}</span>`).join('')}</div>`;
   const types=[['all',T('filterAll')],['m',T('minions')],['s',T('spells')],['cls',c.n[li()]]];
   const costs=[[0,T('filterAll')],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']];
-  const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost)))
+  const rars=[['all',T('filterAll')],['e',T('rar').e],['l',T('rar').l]];
+  const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost))&&(Q.rar==='all'||CARDS[k].r===Q.rar))
     .sort((a,b)=>!!CARDS[b].cls-!!CARDS[a].cls||CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   FOV=hasTal(Q.cls)?ovrFor(Q.tal):null;
   const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
@@ -2695,6 +2696,7 @@ function builderHTML(){
       <div>
         <div class="chips">${types.map(([v,t])=>`<button class="chip ${Q.type===v?'on':''}" data-ftype="${v}">${t}</button>`).join('')}</div>
         <div class="chips" style="margin-top:6px">${costs.map(([v,t])=>`<button class="chip ${Q.cost===v?'on':''}" data-fcost="${v}">${t}</button>`).join('')}</div>
+        <div class="chips" style="margin-top:6px">${rars.map(([v,t])=>`<button class="chip ${Q.rar===v?'on':''}" data-frar="${v}">${v==='all'?'':`<span class="gem ${v}" style="position:static;display:inline-block;margin:0 .3em 0 0;width:.6em;height:.6em;vertical-align:-.05em"></span>`}${t}</button>`).join('')}</div>
         <div class="coll">${coll}</div>
       </div>
     </div>`}
@@ -2934,7 +2936,7 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-choice],[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview],[data-pack]');
+  const b=ev.target.closest('[data-choice],[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-frar],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview],[data-pack]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.zoom!==undefined)return showZoom(b.dataset.zoom);
@@ -2969,6 +2971,7 @@ document.addEventListener('click',ev=>{
     return render()}
   if(b.dataset.ftype!==undefined){Q.type=b.dataset.ftype;return render()}
   if(b.dataset.fcost!==undefined){Q.cost=+b.dataset.fcost;return render()}
+  if(b.dataset.frar!==undefined){Q.rar=b.dataset.frar;return render()}
   if(b.dataset.diff!==undefined)return startQuick(b.dataset.diff);
   if(b.dataset.odeck!==undefined){O.sel=b.dataset.odeck;O.err='';return render()}
   const g=b.dataset.go;

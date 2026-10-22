@@ -77,6 +77,8 @@ struct Builder {
     var diff: Difficulty = .normal
     var typeFilter = "all"
     var costFilter = 0
+    /// "all", "e" or "l": the rarity shown in the builder.
+    var rarityFilter = "all"
     var w = 0, l = 0
     var toast = ""
     var editId: String?

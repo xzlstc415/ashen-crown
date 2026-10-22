@@ -13,7 +13,7 @@ struct BuilderView: View {
         let tt = gd.hasTalents(clsId)
         let toOnline = vm.q.returnToOnline
         let list = gd.collectible.filter { c in
-            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter))
+            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter)) && (vm.q.rarityFilter == "all" || c.rarity == vm.q.rarityFilter)
         }.sorted { a, b in (a.cls != nil) != (b.cls != nil) ? a.cls != nil : a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
 
         return AnyView(ScreenShell(scene: "dawn") {
@@ -58,7 +58,7 @@ struct BuilderView: View {
                     HStack(alignment: .top, spacing: 8) {
                         VStack(spacing: 0) {
                             // filters
-                            HStack(spacing: 4) {
+                            HStack(spacing: 3) {
                                 Text(tx.costLbl).font(Theme.body(10.5)).foregroundStyle(Theme.muted)
                                 Tag(text: tx.typeAll, on: vm.q.costFilter == 0) { vm.q.costFilter = 0 }
                                 ForEach(1..<8, id: \.self) { n in Tag(text: n == 7 ? "7+" : "\(n)", on: vm.q.costFilter == n) { vm.q.costFilter = n } }
@@ -68,9 +68,14 @@ struct BuilderView: View {
                                 Tag(symbol: "person.fill", label: tx.minions, on: vm.q.typeFilter == "m") { vm.q.typeFilter = "m" }
                                 Tag(symbol: "sparkles", label: tx.spells, on: vm.q.typeFilter == "s") { vm.q.typeFilter = "s" }
                                 Tag(symbol: "shield.fill", label: tx.classCards, on: vm.q.typeFilter == "cls") { vm.q.typeFilter = "cls" }
+                                Rectangle().fill(Theme.line).frame(width: 1, height: 18).padding(.horizontal, 4)
+                                // Rarity: tap a gem to show only epics or legendaries, tap it again for all.
+                                ForEach(["e", "l"], id: \.self) { r in
+                                    RarityTag(r: r, on: vm.q.rarityFilter == r) { vm.q.rarityFilter = vm.q.rarityFilter == r ? "all" : r }
+                                }
                                 Spacer(minLength: 0)
                             }
-                            .frame(height: 30).padding(.leading, 48)
+                            .frame(height: 30).padding(.leading, 10)
                             PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 12) { c, s in
                                 let n = Decks.copies(d, c.id), full = n >= c.maxCopies
                                 Button { vm.addCard(c.id) } label: {
@@ -159,5 +164,30 @@ struct DeckList: View {
         .frame(maxHeight: .infinity, alignment: .top)
         .background(Theme.panel.opacity(0.85), in: RoundedRectangle(cornerRadius: 12))
         .overlay(RoundedRectangle(cornerRadius: 12).stroke(Theme.line, lineWidth: 1))
+    }
+}
+
+/// A filter tag: the rarity gem alone, and its name beside it while it is on (the row has no room for both names).
+private struct RarityTag: View {
+    let r: String
+    let on: Bool
+    let action: () -> Void
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 5) {
+                Rectangle().fill(Theme.rarityColor(r)).frame(width: 9, height: 9)
+                    .overlay(Rectangle().stroke(Color.black.opacity(0.6), lineWidth: 1)).rotationEffect(.degrees(45))
+                    .shadow(color: r == "l" ? Theme.rarityColor("l") : .clear, radius: 3)
+                if on { Text(vm.tx.rarityShort(r)).font(Theme.body(11, .heavy)).lineLimit(1).fixedSize() }
+            }
+            .foregroundStyle(on ? Theme.gold : Theme.muted)
+            .frame(minWidth: 26).frame(height: 26).padding(.horizontal, 5)
+            .background(on ? Theme.gold.opacity(0.2) : Theme.panel, in: Capsule())
+            .overlay(Capsule().stroke(on ? Theme.gold : Theme.line, lineWidth: 1))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(vm.tx.rarity(r)))
+        .accessibilityAddTraits(on ? [.isButton, .isSelected] : .isButton)
     }
 }
