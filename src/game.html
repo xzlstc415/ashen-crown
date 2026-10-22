@@ -157,7 +157,8 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .card .gem{position:absolute;top:-.42em;left:50%;margin-left:-.375em;width:.75em;height:.75em;transform:rotate(45deg);border:.1em solid #0009}
 .gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
 .card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:#9fc4ee}
-.card .tx{font-size:.86em;line-height:1.24}
+.card .tx{font-size:.86em;line-height:1.24;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lprev .card .tx,.peek .card .tx{display:block;-webkit-line-clamp:unset;overflow:visible}
 .card .tx b{font-weight:800;color:#ffe2a0}
 .card .stat{bottom:-.65em;width:2.3em;height:2.3em;font-size:1.25em}
 .card .stat.a{left:-.65em;--ink2:#3a1c06;

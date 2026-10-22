@@ -15,6 +15,8 @@ struct CardView: View {
     var ring: Color = .clear
     /// The owner's talent changes to this card (cost, text), if any.
     var ovr: CardOverride? = nil
+    /// The rules text is cut to three lines on a card face; the zoom and the duel's preview box show it all.
+    var full = false
     @Environment(GameVM.self) private var vm
 
     var body: some View {
@@ -57,7 +59,8 @@ struct CardView: View {
                     .textCase(.uppercase).lineLimit(1).minimumScaleFactor(0.7) }
                 RichText(text: tx.cardText(card, ovr: ovr), keywords: tx.keywords, font: Theme.body(0.96 * em), color: Color(hex: "#f3e9d4"))
                     .multilineTextAlignment(.leading)
-                    .minimumScaleFactor(0.65)
+                    .lineLimit(full ? nil : 3).truncationMode(.tail)
+                    .minimumScaleFactor(full ? 0.65 : 0.9)
             }
             .padding(.horizontal, 0.55 * em)
             .padding(.top, 0.85 * em)
@@ -291,7 +294,7 @@ struct CardZoom: View {
             ZStack {
                 Color(hex: "#0a080c").opacity(0.82).ignoresSafeArea()
                 VStack(spacing: 10) {
-                    CardView(card: c, size: .big)
+                    CardView(card: c, size: .big, full: true)
                     Text(vm.tx.name(c.flavor)).font(Theme.body(13)).italic().foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 240)
                     Text(vm.tx.tapClose).font(Theme.body(12)).foregroundStyle(Theme.muted)
                 }
