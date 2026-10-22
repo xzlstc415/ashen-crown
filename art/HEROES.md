@@ -6,23 +6,23 @@
 
 | 职业 | 种族 | 名字 | 一句话 |
 |---|---|---|---|
-| 战士 | 矮人 | 格鲁姆·碎砧 Grum Anvilbreaker | 被铁堡放逐的盾匠 |
+| 战士 | 半兽人 | 洛克·灰牙 Rok Greytusk | 从兽人督军麾下出走的持盾者 |
 | 法师 | 侏儒 | 皮姆·霜烬 Pim Emberfrost | 在废墟图书馆长大的自学法师 |
 | 圣骑士 | 人类 | 塞拉芬·晨誓 Seraphine Dawnoath | 旧王国最后一名骑士 |
 | 猎人 | 精灵 | 凯尔文·荆径 Kaelwyn Thornstride | 退出精灵议会的林地巡守 |
 | 牧师 | 半身人 | 玛戈·烛芯 Margo Candlewick | 在断墙礼拜堂收容流民的修女 |
-| 术士 | 巨魔 | 卡茜娅·暗誓 Kasia Duskvow | 用自己的血换取力量的巫医 |
+| 术士 | 不死族 | 莫文·残烛 Morwen Lastcandle | 被巫妖复活、只剩半条命的宫廷占星师 |
 
 ---
 
-## 战士 · 格鲁姆·碎砧 Grum Anvilbreaker — `hero_warrior.png`
-矮人 · 男性 · 中年
+## 战士 · 洛克·灰牙 Rok Greytusk — `hero_warrior.png`
+半兽人 · 男性 · 中年
 
-**背景**：格鲁姆曾是铁堡最好的盾匠。灰烬之王的军队压境时，铁堡领主下令封门、任凭山外的村庄被烧，格鲁姆砸碎了自己的砧子，带着一队志愿者出山迎战，回来时只剩他一个人。铁堡以"抗命"为由把他放逐。他如今背着一面自己锻的、再也没打磨过的盾，要亲手证明当年出山是对的，然后把王冠带回铁堡，放在那位领主面前。
+**背景**：洛克的母亲是边境村庄的人类铁匠，父亲是路过的兽人战士。村里不要他，兽人战团收下了他，他在兽人督军麾下当了二十年持盾者，替督军挡下过数不清的箭。灰烬之王的军队到来时，督军跪下了，而督军献上的第一份投名状，就是洛克母亲的村庄。洛克那天没有举盾。他背着那面挡过督军一辈子的盾走出营地，从此只替自己选的人挡箭。他要王冠，是为了让跪下去的人再也不必跪。
 
 **头像提示词**
 ```
-square portrait of a middle-aged dwarf warrior, face centered and filling most of the frame, broad face with a thick braided dark-brown beard streaked with grey, a dented iron half-helm with a chipped red plume, one eyebrow split by an old scar, jaw set, looking slightly past the viewer with stubborn resolve, a battered round shield rim visible at the edge of the frame, glowing ember red-orange accent light on one side of the face, sunlit overgrown ruins blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+square portrait of a middle-aged half-orc warrior, face centered and filling most of the frame, grey-green skin, strong human-like features with a heavy jaw and two small lower tusks, short-cropped black hair with grey at the temples, one ear notched, a dented iron half-helm with a chipped red plume, an old scar through one eyebrow, jaw set, looking slightly past the viewer with stubborn resolve, the rim of a huge battered tower shield visible at the edge of the frame, glowing ember red-orange accent light on one side of the face, sunlit overgrown ruins blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ## 法师 · 皮姆·霜烬 Pim Emberfrost — `hero_mage.png`
@@ -65,14 +65,14 @@ square portrait of a male elf hunter, face centered and filling most of the fram
 square portrait of an elderly halfling woman priest, face centered and filling most of the frame, round kind face with deep laugh lines, grey hair pinned up under a plain cream linen wimple, warm patient eyes looking straight at the viewer, a small gold circlet with a pale gem over her brow, both hands cupped just below her chin holding a lit candle whose light warms her face from below, glowing pale white-gold accent light, a half-collapsed chapel wall with ivy blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 术士 · 卡茜娅·暗誓 Kasia Duskvow — `hero_warlock.png`
-巨魔 · 女性 · 年龄不明
+## 术士 · 莫文·残烛 Morwen Lastcandle — `hero_warlock.png`
+不死族 · 女性 · 死时三十余岁
 
-**背景**：巨魔的血可以再生，所以巨魔巫医有一种别人没有的交易方式：用自己的血去换力量。卡茜娅年轻时跟骸骨巫妖马拉卡做过一笔交易，换来了驱使亡灵的本事，代价是她每次施法都要流一次血，而且再也长不回原来的样子。她跟着冒险者的队伍去找灰烬王冠，目的和别人都不一样：传说王冠能撕毁任何契约。她想拿它撕掉自己的那一份，哪怕要在马拉卡面前亲手做这件事。
+**背景**：莫文曾是旧王国的宫廷占星师，也是第一个看出王冠有问题的人。她在朝堂上说出"王冠在吃国王"的那天，被刚戴上王冠的国王处死。骸骨巫妖马拉卡把她从乱葬岗里挖出来复活，想要一个会算星象的仆从，可他只拿到了半个她：另一半还留在死亡那边。她趁巫妖第十一次死去时逃了出来。如今她每施一次法，就要燃掉一点所剩无几的生命，所以她从不浪费任何一发法术。她要王冠，是因为王冠里锁着她的另一半。拿回来之后是活下去还是彻底死去，她还没决定。
 
 **头像提示词**
 ```
-square portrait of a female troll warlock, face centered and filling most of the frame, long angular face with blue-grey skin, two short tusks, a long dark braid wound with bone beads, a deep purple hood pulled low, eyes glowing fel green and fixed on the viewer with a knowing smirk, a thin cut on her palm raised beside her face dripping a single drop of blood that burns into green flame, glowing fel green and dark purple accent light, a ruined crypt doorway blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+square portrait of an undead woman warlock, face centered and filling most of the frame, pale grey-blue skin cracked like old porcelain along one cheek, hollow eyes glowing fel green, long black hair gone white at the ends, a deep purple hood pulled low, a dark robe with a high stitched collar, thin lips with a faint knowing smile, one hand raised beside her face holding a small guttering candle whose flame burns green, glowing fel green and dark purple accent light, a ruined crypt doorway blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ---
