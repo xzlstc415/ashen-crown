@@ -110,32 +110,40 @@ struct SignInView: View {
     @State private var working = false
     var body: some View {
         let tx = vm.tx
-        VStack(spacing: 18) {
-            Spacer()
-            Image("AppIconArt").resizable().scaledToFit().frame(width: 96, height: 96).clipShape(RoundedRectangle(cornerRadius: 22))
-            Text(tx.brand).font(Theme.display(34, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
-            Text(tx.welcome).font(Theme.body(15)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 320)
-            AppleSignInButton { payload in
-                working = true; errMsg = ""
-                do { try await vm.backend.signInWithApple(payload) } catch { errMsg = tx.signInFailed }
-                working = false
-            } onError: { errMsg = tx.signInFailed }
-            .frame(height: 48).frame(maxWidth: 320)
-            Button(tx.continueGuest) {
-                working = true
-                Task { do { try await vm.backend.signInAsGuest() } catch { errMsg = tx.signInFailed }; working = false }
+        // One landscape screenful: the mark and the welcome on the left, the ways in on the right, nothing scrolls.
+        HStack(spacing: 36) {
+            VStack(spacing: 10) {
+                Image("AppIconArt").resizable().scaledToFit().frame(width: 84, height: 84).clipShape(RoundedRectangle(cornerRadius: 19))
+                Text(tx.brand).font(Theme.display(30, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
+                Text(tx.welcome).font(Theme.body(13.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 280)
+                    .fixedSize(horizontal: false, vertical: true)
+                Picker(tx.language, selection: Binding(get: { vm.lang }, set: { vm.setLang($0) })) {
+                    ForEach(Lang.allCases) { l in Text(l.label).tag(l) }
+                }
+                .pickerStyle(.segmented).frame(maxWidth: 220).padding(.top, 4)
             }
-            .ghost()
-            Text(tx.guestNote).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 320)
-            if !errMsg.isEmpty { Text(errMsg).font(Theme.body(13)).foregroundStyle(Theme.ember) }
-            if working { ProgressView().tint(Theme.gold) }
-            Spacer()
-            Picker(tx.language, selection: Binding(get: { vm.lang }, set: { vm.setLang($0) })) {
-                ForEach(Lang.allCases) { l in Text(l.label).tag(l) }
+            .frame(maxWidth: .infinity)
+            VStack(spacing: 12) {
+                AppleSignInButton { payload in
+                    working = true; errMsg = ""
+                    do { try await vm.backend.signInWithApple(payload) } catch { errMsg = tx.signInFailed }
+                    working = false
+                } onError: { errMsg = tx.signInFailed }
+                .frame(height: 46).frame(maxWidth: 300)
+                Button(tx.continueGuest) {
+                    working = true
+                    Task { do { try await vm.backend.signInAsGuest() } catch { errMsg = tx.signInFailed }; working = false }
+                }
+                .ghost()
+                Text(tx.guestNote).font(Theme.body(12)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 300)
+                    .fixedSize(horizontal: false, vertical: true)
+                if !errMsg.isEmpty { Text(errMsg).font(Theme.body(13)).foregroundStyle(Theme.ember) }
+                if working { ProgressView().tint(Theme.gold) }
             }
-            .pickerStyle(.segmented).frame(maxWidth: 240)
+            .frame(maxWidth: .infinity)
         }
-        .padding(24)
+        .padding(.horizontal, 32).padding(.vertical, 12)
+        .frame(maxWidth: 820, maxHeight: .infinity)
     }
 }
 

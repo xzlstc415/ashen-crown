@@ -5,8 +5,8 @@ https://ruinaccord.hermes-eris.com) and a native SwiftUI iOS app in `ios/` (see 
 
 ## Releasing the iOS app
 
-Whenever a push includes changes that reach the iOS app (anything under `ios/`, or card data in
-`src/game.html` after running `node ios/tools/gen_data.mjs`), release right after pushing:
+Release to TestFlight only when the user asks for it (never automatically after a push; since
+2026-10-22 the user decides when a build goes out). When asked, from a clean tree:
 
 ```sh
 scripts/testflight.sh            # next patch version

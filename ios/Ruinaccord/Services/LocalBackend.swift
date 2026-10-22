@@ -35,6 +35,8 @@ final class LocalBackend: Backend {
 
     func signInWithApple(_ payload: AppleCredentialPayload) async throws { throw BackendError.noOnline }
     func signInAsGuest() async throws { auth = .signedIn(AccountInfo(uid: "local", isAnonymous: true, name: nil)) }
+    /// Debug launches: show the sign-in screen (`-signin`).
+    func debugSignOut() { auth = .signedOut }
     func signOut() throws {}
     func deleteAccount(reauth: AppleCredentialPayload?) async throws {
         decks = []; profile = Profile(); persist()

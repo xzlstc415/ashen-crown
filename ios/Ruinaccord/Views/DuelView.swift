@@ -80,8 +80,8 @@ struct DuelView: View {
                 ZStack(alignment: .topLeading) {
                     HeroCluster(side: .p).position(x: x, y: y - 10)
                     PowerButton().position(x: x + 60, y: y - 30)
-                    GemView(kind: .health, value: s.p.hp, size: 34).position(x: x + 60, y: y + 24)
-                        .accessibilityLabel(Text("\(tx.healthShort) \(s.p.hp)"))
+                    GemView(kind: .health, value: max(0, s.p.hp), size: 34).position(x: x + 60, y: y + 24)
+                        .accessibilityLabel(Text("\(tx.healthShort) \(max(0, s.p.hp))"))
                 }
                 .frame(width: hm.size.width - hm.leftW - hm.rightW, height: vh)
             }
@@ -147,8 +147,8 @@ private struct TopStrip: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             HeroCluster(side: .e).position(x: hm.heroX - hm.leftW, y: 52)
-            GemView(kind: .health, value: s.e.hp, size: 34).position(x: hm.heroX - hm.leftW + 60, y: 44)
-                .accessibilityLabel(Text("\(vm.tx.healthShort) \(s.e.hp)"))
+            GemView(kind: .health, value: max(0, s.e.hp), size: 34).position(x: hm.heroX - hm.leftW + 60, y: 44)
+                .accessibilityLabel(Text("\(vm.tx.healthShort) \(max(0, s.e.hp))"))
         })
     }
 }
@@ -352,7 +352,7 @@ private struct StatusBox: View {
         .shadow(color: Theme.gold.opacity(acting ? 0.45 : 0), radius: acting ? 8 : 0)
         .animation(.easeOut(duration: 0.25), value: acting)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text("\(vm.heroName(side)), \(h.hp), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana), " + tx.mana(h.mana, h.maxMana))))
+        .accessibilityLabel(Text("\(vm.heroName(side)), \(max(0, h.hp)), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana), " + tx.mana(h.mana, h.maxMana))))
     }
 }
 

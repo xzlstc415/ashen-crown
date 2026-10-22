@@ -12,6 +12,7 @@ struct FXLayer: View {
                 case .spark(_, let at, let dx, let dy, let size): SparkView(at: at, dx: dx, dy: dy, size: size)
                 case .wave(_, let rect): WaveView(rect: rect)
                 case .fly(_, let key, let from, let to): FlyView(key: key, from: from, to: to)
+                case .shatter(_, let at, let foe): ShatterView(at: at, foe: foe)
                 }
             }
             if let d = vm.drag, let from = vm.arrowFrom {
@@ -54,6 +55,35 @@ private struct SparkView: View {
         Circle().fill(Theme.ember2).frame(width: size, height: size).shadow(color: Theme.ember2, radius: 3)
             .position(at).offset(x: on ? dx : 0, y: on ? dy : 0).opacity(on ? 0 : 1)
             .onAppear { withAnimation(.easeOut(duration: 0.7 + .random(in: 0...0.4))) { on = true } }
+    }
+}
+/// A white flash and fourteen shards flying out of a broken portrait.
+private struct ShatterView: View {
+    let at: CGPoint, foe: Bool
+    @State private var on = false
+    private struct Shard: Identifiable { let id: Int; let w: CGFloat, h: CGFloat, dx: CGFloat, dy: CGFloat, rot: Double, dur: Double, color: Color }
+    @State private var shards: [Shard] = []
+    var body: some View {
+        ZStack {
+            Circle().fill(RadialGradient(colors: [.white, Color(hex: "#ffdcc8").opacity(0.7), .white.opacity(0)], center: .center, startRadius: 0, endRadius: 35))
+                .frame(width: 70, height: 70).scaleEffect(on ? 1.8 : 0.4).opacity(on ? 0 : 1).position(at)
+                .animation(.easeOut(duration: 0.38), value: on)
+            ForEach(shards) { sh in
+                RoundedRectangle(cornerRadius: 2).fill(sh.color).frame(width: sh.w, height: sh.h).shadow(color: .black.opacity(0.6), radius: 2)
+                    .rotationEffect(.degrees(on ? sh.rot : 0)).scaleEffect(on ? 0.3 : 1)
+                    .position(at).offset(x: on ? sh.dx : 0, y: on ? sh.dy : 0).opacity(on ? 0 : 1)
+                    .animation(.timingCurve(0.2, 0.7, 0.4, 1, duration: sh.dur), value: on)
+            }
+        }
+        .onAppear {
+            let cols: [Color] = foe ? [Color(hex: "#8a5a9a"), Color(hex: "#c08ad0"), Color(hex: "#5a2a26")] : [Color(hex: "#4a8ad0"), Color(hex: "#9fd0ff"), Color(hex: "#2a3a5a")]
+            shards = (0..<14).map { i in
+                let a = Double(i) / 14 * .pi * 2 + .random(in: 0...0.4), d = CGFloat.random(in: 40...95), w = CGFloat.random(in: 5...13)
+                return Shard(id: i, w: w, h: w * .random(in: 0.6...1.4), dx: cos(a) * d, dy: sin(a) * d + 18, rot: .random(in: -270...270), dur: .random(in: 0.65...0.95), color: cols[i % 3])
+            }
+            // A frame later, so the shards first exist at the centre and then fly (set together, they would start gone).
+            DispatchQueue.main.async { on = true }
+        }
     }
 }
 private struct WaveView: View {

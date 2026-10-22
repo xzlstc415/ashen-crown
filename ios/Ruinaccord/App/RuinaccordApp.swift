@@ -28,6 +28,8 @@ enum DebugLaunch {
         let args = ProcessInfo.processInfo.arguments
         func value(_ flag: String) -> String? { args.firstIndex(of: flag).flatMap { args[safe: $0 + 1] } }
         if let l = value("-lang").flatMap(Lang.init(rawValue:)) { vm.lang = l }
+        // -signin: the sign-in screen, for a look at its layout
+        if args.contains("-signin") { (vm.backend as? LocalBackend)?.debugSignOut() }
         guard let s = value("-screen") else { return }
         Task { @MainActor in
             // Wait for the account to be ready (pass -local with Firebase configured).
@@ -53,6 +55,7 @@ enum DebugLaunch {
             if vm.state?.mulligan == true && !args.contains("-mull") { vm.confirmMulligan() }
             // -choice: the Graveyard Summoner's offer, for a look at the dialog
             if args.contains("-choice"), vm.state != nil { vm.choice = Choice(offer: ["goblin", "golem", "ogre", "treant", "eel"], n: 2) }
+            if args.contains("-shatter"), vm.state != nil { Task { try? await Task.sleep(for: .seconds(2)); vm.debugShatter() } }
             if args.contains("-rite"), vm.state != nil { vm.state?.p.rites = 3; vm.choice = Choice(offer: vm.state!.riteOffer(), n: 1, rite: true) }
             // -fatigue: your deck is empty and you are at 1 health, then the turn ends (the fatigue draw must end the game)
             if args.contains("-fatigue"), vm.state != nil {

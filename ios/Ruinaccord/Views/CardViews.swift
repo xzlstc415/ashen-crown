@@ -349,7 +349,7 @@ struct HeroFace: View {
         let portrait: HeroClass? = !foe ? vm.curClass : (s.mode != .camp ? vm.enemyClass : nil)
         let initials = foe && s.mode == .camp ? tx.name(GameData.shared.opponents[s.stage].initials) : tx.heroInit
         let target = vm.isValidTarget(id), aimed = vm.aimed == id || vm.drag?.over == id
-        let k = size / 50
+        let k = size / 50, dying = vm.dying.contains(side)
         return AnyView(ZStack {
             Circle().fill(RadialGradient(colors: foe ? [Color(hex: "#5a2a26"), Color(hex: "#1e0e0c")] : [Color(hex: "#4a3a5a"), Color(hex: "#1b1422")], center: UnitPoint(x: 0.4, y: 0.35), startRadius: 0, endRadius: 30 * k))
             if let portrait { Image(portrait.artName).resizable().scaledToFill().frame(width: size - 4, height: size - 4).clipShape(Circle()) }
@@ -361,11 +361,15 @@ struct HeroFace: View {
         .overlay(Circle().stroke(aimed || target ? Theme.blood : .clear, lineWidth: aimed ? 3 : 2).padding(-4))
         .shadow(color: aimed ? Theme.blood.opacity(0.85) : .clear, radius: aimed ? 9 : 0)
         .shake(tick: vm.hitTick[id] ?? 0)
+        // Game over: the beaten portrait flares, swells and breaks apart (the shards are drawn by the FX layer).
+        .overlay(Circle().fill(Color.white.opacity(dying ? 0.9 : 0)).animation(.easeOut(duration: 0.3), value: dying))
+        .scaleEffect(dying ? 1.55 : 1).opacity(dying ? 0 : 1)
+        .animation(.easeIn(duration: 0.6).delay(0.1), value: dying)
         .overlay(alignment: .top) { FloatStack(eid: id) }
         .reportFrame { vm.frames[id] = $0 }
         .contentShape(Circle())
         .onTapGesture { vm.tap(id) }
-        .accessibilityLabel(Text("\(name), \(h.hp), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana)")))
+        .accessibilityLabel(Text("\(name), \(max(0, h.hp)), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana)")))
     }
 }
 

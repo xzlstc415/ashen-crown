@@ -336,6 +336,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .orb{position:fixed;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle,#fff 15%,var(--c) 50%,transparent 72%);box-shadow:0 0 16px 5px var(--c);z-index:30;pointer-events:none}
 .burst{position:fixed;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:3px solid var(--c,#f3c97a);pointer-events:none;z-index:30}
 .spark{position:fixed;border-radius:50%;background:#f39a3a;box-shadow:0 0 6px #f39a3a;pointer-events:none;z-index:30}
+.flash{position:fixed;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;background:radial-gradient(circle,#fff 0%,rgba(255,220,200,.7) 40%,rgba(255,255,255,0) 70%);pointer-events:none;z-index:31}
+.shard{position:fixed;border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,.6);pointer-events:none;z-index:31}
+.face.dead{animation:facedie .75s .15s ease-in forwards}
+@keyframes facedie{0%{transform:scale(1)}15%{transform:scale(1.1) translate(-3px,0);filter:brightness(1.4) saturate(.4)}30%{transform:scale(1.16) translate(3px,0);filter:brightness(1.8) saturate(.2)}100%{transform:scale(1.55);opacity:0;filter:brightness(2.5)}}
+@media (prefers-reduced-motion:reduce){.face.dead{animation:none;opacity:.35}}
 .wave{position:fixed;border-radius:12px;pointer-events:none;z-index:30;background:linear-gradient(90deg,transparent,rgba(243,154,58,.65),transparent);background-size:45% 100%;background-repeat:no-repeat}
 .banner{position:fixed;left:0;right:0;top:40%;z-index:40;pointer-events:none;text-align:center;font-family:var(--display);font-size:30px;color:var(--parch);
   padding:12px 0;background:linear-gradient(90deg,transparent,rgba(20,17,24,.94) 22%,rgba(20,17,24,.94) 78%,transparent);border-block:1.5px solid var(--gold)}
@@ -1629,6 +1634,20 @@ function burst(x,y,c){
   document.body.appendChild(b);
   b.animate([{transform:'scale(.2)',opacity:1},{transform:'scale(1.7)',opacity:0}],{duration:420,easing:'ease-out'}).finished.then(()=>b.remove());
 }
+// A hero's portrait breaks apart: a white flash, then shards of its frame colour fly out and fade.
+function shatter(x,y,foe){
+  if(RM)return;
+  const f=document.createElement('div');f.className='flash';f.style.left=x+'px';f.style.top=y+'px';document.body.appendChild(f);
+  f.animate([{transform:'scale(.4)',opacity:1},{transform:'scale(1.8)',opacity:0}],{duration:380,easing:'ease-out'}).finished.then(()=>f.remove());
+  const cols=foe?['#8a5a9a','#c08ad0','#5a2a26']:['#4a8ad0','#9fd0ff','#2a3a5a'];
+  for(let i=0;i<14;i++){
+    const b=document.createElement('div');b.className='shard';const s=5+Math.random()*8,a=(i/14)*Math.PI*2+Math.random()*.4,d=40+Math.random()*55;
+    Object.assign(b.style,{width:s+'px',height:s*(0.6+Math.random()*0.8)+'px',left:(x-s/2)+'px',top:(y-s/2)+'px',background:cols[i%3]});
+    document.body.appendChild(b);
+    b.animate([{transform:'translate(0,0) rotate(0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d+18}px) rotate(${Math.random()*540-270}deg) scale(.3)`,opacity:0}],
+      {duration:650+Math.random()*300,easing:'cubic-bezier(.2,.7,.4,1)'}).finished.then(()=>b.remove());
+  }
+}
 function sparks(x,y,n=5){
   if(RM)return;
   for(let i=0;i<n;i++){
@@ -2041,8 +2060,8 @@ function cleanup(){
     S.over=true;
     const won=S.e.hp<=0&&S.p.hp>0;
     if(won)say('sinks',()=>heroName(S.e));else say('falls');
-    const e=elOf(won?'e:h':'p:h');
-    if(e&&!RM){const [x,y]=center(e);burst(x,y,'#f3c97a');setTimeout(()=>burst(x,y,'#cf4a3f'),150);sparks(x,y,10)}
+    for(const sd of ['p','e'].filter(k=>S[k].hp<=0)){const e=elOf(sd+':h');
+      if(e&&!RM){const [x,y]=center(e);burst(x,y,'#f3c97a');setTimeout(()=>{burst(x,y,'#cf4a3f');shatter(x,y,sd==='e')},150);sparks(x,y,10)}}
     if(S.mode==='quick'){if(won)Q.w++;else Q.l++}
     if(S.mode==='online'){S.result=S.p.hp<=0&&S.e.hp<=0?'draw':won?'win':'lose';if(S.result==='win')O.w++;else if(S.result==='lose')O.l++;O.concedeArm=false}
     const me=S;
@@ -2054,7 +2073,7 @@ function cleanup(){
       else if(R.stage===OPP.length-1)view='champ';
       else{view='reward';picks=rollRewards(R.stage)}
       render();
-    },1300);
+    },1700);
   }
 }
 function after(){cleanup();netFlush();render()}
@@ -2721,8 +2740,8 @@ function heroHTML(s){
   const id=idOf(s),foe=s.side==='e',name=heroName(s);
   const init=foe&&S.mode==='camp'?OPP[R.stage].i[li()]:T('heroInit');
   const portrait=!foe?CBY[R.cls]:S.mode!=='camp'?CBY[S.ecls]:null;
-  const face=`<button class="face${tclass(id)}" data-t="${id}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
-    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
+  const face=`<button class="face${tclass(id)}${S.over&&s.hp<=0?' dead':''}" data-t="${id}" aria-label="${T('hpAria',name,Math.max(0,s.hp))}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
+    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${Math.max(0,s.hp)}</span></button>`;
   const info=`<div class="hinfo"><span class="hname">${name}</span>${crystals(s)}
     <span class="meta">${T('handDeck',s.hand.length,s.deck.length)}</span>${resHTML(s)}</div>`;
   let power;
@@ -2800,8 +2819,8 @@ function railHero(s){
   const id=idOf(s),foe=s.side==='e',name=heroName(s);
   const init=foe&&S.mode==='camp'?OPP[R.stage].i[li()]:T('heroInit');
   const portrait=!foe?CBY[R.cls]:S.mode!=='camp'?CBY[S.ecls]:null;
-  const face=`<button class="face${tclass(id)}" data-t="${id}" title="${name}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
-    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
+  const face=`<button class="face${tclass(id)}${S.over&&s.hp<=0?' dead':''}" data-t="${id}" title="${name}" aria-label="${T('hpAria',name,Math.max(0,s.hp))}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
+    ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${Math.max(0,s.hp)}</span></button>`;
   const mana=`<div><div class="lmana${s.mana?'':' none'}" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${s.mana}<small>/${s.maxMana}</small></div>
     <div class="lsm${BETA&&smCap(s)?' bsm':''}" title="${BETA&&smCap(s)?SMH():''}">${BETA?(smCap(s)?`${'<i></i>'.repeat(s.sm||0)}${'<i class="off"></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}</b>`:''):'<i></i>'.repeat(s.sm||0)}</div></div>`;
   let power;

@@ -58,9 +58,10 @@ enum FXItem: Identifiable {
     case spark(id: UUID, at: CGPoint, dx: CGFloat, dy: CGFloat, size: CGFloat)
     case wave(id: UUID, rect: CGRect)
     case fly(id: UUID, key: String, from: CGRect, to: CGPoint)
+    case shatter(id: UUID, at: CGPoint, foe: Bool)
     var id: UUID {
         switch self {
-        case .orb(let id, _, _, _), .burst(let id, _, _), .spark(let id, _, _, _, _), .wave(let id, _), .fly(let id, _, _, _): return id
+        case .orb(let id, _, _, _), .burst(let id, _, _), .spark(let id, _, _, _, _), .wave(let id, _), .fly(let id, _, _, _), .shatter(let id, _, _): return id
         }
     }
 }
@@ -168,6 +169,8 @@ final class GameVM {
     private(set) var gameToken = UUID()
     var zoomCard: String?
     var peekItem: HistItem?
+    /// Heroes whose portrait is breaking apart at game over.
+    var dying: Set<Side> = []
     var deaths: Set<EID> = []
     var lastEnemyMinion: (uid: Int, hist: UUID)?
 
@@ -439,7 +442,7 @@ final class GameVM {
 
     private func resetDuelUI() {
         log = nil; pending = nil; sel = nil; busy = false; hist = []; floats = []; hitTick = [:]; drewCount = 0
-        reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil; choice = nil
+        reveal = nil; aimed = nil; lungeOffset = [:]; fx = []; dying = []; hiddenHand = nil; deaths = []; lastEnemyMinion = nil; choice = nil
         gameToken = UUID(); mullPicks = []; mullMine = nil; mullCont = nil; hsel = nil; handPeek = false; drag = nil; showLog = false; infoKey = nil
     }
 
@@ -512,6 +515,15 @@ final class GameVM {
         let id = UUID()
         fx.append(.burst(id: id, at: p, color: color))
         Task { await wait(450); fx.removeAll { $0.id == id } }
+    }
+    /// Debug launches (`-shatter`): your portrait breaks apart without a game over.
+    func debugShatter() { if let c = center(.hero(.p)) { shatter(at: c, foe: false); dying.insert(.p) } }
+    /// The portrait breaks apart (game over): a flash, then shards of its frame colour fly out.
+    func shatter(at p: CGPoint, foe: Bool) {
+        guard !reduceMotion else { return }
+        let id = UUID()
+        fx.append(.shatter(id: id, at: p, foe: foe))
+        Task { await wait(1100); fx.removeAll { $0.id == id } }
     }
     func sparks(at p: CGPoint, n: Int = 5) {
         guard !reduceMotion else { return }
@@ -596,9 +608,12 @@ final class GameVM {
     private func onGameOver() {
         if abandoned { return }
         let won = S.result == .win
-        if let c = center(won ? .hero(.e) : .hero(.p)) {
-            burst(at: c, color: Color(hex: "#f3c97a")); sparks(at: c, n: 10)
-            Task { await wait(150); burst(at: c, color: Theme.blood) }
+        // Every hero at 0 Health (both, in an online draw) flashes, bursts and shatters before the result shows.
+        for l in [Side.p, .e] where S[l].hp <= 0 {
+            if let c = center(.hero(l)) {
+                burst(at: c, color: Color(hex: "#f3c97a")); sparks(at: c, n: 10)
+                Task { await wait(150); burst(at: c, color: Theme.blood); shatter(at: c, foe: l == .e); dying.insert(l) }
+            } else { dying.insert(l) }
         }
         switch S.mode {
         case .quick:
@@ -613,7 +628,7 @@ final class GameVM {
         }
         let snapshot = state
         Task {
-            await wait(1300)
+            await wait(1700)
             guard let cur = state, let snap = snapshot, cur.over, cur.round == snap.round, cur.mode == snap.mode else { return }
             switch cur.mode {
             case .quick: go(.qresult)
