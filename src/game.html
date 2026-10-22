@@ -132,6 +132,9 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   background:#120d16;color:#f3e9d4;display:block;box-shadow:0 .25em 0 #0009;text-align:center;font-family:var(--body);transition:transform .15s}
 .card.s{border-color:#6c58b8}
 .card.leg{border-color:#e8b24a}.card.uniq{border-color:#a35ad6}
+/* Every laid-out card keeps the same room around itself for the painted frames' ornaments (medallion above, cloth
+   on the left), so framed and plain cards take one slot size and never crowd each other or the chrome. */
+.coll .card,.gal .card,.picks .card,.pcards .card,.mcards .card,.lprev .card{margin:2.7em 1em 1.6em 2.1em}
 /* Legendaries wear the painted gold frame, one-copy class epics the purple one (img/frame_*.png, cut out in the
    middle). Its opening sits on the card's edge (a quarter em in), so the ornaments hang outside and cover neither
    the art nor the rules; sizes come from the opening geometry art/frames/build_frames.py prints. */
@@ -180,7 +183,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.35) 50%,transparent 65%);background-size:250% 100%;animation:shine 3.2s linear infinite}
 @keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
 
-.hand{display:flex;gap:7px;overflow-x:auto;padding:12px 6px 8px;margin-inline:-6px;scrollbar-width:thin}
+.hand{display:flex;gap:7px;overflow-x:auto;padding:26px 10px 16px 20px;margin-inline:-6px;scrollbar-width:thin}
 .hand .card.play{box-shadow:0 0 0 .22em var(--ready),0 0 .9em rgba(127,209,127,.5),0 .25em 0 #0009}
 .hand .card.play:hover,.hand .card.play:active{transform:translateY(-6px)}
 .hand .card.off{filter:grayscale(.5) brightness(.65)}
@@ -205,7 +208,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .rules li{padding-left:14px;position:relative}
 .rules li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--ember)}
 .rules b{color:var(--parch)}
-.picks{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding-top:8px}
+.picks{display:flex;gap:2px;justify-content:center;flex-wrap:wrap;padding-top:8px}
 .picks .card:hover{transform:translateY(-6px)}
 .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .fan{display:flex;justify-content:center;height:160px;margin-top:6px;overflow-x:clip;max-width:100%}
@@ -287,7 +290,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 @media (max-width:640px){.packs{grid-template-columns:1fr}}
 .pack{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--tc);border-radius:12px;padding:10px;display:grid;gap:8px;justify-items:center}
 .pack h3{margin:0;color:var(--tc);font-size:16px}
-.pcards{display:flex;gap:8px;justify-content:center}
+.pcards{display:flex;gap:2px;justify-content:center}
 .phint{margin:0;font-size:12.5px;color:var(--muted);text-align:center}.phint b{color:var(--tc)}
 .tvl{list-style:none;margin:0;padding:0;display:grid;gap:6px;text-align:left;max-width:460px}
 .tvl li{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--tc);border-radius:8px;padding:6px 9px;font-size:12.5px}
@@ -322,9 +325,9 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .chips{display:flex;gap:5px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
 .chip.on{background:var(--line);color:var(--parch)}
-.coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(94px,1fr));gap:12px 8px;justify-items:center;padding:6px 0 20px}
+.coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:2px 2px;justify-items:center;padding:6px 0 20px}
 .cslot{position:relative}
-.cslot .badge{position:absolute;top:-6px;right:-6px;z-index:2;min-width:20px;height:20px;border-radius:10px;background:var(--ready);color:#10200f;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 4px}
+.cslot .badge{position:absolute;top:19px;right:3px;z-index:2;min-width:20px;height:20px;border-radius:10px;background:var(--ready);color:#10200f;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 4px}
 .cslot.clsc .card{box-shadow:0 0 0 .22em var(--cc),0 0 .8em color-mix(in srgb,var(--cc) 55%,transparent),0 .25em 0 #0009}
 .cslot .card[disabled]{filter:grayscale(.7) brightness(.55);cursor:default}
 .bfoot{position:sticky;bottom:0;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;background:linear-gradient(transparent,var(--bg) 30%);
@@ -337,7 +340,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 :is(:lang(zh),:lang(ja)) .ghead h2{font-weight:600;font-size:23px}
 .gsub{font-size:13px;color:var(--muted);margin:0}
 .gsec{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:14px 0 2px;font-weight:800}
-.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 12px;padding:12px 0 24px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(186px,1fr));gap:10px 4px;padding:12px 0 24px}
 .gitem{display:grid;justify-items:center;gap:8px;min-width:0}
 .gmeta{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
 .flav{margin:0;font-size:12.5px;font-style:italic;line-height:1.4;color:#c4b9c0;text-align:center;max-width:15em}
@@ -388,7 +391,7 @@ svg{-webkit-user-drag:none}
   #app{gap:4px}.brand{font-size:18px}.top{gap:6px}
   .card.sm{font-size:8.6px}.min{width:54px;height:80px}.board{gap:6px}
   .hero{padding:5px 8px;gap:8px}.face{width:44px;height:44px}.power{width:52px;height:52px;font-size:9.5px}
-  .coll{grid-template-columns:repeat(auto-fill,minmax(86px,1fr))}
+  .coll{grid-template-columns:repeat(auto-fill,minmax(116px,1fr))}
 }
 @media (max-height:700px) and (max-width:520px){
   .board{min-height:90px;padding:2px 0}.hist{min-height:26px}.hchip{width:26px;height:26px}.hand{padding-top:10px}.mid{min-height:22px}
@@ -433,7 +436,7 @@ svg{-webkit-user-drag:none}
 .lprev .btn{padding:6px 14px;font-size:13px}
 .lprev .who{display:grid;gap:2px;line-height:1.3}
 .lprev .who b{color:var(--parch);font-family:var(--display);font-weight:400}
-.lside .hand{flex:none;margin:0;padding:12px 4px 2px;overflow:visible;justify-content:center;gap:7px}
+.lside .hand{flex:none;margin:0;padding:30px 4px 2px 22px;overflow:visible;justify-content:center;gap:7px}
 .lside .hand .card{font-size:clamp(6px,2.25vh,12.5px)}
 .lside .hand .card+.card{margin-left:var(--ov,0px)}
 .lside .hand .card:hover,.lside .hand .card.pend{z-index:5}
@@ -442,9 +445,9 @@ svg{-webkit-user-drag:none}
 .mull{position:fixed;inset:0;z-index:60;background:rgba(10,7,14,.84);display:grid;place-items:center;padding:12px;overflow:auto}
 .mbox{display:grid;justify-items:center;gap:10px;text-align:center;max-width:720px}
 .mbox h2{margin:0}.mbox p{margin:0;color:var(--muted);font-size:13px;max-width:440px}
-.mcards{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;padding-top:8px}
+.mcards{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;padding-top:8px}
 .mc{position:relative;cursor:pointer}.mc .card{font-size:clamp(7px,2.5vh,10.8px);transition:filter .15s,transform .15s}
-.mcards.many{gap:10px}.mcards.many .mc .card{font-size:min(clamp(7px,2.5vh,10.8px),2.5vw)}
+.mcards.many{gap:0}.mcards.many .mc .card{font-size:min(clamp(7px,2.5vh,10.8px),2.5vw)}
 .mc.x .card{filter:grayscale(.85) brightness(.45);transform:translateY(6px)}
 .mc.pick .card{outline:3px solid var(--ready);transform:translateY(-6px)}
 .mx{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:800;color:var(--blood);pointer-events:none;text-shadow:0 2px 6px #000}

@@ -7,6 +7,20 @@ enum CardSize { case sm, md, big, fit(CGFloat)
     }
 }
 
+/// The room every laid-out card keeps around itself for the painted frames' ornaments (the medallion above, the
+/// cloth on the left), in card units, so framed and plain cards take the same slot and never crowd each other.
+enum CardSlot {
+    static let top: CGFloat = 2.7, leading: CGFloat = 2.1, bottom: CGFloat = 1.6, trailing: CGFloat = 1.0
+    /// A slot's outer size in card units.
+    static let width: CGFloat = 10 + leading + trailing, height: CGFloat = 15.6 + top + bottom
+    static func insets(_ em: CGFloat) -> EdgeInsets { EdgeInsets(top: top * em, leading: leading * em, bottom: bottom * em, trailing: trailing * em) }
+}
+
+extension View {
+    /// Pads a card (drawn at `em`) out to its slot.
+    func cardSlot(_ em: CGFloat) -> some View { padding(CardSlot.insets(em)) }
+}
+
 /// A full card face: art, cost, name plate, rarity gem, rules text and (for minions) stats.
 struct CardView: View {
     let card: Card

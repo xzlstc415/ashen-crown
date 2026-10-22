@@ -643,15 +643,16 @@ struct ChoiceView: View {
         let two = c.rite && (vm.state?.p.rites ?? 0) >= DuelState.riteNeed
         let title = c.rite ? tx.riteTitle : tx.chooseTitle(c.n), sub = c.rite ? tx.riteSub(two ? 2 : 1) : tx.chooseSub, ok = c.rite ? tx.riteOk : tx.chooseOk
         return AnyView(GeometryReader { g in
-            let em = max(6, min(10.8, (g.size.height - 170) / 15.6, (g.size.width - 40 - CGFloat(n - 1) * 18) / (CGFloat(n) * 10)))
+            let em = max(6, min(10.8, (g.size.height - 170) / CardSlot.height, (g.size.width - 40 - CGFloat(n - 1) * 6) / (CGFloat(n) * CardSlot.width)))
             VStack(spacing: 10) {
                 Text(title).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
                 Text(sub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
-                HStack(spacing: 18) {
+                HStack(spacing: 6) {
                     ForEach(Array(c.offer.enumerated()), id: \.offset) { i, k in
                         if let card = GameData.shared.card(k) {
                             let on = c.picks.contains(i)
                             CardView(card: card, size: .fit(em), ring: on ? Theme.ready : .clear)
+                                .cardSlot(em)
                                 .offset(y: on ? -8 : 0)
                                 .contentShape(Rectangle())
                                 .onTapGesture { withAnimation(.easeOut(duration: 0.15)) { vm.toggleChoice(i) } }
@@ -675,15 +676,16 @@ struct MulliganView: View {
         guard let s = vm.state else { return AnyView(EmptyView()) }
         let tx = vm.tx, hand = s.p.hand, n = max(1, hand.count)
         return AnyView(GeometryReader { g in
-            let em = max(6, min(10.8, (g.size.height - 170) / 15.6, (g.size.width - 40 - CGFloat(n - 1) * 18) / (CGFloat(n) * 10)))
+            let em = max(6, min(10.8, (g.size.height - 170) / CardSlot.height, (g.size.width - 40 - CGFloat(n - 1) * 6) / (CGFloat(n) * CardSlot.width)))
             VStack(spacing: 10) {
                 Text(tx.mullTitle).font(Theme.display(22, cjk: vm.lang.isCJK)).foregroundStyle(Theme.parch)
                 Text(tx.mullSub).font(Theme.body(12.5)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 440)
-                HStack(spacing: 18) {
+                HStack(spacing: 6) {
                     ForEach(Array(hand.enumerated()), id: \.offset) { i, k in
                         if let c = GameData.shared.card(k) {
                             let x = vm.mullPicks.contains(i)
                             CardView(card: c, size: .fit(em))
+                                .cardSlot(em)
                                 .saturation(x ? 0.15 : 1).brightness(x ? -0.35 : 0)
                                 .offset(y: x ? 6 : 0)
                                 .overlay { if x { Text("✕").font(.system(size: 44, weight: .heavy)).foregroundStyle(Theme.blood).shadow(radius: 4) } }

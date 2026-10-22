@@ -76,7 +76,7 @@ struct BuilderView: View {
                                 Spacer(minLength: 0)
                             }
                             .frame(height: 30).padding(.leading, 10)
-                            PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 12) { c, s in
+                            PagedGrid(items: list, cellWidth: CardSlot.width * 9.6, cellHeight: CardSlot.height * 9.6, rows: 2, hGap: 2, vGap: 2) { c, s in
                                 let n = Decks.copies(d, c.id), full = n >= c.maxCopies
                                 Button { vm.addCard(c.id) } label: {
                                     CardView(card: c, size: .fit(9.6 * s), ring: full ? .clear : Theme.gold.opacity(0.0), ovr: tt ? gd.overrides(for: vm.q.tal)[c.id] : nil)
@@ -90,6 +90,7 @@ struct BuilderView: View {
                                 }
                                 .buttonStyle(.plain)
                                 .disabled(full)
+                                .cardSlot(9.6 * s)
                                 .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
                                 .accessibilityLabel(Text("\(tx.name(c.names)), \(c.cost)"))
                             }
