@@ -4,8 +4,8 @@ import Foundation
 extension DuelState {
     var aiEasy: Bool { mode == .quick && diff == .easy }
 
-    func aiDamageTarget(_ n: Int, _ tgt: Target?) -> EID? {
-        let foes = p.board
+    func aiDamageTarget(_ n: Int, _ tgt: Target?, phys: Bool = false) -> EID? {
+        let foes = p.board.filter { !phys || !isEther($0.id) }
         if aiEasy && Bool.random() {
             let o = tgt == .minion ? foes.map(\.id) : [p.id] + foes.map(\.id)
             return o.randomElement()
@@ -128,7 +128,7 @@ extension DuelState {
         let pw = e.power
         if aiEasy || e.mana < pcost(.e) { return nil }
         let fx = pw.fx
-        if fx.dmg > 0 { if let t = aiDamageTarget(fx.dmg + powerBonus(.e), pw.tgt) { return .some(t) }; return nil }
+        if fx.dmg > 0 { if let t = aiDamageTarget(fx.dmg + powerBonus(.e), pw.tgt, phys: true) { return .some(t) }; return nil }
         if fx.healT > 0 {
             let cands = ([e.id] + e.board.map(\.id)).filter { hp($0) < maxHp($0) }
             if let t = cands.max(by: { (maxHp($0) - hp($0)) < (maxHp($1) - hp($1)) }) { return .some(t) }
@@ -145,7 +145,8 @@ extension DuelState {
     }
 
     func aiAttackTarget(_ m: Minion) -> EID {
-        let opts = attackTargets(.e)
+        let opts = attackTargets(.e).filter { !isEther($0) }
+        if opts.isEmpty { return p.id }
         if aiEasy && Bool.random(), let r = opts.randomElement() { return r }
         if p.board.contains(where: { $0.hasGuard }) {
             let kills = opts.filter { !(minion($0)?.ward ?? false) && hp($0) <= m.atk }
@@ -154,7 +155,7 @@ extension DuelState {
         }
         let lethal = e.board.filter(canAttack).reduce(0) { $0 + $1.atk } >= p.hp + p.armor
         if lethal { return p.id }
-        let kills = p.board.filter { !$0.ward && $0.hp <= m.atk }
+        let kills = p.board.filter { !$0.ward && !isEther($0.id) && $0.hp <= m.atk }
         if let free = kills.filter({ $0.atk < m.hp }).max(by: { $0.atk < $1.atk }), free.atk >= 2 { return free.id }
         if let big = kills.filter({ $0.atk >= m.atk && $0.atk >= 3 }).max(by: { $0.atk < $1.atk }) { return big.id }
         return p.id

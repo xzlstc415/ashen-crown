@@ -170,7 +170,7 @@ enum LogEntry: Hashable {
 enum FloatKind: Hashable {
     case dmg(Int), armorAbsorb(Int), ward, heal(Int), armorGain(Int), atkUp(Int), hpUp(Int)
     case frozen, silenced, destroyed, stats(Int, Int)
-    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int)
+    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int), ether
     var isHit: Bool { switch self { case .dmg, .armorAbsorb, .ward: return true; default: return false } }
 }
 
@@ -436,6 +436,7 @@ struct DuelState: Codable {
             if b > 0 { self[side].fero = Swift.min(Self.feroCap, self[side].fero + b); float(.hero(side), .light(b)) }
         }
         for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].isFrozen }
+        haunt(side)
         tickAltar(side, 1)
         // Whoever goes first skips the draw on the opening turn.
         if opened { draw(side, 1) } else { opened = true }
@@ -472,8 +473,11 @@ struct DuelState: Codable {
         return m
     }
 
-    mutating func damage(_ id: EID, _ n: Int, pierce: Bool = false) {
+    /// Ethereal minions (Wraith Ferryman) take no damage from attacks or hero powers (`phys`); spells and card effects hurt them.
+    func isEther(_ id: EID) -> Bool { minion(id).map { $0.card.ether && !$0.silenced } ?? false }
+    mutating func damage(_ id: EID, _ n: Int, pierce: Bool = false, phys: Bool = false) {
         guard n > 0 else { return }
+        if phys && isEther(id) { float(id, .ether); return }
         var n = n
         let own = id.side
         if id.isHero { addRage(own, 1) }
@@ -501,6 +505,19 @@ struct DuelState: Codable {
                 if !self[own].board[i].bled && tal(own, "wa_bloodied") { self[own].board[i].bled = true; self[own].board[i].atk += 1 }
             }
         }
+    }
+
+    /// Wraith Ferryman: at the start of its owner's turn, one minion of the grave returns to the hand. The pick is
+    /// a hash of the state rather than a random draw so both copies of an online match agree.
+    mutating func haunt(_ side: Side) {
+        guard self[side].board.contains(where: { $0.card.haunt && !$0.silenced }) else { return }
+        let s = self[side]
+        let g = s.grave.indices.filter { Self.gd.card(s.grave[$0])?.token == false }
+        guard !g.isEmpty, s.hand.count < 10 else { return }
+        let i = g[(s.deck.count * 7 + s.hand.count * 13 + s.grave.count * 3 + s.hp + s.maxMana * 11) % g.count]
+        let k = self[side].grave.remove(at: i)
+        self[side].hand.append(k); self[side].hb.append(0)
+        float(.hero(side), .named(k))
     }
 
     /// Restores Health (never above the maximum), floating the amount actually healed.
@@ -779,8 +796,8 @@ struct DuelState: Codable {
         if fx.dmgBeast > 0 && self[side].board.contains(where: { $0.card.race == "beast" }) { dmg = fx.dmgBeast }
         if fx.armorDmg { dmg = self[side].armor + fx.plus }
         if fx.dealsDamage, let t {
-            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce && t.isHero)
-            if fx.splash > 0, let mt { for m in self[op].board where m.id != mt { damage(m.id, fx.splash) } }
+            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce && t.isHero, phys: isPower)
+            if fx.splash > 0, let mt { for m in self[op].board where m.id != mt { damage(m.id, fx.splash, phys: isPower) } }
             if fx.drawIfKill, let mt, (minion(mt)?.hp ?? 0) <= 0 { draw(side, 1) }
         }
         if let t = mt, let uid = t.uid, let i = self[t.side].board.firstIndex(where: { $0.uid == uid }) {
@@ -814,7 +831,7 @@ struct DuelState: Codable {
                 if self[t.side].hand.count < 10 { self[t.side].hand.append(m.key) }
             }
         }
-        if fx.aoe > 0 { for m in self[op].board { damage(m.id, fx.aoe + bonus) } }
+        if fx.aoe > 0 { for m in self[op].board { damage(m.id, fx.aoe + bonus, phys: isPower) } }
         if fx.face > 0 { damage(.hero(op), fx.face + bonus + faceBonus, pierce: fx.pierce) }
         if fx.sweep > 0 {
             for m in self[side].board + self[op].board { damage(m.id, fx.sweep + bonus + (m.side != side ? fx.foeExtra : 0)) }
@@ -857,9 +874,9 @@ struct DuelState: Codable {
         guard let m = minion(attacker) else { return }
         log(.attacks(name(attacker), name(target)))
         let rip = target.isHero && self[target.side].armor > 0 && tal(target.side, "wa_counter")
-        damage(target, m.atk)
-        if rip { damage(attacker, 1) }
-        if !target.isHero, let t = minion(target) { damage(attacker, t.atk) }
+        damage(target, m.atk, phys: true)
+        if rip { damage(attacker, 1, phys: true) }
+        if !target.isHero, let t = minion(target) { damage(attacker, t.atk, phys: true) }
         if let i = self[attacker.side].board.firstIndex(where: { $0.uid == attacker.uid }) { self[attacker.side].board[i].attacked = true }
     }
 

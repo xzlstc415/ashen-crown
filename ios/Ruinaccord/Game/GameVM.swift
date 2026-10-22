@@ -289,6 +289,7 @@ final class GameVM {
         case .soulPay: return (tx.fSoulPay, Color(hex: "#c4b4ff"))
         case .fero: return (tx.fFero, Color(hex: "#9ad48a"))
         case .rite(let n): return (tx.fRite(n), Theme.blood)
+        case .ether: return (tx.fEther, Color(hex: "#c4b4ff"))
         }
     }
 

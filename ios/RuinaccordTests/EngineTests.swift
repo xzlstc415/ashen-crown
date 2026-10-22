@@ -101,6 +101,19 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.p.hand.count, 2); XCTAssertEqual(s.p.grave.count, 5); XCTAssertEqual(s.p.hb.count, 2)
         XCTAssertEqual(s.aiReclaim(.p, 2).count, 2); XCTAssertEqual(s.p.hand.count, 4)
         XCTAssertEqual(gd.card("gravecaller")?.bc?.reclaim, 2)
+        // Wraith Ferryman: Ethereal shrugs off attacks and hero powers, not spells; each turn it ferries a dead minion back.
+        s.p.board = []; s.e.board = []; s.p.hand = []; s.p.hb = []; s.p.grave = ["minnow", "ogre"]; s.turn = .e
+        s.summon(.p, "gravecaller"); s.summon(.e, "ogre")
+        let wraith = s.p.board[0].id
+        s.attack(s.e.board[0].id, wraith); XCTAssertEqual(s.p.board[0].hp, 3, "no attack damage"); XCTAssertEqual(s.e.board[0].hp, gd.card("ogre")!.hp! - 3, "but it still strikes back")
+        var bolt = Effect(); bolt.dmg = 1; bolt.tgt = .any
+        s.applyFx(.e, bolt, wraith, isPower: true); XCTAssertEqual(s.p.board[0].hp, 3, "no hero power damage")
+        s.applyFx(.e, bolt, wraith); XCTAssertEqual(s.p.board[0].hp, 2, "spells hurt it")
+        s.turn = .p; s.startTurn(.p)
+        XCTAssertTrue(s.p.hand.contains("ogre"), "the token stays, the minion comes back"); XCTAssertEqual(s.p.grave, ["minnow"])
+        s.silence(wraith); s.turn = .e; s.startTurn(.e); s.turn = .p; s.p.grave = ["ogre"]; s.startTurn(.p)
+        XCTAssertEqual(s.p.grave, ["ogre"], "silenced: nothing ferried")
+        s.p.board = []; s.e.board = []; s.p.hand = []; s.p.hb = []; s.p.grave = []
         // Blood Rite: the rest of the hand is sacrificed, a chosen Legendary is copied in and costs (0); the third Rite copies twice.
         s.p.hand = ["bloodrite", "goblin", "ogre"]; s.p.hb = [0, 0, 0]; s.p.mana = 2; s.p.spellMana = 0; s.p.armor = 0
         XCTAssertTrue(gd.card("bloodrite")!.rite); XCTAssertFalse(gd.card("bloodrite")!.isMinion)

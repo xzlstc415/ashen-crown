@@ -105,6 +105,8 @@ struct Card: Codable, Identifiable, Hashable {
     let pw: Int                 // hero power damage bonus while on the board
     let beta: Bool
     let rite: Bool              // Blood Rite: sacrifices the hand for a free copy of a Legendary
+    let ether: Bool             // Ethereal: no damage from attacks or hero powers
+    let haunt: Bool             // at the start of its owner's turn, a minion of the grave returns to the hand
 
     var isMinion: Bool { type == .minion }
     var isLegendary: Bool { rarity == "l" }
@@ -113,7 +115,7 @@ struct Card: Codable, Identifiable, Hashable {
     var isTargetedSpell: Bool { !isMinion && fx?.tgt != nil }
     var maxCopies: Int { isLegendary ? 1 : 2 }
     var artName: String { "art_\(id)" }
-    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite }
+    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt }
     func allowed(for cls: String?) -> Bool { self.cls == nil || cls == nil || self.cls == cls }
 }
 

@@ -417,6 +417,7 @@ struct Tx {
     func souls(_ n: Int) -> String { pick("Souls \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)") }
     func light(_ n: Int) -> String { pick("Light \(n)/\(DuelState.lightCap)", "圣光 \(n)/\(DuelState.lightCap)", "聖光 \(n)/\(DuelState.lightCap)") }
     var fSoulPay: String { pick("Souls spent", "魂代血", "魂で支払う") }
+    var fEther: String { pick("Ethereal", "虚体", "霊体") }
     func fRite(_ n: Int) -> String { pick("Sacrificed \(n)", "献祭\(n)张", "生贄\(n)枚") }
     func rites(_ n: Int) -> String { pick("Rites \(n)", "血祭 \(n)", "儀式 \(n)") }
     var riteTitle: String { pick("Blood Rite: choose a Legendary", "血祭：任选一张传说牌", "血の儀式：伝説カードを選ぶ") }
@@ -470,9 +471,9 @@ struct Tx {
     /// Keywords that get bolded in card text.
     var keywords: [String] {
         switch lang {
-        case .en: return ["Guard", "Ward", "Charge", "On play", "Last breath", "Freeze", "Silence", "Spell Damage", "Prayer"]
-        case .zh: return ["守护", "护盾", "冲锋", "登场", "遗言", "冻结", "沉默", "法术伤害", "祷文"]
-        case .ja: return ["ガード", "結界", "突撃", "登場時", "断末魔", "凍結", "沈黙", "呪文ダメージ", "祈祷"]
+        case .en: return ["Guard", "Ward", "Charge", "Ethereal", "On play", "Last breath", "Freeze", "Silence", "Spell Damage", "Prayer"]
+        case .zh: return ["守护", "护盾", "冲锋", "虚体", "登场", "遗言", "冻结", "沉默", "法术伤害", "祷文"]
+        case .ja: return ["ガード", "結界", "突撃", "霊体", "登場時", "断末魔", "凍結", "沈黙", "呪文ダメージ", "祈祷"]
         }
     }
     func cardName(_ id: String) -> String { GameData.shared.card(id).map { name($0.names) } ?? id }
