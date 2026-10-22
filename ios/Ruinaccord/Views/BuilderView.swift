@@ -126,25 +126,29 @@ struct DeckList: View {
             if uniq.isEmpty {
                 Text(tx.emptyDeck).font(Theme.body(11)).foregroundStyle(Theme.muted).padding(.top, 6)
             }
-            VStack(spacing: 2) {
-                ForEach(uniq, id: \.self) { k in
-                    if let c = gd.card(k) {
-                        Button { vm.removeCard(k) } label: {
-                            HStack(spacing: 5) {
-                                Text("\(c.cost)").font(Theme.body(9, .heavy)).foregroundStyle(.white).frame(width: 14, height: 14).background(Theme.mana, in: Hexagon())
-                                Text(tx.name(c.names)).font(Theme.body(10.5, .semibold)).foregroundStyle(c.isLegendary ? Theme.gold : Theme.ink).lineLimit(1)
-                                Spacer(minLength: 2)
-                                Text("×\(Decks.copies(deck, k))").font(Theme.body(9.5, .heavy)).foregroundStyle(Theme.gold).monospacedDigit()
+            // The rows scroll inside the panel: a deck of many distinct cards is taller than the
+            // column, and the curve above and the buttons below must stay where they are.
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 2) {
+                    ForEach(uniq, id: \.self) { k in
+                        if let c = gd.card(k) {
+                            Button { vm.removeCard(k) } label: {
+                                HStack(spacing: 5) {
+                                    Text("\(c.cost)").font(Theme.body(9, .heavy)).foregroundStyle(.white).frame(width: 14, height: 14).background(Theme.mana, in: Hexagon())
+                                    Text(tx.name(c.names)).font(Theme.body(10.5, .semibold)).foregroundStyle(c.isLegendary ? Theme.gold : Theme.ink).lineLimit(1)
+                                    Spacer(minLength: 2)
+                                    Text("×\(Decks.copies(deck, k))").font(Theme.body(9.5, .heavy)).foregroundStyle(Theme.gold).monospacedDigit()
+                                }
+                                .padding(.horizontal, 4).frame(height: 15)
+                                .background(Color.black.opacity(0.25), in: RoundedRectangle(cornerRadius: 4))
                             }
-                            .padding(.horizontal, 4).frame(height: 15)
-                            .background(Color.black.opacity(0.25), in: RoundedRectangle(cornerRadius: 4))
+                            .buttonStyle(.plain)
+                            .accessibilityLabel(Text("\(tx.name(c.names)) ×\(Decks.copies(deck, k))"))
                         }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel(Text("\(tx.name(c.names)) ×\(Decks.copies(deck, k))"))
                     }
                 }
             }
-            Spacer(minLength: 0)
+            .frame(maxHeight: .infinity, alignment: .top)
             HStack(spacing: 4) {
                 Button(tx.autoFill) { vm.autoFill() }.ghost(compact: true).frame(maxWidth: .infinity)
                 Button(tx.resetDeck) { vm.resetDeck() }.ghost(compact: true).frame(maxWidth: .infinity)
