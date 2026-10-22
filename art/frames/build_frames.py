@@ -2,8 +2,9 @@
 """Card frames from art/frames/frames_src.png (gold Legendary frame left, purple one-copy Epic frame right).
 
 The middle of each frame is cut out by brightness (dark interior -> transparent, bright ornament -> opaque)
-inside the inner opening, then two straight-edge bands are duplicated so the frame has the card's 10:15.6
-ratio. Writes ios/Ruinaccord/Assets.xcassets/Frames/frame_*.imageset/frame_*.png (512 wide) and
+inside the inner opening, then two straight-edge bands are duplicated so the OPENING has the card's 10:15.6
+ratio: the frame is drawn with its opening on the card's edge, the ornaments hanging outside (the printed
+geometry goes into CardView.swift / the .card.leg CSS). Writes ios/Ruinaccord/Assets.xcassets/Frames/frame_*.imageset/frame_*.png (512 wide) and
 img/frame_*.png (384 wide). Needs Pillow and numpy:  python3 -m venv .venv && .venv/bin/pip install pillow numpy
 """
 import pathlib
@@ -27,13 +28,15 @@ def process(name, half, rect, lo, hi, bands):
     a[..., 3] = np.where(a[..., 3] >= 248, 255, a[..., 3])
     arr = a.astype(np.uint8)
     w, h = arr.shape[1], arr.shape[0]
-    extra = int(round(w / RATIO)) - h; per = extra // len(bands)
+    extra = int(round((x1 - x0) / RATIO)) - (y1 - y0); per = extra // len(bands)
     pieces, prev = [], 0
     for i, y in enumerate(bands):
         pieces.append(arr[prev:y]); n = per if i < len(bands) - 1 else extra - per * (len(bands) - 1)
         pieces.append(arr[y - n // 2:y - n // 2 + n]); prev = y
     pieces.append(arr[prev:])
     out = Image.fromarray(np.concatenate(pieces, axis=0))
+    ow, oh = out.size
+    print(f"{name}: image {ow}x{oh}, opening x {x0/ow:.4f}..{x1/ow:.4f}  y {y0/oh:.4f}..{(y1+extra)/oh:.4f}")
     ios = ROOT / f"ios/Ruinaccord/Assets.xcassets/Frames/frame_{name}.imageset/frame_{name}.png"
     out.resize((512, int(512 / RATIO)), Image.LANCZOS).save(ios, optimize=True)
     out.resize((384, int(384 / RATIO)), Image.LANCZOS).save(ROOT / f"img/frame_{name}.png", optimize=True)

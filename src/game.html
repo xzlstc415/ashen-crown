@@ -133,10 +133,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .card.s{border-color:#6c58b8}
 .card.leg{border-color:#e8b24a}.card.uniq{border-color:#a35ad6}
 /* Legendaries wear the painted gold frame, one-copy class epics the purple one (img/frame_*.png, cut out in the
-   middle); it overhangs the card a little and the rules box moves in to fit its opening. */
-.card.leg::before,.card.uniq::before{content:"";position:absolute;left:-7%;right:-7%;top:-7%;bottom:-7%;background:url(img/frame_gold.png) center/100% 100% no-repeat;pointer-events:none;z-index:1}
-.card.uniq::before{background-image:url(img/frame_purple.png)}
-.card.leg .tbox,.card.uniq .tbox{left:1.15em;right:1.15em;bottom:1.45em;min-height:34%;padding-bottom:.55em}
+   middle). Its opening sits on the card's edge (a quarter em in), so the ornaments hang outside and cover neither
+   the art nor the rules; sizes come from the opening geometry art/frames/build_frames.py prints. */
+.card.leg::before,.card.uniq::before{content:"";position:absolute;background:url(img/frame_gold.png) center/100% 100% no-repeat;pointer-events:none;z-index:1;
+  width:15.36em;height:21.5em;left:-2.75em;top:-2.61em}
+.card.uniq::before{background-image:url(img/frame_purple.png);width:14.45em;height:20.36em;left:-2.29em;top:-1.97em}
 .card.md{font-size:10.8px}.card.big{font-size:14px}
 .card .art{position:absolute;inset:0;border-radius:.62em;overflow:hidden;background:radial-gradient(circle at 50% 28%,#5a4636,#120d16 72%)}
 .card.s .art{background:radial-gradient(circle at 50% 28%,#3d2f6e,#100a20 72%)}
