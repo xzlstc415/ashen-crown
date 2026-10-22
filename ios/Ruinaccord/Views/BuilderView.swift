@@ -47,8 +47,8 @@ struct BuilderView: View {
                     }
                     Spacer(minLength: 4)
                     if !vm.q.toast.isEmpty { Text(vm.q.toast).font(Theme.body(11.5)).foregroundStyle(Theme.ember).lineLimit(1).minimumScaleFactor(0.7) }
-                    if toOnline { Button(tx.useDeck) { vm.useDeckOnline() }.primary(compact: true).disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
-                    else { Button(tx.nextDiff) { vm.toDifficulty() }.primary(compact: true).disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
+                    if toOnline { IconButton(symbol: "checkmark", label: tx.useDeck, primary: true) { vm.useDeckOnline() }.disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
+                    else { IconButton(symbol: "arrow.right", label: tx.nextDiff, primary: true) { vm.toDifficulty() }.disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
                 }
                 .frame(height: 44).padding(.horizontal, 10)
 
@@ -65,9 +65,9 @@ struct BuilderView: View {
                                 Tag(text: "0", on: false) { vm.q.costFilter = 0 }.hidden().frame(width: 0)
                                 Rectangle().fill(Theme.line).frame(width: 1, height: 18).padding(.horizontal, 4)
                                 Tag(text: tx.typeAll, on: vm.q.typeFilter == "all") { vm.q.typeFilter = "all" }
-                                Tag(text: tx.minions, on: vm.q.typeFilter == "m") { vm.q.typeFilter = "m" }
-                                Tag(text: tx.spells, on: vm.q.typeFilter == "s") { vm.q.typeFilter = "s" }
-                                Tag(text: tx.classCards, on: vm.q.typeFilter == "cls") { vm.q.typeFilter = "cls" }
+                                Tag(symbol: "person.fill", label: tx.minions, on: vm.q.typeFilter == "m") { vm.q.typeFilter = "m" }
+                                Tag(symbol: "sparkles", label: tx.spells, on: vm.q.typeFilter == "s") { vm.q.typeFilter = "s" }
+                                Tag(symbol: "shield.fill", label: tx.classCards, on: vm.q.typeFilter == "cls") { vm.q.typeFilter = "cls" }
                                 Spacer(minLength: 0)
                             }
                             .frame(height: 30).padding(.leading, 48)
@@ -149,12 +149,11 @@ struct DeckList: View {
                 }
             }
             .frame(maxHeight: .infinity, alignment: .top)
-            HStack(spacing: 4) {
-                Button(tx.autoFill) { vm.autoFill() }.ghost(compact: true).frame(maxWidth: .infinity)
-                Button(tx.resetDeck) { vm.resetDeck() }.ghost(compact: true).frame(maxWidth: .infinity)
-                Button(tx.clearDeck) { vm.clearDeck() }.ghost(compact: true, danger: true)
+            HStack(spacing: 6) {
+                IconButton(symbol: "wand.and.stars", label: tx.autoFill) { vm.autoFill() }.frame(maxWidth: .infinity)
+                IconButton(symbol: "arrow.counterclockwise", label: tx.resetDeck) { vm.resetDeck() }.frame(maxWidth: .infinity)
+                IconButton(symbol: "trash", label: tx.clearDeck, danger: true) { vm.clearDeck() }.frame(maxWidth: .infinity)
             }
-            .lineLimit(1).minimumScaleFactor(0.6)
         }
         .padding(8)
         .frame(maxHeight: .infinity, alignment: .top)

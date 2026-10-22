@@ -259,7 +259,7 @@ struct DecksView: View {
         let tx = vm.tx
         ScreenShell {
             VStack(spacing: 4) {
-                BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.myDecks, subtitle: vm.q.libToast.isEmpty ? tx.myDecksSub : vm.q.libToast)
+                BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.myDecks, subtitle: vm.q.delArm != nil ? tx.confirmDelete : vm.q.libToast.isEmpty ? tx.myDecksSub : vm.q.libToast)
                 PagedGrid(items: vm.decks.map(DeckOrNew.deck) + [DeckOrNew.new], cellWidth: 118, cellHeight: 300, rows: 1, hGap: 12) { it, _ in
                     switch it {
                     case .deck(let d): DeckStandee(d: d)
@@ -311,8 +311,8 @@ struct DeckStandee: View {
                 VStack(spacing: 5) {
                     Button(tx.playDeck) { vm.playSaved(d.id) }.primary(compact: true).disabled(!ok).opacity(ok ? 1 : 0.4).frame(maxWidth: .infinity)
                     HStack(spacing: 5) {
-                        Button(tx.editShort) { vm.q.delArm = nil; vm.openBuilder(cls: nil, id: d.id) }.ghost(compact: true).frame(maxWidth: .infinity)
-                        Button(arm ? tx.confirmDelete : "✕") { vm.deleteDeck(d.id) }.ghost(compact: true, danger: true).lineLimit(1).minimumScaleFactor(0.6)
+                        IconButton(symbol: "pencil", label: tx.editShort) { vm.q.delArm = nil; vm.openBuilder(cls: nil, id: d.id) }.frame(maxWidth: .infinity)
+                        IconButton(symbol: arm ? "trash.fill" : "trash", label: arm ? tx.confirmDelete : tx.deleteDeck, primary: arm, danger: true) { vm.deleteDeck(d.id) }.frame(maxWidth: .infinity)
                     }
                 }
                 .padding(.horizontal, 7).padding(.bottom, 8)
@@ -383,18 +383,18 @@ struct GalleryView: View {
                 BarRow(back: (tx.back, { vm.closeGallery() }), title: tx.galTitle, subtitle: tx.galSub(gd.cards.filter { $0.rarity != "t" }.count)) {
                     HStack(spacing: 4) {
                         Tag(text: tx.typeAll, on: type == "all") { type = "all" }
-                        Tag(text: tx.minions, on: type == "m") { type = "m" }
-                        Tag(text: tx.spells, on: type == "s") { type = "s" }
+                        Tag(symbol: "person.fill", label: tx.minions, on: type == "m") { type = "m" }
+                        Tag(symbol: "sparkles", label: tx.spells, on: type == "s") { type = "s" }
                         Rectangle().fill(Theme.line).frame(width: 1, height: 18).padding(.horizontal, 3)
                         Menu {
                             Button(tx.typeAll) { cost = -1 }
                             ForEach(0..<8, id: \.self) { n in Button(n == 7 ? "7+" : "\(n)") { cost = n } }
-                        } label: { Tag(text: tx.costLbl + " · " + (cost < 0 ? tx.typeAll : cost == 7 ? "7+" : "\(cost)") + " ▾", on: cost >= 0) {} }
+                        } label: { Tag(text: cost < 0 ? "" : cost == 7 ? "7+" : "\(cost)", symbol: "hexagon.fill", label: tx.costLbl, on: cost >= 0) {} }
                         Menu {
                             Button(tx.typeAll) { cls = "all" }
                             Button(tx.neutralCards) { cls = "neutral" }
                             ForEach(gd.classes) { c in Button(tx.name(c.names)) { cls = c.id } }
-                        } label: { Tag(text: tx.classCards + " · " + (cls == "all" ? tx.typeAll : cls == "neutral" ? tx.neutralCards : tx.className(cls)) + " ▾", on: cls != "all") {} }
+                        } label: { Tag(text: cls == "all" ? "" : cls == "neutral" ? tx.neutralCards : tx.className(cls), symbol: "shield.fill", label: tx.classCards, on: cls != "all") {} }
                     }
                 }
                 PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 14) { c, s in

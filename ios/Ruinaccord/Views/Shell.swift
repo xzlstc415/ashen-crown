@@ -125,19 +125,40 @@ struct PagedGrid<Item: Identifiable, Cell: View>: View {
     }
 }
 
-/// A small square tag button (filters).
+/// A button that is only a symbol, named for VoiceOver: for bars and tiles where a word would be cut short.
+struct IconButton: View {
+    let symbol: String
+    let label: String
+    var primary = false
+    var danger = false
+    let action: () -> Void
+    var body: some View {
+        Button(action: action) { Image(systemName: symbol).font(.system(size: 14, weight: .bold)).frame(width: 20, height: 18) }
+            .buttonStyle(PrimaryButtonStyle(ghost: !primary, danger: danger, compact: true))
+            .accessibilityLabel(Text(label))
+    }
+}
+
+/// A small square tag button (filters): a word, a symbol, or a symbol with a short value beside it.
 struct Tag: View {
-    let text: String
+    var text = ""
+    var symbol: String? = nil
+    var label = ""
     let on: Bool
     let action: () -> Void
     var body: some View {
         Button(action: action) {
-            Text(text).font(Theme.body(11, .heavy)).foregroundStyle(on ? Theme.gold : Theme.muted).lineLimit(1)
+            HStack(spacing: 3) {
+                if let symbol { Image(systemName: symbol).font(.system(size: 11, weight: .bold)) }
+                if !text.isEmpty { Text(text).font(Theme.body(11, .heavy)).lineLimit(1) }
+            }
+            .foregroundStyle(on ? Theme.gold : Theme.muted)
                 .frame(minWidth: 26).frame(height: 26).padding(.horizontal, 7)
                 .background(on ? Theme.gold.opacity(0.2) : Theme.panel, in: Capsule())
                 .overlay(Capsule().stroke(on ? Theme.gold : Theme.line, lineWidth: 1))
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(Text(label.isEmpty ? text : label))
     }
 }
 
