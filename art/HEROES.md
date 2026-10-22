@@ -6,7 +6,7 @@
 
 | 职业 | 种族 | 名字 | 一句话 |
 |---|---|---|---|
-| 战士 | 半兽人 | 洛克·灰牙 Rok Greytusk | 从兽人督军麾下出走的持盾者 |
+| 战士 | 兽人 | 洛克·灰牙 Rok Greytusk | 从兽人督军麾下出走的持盾者 |
 | 法师 | 侏儒 | 皮姆·霜烬 Pim Emberfrost | 在废墟图书馆长大的自学法师 |
 | 圣骑士 | 人类 | 塞拉芬·晨誓 Seraphine Dawnoath | 旧王国最后一名骑士 |
 | 猎人 | 精灵 | 凯尔文·荆径 Kaelwyn Thornstride | 退出精灵议会的林地巡守 |
@@ -16,13 +16,13 @@
 ---
 
 ## 战士 · 洛克·灰牙 Rok Greytusk — `hero_warrior.png`
-半兽人 · 男性 · 中年
+兽人 · 男性 · 中年
 
-**背景**：洛克的母亲是边境村庄的人类铁匠，父亲是路过的兽人战士。村里不要他，兽人战团收下了他，他在兽人督军麾下当了二十年持盾者，替督军挡下过数不清的箭。灰烬之王的军队到来时，督军跪下了，而督军献上的第一份投名状，就是洛克母亲的村庄。洛克那天没有举盾。他背着那面挡过督军一辈子的盾走出营地，从此只替自己选的人挡箭。他要王冠，是为了让跪下去的人再也不必跪。
+**背景**：兽人有一条老规矩：盾只为值得的人举。洛克在兽人督军麾下当了二十年持盾者，替督军挡下过数不清的箭，从没问过值不值得。灰烬之王的军队压到营前那天，督军跪下了，而督军献上的第一份投名状，是一座一直跟战团公平交易的边境村庄。洛克那天没有举盾。他把盾放在督军脚边，转身走出营地，走出很远才又把它背起来。从那以后，他只替自己选的人挡箭。他要王冠，是为了让跪下去的人再也不必跪。
 
 **头像提示词**
 ```
-square portrait of a middle-aged half-orc warrior who looks far more orc than human, face centered and filling most of the frame, dark moss-green skin, heavy jutting brow ridge, broad flat nose, wide underbite with two thick lower tusks pushing up past the upper lip, small deep-set amber eyes, pointed ears with iron rings, thick bull neck, coarse black topknot shaved at the sides with grey streaks, white clan paint smeared in three bars across the brow, a dented iron half-helm with a chipped red plume, an old scar through one eyebrow, jaw set, looking slightly past the viewer with stubborn resolve, the rim of a huge battered tower shield visible at the edge of the frame, glowing ember red-orange accent light on one side of the face, sunlit overgrown ruins blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no human face, text, frame, border, card, letters, numbers, logo, watermark
+square portrait of a middle-aged orc warrior, face centered and filling most of the frame, dark moss-green skin, heavy jutting brow ridge, broad flat nose, wide underbite with two thick lower tusks pushing up past the upper lip, small deep-set amber eyes, pointed ears with iron rings, thick bull neck, coarse black topknot shaved at the sides with grey streaks, white clan paint smeared in three bars across the brow, a dented iron half-helm with a chipped red plume, an old scar through one eyebrow, jaw set, looking slightly past the viewer with stubborn resolve, the rim of a huge battered tower shield visible at the edge of the frame, glowing ember red-orange accent light on one side of the face, sunlit overgrown ruins blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no human face, text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ## 法师 · 皮姆·霜烬 Pim Emberfrost — `hero_mage.png`
