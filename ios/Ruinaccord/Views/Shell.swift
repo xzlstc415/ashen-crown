@@ -82,34 +82,44 @@ struct PagedGrid<Item: Identifiable, Cell: View>: View {
     var rows = 2
     var hGap: CGFloat = 8
     var vGap: CGFloat = 12
-    @ViewBuilder let cell: (Item) -> Cell
+    /// The cell gets the scale (≤ 1) that makes `rows` rows fit the height on offer, so it can draw smaller.
+    @ViewBuilder let cell: (Item, CGFloat) -> Cell
     @State private var page = 0
     @Environment(GameVM.self) private var vm
 
+    /// Room kept above and below the rows for gems and badges that hang over the card edges.
+    private let bleed: CGFloat = 9
+    private let footer: CGFloat = 18
+
     var body: some View {
         GeometryReader { g in
-            let cols = max(1, Int((g.size.width - 2 * 44 - 8) / (cellWidth + hGap)))
+            let avail = g.size.height - footer - 6 - 2 * bleed - CGFloat(rows - 1) * vGap
+            let s = min(1, max(0.5, avail / (CGFloat(rows) * cellHeight)))
+            let cw = cellWidth * s, ch = cellHeight * s
+            let cols = max(1, Int((g.size.width - 2 * 44 - 8) / (cw + hGap)))
             let per = cols * rows
             let pages = max(1, (items.count + per - 1) / per)
             let p = min(page, pages - 1)
             let slice = Array(items.dropFirst(p * per).prefix(per))
-            let columns = Array(repeating: GridItem(.fixed(cellWidth), spacing: hGap), count: cols)
+            let columns = Array(repeating: GridItem(.fixed(cw), spacing: hGap), count: cols)
             VStack(spacing: 6) {
                 HStack(spacing: 4) {
                     PageArrow(next: false, enabled: p > 0) { page = p - 1 }
                     LazyVGrid(columns: columns, spacing: vGap) {
-                        ForEach(slice) { it in cell(it) }
+                        ForEach(slice) { it in cell(it, s).frame(width: cw, height: ch) }
                     }
+                    .padding(.vertical, bleed)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .padding(.top, 4)
                     PageArrow(next: true, enabled: p < pages - 1) { page = p + 1 }
                 }
                 HStack(spacing: 10) {
                     Text(vm.tx.pageOf(p + 1, pages)).font(Theme.body(11)).foregroundStyle(Theme.muted).monospacedDigit()
                     PageDots(n: pages, cur: p)
                 }
+                .frame(height: footer)
             }
             .frame(width: g.size.width, height: g.size.height)
+            .clipped()
             .onChange(of: items.count) { _, _ in page = 0 }
         }
     }

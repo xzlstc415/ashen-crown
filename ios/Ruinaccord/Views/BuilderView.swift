@@ -71,10 +71,10 @@ struct BuilderView: View {
                                 Spacer(minLength: 0)
                             }
                             .frame(height: 30).padding(.leading, 48)
-                            PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 12) { c in
+                            PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 12) { c, s in
                                 let n = Decks.copies(d, c.id), full = n >= c.maxCopies
                                 Button { vm.addCard(c.id) } label: {
-                                    CardView(card: c, size: .fit(9.6), ring: full ? .clear : Theme.gold.opacity(0.0), ovr: tt ? gd.overrides(for: vm.q.tal)[c.id] : nil)
+                                    CardView(card: c, size: .fit(9.6 * s), ring: full ? .clear : Theme.gold.opacity(0.0), ovr: tt ? gd.overrides(for: vm.q.tal)[c.id] : nil)
                                         .saturation(full ? 0.3 : 1).opacity(full ? 0.55 : 1)
                                         .overlay(alignment: .topTrailing) {
                                             if n > 0 {

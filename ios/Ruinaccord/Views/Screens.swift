@@ -260,7 +260,7 @@ struct DecksView: View {
         ScreenShell {
             VStack(spacing: 4) {
                 BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.myDecks, subtitle: vm.q.libToast.isEmpty ? tx.myDecksSub : vm.q.libToast)
-                PagedGrid(items: vm.decks.map(DeckOrNew.deck) + [DeckOrNew.new], cellWidth: 118, cellHeight: 300, rows: 1, hGap: 12) { it in
+                PagedGrid(items: vm.decks.map(DeckOrNew.deck) + [DeckOrNew.new], cellWidth: 118, cellHeight: 300, rows: 1, hGap: 12) { it, _ in
                     switch it {
                     case .deck(let d): DeckStandee(d: d)
                     case .new:
@@ -397,8 +397,8 @@ struct GalleryView: View {
                         } label: { Tag(text: tx.classCards + " · " + (cls == "all" ? tx.typeAll : cls == "neutral" ? tx.neutralCards : tx.className(cls)) + " ▾", on: cls != "all") {} }
                     }
                 }
-                PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 14) { c in
-                    CardView(card: c, size: .fit(9.6)).onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
+                PagedGrid(items: list, cellWidth: 96, cellHeight: 150, rows: 2, hGap: 6, vGap: 14) { c, s in
+                    CardView(card: c, size: .fit(9.6 * s)).onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
                 }
             }
         }
