@@ -36,7 +36,7 @@ struct GameRoot: View {
                 GeometryReader { g in
                     let hm = HandMetrics(size: g.size, bottomInset: g.safeAreaInsets.bottom)
                     ZStack(alignment: .topLeading) {
-                        DuelView(hm: hm).padding(.vertical, 6)
+                        DuelView(hm: hm).padding(.vertical, hm.pad)
                         HandLayer(hm: hm, origin: g.frame(in: .global).origin).zIndex(10)
                         if let c = vm.infoCard, vm.state?.mulligan != true {
                             CardInfoPanel(card: c, hm: hm).padding(.leading, hm.heroX + 48).padding(.top, 4).zIndex(15).id(c.id)

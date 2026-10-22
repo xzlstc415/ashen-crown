@@ -46,10 +46,10 @@ struct CardView: View {
                 // The frame colour shows minion or spell; this line names the race (Beasts matter in play) and the class.
                 let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
                 if !typ.isEmpty { Text(typ)
-                    .font(Theme.body(0.68 * em, .medium)).tracking(0.5)
+                    .font(Theme.body(0.76 * em, .medium)).tracking(0.5)
                     .foregroundStyle(Color(hex: "#9fc4ee"))
                     .textCase(.uppercase).lineLimit(1).minimumScaleFactor(0.7) }
-                RichText(text: tx.cardText(card), keywords: tx.keywords, font: Theme.body(0.86 * em), color: Color(hex: "#f3e9d4"))
+                RichText(text: tx.cardText(card), keywords: tx.keywords, font: Theme.body(0.96 * em), color: Color(hex: "#f3e9d4"))
                     .multilineTextAlignment(.leading)
                     .minimumScaleFactor(0.65)
             }

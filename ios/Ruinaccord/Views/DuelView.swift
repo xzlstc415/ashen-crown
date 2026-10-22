@@ -10,14 +10,17 @@ struct HandMetrics: Equatable {
     var bottomInset: CGFloat = 0
     var leftW: CGFloat { 54 }
     var rightW: CGFloat { 116 }
-    /// Height of the strip holding the enemy hero, their hand backs and counts.
-    var topH: CGFloat { 100 }
+    /// Height of the strip holding the enemy hero, their hand backs and counts (the name capsule hangs below it).
+    var topH: CGFloat { 84 }
     /// Height of one board row (minion tile plus padding).
     var rowH: CGFloat { 66 }
+    /// Vertical padding of the duel column and the gaps between its rows.
+    var pad: CGFloat { 2 }
+    var gap: CGFloat { 3 }
     /// Card size: a whole card stands in the zone under the boards on your turn; capped for big screens.
     var em: CGFloat {
-        let free = size.height - 12 - topH - 2 * rowH - 12
-        return min(11, max(6, (free - 10) / 15.6))
+        let free = size.height - 2 * pad - topH - 2 * rowH - 3 * gap
+        return min(12.5, max(6, (free - 8) / 15.6))
     }
     var cardW: CGFloat { 10 * em }
     var cardH: CGFloat { 15.6 * em }
@@ -26,7 +29,7 @@ struct HandMetrics: Equatable {
     /// Height the board column leaves free at the bottom for your hero and the hand.
     var reserve: CGFloat { cardH + 4 }
     /// Local y above which a dragged card counts as played.
-    var line: CGFloat { size.height - reserve - 12 }
+    var line: CGFloat { size.height - reserve - 2 * pad }
     /// Centre x of both heroes: the left part of the board column.
     var heroX: CGFloat { leftW + 100 }
     /// Centre y of your hero's portrait, in the hand zone, left of the cards.
@@ -38,9 +41,9 @@ struct HandMetrics: Equatable {
     var handMaxX: CGFloat { size.width - rightW - 4 }
     var handCX: CGFloat { (handMinX + handMaxX) / 2 }
     /// Centre y of a card in the hand on your turn: the whole card shows, its corner gems clear of the edge.
-    var baseY: CGFloat { size.height - 10 - cardH / 2 }
+    var baseY: CGFloat { size.height - 8 - cardH / 2 }
     /// Centre y of a resting card (not your turn): three tenths hang below the edge.
-    var restY: CGFloat { size.height + sink - 10 - cardH / 2 }
+    var restY: CGFloat { size.height + sink - 8 - cardH / 2 }
     var cornerScale: CGFloat { 0.42 }
     /// Where drawn cards come from: the deck pile behind the status column.
     var corner: CGPoint { CGPoint(x: size.width - 34, y: size.height - 40) }
@@ -59,19 +62,19 @@ struct DuelView: View {
             LeftColumn(hm: hm).frame(width: hm.leftW)
             // Middle: enemy strip, the two boards, the hand zone with your hero. The target prompt floats over
             // the gap between the boards instead of taking a line of its own.
-            let vh = hm.size.height - 12
-            let boardH = (vh - hm.topH - hm.reserve - 12) / 2
-            VStack(spacing: 4) {
+            let vh = hm.size.height - 2 * hm.pad
+            let boardH = (vh - hm.topH - hm.reserve - 3 * hm.gap) / 2
+            VStack(spacing: hm.gap) {
                 TopStrip(hm: hm).frame(height: hm.topH)
                 BoardView(side: .e, minions: s.e.board, empty: tx.noEnemy)
                 BoardView(side: .p, minions: s.p.board, empty: tx.playMinions)
                 Color.clear.frame(height: hm.reserve)
             }
-            .overlay { PromptPill().offset(y: hm.topH + 4 + boardH + 2 - vh / 2) }
+            .overlay { PromptPill().offset(y: hm.topH + hm.gap + boardH + hm.gap / 2 - vh / 2) }
             .overlay(alignment: .topLeading) {
-                // Your hero, name above, with the hero power at the right shoulder. The column starts 6pt below
-                // the duel area, so hm's y values shift by that much.
-                let x = hm.heroX - hm.leftW, y = hm.heroY - 6
+                // Your hero, name above, with the hero power at the right shoulder. The column starts `pad`
+                // below the duel area, so hm's y values shift by that much.
+                let x = hm.heroX - hm.leftW, y = hm.heroY - hm.pad
                 ZStack(alignment: .topLeading) {
                     HeroCluster(side: .p).position(x: x, y: y - 10)
                     PowerButton().position(x: x + 60, y: y - 30)
@@ -138,7 +141,7 @@ private struct TopStrip: View {
                 CountPill(hand: s.e.hand.count, deck: s.e.deck.count)
             }
             .frame(maxHeight: .infinity, alignment: .top)
-            HeroCluster(side: .e).position(x: hm.heroX - hm.leftW, y: 50)
+            HeroCluster(side: .e).position(x: hm.heroX - hm.leftW, y: 52)
         })
     }
 }
@@ -444,7 +447,8 @@ struct BoardView: View {
         let glow = side == .p && vm.dropGlow
         HStack(spacing: 8) {
             if minions.isEmpty {
-                Text(empty).font(Theme.body(12)).foregroundStyle(Theme.muted.opacity(0.6))
+                // No hint text: an empty row stays empty so the hand below can have the room.
+                Color.clear.frame(width: 1, height: 1).accessibilityLabel(Text(empty))
             }
             ForEach(minions) { m in
                 MinionView(m: m)
