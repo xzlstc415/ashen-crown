@@ -8,8 +8,8 @@
 |---|---|---|---|
 | 战士 | 兽人 | 洛克·灰牙 Rok Greytusk | 从兽人督军麾下出走的持盾者 |
 | 法师 | 侏儒 | 皮姆·霜烬 Pim Emberfrost | 在废墟图书馆长大的自学法师 |
-| 圣骑士 | 人类 | 塞拉芬·晨誓 Seraphine Dawnoath | 旧王国最后一名骑士 |
-| 猎人 | 精灵 | 凯尔文·荆径 Kaelwyn Thornstride | 退出精灵议会的林地巡守 |
+| 圣骑士 | 人类 | 奥德里克·晨誓 Aldric Dawnoath | 旧王国最后一名骑士 |
+| 猎人 | 精灵 | 凯尔温·荆径 Kaelwen Thornstride | 退出精灵议会的林地巡守 |
 | 牧师 | 半身人 | 玛戈·烛芯 Margo Candlewick | 在断墙礼拜堂收容流民的修女 |
 | 术士 | 不死族 | 莫文·残烛 Morwen Lastcandle | 被巫妖复活、只剩半条命的宫廷占星师 |
 
@@ -35,24 +35,24 @@ square portrait of a heroic orc warrior chieftain, no helmet, face centered and 
 square portrait of a young gnome mage girl, face centered and filling most of the frame, large bright eyes, wild silver-white hair poking out from under an oversized patched blue wizard hat tilted to one side, a smudge of soot on one cheek, a mischievous half-smile, one small hand raised beside her face holding a flame that is orange on one side and icy blue on the other, glowing icy blue and arcane violet accent light, shelves of burnt books blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-## 圣骑士 · 塞拉芬·晨誓 Seraphine Dawnoath — `hero_paladin.png`
-人类 · 女性 · 三十岁上下
+## 圣骑士 · 奥德里克·晨誓 Aldric Dawnoath — `hero_paladin.png`
+人类 · 男性 · 三十岁上下
 
-**背景**：塞拉芬是旧王国骑士团最后一个受封的骑士。受封那天，国王已经戴上了灰烬王冠，眼睛里开始泛出灰光；她对着那双眼睛宣誓效忠，而后亲眼看着他变成灰烬之王。骑士团在那之后一个个倒下，只剩她还守着誓言。她认定誓言是对王冠所代表的国家，而不是对那个人。她要把王冠从他头上摘下来，让誓言有一个干净的结局。
-
-**头像提示词**
-```
-square portrait of a human woman paladin, face centered and filling most of the frame, calm steady gaze straight at the viewer, short dark hair cut unevenly, a thin pale scar across the bridge of her nose, polished silver plate armor with gold trim at the shoulders, a white tabard with a faded gold sun, a soft golden halo of light behind her head, glowing holy gold accent light, morning sun breaking over ruined cathedral arches blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
-```
-
-## 猎人 · 凯尔文·荆径 Kaelwyn Thornstride — `hero_hunter.png`
-精灵 · 男性 · 外表年轻
-
-**背景**：精灵议会的决定是"不管外面的事"：灰烬之王烧了半个大陆，翠林的结界却从头到尾没开过。凯尔文是边境巡守，他看着结界外的村庄一座座烧光，最后砍断了自己的议会徽记，带着一条恐狼走出了森林。他不恨精灵，只是不再替他们看门。他要王冠，是想亲手试一试：一个人能不能做到整个议会不愿做的事。
+**背景**：奥德里克是旧王国骑士团最后一个受封的骑士。受封那天，国王已经戴上了灰烬王冠，眼睛里开始泛出灰光；他对着那双眼睛宣誓效忠，而后亲眼看着他变成灰烬之王。骑士团在那之后一个个倒下，只剩他还守着誓言。他认定誓言是对王冠所代表的国家，而不是对那个人。他要把王冠从他头上摘下来，让誓言有一个干净的结局。
 
 **头像提示词**
 ```
-square portrait of a male elf hunter, face centered and filling most of the frame, sharp features and long pointed ears, dark-green hood pushed halfway back, a few loose strands of auburn hair across his brow, eyes narrowed and looking off to one side as if tracking something, two thin lines of dark war paint under one eye, a snapped elven sigil hanging from a cord at his collar, a grey dire wolf's head just visible at the bottom corner of the frame, glowing forest green accent light, mossy forest ruins blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
+square portrait of a human man paladin, face centered and filling most of the frame, calm steady gaze straight at the viewer, short dark hair cut unevenly, a close-trimmed beard, a thin pale scar across the bridge of his nose, tired but unbroken eyes, polished silver plate armor with gold trim at the shoulders, a white tabard with a faded gold sun, a soft golden halo of light behind his head, glowing holy gold accent light, morning sun breaking over ruined cathedral arches blurred behind him, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no helmet, text, frame, border, card, letters, numbers, logo, watermark
+```
+
+## 猎人 · 凯尔温·荆径 Kaelwen Thornstride — `hero_hunter.png`
+精灵 · 女性 · 外表年轻
+
+**背景**：精灵议会的决定是"不管外面的事"：灰烬之王烧了半个大陆，翠林的结界却从头到尾没开过。凯尔温是边境巡守，她看着结界外的村庄一座座烧光，最后砍断了自己的议会徽记，带着一条恐狼走出了森林。她不恨精灵，只是不再替他们看门。她要王冠，是想亲手试一试：一个人能不能做到整个议会不愿做的事。
+
+**头像提示词**
+```
+square portrait of a female elf hunter, face centered and filling most of the frame, sharp fine features and long pointed ears, dark-green hood pushed halfway back, auburn hair in a loose braid with a few strands across her brow, eyes narrowed and looking off to one side as if tracking something, two thin lines of dark war paint under one eye, a small healed cut on her chin, a snapped elven sigil hanging from a cord at her collar, a grey dire wolf's head just visible at the bottom corner of the frame, glowing forest green accent light, mossy forest ruins blurred behind her, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ## 牧师 · 玛戈·烛芯 Margo Candlewick — `hero_priest.png`
