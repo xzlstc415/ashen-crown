@@ -132,6 +132,7 @@ extension DuelState {
             let cands = ([e.id] + e.board.map(\.id)).filter { hp($0) < maxHp($0) }
             if let t = cands.max(by: { (maxHp($0) - hp($0)) < (maxHp($1) - hp($1)) }) { return .some(t) }
             if fx.hasten > 0 && !e.altar.isEmpty { return .some(e.id) }
+            if isCls(.e, "priest") && e.light < Self.lightCap { return .some(e.id) }
             return nil
         }
         if fx.buff != nil { if let t = aiBestAlly() { return .some(t) }; return nil }

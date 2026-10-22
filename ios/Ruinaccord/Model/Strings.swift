@@ -44,18 +44,21 @@ struct Tx {
         switch lang {
         case .en: return ["You gain one more **mana** each turn, up to 10. Spend it on minions and spells.",
                           "A **Mage** keeps unspent mana as up to 3 **spell mana**, which only spells can use. Other classes lose it.",
+                          "Each class banks its own resource: a **Warrior** gains **Rage** from the hero power and hero damage (4 burst into +2 Attack for the board); a **Warlock** gains **Souls** from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a **Priest** turns healing past full into **Light** (2 Light take a turn off a Prayer).",
                           "Tap a glowing minion, then tap an enemy to **attack**. New minions wait a turn unless they have **Charge**.",
                           "Enemies must hit **Guard** minions first. **Ward** blocks the next damage taken.",
                           "Choose one of six **classes**. Each has its own **hero power**, usable once per turn, and its own starting deck.",
                           "Defeat eight foes, from a goblin warband to the Ashen King. After each win you also add a card to your deck."]
         case .zh: return ["每回合你的**法力值**上限加1，最多10点。用它打出随从和法术。",
                           "**法师**没用完的法力会存为最多3点**法术法力**，只能用来施放法术；其他职业不会积累。",
+                          "每个职业都有自己的资源：**战士**使用技能和英雄受伤获得**怒气**（攒到4点，回合开始爆发：全体随从本回合+2攻击）；**术士**友方随从死亡获得**魂**（鲜血契约可用2魂代替自伤，回合结束时5魂召唤骷髅战士）；**牧师**溢出的治疗化为**圣光**（祷文上祭坛时每2光倒计时-1）。",
                           "点击带绿框的随从，再点击敌人即可**攻击**。新随从要等一回合才能攻击，除非它有**冲锋**。",
                           "敌人必须先攻击有**守护**的随从。**护盾**可以抵挡下一次伤害。",
                           "从六个**职业**中选择一个。每个职业都有专属的**英雄技能**（每回合可用一次）和初始牌组。",
                           "击败八名敌人，从哥布林战团一路打到灰烬之王。每赢一场，你还可以向牌组加入一张牌。"]
         case .ja: return ["毎ターン**マナ**の上限が1増える（最大10）。ミニオンと呪文に使おう。",
                           "**魔法使い**は使い切らなかったマナを最大3まで**呪文マナ**として貯め、呪文にだけ使える。他のクラスは貯まらない。",
+                          "クラスごとに固有の資源がある。**戦士**はヒーローパワー使用と被ダメージで**怒気**（4で解放、味方全体がこのターン攻撃+2）。**ウォーロック**は味方の死亡で**魂**（血の契約は魂2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。**司祭**は余った回復が**聖光**になる（祈りを祭壇に置くとき聖光2で待ち時間-1）。",
                           "光っているミニオンをタップし、敵をタップして**攻撃**。出したばかりのミニオンは**突撃**がない限り次のターンまで攻撃できない。",
                           "敵は先に**ガード**を持つミニオンを攻撃しなければならない。**結界**は次に受けるダメージを1回防ぐ。",
                           "6つの**クラス**から1つを選ぼう。クラスごとに専用の**ヒーローパワー**（1ターンに1回）と初期デッキがある。",
@@ -405,8 +408,10 @@ struct Tx {
     var talYours: String { pick("Your talents", "你的天赋", "自分のタレント") }
     var talFoes: String { pick("Enemy talents", "敌方天赋", "敵のタレント") }
     var rageGo: String { pick("Rage!", "怒气爆发！", "怒気解放！") }
-    func rage(_ n: Int) -> String { pick("Rage \(n)/10", "怒气 \(n)/10", "怒気 \(n)/10") }
-    func souls(_ n: Int) -> String { pick("Souls \(n)/10", "魂 \(n)/10", "魂 \(n)/10") }
+    func rage(_ n: Int) -> String { pick("Rage \(n)/\(DuelState.rageCap)", "怒气 \(n)/\(DuelState.rageCap)", "怒気 \(n)/\(DuelState.rageCap)") }
+    func souls(_ n: Int) -> String { pick("Souls \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)") }
+    func light(_ n: Int) -> String { pick("Light \(n)/\(DuelState.lightCap)", "圣光 \(n)/\(DuelState.lightCap)", "聖光 \(n)/\(DuelState.lightCap)") }
+    var fSoulPay: String { pick("Souls spent", "魂代血", "魂で支払う") }
     func unity(_ b: Int, _ n: Int) -> String { b > 0 ? pick("Unity +1", "协作 +1", "連携 +1") : pick("Unity \(n)/12", "协作 \(n)/12", "連携 \(n)/12") }
     var talTeaches: String { pick("Works with:", "配合天赋：", "相性の良いタレント：") }
     func talTakePack(_ n: String) -> String { pick("Take the \(n) pack", "选择\(n)牌包", "\(n)パックを取る") }

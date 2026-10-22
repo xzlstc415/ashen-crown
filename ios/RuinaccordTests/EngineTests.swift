@@ -55,6 +55,27 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.cardFx(.p, "frostbolt")?.dmg, 5)
         s.p.mana = 10; s.castSpell(.p, "frostbolt", .hero(.e)); XCTAssertEqual(s.e.hp, 25)
         XCTAssertFalse(Tx(lang: .zh).cardText(gd.card("frostbolt")!, ovr: s.p.ovr["frostbolt"]).isEmpty)
+        // Class resources. Warrior: Rage from the power and from hero damage, bursting at 4 into +2 Attack.
+        s.setupTalents(.p, cls: "warrior", [])
+        s.p.deck = Array(repeating: "goblin", count: 8); s.e.deck = Array(repeating: "goblin", count: 8)   // no fatigue damage below
+        s.p.rage = 0; s.afterPower(.p); s.damage(.hero(.p), 1); s.damage(.hero(.p), 1); s.damage(.hero(.p), 1)
+        XCTAssertEqual(s.p.rage, 4)
+        s.summon(.p, "goblin"); s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p)
+        XCTAssertEqual(s.p.rage, 0); XCTAssertEqual(s.p.board[0].atk, gd.card("goblin")!.atk! + 2)
+        // Warlock: Souls from friendly deaths; the power spends 2 instead of hurting; 5 become a Bone Warrior.
+        s.setupTalents(.p, cls: "warlock", []); s.p.board = []; s.p.soul = 0
+        s.summon(.p, "goblin"); s.damage(s.p.board[0].id, 9); s.cleanup()
+        XCTAssertEqual(s.p.soul, 1)
+        s.p.soul = 2; let hp0 = s.p.hp
+        s.applyFx(.p, gd.cls("warlock")!.power.fx, nil, isPower: true)
+        XCTAssertEqual(s.p.hp, hp0); XCTAssertEqual(s.p.soul, 0)
+        s.p.soul = 5; s.turn = .e; s.startTurn(.e)
+        XCTAssertTrue(s.p.board.contains { $0.key == "bonewarr" }); XCTAssertEqual(s.p.soul, 0)
+        // Priest: healing past full is Light, and Light shortens a Prayer's wait.
+        s.setupTalents(.p, cls: "priest", []); s.p.light = 0; s.p.hp = s.p.max
+        s.heal(.hero(.p), 3); XCTAssertEqual(s.p.light, 3)
+        s.p.light = 2; s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.last?.cd, gd.card("matins")!.pray!.cd - 1); XCTAssertEqual(s.p.light, 0)
+        s.p.altar = []
         // Prayers wait on the altar and resolve after their countdown.
         s.setupTalents(.p, cls: "priest", [])
         s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.count, 1)

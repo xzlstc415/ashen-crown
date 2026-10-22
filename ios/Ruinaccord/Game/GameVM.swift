@@ -274,6 +274,8 @@ final class GameVM {
         case .rage: return (tx.rageGo, Color(hex: "#e0563f"))
         case .named(let k): return (tx.cardName(k), Color(hex: "#c4b4ff"))
         case .manaUp(let n): return ("+\(n)", Theme.manaLight)
+        case .light(let n): return ("✦+\(n)", Color(hex: "#ffe9a0"))
+        case .soulPay: return (tx.fSoulPay, Color(hex: "#c4b4ff"))
         }
     }
 

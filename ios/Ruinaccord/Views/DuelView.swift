@@ -322,8 +322,9 @@ private struct StatusBox: View {
             ManaBox(side: side)
             // Talent counters and the altar (Prayers waiting, with turns left).
             let counters: [String] = [
-                s.tal(side, "wa_fury") ? tx.rage(h.rage) : nil,
-                s.tal(side, "wl_soul") ? tx.souls(h.soul) : nil,
+                s.isCls(side, "warrior") ? tx.rage(h.rage) : nil,
+                s.isCls(side, "warlock") ? tx.souls(h.soul) : nil,
+                s.isCls(side, "priest") ? tx.light(h.light) : nil,
                 s.tal(side, "pa_coop") ? tx.unity(h.coopB, h.coopN) : nil,
             ].compactMap { $0 }
             if !counters.isEmpty {

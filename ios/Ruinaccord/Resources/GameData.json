@@ -9770,14 +9770,14 @@
        {
         "id": "wa_fury",
         "names": [
-         "Rage",
-         "怒气",
-         "怒気"
+         "Seething",
+         "怒气爆发",
+         "怒気解放"
         ],
         "desc": [
-         "Gain 1 Rage whenever your hero or minions take damage (up to 10). At the start of your turn, with 3 Rage spend 3: your minions get +2 Attack this turn.",
-         "你的英雄或随从每受到一次伤害获得1点怒气（上限10）；你的回合开始时若有3点，消耗3点，本回合所有友方随从+2攻击力。",
-         "ヒーローかミニオンがダメージを受けるたび怒気+1（最大10）。ターン開始時に3あれば消費し、このターン味方のミニオン全体の攻撃力+2。"
+         "Rage bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.",
+         "怒气爆发只需3点，并且爆发时英雄获得3点护甲。",
+         "怒気は4ではなく3で解放され、解放時にヒーローが装甲3を得る。"
         ]
        }
       ]
@@ -10461,14 +10461,14 @@
        {
         "id": "wl_soul",
         "names": [
-         "Souls",
-         "魂",
-         "魂"
+         "Bone Lord",
+         "骸骨之主",
+         "骸骨の主"
         ],
         "desc": [
-         "Gain 1 Soul whenever a friendly minion dies (up to 10). At the end of your turn, with 7 Souls spend 7 to summon a 2/2 Bone Warrior.",
-         "友方随从每死亡一个，获得1魂（上限10）；你的回合结束时若有7魂，消耗7魂召唤一个2/2骷髅战士。",
-         "味方のミニオンが死ぬたび魂+1（最大10）。ターン終了時に7あれば消費し、2/2の骸骨戦士を召喚する。"
+         "The Bone Warrior your Souls summon is 3/3 and has Charge.",
+         "魂召唤的骷髅战士改为3/3并具有冲锋。",
+         "魂で召喚する骸骨戦士は3/3になり、突撃を持つ。"
         ]
        }
       ]
