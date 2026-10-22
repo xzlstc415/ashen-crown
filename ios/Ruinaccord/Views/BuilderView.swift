@@ -167,7 +167,7 @@ struct DeckList: View {
     }
 }
 
-/// A filter tag: the rarity gem alone, and its name beside it while it is on (the row has no room for both names).
+/// A filter tag that is only the rarity gem: lit and ringed in gold while it is on.
 private struct RarityTag: View {
     let r: String
     let on: Bool
@@ -175,13 +175,10 @@ private struct RarityTag: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 5) {
-                Rectangle().fill(Theme.rarityColor(r)).frame(width: 9, height: 9)
-                    .overlay(Rectangle().stroke(Color.black.opacity(0.6), lineWidth: 1)).rotationEffect(.degrees(45))
-                    .shadow(color: r == "l" ? Theme.rarityColor("l") : .clear, radius: 3)
-                if on { Text(vm.tx.rarityShort(r)).font(Theme.body(11, .heavy)).lineLimit(1).fixedSize() }
-            }
-            .foregroundStyle(on ? Theme.gold : Theme.muted)
+            Rectangle().fill(Theme.rarityColor(r)).frame(width: on ? 11 : 9, height: on ? 11 : 9)
+                .overlay(Rectangle().stroke(Color.black.opacity(0.6), lineWidth: 1)).rotationEffect(.degrees(45))
+                .shadow(color: on || r == "l" ? Theme.rarityColor(r) : .clear, radius: on ? 5 : 3)
+                .opacity(on ? 1 : 0.75)
             .frame(minWidth: 26).frame(height: 26).padding(.horizontal, 5)
             .background(on ? Theme.gold.opacity(0.2) : Theme.panel, in: Capsule())
             .overlay(Capsule().stroke(on ? Theme.gold : Theme.line, lineWidth: 1))

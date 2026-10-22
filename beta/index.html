@@ -174,6 +174,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .card .plate{font-family:var(--display);font-size:1.12em;line-height:1.1;color:#fff4dc;text-shadow:0 .08em .2em #000}
 :is(:lang(zh),:lang(ja)) .card .plate{font-weight:600;font-size:1.04em;line-height:1.25}
 .card .gem{position:absolute;top:-.42em;left:50%;margin-left:-.375em;width:.75em;height:.75em;transform:rotate(45deg);border:.1em solid #0009}
+.rchip{padding:0 .7em;min-width:2.2em}.rchip .gem{position:static;display:block;margin:0 auto;width:.7em;height:.7em;opacity:.75}.rchip.on .gem{opacity:1;width:.85em;height:.85em;box-shadow:0 0 .45em currentColor}
 .gem.c{background:#e8e4da}.gem.r{background:#4f8fe0}.gem.e{background:#a35ad6}.gem.l{background:#f09a3a;box-shadow:0 0 .4em #f09a3a}.gem.t{background:#a69ba6}
 .card .typ{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:#9fc4ee}
 .card .tx{font-size:.86em;line-height:1.24;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -2699,7 +2700,7 @@ function builderHTML(){
   const curve=`<div class="curve" aria-label="${T('curve')}">${buckets.map(n=>`<i style="height:${n/mx*100}%"></i>`).join('')}</div><div class="curvel">${['0','1','2','3','4','5','6','7+'].map(x=>`<span>${x}</span>`).join('')}</div>`;
   const types=[['all',T('filterAll')],['m',T('minions')],['s',T('spells')],['cls',c.n[li()]]];
   const costs=[[0,T('filterAll')],[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5'],[6,'6'],[7,'7+']];
-  const rars=[['all',T('filterAll')],['e',T('rar').e],['l',T('rar').l]];
+  const rars=[['e',T('rar').e],['l',T('rar').l]];
   const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost))&&(Q.rar==='all'||CARDS[k].r===Q.rar))
     .sort((a,b)=>!!CARDS[b].cls-!!CARDS[a].cls||CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   FOV=hasTal(Q.cls)?ovrFor(Q.tal):null;
@@ -2721,7 +2722,7 @@ function builderHTML(){
       <div>
         <div class="chips">${types.map(([v,t])=>`<button class="chip ${Q.type===v?'on':''}" data-ftype="${v}">${t}</button>`).join('')}</div>
         <div class="chips" style="margin-top:6px">${costs.map(([v,t])=>`<button class="chip ${Q.cost===v?'on':''}" data-fcost="${v}">${t}</button>`).join('')}</div>
-        <div class="chips" style="margin-top:6px">${rars.map(([v,t])=>`<button class="chip ${Q.rar===v?'on':''}" data-frar="${v}">${v==='all'?'':`<span class="gem ${v}" style="position:static;display:inline-block;margin:0 .3em 0 0;width:.6em;height:.6em;vertical-align:-.05em"></span>`}${t}</button>`).join('')}</div>
+        <div class="chips" style="margin-top:6px">${rars.map(([v,t])=>`<button class="chip rchip ${Q.rar===v?'on':''}" data-frar="${v}" title="${t}" aria-label="${t}" aria-pressed="${Q.rar===v}"><span class="gem ${v}"></span></button>`).join('')}</div>
         <div class="coll">${coll}</div>
       </div>
     </div>`}
@@ -2996,7 +2997,7 @@ document.addEventListener('click',ev=>{
     return render()}
   if(b.dataset.ftype!==undefined){Q.type=b.dataset.ftype;return render()}
   if(b.dataset.fcost!==undefined){Q.cost=+b.dataset.fcost;return render()}
-  if(b.dataset.frar!==undefined){Q.rar=b.dataset.frar;return render()}
+  if(b.dataset.frar!==undefined){Q.rar=Q.rar===b.dataset.frar?'all':b.dataset.frar;return render()}
   if(b.dataset.diff!==undefined)return startQuick(b.dataset.diff);
   if(b.dataset.odeck!==undefined){O.sel=b.dataset.odeck;O.err='';return render()}
   const g=b.dataset.go;
