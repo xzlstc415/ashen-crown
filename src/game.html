@@ -387,11 +387,13 @@ svg{-webkit-user-drag:none}
   .hand .card.play:hover,.picks .card:hover,.pcard:hover,.ccard:hover,.mode:hover{transform:none}
   .drow:hover{border-color:var(--line)}
 }
+/* Phones: three slots a row, with the card a size down so the frame room still fits. */
+@media (max-width:480px){.coll{grid-template-columns:repeat(auto-fill,minmax(112px,1fr))}.coll .card{font-size:8.6px}}
 @media (max-width:360px){
   #app{gap:4px}.brand{font-size:18px}.top{gap:6px}
   .card.sm{font-size:8.6px}.min{width:54px;height:80px}.board{gap:6px}
   .hero{padding:5px 8px;gap:8px}.face{width:44px;height:44px}.power{width:52px;height:52px;font-size:9.5px}
-  .coll{grid-template-columns:repeat(auto-fill,minmax(116px,1fr))}
+  .coll{grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}.coll .card{font-size:8px}
 }
 @media (max-height:700px) and (max-width:520px){
   .board{min-height:90px;padding:2px 0}.hist{min-height:26px}.hchip{width:26px;height:26px}.hand{padding-top:10px}.mid{min-height:22px}
@@ -3074,6 +3076,8 @@ initEmbers();
 newRun();
 // Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids>&ehp=<n> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
+  // ?build=<class>[&rar=l]: the deck builder for that class (layout checks)
+  if(q.get('build')&&CBY[q.get('build')]){openBuilder(q.get('build'));if(q.get('rar'))Q.rar=q.get('rar');Q.btab='cards';render();if(q.get('scroll'))setTimeout(()=>{const e=document.querySelector(q.get('scroll'));if(e)e.scrollIntoView()},400)}
   if(dc&&CBY[dc]){pickClass(dc);if(view==='tal')startDuel();if(+q.get('ehp'))S.e.hp=+q.get('ehp');const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
     const mins=CBY[dc].deck.filter(k=>CARDS[k].t==='m');for(let i=0;i<Math.min(5,+q.get('board')||0);i++){summon('p',mins[i%mins.length]);summon('e',mins[(i+3)%mins.length])}
     for(let i=0;i<Math.min(8,+q.get('hist')||0);i++)pushHist(i%2?'e':'p',mins[i%mins.length],null);
