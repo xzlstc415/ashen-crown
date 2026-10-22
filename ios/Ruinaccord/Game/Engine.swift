@@ -305,7 +305,8 @@ struct DuelState: Codable {
     /// Hero power damage from Marksman minions.
     func powerBonus(_ side: Side) -> Int { self[side].board.reduce(0) { $0 + ($1.silenced ? 0 : $1.card.pw) } }
     func altarMax(_ side: Side) -> Int { tal(side, "ho_altar") ? 3 : 2 }
-    func smCap(_ side: Side) -> Int { tal(side, "fi_bank") ? 5 : 3 }
+    /// Spell mana is a Mage thing: other classes bank nothing.
+    func smCap(_ side: Side) -> Int { self[side].cls == "mage" ? (tal(side, "fi_bank") ? 5 : 3) : 0 }
     /// Bulwark: when short on mana, every 3 Armor pays for 1.
     func armorMana(_ side: Side) -> Int { tal(side, "wa_bulwark") ? self[side].armor / 3 : 0 }
 
@@ -385,7 +386,7 @@ struct DuelState: Codable {
     // MARK: - Turn flow
 
     mutating func startTurn(_ side: Side) {
-        // The side whose turn just ended banks its unspent mana as spell mana, its frozen minions thaw
+        // The side whose turn just ended banks its unspent mana as spell mana (Mage only), its frozen minions thaw
         // (Permafrost keeps one a turn longer) and temporary Attack wears off.
         let o = side.other
         self[o].spellMana = Swift.min(smCap(o), self[o].spellMana + Swift.max(0, self[o].mana))

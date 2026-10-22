@@ -214,7 +214,11 @@ final class EngineTests: XCTestCase {
 
     func testNewSpellMechanics() {
         var s = blank()
-        // Spell mana: unspent mana is banked (max 3) when the turn passes and only spells may use it.
+        // Spell mana: a Mage's unspent mana is banked (max 3) when the turn passes and only spells may use it;
+        // other classes bank nothing.
+        s.startTurn(.p); s.p.mana = 5; s.startTurn(.e)
+        XCTAssertEqual(s.p.spellMana, 0, "a warrior banks no spell mana")
+        s.p.cls = "mage"
         s.startTurn(.p); s.p.mana = 5; s.startTurn(.e)
         XCTAssertEqual(s.p.spellMana, 3); XCTAssertEqual(s.p.mana, 0)
         s.p.mana = 1

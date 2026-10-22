@@ -509,7 +509,7 @@ const I18N={
     rEmber:'<b>Mage · Embers (beta):</b> instead of spell mana, mana you leave unspent turns into Embers (max 5). <b>Ignite N</b> cards spend N Embers automatically for a stronger effect.',
     rPrayer:'<b>Priest · Prayers:</b> a Prayer goes on your altar (2 slots) and resolves after N of your turns.',
     rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
-      'Mana you leave unspent is saved as up to 3 <b>spell mana</b>, which only spells can use.',
+      'A <b>Mage</b> keeps unspent mana as up to 3 <b>spell mana</b>, which only spells can use. Other classes lose it.',
       'Tap a glowing minion, then tap an enemy to <b>attack</b>. New minions wait a turn unless they have <b>Charge</b>.',
       'Enemies must hit <b>Guard</b> minions first. <b>Ward</b> blocks the next damage taken.',
       'Choose one of six <b>classes</b>. Each has its own <b>hero power</b>, usable once per turn, and its own starting deck.',
@@ -579,7 +579,7 @@ const I18N={
     rEmber:'<b>法师·余烬（测试）：</b>法师没有法术法力，回合结束时没用完的法力会化为余烬（最多5点）。带<b>点燃N</b>的卡牌在余烬足够时会自动消耗N点，发挥更强的效果。',
     rPrayer:'<b>牧师·祷文：</b>祷文打出后放上祭坛（两个位置），在你的N个回合后应验。',
     rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
-      '没用完的法力会存为最多3点<b>法术法力</b>，只能用来施放法术。',
+      '<b>法师</b>没用完的法力会存为最多3点<b>法术法力</b>，只能用来施放法术；其他职业不会积累。',
       '点击带绿框的随从，再点击敌人即可<b>攻击</b>。新随从要等一回合才能攻击，除非它有<b>冲锋</b>。',
       '敌人必须先攻击有<b>守护</b>的随从。<b>护盾</b>可以抵挡下一次伤害。',
       '从六个<b>职业</b>中选择一个。每个职业都有专属的<b>英雄技能</b>（每回合可用一次）和初始牌组。',
@@ -649,7 +649,7 @@ const I18N={
     rEmber:'<b>魔法使い・残り火（テスト）：</b>呪文マナの代わりに、ターン終了時に使わなかったマナは残り火になる（最大5）。<b>点火N</b>のカードは残り火が足りれば自動でN消費し、強化される。',
     rPrayer:'<b>司祭・祈祷：</b>祈祷は祭壇（2枠）に置かれ、自分のNターン後に成就する。',
     rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
-      '使い切らなかったマナは最大3まで<b>呪文マナ</b>として貯まり、呪文にだけ使える。',
+      '<b>魔法使い</b>は使い切らなかったマナを最大3まで<b>呪文マナ</b>として貯め、呪文にだけ使える。他のクラスは貯まらない。',
       '光っているミニオンをタップし、敵をタップして<b>攻撃</b>。出したばかりのミニオンは<b>突撃</b>がない限り次のターンまで攻撃できない。',
       '敵は先に<b>ガード</b>を持つミニオンを攻撃しなければならない。<b>結界</b>は次に受けるダメージを1回防ぐ。',
       '6つの<b>クラス</b>から1つを選ぼう。クラスごとに専用の<b>ヒーローパワー</b>（1ターンに1回）と初期デッキがある。',
@@ -1413,9 +1413,10 @@ function talSummon(s,m,key,c){
 }
 const cardPray=(side,k)=>{const o=ovrOf(side,k);return o&&o.pray||CARDS[k].pray};
 const altarMax=s=>tal(s,'ho_altar')?3:ALTAR_MAX;
-const smCap=s=>tal(s,'fi_bank')?5:3;
+// Spell mana is a Mage thing: other classes bank nothing.
+const smCap=s=>s.cls==='mage'?(tal(s,'fi_bank')?5:3):0;
 const SML=()=>['Spell','法术','呪文'][li()];
-const SMH=()=>['Spell mana: mana you leave unspent is banked for spells only (up to 3). Spells use it first.','法术法力：回合结束时没用完的法力会存下来，只能用于法术（最多3点），施法时优先消耗。','呪文マナ：使い残したマナは呪文専用に貯まる（最大3）。呪文はこちらから先に使う。'][li()];
+const SMH=()=>['Spell mana (Mage): mana you leave unspent is banked for spells only (up to 3). Spells use it first.','法术法力（法师专属）：回合结束时没用完的法力会存下来，只能用于法术（最多3点），施法时优先消耗。','呪文マナ（魔法使い）：使い残したマナは呪文専用に貯まる（最大3）。呪文はこちらから先に使う。'][li()];
 // Spell Surge boosts per card in hand; kept in step with the hand.
 function hbOf(s){if(!s.hb)s.hb=[];while(s.hb.length<s.hand.length)s.hb.push(0);if(s.hb.length>s.hand.length)s.hb.length=s.hand.length;return s.hb}
 function takeHand(side,i){const s=S[side];hbOf(s);s.castHb=s.hb[i]||0;s.hb.splice(i,1);if(s.tf)s.tf.played=(s.tf.played||0)+1;return s.hand.splice(i,1)[0]}
@@ -2636,7 +2637,7 @@ function classHTML(){
 function crystals(s){
   let h='';for(let i=0;i<s.maxMana;i++)h+=`<i class="${i<s.mana?'on':''}"></i>`;
   // Beta: spell mana is always shown with a label and its cap, so leftover spell mana is never a surprise.
-  const sm=BETA?`<span class="smb${s.sm?'':' zero'}" title="${SMH()}" aria-label="${T('smAria',s.sm||0)}">${SML()} ${'<i class="on"></i>'.repeat(s.sm||0)}${'<i></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}/${smCap(s)}</b></span>`
+  const sm=BETA?(smCap(s)?`<span class="smb${s.sm?'':' zero'}" title="${SMH()}" aria-label="${T('smAria',s.sm||0)}">${SML()} ${'<i class="on"></i>'.repeat(s.sm||0)}${'<i></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}/${smCap(s)}</b></span>`:'')
     :s.sm?`<span class="sm" aria-label="${T('smAria',s.sm)}">${'<i></i>'.repeat(s.sm)}</span>`:'';
   return `<div class="crystals" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${h}<b>${s.mana}/${s.maxMana}</b>${sm}</div>`;
 }
@@ -2741,7 +2742,7 @@ function railHero(s){
   const face=`<button class="face${tclass(id)}" data-t="${id}" title="${name}" aria-label="${T('hpAria',name,s.hp)}">${portrait?`<span class="fart">${classArt(portrait)}</span>`:init}
     ${s.armor?`<span class="arb">${s.armor}</span>`:''}<span class="hpb">${s.hp}</span></button>`;
   const mana=`<div><div class="lmana${s.mana?'':' none'}" aria-label="${T('mana',s.mana,s.maxMana)}${s.sm?' · '+T('smAria',s.sm):''}">${s.mana}<small>/${s.maxMana}</small></div>
-    <div class="lsm${BETA?' bsm':''}" title="${BETA?SMH():''}">${BETA?`${'<i></i>'.repeat(s.sm||0)}${'<i class="off"></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}</b>`:'<i></i>'.repeat(s.sm||0)}</div></div>`;
+    <div class="lsm${BETA&&smCap(s)?' bsm':''}" title="${BETA&&smCap(s)?SMH():''}">${BETA?(smCap(s)?`${'<i></i>'.repeat(s.sm||0)}${'<i class="off"></i>'.repeat(Math.max(0,smCap(s)-(s.sm||0)))}<b>${s.sm||0}</b>`:''):'<i></i>'.repeat(s.sm||0)}</div></div>`;
   let power;
   if(!foe){const p=curPower(),ok=!powerBlocked();
     power=`<button class="power mini" data-go="power" ${ok?'':'disabled'} title="${pn(p)}: ${pd(p)}" aria-label="${T('powerAria',pn(p),pcost('p'),pd(p))}"><span class="pc">${pcost('p')}</span><span class="pn">${pn(p)}</span></button>`}

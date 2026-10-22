@@ -43,19 +43,19 @@ struct Tx {
     var rules: [String] {
         switch lang {
         case .en: return ["You gain one more **mana** each turn, up to 10. Spend it on minions and spells.",
-                          "Mana you leave unspent is saved as up to 3 **spell mana**, which only spells can use.",
+                          "A **Mage** keeps unspent mana as up to 3 **spell mana**, which only spells can use. Other classes lose it.",
                           "Tap a glowing minion, then tap an enemy to **attack**. New minions wait a turn unless they have **Charge**.",
                           "Enemies must hit **Guard** minions first. **Ward** blocks the next damage taken.",
                           "Choose one of six **classes**. Each has its own **hero power**, usable once per turn, and its own starting deck.",
                           "Defeat eight foes, from a goblin warband to the Ashen King. After each win you also add a card to your deck."]
         case .zh: return ["每回合你的**法力值**上限加1，最多10点。用它打出随从和法术。",
-                          "没用完的法力会存为最多3点**法术法力**，只能用来施放法术。",
+                          "**法师**没用完的法力会存为最多3点**法术法力**，只能用来施放法术；其他职业不会积累。",
                           "点击带绿框的随从，再点击敌人即可**攻击**。新随从要等一回合才能攻击，除非它有**冲锋**。",
                           "敌人必须先攻击有**守护**的随从。**护盾**可以抵挡下一次伤害。",
                           "从六个**职业**中选择一个。每个职业都有专属的**英雄技能**（每回合可用一次）和初始牌组。",
                           "击败八名敌人，从哥布林战团一路打到灰烬之王。每赢一场，你还可以向牌组加入一张牌。"]
         case .ja: return ["毎ターン**マナ**の上限が1増える（最大10）。ミニオンと呪文に使おう。",
-                          "使い切らなかったマナは最大3まで**呪文マナ**として貯まり、呪文にだけ使える。",
+                          "**魔法使い**は使い切らなかったマナを最大3まで**呪文マナ**として貯め、呪文にだけ使える。他のクラスは貯まらない。",
                           "光っているミニオンをタップし、敵をタップして**攻撃**。出したばかりのミニオンは**突撃**がない限り次のターンまで攻撃できない。",
                           "敵は先に**ガード**を持つミニオンを攻撃しなければならない。**結界**は次に受けるダメージを1回防ぐ。",
                           "6つの**クラス**から1つを選ぼう。クラスごとに専用の**ヒーローパワー**（1ターンに1回）と初期デッキがある。",
