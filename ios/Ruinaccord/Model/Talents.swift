@@ -48,7 +48,6 @@ struct AdvClass: Codable, Hashable {
 
 struct Talents: Codable {
     let maxPts: Int
-    let tierReq: [Int]
     let pages: [String: [TalentPage]]
     let overrides: [String: [String: CardOverride]]
     let presets: [String: [[String]]]
@@ -78,10 +77,12 @@ extension GameData {
     func talentPage(of id: String) -> TalentPage? { var t = talents; return t.pageOf[id] }
     func talentTier(of id: String) -> Int { var t = talents; return t.tierOf[id] ?? 0 }
 
-    /// Points spent in `page` below tier `t`.
-    func pointsBelow(_ sel: [String], _ page: TalentPage, _ t: Int) -> Int {
-        sel.filter { talentPage(of: $0)?.id == page.id && talentTier(of: $0) < t }.count
+    /// The pick in tier `t` of `page`, if any: one talent per tier.
+    func tierPick(_ sel: [String], _ page: TalentPage, _ t: Int) -> String? {
+        sel.first { talentPage(of: $0)?.id == page.id && talentTier(of: $0) == t }
     }
+    /// Tier 1 is always open; a later tier opens once the tier above it in the same page has its pick.
+    func tierOpen(_ sel: [String], _ page: TalentPage, _ t: Int) -> Bool { t == 0 || tierPick(sel, page, t - 1) != nil }
 
     func validTalents(_ cls: String, _ sel: [String]) -> Bool {
         if sel.isEmpty { return true }
@@ -89,29 +90,28 @@ extension GameData {
         return sel.allSatisfy { id in
             guard let pg = talentPage(of: id), pages.contains(where: { $0.id == pg.id }) else { return false }
             let t = talentTier(of: id)
-            return pointsBelow(sel, pg, t) >= talents.tierReq[t]
+            return tierOpen(sel, pg, t) && sel.filter { talentPage(of: $0)?.id == pg.id && talentTier(of: $0) == t }.count == 1
         }
     }
 
-    /// Drops nodes whose tier no longer has enough points under it (after a node below was removed).
+    /// Drops nodes whose tier is no longer open (after the pick above was removed).
     func pruneTalents(_ sel: [String]) -> [String] {
         var a = sel
         while true {
             let b = a.filter { id in
                 guard let pg = talentPage(of: id) else { return false }
-                let t = talentTier(of: id)
-                return pointsBelow(a, pg, t) >= talents.tierReq[t]
+                return tierOpen(a, pg, talentTier(of: id))
             }
             if b.count == a.count { return a }
             a = b
         }
     }
 
-    /// Presets: 0 = spec into the first page plus 5 in the second; 1 = the reverse; 2 = six and six.
+    /// Presets 0-2: both pages climbed to the top, taking the first, second or third talent of each tier.
     func talentPreset(_ cls: String, _ i: Int) -> [String] { talents.presets[cls]?[safe: i] ?? [] }
 
-    /// Adventure: points before duel `stage` (0-based): 1, 2, 3, 4, then +2 a duel, 12 at the final duel.
-    func advPoints(_ stage: Int) -> Int { min(talents.maxPts, 1 + min(stage, 3) + 2 * max(0, stage - 3)) }
+    /// Adventure: one point a duel, so `stage` (0-based) plays with stage + 1 points, 8 at the final duel.
+    func advPoints(_ stage: Int) -> Int { min(talents.maxPts, stage + 1) }
 
     /// The card changes a talent selection makes for its owner.
     func overrides(for sel: [String]) -> [String: CardOverride] {

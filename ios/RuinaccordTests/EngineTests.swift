@@ -34,17 +34,22 @@ final class EngineTests: XCTestCase {
             for st in adv.packs { for p in st { for k in p.cards { XCTAssertNotNil(gd.card(k), k) }; for h in p.hint { XCTAssertNotNil(gd.talentNode(h), h) } } }
             for lang in Lang.allCases { let tx = Tx(lang: lang); for pg in gd.talentPages(cls.id) { for row in pg.tiers { for n in row { XCTAssertFalse(tx.name(n.desc).isEmpty) } } } }
         }
-        // Tier gating: a tier-2 node alone is not valid; pruning drops it when its support goes.
+        // Tier gating: a tier-2 node needs the tier-1 pick above it, one pick a tier, both pages at once; pruning
+        // drops a node when the pick above it goes.
         XCTAssertFalse(gd.validTalents("mage", ["fi_fireball"]))
-        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_heart", "fi_fireball"]))
-        XCTAssertEqual(gd.pruneTalents(["fi_ignite", "fi_fireball"]), ["fi_ignite"])
-        XCTAssertEqual(gd.advPoints(0), 1); XCTAssertEqual(gd.advPoints(3), 4); XCTAssertEqual(gd.advPoints(7), 12)
+        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_fireball"]))
+        XCTAssertFalse(gd.validTalents("mage", ["fi_ignite", "fi_heart"]))
+        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_fireball", "fr_blood", "fr_bolt"]))
+        XCTAssertEqual(gd.pruneTalents(["fi_fireball", "fi_spark"]), [])
+        XCTAssertEqual(gd.talents.maxPts, 8)
+        XCTAssertEqual(gd.advPoints(0), 1); XCTAssertEqual(gd.advPoints(3), 4); XCTAssertEqual(gd.advPoints(7), 8)
         // Overrides change the owner's card: Frostbolt deals 5 with its talent, Frost Nova costs 1 less, Frost Blood adds Health.
         var s = DuelState(mode: .quick, pcls: "mage", ecls: "warrior", diff: .normal,
                           p: DuelState.makeHero(.p, hp: 30, deck: [], power: gd.cls("mage")!.power),
                           e: DuelState.makeHero(.e, hp: 30, deck: [], power: gd.cls("warrior")!.power))
-        s.setupTalents(.p, cls: "mage", ["fr_blood", "fr_armor", "fr_nova", "fr_bolt"])
+        s.setupTalents(.p, cls: "mage", ["fr_blood"])
         XCTAssertEqual(s.p.hp, 37)
+        s.setupTalents(.p, cls: "mage", ["fr_nova", "fr_bolt"])
         XCTAssertEqual(s.costOf(.p, "frostnova"), gd.card("frostnova")!.cost - 1)
         XCTAssertEqual(s.cardFx(.p, "frostbolt")?.dmg, 5)
         s.p.mana = 10; s.castSpell(.p, "frostbolt", .hero(.e)); XCTAssertEqual(s.e.hp, 25)

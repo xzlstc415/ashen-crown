@@ -15,7 +15,7 @@ const end = html.indexOf('const advPacks=');
 if (start < 0 || end < 0) throw new Error('markers not found in game.html');
 // The app plays the beta rules: beta cards, schools, prayers and talents.
 const chunk = 'const ASHEN_BETA=true;\n' + html.slice(start, end);
-const data = new Function(chunk + '\nreturn {ART, CARDS, OPP, CLASSES, BOARD_MAX, TALENTS, TAL_NODE, TAL_PAGE, TOVR, ADV, TAL_MAX, TIER_REQ, talPreset};')();
+const data = new Function(chunk + '\nreturn {ART, CARDS, OPP, CLASSES, BOARD_MAX, TALENTS, TAL_NODE, TAL_PAGE, TOVR, ADV, TAL_MAX, talPreset};')();
 
 // ---- JSON ----
 const cards = Object.entries(data.CARDS).map(([id, c]) => ({
@@ -59,7 +59,7 @@ const adv = {};
 for (const [cls, a] of Object.entries(data.ADV)) {
   adv[cls] = {deck: a.deck, packs: a.packs.map(stage => stage.map(([cards, hint]) => ({cards, hint})))};
 }
-const talents = {maxPts: data.TAL_MAX, tierReq: data.TIER_REQ, pages, overrides, presets, adv};
+const talents = {maxPts: data.TAL_MAX, pages, overrides, presets, adv};
 const classes = data.CLASSES.map(c => ({
   id: c.id, color: c.col, names: c.n, tags: c.tag, deck: c.deck,
   power: {cost: c.power.c, tgt: c.power.tgt ?? null, fx: fx(c.power.fx), names: c.power.n},

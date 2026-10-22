@@ -15,10 +15,7 @@ struct TalentPanel: View {
                     .overlay(Capsule().stroke(c.sel.count == c.budget ? Theme.ready : Theme.line, lineWidth: 1.2))
                 Text(tx.talHint).font(Theme.body(11)).foregroundStyle(Theme.muted).lineLimit(1)
                 Spacer()
-                ForEach(0..<2, id: \.self) { i in
-                    if let pg = pages[safe: i] { Button(tx.name(pg.names)) { vm.talPreset(i) }.ghost(compact: true) }
-                }
-                Button(tx.talBalanced) { vm.talPreset(2) }.ghost(compact: true)
+                ForEach(0..<3, id: \.self) { i in Button(tx.talPre(i + 1)) { vm.talPreset(i) }.ghost(compact: true) }
                 Button(tx.talClear) { vm.talPreset(nil) }.ghost(compact: true, danger: true)
             }
             HStack(alignment: .top, spacing: 10) {
@@ -44,7 +41,7 @@ private struct TalentPageView: View {
                 Text("\(n)").font(Theme.body(13, .heavy)).foregroundStyle(col).monospacedDigit()
             }
             ForEach(Array(page.tiers.enumerated()), id: \.offset) { t, row in
-                TalentTierRow(row: row, need: gd.talents.tierReq[t], open: gd.pointsBelow(sel, page, t) >= gd.talents.tierReq[t], sel: sel, budget: budget, col: col)
+                TalentTierRow(row: row, open: gd.tierOpen(sel, page, t), taken: gd.tierPick(sel, page, t) != nil, sel: sel, budget: budget, col: col)
             }
         }
         .padding(8)
@@ -56,21 +53,21 @@ private struct TalentPageView: View {
 
 private struct TalentTierRow: View {
     let row: [TalentNode]
-    let need: Int
     let open: Bool
+    let taken: Bool
     let sel: [String]
     let budget: Int
     let col: Color
     @Environment(GameVM.self) private var vm
     var body: some View {
-        let room: Bool = open && sel.count < budget
+        let room: Bool = open && !taken && sel.count < budget
         HStack(alignment: .top, spacing: 6) {
             ForEach(row) { nd in
                 let on: Bool = sel.contains(nd.id)
                 TalentNodeButton(nd: nd, on: on, ok: on || room, col: col)
             }
             if !open {
-                Text("🔒 " + vm.tx.talNeed(need)).font(Theme.body(9.5)).foregroundStyle(Theme.muted)
+                Text("🔒 " + vm.tx.talNeed).font(Theme.body(9.5)).foregroundStyle(Theme.muted)
                     .multilineTextAlignment(.center).frame(width: 74).frame(minHeight: 50)
             }
         }

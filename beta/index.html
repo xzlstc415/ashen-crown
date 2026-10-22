@@ -1143,9 +1143,10 @@ if(BETA){
 const CBY={};CLASSES.forEach(c=>CBY[c.id]=c);
 const FORTIFY={c:2,fx:{armor:2},n:['Fortify','固守','防備']};
 // ---------- beta · talents ----------
-// Two pages per class, 4 tiers of 3/3/2/1 nodes. A tier opens once that page has 0/2/4/6 points in the tiers
-// below it. 12 points in all; Adventure hands them out stage by stage.
-const TAL_MAX=12,TIER_REQ=[0,2,4,6];
+// Two pages per class, 4 tiers of 3/3/2/1 nodes. One talent per tier; a tier opens once the tier above it in
+// the same page has its pick. Both pages can be climbed, so 8 points fill everything; Adventure hands them out
+// one a duel.
+const TAL_MAX=8;
 const TN=(id,n,d)=>({id,n,d});
 const TALENTS=BETA?{
   mage:[
@@ -1319,24 +1320,22 @@ const TOVR={
   wl_hell:{hellfire:()=>({fx:{...CARDS.hellfire.fx,noSelf:1},x:['Deal 3 damage to all minions and the enemy hero.','对所有随从和敌方英雄造成3点伤害。','全てのミニオンと敵ヒーローに3ダメージ。']})},
 };
 const tal=(s,id)=>!!(s&&s.tal&&s.tal.has(id));
-// Points spent in a page below tier t.
-const pageBelow=(sel,pg,t)=>sel.filter(id=>TAL_PAGE[id]===pg&&TAL_NODE[id].t<t).length;
+// The pick in tier t of a page, and whether that tier is open (tier 1 always, the rest once the tier above has its pick).
+const tierPick=(sel,pg,t)=>sel.find(id=>TAL_PAGE[id]===pg&&TAL_NODE[id].t===t);
+const tierOpen=(sel,pg,t)=>t===0||!!tierPick(sel,pg,t-1);
 function validTal(cls,sel){
   if(!Array.isArray(sel))return false;
   if(!sel.length)return true;
   if(!TALENTS[cls]||sel.length>TAL_MAX||new Set(sel).size!==sel.length)return false;
-  return sel.every(id=>TAL_NODE[id]&&TALENTS[cls].includes(TAL_PAGE[id])&&pageBelow(sel,TAL_PAGE[id],TAL_NODE[id].t)>=TIER_REQ[TAL_NODE[id].t]);
+  return sel.every(id=>TAL_NODE[id]&&TALENTS[cls].includes(TAL_PAGE[id])&&tierOpen(sel,TAL_PAGE[id],TAL_NODE[id].t)
+    &&sel.filter(x=>TAL_PAGE[x]===TAL_PAGE[id]&&TAL_NODE[x].t===TAL_NODE[id].t).length===1);
 }
-// Drop nodes whose tier no longer has enough points under it (after a node below was removed).
-function pruneTal(sel){let a=[...sel],ch=true;while(ch){ch=false;const b=a.filter(id=>pageBelow(a,TAL_PAGE[id],TAL_NODE[id].t)>=TIER_REQ[TAL_NODE[id].t]);if(b.length<a.length){a=b;ch=true}}return a}
-// Presets: 0 = spec into the first page (tiers 1-2 and its capstone, 7) plus 5 in the second; 1 = the reverse;
-// 2 = six and six.
+// Drop nodes whose tier is no longer open (after the pick above was removed).
+function pruneTal(sel){let a=[...sel],ch=true;while(ch){ch=false;const b=a.filter(id=>tierOpen(a,TAL_PAGE[id],TAL_NODE[id].t));if(b.length<a.length){a=b;ch=true}}return a}
+// Presets 0-2: both pages climbed to the top, taking the first, second or third talent of each tier.
 function talPreset(cls,i){
   const P=TALENTS[cls];if(!P)return [];
-  const six=pg=>[...pg.tiers[0],...pg.tiers[1]].map(n=>n.id);
-  if(i===2)return [...six(P[0]),...six(P[1])];
-  const [a,b]=i?[P[1],P[0]]:[P[0],P[1]];
-  return [...six(a),a.tiers[3][0].id,...six(b).slice(0,5)];
+  return P.flatMap(pg=>pg.tiers.map(row=>row[Math.min(i,row.length-1)].id));
 }
 // Applies a talent list to a duel side: Health, hero power and card overrides.
 function setupTalents(s,cls,sel){
@@ -1434,7 +1433,8 @@ const TX={
   talents:()=>['Talents','天赋','タレント'][li()],cards:()=>['Cards','卡牌','カード'][li()],
   pts:(n,m)=>[`Points ${n}/${m}`,`天赋点 ${n}/${m}`,`ポイント ${n}/${m}`][li()],
   bal:()=>['Balanced','均衡','バランス'][li()],reset:()=>['Clear','清空','リセット'][li()],
-  need:n=>[`Opens at ${n} points in this page`,`本页投入${n}点后解锁`,`このページに${n}ポイントで解放`][li()],
+  need:()=>['Pick a talent in the tier above first','先在上一层选一个天赋','上の段で1つ選ぶと開く'][li()],
+  pre:n=>[`Build ${n}`,`方案${n}`,`構成${n}`][li()],
   advT:n=>[`Talents · Duel ${n}`,`第${n}关 · 分配天赋`,`第${n}戦・タレント`][li()],
   advS:n=>[`You have ${n} talent point${n>1?'s':''}. You can move them before every duel.`,`你现在有${n}点天赋，每关开始前都可以重新分配。`,`タレントポイントは${n}。毎戦の前に振り直せる。`][li()],
   fight:()=>['To battle','开始战斗','戦いへ'][li()],
@@ -1444,10 +1444,10 @@ const TX={
   soul:(n)=>[`Souls ${n}/10`,`魂 ${n}/10`,`魂 ${n}/10`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/12`,`协作 ${n}/12`,`連携 ${n}/12`][li()],
   teaches:()=>['Works with:','配合天赋：','相性の良いタレント：'][li()],takePack:n=>[`Take the ${n} pack`,`选择${n}牌包`,`${n}パックを取る`][li()],
   packText:(n,o)=>[`Choose a pack for your deck (${n} cards). Next: ${o}.`,`选一个牌包加入牌组（现在${n}张）。下一关：${o}。`,`デッキに加えるパックを選ぶ（現在${n}枚）。次：${o}。`][li()],
-  rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. Spend 12 points in the deck builder; in Adventure you earn them duel by duel.','<b>天赋（测试）：</b>法师和牧师各有两页天赋。在组牌界面分配12点；冒险模式中逐关获得。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ。デッキ編集で12ポイントを振り、冒険では1戦ごとに増える。'][li()],
+  rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. One talent per tier, each tier opening once the one above it is picked, and both pages can be climbed: 8 points fill everything. Set them in the deck builder; in Adventure you earn one a duel.','<b>天赋（测试）：</b>法师和牧师各有两页天赋。每层只能选一个，选了上一层才解锁下一层；两页可以同时点，8 点点满。在组牌界面分配；冒险模式中每关得一点。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ。各段1つだけ、上の段を選ぶと次が開き、両ページとも登れる。8ポイントで全て埋まる。デッキ編集で振り、冒険では1戦ごとに1ポイント。'][li()],
 };
 // Adventure: points before duel s (0-based): 1, 2, 3, 4, then +2 a duel, 12 at the final duel.
-const advPts=()=>Math.min(TAL_MAX,1+Math.min(R.stage,3)+2*Math.max(0,R.stage-3));
+const advPts=()=>Math.min(TAL_MAX,R.stage+1);
 function talCtx(){
   if(view==='build')return {cls:Q.cls,sel:Q.tal||[],budget:TAL_MAX,set:v=>{Q.tal=v;Q.dirty=true;Q.toast=''}};
   return {cls:R.cls,sel:R.tal||[],budget:advPts(),set:v=>{R.tal=v}};
@@ -1455,17 +1455,17 @@ function talCtx(){
 function talClick(id){
   const c=talCtx(),sel=c.sel,nd=TAL_NODE[id];if(!nd)return;
   if(sel.includes(id))c.set(pruneTal(sel.filter(x=>x!==id)));
-  else if(sel.length<c.budget&&pageBelow(sel,TAL_PAGE[id],nd.t)>=TIER_REQ[nd.t])c.set([...sel,id]);
+  else if(sel.length<c.budget&&tierOpen(sel,TAL_PAGE[id],nd.t)&&!tierPick(sel,TAL_PAGE[id],nd.t))c.set([...sel,id]);
   render();
 }
 function talPanel(){
   const c=talCtx(),sel=c.sel,P=TALENTS[c.cls];if(!P)return '';
   const pages=P.map(pg=>{const n=sel.filter(id=>TAL_PAGE[id]===pg).length;
-    const rows=pg.tiers.map((row,t)=>{const open=pageBelow(sel,pg,t)>=TIER_REQ[t];
-      return `<div class="trow${t===3?' cap':''}" style="--n:${row.length}">${open?'':`<span class="treq">🔒 ${TX.need(TIER_REQ[t])}</span>`}${row.map(nd=>{const on=sel.includes(nd.id),ok=on||(open&&sel.length<c.budget);
+    const rows=pg.tiers.map((row,t)=>{const open=tierOpen(sel,pg,t),taken=!!tierPick(sel,pg,t);
+      return `<div class="trow${t===3?' cap':''}" style="--n:${row.length}">${open?'':`<span class="treq">🔒 ${TX.need()}</span>`}${row.map(nd=>{const on=sel.includes(nd.id),ok=on||(open&&!taken&&sel.length<c.budget);
         return `<button class="tnode ${on?'on':ok?'avail':'lock'}" data-tal="${nd.id}" aria-pressed="${on}" ${ok?'':'aria-disabled="true"'}><b>${nd.n[li()]}</b><span>${nd.d[li()]}</span></button>`}).join('')}</div>`}).join('');
     return `<div class="tpage" style="--tc:${pg.col}"><h3>${pg.n[li()]}<span>${n}</span></h3>${rows}</div>`}).join('');
-  const pre=[[0,P[0].n[li()]],[1,P[1].n[li()]],[2,TX.bal()]].map(([i,t])=>`<button class="chip" data-tpre="${i}">${t}</button>`).join('');
+  const pre=[0,1,2].map(i=>`<button class="chip" data-tpre="${i}">${TX.pre(i+1)}</button>`).join('');
   return `<div class="talp"><div class="talhead"><span class="count ${sel.length===c.budget?'ok':''}">${TX.pts(sel.length,c.budget)}</span><div class="chips">${pre}<button class="chip" data-tpre="x">${TX.reset()}</button></div></div><div class="talpages">${pages}</div></div>`;
 }
 function talPresetClick(v){const c=talCtx();c.set(v==='x'?[]:talPreset(c.cls,+v).slice(0,c.budget));render()}

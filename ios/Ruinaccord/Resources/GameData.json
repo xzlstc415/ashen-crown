@@ -8954,13 +8954,7 @@
  "boardMax": 5,
  "deckSize": 25,
  "talents": {
-  "maxPts": 12,
-  "tierReq": [
-   0,
-   2,
-   4,
-   6
-  ],
+  "maxPts": 8,
   "pages": {
    "mage": [
     {
@@ -12257,265 +12251,193 @@
    "mage": [
     [
      "fi_ignite",
-     "fi_heart",
-     "fi_burn",
      "fi_fireball",
-     "fi_wildfire",
-     "fi_bank",
+     "fi_spark",
      "fi_boost",
      "fr_blood",
-     "fr_armor",
-     "fr_nova",
      "fr_bolt",
-     "fr_mirror"
+     "fr_spark",
+     "fr_deep"
     ],
     [
-     "fr_blood",
-     "fr_armor",
-     "fr_nova",
-     "fr_bolt",
-     "fr_mirror",
-     "fr_perma",
-     "fr_deep",
-     "fi_ignite",
      "fi_heart",
-     "fi_burn",
-     "fi_fireball",
-     "fi_wildfire"
-    ],
-    [
-     "fi_ignite",
-     "fi_heart",
-     "fi_burn",
-     "fi_fireball",
      "fi_wildfire",
-     "fi_bank",
-     "fr_blood",
+     "fi_flamearmor",
+     "fi_boost",
      "fr_armor",
-     "fr_nova",
-     "fr_bolt",
      "fr_mirror",
-     "fr_perma"
+     "fr_barrier",
+     "fr_deep"
+    ],
+    [
+     "fi_burn",
+     "fi_bank",
+     "fi_flamearmor",
+     "fi_boost",
+     "fr_nova",
+     "fr_perma",
+     "fr_barrier",
+     "fr_deep"
     ]
    ],
    "priest": [
     [
      "ho_devout",
-     "ho_smite",
-     "ho_light",
      "ho_shield",
-     "ho_dawn",
-     "ho_grace",
+     "ho_pray",
      "ho_altar",
      "sh_pain",
-     "sh_insight",
-     "sh_breaker",
      "sh_death",
-     "sh_echo"
+     "sh_touch",
+     "sh_steal"
     ],
     [
-     "sh_pain",
-     "sh_insight",
-     "sh_breaker",
-     "sh_death",
-     "sh_echo",
-     "sh_void",
-     "sh_steal",
-     "ho_devout",
      "ho_smite",
-     "ho_light",
-     "ho_shield",
-     "ho_dawn"
-    ],
-    [
-     "ho_devout",
-     "ho_smite",
-     "ho_light",
-     "ho_shield",
      "ho_dawn",
-     "ho_grace",
-     "sh_pain",
+     "ho_hymn",
+     "ho_altar",
      "sh_insight",
-     "sh_breaker",
-     "sh_death",
      "sh_echo",
-     "sh_void"
+     "sh_drain",
+     "sh_steal"
+    ],
+    [
+     "ho_light",
+     "ho_grace",
+     "ho_hymn",
+     "ho_altar",
+     "sh_breaker",
+     "sh_void",
+     "sh_drain",
+     "sh_steal"
     ]
    ],
    "warrior": [
     [
      "wa_tough",
-     "wa_wall",
-     "wa_crab",
      "wa_slam",
-     "wa_thane",
-     "wa_iron",
+     "wa_heavy",
      "wa_bulwark",
      "wa_berserk",
-     "wa_rage",
-     "wa_reckless",
      "wa_whirl",
-     "wa_exec"
+     "wa_roar",
+     "wa_fury"
     ],
     [
-     "wa_berserk",
-     "wa_rage",
-     "wa_reckless",
-     "wa_whirl",
-     "wa_exec",
-     "wa_frenzy",
-     "wa_fury",
-     "wa_tough",
      "wa_wall",
-     "wa_crab",
-     "wa_slam",
-     "wa_thane"
-    ],
-    [
-     "wa_tough",
-     "wa_wall",
-     "wa_crab",
-     "wa_slam",
      "wa_thane",
-     "wa_iron",
-     "wa_berserk",
+     "wa_counter",
+     "wa_bulwark",
      "wa_rage",
-     "wa_reckless",
-     "wa_whirl",
      "wa_exec",
-     "wa_frenzy"
+     "wa_bloodied",
+     "wa_fury"
+    ],
+    [
+     "wa_crab",
+     "wa_iron",
+     "wa_counter",
+     "wa_bulwark",
+     "wa_reckless",
+     "wa_frenzy",
+     "wa_bloodied",
+     "wa_fury"
     ]
    ],
    "paladin": [
     [
      "pa_drill",
-     "pa_horn",
-     "pa_squires",
      "pa_command",
-     "pa_step",
-     "pa_array",
+     "pa_double",
      "pa_coop",
      "pa_first",
-     "pa_bless",
-     "pa_hold",
      "pa_kings",
-     "pa_humble"
+     "pa_lightcall",
+     "pa_sanct"
     ],
     [
-     "pa_first",
-     "pa_bless",
-     "pa_hold",
-     "pa_kings",
-     "pa_humble",
-     "pa_vshield",
-     "pa_sanct",
-     "pa_drill",
      "pa_horn",
-     "pa_squires",
-     "pa_command",
-     "pa_step"
-    ],
-    [
-     "pa_drill",
-     "pa_horn",
-     "pa_squires",
-     "pa_command",
      "pa_step",
-     "pa_array",
-     "pa_first",
+     "pa_banner",
+     "pa_coop",
      "pa_bless",
-     "pa_hold",
-     "pa_kings",
      "pa_humble",
-     "pa_vshield"
+     "pa_echo",
+     "pa_sanct"
+    ],
+    [
+     "pa_squires",
+     "pa_array",
+     "pa_banner",
+     "pa_coop",
+     "pa_hold",
+     "pa_vshield",
+     "pa_echo",
+     "pa_sanct"
     ]
    ],
    "hunter": [
     [
      "hu_pack",
-     "hu_tame",
-     "hu_pounce",
      "hu_kill",
-     "hu_hound",
-     "hu_wild",
+     "hu_master",
      "hu_combo",
      "hu_precise",
-     "hu_eagle",
-     "hu_quiver",
      "hu_deadly",
-     "hu_griffon"
+     "hu_rapid",
+     "hu_heart"
     ],
     [
-     "hu_precise",
-     "hu_eagle",
-     "hu_quiver",
-     "hu_deadly",
-     "hu_griffon",
-     "hu_aim",
-     "hu_heart",
-     "hu_pack",
      "hu_tame",
-     "hu_pounce",
-     "hu_kill",
-     "hu_hound"
-    ],
-    [
-     "hu_pack",
-     "hu_tame",
-     "hu_pounce",
-     "hu_kill",
      "hu_hound",
-     "hu_wild",
-     "hu_precise",
+     "hu_whistle",
+     "hu_combo",
      "hu_eagle",
-     "hu_quiver",
-     "hu_deadly",
      "hu_griffon",
-     "hu_aim"
+     "hu_pierce",
+     "hu_heart"
+    ],
+    [
+     "hu_pounce",
+     "hu_wild",
+     "hu_whistle",
+     "hu_combo",
+     "hu_quiver",
+     "hu_aim",
+     "hu_pierce",
+     "hu_heart"
     ]
    ],
    "warlock": [
     [
      "wl_bone",
-     "wl_raise",
-     "wl_wrath",
      "wl_gasp",
-     "wl_ghoul",
-     "wl_coil",
+     "wl_tide",
      "wl_soul",
      "wl_pact",
-     "wl_soulfire",
-     "wl_flesh",
      "wl_hell",
-     "wl_pain"
+     "wl_bloodmana",
+     "wl_veng"
     ],
     [
-     "wl_pact",
-     "wl_soulfire",
-     "wl_flesh",
-     "wl_hell",
-     "wl_pain",
-     "wl_mutate",
-     "wl_veng",
-     "wl_bone",
      "wl_raise",
-     "wl_wrath",
-     "wl_gasp",
-     "wl_ghoul"
-    ],
-    [
-     "wl_bone",
-     "wl_raise",
-     "wl_wrath",
-     "wl_gasp",
      "wl_ghoul",
-     "wl_coil",
-     "wl_pact",
+     "wl_harvest",
+     "wl_soul",
      "wl_soulfire",
-     "wl_flesh",
-     "wl_hell",
      "wl_pain",
-     "wl_mutate"
+     "wl_tap",
+     "wl_veng"
+    ],
+    [
+     "wl_wrath",
+     "wl_coil",
+     "wl_harvest",
+     "wl_soul",
+     "wl_flesh",
+     "wl_mutate",
+     "wl_tap",
+     "wl_veng"
     ]
    ]
   },
