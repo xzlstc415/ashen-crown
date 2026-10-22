@@ -150,7 +150,12 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .card{position:relative;flex:none;width:10em;height:15.6em;padding:0;border:.28em solid #8a6a3a;border-radius:.9em;font-size:9.4px;
   background:#120d16;color:#f3e9d4;display:block;box-shadow:0 .25em 0 #0009;text-align:center;font-family:var(--body);transition:transform .15s}
 .card.s{border-color:#6c58b8}
-.card.leg{border-color:#e8b24a}
+.card.leg{border-color:#e8b24a}.card.uniq{border-color:#a35ad6}
+/* Legendaries wear the painted gold frame, one-copy class epics the purple one (img/frame_*.png, cut out in the
+   middle); it overhangs the card a little and the rules box moves in to fit its opening. */
+.card.leg::before,.card.uniq::before{content:"";position:absolute;left:-7%;right:-7%;top:-7%;bottom:-7%;background:url(img/frame_gold.png) center/100% 100% no-repeat;pointer-events:none;z-index:1}
+.card.uniq::before{background-image:url(img/frame_purple.png)}
+.card.leg .tbox,.card.uniq .tbox{left:1.15em;right:1.15em;bottom:1.45em;min-height:34%;padding-bottom:.55em}
 .card.md{font-size:10.8px}.card.big{font-size:14px}
 .card .art{position:absolute;inset:0;border-radius:.62em;overflow:hidden;background:radial-gradient(circle at 50% 28%,#5a4636,#120d16 72%)}
 .card.s .art{background:radial-gradient(circle at 50% 28%,#3d2f6e,#100a20 72%)}
@@ -2650,7 +2655,7 @@ function cardFace(k,size,tag='button',attrs='',extra='',boost=0){
   // The frame colour shows minion or spell; the line names what matters in play: the race (Beasts count for
   // Kill Command) and, for class cards, the class.
   const typ=[m&&T('race')[c.race],c.pray&&T('prayerT'),c.cls&&CBY[c.cls].n[li()]].filter(Boolean).join(' · ');
-  return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''} ${size} ${extra}" ${attrs}>
+  return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''}${c.uniq?' uniq':''} ${size} ${extra}" ${attrs}>
     <span class="art">${art(k)}</span><span class="cost${cost<c.c?' down':''}">${cost}</span>${boost?`<span class="hboost">+${boost}</span>`:''}
     <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span>${typ?`<span class="typ">${typ}</span>`:''}<span class="tx">${kwBold(ct(k))}</span></span>
     ${m?`<span class="stat a">${c.a}</span><span class="stat h">${c.h}</span>`:''}</${tag}>`;

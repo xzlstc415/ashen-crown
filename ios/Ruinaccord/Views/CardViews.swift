@@ -23,6 +23,8 @@ struct CardView: View {
         let em = size.em, cjk = vm.lang.isCJK, tx = vm.tx
         let cost = ovr?.cost ?? card.cost
         let spell = !card.isMinion, leg = card.isLegendary
+        // Legendaries wear the painted gold frame, one-copy class epics the purple one; the rules box moves in to fit the opening.
+        let framed = leg || card.uniq
         let frame = leg ? Color(hex: "#e8b24a") : spell ? Color(hex: "#6c58b8") : Color(hex: "#8a6a3a")
         let artBg: [Color] = leg ? [Color(hex: "#6a2a1a"), Color(hex: "#1a0806")] : spell ? [Color(hex: "#3d2f6e"), Color(hex: "#100a20")] : [Color(hex: "#5a4636"), Color(hex: "#120d16")]
         let inner = RoundedRectangle(cornerRadius: 0.62 * em)
@@ -64,8 +66,8 @@ struct CardView: View {
             }
             .padding(.horizontal, 0.55 * em)
             .padding(.top, 0.85 * em)
-            .padding(.bottom, card.isMinion ? 1.25 * em : 0.55 * em)
-            .frame(maxWidth: .infinity, minHeight: 15.6 * em * 0.4, alignment: .topLeading)
+            .padding(.bottom, card.isMinion && !framed ? 1.25 * em : 0.55 * em)
+            .frame(maxWidth: .infinity, minHeight: 15.6 * em * (framed ? 0.34 : 0.4), alignment: .topLeading)
             .background(Color(hex: "#0e0a12").opacity(0.66), in: RoundedRectangle(cornerRadius: 0.5 * em))
             .overlay(RoundedRectangle(cornerRadius: 0.5 * em).stroke(Color(hex: "#e8c35a").opacity(0.35), lineWidth: 0.08 * em))
             .overlay(alignment: .top) {
@@ -76,8 +78,16 @@ struct CardView: View {
                     .shadow(color: leg ? Theme.rarityColor("l") : .clear, radius: 0.4 * em)
                     .offset(y: -0.42 * em)
             }
-            .padding(0.35 * em)
+            .padding(.horizontal, framed ? 1.15 * em : 0.35 * em)
+            .padding(.top, 0.35 * em)
+            .padding(.bottom, framed ? 1.45 * em : 0.35 * em)
             .frame(maxHeight: .infinity, alignment: .bottom)
+            if framed {
+                Image(leg ? "frame_gold" : "frame_purple").resizable()
+                    .frame(width: 11.4 * em, height: 15.6 * em * 1.14)
+                    .position(x: 5 * em, y: 7.8 * em)
+                    .allowsHitTesting(false)
+            }
             // The gems ride on the corners of the card, a little past its edge.
             GemView(kind: .cost, value: cost, size: 2.9 * em, numberColor: cost < card.cost ? Theme.ready : nil)
                 .offset(x: -0.8 * em, y: -0.8 * em)
