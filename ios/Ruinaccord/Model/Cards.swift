@@ -107,15 +107,16 @@ struct Card: Codable, Identifiable, Hashable {
     let rite: Bool              // Blood Rite: sacrifices the hand for a free copy of a Legendary
     let ether: Bool             // Ethereal: no damage from attacks or hero powers
     let haunt: Bool             // at the start of its owner's turn, a minion of the grave returns to the hand
+    let uniq: Bool              // one copy a deck, like a Legendary
 
     var isMinion: Bool { type == .minion }
     var isLegendary: Bool { rarity == "l" }
     var isPrayer: Bool { pray != nil }
     /// A spell cast on one chosen character (aimed with an arrow, like an attack); area spells are not.
     var isTargetedSpell: Bool { !isMinion && fx?.tgt != nil }
-    var maxCopies: Int { isLegendary ? 1 : 2 }
+    var maxCopies: Int { isLegendary || uniq ? 1 : 2 }
     var artName: String { "art_\(id)" }
-    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt }
+    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt, uniq }
     func allowed(for cls: String?) -> Bool { self.cls == nil || cls == nil || self.cls == cls }
 }
 

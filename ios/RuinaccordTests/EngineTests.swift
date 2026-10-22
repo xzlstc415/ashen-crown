@@ -119,14 +119,15 @@ final class EngineTests: XCTestCase {
         XCTAssertTrue(gd.card("bloodrite")!.rite); XCTAssertFalse(gd.card("bloodrite")!.isMinion)
         s.pay(.p, "bloodrite"); s.takeHand(.p, 0); s.castSpell(.p, "bloodrite", nil)
         XCTAssertTrue(s.p.hand.isEmpty); XCTAssertEqual(s.p.rites, 1); XCTAssertEqual(s.p.mana, 0)
-        XCTAssertEqual(s.riteOffer().count, gd.collectible.filter(\.isLegendary).count); XCTAssertTrue(s.riteOffer().contains("bloodrite"))
+        XCTAssertEqual(s.riteOffer().count, Swift.min(3, gd.collectible.filter(\.isLegendary).count)); XCTAssertTrue(s.riteOffer().allSatisfy { gd.card($0)!.isLegendary })
+        XCTAssertEqual(gd.card("bloodrite")!.maxCopies, 1); XCTAssertEqual(gd.card("gravecaller")!.maxCopies, 1); XCTAssertEqual(gd.card("gravecaller")!.rarity, "e")
         s.ritePick(.p, "lich")
         XCTAssertEqual(s.p.hand, ["lich"]); XCTAssertEqual(s.costOf(.p, "lich"), 0); XCTAssertTrue(s.canPay(.p, "lich"))
         s.takeHand(.p, 0); XCTAssertEqual(s.costOf(.p, "lich"), gd.card("lich")!.cost, "only the copy was free")
         s.p.rites = DuelState.riteNeed; s.ritePick(.p, "leviathan")
         XCTAssertEqual(s.p.hand, ["leviathan", "leviathan"]); XCTAssertEqual(s.p.free["leviathan"], 2); XCTAssertEqual(s.p.hb.count, 2)
         s.p.hand = []; s.p.hb = []; s.p.free = [:]; s.e.board = []; s.p.hp = 30
-        XCTAssertEqual(s.aiRitePick(.p), ["leviathan"], "the biggest body when healthy and the foe's board is small")
+        let took = s.aiRitePick(.p); XCTAssertEqual(took.count, 1); XCTAssertTrue(gd.card(took[0])!.isLegendary && gd.card(took[0])!.isMinion)
         s.p.hand = []; s.p.hb = []; s.p.free = [:]
         // Prayers wait on the altar and resolve after their countdown.
         s.setupTalents(.p, cls: "priest", [])

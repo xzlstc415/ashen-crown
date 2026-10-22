@@ -544,10 +544,11 @@ struct DuelState: Codable {
         return ks
     }
 
-    /// Blood Rite: the rest of the hand is sacrificed; any Legendary card is copied into the hand and costs (0)
+    /// Blood Rite: the rest of the hand is sacrificed; one of three random Legendaries is copied into the hand and costs (0)
     /// this game (`free` counts the free copies per card). From the third Rite of a game on, two copies come.
     static let riteNeed = 3
-    func riteOffer() -> [String] { Self.gd.collectible.filter(\.isLegendary).sorted { $0.cost < $1.cost }.map(\.id) }
+    /// Three random Legendaries (fewer if the game has fewer), dearest last.
+    func riteOffer() -> [String] { Array(Self.gd.collectible.filter(\.isLegendary).shuffled().prefix(3)).sorted { $0.cost < $1.cost }.map(\.id) }
     mutating func riteSacrifice(_ side: Side) {
         let n = self[side].hand.count
         self[side].hand = []; self[side].hb = []; self[side].free = [:]

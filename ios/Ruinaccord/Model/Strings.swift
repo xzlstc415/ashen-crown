@@ -143,7 +143,7 @@ struct Tx {
     var modeQuickSub: String { pick("Build your own deck and face a random AI opponent.", "自己组一副牌，随机对战一名AI对手。", "自分でデッキを組み、ランダムなAIと対戦する。") }
     func qClassSub(_ n: Int) -> String { pick("Next you will build a \(n)-card deck for this class.", "接下来为这个职业组一副\(n)张的牌组。", "次にこのクラスで\(n)枚のデッキを組む。") }
     func deckTitle(_ x: String) -> String { pick("\(x) deck", "\(x)的牌组", "\(x)のデッキ") }
-    func deckRules(_ n: Int) -> String { pick("\(n) cards. Up to 2 copies of a card, 1 of a legendary.", "\(n)张牌。同名卡最多2张，传说卡最多1张。", "\(n)枚。同名カードは2枚まで、レジェンドは1枚まで。") }
+    func deckRules(_ n: Int) -> String { pick("\(n) cards. Up to 2 copies of a card, 1 of a legendary or a marked epic.", "\(n)张牌。同名卡最多2张，传说卡和特殊史诗卡最多1张。", "\(n)枚。同名カードは2枚まで、レジェンドと特別なエピックは1枚まで。") }
     func deckNeed(_ n: Int) -> String { pick("\(n) more to add", "还差\(n)张", "あと\(n)枚") }
     var deckReady: String { pick("Deck ready", "牌组已完成", "デッキ完成") }
     var autoFill: String { pick("Auto-fill", "自动补满", "自動で埋める") }
@@ -420,7 +420,7 @@ struct Tx {
     var fEther: String { pick("Ethereal", "虚体", "霊体") }
     func fRite(_ n: Int) -> String { pick("Sacrificed \(n)", "献祭\(n)张", "生贄\(n)枚") }
     func rites(_ n: Int) -> String { pick("Rites \(n)", "血祭 \(n)", "儀式 \(n)") }
-    var riteTitle: String { pick("Blood Rite: choose a Legendary", "血祭：任选一张传说牌", "血の儀式：伝説カードを選ぶ") }
+    var riteTitle: String { pick("Blood Rite: choose one of three Legendaries", "血祭：三张传说牌选一张", "血の儀式：伝説カード3枚から1枚を選ぶ") }
     func riteSub(_ n: Int) -> String { n > 1 ? pick("Two copies join your hand and cost (0) this game.", "两张复制加入你的手牌，本局打出不消耗法力值。", "コピー2枚が手札に加わり、このゲーム中マナを消費しない。") : pick("A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.", "一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。", "コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。") }
     var riteOk: String { pick("Copy", "复制", "コピー") }
     func fero(_ n: Int) -> String { pick("Ferocity \(n)/\(DuelState.feroCap)", "兽性 \(n)/\(DuelState.feroCap)", "野性 \(n)/\(DuelState.feroCap)") }

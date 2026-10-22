@@ -512,7 +512,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}, costs ${c}. ${s}${t}`,statsAria:(a,h)=>`${a} attack, ${h} health. `,
     introTitle:'Fight your way to the Ashen Crown',
     prayerT:'Prayer',altarFull:'Your altar is full (2 Prayers).',prayed:c=>`You place ${c} on your altar.`,ePrayed:(x,c)=>`${x} places ${c} on the altar.`,
-    prayerDone:(x,c)=>`${x}: ${c} is answered.`,emberLbl:n=>`Embers ${n}/5`,altarLbl:'Altar',fEmber:n=>`+${n} Embers`,fIgnite:'Ignite!',fRevive:'Revived',fPray:'Answered',fEther:'Ethereal',fRite:n=>`Sacrificed ${n}`,riteTitle:'Blood Rite: choose a Legendary',riteSub:n=>n>1?'Two copies join your hand and cost (0) this game.':'A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.',riteOk:'Copy',
+    prayerDone:(x,c)=>`${x}: ${c} is answered.`,emberLbl:n=>`Embers ${n}/5`,altarLbl:'Altar',fEmber:n=>`+${n} Embers`,fIgnite:'Ignite!',fRevive:'Revived',fPray:'Answered',fEther:'Ethereal',fRite:n=>`Sacrificed ${n}`,riteTitle:'Blood Rite: choose one of three Legendaries',riteSub:n=>n>1?'Two copies join your hand and cost (0) this game.':'A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.',riteOk:'Copy',
     rEmber:'<b>Mage · Embers (beta):</b> instead of spell mana, mana you leave unspent turns into Embers (max 5). <b>Ignite N</b> cards spend N Embers automatically for a stronger effect.',
     rPrayer:'<b>Priest · Prayers:</b> a Prayer goes on your altar (2 slots) and resolves after N of your turns.',
     rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
@@ -542,7 +542,7 @@ const I18N={
     powerAria:(n,c,d)=>`Hero power ${n}, costs ${c}: ${d}`,powerUse:(n,t)=>`You use ${n}${t?' on '+t:''}.`,cantPower:'You can\'t use your hero power right now.',
     modeCamp:'Adventure',modeCampSub:'Defeat eight foes in a row with a class starter deck.',modeQuick:'Quick Match',modeQuickSub:'Build your own deck and face a random AI opponent.',
     qClassTitle:'Quick Match · Choose a class',qClassSub:n=>`Next you will build a ${n}-card deck for this class.`,
-    deckTitle:x=>`${x} deck`,deckRules:n=>`${n} cards. Up to 2 copies of a card, 1 of a legendary.`,deckNeed:n=>`${n} more to add`,deckReady:'Deck ready',
+    deckTitle:x=>`${x} deck`,deckRules:n=>`${n} cards. Up to 2 copies of a card, 1 of a legendary or a marked epic.`,deckNeed:n=>`${n} more to add`,deckReady:'Deck ready',
     autoFill:'Auto-fill',resetDeck:'Starter deck',clearDeck:'Clear',nextDiff:'Next: difficulty',curve:'Mana curve',filterAll:'All',
     tapAdd:'Tap a card to add it. Tap a row in your deck to remove one copy.',limitHit:'You already have the most copies allowed of that card.',deckFull:'Your deck is full.',emptyDeck:'Your deck is empty. Tap cards to add them.',
     diffTitle:'Choose difficulty',diffSub:'Your opponent\'s class is chosen at random.',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
@@ -583,7 +583,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}，消耗${c}点法力。${s}${t}`,statsAria:(a,h)=>`${a}点攻击力，${h}点生命值。`,
     introTitle:'一路征战，夺取灰烬王冠',
     prayerT:'祷文',altarFull:'祭坛已满（最多两个祷文）。',prayed:c=>`你把${c}放上了祭坛。`,ePrayed:(x,c)=>`${x}把${c}放上了祭坛。`,
-    prayerDone:(x,c)=>`${x}的${c}应验了。`,emberLbl:n=>`余烬 ${n}/5`,altarLbl:'祭坛',fEmber:n=>`+${n}余烬`,fIgnite:'点燃！',fRevive:'复活',fPray:'应验',fEther:'虚体',fRite:n=>`献祭${n}张`,riteTitle:'血祭：任选一张传说牌',riteSub:n=>n>1?'两张复制加入你的手牌，本局打出不消耗法力值。':'一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。',riteOk:'复制',
+    prayerDone:(x,c)=>`${x}的${c}应验了。`,emberLbl:n=>`余烬 ${n}/5`,altarLbl:'祭坛',fEmber:n=>`+${n}余烬`,fIgnite:'点燃！',fRevive:'复活',fPray:'应验',fEther:'虚体',fRite:n=>`献祭${n}张`,riteTitle:'血祭：三张传说牌选一张',riteSub:n=>n>1?'两张复制加入你的手牌，本局打出不消耗法力值。':'一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。',riteOk:'复制',
     rEmber:'<b>法师·余烬（测试）：</b>法师没有法术法力，回合结束时没用完的法力会化为余烬（最多5点）。带<b>点燃N</b>的卡牌在余烬足够时会自动消耗N点，发挥更强的效果。',
     rPrayer:'<b>牧师·祷文：</b>祷文打出后放上祭坛（两个位置），在你的N个回合后应验。',
     rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
@@ -613,7 +613,7 @@ const I18N={
     powerAria:(n,c,d)=>`英雄技能「${n}」，消耗${c}点法力：${d}`,powerUse:(n,t)=>t?`你对${t}使用了${n}。`:`你使用了${n}。`,cantPower:'现在无法使用英雄技能。',
     modeCamp:'冒险模式',modeCampSub:'用职业初始牌组，连续击败八名敌人。',modeQuick:'自由对战',modeQuickSub:'自己组一副牌，随机对战一名AI对手。',
     qClassTitle:'自由对战 · 选择职业',qClassSub:n=>`接下来为这个职业组一副${n}张的牌组。`,
-    deckTitle:x=>`${x}的牌组`,deckRules:n=>`${n}张牌。同名卡最多2张，传说卡最多1张。`,deckNeed:n=>`还差${n}张`,deckReady:'牌组已完成',
+    deckTitle:x=>`${x}的牌组`,deckRules:n=>`${n}张牌。同名卡最多2张，传说卡和特殊史诗卡最多1张。`,deckNeed:n=>`还差${n}张`,deckReady:'牌组已完成',
     autoFill:'自动补满',resetDeck:'恢复初始牌组',clearDeck:'清空',nextDiff:'下一步：选择难度',curve:'法力曲线',filterAll:'全部',
     tapAdd:'点击卡牌加入牌组，点击牌组中的一行移除一张。',limitHit:'这张牌已经达到数量上限。',deckFull:'牌组已满。',emptyDeck:'牌组是空的，点击卡牌加入。',
     diffTitle:'选择难度',diffSub:'对手的职业会随机决定。',diff:{easy:'简单',normal:'普通',hard:'困难'},
@@ -654,7 +654,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}、コスト${c}。${s}${t}`,statsAria:(a,h)=>`攻撃力${a}、体力${h}。`,
     introTitle:'戦い抜いて、灰燼の王冠を手にせよ',
     prayerT:'祈祷',altarFull:'祭壇がいっぱいです（祈祷は2つまで）。',prayed:c=>`${c}を祭壇に置いた。`,ePrayed:(x,c)=>`${x}が${c}を祭壇に置いた。`,
-    prayerDone:(x,c)=>`${x}の${c}が成就した。`,emberLbl:n=>`残り火 ${n}/5`,altarLbl:'祭壇',fEmber:n=>`残り火+${n}`,fIgnite:'点火！',fRevive:'復活',fPray:'成就',fEther:'霊体',fRite:n=>`生贄${n}枚`,riteTitle:'血の儀式：伝説カードを選ぶ',riteSub:n=>n>1?'コピー2枚が手札に加わり、このゲーム中マナを消費しない。':'コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。',riteOk:'コピー',
+    prayerDone:(x,c)=>`${x}の${c}が成就した。`,emberLbl:n=>`残り火 ${n}/5`,altarLbl:'祭壇',fEmber:n=>`残り火+${n}`,fIgnite:'点火！',fRevive:'復活',fPray:'成就',fEther:'霊体',fRite:n=>`生贄${n}枚`,riteTitle:'血の儀式：伝説カード3枚から1枚を選ぶ',riteSub:n=>n>1?'コピー2枚が手札に加わり、このゲーム中マナを消費しない。':'コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。',riteOk:'コピー',
     rEmber:'<b>魔法使い・残り火（テスト）：</b>呪文マナの代わりに、ターン終了時に使わなかったマナは残り火になる（最大5）。<b>点火N</b>のカードは残り火が足りれば自動でN消費し、強化される。',
     rPrayer:'<b>司祭・祈祷：</b>祈祷は祭壇（2枠）に置かれ、自分のNターン後に成就する。',
     rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
@@ -684,7 +684,7 @@ const I18N={
     powerAria:(n,c,d)=>`ヒーローパワー「${n}」、コスト${c}：${d}`,powerUse:(n,t)=>t?`${t}に${n}を使った。`:`${n}を使った。`,cantPower:'今はヒーローパワーを使えない。',
     modeCamp:'冒険モード',modeCampSub:'クラスの初期デッキで、8人の敵に連続で挑む。',modeQuick:'フリー対戦',modeQuickSub:'自分でデッキを組み、ランダムなAIと対戦する。',
     qClassTitle:'フリー対戦 · クラスを選択',qClassSub:n=>`次にこのクラスで${n}枚のデッキを組む。`,
-    deckTitle:x=>`${x}のデッキ`,deckRules:n=>`${n}枚。同名カードは2枚まで、レジェンドは1枚まで。`,deckNeed:n=>`あと${n}枚`,deckReady:'デッキ完成',
+    deckTitle:x=>`${x}のデッキ`,deckRules:n=>`${n}枚。同名カードは2枚まで、レジェンドと特別なエピックは1枚まで。`,deckNeed:n=>`あと${n}枚`,deckReady:'デッキ完成',
     autoFill:'自動で埋める',resetDeck:'初期デッキに戻す',clearDeck:'空にする',nextDiff:'次へ：難易度',curve:'マナカーブ',filterAll:'すべて',
     tapAdd:'カードをタップで追加、デッキの行をタップで1枚外す。',limitHit:'このカードは枚数上限に達している。',deckFull:'デッキがいっぱい。',emptyDeck:'デッキは空。カードをタップして追加しよう。',
     diffTitle:'難易度を選択',diffSub:'相手のクラスはランダムに決まる。',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
@@ -1000,8 +1000,8 @@ const CARDS={
   emberele:{beta:1,c:4,t:'m',a:4,h:5,r:'r',race:'elemental',cls:'mage',n:['Ember Elemental','余烬元素','残り火の精霊'],f:['Every breath of mana you saved made it bigger.','你省下的每一口法力都让它更大。','残した魔力の一息ごとに、大きくなった。']},
   phoenix:{beta:1,c:5,t:'m',a:5,h:4,r:'e',race:'beast',cls:'mage',bc:{dmg:2,tgt:'any'},n:['Ash Phoenix','灰烬凤凰','灰の不死鳥'],f:['It does not rise from the ashes. It is the ashes.','它不是从灰烬中重生，它就是灰烬。','灰から蘇るのではない。灰そのものだ。']},
   firestorm:{beta:1,c:6,t:'s',r:'e',cls:'mage',fx:{aoe:3,face:3},n:['Firestorm','烈焰风暴','火炎嵐'],f:['The sky remembers every spark.','天空记得每一颗火星。','空はすべての火の粉を覚えている。']},
-  bloodrite:{beta:1,cls:'warlock',c:2,t:'s',r:'l',rite:1,fx:{},n:["Seravine's Blood Rite",'瑟拉薇的血祭','セラヴィーネの血の儀式'],x:['Sacrifice the rest of your hand. Choose any Legendary card: a copy joins your hand and costs (0) this game. If this is your third Blood Rite or later, two copies join.','献祭你手中的其他所有牌。从所有传说牌中任选一张，将其复制加入你的手牌，本局打出它不消耗法力值。若这是你本局第三次或之后的血祭，则加入两张复制。','手札の他のカードをすべて生贄に捧げる。伝説カードを1枚選び、そのコピーを手札に加える。このゲーム中、それはマナを消費せずに使える。このゲームで3回目以降の血の儀式なら、コピーを2枚加える。'],f:['"Everything you hold," Seravine said, "for the one thing you want."','瑟拉薇说：你手里的一切，换你想要的那一件。','「手にあるすべてを」とセラヴィーネは言った。「望むひとつと引き換えに」']},
-  gravecaller:{beta:1,cls:'warlock',c:4,t:'m',a:3,h:3,r:'l',race:'undead',ether:1,haunt:1,bc:{reclaim:2},n:['Vesper the Wraith Ferryman','幽冥渡魂者维斯珀','幽冥の渡し守ヴェスパー'],x:['Ethereal (takes no damage from attacks or hero powers). On play: look at 5 random minions that died this game and return 2 of them to your hand. At the start of your turn, a random minion in your grave returns to your hand.','虚体（不受攻击和英雄技能的伤害）。登场：从本局死亡的随从中随机展示五张，选两张放回你的手牌。你的回合开始时，若它仍在场，随机将墓地里的一张随从牌放回你的手牌。','霊体（攻撃とヒーローパワーのダメージを受けない）。登場時：このゲームで倒されたミニオンから無作為に5枚を見て、2枚を手札に戻す。自分のターン開始時、墓地から無作為にミニオン1枚を手札に戻す。'],f:['Vesper rows the black river both ways, and never with an empty boat.','维斯珀在冥河上来回摆渡，从不空船而归。','ヴェスパーは黒い川を往復する。空の舟で戻ることはない。']},
+  bloodrite:{beta:1,cls:'warlock',c:2,t:'s',r:'e',uniq:1,rite:1,fx:{},n:["Seravine's Blood Rite",'瑟拉薇的血祭','セラヴィーネの血の儀式'],x:['Sacrifice the rest of your hand. Three random Legendary cards are shown: a copy of the one you choose joins your hand and costs (0) this game. If this is your third Blood Rite or later, two copies join.','献祭你手中的其他所有牌。随机展示三张传说牌，选一张复制加入你的手牌，本局打出它不消耗法力值。若这是你本局第三次或之后的血祭，则加入两张复制。','手札の他のカードをすべて生贄に捧げる。無作為な伝説カード3枚から1枚を選び、そのコピーを手札に加える。このゲーム中、それはマナを消費せずに使える。このゲームで3回目以降の血の儀式なら、コピーを2枚加える。'],f:['"Everything you hold," Seravine said, "for the one thing you want."','瑟拉薇说：你手里的一切，换你想要的那一件。','「手にあるすべてを」とセラヴィーネは言った。「望むひとつと引き換えに」']},
+  gravecaller:{beta:1,cls:'warlock',c:4,t:'m',a:3,h:3,r:'e',uniq:1,race:'undead',ether:1,haunt:1,bc:{reclaim:2},n:['Vesper the Wraith Ferryman','幽冥渡魂者维斯珀','幽冥の渡し守ヴェスパー'],x:['Ethereal (takes no damage from attacks or hero powers). On play: look at 5 random minions that died this game and return 2 of them to your hand. At the start of your turn, a random minion in your grave returns to your hand.','虚体（不受攻击和英雄技能的伤害）。登场：从本局死亡的随从中随机展示五张，选两张放回你的手牌。你的回合开始时，若它仍在场，随机将墓地里的一张随从牌放回你的手牌。','霊体（攻撃とヒーローパワーのダメージを受けない）。登場時：このゲームで倒されたミニオンから無作為に5枚を見て、2枚を手札に戻す。自分のターン開始時、墓地から無作為にミニオン1枚を手札に戻す。'],f:['Vesper rows the black river both ways, and never with an empty boat.','维斯珀在冥河上来回摆渡，从不空船而归。','ヴェスパーは黒い川を往復する。空の舟で戻ることはない。']},
   boar:{beta:1,cls:'hunter',c:1,t:'m',a:2,h:1,r:'c',race:'beast',n:['Thornback Boar','荆棘野猪','茨の猪'],f:['Small, fast, and all tusk.','又小又快，浑身是獠牙。','小さく速く、牙だらけ。']},
   panther:{beta:1,cls:'hunter',c:3,t:'m',a:4,h:2,r:'r',race:'beast',surge:1,n:['Mistwood Panther','雾林猎豹','霧林の豹'],f:['You hear it after it lands.','落地之后你才听见它。','着地してから音が聞こえる。']},
   elk:{beta:1,cls:'hunter',c:4,t:'m',a:3,h:5,r:'c',race:'beast',guard:1,n:['Greathorn Elk','巨角麋鹿','大角の鹿'],f:['The forest parts for it.','森林为它让路。','森がそれに道を譲る。']},
@@ -1452,7 +1452,7 @@ function aiReclaim(side,n){const offer=reclaimOffer(side);const ks=offer.slice()
 // Blood Rite: the rest of the hand is sacrificed; any Legendary card is copied into the hand and costs (0) this
 // game (`free` counts the free copies per card). From the third Rite of a game on, two copies come.
 const RITE_NEED=3;
-const riteOffer=()=>Object.keys(CARDS).filter(k=>CARDS[k].r==='l'&&!CARDS[k].token).sort((a,b)=>CARDS[a].c-CARDS[b].c);
+const riteOffer=()=>{const l=Object.keys(CARDS).filter(k=>CARDS[k].r==='l'&&!CARDS[k].token),out=[];while(out.length<3&&l.length)out.push(l.splice(Math.random()*l.length|0,1)[0]);return out.sort((a,b)=>CARDS[a].c-CARDS[b].c)};
 function riteSacrifice(side){const s=S[side],n=s.hand.length;s.hand=[];s.hb=[];s.free={};s.rites=(s.rites||0)+1;if(n)float(s,T('fRite',n),'var(--blood)')}
 function ritePick(side,k){const s=S[side];if(!CARDS[k])return;const n=(s.rites||0)>=RITE_NEED?2:1;if(!s.free)s.free={};
   for(let i=0;i<n&&s.hand.length<10;i++){s.hand.push(k);if(s.hb)s.hb.push(0);s.free[k]=(s.free[k]||0)+1;float(s,cn(k),'#c4b4ff')}}
@@ -1590,7 +1590,7 @@ function goStage(){if(hasTal(R.cls)){view='tal';render();scrollTo(0,0)}else star
 // ---------- quick match ----------
 const DECK_SIZE=25;
 const DIFFS={easy:{rar:['c'],col:'#6aa57e'},normal:{rar:['r','e'],col:'#5a8ae0'},hard:{rar:['e','l'],col:'#cf4a3f'}};
-const maxCopies=k=>CARDS[k].r==='l'?1:2;
+const maxCopies=k=>CARDS[k].r==='l'||CARDS[k].uniq?1:2;
 const copies=(d,k)=>d.filter(x=>x===k).length;
 function padDeck(base,rar,cls){
   const d=[...base],pool=COLLECT.filter(k=>rar.includes(CARDS[k].r)&&forCls(k,cls));let g=0;
