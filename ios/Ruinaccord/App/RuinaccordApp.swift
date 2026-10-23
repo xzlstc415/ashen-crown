@@ -41,6 +41,7 @@ enum DebugLaunch {
                 vm.startQuick(.normal)
             case "camp": vm.pickClass("paladin")
             case "classes": vm.goNewDeck()
+            case "herointro": vm.showHeroIntro(value("-cls") ?? "paladin")
             case "newdeck": vm.openBuilder(cls: "mage")
             case "magebuild": vm.openBuilder(cls: "mage"); vm.q.tal = ["fi_heart", "fi_fireball", "fi_spark", "fi_boost"]; vm.go(.build); vm.q.costFilter = 4
             case "build": vm.openBuilder(cls: "warrior"); vm.go(.build); if let r = value("-rar") { vm.q.rarityFilter = r }

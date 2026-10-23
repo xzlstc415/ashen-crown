@@ -55,6 +55,7 @@ struct GameRoot: View {
                     switch vm.screen {
                     case .intro: IntroView()
                     case .classPick: ClassPickView()
+                    case .heroIntro: HeroIntroView()
                     case .talents: TalentScreen()
                     case .duel: EmptyView()
                     case .reward: RewardView()

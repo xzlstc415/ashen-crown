@@ -225,6 +225,10 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .ctext{display:grid;gap:4px;min-width:0}
 .cname{font-family:var(--display);font-size:20px;color:var(--parch);line-height:1.1}
 :is(:lang(zh),:lang(ja)) .cname{font-weight:600;font-size:18px}
+.hintro{text-align:center}.cport.big{width:160px;height:160px;margin:0 auto 6px;border-width:3px}
+.iblock{display:grid;gap:4px;text-align:left;max-width:520px;margin:10px auto 0;padding:12px 14px;border:1px solid color-mix(in srgb,var(--cc) 55%,transparent);border-radius:12px;background:var(--panel)}
+.iblock .ilbl{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.iblock b{font-family:var(--display);font-size:18px;color:var(--cc)}.iblock.pw b{color:#9fc4ee}.iblock span:last-child{font-size:13.5px;line-height:1.45}
+.hintro .btn{margin-top:14px}
 .chero{font-size:11.5px;font-weight:700;color:var(--gold);line-height:1.3}
 .ctag{font-size:12.5px;color:var(--muted);line-height:1.35}
 .cpow{display:flex;gap:8px;align-items:flex-start;margin-top:2px;font-size:13px;line-height:1.35}
@@ -1820,6 +1824,15 @@ function startQuick(diff){
     if(pFirst){startTurn('p');render();banner(T('bannerYou'))}else{render();aiTurn()}});
 }
 function goClass(){view='class';render();scrollTo(0,0)}
+// Adventure: the chosen hero before the run starts (resource and hero power).
+const RESX={"warrior": [["Rage", "怒气", "怒気"], ["Using the hero power or taking hero damage gives 1 Rage (up to 5). At the start of your turn, 4 Rage burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点怒气（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれ怒気+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。"]], "mage": [["Spell mana", "法术法力", "呪文マナ"], ["Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。"]], "paladin": [["Prestige", "威望", "威信"], ["At the end of your turn, each buffed minion gives 1 Prestige (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点威望（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につき威信+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。"]], "hunter": [["Ferocity", "兽性", "野性"], ["At the start of your turn, each Beast in your hand gives 1 Ferocity (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "回合开始时，手牌中每有一张野兽得1点兽性（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "ターン開始時、手札の獣1枚につき野性+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。"]], "priest": [["Light", "圣光", "聖光"], ["Healing past full becomes Light (up to 5). When a Prayer goes on the altar, every 2 Light take a turn off its countdown.", "溢出的治疗化为圣光（上限5）。祷文放上祭坛时，每2点圣光让它的倒计时减1。", "回復の溢れた分は聖光になる（最大5）。祈祷を祭壇に置くとき、聖光2ごとにカウントが1進む。"]], "warlock": [["Souls", "魂", "魂"], ["Each friendly minion that dies gives 1 Soul (up to 7). Blood Pact spends 2 Souls instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1个魂（上限7）。鲜血契约可以用2个魂代替自伤；回合结束时攒满5个魂会召唤一个骷髅战士。", "味方ミニオンが倒れるたびに魂+1（最大7）。血の契約は自傷の代わりに魂2を使える。ターン終了時に魂が5あれば骸骨戦士が現れる。"]]};
+let introCls=null;
+function heroIntroHTML(){const c=CBY[introCls],p=c.power;
+  return header()+navRow(['class',['Classes','选择职业','クラス選択'][li()]],['menu',T('toMenu')])+`<div class="screen hintro" style="--cc:${c.col}"><span class="cport big">${classArt(c)}</span>
+    <h2>${hn(c.id)}</h2><p class="chero">${heroLine(c.id)}</p><p>${c.tag[li()]}</p>
+    <div class="iblock"><span class="ilbl">${['Class resource','职业资源','クラス資源'][li()]}</span><b>${RESX[c.id][0][li()]}</b><span>${RESX[c.id][1][li()]}</span></div>
+    <div class="iblock pw"><span class="ilbl">${T('heroPower')}</span><b>${pn(p)} · ${p.c}</b><span>${kwBold(pd(p))}</span></div>
+    <button class="btn" data-go="startadv">${['Begin the Adventure','开始冒险','冒険を始める'][li()]} ›</button></div>`}
 function pickClass(id){R.cls=id;R.deck=[...(ADV[id]?ADV[id].deck:CBY[id].deck)];R.tal=[];goStage()}
 const curPower=()=>S&&S.p&&S.p.power||CBY[R.cls].power;
 function powerBlocked(){
@@ -2955,6 +2968,7 @@ function render(){
   if(view==='gallery'){app.innerHTML=header()+galleryHTML();FX=[];return}
   if(view==='tal'){app.innerHTML=header()+routeRow()+`<div class="screen" style="justify-content:flex-start"><h2>${TX.advT(R.stage+1)}</h2><p>${TX.advS(advPts())}</p>${talPanel()}
     <div class="btns"><button class="btn" data-go="talgo">${TX.fight()}</button></div></div>`;FX=[];return}
+  if(view==='hintro'){app.innerHTML=heroIntroHTML();FX=[];return}
   if(view==='class'){app.innerHTML=header()+navRow(['menu',T('toMenu')])+routeRow()+classHTML();FX=[];return}
   if(view==='decks'){app.innerHTML=header()+decksHTML();FX=[];return}
   if(view==='qclass'){app.innerHTML=header()+navRow(Q.ret==='online'?['online',T('modeOnline')]:['decks',T('myDecks')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('pickClassNew')}</h2><p>${T('qClassSub',DECK_SIZE)}</p><div class="ccards">${CLASSES.map(c=>classCard(c,'data-qclass')).join('')}</div></div>`;FX=[];return}
@@ -3036,7 +3050,7 @@ document.addEventListener('click',ev=>{
     if(LAND.matches&&S&&S.hsel!==i&&!S.pending&&!aim){S.hsel=i;return render()}
     if(S)S.hsel=null;return playHand(i)}
   if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return goStage()}
-  if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
+  if(b.dataset.class!==undefined){introCls=b.dataset.class;view='hintro';render();scrollTo(0,0);return}
   if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
   if(b.dataset.add!==undefined){const k=b.dataset.add;
     if(Q.deck.length>=DECK_SIZE)Q.toast=T('deckFull');else if(copies(Q.deck,k)>=maxCopies(k))Q.toast=T('limitHit');else if(!fits(Q.deck,k))Q.toast=T('legLimit');else{Q.deck.push(k);Q.toast='';Q.dirty=true}
@@ -3090,6 +3104,8 @@ document.addEventListener('click',ev=>{
   // Cards first, then the talents tab, then the difficulty; the difficulty screen steps back to the talents.
   // Talents, then cards, then the difficulty; the difficulty screen steps back to the cards.
   else if(g==='todiff'){if(Q.deck.length===DECK_SIZE){view='diff';render();scrollTo(0,0)}}
+  else if(g==='startadv'){if(introCls)pickClass(introCls)}
+  else if(g==='class'){view='class';render();scrollTo(0,0)}
   else if(g==='editdeck'){view='build';Q.btab='cards';render();scrollTo(0,0)}
   else if(g==='rematch')startQuick(Q.diff);
 });
@@ -3142,6 +3158,8 @@ initEmbers();
 newRun();
 // Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids>&ehp=<n> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
+  // ?intro=<class>: the Adventure hero introduction (layout checks)
+  if(q.get('intro')&&CBY[q.get('intro')]){introCls=q.get('intro');view='hintro';render()}
   // ?classes=1: the new-deck class picker (layout checks)
   if(q.get('classes')){Q.ret=null;view='qclass';render()}
   // ?build=<class>[&rar=l]: the deck builder for that class (layout checks)

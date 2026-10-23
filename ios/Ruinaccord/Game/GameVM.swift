@@ -2,7 +2,7 @@ import SwiftUI
 import Observation
 
 enum Screen: Hashable {
-    case intro, classPick, talents, duel, reward, lost, champ, decks, qclass, build, diff, qtalents, qresult, gallery, online, oresult
+    case intro, classPick, heroIntro, talents, duel, reward, lost, champ, decks, qclass, build, diff, qtalents, qresult, gallery, online, oresult
 }
 
 struct Run {
@@ -488,6 +488,9 @@ final class GameVM {
         }
     }
 
+    /// Adventure: tapping a hero first shows who they are, their resource and hero power.
+    var introCls: String?
+    func showHeroIntro(_ id: String) { introCls = id; go(.heroIntro) }
     func pickClass(_ id: String) {
         run.cls = id; run.deck = gd.talents.adv[id]?.deck ?? gd.cls(id)?.deck ?? []; run.tal = []
         goStage()

@@ -430,6 +430,32 @@ struct Tx {
     func riteSub(_ n: Int) -> String { n > 1 ? pick("Two copies join your hand and cost (0) this game.", "两张复制加入你的手牌，本局打出不消耗法力值。", "コピー2枚が手札に加わり、このゲーム中マナを消費しない。") : pick("A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.", "一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。", "コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。") }
     var riteOk: String { pick("Copy", "复制", "コピー") }
     func fero(_ n: Int) -> String { pick("Ferocity \(n)/\(DuelState.feroCap)", "兽性 \(n)/\(DuelState.feroCap)", "野性 \(n)/\(DuelState.feroCap)") }
+    /// Each class's resource, for the hero introduction before an Adventure.
+    func resName(_ c: String) -> String {
+        switch c {
+        case "warrior": return pick("Rage", "怒气", "怒気")
+        case "mage": return pick("Spell mana", "法术法力", "呪文マナ")
+        case "paladin": return pick("Prestige", "威望", "威信")
+        case "hunter": return pick("Ferocity", "兽性", "野性")
+        case "priest": return pick("Light", "圣光", "聖光")
+        case "warlock": return pick("Souls", "魂", "魂")
+        default: return ""
+        }
+    }
+    func resDesc(_ c: String) -> String {
+        switch c {
+        case "warrior": return pick("Using the hero power or taking hero damage gives 1 Rage (up to 5). At the start of your turn, 4 Rage burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点怒气（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれ怒気+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。")
+        case "mage": return pick("Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。")
+        case "paladin": return pick("At the end of your turn, each buffed minion gives 1 Prestige (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点威望（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につき威信+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。")
+        case "hunter": return pick("At the start of your turn, each Beast in your hand gives 1 Ferocity (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "回合开始时，手牌中每有一张野兽得1点兽性（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "ターン開始時、手札の獣1枚につき野性+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。")
+        case "priest": return pick("Healing past full becomes Light (up to 5). When a Prayer goes on the altar, every 2 Light take a turn off its countdown.", "溢出的治疗化为圣光（上限5）。祷文放上祭坛时，每2点圣光让它的倒计时减1。", "回復の溢れた分は聖光になる（最大5）。祈祷を祭壇に置くとき、聖光2ごとにカウントが1進む。")
+        case "warlock": return pick("Each friendly minion that dies gives 1 Soul (up to 7). Blood Pact spends 2 Souls instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1个魂（上限7）。鲜血契约可以用2个魂代替自伤；回合结束时攒满5个魂会召唤一个骷髅战士。", "味方ミニオンが倒れるたびに魂+1（最大7）。血の契約は自傷の代わりに魂2を使える。ターン終了時に魂が5あれば骸骨戦士が現れる。")
+        default: return ""
+        }
+    }
+    var resLbl: String { pick("Class resource", "职业资源", "クラス資源") }
+    var startAdv: String { pick("Begin the Adventure", "开始冒险", "冒険を始める") }
+    var classTitleShort: String { pick("Classes", "选择职业", "クラス選択") }
     var fFero: String { pick("Ferocity!", "兽性！", "野性！") }
     func prestige(_ n: Int) -> String { pick("Prestige \(n)/\(DuelState.presCap)", "威望 \(n)/\(DuelState.presCap)", "威信 \(n)/\(DuelState.presCap)") }
     func presUp(_ n: Int) -> String { pick("+\(n) Prestige", "威望+\(n)", "威信+\(n)") }

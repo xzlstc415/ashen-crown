@@ -160,9 +160,54 @@ struct ClassPickView: View {
         ScreenShell(scene: "glade") {
             VStack(spacing: 4) {
                 BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.classTitle, subtitle: tx.classSub(tx.oppName(0))) { RouteRow() }
-                ClassRow { vm.pickClass($0) }
+                ClassRow { vm.showHeroIntro($0) }
             }
         }
+    }
+}
+
+/// Adventure: the chosen hero before the run starts: portrait, name, class and race, the class resource and the hero power.
+struct HeroIntroView: View {
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        let tx = vm.tx, gd = GameData.shared
+        guard let id = vm.introCls, let c = gd.cls(id) else { return AnyView(EmptyView()) }
+        let col = Color(hex: c.color)
+        return AnyView(ScreenShell(scene: "glade") {
+            VStack(spacing: 4) {
+                BarRow(back: (tx.classTitleShort, { vm.goClass() }), title: tx.heroName(id), subtitle: "\(tx.name(c.names)) · \(tx.heroRace(id))") {
+                    Button(tx.startAdv + " ›") { vm.pickClass(id) }.primary(compact: true, glow: true)
+                }
+                HStack(alignment: .top, spacing: 22) {
+                    Image(c.artName).resizable().scaledToFill().frame(width: 220, height: 220).clipShape(RoundedRectangle(cornerRadius: 18))
+                        .overlay(RoundedRectangle(cornerRadius: 18).stroke(col, lineWidth: 2)).shadow(color: .black.opacity(0.5), radius: 10, y: 6)
+                    VStack(alignment: .leading, spacing: 14) {
+                        Text(tx.name(c.tags)).font(Theme.body(14)).foregroundStyle(Theme.muted).fixedSize(horizontal: false, vertical: true)
+                        IntroBlock(label: tx.resLbl, title: tx.resName(id), text: tx.resDesc(id), col: col)
+                        IntroBlock(label: tx.heroPower, title: "\(tx.powerName(c.power)) · \(c.power.cost) \(tx.manaShort)", text: tx.powerDesc(c.power), col: Color(hex: "#9fc4ee"))
+                    }
+                    .frame(maxWidth: 520, alignment: .leading)
+                }
+                .padding(.horizontal, 24).padding(.top, 10)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            }
+        })
+    }
+}
+
+private struct IntroBlock: View {
+    let label: String, title: String, text: String, col: Color
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label).font(Theme.body(10.5, .heavy)).tracking(1).foregroundStyle(Theme.muted).textCase(.uppercase)
+            Text(title).font(Theme.display(17, cjk: vm.lang.isCJK)).foregroundStyle(col)
+            RichText(text: text, keywords: vm.tx.keywords, font: Theme.body(13), color: Theme.ink).fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.panel.opacity(0.85), in: RoundedRectangle(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(col.opacity(0.5), lineWidth: 1))
     }
 }
 
