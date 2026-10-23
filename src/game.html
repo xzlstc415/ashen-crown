@@ -225,6 +225,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .ctext{display:grid;gap:4px;min-width:0}
 .cname{font-family:var(--display);font-size:20px;color:var(--parch);line-height:1.1}
 :is(:lang(zh),:lang(ja)) .cname{font-weight:600;font-size:18px}
+.chero{font-size:11.5px;font-weight:700;color:var(--gold);line-height:1.3}
 .ctag{font-size:12.5px;color:var(--muted);line-height:1.35}
 .cpow{display:flex;gap:8px;align-items:flex-start;margin-top:2px;font-size:13px;line-height:1.35}
 .cpow .pc{flex:none;width:20px;height:20px;border-radius:50%;background:#2f6fa8;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:1px}
@@ -2704,11 +2705,16 @@ function routeRow(){
     return (i?'<span class="link"></span>':'')+`<span class="node ${cls}">${i===OPP.length-1?'B':i+1}</span>`}).join('');
   return `<div class="routerow"><div class="route" aria-label="${T('duelOf',R.stage+1,OPP.length)}">${nodes}</div></div>`;
 }
+// The six heroes (art/HEROES.md): name per language and race, shown under the class name.
+const HEROES={warrior:[['Rok Greytusk','洛克·灰牙','ロク・グレイタスク'],'orc'],mage:[['Pim Emberfrost','皮姆·霜烬','ピム・エンバーフロスト'],'gnome'],
+  paladin:[['Aldric Dawnoath','奥德里克·晨誓','アルドリック・ドーンオース'],'human'],hunter:[['Kaelwen Thornstride','凯尔温·荆径','ケルウェン・ソーンストライド'],'elf'],
+  priest:[['Wren Duskbell','雷恩·暮钟','レン・ダスクベル'],'human'],warlock:[['Morwen Lastcandle','莫文·残烛','モーウェン・ラストキャンドル'],'undead']};
+const heroLine=id=>HEROES[id]?`${HEROES[id][0][li()]} · ${T('race')[HEROES[id][1]]}`:'';
 function classCard(c,attr='data-class'){
   const p=c.power;
-  return `<button class="ccard" style="--cc:${c.col}" ${attr}="${c.id}" aria-label="${c.n[li()]}. ${T('powerAria',pn(p),p.c,pd(p))}. ${c.tag[li()]}">
+  return `<button class="ccard" style="--cc:${c.col}" ${attr}="${c.id}" aria-label="${c.n[li()]}, ${heroLine(c.id)}. ${T('powerAria',pn(p),p.c,pd(p))}. ${c.tag[li()]}">
     <span class="cport">${classArt(c)}</span>
-    <span class="ctext"><span class="cname">${c.n[li()]}</span><span class="ctag">${c.tag[li()]}</span>
+    <span class="ctext"><span class="cname">${c.n[li()]}</span><span class="chero">${heroLine(c.id)}</span><span class="ctag">${c.tag[li()]}</span>
       <span class="cpow"><span class="pc">${p.c}</span><span><b>${pn(p)}</b> · ${kwBold(pd(p))}</span></span></span></button>`;
 }
 function navRow(...items){
@@ -3130,6 +3136,8 @@ initEmbers();
 newRun();
 // Test link: ?duel=<class>&hand=<n>&board=<n>&cards=<ids>&ehp=<n> starts an Adventure duel at once with extra cards in hand and minions on both boards (layout checks).
 try{const q=new URLSearchParams(location.search),dc=q.get('duel');
+  // ?classes=1: the new-deck class picker (layout checks)
+  if(q.get('classes')){Q.ret=null;view='qclass';render()}
   // ?build=<class>[&rar=l]: the deck builder for that class (layout checks)
   if(q.get('build')&&CBY[q.get('build')]){openBuilder(q.get('build'));if(q.get('rar'))Q.rar=q.get('rar');Q.btab='cards';render();if(q.get('scroll'))setTimeout(()=>{const e=document.querySelector(q.get('scroll'));if(e)e.scrollIntoView()},400)}
   if(dc&&CBY[dc]){pickClass(dc);if(view==='tal')startDuel();if(+q.get('ehp'))S.e.hp=+q.get('ehp');const n=Math.min(9,+q.get('hand')||0);if(n)draw('p',n);
