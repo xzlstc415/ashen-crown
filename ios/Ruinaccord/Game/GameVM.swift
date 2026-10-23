@@ -221,11 +221,12 @@ final class GameVM {
     func wait(_ ms: Int) async { try? await Task.sleep(for: .milliseconds(ms)) }
 
     func heroName(_ side: Side) -> String {
-        if side == .p { return tx.className(run.cls ?? "") }
+        // Heroes go by their own names (Rok Greytusk, ...); Adventure foes keep theirs.
+        if side == .p { return tx.heroName(run.cls ?? "") }
         guard let s = state else { return "" }
         switch s.mode {
-        case .quick: return tx.aiName(tx.className(s.ecls ?? ""))
-        case .online: return tx.foeName(tx.className(s.ecls ?? ""))
+        case .quick: return tx.aiName(tx.heroName(s.ecls ?? ""))
+        case .online: return tx.foeName(tx.heroName(s.ecls ?? ""))
         case .camp: return tx.oppName(run.stage)
         }
     }

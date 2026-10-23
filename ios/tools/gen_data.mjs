@@ -78,6 +78,7 @@ function fixColors(svg) {
     `${attr}="#${rgb}" ${attr}-opacity="${(parseInt(a, 16) / 255).toFixed(3)}"`);
 }
 const artDir = path.join(root, 'ios', 'Ruinaccord', 'Assets.xcassets', 'Art');
+// Art/ is regenerated from scratch; painted hero portraits live in Assets.xcassets/Heroes (art/heroes) so they survive this.
 fs.rmSync(artDir, {recursive: true, force: true});
 fs.mkdirSync(artDir, {recursive: true});
 fs.writeFileSync(path.join(artDir, 'Contents.json'), JSON.stringify({info: {author: 'xcode', version: 1}, properties: {'provides-namespace': false}}, null, 2));

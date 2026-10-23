@@ -1653,7 +1653,9 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const other=s=>s==='p'?'e':'p';
 const isHero=o=>!!o.board;
 const idOf=o=>isHero(o)?`${o.side}:h`:`${o.side}:m:${o.uid}`;
-const heroName=s=>s.side==='p'?CBY[R.cls].n[li()]:S&&S.mode==='quick'?T('aiName',CBY[S.ecls].n[li()]):S&&S.mode==='online'?T('foeName',CBY[S.ecls].n[li()]):oppName(R.stage);
+// Heroes go by their own names (Rok Greytusk, ...); Adventure foes keep theirs.
+const hn=id=>HEROES[id]?HEROES[id][0][li()]:CBY[id].n[li()];
+const heroName=s=>s.side==='p'?hn(R.cls):S&&S.mode==='quick'?T('aiName',hn(S.ecls)):S&&S.mode==='online'?T('foeName',hn(S.ecls)):oppName(R.stage);
 const nm=o=>isHero(o)?heroName(o):cn(o.key);
 function getObj(id){const [s,k,u]=id.split(':');return k==='h'?S[s]:S[s].board.find(m=>m.uid==u)}
 function float(o,txt,col,hit){FX.push({id:idOf(o),txt,col,hit})}
@@ -2709,12 +2711,12 @@ function routeRow(){
 const HEROES={warrior:[['Rok Greytusk','洛克·灰牙','ロク・グレイタスク'],'orc'],mage:[['Pim Emberfrost','皮姆·霜烬','ピム・エンバーフロスト'],'gnome'],
   paladin:[['Aldric Dawnoath','奥德里克·晨誓','アルドリック・ドーンオース'],'human'],hunter:[['Kaelwen Thornstride','凯尔温·荆径','ケルウェン・ソーンストライド'],'elf'],
   priest:[['Wren Duskbell','雷恩·暮钟','レン・ダスクベル'],'human'],warlock:[['Morwen Lastcandle','莫文·残烛','モーウェン・ラストキャンドル'],'undead']};
-const heroLine=id=>HEROES[id]?`${HEROES[id][0][li()]} · ${T('race')[HEROES[id][1]]}`:'';
+const heroLine=id=>HEROES[id]?`${CBY[id].n[li()]} · ${T('race')[HEROES[id][1]]}`:'';
 function classCard(c,attr='data-class'){
   const p=c.power;
-  return `<button class="ccard" style="--cc:${c.col}" ${attr}="${c.id}" aria-label="${c.n[li()]}, ${heroLine(c.id)}. ${T('powerAria',pn(p),p.c,pd(p))}. ${c.tag[li()]}">
+  return `<button class="ccard" style="--cc:${c.col}" ${attr}="${c.id}" aria-label="${hn(c.id)}, ${heroLine(c.id)}. ${T('powerAria',pn(p),p.c,pd(p))}. ${c.tag[li()]}">
     <span class="cport">${classArt(c)}</span>
-    <span class="ctext"><span class="cname">${c.n[li()]}</span><span class="chero">${heroLine(c.id)}</span><span class="ctag">${c.tag[li()]}</span>
+    <span class="ctext"><span class="cname">${hn(c.id)}</span><span class="chero">${heroLine(c.id)}</span><span class="ctag">${c.tag[li()]}</span>
       <span class="cpow"><span class="pc">${p.c}</span><span><b>${pn(p)}</b> · ${kwBold(pd(p))}</span></span></span></button>`;
 }
 function navRow(...items){

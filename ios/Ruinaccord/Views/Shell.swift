@@ -187,8 +187,9 @@ struct ClassTile: View {
                     Image(c.artName).resizable().scaledToFill().frame(width: width - 3, height: height * 0.47).clipped()
                 }
                 .frame(width: width - 3, height: height * 0.47)
-                Text(tx.name(c.names)).font(Theme.display(16, cjk: vm.lang.isCJK)).foregroundStyle(col.mixed(with: .white, 0.5)).padding(.horizontal, 9).padding(.top, 7)
-                Text("\(tx.heroName(c.id)) · \(tx.heroRace(c.id))").font(Theme.body(9.5, .bold)).foregroundStyle(Theme.gold).padding(.horizontal, 9).padding(.top, 2).lineLimit(1).minimumScaleFactor(0.8)
+                // The hero first, the class and race under it.
+                Text(tx.heroName(c.id)).font(Theme.display(16, cjk: vm.lang.isCJK)).foregroundStyle(col.mixed(with: .white, 0.5)).lineLimit(1).minimumScaleFactor(0.6).padding(.horizontal, 9).padding(.top, 7)
+                Text("\(tx.name(c.names)) · \(tx.heroRace(c.id))").font(Theme.body(9.5, .bold)).foregroundStyle(Theme.gold).padding(.horizontal, 9).padding(.top, 2).lineLimit(1).minimumScaleFactor(0.8)
                 Text(tx.name(c.tags)).font(Theme.body(10.5)).foregroundStyle(Theme.muted).lineSpacing(2).padding(.horizontal, 9).padding(.top, 5).fixedSize(horizontal: false, vertical: true)
                 Spacer(minLength: 0)
                 Text("\(tx.heroPower) · \(tx.powerName(c.power))").font(Theme.body(9.5, .bold)).foregroundStyle(Color(hex: "#9fc4ee")).padding(.horizontal, 9).padding(.bottom, 9).lineLimit(1).minimumScaleFactor(0.8)
@@ -201,7 +202,7 @@ struct ClassTile: View {
         }
         .buttonStyle(.plain)
         .multilineTextAlignment(.leading)
-        .accessibilityLabel(Text("\(tx.name(c.names)): \(tx.name(c.tags))"))
+        .accessibilityLabel(Text("\(tx.heroName(c.id)), \(tx.name(c.names)): \(tx.name(c.tags))"))
     }
 }
 
