@@ -913,7 +913,7 @@ final class GameVM {
         d.src = .hand(i); d.pt = p
         d.aboveLine = c.isTargetedSpell || p.y < line
         let playable = !blocked && pending == nil && s.canPay(.p, c.id)
-        if playable, let fx = c.fx, let t = fx.tgt {
+        if playable, let fx = s.cardFx(.p, c.id), let t = fx.tgt {
             d.valid = s.targetsFor(.p, t, fx.cond)
             let o = entity(at: p)
             let over = d.aboveLine ? o.flatMap { d.valid.contains($0) ? $0 : nil } : nil
@@ -930,7 +930,7 @@ final class GameVM {
         guard d.aboveLine, !blocked, pending == nil, let s = state, let c = s.p.hand[safe: i].flatMap(gd.card) else { return }
         if !s.canPay(.p, c.id) { S.log(.noMana); drain(); Haptics.fail(); return }
         if c.isMinion && s.p.board.count >= DuelState.boardMax { S.log(.boardFull); drain(); Haptics.fail(); return }
-        if c.fx?.tgt != nil, d.over == nil, d.valid.isEmpty { S.log(.noTargets); drain(); Haptics.fail(); return }
+        if s.cardFx(.p, c.id)?.tgt != nil, d.over == nil, d.valid.isEmpty { S.log(.noTargets); drain(); Haptics.fail(); return }
         // An aimed spell let go away from any target is simply put back.
         if c.isTargetedSpell, d.over == nil { return }
         Haptics.drop()
