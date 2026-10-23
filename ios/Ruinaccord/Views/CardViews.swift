@@ -10,15 +10,18 @@ enum CardSize { case sm, md, big, fit(CGFloat)
 /// The room every laid-out card keeps around itself for the painted frames' ornaments (the medallion above, the
 /// cloth on the left), in card units, so framed and plain cards take the same slot and never crowd each other.
 enum CardSlot {
-    static let top: CGFloat = 2.7, leading: CGFloat = 2.1, bottom: CGFloat = 1.6, trailing: CGFloat = 1.0
-    /// A slot's outer size in card units.
-    static let width: CGFloat = 10 + leading + trailing, height: CGFloat = 15.6 + top + bottom
-    static func insets(_ em: CGFloat) -> EdgeInsets { EdgeInsets(top: top * em, leading: leading * em, bottom: bottom * em, trailing: trailing * em) }
+    /// How far the frames reach past the card edge: the medallion above and the cloth on the left.
+    static let top: CGFloat = 2.7, leading: CGFloat = 2.1, bottom: CGFloat = 0.8, trailing: CGFloat = 0.8
+    /// The gap neighbours keep so one card's ornaments never reach another's gems (which hang 0.8 out): the
+    /// cloth beside the gems of the card on its left, the medallion below the gems of the card above.
+    static let hGap: CGFloat = leading + 0.8, vGap: CGFloat = top + 0.8
+    /// Room a row of cards keeps above and below itself.
+    static func rowInsets(_ em: CGFloat) -> EdgeInsets { EdgeInsets(top: top * em, leading: leading * em, bottom: bottom * em, trailing: trailing * em) }
 }
 
 extension View {
-    /// Pads a card (drawn at `em`) out to its slot.
-    func cardSlot(_ em: CGFloat) -> some View { padding(CardSlot.insets(em)) }
+    /// Pads a row of cards (drawn at `em`) out so the first card's cloth and every medallion fit.
+    func cardRow(_ em: CGFloat) -> some View { padding(CardSlot.rowInsets(em)) }
 }
 
 /// A full card face: art, cost, name plate, rarity gem, rules text and (for minions) stats.

@@ -209,10 +209,10 @@ struct RewardView: View {
                 if let packs = vm.advPacks {
                     PackRow(packs: packs).padding(.horizontal, 16).frame(maxHeight: .infinity)
                 } else {
-                    HStack(spacing: 4) {
+                    HStack(spacing: CardSlot.hGap * 14) {
                         ForEach(Array(vm.picks.enumerated()), id: \.offset) { i, k in
                             if let c = GameData.shared.card(k) {
-                                Button { vm.pickReward(i) } label: { CardView(card: c, size: .big).cardSlot(14) }.buttonStyle(.plain)
+                                Button { vm.pickReward(i) } label: { CardView(card: c, size: .big) }.buttonStyle(.plain)
                                     .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = k }
                             }
                         }
@@ -260,7 +260,7 @@ struct DecksView: View {
         ScreenShell {
             VStack(spacing: 4) {
                 BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.myDecks, subtitle: vm.q.delArm != nil ? tx.confirmDelete : vm.q.libToast.isEmpty ? tx.myDecksSub : vm.q.libToast)
-                PagedGrid(items: vm.decks.map(DeckOrNew.deck) + [DeckOrNew.new], cellWidth: 118, cellHeight: 300, rows: 1, hGap: 12) { it, _ in
+                PagedGrid(items: vm.decks.map(DeckOrNew.deck) + [DeckOrNew.new], cellWidth: 118, cellHeight: 300, rows: 1, fixedHGap: 12) { it, _ in
                     switch it {
                     case .deck(let d): DeckStandee(d: d)
                     case .new:
@@ -397,8 +397,8 @@ struct GalleryView: View {
                         } label: { Tag(text: cls == "all" ? "" : cls == "neutral" ? tx.neutralCards : tx.className(cls), symbol: "shield.fill", label: tx.classCards, on: cls != "all") {} }
                     }
                 }
-                PagedGrid(items: list, cellWidth: CardSlot.width * 9.6, cellHeight: CardSlot.height * 9.6, rows: 2, hGap: 2, vGap: 2) { c, s in
-                    CardView(card: c, size: .fit(9.6 * s)).cardSlot(9.6 * s).onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
+                PagedGrid(items: list, cellWidth: 96, cellHeight: 150, em: 9.6, rows: 2) { c, s in
+                    CardView(card: c, size: .fit(9.6 * s)).onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
                 }
             }
         }

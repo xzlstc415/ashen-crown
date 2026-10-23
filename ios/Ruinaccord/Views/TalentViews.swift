@@ -146,10 +146,10 @@ struct PackRow: View {
             ForEach(Array(packs.enumerated()), id: \.offset) { i, p in
                 let pg = gd.talentPages(vm.run.cls ?? "")[safe: i]
                 let col = pg.map { Color(hex: $0.color) } ?? Theme.gold
-                HStack(spacing: 2) {
+                HStack(spacing: CardSlot.hGap * 9.6) {
                     ForEach(Array(p.cards.enumerated()), id: \.offset) { _, k in
                         if let c = gd.card(k) {
-                            CardView(card: c, size: .fit(9.6)).cardSlot(9.6).onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = k }
+                            CardView(card: c, size: .fit(9.6)).onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = k }
                         }
                     }
                     VStack(alignment: .leading, spacing: 8) {

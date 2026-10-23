@@ -77,26 +77,35 @@ struct PageDots: View {
 /// index resets when the item list changes (a new filter).
 struct PagedGrid<Item: Identifiable, Cell: View>: View {
     let items: [Item]
+    /// The cell's size in points at full scale. For cards, `em` is the card unit and the gaps and bleed come from
+    /// `CardSlot`; other grids leave it 0 and give fixed gaps.
     let cellWidth: CGFloat
     let cellHeight: CGFloat
+    var em: CGFloat = 0
     var rows = 2
-    var hGap: CGFloat = 8
-    var vGap: CGFloat = 12
+    var fixedHGap: CGFloat = 8, fixedVGap: CGFloat = 12
     /// The cell gets the scale (≤ 1) that makes `rows` rows fit the height on offer, so it can draw smaller.
     @ViewBuilder let cell: (Item, CGFloat) -> Cell
     @State private var page = 0
     @Environment(GameVM.self) private var vm
 
-    /// Room kept above and below the rows for gems and badges that hang over the slot edges.
-    private let bleed: CGFloat = 6
+    /// Room kept above the rows for the frames' medallions and below for the gems that hang over the card edges
+    /// (card units, scaled with the cells).
+    private let bleedTop: CGFloat = CardSlot.top, bleedBottom: CGFloat = CardSlot.bottom
+    /// Room kept left of the rows for the frames' cloth, in card units.
+    private let bleedLeft: CGFloat = CardSlot.leading
     private let footer: CGFloat = 18
 
     var body: some View {
         GeometryReader { g in
-            let avail = g.size.height - footer - 6 - 2 * bleed - CGFloat(rows - 1) * vGap
-            let s = min(1, max(0.5, avail / (CGFloat(rows) * cellHeight)))
-            let cw = cellWidth * s, ch = cellHeight * s
-            let cols = max(1, Int((g.size.width - 2 * 44 - 8) / (cw + hGap)))
+            // Everything scales together: cells, the gaps between them and the bleed around them.
+            let cards = em > 0
+            let unit = cards ? cellHeight + (CGFloat(rows - 1) * CardSlot.vGap + bleedTop + bleedBottom) * em / CGFloat(rows) : cellHeight + (CGFloat(rows - 1) * fixedVGap + 18) / CGFloat(rows)
+            let s = min(1, max(0.5, (g.size.height - footer - 6) / (CGFloat(rows) * unit)))
+            let cw = cellWidth * s, ch = cellHeight * s, e = em * s
+            let hGap = cards ? CardSlot.hGap * e : fixedHGap, vGap = cards ? CardSlot.vGap * e : fixedVGap
+            let padTop = cards ? bleedTop * e : 9, padBottom = cards ? bleedBottom * e : 9
+            let cols = max(1, Int((g.size.width - 2 * 44 - 8 - (bleedLeft + CardSlot.trailing) * e + hGap) / (cw + hGap)))
             let per = cols * rows
             let pages = max(1, (items.count + per - 1) / per)
             let p = min(page, pages - 1)
@@ -108,7 +117,7 @@ struct PagedGrid<Item: Identifiable, Cell: View>: View {
                     LazyVGrid(columns: columns, spacing: vGap) {
                         ForEach(slice) { it in cell(it, s).frame(width: cw, height: ch) }
                     }
-                    .padding(.vertical, bleed)
+                    .padding(.top, padTop).padding(.bottom, padBottom)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     PageArrow(next: true, enabled: p < pages - 1) { page = p + 1 }
                 }
