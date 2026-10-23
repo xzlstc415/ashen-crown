@@ -7,7 +7,7 @@ both sides mulligan like the AI, a draw after 60 rounds).
 
 ```sh
 sim/build.sh
-sim/.build/sim search -rounds 30 -out sim/.build   # improve champions.json (resumes from it)
+sim/.build/sim search -rounds 30 -out sim/.build   # improve champions.json (resumes from it; -only hunter for one class)
 sim/.build/sim matrix -games 50 -out sim/.build    # every pair of champions, 50 games each
 ```
 

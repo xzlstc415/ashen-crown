@@ -36,7 +36,8 @@ func el() -> String { String(format: "%5.0fs", Date().timeIntervalSince(t0)) }
 if mode == "search" {
     let rounds = arg("-rounds", 30), cands = arg("-cands", 24), quick = arg("-quick", 20), confirm = arg("-confirm", 120)
     for r in 1...rounds {
-        for a in archs.shuffled() {
+        let only = args.firstIndex(of: "-only").flatMap { args[safe: $0 + 1] }
+        for a in archs.shuffled() where only == nil || a.cls == only {
             let pool = Search.pool(a.cls), sets = Search.talentSets(a), f = field(a)
             let cur = champs[a]!
             var cs: [Build] = []
