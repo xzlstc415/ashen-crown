@@ -410,8 +410,8 @@ private struct EndTurnButton: View {
                 .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.6)
                 .frame(width: 74, height: 74)
                 .background(RadialGradient(colors: [Color(hex: "#5ad0ff"), Color(hex: "#1f5fa0"), Color(hex: "#123560")], center: UnitPoint(x: 0.5, y: 0.4), startRadius: 0, endRadius: 40), in: Circle())
-                .overlay(Circle().stroke(Color(hex: "#bfe0fa"), lineWidth: 2))
-                .overlay(Circle().stroke(Color(hex: "#f3c97a").opacity(0.8), lineWidth: 1.5).padding(-4))
+                // The painted ring (its opening is 72.5% of the image) sits round the button, star medallion on top.
+                .overlay(Image("frame_endturn").resizable().frame(width: 74 / 0.725, height: 74 / 0.725).allowsHitTesting(false))
                 .shadow(color: nudge && glow ? Color(hex: "#7fe0ff").opacity(0.95) : .black.opacity(0.5), radius: nudge && glow ? 14 : 3, y: nudge && glow ? 0 : 2)
         }
         .buttonStyle(.plain)
