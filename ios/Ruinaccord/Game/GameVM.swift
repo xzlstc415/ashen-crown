@@ -353,8 +353,9 @@ final class GameVM {
             q.cls = cls; q.deck = gd.cls(cls)?.deck ?? []; q.editId = nil; q.name = nextDefaultName(cls); q.dirty = true; q.tal = gd.talentPreset(cls, 0)
         }
         q.toast = ""; q.showTalents = false
-        // A deck is built cards first; the talent screen comes after (and the builder's Talents tab is always there).
-        go(.build)
+        // A new deck picks its talents first, so the cards then show what the talents do to them; then cards, then the
+        // difficulty. Every step can go back (and the builder's Talents tab is always there).
+        if id == nil, !q.returnToOnline, gd.hasTalents(q.cls) { q.talNext = .build; q.talFrom = .classPick; go(.qtalents) } else { go(.build) }
     }
 
     // MARK: - Talents
@@ -440,17 +441,14 @@ final class GameVM {
         if gd.hasTalents(d.cls) { q.talNext = .diff; q.talFrom = .decks; go(.qtalents) } else { go(.diff) }
     }
 
-    /// The builder's next step: the talent screen for classes with talents, then the difficulty. Every step can go back.
-    func toDifficulty() {
-        guard q.deck.count == Decks.size else { return }
-        if gd.hasTalents(q.cls) { q.talNext = .diff; q.talFrom = .build; go(.qtalents) } else { go(.diff) }
-    }
-    /// The difficulty screen's back step: the talents when the class has them, otherwise the cards.
-    func backFromDifficulty() { gd.hasTalents(q.cls) ? go(.qtalents) : go(.build) }
+    func toDifficulty() { if q.deck.count == Decks.size { go(.diff) } }
+    /// The difficulty screen's back step: the cards.
+    func backFromDifficulty() { go(.build) }
     /// Quick play: after the difficulty, classes with talents get the talent screen; the deck keeps the choice.
     func pickDifficulty(_ d: Difficulty) { q.diff = d; startQuick(d) }
     /// Leaves the quick-play talent screen: on to the cards of a new deck, or to the difficulty with a chosen deck.
     func talentsNext() {
+        if q.talNext == .build { go(.build); return }
         if q.dirty, q.editId != nil { saveCurrent(asNew: false) }
         go(.diff)
     }

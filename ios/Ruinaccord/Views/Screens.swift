@@ -336,7 +336,7 @@ struct DiffView: View {
         let tx = vm.tx
         ScreenShell(scene: "warfront") {
             VStack(spacing: 4) {
-                BarRow(back: (GameData.shared.hasTalents(vm.q.cls) ? tx.talents : tx.editDeck, { vm.backFromDifficulty() }), title: tx.diffTitle, subtitle: tx.diffSub)
+                BarRow(back: (tx.editDeck, { vm.backFromDifficulty() }), title: tx.diffTitle, subtitle: tx.diffSub)
                 HStack(spacing: 14) {
                     ForEach(Difficulty.allCases) { d in
                         ModeTile(title: tx.diff(d), sub: tx.diffDesc(d), foot: "", color: Color(hex: d.colorHex), icon: d == .easy ? "leaf.fill" : d == .normal ? "shield.fill" : "flame.fill") { vm.pickDifficulty(d) }

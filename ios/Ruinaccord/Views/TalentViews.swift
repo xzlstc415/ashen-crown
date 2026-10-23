@@ -126,11 +126,11 @@ struct QTalentScreen: View {
         let tx = vm.tx
         ScreenShell(scene: "warfront") {
             VStack(spacing: 4) {
-                // Back to the cards (or the deck list for a saved deck), on to the difficulty.
-                let fromBuild = vm.q.talFrom == .build
-                BarRow(back: fromBuild ? (tx.cardsTab, { vm.go(.build) }) : (tx.myDecks, { vm.goDecks() }), title: tx.qTalTitle, subtitle: tx.qTalSub) {
-                    if !fromBuild { IconButton(symbol: "square.grid.2x2", label: tx.editDeck) { vm.q.talFrom = .build; vm.go(.build) } }
-                    IconButton(symbol: "arrow.right", label: tx.nextDiff, primary: true) { vm.talentsNext() }
+                // A new deck: back to the classes, on to the cards. A saved deck: back to the list, on to the difficulty.
+                let toBuild = vm.q.talNext == .build
+                BarRow(back: toBuild ? (tx.pickClassNew, { vm.goNewDeck() }) : (tx.myDecks, { vm.goDecks() }), title: tx.qTalTitle, subtitle: tx.qTalSub) {
+                    if !toBuild { IconButton(symbol: "square.grid.2x2", label: tx.editDeck) { vm.go(.build) } }
+                    IconButton(symbol: "arrow.right", label: toBuild ? tx.nextCards : tx.nextDiff, primary: true) { vm.talentsNext() }
                 }
                 TalentPanel().padding(.horizontal, 10).padding(.bottom, 8)
             }
