@@ -1637,7 +1637,7 @@ let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,rar:'all',w:0,l:0,toast:
 
 const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
 // Painted hero portraits (img/heroes/<class>.jpg); classes without one keep their vector art.
-const HERO_PAINT=new Set(['warrior','paladin','hunter','priest','warlock']);
+const HERO_PAINT=new Set(['warrior','mage','paladin','hunter','priest','warlock']);
 const classArt=c=>HERO_PAINT.has(c.id)?`<img src="img/heroes/${c.id}.jpg" alt="" aria-hidden="true">`:`<svg viewBox="18 0 64 64" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${c.art}</svg>`;
 
 // ---------- state ----------
