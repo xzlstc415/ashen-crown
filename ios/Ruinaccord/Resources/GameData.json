@@ -6792,9 +6792,9 @@
    "token": false,
    "cls": "mage",
    "text": [
-    "Destroy a Frozen enemy minion.",
-    "消灭一个被冻结的敌方随从。",
-    "凍結している敵のミニオン1体を破壊する。"
+    "Destroy a Frozen enemy minion with less than 5 Health.",
+    "消灭一个生命值低于5的被冻结敌方随从。",
+    "体力5未満の凍結している敵のミニオン1体を破壊する。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -6815,7 +6815,7 @@
     "team": null,
     "summon": [],
     "tgt": "foe",
-    "cond": "frozen",
+    "cond": "frozen<5",
     "destroy": true,
     "silence": false,
     "freeze": false,

@@ -975,7 +975,7 @@ const CARDS={
   emberbolt:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{dmg:2,tgt:'any'},n:['Ember Flick','余烬火花','残り火の閃き'],f:['Small fire, patient hands.','小小的火，耐心的手。','小さな火と、辛抱強い手。']},
   icelance:{beta:1,c:1,t:'s',r:'c',cls:'mage',fx:{icelance:4,tgt:'foe'},n:['Ice Lance','冰枪术','アイスランス'],x:['Freeze an enemy minion. If it was already Frozen, deal 4 damage to it instead.','冻结一个敌方随从。如果它已被冻结，改为对它造成4点伤害。','敵のミニオン1体を凍結させる。すでに凍結しているなら、代わりに4ダメージを与える。'],f:['Cold first. Then sharp.','先冷，再锋利。','まず冷たく、次に鋭く。']},
   frostele:{beta:1,c:4,t:'m',a:3,h:6,r:'r',race:'elemental',cls:'mage',bc:{freeze:1,tgt:'foe'},n:['Frost Elemental','寒冰元素','氷の精霊'],x:['On play: Freeze an enemy minion.','登场：冻结一个敌方随从。','登場時：敵のミニオン1体を凍結させる。'],f:['It does not hate you. It is just very, very cold.','它不恨你，只是非常非常冷。','憎んではいない。ただ、とても冷たい。']},
-  shatter:{beta:1,c:2,t:'s',r:'r',cls:'mage',fx:{destroy:1,cond:'frozen',tgt:'foe'},n:['Shatter','碎冰','砕氷'],x:['Destroy a Frozen enemy minion.','消灭一个被冻结的敌方随从。','凍結している敵のミニオン1体を破壊する。'],f:['Ice remembers every crack.','冰记得每一道裂痕。','氷はすべてのひびを覚えている。']},
+  shatter:{beta:1,c:2,t:'s',r:'r',cls:'mage',fx:{destroy:1,cond:'frozen<5',tgt:'foe'},n:['Shatter','碎冰','砕氷'],x:['Destroy a Frozen enemy minion with less than 5 Health.','消灭一个生命值低于5的被冻结敌方随从。','体力5未満の凍結している敵のミニオン1体を破壊する。'],f:['Ice remembers every crack.','冰记得每一道裂痕。','氷はすべてのひびを覚えている。']},
   voidacolyte:{beta:1,c:2,t:'m',a:2,h:1,r:'c',race:'human',cls:'priest',bc:{silence:1,tgt:'minion'},n:['Void Acolyte','虚空侍僧','虚無の侍僧'],x:['On play: Silence a minion.','登场：沉默一个随从。','登場時：ミニオン1体を沈黙させる。'],f:['She listens to the quiet between prayers.','她聆听祷文之间的寂静。','祈りと祈りの間の静けさに耳を澄ます。']},
   wordruin:{beta:1,c:3,t:'s',r:'r',cls:'priest',fx:{destroy:1,cond:'damaged',tgt:'foe'},n:['Word of Ruin','毁灭之言','破滅の言葉'],x:['Destroy a damaged enemy minion.','消灭一个受伤的敌方随从。','ダメージを受けている敵のミニオン1体を破壊する。'],f:['Finish what the blade began.','把刀刃开始的事做完。','刃が始めたことを終わらせる。']},
   wordtorment:{beta:1,c:6,t:'s',r:'e',cls:'priest',fx:{destroy:1,tgt:'foe'},n:['Word of Torment','折磨之言','責苦の言葉'],x:['Destroy an enemy minion.','消灭一个敌方随从。','敵のミニオン1体を破壊する。'],f:['Spoken once. Heard forever.','只说一次，永远回响。','一度だけ唱え、永遠に響く。']},
@@ -1948,7 +1948,7 @@ function targetsFor(side,tgt,cond){
   else if(tgt==='friend')v=[S[side],...S[side].board];
   else if(tgt==='enemy')v=[op,...op.board];
   else if(tgt==='foe')v=op.board;
-  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:cond==='frozen'?!!o.frozen:o.atk>=5)):v;
+  return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:cond==='frozen'?!!o.frozen:cond==='frozen<5'?!!o.frozen&&o.hp<5:o.atk>=5)):v;
 }
 function applyFx(side,fx,t,bonus=0,faceB=0,spell=false){
   const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null,isPw=!!(me.power&&fx===me.power.fx);

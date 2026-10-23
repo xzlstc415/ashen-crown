@@ -638,6 +638,7 @@ struct DuelState: Codable {
             case "atk<=3": return m.atk <= 3
             case "atk<=4": return m.atk <= 4
             case "frozen": return m.isFrozen
+            case "frozen<5": return m.isFrozen && m.hp < 5
             default: return m.atk >= 5
             }
         }

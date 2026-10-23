@@ -472,4 +472,13 @@ final class EngineTests: XCTestCase {
         let plan = s.aiMultiTargets(gd.card("missiles")!.fx!, bonus: 0)
         XCTAssertEqual(plan.count, 3)
     }
+
+    func testShatterNeedsASmallFrozenTarget() {
+        var s = blank()
+        s.p.board = []; s.e.board = []; s.turn = .p
+        let small = s.summon(.e, "goblin")!, big = s.summon(.e, "ogre")!
+        for m in [small, big] { if let i = s.e.board.firstIndex(where: { $0.uid == m.uid }) { s.e.board[i].frozen = 1 } }
+        let fx = GameData.shared.card("shatter")!.fx!
+        XCTAssertEqual(s.targetsFor(.p, fx.tgt!, fx.cond), [small.id], "only the frozen minion under 5 Health")
+    }
 }
