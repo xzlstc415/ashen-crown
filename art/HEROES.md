@@ -25,7 +25,7 @@ head-and-shoulders portrait, eye-level camera, the face exactly centered and fil
 |---|---|---|---|
 | 战士 | 兽人 | 洛克·灰牙 Rok Greytusk | 从兽人督军麾下出走的持盾者 |
 | 法师 | 侏儒 | 皮姆·霜烬 Pim Emberfrost | 在废墟图书馆长大的自学法师 |
-| 圣骑士 | 人类 | 奥德里克·晨誓 Aldric Dawnoath | 旧王国最后一名骑士 |
+| 圣骑士 | 人类 | 奥德里克·晨誓 Aldric Dawnoath | 把残存骑士团变成一股政治力量的团长 |
 | 猎人 | 精灵 | 凯尔温·荆径 Kaelwen Thornstride | 退出精灵议会的林地巡守 |
 | 牧师 | 人类 | 雷恩·暮钟 Wren Duskbell | 同时听得见圣光与亡者低语的年轻敲钟人 |
 | 术士 | 不死族 | 莫文·残烛 Morwen Lastcandle | 被巫妖复活、只剩半条命的宫廷占星师 |
@@ -55,11 +55,13 @@ a young gnome girl mage, clearly a gnome and not an elf: small round face, big b
 ## 圣骑士 · 奥德里克·晨誓 Aldric Dawnoath — `hero_paladin.png`
 人类 · 男性 · 三十岁上下
 
-**背景**：奥德里克是旧王国骑士团最后一个受封的骑士。受封那天，国王已经戴上了灰烬王冠，眼睛里开始泛出灰光；他对着那双眼睛宣誓效忠，而后亲眼看着他变成灰烬之王。骑士团在那之后一个个倒下，只剩他还守着誓言。他认定誓言是对王冠所代表的国家，而不是对那个人。他要把王冠从他头上摘下来，让誓言有一个干净的结局。
+（2026-10-22 重写：不只是圣洁的好人，而是精明、自信、权力欲旺盛的强人，性格参照凯撒。）
 
-**头像提示词**（2026-10-22：脸改得更刚毅）
+**背景**：奥德里克是旧王国骑士团的团长，也是骑士团里最年轻的一位。国王戴上灰烬王冠、眼睛开始泛出灰光的那天，老团长们选择了沉默，奥德里克选择了记账：哪位领主还有兵，哪座城还有粮，哪位主教还肯说话。王朝倾覆后，他把散落各地的残存骑士重新集结起来，用誓言、联姻和恰到好处的宽恕把半个北境收拢到自己的旗下。被他击败的叛军领主，他一个都没杀，全都放回去，让他们欠着他的人情。士兵爱他，因为他和他们同吃同睡；贵族怕他，因为他从不忘记谁欠了他什么。他说自己的誓言是对国家，而不是对那个戴王冠的人；他没说出口的是，他早已认定，这个国家最好的君主就是他自己。他要那顶王冠，是为了把它从灰烬之王头上摘下来，然后，也许，亲手戴上。
+
+**头像提示词**（2026-10-22：刚毅、精明、自信，凯撒式的统帅气质）
 ```
-a human man paladin about thirty with a hard, resolute, rugged face: a strong square jaw set tight, high sharp cheekbones, a heavy straight brow drawn low, short dark hair, close-trimmed beard, a thin pale scar across the bridge of the nose and another through one eyebrow, stern unwavering eyes staring straight at the viewer, mouth a firm level line, a plain steel gorget and the top of a white tabard with a gold sun, a soft golden halo behind the head, hard-edged holy gold rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic, gentle smile, soft features, kind eyes
+a human man paladin knight-commander about thirty with a hard, resolute, commanding face in the manner of a Roman general: a strong square jaw, high sharp cheekbones, a heavy straight brow, short dark hair cropped close and brushed forward, close-trimmed beard, a thin pale scar across the bridge of the nose and another through one eyebrow, shrewd calculating eyes that hold the viewer's gaze with total self-assurance, the faint hint of a knowing, ambitious smile at one corner of a firm mouth, chin slightly raised, a polished steel gorget, a crimson commander's cloak fastened at the shoulder with a gold sun clasp, a thin gold laurel embroidered along the collar, a white tabard with a gold sun just visible, hard-edged holy gold rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic, gentle smile, soft features, kind eyes, halo, humble expression
 ```
 
 ## 猎人 · 凯尔温·荆径 Kaelwen Thornstride — `hero_hunter.png`
