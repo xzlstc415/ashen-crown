@@ -48,7 +48,7 @@ struct BuilderView: View {
                     Spacer(minLength: 4)
                     if !vm.q.toast.isEmpty { Text(vm.q.toast).font(Theme.body(11.5)).foregroundStyle(Theme.ember).lineLimit(1).minimumScaleFactor(0.7) }
                     if toOnline { IconButton(symbol: "checkmark", label: tx.useDeck, primary: true) { vm.useDeckOnline() }.disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
-                    else { IconButton(symbol: "arrow.right", label: tx.nextDiff, primary: true) { vm.toDifficulty() }.disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
+                    else { IconButton(symbol: "arrow.right", label: tt ? tx.nextTalents : tx.nextDiff, primary: true) { vm.toDifficulty() }.disabled(need > 0).opacity(need > 0 ? 0.45 : 1) }
                 }
                 .frame(height: 44).padding(.horizontal, 10)
 

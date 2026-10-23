@@ -152,6 +152,7 @@ struct Tx {
     var resetDeck: String { pick("Starter deck", "恢复初始牌组", "初期デッキに戻す") }
     var clearDeck: String { pick("Clear", "清空", "空にする") }
     var nextDiff: String { pick("Next: difficulty", "下一步：选择难度", "次へ：難易度") }
+    var nextTalents: String { pick("Next: talents", "下一步：天赋", "次へ：タレント") }
     var curve: String { pick("Mana curve", "法力曲线", "マナカーブ") }
     var filterAll: String { pick("All", "全部", "すべて") }
     var tapAdd: String { pick("Tap a card to add it. Tap a row in your deck to remove one copy.", "点击卡牌加入牌组，点击牌组中的一行移除一张。", "カードをタップで追加、デッキの行をタップで1枚外す。") }
