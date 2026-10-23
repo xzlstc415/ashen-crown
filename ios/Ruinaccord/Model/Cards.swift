@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(UIKit)
+import UIKit
+#endif
 
 /// Who an effect or hero power may target.
 enum Target: String, Codable {
@@ -135,7 +138,13 @@ struct HeroClass: Codable, Identifiable, Hashable {
     let tags: [String]
     let deck: [String]
     let power: Power
-    var artName: String { "class_\(id)" }
+    /// The painted hero portrait (Art/hero_<class>) when there is one, otherwise the vector class art.
+    var artName: String {
+        #if canImport(UIKit)
+        if UIImage(named: "hero_\(id)") != nil { return "hero_\(id)" }
+        #endif
+        return "class_\(id)"
+    }
 }
 
 struct Opponent: Codable, Hashable {

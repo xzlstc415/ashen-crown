@@ -40,6 +40,7 @@ enum DebugLaunch {
                 Decks.autoFill(&vm.q.deck, cls: "mage")
                 vm.startQuick(.normal)
             case "camp": vm.pickClass("paladin")
+            case "classes": vm.goNewDeck()
             case "build": vm.openBuilder(cls: "warrior"); vm.go(.build); if let r = value("-rar") { vm.q.rarityFilter = r }
             case "qtalents":
                 vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; vm.q.tal = GameData.shared.talentPreset("mage", 0)
