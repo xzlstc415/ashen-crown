@@ -37,7 +37,7 @@ if mode == "search" {
     let rounds = arg("-rounds", 30), cands = arg("-cands", 24), quick = arg("-quick", 20), confirm = arg("-confirm", 120)
     for r in 1...rounds {
         let only = args.firstIndex(of: "-only").flatMap { args[safe: $0 + 1] }
-        for a in archs.shuffled() where only == nil || a.cls == only {
+        for a in archs.shuffled() where only == nil || a.cls == only || a.name == only {
             let pool = Search.pool(a.cls), sets = Search.talentSets(a), f = field(a)
             let cur = champs[a]!
             var cs: [Build] = []
@@ -67,6 +67,20 @@ if mode == "search" {
     for a in archs where name.isEmpty || a.name == name {
         print(a.name, String(format: "%.3f", Search.eval(champs[a]!, vs: field(a), games: n)))
     }
+} else if mode == "vs" {
+    // One champion against another, optionally with the second one's talents (-btal a,b,c,d) or cards (-bsub old:new,...)
+    // changed; every copy of `old` becomes `new`.
+    func sarg(_ k: String) -> String? { args.firstIndex(of: k).flatMap { args[safe: $0 + 1] } }
+    let byName = Dictionary(uniqueKeysWithValues: archs.map { ($0.name, $0) })
+    let A = champs[byName[sarg("-a")!]!]!
+    var B = champs[byName[sarg("-b")!]!]!
+    if let t = sarg("-btal") { B.tal = t.split(separator: ",").map(String.init) }
+    for pair in (sarg("-bsub") ?? "").split(separator: ",") {
+        let x = pair.split(separator: ":").map(String.init)
+        B.deck = B.deck.map { $0 == x[0] ? x[1] : $0 }
+    }
+    if !gd.validTalents(B.cls, B.tal) { print("invalid talents"); exit(1) }
+    print(String(format: "%.3f", Search.eval(A, vs: [B], games: arg("-games", 1000))))
 } else if mode == "matrix" {
     // Every pair of archetypes, `-games` games each (alternating who goes first).
     let n = arg("-games", 50)

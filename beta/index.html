@@ -570,7 +570,7 @@ const I18N={
     deckTitle:x=>`${x} deck`,deckRules:n=>`${n} cards. Up to 2 copies of a card, 1 of a marked epic, and one Legendary in all.`,deckNeed:n=>`${n} more to add`,deckReady:'Deck ready',
     autoFill:'Auto-fill',resetDeck:'Starter deck',clearDeck:'Clear',nextDiff:'Next: difficulty',nextTal:'Next: talents',nextCards:'Next: cards',curve:'Mana curve',filterAll:'All',
     tapAdd:'Tap a card to add it. Tap a row in your deck to remove one copy.',limitHit:'You already have the most copies allowed of that card.',legLimit:'A deck may hold only one Legendary.',deckFull:'Your deck is full.',emptyDeck:'Your deck is empty. Tap cards to add them.',
-    diffTitle:'Choose difficulty',diffSub:'Your opponent\'s class is chosen at random.',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
+    diffTitle:'Choose difficulty',diffSub:'Pick the opponent\'s class (or leave it random), then a difficulty.',foeLbl:'Opponent',foeRandom:'Random',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
     diffDesc:{easy:'The AI makes mistakes and never uses its hero power. Its deck adds common cards.',normal:'Standard AI that uses its class hero power. Its deck adds rare and epic cards.',hard:'Standard AI whose deck adds epic and legendary cards.'},
     aiName:x=>`${x} (AI)`,goFirst:'You go first.',goSecond:'You go second and get a Lucky Coin.',qWin:'Victory',qLose:'Defeat',qVs:(c,d)=>`Opponent: ${c} · ${d}`,
     modeOnline:'Play a Friend',modeOnlineSub:'Share a room code and battle a friend online.',
@@ -641,7 +641,7 @@ const I18N={
     deckTitle:x=>`${x}的牌组`,deckRules:n=>`${n}张牌。同名卡最多2张，特殊史诗卡最多1张，整副牌组只能带一张传说牌。`,deckNeed:n=>`还差${n}张`,deckReady:'牌组已完成',
     autoFill:'自动补满',resetDeck:'恢复初始牌组',clearDeck:'清空',nextDiff:'下一步：选择难度',nextTal:'下一步：天赋',nextCards:'下一步：选牌',curve:'法力曲线',filterAll:'全部',
     tapAdd:'点击卡牌加入牌组，点击牌组中的一行移除一张。',limitHit:'这张牌已经达到数量上限。',legLimit:'一副牌组只能带一张传说牌。',deckFull:'牌组已满。',emptyDeck:'牌组是空的，点击卡牌加入。',
-    diffTitle:'选择难度',diffSub:'对手的职业会随机决定。',diff:{easy:'简单',normal:'普通',hard:'困难'},
+    diffTitle:'选择难度',diffSub:'先选对手的职业（或随机），再选难度。',foeLbl:'对手',foeRandom:'随机',diff:{easy:'简单',normal:'普通',hard:'困难'},
     diffDesc:{easy:'AI会出错，也不使用英雄技能。牌组补充普通卡。',normal:'标准AI，会使用职业英雄技能。牌组补充稀有卡和史诗卡。',hard:'标准AI，牌组补充史诗卡和传说卡。'},
     aiName:x=>`${x}（AI）`,goFirst:'你先手。',goSecond:'你后手，获得一枚幸运硬币。',qWin:'胜利',qLose:'失败',qVs:(c,d)=>`对手：${c} · ${d}`,
     modeOnline:'好友对战',modeOnlineSub:'分享房间码，与好友在线实时对战。',
@@ -712,7 +712,7 @@ const I18N={
     deckTitle:x=>`${x}のデッキ`,deckRules:n=>`${n}枚。同名カードは2枚まで、特別なエピックは1枚まで、レジェンドはデッキ全体で1枚だけ。`,deckNeed:n=>`あと${n}枚`,deckReady:'デッキ完成',
     autoFill:'自動で埋める',resetDeck:'初期デッキに戻す',clearDeck:'空にする',nextDiff:'次へ：難易度',nextTal:'次へ：タレント',nextCards:'次へ：カード',curve:'マナカーブ',filterAll:'すべて',
     tapAdd:'カードをタップで追加、デッキの行をタップで1枚外す。',limitHit:'このカードは枚数上限に達している。',legLimit:'デッキに入れられるレジェンドは1枚だけ。',deckFull:'デッキがいっぱい。',emptyDeck:'デッキは空。カードをタップして追加しよう。',
-    diffTitle:'難易度を選択',diffSub:'相手のクラスはランダムに決まる。',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
+    diffTitle:'難易度を選択',diffSub:'相手のクラスを選び（またはランダム）、難易度を選ぶ。',foeLbl:'相手',foeRandom:'ランダム',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
     diffDesc:{easy:'AIはミスをし、ヒーローパワーを使わない。デッキはコモンで補充。',normal:'クラスのヒーローパワーを使う標準AI。デッキはレアとエピックで補充。',hard:'標準AI。デッキはエピックとレジェンドで補充。'},
     aiName:x=>`${x}（AI）`,goFirst:'あなたが先攻。',goSecond:'あなたは後攻。幸運のコインを得る。',qWin:'勝利',qLose:'敗北',qVs:(c,d)=>`相手：${c} · ${d}`,
     modeOnline:'フレンド対戦',modeOnlineSub:'ルームコードを共有して、フレンドとオンライン対戦。',
@@ -1670,7 +1670,7 @@ function saveCurrent(asNew){
 }
 function sanitizeDeck(d,cls){const out=[];d.forEach(k=>{if(CARDS[k]&&!CARDS[k].token&&forCls(k,cls)&&fits(out,k)&&out.length<DECK_SIZE)out.push(k)});return out}
 function validDeck(d,cls){return Array.isArray(d)&&d.length<=DECK_SIZE&&legIn(d)<=1&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k)&&(!cls||forCls(k,cls)))}
-let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,rar:'all',w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
+let Q={cls:null,deck:[],diff:'normal',foe:null,type:'all',cost:0,rar:'all',w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
 
 const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
 // Painted hero portraits (img/heroes/<class>.jpg); classes without one keep their vector art.
@@ -1837,7 +1837,8 @@ function playSaved(id){const d=loadSaved().find(x=>x.id===id);if(!d||d.cards.len
   Q.cls=d.cls;Q.deck=[...d.cards];Q.editId=d.id;Q.name=d.name;Q.tal=deckTal(d);Q.dirty=false;view='diff';render();scrollTo(0,0)}
 function startQuick(diff){
   Q.diff=diff;R={stage:0,deck:[...Q.deck],cls:Q.cls};
-  const ecls=CLASSES[Math.random()*CLASSES.length|0].id;
+  // The opponent's class: the one picked on the difficulty screen, or any.
+  const ecls=Q.foe&&CBY[Q.foe]?Q.foe:CLASSES[Math.random()*CLASSES.length|0].id;
   const mk=(side,hp,deck)=>({side,hp,max:hp,armor:0,mana:0,maxMana:0,sm:0,deck:shuffle([...deck]),hand:[],board:[],fat:0,powerUsed:false,ember:0,altar:[],grave:[]});
   S={mode:'quick',diff,ecls,turn:'p',over:false,busy:false,pending:null,sel:null,log:null,drew:0,hist:[],round:0,
      p:mk('p',30,Q.deck),e:mk('e',30,padDeck(CBY[ecls].deck,DIFFS[diff].rar,ecls))};
@@ -2827,6 +2828,7 @@ function builderHTML(){
 }
 function diffHTML(){
   return navRow(['editdeck',T('editDeck')],['menu',T('toMenu')])+`<div class="screen"><h2>${T('diffTitle')}</h2><p>${T('diffSub')}</p>
+    <div role="group" aria-label="${T('foeLbl')}" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:0 auto 14px;max-width:560px"><span class="chip" style="border:0;background:none">${T('foeLbl')}</span>${[['',T('foeRandom')],...CLASSES.map(c=>[c.id,c.n[li()]])].map(([id,n])=>`<button class="chip${(Q.foe||'')===id?' on':''}" aria-pressed="${(Q.foe||'')===id}" data-foe="${id}">${n}</button>`).join('')}</div>
     <div class="modes" style="max-width:440px;grid-template-columns:1fr">${['easy','normal','hard'].map(d=>`<button class="mode" style="--cc:${DIFFS[d].col}" data-diff="${d}"><b>${T('diff')[d]}</b><span>${T('diffDesc')[d]}</span></button>`).join('')}</div>
   </div>`;
 }
@@ -3059,7 +3061,7 @@ function render(){
 }
 
 document.addEventListener('click',ev=>{
-  const b=ev.target.closest('[data-choice],[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-frar],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview],[data-pack]');
+  const b=ev.target.closest('[data-choice],[data-mull],[data-t],[data-hand],[data-go],[data-pick],[data-hist],[data-class],[data-qclass],[data-add],[data-rm],[data-ftype],[data-fcost],[data-frar],[data-foe],[data-diff],[data-play],[data-edit],[data-del],[data-odeck],[data-zoom],[data-tal],[data-tpre],[data-btab],[data-tview],[data-pack]');
   if(!b||b.disabled)return;
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.zoom!==undefined)return showZoom(b.dataset.zoom);
@@ -3096,6 +3098,7 @@ document.addEventListener('click',ev=>{
   if(b.dataset.ftype!==undefined){Q.type=b.dataset.ftype;return render()}
   if(b.dataset.fcost!==undefined){Q.cost=+b.dataset.fcost;return render()}
   if(b.dataset.frar!==undefined){Q.rar=Q.rar===b.dataset.frar?'all':b.dataset.frar;return render()}
+  if(b.dataset.foe!==undefined){Q.foe=b.dataset.foe||null;return render()}
   if(b.dataset.diff!==undefined)return startQuick(b.dataset.diff);
   if(b.dataset.odeck!==undefined){O.sel=b.dataset.odeck;O.err='';return render()}
   const g=b.dataset.go;

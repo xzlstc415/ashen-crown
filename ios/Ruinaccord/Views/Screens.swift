@@ -382,6 +382,14 @@ struct DiffView: View {
         ScreenShell(scene: "warfront") {
             VStack(spacing: 4) {
                 BarRow(back: (tx.editDeck, { vm.backFromDifficulty() }), title: tx.diffTitle, subtitle: tx.diffSub)
+                // The opponent's class, or random.
+                HStack(spacing: 6) {
+                    Text(tx.foeLbl).font(Theme.body(12, .heavy)).foregroundStyle(Theme.muted)
+                    Tag(text: tx.foeRandom, on: vm.q.foe == nil) { vm.q.foe = nil }
+                    ForEach(GameData.shared.classes) { c in
+                        Tag(text: tx.className(c.id), on: vm.q.foe == c.id) { vm.q.foe = c.id }
+                    }
+                }
                 HStack(spacing: 14) {
                     ForEach(Difficulty.allCases) { d in
                         ModeTile(title: tx.diff(d), sub: tx.diffDesc(d), foot: "", color: Color(hex: d.colorHex), icon: d == .easy ? "leaf.fill" : d == .normal ? "shield.fill" : "flame.fill") { vm.pickDifficulty(d) }

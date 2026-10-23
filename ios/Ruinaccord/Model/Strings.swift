@@ -162,7 +162,9 @@ struct Tx {
     var deckFull: String { pick("Your deck is full.", "牌组已满。", "デッキがいっぱい。") }
     var emptyDeck: String { pick("Your deck is empty. Tap cards to add them.", "牌组是空的，点击卡牌加入。", "デッキは空。カードをタップして追加しよう。") }
     var diffTitle: String { pick("Choose difficulty", "选择难度", "難易度を選択") }
-    var diffSub: String { pick("Your opponent's class is chosen at random.", "对手的职业会随机决定。", "相手のクラスはランダムに決まる。") }
+    var diffSub: String { pick("Pick the opponent's class (or leave it random), then a difficulty.", "先选对手的职业（或随机），再选难度。", "相手のクラスを選び（またはランダム）、難易度を選ぶ。") }
+    var foeLbl: String { pick("Opponent", "对手", "相手") }
+    var foeRandom: String { pick("Random", "随机", "ランダム") }
     func diff(_ d: Difficulty) -> String {
         switch d {
         case .easy: return pick("Easy", "简单", "かんたん")

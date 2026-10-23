@@ -80,6 +80,8 @@ struct Builder {
     var talNext: Screen = .diff
     var talFrom: Screen = .build
     var diff: Difficulty = .normal
+    /// The opponent's class for quick play, or nil for any.
+    var foe: String?
     var typeFilter = "all"
     var costFilter = 0
     /// "all", "e" or "l": the rarity shown in the builder.
@@ -472,7 +474,7 @@ final class GameVM {
         q.diff = diff
         run = Run(stage: 0, deck: q.deck, cls: cls, tal: q.tal)
         scene = Scenes.random()
-        let ecls = gd.classes.randomElement()!
+        let ecls = q.foe.flatMap { gd.cls($0) } ?? gd.classes.randomElement()!
         var s = DuelState(mode: .quick, pcls: cls, ecls: ecls.id, diff: diff,
                           p: DuelState.makeHero(.p, hp: 30, deck: q.deck.shuffled(), power: curPower),
                           e: DuelState.makeHero(.e, hp: 30, deck: Decks.pad(ecls.deck, rarities: diff.rarities, cls: ecls.id).shuffled(), power: ecls.power))

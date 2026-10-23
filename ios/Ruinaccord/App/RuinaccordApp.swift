@@ -50,6 +50,8 @@ enum DebugLaunch {
                 Decks.autoFill(&vm.q.deck, cls: "mage")
                 vm.q.talNext = .diff; vm.go(.qtalents)
             case "gallery": vm.openGallery()
+            case "diff":
+                vm.openBuilder(cls: "hunter"); Decks.autoFill(&vm.q.deck, cls: "hunter"); vm.q.foe = value("-foe"); vm.go(.diff)
             case "online": vm.goOnline()
             case "decks": vm.goDecks()
             default: break
