@@ -13,10 +13,10 @@
 - **主体描述尽量短**：细节越多，模型越往写实大头照跑。
 - **一次出完六张**：用同一个风格参考（例如 `--sref` 指向已通过的兽人头像或 `art/raw/knight.png`，`--sw 100`）和同一个 `--seed`，避免像第一批那样两张猎人跑成另一种笔触。
 
-六条提示词都用下面这段统一后缀：
+六条提示词都用下面这段统一后缀（`<the class backdrop>` 换成各职业自己的背景）：
 
 ```
-head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
+head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, <the class backdrop, softly blurred>, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 出图后把文件按标题里的文件名放到 `art/heroes/`（例如 `hero_warrior.png`）。
