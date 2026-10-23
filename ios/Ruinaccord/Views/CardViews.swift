@@ -115,9 +115,10 @@ struct CardView: View {
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             if card.isMinion {
                 HStack {
-                    GemView(kind: .attack, value: card.atk ?? 0, size: 2.9 * em)
+                    let au = ovr?.atkUp ?? 0, hu = ovr?.hpUp ?? 0
+                    GemView(kind: .attack, value: (card.atk ?? 0) + au, size: 2.9 * em, numberColor: au > 0 ? Theme.ready : nil)
                     Spacer()
-                    GemView(kind: .health, value: card.hp ?? 0, size: 2.9 * em)
+                    GemView(kind: .health, value: (card.hp ?? 0) + hu, size: 2.9 * em, numberColor: hu > 0 ? Theme.ready : nil)
                 }
                 .offset(y: 0.8 * em)
                 .frame(maxHeight: .infinity, alignment: .bottom)

@@ -481,4 +481,15 @@ final class EngineTests: XCTestCase {
         let fx = GameData.shared.card("shatter")!.fx!
         XCTAssertEqual(s.targetsFor(.p, fx.tgt!, fx.cond), [small.id], "only the frozen minion under 5 Health")
     }
+
+    func testTalentStatBoostsShowOnHandCards() {
+        let gd = GameData.shared
+        let o = gd.overrides(for: ["hu_pack", "wa_iron"])
+        XCTAssertEqual(o["direwolf"]?.atkUp, 1); XCTAssertEqual(o["direwolf"]?.hpUp, 1)
+        XCTAssertEqual(o["crab"]?.hpUp, 2, "a Guard minion under Iron Guard"); XCTAssertNil(o["goblin"])
+        var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_pack"])
+        XCTAssertEqual(s.p.ovr["direwolf"]?.atkUp, 1, "the hero's overrides carry the boost for the hand")
+        let w = s.summon(.p, "direwolf")!
+        XCTAssertEqual(w.atk, gd.card("direwolf")!.atk! + 1, "and the summoned minion gets the same boost")
+    }
 }

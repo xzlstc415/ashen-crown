@@ -598,28 +598,30 @@ private struct LogPlayRow: View {
 struct CardInfoPanel: View {
     let card: Card
     let hm: HandMetrics
+    var ovr: CardOverride? = nil
     @Environment(GameVM.self) private var vm
     var body: some View {
         let tx = vm.tx, cjk = vm.lang.isCJK
         let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
         VStack(alignment: .leading, spacing: 5) {
             HStack(spacing: 8) {
-                Text("\(card.cost)").font(Theme.body(14, .heavy)).foregroundStyle(.white)
+                Text("\(ovr?.cost ?? card.cost)").font(Theme.body(14, .heavy)).foregroundStyle((ovr?.cost ?? card.cost) < card.cost ? Theme.ready : .white)
                     .frame(width: 28, height: 28)
                     .background(RadialGradient(colors: [Color(hex: "#7cb8ee"), Theme.mana], center: UnitPoint(x: 0.35, y: 0.3), startRadius: 0, endRadius: 18), in: Hexagon())
                     .overlay(Hexagon().stroke(Color(hex: "#bfe0fa"), lineWidth: 1))
                 Text(tx.name(card.names)).font(Theme.display(16, cjk: cjk)).foregroundStyle(Theme.parch).lineLimit(1).minimumScaleFactor(0.7)
                 Spacer(minLength: 4)
                 if card.isMinion {
-                    GemView(kind: .attack, value: card.atk ?? 0, size: 24)
-                    GemView(kind: .health, value: card.hp ?? 0, size: 24)
+                    let au = ovr?.atkUp ?? 0, hu = ovr?.hpUp ?? 0
+                    GemView(kind: .attack, value: (card.atk ?? 0) + au, size: 24, numberColor: au > 0 ? Theme.ready : nil)
+                    GemView(kind: .health, value: (card.hp ?? 0) + hu, size: 24, numberColor: hu > 0 ? Theme.ready : nil)
                 }
             }
             if !typ.isEmpty {
                 Text(typ).font(Theme.body(10.5, .semibold)).tracking(0.5).foregroundStyle(Color(hex: "#9fc4ee")).textCase(.uppercase)
                     .padding(.horizontal, 6).padding(.vertical, 1).overlay(Capsule().stroke(Color(hex: "#4a6a9a"), lineWidth: 1))
             }
-            RichText(text: tx.cardText(card), keywords: tx.keywords, font: Theme.body(12.5), color: Theme.ink)
+            RichText(text: tx.cardText(card, ovr: ovr), keywords: tx.keywords, font: Theme.body(12.5), color: Theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             Text(tx.name(card.flavor)).font(Theme.body(11)).italic().foregroundStyle(Theme.muted).lineLimit(2)
         }

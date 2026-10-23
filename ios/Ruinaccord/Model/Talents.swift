@@ -24,6 +24,9 @@ struct CardOverride: Codable, Hashable {
     var bc: Effect?
     var pray: Prayer?
     var text: [String]?
+    /// Attack and Health the minion gets from talents when played (shown on the card in hand).
+    var atkUp: Int?
+    var hpUp: Int?
     /// Later overrides win field by field.
     mutating func merge(_ o: CardOverride) {
         if let c = o.cost { cost = c }
@@ -31,6 +34,8 @@ struct CardOverride: Codable, Hashable {
         if let b = o.bc { bc = b }
         if let p = o.pray { pray = p }
         if let t = o.text { text = t }
+        if let a = o.atkUp { atkUp = a }
+        if let h = o.hpUp { hpUp = h }
     }
 }
 
@@ -108,14 +113,41 @@ extension GameData {
     /// Adventure: one point every two duels, so `stage` (0-based) plays with 1 + stage / 2 points, 4 at the last two.
     func advPoints(_ stage: Int) -> Int { min(talents.maxPts, 1 + stage / 2) }
 
-    /// The card changes a talent selection makes for its owner.
+    /// The card changes a talent selection makes for its owner, stat boosts included.
     func overrides(for sel: [String]) -> [String: CardOverride] {
         var out: [String: CardOverride] = [:]
         for id in sel {
             guard let byCard = talents.overrides[id] else { continue }
             for (k, o) in byCard where card(k) != nil { out[k, default: CardOverride()].merge(o) }
         }
+        for c in cards where c.isMinion {
+            let (a, h) = statBonus(c, tal: sel)
+            if a != 0 || h != 0 { out[c.id, default: CardOverride()].atkUp = a; out[c.id, default: CardOverride()].hpUp = h }
+        }
         return out
+    }
+
+    /// The Attack and Health a minion card gets from these talents, known before it is played (the engine adds the
+    /// situational boosts on top when it is summoned).
+    func statBonus(_ c: Card, tal: [String]) -> (Int, Int) {
+        func h(_ id: String) -> Bool { tal.contains(id) }
+        var a = 0, hp = 0
+        let key = c.id
+        if c.sc == "fire" && h("fi_heart") { a += 1 }
+        if key == "spellbreaker" && h("sh_breaker") { a += 1 }
+        if key == "crab" && h("wa_crab") { hp += 2 }
+        if c.hasGuard && h("wa_iron") { hp += 2 }
+        if key == "berserker" && h("wa_berserk") { a += 1 }
+        if key == "minnow" && h("pa_drill") { hp += 1 }
+        if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
+        if key == "elver" && h("hu_tame") { a += 1; hp += 1 }
+        if (key == "hound" || key == "phound") && h("hu_hound") { a += 1 }
+        if key == "gull" && h("hu_griffon") { a += 1 }
+        if key == "sailor" && h("wl_bone") { a += 1; hp += 1 }
+        if key == "bubble" && h("wl_wrath") { a += 1 }
+        if c.gasp != nil && h("wl_gasp") { a += 1 }
+        if key == "knight" && h("pa_vshield") { a += 1 }
+        return (a, hp)
     }
 
     /// Adventure packs offered after winning `stage`, or nil for classes without talents.

@@ -267,7 +267,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .lhero .hres{justify-content:center;margin-top:4px}.lhero .ember{font-size:10px;padding:0 5px}.lhero .aslot{width:26px;height:18px}
 .card.ign{box-shadow:0 0 0 2px #ff8a3a,0 0 14px #ff8a3aaa}
 .hboost{position:absolute;top:-.5em;right:-.4em;z-index:2;background:#ff8a3a;color:#2a130a;font-weight:800;font-size:.95em;border-radius:999px;padding:0 .45em;line-height:1.5em}
-.card .cost.down{color:#9fe09f}
+.card .cost.down{color:#9fe09f}.card .stat.up{color:#9fe09f}
 .ctr{font-size:11px;font-weight:700;color:#ffd0a0;background:#3a2414;border:1px solid #8a5a2a;border-radius:999px;padding:1px 7px;white-space:nowrap}
 .lhero .ctr{font-size:9.5px;padding:0 4px}
 .talbtn{font-size:11.5px;font-weight:800;color:var(--gold);background:#2a2430;border:1px solid #e8c35a88;border-radius:999px;padding:1px 8px;line-height:18px}
@@ -1353,6 +1353,7 @@ function talPreset(cls,i){
 function setupTalents(s,cls,sel){
   s.tal=new Set(hasTal(cls)&&validTal(cls,sel||[])?sel:[]);s.ovr={};s.hb=[];s.tf={};s.castHb=0;
   for(const id of s.tal){const o=TOVR[id];if(o)for(const k in o)if(CARDS[k])s.ovr[k]={...s.ovr[k],...o[k]()}}
+  withStats(s.ovr,id=>s.tal.has(id));
   if(tal(s,'wl_flesh')){s.hp+=2;s.max+=2}
   if(tal(s,'fr_blood')){s.hp+=7;s.max+=7}
   if(tal(s,'wa_reckless')){s.hp-=3;s.max-=3}
@@ -1398,12 +1399,13 @@ function talDeaths(sd,n){const s=S[sd];if(resCls(s,'warlock'))s.soul=Math.min(SO
   if(tal(s,'wl_harvest')&&d0<2&&d0+n>=2)draw(sd,1);
 }
 // Per-minion talent changes when it enters (stat bonuses, Ward, Charge, counters).
-function talSummon(s,m,key,c){
-  const H=id=>s.tal.has(id);let a=0,h=0;
+// The Attack and Health a minion card gets from its owner's talents, known before it is played (shown on the
+// hand card); talSummon adds the situational ones on top.
+function talStat(H,key,c){let a=0,h=0;
   if(c.sc==='fire'&&H('fi_heart'))a++;
   if(key==='spellbreaker'&&H('sh_breaker'))a++;
   if(key==='crab'&&H('wa_crab'))h+=2;
-  if(m.guard&&H('wa_iron')){h+=2}
+  if(c.guard&&H('wa_iron'))h+=2;
   if(key==='berserker'&&H('wa_berserk'))a++;
   if(key==='minnow'&&H('pa_drill'))h++;
   if(key==='direwolf'&&H('hu_pack')){a++;h++}
@@ -1413,7 +1415,13 @@ function talSummon(s,m,key,c){
   if(key==='sailor'&&H('wl_bone')){a++;h++}
   if(key==='bubble'&&H('wl_wrath'))a++;
   if(c.gasp&&H('wl_gasp'))a++;
-  if(key==='knight'&&H('pa_vshield')){m.ward=true;a++}
+  if(key==='knight'&&H('pa_vshield'))a++;
+  return [a,h]}
+// Adds those stat changes (da, dh) to a set of card overrides so card faces can show them.
+function withStats(o,H){for(const k in CARDS){const c=CARDS[k];if(c.t!=='m')continue;const [a,h]=talStat(H,k,c);if(a||h)o[k]={...o[k],da:a,dh:h}}return o}
+function talSummon(s,m,key,c){
+  const H=id=>s.tal.has(id);let [a,h]=talStat(H,key,c);
+  if(key==='knight'&&H('pa_vshield'))m.ward=true;
   if(!c.token&&H('pa_first')&&!s.firstSum){s.firstSum=1;m.ward=true}
   if(s.tf){s.tf.sum=(s.tf.sum||0)+1;if(s.tf.sum===3&&H('pa_step')){a++;h++}}
 
@@ -1471,7 +1479,7 @@ function freezeM(side,m){
 }
 // Talent summary text for a side (duel info button).
 function talNames(sel){return sel.map(id=>TAL_NODE[id]).filter(Boolean)}
-function ovrFor(sel){const o={};(sel||[]).forEach(id=>{const t=TOVR[id];if(t)for(const k in t)if(CARDS[k])o[k]={...o[k],...t[k]()}});return o}
+function ovrFor(sel){const o={};(sel||[]).forEach(id=>{const t=TOVR[id];if(t)for(const k in t)if(CARDS[k])o[k]={...o[k],...t[k]()}});return withStats(o,id=>(sel||[]).includes(id))}
 const TX={
   talents:()=>['Talents','天赋','タレント'][li()],cards:()=>['Cards','卡牌','カード'][li()],
   pts:(n,m)=>[`Points ${n}/${m}`,`天赋点 ${n}/${m}`,`ポイント ${n}/${m}`][li()],
@@ -2671,7 +2679,7 @@ function cardFace(k,size,tag='button',attrs='',extra='',boost=0){
   return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''}${c.uniq?' uniq':''} ${size} ${extra}" ${attrs}>
     <span class="art">${art(k)}</span><span class="cost${cost<c.c?' down':''}">${cost}</span>${boost?`<span class="hboost">+${boost}</span>`:''}
     <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span>${typ?`<span class="typ">${typ}</span>`:''}<span class="tx">${kwBold(ct(k))}</span></span>
-    ${m?`<span class="stat a">${c.a}</span><span class="stat h">${c.h}</span>`:''}</${tag}>`;
+    ${m?`<span class="stat a${ov&&ov.da?' up':''}">${c.a+(ov&&ov.da||0)}</span><span class="stat h${ov&&ov.dh?' up':''}">${c.h+(ov&&ov.dh||0)}</span>`:''}</${tag}>`;
 }
 function header(){
   return `<div class="top"><span class="brand">${T('brand')}</span>

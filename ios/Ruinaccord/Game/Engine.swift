@@ -375,22 +375,10 @@ struct DuelState: Codable {
     /// Per-minion talent changes when it enters (stat bonuses, Ward, counters).
     private mutating func talSummon(_ side: Side, _ m: inout Minion, _ c: Card) {
         func h(_ id: String) -> Bool { tal(side, id) }
-        var a = 0, hp = 0
+        // The boosts a hand card already shows, then the situational ones.
+        var (a, hp) = Self.gd.statBonus(c, tal: self[side].tal)
         let key = c.id
-        if c.sc == "fire" && h("fi_heart") { a += 1 }
-        if key == "spellbreaker" && h("sh_breaker") { a += 1 }
-        if key == "crab" && h("wa_crab") { hp += 2 }
-        if m.hasGuard && h("wa_iron") { hp += 2 }
-        if key == "berserker" && h("wa_berserk") { a += 1 }
-        if key == "minnow" && h("pa_drill") { hp += 1 }
-        if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
-        if key == "elver" && h("hu_tame") { a += 1; hp += 1 }
-        if (key == "hound" || key == "phound") && h("hu_hound") { a += 1 }
-        if key == "gull" && h("hu_griffon") { a += 1 }
-        if key == "sailor" && h("wl_bone") { a += 1; hp += 1 }
-        if key == "bubble" && h("wl_wrath") { a += 1 }
-        if c.gasp != nil && h("wl_gasp") { a += 1 }
-        if key == "knight" && h("pa_vshield") { m.ward = true; a += 1 }
+        if key == "knight" && h("pa_vshield") { m.ward = true }
         if !c.token && h("pa_first") && !self[side].firstSum { self[side].firstSum = true; m.ward = true }
         self[side].tf.sum += 1
         if self[side].tf.sum == 3 && h("pa_step") { a += 1; hp += 1 }
