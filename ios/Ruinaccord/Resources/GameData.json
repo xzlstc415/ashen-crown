@@ -11494,9 +11494,9 @@
          "影の手"
         ],
         "desc": [
-         "Your hero power becomes: deal 2 damage to a minion.",
-         "英雄技能改为「对一个随从造成2点伤害」。",
-         "ヒーローパワーが「ミニオン1体に2ダメージ」になる。"
+         "Your hero power becomes: deal 2 damage to a minion. Light now comes from the damage your spells and hero power deal, not from overhealing.",
+         "英雄技能改为「对一个随从造成2点伤害」。圣光改为由你的法术和英雄技能造成的伤害积累，不再来自溢出的治疗。",
+         "ヒーローパワーが「ミニオン1体に2ダメージ」になる。聖光は回復の溢れではなく、呪文とヒーローパワーで与えたダメージから得る。"
         ]
        },
        {

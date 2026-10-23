@@ -509,4 +509,19 @@ final class EngineTests: XCTestCase {
         var d: [String] = []; Decks.autoFill(&d, cls: "mage"); XCTAssertLessThanOrEqual(Decks.legendaries(d), 1)
         for _ in 0..<20 { XCTAssertTrue(Decks.rollRewards(stage: 5, cls: "mage", deck: ["lich"]).allSatisfy { GameData.shared.card($0)?.isLegendary == false }) }
     }
+
+    func testShadowTouchLightFromDamage() {
+        var s = blank()
+        s.setupTalents(.p, cls: "priest", ["sh_pain", "sh_death", "sh_touch"]); s.p.light = 0; s.p.hp = 30; s.p.max = 30
+        s.summon(.e, "ogre")
+        var bolt = Effect(); bolt.dmg = 2; bolt.tgt = .any
+        s.applyFx(.p, bolt, s.e.board[0].id, isSpell: true); XCTAssertEqual(s.p.light, 2, "damage to a minion")
+        s.applyFx(.p, bolt, .hero(.e), isSpell: true); XCTAssertEqual(s.p.light, 4, "damage to the hero")
+        var mend = Effect(); mend.heal = 5
+        s.applyFx(.p, mend, nil); XCTAssertEqual(s.p.light, 4, "overhealing gives nothing now")
+        s.turn = .e; s.attack(s.e.board[0].id, .hero(.p)); XCTAssertEqual(s.p.light, 4, "the foe's damage does not count")
+        var t = blank(); t.setupTalents(.p, cls: "priest", []); t.p.light = 0
+        t.applyFx(.p, mend, nil); XCTAssertEqual(t.p.light, 5, "without the talent, overhealing as before")
+        t.summon(.e, "ogre"); t.applyFx(.p, bolt, t.e.board[0].id, isSpell: true); XCTAssertEqual(t.p.light, 5)
+    }
 }

@@ -208,6 +208,8 @@ struct DuelState: Codable {
 
     /// Transient UI events produced by rule functions; drained by the view model, never stored.
     var events: [GameEvent] = []
+    /// The side whose effect is resolving (not saved): a Shadow Touch Priest's damage turns into Light.
+    var fxSide: Side?
 
     private enum CodingKeys: String, CodingKey { case mode, pcls, ecls, diff, stage, turn, over, opened, mulligan, round, nextUid, p, e, order, result }
 
@@ -492,6 +494,7 @@ struct DuelState: Codable {
             h.hp -= rest
             self[own] = h
             float(id, rest > 0 ? .dmg(rest) : .armorAbsorb(a))
+            shadowLight(own, rest)
         } else if let i = self[own].board.firstIndex(where: { $0.uid == id.uid }) {
             if self[own].board[i].ward {
                 self[own].board[i].ward = false
@@ -505,6 +508,7 @@ struct DuelState: Codable {
                 }
                 self[own].board[i].hp -= n
                 float(id, .dmg(n))
+                shadowLight(own, n)
                 if !self[own].board[i].bled && tal(own, "wa_bloodied") { self[own].board[i].bled = true; self[own].board[i].atk += 1 }
             }
         }
@@ -521,6 +525,14 @@ struct DuelState: Codable {
         let k = self[side].grave.remove(at: i)
         self[side].hand.append(k); self[side].hb.append(0)
         float(.hero(side), .named(k))
+    }
+
+    /// Shadow Touch: a Priest's spells and hero power bank the damage they deal to the other side as Light (instead of
+    /// overhealing).
+    private mutating func shadowLight(_ target: Side, _ dealt: Int) {
+        guard dealt > 0, let src = fxSide, src != target, isCls(src, "priest"), tal(src, "sh_touch") else { return }
+        let l = Swift.min(Self.lightCap - self[src].light, dealt)
+        if l > 0 { self[src].light += l; float(.hero(src), .light(l)) }
     }
 
     /// Restores Health (never above the maximum), floating the amount actually healed.
@@ -593,7 +605,7 @@ struct DuelState: Codable {
             self[id.side].board[i].hp += h
             float(id, .heal(h))
         } else { return }
-        if isCls(id.side, "priest") && n > h {
+        if isCls(id.side, "priest") && !tal(id.side, "sh_touch") && n > h {
             let l = Swift.min(Self.lightCap - self[id.side].light, n - h)
             if l > 0 { self[id.side].light += l; float(.hero(id.side), .light(l)) }
         }
@@ -784,6 +796,8 @@ struct DuelState: Codable {
     }
 
     mutating func applyFx(_ side: Side, _ fx: Effect, _ t: EID?, bonus: Int = 0, faceBonus: Int = 0, isPower: Bool = false, isSpell: Bool = false) {
+        let prevFx = fxSide; fxSide = side
+        defer { fxSide = prevFx }
         let op = side.other
         let mt: EID? = (t?.isHero == false) ? t : nil
         var bonus = bonus

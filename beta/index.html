@@ -1234,7 +1234,7 @@ const TALENTS=BETA?{
       [TN('sh_death',['Oblivion','寂灭','寂滅'],['Word of Death costs 1 less.','死亡之言的费用-1。','死の言葉のコスト-1。']),
        TN('sh_echo',['Echo of Pain','痛苦回响','苦痛の残響'],['Whenever your Word spell destroys a minion, deal 2 damage to the enemy hero.','你的真言每消灭一个随从，对敌方英雄造成2点伤害。','自分の「言葉」の呪文がミニオンを破壊するたび、敵ヒーローに2ダメージ。']),
        TN('sh_void',['Void','虚空','虚無'],['Your Silence effects also deal 2 damage to the target.','你的沉默效果同时对目标造成2点伤害。','自分の沈黙効果が対象に2ダメージも与える。'])],
-      [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion.','英雄技能改为「对一个随从造成2点伤害」。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。']),
+      [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion. Light now comes from the damage your spells and hero power deal, not from overhealing.','英雄技能改为「对一个随从造成2点伤害」。圣光改为由你的法术和英雄技能造成的伤害积累，不再来自溢出的治疗。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。聖光は回復の溢れではなく、呪文とヒーローパワーで与えたダメージから得る。']),
        TN('sh_drain',['Drain','汲取','吸収'],['Whenever your spell kills an enemy minion, restore 2 Health to your hero.','你的法术每消灭一个敌方随从，为你的英雄恢复2点生命值。','自分の呪文が敵のミニオンを倒すたび、ヒーローの体力を2回復する。'])],
       [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand and draw a card.','你的真言消灭随从后，将它的一张复制置入你的手牌，并抽一张牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加え、カードを1枚引く。'])]]}],
   warrior:[
@@ -1498,7 +1498,7 @@ function aiRitePick(side){const o=riteOffer().filter(k=>CARDS[k].t==='m');if(!o.
 function heal(o,n){
   const h=Math.min(n,o.max-o.hp);o.hp+=h;if(h)float(o,'+'+h,'var(--ready)');
   const own=isHero(o)?o:S[o.side];
-  if(resCls(own,'priest')&&n>h){const l=Math.min(LIGHT_CAP-(own.light||0),n-h);if(l>0){own.light=(own.light||0)+l;float(own,'✦+'+l,'#ffe9a0')}}
+  if(resCls(own,'priest')&&!tal(own,'sh_touch')&&n>h){const l=Math.min(LIGHT_CAP-(own.light||0),n-h);if(l>0){own.light=(own.light||0)+l;float(own,'✦+'+l,'#ffe9a0')}}
 }
 const SML=()=>['Spell','法术','呪文'][li()];
 const SMH=()=>['Spell mana (Mage): mana you leave unspent is banked for spells only (up to 3). Spells use it first.','法术法力（法师专属）：回合结束时没用完的法力会存下来，只能用于法术（最多3点），施法时优先消耗。','呪文マナ（魔法使い）：使い残したマナは呪文専用に貯まる（最大3）。呪文はこちらから先に使う。'][li()];
@@ -1850,7 +1850,7 @@ function startQuick(diff){
 }
 function goClass(){view='class';render();scrollTo(0,0)}
 // Adventure: the chosen hero before the run starts (resource and hero power).
-const RESX={"warrior": [["Rage", "怒气", "怒気"], ["Using the hero power or taking hero damage gives 1 Rage (up to 5). At the start of your turn, 4 Rage burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点怒气（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれ怒気+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。"]], "mage": [["Spell mana", "法术法力", "呪文マナ"], ["Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。"]], "paladin": [["Prestige", "威望", "威信"], ["At the end of your turn, each buffed minion gives 1 Prestige (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点威望（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につき威信+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。"]], "hunter": [["Ferocity", "兽性", "野性"], ["At the start of your turn, each Beast in your hand gives 1 Ferocity (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "回合开始时，手牌中每有一张野兽得1点兽性（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "ターン開始時、手札の獣1枚につき野性+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。"]], "priest": [["Light", "圣光", "聖光"], ["Healing past full becomes Light (up to 5). When a Prayer goes on the altar, every 2 Light take a turn off its countdown.", "溢出的治疗化为圣光（上限5）。祷文放上祭坛时，每2点圣光让它的倒计时减1。", "回復の溢れた分は聖光になる（最大5）。祈祷を祭壇に置くとき、聖光2ごとにカウントが1進む。"]], "warlock": [["Souls", "魂", "魂"], ["Each friendly minion that dies gives 1 Soul (up to 7). Blood Pact spends 2 Souls instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1个魂（上限7）。鲜血契约可以用2个魂代替自伤；回合结束时攒满5个魂会召唤一个骷髅战士。", "味方ミニオンが倒れるたびに魂+1（最大7）。血の契約は自傷の代わりに魂2を使える。ターン終了時に魂が5あれば骸骨戦士が現れる。"]]};
+const RESX={"warrior": [["Rage", "怒气", "怒気"], ["Using the hero power or taking hero damage gives 1 Rage (up to 5). At the start of your turn, 4 Rage burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点怒气（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれ怒気+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。"]], "mage": [["Spell mana", "法术法力", "呪文マナ"], ["Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。"]], "paladin": [["Prestige", "威望", "威信"], ["At the end of your turn, each buffed minion gives 1 Prestige (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点威望（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につき威信+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。"]], "hunter": [["Ferocity", "兽性", "野性"], ["At the start of your turn, each Beast in your hand gives 1 Ferocity (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "回合开始时，手牌中每有一张野兽得1点兽性（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "ターン開始時、手札の獣1枚につき野性+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。"]], "priest": [["Light", "圣光", "聖光"], ["Healing past full becomes Light (up to 5); with the Shadow Touch talent, the damage your spells and hero power deal does instead. When a Prayer goes on the altar, every 2 Light take a turn off its countdown.", "溢出的治疗化为圣光（上限5）；选了暗影之触天赋后，改为由法术和英雄技能造成的伤害积累。祷文放上祭坛时，每2点圣光让它的倒计时减1。", "回復の溢れた分は聖光になる（最大5）。影の手タレントがあれば、呪文とヒーローパワーで与えたダメージから得る。祈祷を祭壇に置くとき、聖光2ごとにカウントが1進む。"]], "warlock": [["Souls", "魂", "魂"], ["Each friendly minion that dies gives 1 Soul (up to 7). Blood Pact spends 2 Souls instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1个魂（上限7）。鲜血契约可以用2个魂代替自伤；回合结束时攒满5个魂会召唤一个骷髅战士。", "味方ミニオンが倒れるたびに魂+1（最大7）。血の契約は自傷の代わりに魂2を使える。ターン終了時に魂が5あれば骸骨戦士が現れる。"]]};
 let introCls=null;
 function heroIntroHTML(){const c=CBY[introCls],p=c.power;
   return header()+navRow(['class',['Classes','选择职业','クラス選択'][li()]],['menu',T('toMenu')])+`<div class="screen hintro" style="--cc:${c.col}"><span class="cport big">${classArt(c)}</span>
@@ -1980,12 +1980,12 @@ function damage(o,n,pierce,phys,spell){
   if(spell&&spellward(o)){float(o,T('fImmune'),'#ffd27a',true);return}
   const own=isHero(o)?o:S[o.side];
   if(isHero(o))addRage(own,1);
-  if(isHero(o)){const a=pierce?0:Math.min(o.armor,n);o.armor-=a;n-=a;o.hp-=n;float(o,n?'-'+n:T('fArmor',a),n?'var(--blood)':'#aab',true)}
+  if(isHero(o)){const a=pierce?0:Math.min(o.armor,n);o.armor-=a;n-=a;o.hp-=n;float(o,n?'-'+n:T('fArmor',a),n?'var(--blood)':'#aab',true);shadowLight(o,n)}
   else if(o.ward){o.ward=false;float(o,T('fWard'),'var(--foam)',true);
     if(own&&own.tal&&own.tal.size){
       if(tal(own,'pa_echo'))heal(own,2);
       if(tal(own,'pa_sanct')&&own.tf&&(own.tf.sd||0)<3){own.tf.sd=(own.tf.sd||0)+1;draw(o.side,1);heal(own,2)}}}
-  else{if(o.frozen){const fo=S[other(o.side)];n+=(tal(fo,'fr_deep')?2:0)+(tal(fo,'fr_perma')?1:0)}o.hp-=n;float(o,'-'+n,'var(--blood)',true);
+  else{if(o.frozen){const fo=S[other(o.side)];n+=(tal(fo,'fr_deep')?2:0)+(tal(fo,'fr_perma')?1:0)}o.hp-=n;float(o,'-'+n,'var(--blood)',true);shadowLight(own,n);
     if(!o.bled&&tal(own,'wa_bloodied')){o.bled=1;o.atk+=1}}
 }
 // Wraith Ferryman: at the start of its owner's turn, one minion of the grave returns to the hand. The pick is a
@@ -2010,7 +2010,11 @@ function targetsFor(side,tgt,cond){
   else if(tgt==='foe')v=op.board;
   return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:cond==='frozen'?!!o.frozen:cond==='frozen<5'?!!o.frozen&&o.hp<5:o.atk>=5)):v;
 }
-function applyFx(side,fx,t,bonus=0,faceB=0,spell=false){
+// The side whose effect is resolving: a Shadow Touch Priest's damage turns into Light.
+function applyFx(side,fx,t,bonus=0,faceB=0,spell=false){const prev=S.fxSide;S.fxSide=side;try{return applyFx0(side,fx,t,bonus,faceB,spell)}finally{S.fxSide=prev}}
+function shadowLight(target,dealt){const src=S.fxSide;if(!src||dealt<=0)return;const me=S[src];if(me===target||!resCls(me,'priest')||!tal(me,'sh_touch'))return;
+  const l=Math.min(LIGHT_CAP-(me.light||0),dealt);if(l>0){me.light=(me.light||0)+l;float(me,'✦+'+l,'#ffe9a0')}}
+function applyFx0(side,fx,t,bonus=0,faceB=0,spell=false){
   const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null,isPw=!!(me.power&&fx===me.power.fx);
   const empower=isPw&&resCls(me,'paladin')&&fx.summon&&(me.pres||0)>=PRES_NEED;
   if(empower){me.pres-=PRES_NEED;float(me,TX.presGo(),'#ffd27a');if(tal(me,'pa_coop'))me.board.forEach(m=>{m.atk+=1;float(m,T('fAtk',1),'var(--ready)')})}
