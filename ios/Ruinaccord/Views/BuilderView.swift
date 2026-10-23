@@ -12,8 +12,11 @@ struct BuilderView: View {
         let d = vm.q.deck, need = Decks.size - d.count
         let tt = gd.hasTalents(clsId)
         let toOnline = vm.q.returnToOnline
+        // The cost filter goes by the cost the talents give a card.
+        let talOvr = tt ? gd.overrides(for: vm.q.tal) : [:]
+        let qcost: (Card) -> Int = { c in talOvr[c.id]?.cost ?? c.cost }
         let list = gd.collectible.filter { c in
-            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? c.cost >= 7 : c.cost == vm.q.costFilter)) && (vm.q.rarityFilter == "all" || c.rarity == vm.q.rarityFilter)
+            c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? qcost(c) >= 7 : qcost(c) == vm.q.costFilter)) && (vm.q.rarityFilter == "all" || c.rarity == vm.q.rarityFilter)
         }.sorted { a, b in (a.cls != nil) != (b.cls != nil) ? a.cls != nil : a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
 
         return AnyView(ScreenShell(scene: "dawn") {
@@ -115,9 +118,12 @@ struct DeckList: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         let tx = vm.tx, gd = GameData.shared
-        let order: (String) -> Int = { k in (gd.card(k)?.cost ?? 0) * 100 + ((gd.card(k)?.isMinion ?? true) ? 0 : 50) }
+        // Costs as the deck's talents change them (green lower, red higher), in the rows and the curve.
+        let ovr = gd.hasTalents(cls.id) ? gd.overrides(for: vm.q.tal) : [:]
+        let qc: (String) -> Int = { k in ovr[k]?.cost ?? gd.card(k)?.cost ?? 0 }
+        let order: (String) -> Int = { k in qc(k) * 100 + ((gd.card(k)?.isMinion ?? true) ? 0 : 50) }
         let uniq = Array(Set(deck)).sorted { order($0) != order($1) ? order($0) < order($1) : tx.cardName($0) < tx.cardName($1) }
-        let buckets = deck.reduce(into: [Int](repeating: 0, count: 8)) { $0[min(7, gd.card($1)?.cost ?? 0)] += 1 }
+        let buckets = deck.reduce(into: [Int](repeating: 0, count: 8)) { $0[min(7, qc($1))] += 1 }
         let mx = max(4, buckets.max() ?? 4)
         VStack(alignment: .leading, spacing: 5) {
             HStack(alignment: .bottom, spacing: 3) {
@@ -143,7 +149,7 @@ struct DeckList: View {
                         if let c = gd.card(k) {
                             Button { vm.removeCard(k) } label: {
                                 HStack(spacing: 5) {
-                                    Text("\(c.cost)").font(Theme.body(9, .heavy)).foregroundStyle(.white).frame(width: 14, height: 14).background(Theme.mana, in: Hexagon())
+                                    Text("\(qc(k))").font(Theme.body(9, .heavy)).foregroundStyle(qc(k) < c.cost ? Theme.ready : qc(k) > c.cost ? Color(hex: "#ffb3a9") : .white).frame(width: 14, height: 14).background(Theme.mana, in: Hexagon())
                                     Text(tx.name(c.names)).font(Theme.body(10.5, .semibold)).foregroundStyle(c.isLegendary ? Theme.gold : Theme.ink).lineLimit(1)
                                     Spacer(minLength: 2)
                                     Text("×\(Decks.copies(deck, k))").font(Theme.body(9.5, .heavy)).foregroundStyle(Theme.gold).monospacedDigit()

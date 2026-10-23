@@ -110,7 +110,7 @@ struct CardView: View {
             // The gems ride on the corners of the card, a little past its edge; on a framed card the cost gem is the
             // jewel of the frame's medallion.
             let medal = framed ? (leg ? FrameGeo.gold : FrameGeo.purple).medal : CGPoint(x: 0.65, y: 0.65)
-            GemView(kind: .cost, value: cost, size: 2.9 * em, numberColor: cost < card.cost ? Theme.ready : nil)
+            GemView(kind: .cost, value: cost, size: 2.9 * em, numberColor: cost < card.cost ? Theme.ready : cost > card.cost ? Color(hex: "#ffb3a9") : nil)
                 .offset(x: (medal.x - 1.45) * em, y: (medal.y - 1.45) * em)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             if card.isMinion {

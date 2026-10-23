@@ -42,6 +42,7 @@ enum DebugLaunch {
             case "camp": vm.pickClass("paladin")
             case "classes": vm.goNewDeck()
             case "newdeck": vm.openBuilder(cls: "mage")
+            case "magebuild": vm.openBuilder(cls: "mage"); vm.q.tal = ["fi_heart", "fi_fireball", "fi_spark", "fi_boost"]; vm.go(.build); vm.q.costFilter = 4
             case "build": vm.openBuilder(cls: "warrior"); vm.go(.build); if let r = value("-rar") { vm.q.rarityFilter = r }
             case "qtalents":
                 vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; vm.q.tal = GameData.shared.talentPreset("mage", 0)
