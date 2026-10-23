@@ -78,7 +78,8 @@ struct BuilderView: View {
                             .frame(height: 30).padding(.leading, 10)
                             PagedGrid(items: list, cellWidth: 96, cellHeight: 150, em: 9.6, rows: 2) { c, s in
                                 let n = Decks.copies(d, c.id), full = n >= c.maxCopies
-                                Button { vm.addCard(c.id) } label: {
+                                // Plain gestures, not a Button: a Button takes the press, so holding an addable card did nothing.
+                                Group {
                                     CardView(card: c, size: .fit(9.6 * s), ring: full ? .clear : Theme.gold.opacity(0.0), ovr: tt ? gd.overrides(for: vm.q.tal)[c.id] : nil)
                                         .saturation(full ? 0.3 : 1).opacity(full ? 0.55 : 1)
                                         .overlay(alignment: .topTrailing) {
@@ -88,10 +89,13 @@ struct BuilderView: View {
                                             }
                                         }
                                 }
-                                .buttonStyle(.plain)
-                                .disabled(full)
+                                .contentShape(Rectangle())
                                 .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = c.id }
+                                .onTapGesture { if !full { vm.addCard(c.id) } }
+                                .accessibilityElement(children: .ignore)
                                 .accessibilityLabel(Text("\(tx.name(c.names)), \(c.cost)"))
+                                .accessibilityAddTraits(full ? [] : .isButton)
+                                .accessibilityAction { if !full { vm.addCard(c.id) } }
                             }
                         }
                         DeckList(deck: d, cls: cls)

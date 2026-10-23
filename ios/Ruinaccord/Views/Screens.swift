@@ -212,8 +212,10 @@ struct RewardView: View {
                     HStack(spacing: CardSlot.hGap * 14) {
                         ForEach(Array(vm.picks.enumerated()), id: \.offset) { i, k in
                             if let c = GameData.shared.card(k) {
-                                Button { vm.pickReward(i) } label: { CardView(card: c, size: .big) }.buttonStyle(.plain)
+                                CardView(card: c, size: .big).contentShape(Rectangle())
                                     .onLongPressGesture(minimumDuration: 0.43) { vm.zoomCard = k }
+                                    .onTapGesture { vm.pickReward(i) }
+                                    .accessibilityAddTraits(.isButton).accessibilityAction { vm.pickReward(i) }
                             }
                         }
                     }
