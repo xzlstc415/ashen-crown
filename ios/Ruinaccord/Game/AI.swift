@@ -17,6 +17,17 @@ extension DuelState {
         return nil
     }
 
+    /// Several missiles at once: each goes where a single hit would, with the earlier hits already applied to a copy.
+    func aiMultiTargets(_ fx: Effect, bonus: Int) -> [EID] {
+        var copy = self, out: [EID] = []
+        for _ in 0..<fx.multi {
+            guard let t = copy.aiDamageTarget(fx.dmg + bonus, fx.tgt, spell: true) else { break }
+            out.append(t)
+            copy.damage(t, fx.dmg + bonus, spell: true); copy.cleanup()
+        }
+        return out
+    }
+
     func aiBestAlly() -> EID? { e.board.max(by: { $0.atk < $1.atk })?.id }
 
     func aiWorth(_ fx: Effect) -> Bool {
@@ -116,6 +127,7 @@ extension DuelState {
         if fx.dmg > 0 {
             let beast = fx.dmgBeast > 0 && e.board.contains { $0.card.race == "beast" }
             if fx.selfDmg > 0 && e.hp <= fx.selfDmg + 8 { return nil }
+            if fx.multi > 0 { return aiMultiTargets(fx, bonus: bonus).first.map { .some($0) } }
             if let t = aiDamageTarget((beast ? fx.dmgBeast : fx.dmg) + bonus, fx.tgt, spell: true) { return .some(t) }
             return nil
         }

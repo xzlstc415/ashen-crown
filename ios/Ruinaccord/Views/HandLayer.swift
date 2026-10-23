@@ -105,6 +105,8 @@ private struct HandSlot: View {
             .contentShape(Rectangle())
             .pressDrag(
                 onTap: {
+                    // Tapping the spell being aimed puts it back.
+                    if let p = vm.pending, case .spell(let idx) = p.kind, idx == index { vm.cancelPending(); return }
                     switch mode {
                     case .dormant: vm.peekHand()
                     case .peek: vm.hsel = vm.hsel == index ? nil : index

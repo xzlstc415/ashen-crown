@@ -35,7 +35,7 @@ function fx(e) {
     setAtk: e.setAtk ?? 0, setHp: e.setHp ?? 0, sweep: e.sweep ?? 0, heroes: !!e.heroes, armorDmg: !!e.armorDmg,
     dmgBeast: e.dmgBeast ?? 0, drawIfKill: !!e.drawIfKill, tempAtk: e.tempAtk ?? 0, bounce: !!e.bounce, perFoe: e.perFoe ?? null,
     purge: e.purge ?? 0, revive: e.revive ?? 0, hasten: e.hasten ?? 0, rush: !!e.rush, pierce: !!e.pierce, wardSummon: !!e.wardSummon,
-    splash: e.splash ?? 0, icelance: e.icelance ?? 0, freezeBig: !!e.freezeBig, plus: e.plus ?? 0, foeExtra: e.foeExtra ?? 0, noSelf: !!e.noSelf, reclaim: e.reclaim ?? 0, cull: e.cull ?? 0, teamRace: e.teamRace ?? null, teamWard: !!e.teamWard,
+    splash: e.splash ?? 0, icelance: e.icelance ?? 0, freezeBig: !!e.freezeBig, plus: e.plus ?? 0, foeExtra: e.foeExtra ?? 0, noSelf: !!e.noSelf, reclaim: e.reclaim ?? 0, cull: e.cull ?? 0, teamRace: e.teamRace ?? null, teamWard: !!e.teamWard, multi: e.multi ?? 0,
   };
 }
 // ---- talents ----

@@ -147,7 +147,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -278,7 +279,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -409,7 +411,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -540,7 +543,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -757,7 +761,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -891,7 +896,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1022,7 +1028,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1156,7 +1163,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1329,7 +1337,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1460,7 +1469,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1549,7 +1559,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1641,7 +1652,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1732,7 +1744,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -1821,7 +1834,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -2040,7 +2054,8 @@
     "reclaim": 0,
     "cull": 4,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -2136,7 +2151,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": "undead",
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -2232,7 +2248,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": true
+    "teamWard": true,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -2325,7 +2342,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -2415,7 +2433,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Arcane Shot",
@@ -2507,7 +2526,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Shield of Faith",
@@ -2596,7 +2616,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Dark Pact",
@@ -2688,7 +2709,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Bloodlust",
@@ -2777,7 +2799,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Scholar's Insight",
@@ -2866,7 +2889,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Healing Light",
@@ -2955,7 +2979,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Shield Wall",
@@ -3048,7 +3073,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Call to Arms",
@@ -3137,7 +3163,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Smite",
@@ -3226,7 +3253,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Radiant Burst",
@@ -3318,7 +3346,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Battle Hymn",
@@ -3407,7 +3436,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Arcane Lance",
@@ -3496,7 +3526,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Fireball",
@@ -3585,7 +3616,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Deadly Shot",
@@ -3674,7 +3706,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Dragon's Breath",
@@ -3763,7 +3796,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Inferno",
@@ -3859,7 +3893,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Inner Rage",
@@ -3952,7 +3987,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Whirlwind",
@@ -4045,7 +4081,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Shield Slam",
@@ -4138,7 +4175,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Execute",
@@ -4177,14 +4215,18 @@
    "gasp": null,
    "token": false,
    "cls": "mage",
-   "text": null,
+   "text": [
+    "Deal 1 damage to each of three targets of your choice (a target may be chosen more than once).",
+    "对你选择的三个目标各造成1点伤害（可以重复选择同一目标）。",
+    "選んだ3つの対象にそれぞれ1ダメージを与える（同じ対象を複数回選んでもよい）。"
+   ],
    "sp": 0,
    "onSpell": null,
    "bc": null,
    "fx": {
-    "dmg": 0,
-    "aoe": 1,
-    "face": 1,
+    "dmg": 1,
+    "aoe": 0,
+    "face": 0,
     "healT": 0,
     "heal": 0,
     "armor": 0,
@@ -4196,7 +4238,7 @@
     "buff": null,
     "team": null,
     "summon": [],
-    "tgt": null,
+    "tgt": "any",
     "cond": null,
     "destroy": false,
     "silence": false,
@@ -4227,7 +4269,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 3
    },
    "names": [
     "Arcane Missiles",
@@ -4323,7 +4366,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Mirror Image",
@@ -4416,7 +4460,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Frostbolt",
@@ -4509,7 +4554,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Frost Nova",
@@ -4601,7 +4647,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Squire's Call",
@@ -4694,7 +4741,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Humility",
@@ -4787,7 +4835,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Sacred Aegis",
@@ -4879,7 +4928,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Blessing of Kings",
@@ -4972,7 +5022,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Pounce",
@@ -5065,7 +5116,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Hunter's Mark",
@@ -5158,7 +5210,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Kill Command",
@@ -5251,7 +5304,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Unleash the Hounds",
@@ -5343,7 +5397,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Word of Shielding",
@@ -5432,7 +5487,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Holy Smite",
@@ -5525,7 +5581,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Dispel",
@@ -5618,7 +5675,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Word of Pain",
@@ -5711,7 +5769,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Word of Death",
@@ -5804,7 +5863,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Soulfire",
@@ -5897,7 +5957,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Mortal Coil",
@@ -5993,7 +6054,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Raise Dead",
@@ -6086,7 +6148,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Hellfire",
@@ -6179,7 +6242,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Tactical Retreat",
@@ -6366,7 +6430,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -6498,7 +6563,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Ember Flick",
@@ -6591,7 +6657,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Ice Lance",
@@ -6683,7 +6750,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -6777,7 +6845,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Shatter",
@@ -6869,7 +6938,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -6963,7 +7033,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Word of Ruin",
@@ -7056,7 +7127,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Word of Torment",
@@ -7145,7 +7217,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Steady Shot",
@@ -7238,7 +7311,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Explosive Shot",
@@ -7375,7 +7449,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Hound Whistle",
@@ -7552,7 +7627,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Ice Barrier",
@@ -7683,7 +7759,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Scorching Ray",
@@ -7813,7 +7890,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -7903,7 +7981,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Firestorm",
@@ -7996,7 +8075,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Seravine's Blood Rite",
@@ -8088,7 +8168,8 @@
     "reclaim": 2,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -8304,7 +8385,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Oath of Shelter",
@@ -8368,7 +8450,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -8446,7 +8529,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Oath of Muster",
@@ -8511,7 +8595,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -8589,7 +8674,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Oath of Crusade",
@@ -8653,7 +8739,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -8731,7 +8818,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Dawn Prayer",
@@ -8792,7 +8880,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -8870,7 +8959,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Night Vigil",
@@ -8934,7 +9024,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -9012,7 +9103,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Sanctuary",
@@ -9076,7 +9168,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -9153,7 +9246,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "fx": null,
    "names": [
@@ -9243,7 +9337,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Hymn of Return",
@@ -9304,7 +9399,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -9382,7 +9478,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Day of Judgment",
@@ -9443,7 +9540,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -9521,7 +9619,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Revelation",
@@ -9582,7 +9681,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     }
    },
    "sw": false,
@@ -9870,7 +9970,8 @@
     "reclaim": 0,
     "cull": 0,
     "teamRace": null,
-    "teamWard": false
+    "teamWard": false,
+    "multi": 0
    },
    "names": [
     "Lucky Coin",
@@ -10149,7 +10250,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     },
     "names": [
      "Armor Up",
@@ -10242,7 +10344,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     },
     "names": [
      "Arcane Spark",
@@ -10337,7 +10440,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     },
     "names": [
      "Muster",
@@ -10430,7 +10534,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     },
     "names": [
      "Piercing Arrow",
@@ -10523,7 +10628,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     },
     "names": [
      "Mending Touch",
@@ -10616,7 +10722,8 @@
      "reclaim": 0,
      "cull": 0,
      "teamRace": null,
-     "teamWard": false
+     "teamWard": false,
+     "multi": 0
     },
     "names": [
      "Blood Pact",
@@ -12638,7 +12745,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -12702,7 +12810,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -12762,7 +12871,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -12818,7 +12928,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -12877,7 +12988,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -12937,7 +13049,8 @@
        "reclaim": 0,
        "cull": 0,
        "teamRace": null,
-       "teamWard": false
+       "teamWard": false,
+       "multi": 0
       }
      },
      "text": null
@@ -12996,7 +13109,8 @@
        "reclaim": 0,
        "cull": 0,
        "teamRace": null,
-       "teamWard": false
+       "teamWard": false,
+       "multi": 0
       }
      },
      "text": null
@@ -13051,7 +13165,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13111,7 +13226,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13180,7 +13296,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13236,7 +13353,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13297,7 +13415,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "pray": null,
      "text": null
@@ -13355,7 +13474,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13415,7 +13535,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13487,7 +13608,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13556,7 +13678,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13616,7 +13739,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "pray": null,
      "text": null
@@ -13674,7 +13798,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13737,7 +13862,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13802,7 +13928,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13862,7 +13989,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13922,7 +14050,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -13982,7 +14111,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -14059,7 +14189,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -14128,7 +14259,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -14188,7 +14320,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -14244,7 +14377,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -14304,7 +14438,8 @@
       "reclaim": 0,
       "cull": 0,
       "teamRace": null,
-      "teamWard": false
+      "teamWard": false,
+      "multi": 0
      },
      "bc": null,
      "pray": null,
@@ -15529,7 +15664,8 @@
    "reclaim": 0,
    "cull": 0,
    "teamRace": null,
-   "teamWard": false
+   "teamWard": false,
+   "multi": 0
   },
   "names": [
    "Fortify",

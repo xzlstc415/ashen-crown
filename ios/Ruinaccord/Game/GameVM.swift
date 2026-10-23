@@ -26,6 +26,9 @@ struct Pending {
     var kind: Kind
     var valid: [EID]
     var key: String?
+    /// A multi-target spell: how many targets it takes and the ones chosen so far.
+    var need = 1
+    var picks: [EID] = []
 }
 
 struct HistItem: Identifiable, Hashable {
@@ -296,6 +299,7 @@ final class GameVM {
         case .rite(let n): return (tx.fRite(n), Theme.blood)
         case .ether: return (tx.fEther, Color(hex: "#c4b4ff"))
         case .immune: return (tx.fImmune, Color(hex: "#ffd27a"))
+        case .mark: return ("✦", Color(hex: "#c4b4ff"))
         }
     }
 
@@ -703,7 +707,7 @@ final class GameVM {
         if let tgt = fx.tgt {
             let v = S.targetsFor(.p, tgt, fx.cond)
             if v.isEmpty { S.log(.noTargets); drain(); return }
-            pending = Pending(kind: .spell(idx: i), valid: v, key: k)
+            pending = Pending(kind: .spell(idx: i), valid: v, key: k, need: Swift.max(1, fx.multi))
             if let target, v.contains(target) { await resolvePending(target) }
             return
         }
@@ -751,25 +755,43 @@ final class GameVM {
         }
     }
 
-    func pendingLabel() -> String { pending?.key.map(tx.cardName) ?? tx.powerName(myPower) }
+    func pendingLabel() -> String {
+        let base = pending?.key.map(tx.cardName) ?? tx.powerName(myPower)
+        if let p = pending, p.need > 1 { return "\(base) \(p.picks.count)/\(p.need)" }
+        return base
+    }
+    /// Missiles fly one after another, a little apart, from the caster to each target.
+    func missiles(from: CGPoint?, to targets: [EID]) async {
+        await withTaskGroup(of: Void.self) { g in
+            for (i, t) in targets.enumerated() { g.addTask { await self.wait(i * 140); await self.projectile(from: from, to: t, color: Color(hex: "#c4b4ff")) } }
+        }
+    }
     func cancelPending() { pending = nil }
 
     private func resolvePending(_ t: EID) async {
         guard let p = pending else { return }
+        // A multi-target spell keeps asking until all its targets are chosen (the same one may be chosen again).
+        if case .spell = p.kind, p.need > p.picks.count + 1 {
+            var q = p; q.picks.append(t); pending = q
+            S.mark(t); drain(); Haptics.tick()
+            return
+        }
         pending = nil
         busy = true
         switch p.kind {
         case .spell(let idx):
             guard idx < S.p.hand.count, let c = gd.card(S.p.hand[idx]), let fx = S.cardFx(.p, c.id) else { busy = false; return }
-            await flyCard(idx, to: center(t))
+            let targets = p.picks + [t], t0 = targets[0], extra = Array(targets.dropFirst())
+            await flyCard(idx, to: center(t0))
             S.pay(.p, c.id)
             S.takeHand(.p, idx)
             drain()
-            await fxAnim(fx, from: center(.hero(.p)), target: t, side: .p)
-            S.castSpell(.p, c.id, t)
-            pushHist(.p, c.id, S.name(t))
-            S.log(.castOn(c.id, S.name(t)))
-            netAct(NetAct(n: 0, t: "cast", i: idx, k: c.id, tgt: netRef(t)))
+            if extra.isEmpty { await fxAnim(fx, from: center(.hero(.p)), target: t, side: .p) }
+            else { await missiles(from: center(.hero(.p)), to: targets) }
+            S.castSpell(.p, c.id, t0, extra: extra)
+            pushHist(.p, c.id, S.name(t0))
+            S.log(.castOn(c.id, S.name(t0)))
+            netAct(NetAct(n: 0, t: "cast", i: idx, k: c.id, tgt: netRef(t0), ts: extra.isEmpty ? nil : extra.map { netRef($0)! }))
         case .battlecry(let fx, let src, let hid):
             if let hid, let i = hist.firstIndex(where: { $0.id == hid }) { hist[i].target = S.name(t) }
             await fxAnim(fx, from: center(src), target: t, side: .p)
@@ -1037,9 +1059,10 @@ final class GameVM {
                     pushHist(.e, c.id, t.map { S.name($0) })
                     await aimAt(t)
                     guard gameToken == token else { return }
-                    await fxAnim(fx, from: revealCenter, target: t, side: .e)
+                    let extra: [EID] = fx.multi > 1 ? Array(S.aiMultiTargets(fx, bonus: S.spellBonus(.e, c.id)).dropFirst()) : []
+                    if let t, !extra.isEmpty { await missiles(from: revealCenter, to: [t] + extra) } else { await fxAnim(fx, from: revealCenter, target: t, side: .e) }
                     guard gameToken == token else { return }
-                    S.castSpell(.e, c.id, t)
+                    S.castSpell(.e, c.id, t, extra: extra)
                     if c.rite { S.aiRitePick(.e) }
                     reveal = nil
                 }
@@ -1345,13 +1368,14 @@ final class GameVM {
             } else if let fx = S.cardFx(.e, c.id) {
                 let t = netDeref(a.tgt)
                 if a.tgt != nil && t == nil { throw NetError.outOfStep }
+                let extra = try (a.ts ?? []).map { r -> EID in guard let x = netDeref(r) else { throw NetError.outOfStep }; return x }
                 S.log(c.isPrayer ? .ePrayed(c.id) : t.map { .eCastOn(c.id, S.name($0)) } ?? .eCast(c.id)); drain()
                 reveal = Reveal(side: .e, key: c.id, target: t.map { S.name($0) })
                 await wait(1100)
                 pushHist(.e, c.id, t.map { S.name($0) })
                 if t != nil { await aimAt(t) }
-                await fxAnim(fx, from: revealCenter, target: t, side: .e)
-                S.castSpell(.e, c.id, t)
+                if let t, !extra.isEmpty { await missiles(from: revealCenter, to: [t] + extra) } else { await fxAnim(fx, from: revealCenter, target: t, side: .e) }
+                S.castSpell(.e, c.id, t, extra: extra)
                 reveal = nil
             }
         case "pick":

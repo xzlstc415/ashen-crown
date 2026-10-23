@@ -353,8 +353,8 @@ final class EngineTests: XCTestCase {
         var z = blank()
         let geo = z.summon(.p, "geomancer")!, wy = z.summon(.p, "wyrmling")!
         _ = geo
-        z.castSpell(.p, "missiles", nil)                     // 1 + Spell Damage 1
-        XCTAssertEqual(z.e.hp, 28); XCTAssertEqual(z.minion(wy.id)?.atk, 3)
+        z.castSpell(.p, "missiles", .hero(.e), extra: [.hero(.e), .hero(.e)])   // three missiles, each 1 + Spell Damage 1
+        XCTAssertEqual(z.e.hp, 24); XCTAssertEqual(z.minion(wy.id)?.atk, 3)
         z.castSpell(.p, "retreat", wy.id)
         XCTAssertNil(z.minion(wy.id)); XCTAssertEqual(z.p.hand.last, "wyrmling")
     }
@@ -458,5 +458,18 @@ final class EngineTests: XCTestCase {
         XCTAssertTrue(s.e.board.allSatisfy { $0.hp == gd.card("ogre")!.hp! - 5 })
         s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p)
         XCTAssertTrue(s.canAttack(s.minion(queen.id)!), "fresh each turn")
+    }
+
+    func testArcaneMissiles() {
+        let gd = GameData.shared
+        var s = blank()
+        s.p.board = []; s.e.board = []; s.p.hand = ["missiles"]; s.p.hb = [0]; s.p.mana = 1; s.turn = .p; s.e.hp = 30
+        XCTAssertEqual(gd.card("missiles")!.fx!.multi, 3)
+        let og = s.summon(.e, "ogre")!
+        s.pay(.p, "missiles"); s.takeHand(.p, 0)
+        s.castSpell(.p, "missiles", og.id, extra: [og.id, .hero(.e)])
+        XCTAssertEqual(s.minion(og.id)!.hp, gd.card("ogre")!.hp! - 2, "two missiles on the ogre"); XCTAssertEqual(s.e.hp, 29, "one in the face")
+        let plan = s.aiMultiTargets(gd.card("missiles")!.fx!, bonus: 0)
+        XCTAssertEqual(plan.count, 3)
     }
 }

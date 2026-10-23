@@ -172,7 +172,7 @@ enum LogEntry: Hashable {
 enum FloatKind: Hashable {
     case dmg(Int), armorAbsorb(Int), ward, heal(Int), armorGain(Int), atkUp(Int), hpUp(Int)
     case frozen, silenced, destroyed, stats(Int, Int)
-    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int), ether, immune
+    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int), ether, immune, mark
     var isHit: Bool { switch self { case .dmg, .armorAbsorb, .ward: return true; default: return false } }
 }
 
@@ -256,6 +256,8 @@ struct DuelState: Codable {
 
     mutating func log(_ l: LogEntry) { events.append(.log(l)) }
     private mutating func float(_ id: EID, _ k: FloatKind) { events.append(.float(id, k)) }
+    /// A chosen target of a multi-target spell, shown with a star.
+    mutating func mark(_ id: EID) { float(id, .mark) }
 
     // MARK: - Talents: setup and lookups
 
@@ -730,7 +732,8 @@ struct DuelState: Codable {
 
     /// A spell: its effect (plus Spell Damage) or, for a Prayer, a place on the altar; then "whenever you cast
     /// a spell" minions react.
-    mutating func castSpell(_ side: Side, _ key: String, _ t: EID?) {
+    /// `extra`: the further targets of a multi-target spell (Arcane Missiles); the effect lands once per target.
+    mutating func castSpell(_ side: Side, _ key: String, _ t: EID?, extra: [EID] = []) {
         guard let c = Self.gd.card(key) else { return }
         let fire = c.sc == "fire"
         if c.isPrayer {
@@ -741,7 +744,9 @@ struct DuelState: Codable {
             let bonus = spellBonus(side, key)
             let alive = self[side.other].board.filter { $0.hp > 0 }
             if fire { self[side].tf.fire = true }
-            applyFx(side, fx, t, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0), isSpell: true)
+            for tt in (fx.multi > 0 ? [t] + extra.map(Optional.some) : [t]) {
+                applyFx(side, fx, tt, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0), isSpell: true)
+            }
             if self[side].hasTalents {
                 let dead = alive.filter { m in (minion(m.id)?.hp ?? 0) <= 0 }
                 if !dead.isEmpty {

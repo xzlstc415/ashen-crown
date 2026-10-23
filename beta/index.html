@@ -969,7 +969,7 @@ const CARDS={
   whirlwind:{c:1,t:'s',r:'c',cls:'warrior',fx:{sweep:1},n:['Whirlwind','旋风斩','旋風斬り'],x:['Deal 1 damage to ALL minions.','对所有随从造成1点伤害。','全てのミニオンに1ダメージを与える。'],f:['Friends should stand further back.','朋友们最好站远一点。','味方はもっと離れて立つべきだ。']},
   shieldslam:{c:1,t:'s',r:'e',cls:'warrior',fx:{armorDmg:1,tgt:'minion'},n:['Shield Slam','盾牌猛击','シールドスラム'],x:['Deal damage to a minion equal to your Armor.','对一个随从造成等同于你护甲值的伤害。','ミニオン1体に、自分の装甲と同じだけのダメージを与える。'],f:['The best defense is a very heavy offense.','最好的防守，是非常沉重的进攻。','最大の防御は、とても重い攻撃だ。']},
   execute:{c:2,t:'s',r:'r',cls:'warrior',fx:{destroy:1,cond:'damaged',tgt:'foe'},n:['Execute','斩杀','処刑'],x:['Destroy a damaged enemy minion.','消灭一个受伤的敌方随从。','ダメージを受けている敵のミニオン1体を破壊する。'],f:['Finish what you started.','把开始的事做完。','始めたことは終わらせろ。']},
-  missiles:{c:1,t:'s',r:'c',cls:'mage',fx:{aoe:1,face:1},n:['Arcane Missiles','奥术飞弹','アーケインミサイル'],f:['Not aimed. Not needed.','无需瞄准，也不需要瞄准。','狙いは要らない。'] },
+  missiles:{c:1,t:'s',r:'c',cls:'mage',fx:{dmg:1,tgt:'any',multi:3},n:['Arcane Missiles','奥术飞弹','アーケインミサイル'],x:['Deal 1 damage to each of three targets of your choice (a target may be chosen more than once).','对你选择的三个目标各造成1点伤害（可以重复选择同一目标）。','選んだ3つの対象にそれぞれ1ダメージを与える（同じ対象を複数回選んでもよい）。'],f:['Not aimed. Not needed.','无需瞄准，也不需要瞄准。','狙いは要らない。'] },
   mirror:{c:1,t:'s',r:'c',cls:'mage',fx:{summon:['mirrorimg','mirrorimg']},n:['Mirror Image','镜影分身','ミラーイメージ'],x:['Summon two 1/3 Mirror Images with Guard.','召唤两个1/3并具有守护的镜影。','ガードを持つ1/3のミラーイメージを2体召喚する。'],f:['Which one is real? Neither.','哪个是真的？都不是。','どれが本物？どれでもない。']},
   frostbolt:{c:2,t:'s',r:'c',cls:'mage',fx:{dmg:4,freeze:1,tgt:'any'},n:['Frostbolt','寒冰箭','フロストボルト'],x:['Deal 4 damage and Freeze the target.','造成4点伤害，并冻结目标。','4ダメージを与え、対象を凍結させる。'],f:['Chill out.','冷静一下。','頭を冷やせ。']},
   frostnova:{c:2,t:'s',r:'r',cls:'mage',fx:{aoe:1,freezeAll:1},n:['Frost Nova','冰霜新星','フロストノヴァ'],x:['Deal 1 damage to all enemy minions and Freeze them.','对所有敌方随从造成1点伤害，并将其冻结。','敵のミニオン全てに1ダメージを与え、凍結させる。'],f:['Everyone hold still.','所有人都别动。','全員、動くな。']},
@@ -2040,14 +2040,15 @@ function spellBonus(side,k){
   return n;
 }
 // A spell: its effect (plus Spell Damage), then "whenever you cast a spell" minions react.
-function castSpell(side,k,t){
+// `extra`: the further targets of a multi-target spell (Arcane Missiles); the effect lands once per target.
+function castSpell(side,k,t,extra=[]){
   const s=S[side],op=S[other(side)],c=CARDS[k],fire=c.sc==='fire';
   if(c.pray)placePrayer(side,k);
   else if(c.rite)riteSacrifice(side);
   else{
     const fx=cardFx(side,k),bonus=spellBonus(side,k),alive=op.board.filter(m=>m.hp>0);
     if(fire&&s.tf)s.tf.fire=1;
-    applyFx(side,fx,t,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0),true);
+    for(const tt of (fx.multi?[t,...extra]:[t]))applyFx(side,fx,tt,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0),true);
     if(s.tal&&s.tal.size){
       const dead=alive.filter(m=>m.hp<=0);
       if(dead.length){
@@ -2150,7 +2151,7 @@ async function playHand(i){
   if(cfx.tgt){
     const v=targetsFor('p',cfx.tgt,cfx.cond).map(idOf);
     if(!v.length){say('noTargets');return render()}
-    S.pending={type:'spell',idx:i,valid:v,key:k};return render();
+    S.pending={type:'spell',idx:i,valid:v,key:k,need:cfx.multi||1,picks:[]};return render();
   }
   S.busy=true;await flyCard(i,cfx.aoe?'[data-board="e"]':'[data-t="p:h"]');
   pay('p',k);takeHand('p',i);render();
@@ -2168,15 +2169,17 @@ async function usePower(){
   S.p.mana-=pcost('p');S.p.powerUsed=true;applyFx('p',p.fx,null,powerBonus('p'));afterPower('p');say('powerUse',()=>pn(p),null);netAct({t:'power',tgt:null});
   S.busy=false;after();
 }
-function pendingLabel(){return S.pending.key?cn(S.pending.key):pn(curPower())}
+function pendingLabel(){const p=S.pending,b=p.key?cn(p.key):pn(curPower());return p.need>1?`${b} ${p.picks.length}/${p.need}`:b}
+// Missiles fly one after another, a little apart, from the caster to each target.
+async function missiles(src,targets){const ps=targets.map((t,i)=>wait(i*140).then(()=>projectile(src,idOf(t),'#c4b4ff')));await Promise.all(ps)}
 async function resolvePending(t){
   const p=S.pending;S.pending=null;S.busy=true;render();
   if(p.type==='spell'){
-    const k=S.p.hand[p.idx],c=CARDS[k];
-    await flyCard(p.idx,`[data-t="${idOf(t)}"]`);
+    const k=S.p.hand[p.idx],c=CARDS[k],ts=[...(p.picks||[]).map(getObj),t],t0=ts[0],extra=ts.slice(1);
+    await flyCard(p.idx,`[data-t="${idOf(t0)}"]`);
     pay('p',k);takeHand('p',p.idx);render();
-    await fxAnim(cardFx('p',k),'[data-t="p:h"]',t,'p');
-    castSpell('p',k,t);pushHist('p',k,t);say('castOn',()=>cn(k),()=>nm(t));netAct({t:'cast',i:p.idx,k,tgt:netRef(t)});
+    if(extra.length)await missiles('[data-t="p:h"]',ts);else await fxAnim(cardFx('p',k),'[data-t="p:h"]',t,'p');
+    castSpell('p',k,t0,extra);pushHist('p',k,t0);say('castOn',()=>cn(k),()=>nm(t0));netAct({t:'cast',i:p.idx,k,tgt:netRef(t0),ts:extra.map(netRef)});
   }else if(p.type==='bc'){
     if(p.hist)p.hist.t=t;
     await fxAnim(p.fx,`[data-t="${p.src}"]`,t,'p');applyFx('p',p.fx,t);netAct({t:'bc',tgt:netRef(t)});
@@ -2190,7 +2193,7 @@ async function resolvePending(t){
 async function clickTarget(id){
   if(blocked())return;
   const o=getObj(id);if(!o)return;
-  if(S.pending){if(S.pending.valid.includes(id))resolvePending(o);return}
+  if(S.pending){const p=S.pending;if(p.valid.includes(id)){if(p.need>1&&p.picks.length+1<p.need){p.picks.push(id);float(o,'✦','#c4b4ff');return render()}resolvePending(o)}return}
   if(S.sel!=null){
     const m=S.p.board.find(x=>x.uid===S.sel);
     if(m&&attackTargets('p').map(idOf).includes(id)){
@@ -2218,6 +2221,18 @@ function endTurn(){
 
 // ---------- AI ----------
 const aiEasy=()=>S.mode==='quick'&&S.diff==='easy';
+// Several missiles at once: each one goes where a single hit of `n` would, counting the hits already planned.
+function aiMultiTargets(fx,n){
+  const hp=new Map(S.p.board.map(m=>[m,m.hp])),warded=new Set(S.p.board.filter(m=>m.ward)),out=[];
+  for(let i=0;i<fx.multi;i++){
+    const foes=S.p.board.filter(m=>hp.get(m)>0&&!spellward(m));
+    let t=foes.filter(m=>!warded.has(m)&&hp.get(m)<=n).sort((a,b)=>b.atk-a.atk)[0];
+    if(!t){const w=foes.filter(m=>warded.has(m)).sort((a,b)=>b.atk-a.atk)[0];if(w&&n<=2)t=w}
+    if(!t)t=S.p;
+    out.push(t);if(t!==S.p){if(warded.has(t))warded.delete(t);else hp.set(t,hp.get(t)-n)}
+  }
+  return out;
+}
 function aiDamageTarget(n,tgt,phys,spell){
   const foes=S.p.board.filter(m=>!(phys&&ether(m))&&!(spell&&spellward(m)));
   if(aiEasy()&&Math.random()<.5){const o=tgt==='minion'?foes:[S.p,...foes];return o.length?o[Math.random()*o.length|0]:null}
@@ -2312,6 +2327,7 @@ function aiPlan(k){
   if(fx.dmg){
     const n=(fx.dmgBeast&&e.board.some(m=>CARDS[m.key].race==='beast')?fx.dmgBeast:fx.dmg)+bonus;
     if(fx.selfDmg&&e.hp<=fx.selfDmg+8)return null;
+    if(fx.multi){const ps=aiMultiTargets(fx,n);return ps.length?{t:ps[0],ts:ps.slice(1)}:null}
     const t=aiDamageTarget(n,fx.tgt,false,true);return t?{t}:null;
   }
   if(fx.buff){const t=aiBestAlly();return t?{t}:null}
@@ -2361,7 +2377,8 @@ async function aiTurn(){
         const sp=showPlay('e',k,t);await wait(1400);if(S!==G0)return;
         pushHist('e',k,t);render();
         await aimAt(t);if(S!==G0)return;
-        await fxAnim(cardFx('e',k),sp.card,t,'e');if(S!==G0)return;castSpell('e',k,t);
+        const extra=plan.ts||[];
+        if(extra.length)await missiles(sp.card,[t,...extra]);else await fxAnim(cardFx('e',k),sp.card,t,'e');if(S!==G0)return;castSpell('e',k,t,extra);
         if(c.rite){const ks=aiRitePick('e');netAct({t:'rite',ks})}
         sp.close();
       }
@@ -2580,10 +2597,11 @@ async function remoteAct(a){
       sp.close();
     }else{
       const t=netDeref(a.tgt);if(a.tgt&&!t)throw new Error('target missing');
+      const extra=(a.ts||[]).map(r=>{const x=netDeref(r);if(!x)throw new Error('target missing');return x});
       if(t)say('eCastOn',en,()=>cn(k),()=>nm(t));else say('eCast',en,()=>cn(k));render();
       const sp=showPlay('e',k,t);await wait(1100);pushHist('e',k,t);render();
       if(t)await aimAt(t);
-      await fxAnim(cardFx('e',k),sp.card,t,'e');castSpell('e',k,t);sp.close();
+      if(extra.length)await missiles(sp.card,[t,...extra]);else await fxAnim(cardFx('e',k),sp.card,t,'e');castSpell('e',k,t,extra);sp.close();
     }
   }else if(a.t==='pick'){
     reclaimTake('e',a.ks||[]);render();
@@ -3005,6 +3023,7 @@ document.addEventListener('click',ev=>{
     // Landscape: the first tap previews a card; a spell that needs a target goes straight to choosing it.
     const hk=S&&S.p.hand[i],hc=hk&&CARDS[hk];
     const aim=hc&&hc.t==='s'&&hc.fx&&cardFx('p',hk).tgt&&canPay('p',hk)&&S.turn==='p'&&!S.busy&&!S.over;
+    if(S&&S.pending&&S.pending.type==='spell'&&S.pending.idx===i){S.pending=null;return render()}
     if(LAND.matches&&S&&S.hsel!==i&&!S.pending&&!aim){S.hsel=i;return render()}
     if(S)S.hsel=null;return playHand(i)}
   if(b.dataset.pick!==undefined){R.deck.push(picks[+b.dataset.pick]);R.stage++;return goStage()}
