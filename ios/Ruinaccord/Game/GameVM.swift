@@ -299,6 +299,8 @@ final class GameVM {
         case .light(let n): return ("✦+\(n)", Color(hex: "#ffe9a0"))
         case .soulPay: return (tx.fSoulPay, Color(hex: "#c4b4ff"))
         case .fero: return (tx.fFero, Color(hex: "#9ad48a"))
+        case .prestige(let n): return (tx.presUp(n), Color(hex: "#ffd27a"))
+        case .prestigeGo: return (tx.presGo, Color(hex: "#ffd27a"))
         case .rite(let n): return (tx.fRite(n), Theme.blood)
         case .ether: return (tx.fEther, Color(hex: "#c4b4ff"))
         case .immune: return (tx.fImmune, Color(hex: "#ffd27a"))

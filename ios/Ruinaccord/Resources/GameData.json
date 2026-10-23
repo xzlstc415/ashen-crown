@@ -148,7 +148,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -280,7 +281,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -412,7 +414,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -544,7 +547,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -762,7 +766,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -897,7 +902,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1029,7 +1035,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1164,7 +1171,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1338,7 +1346,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1470,7 +1479,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1560,7 +1570,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1653,7 +1664,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1745,7 +1757,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -1835,7 +1848,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -2055,7 +2069,8 @@
     "cull": 4,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -2152,7 +2167,8 @@
     "cull": 0,
     "teamRace": "undead",
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -2249,7 +2265,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": true,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -2343,7 +2360,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -2434,7 +2452,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Arcane Shot",
@@ -2527,7 +2546,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Shield of Faith",
@@ -2617,7 +2637,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Dark Pact",
@@ -2710,7 +2731,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Bloodlust",
@@ -2800,7 +2822,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Scholar's Insight",
@@ -2890,7 +2913,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Healing Light",
@@ -2980,7 +3004,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Shield Wall",
@@ -3074,7 +3099,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Call to Arms",
@@ -3164,7 +3190,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Smite",
@@ -3254,7 +3281,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Radiant Burst",
@@ -3347,7 +3375,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Battle Hymn",
@@ -3437,7 +3466,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Arcane Lance",
@@ -3527,7 +3557,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Fireball",
@@ -3617,7 +3648,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Deadly Shot",
@@ -3707,7 +3739,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Dragon's Breath",
@@ -3797,7 +3830,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Inferno",
@@ -3894,7 +3928,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Inner Rage",
@@ -3988,7 +4023,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Whirlwind",
@@ -4082,7 +4118,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Shield Slam",
@@ -4176,7 +4213,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Execute",
@@ -4270,7 +4308,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 3
+    "multi": 3,
+    "prestige": 0
    },
    "names": [
     "Arcane Missiles",
@@ -4367,7 +4406,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Mirror Image",
@@ -4461,7 +4501,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Frostbolt",
@@ -4555,7 +4596,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Frost Nova",
@@ -4648,7 +4690,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Squire's Call",
@@ -4742,7 +4785,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Humility",
@@ -4836,7 +4880,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Sacred Aegis",
@@ -4929,7 +4974,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Blessing of Kings",
@@ -5023,7 +5069,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Pounce",
@@ -5117,7 +5164,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Hunter's Mark",
@@ -5211,7 +5259,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Kill Command",
@@ -5305,7 +5354,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Unleash the Hounds",
@@ -5398,7 +5448,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Word of Shielding",
@@ -5488,7 +5539,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Holy Smite",
@@ -5582,7 +5634,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Dispel",
@@ -5676,7 +5729,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Word of Pain",
@@ -5770,7 +5824,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Word of Death",
@@ -5864,7 +5919,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Soulfire",
@@ -5958,7 +6014,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Mortal Coil",
@@ -6055,7 +6112,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Raise Dead",
@@ -6149,7 +6207,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Hellfire",
@@ -6243,7 +6302,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Tactical Retreat",
@@ -6431,7 +6491,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -6564,7 +6625,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Ember Flick",
@@ -6658,7 +6720,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Ice Lance",
@@ -6751,7 +6814,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -6846,7 +6910,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Shatter",
@@ -6939,7 +7004,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -7034,7 +7100,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Word of Ruin",
@@ -7128,7 +7195,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Word of Torment",
@@ -7218,7 +7286,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Steady Shot",
@@ -7312,7 +7381,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Explosive Shot",
@@ -7450,7 +7520,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Hound Whistle",
@@ -7628,7 +7699,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Ice Barrier",
@@ -7760,7 +7832,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Scorching Ray",
@@ -7891,7 +7964,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -7982,7 +8056,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Firestorm",
@@ -8076,7 +8151,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Seravine's Blood Rite",
@@ -8169,7 +8245,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -8323,7 +8400,7 @@
   },
   {
    "id": "oathshelter",
-   "cost": 1,
+   "cost": 2,
    "type": "s",
    "atk": null,
    "hp": null,
@@ -8335,7 +8412,11 @@
    "gasp": null,
    "token": false,
    "cls": "paladin",
-   "text": null,
+   "text": [
+    "Gain 5 Armor and give your minions +1 Health. Gain 1 Prestige.",
+    "获得5点护甲，你的所有随从+1生命值。获得1点威望。",
+    "装甲を5獲得し、味方のミニオン全体に体力+1。威信を1得る。"
+   ],
    "sp": 0,
    "onSpell": null,
    "bc": null,
@@ -8345,14 +8426,17 @@
     "face": 0,
     "healT": 0,
     "heal": 0,
-    "armor": 0,
+    "armor": 5,
     "draw": 0,
     "mana": 0,
     "selfDmg": 0,
     "guard": false,
     "ward": false,
     "buff": null,
-    "team": null,
+    "team": [
+     0,
+     1
+    ],
     "summon": [],
     "tgt": null,
     "cond": null,
@@ -8386,7 +8470,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 1
    },
    "names": [
     "Oath of Shelter",
@@ -8399,61 +8484,7 @@
     "我らの他に壁はない。"
    ],
    "sc": "aegis",
-   "pray": {
-    "cd": 2,
-    "fx": {
-     "dmg": 0,
-     "aoe": 0,
-     "face": 0,
-     "healT": 0,
-     "heal": 0,
-     "armor": 5,
-     "draw": 0,
-     "mana": 0,
-     "selfDmg": 0,
-     "guard": false,
-     "ward": false,
-     "buff": null,
-     "team": [
-      0,
-      1
-     ],
-     "summon": [],
-     "tgt": null,
-     "cond": null,
-     "destroy": false,
-     "silence": false,
-     "freeze": false,
-     "freezeAll": false,
-     "setAtk": 0,
-     "setHp": 0,
-     "sweep": 0,
-     "heroes": false,
-     "armorDmg": false,
-     "dmgBeast": 0,
-     "drawIfKill": false,
-     "tempAtk": 0,
-     "bounce": false,
-     "perFoe": null,
-     "purge": 0,
-     "revive": 0,
-     "hasten": 0,
-     "rush": false,
-     "pierce": false,
-     "wardSummon": false,
-     "splash": 0,
-     "icelance": 0,
-     "freezeBig": false,
-     "plus": 0,
-     "foeExtra": 0,
-     "noSelf": false,
-     "reclaim": 0,
-     "cull": 0,
-     "teamRace": null,
-     "teamWard": false,
-     "multi": 0
-    }
-   },
+   "pray": null,
    "sw": false,
    "pw": 0,
    "beta": true,
@@ -8479,7 +8510,11 @@
    "gasp": null,
    "token": false,
    "cls": "paladin",
-   "text": null,
+   "text": [
+    "Summon three 1/1 Militia. Gain 1 Prestige.",
+    "召唤三个1/1的民兵。获得1点威望。",
+    "1/1の民兵を3体召喚する。威信を1得る。"
+   ],
    "sp": 0,
    "onSpell": null,
    "bc": null,
@@ -8497,7 +8532,11 @@
     "ward": false,
     "buff": null,
     "team": null,
-    "summon": [],
+    "summon": [
+     "minnow",
+     "minnow",
+     "minnow"
+    ],
     "tgt": null,
     "cond": null,
     "destroy": false,
@@ -8530,7 +8569,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 1
    },
    "names": [
     "Oath of Muster",
@@ -8543,62 +8583,7 @@
     "噂は広まる。農夫も集まる。"
    ],
    "sc": "legion",
-   "pray": {
-    "cd": 2,
-    "fx": {
-     "dmg": 0,
-     "aoe": 0,
-     "face": 0,
-     "healT": 0,
-     "heal": 0,
-     "armor": 0,
-     "draw": 0,
-     "mana": 0,
-     "selfDmg": 0,
-     "guard": false,
-     "ward": false,
-     "buff": null,
-     "team": null,
-     "summon": [
-      "minnow",
-      "minnow",
-      "minnow"
-     ],
-     "tgt": null,
-     "cond": null,
-     "destroy": false,
-     "silence": false,
-     "freeze": false,
-     "freezeAll": false,
-     "setAtk": 0,
-     "setHp": 0,
-     "sweep": 0,
-     "heroes": false,
-     "armorDmg": false,
-     "dmgBeast": 0,
-     "drawIfKill": false,
-     "tempAtk": 0,
-     "bounce": false,
-     "perFoe": null,
-     "purge": 0,
-     "revive": 0,
-     "hasten": 0,
-     "rush": false,
-     "pierce": false,
-     "wardSummon": false,
-     "splash": 0,
-     "icelance": 0,
-     "freezeBig": false,
-     "plus": 0,
-     "foeExtra": 0,
-     "noSelf": false,
-     "reclaim": 0,
-     "cull": 0,
-     "teamRace": null,
-     "teamWard": false,
-     "multi": 0
-    }
-   },
+   "pray": null,
    "sw": false,
    "pw": 0,
    "beta": true,
@@ -8624,7 +8609,11 @@
    "gasp": null,
    "token": false,
    "cls": "paladin",
-   "text": null,
+   "text": [
+    "Give your minions +1/+1. Gain 1 Prestige.",
+    "你的所有随从+1/+1。获得1点威望。",
+    "味方のミニオン全体に+1/+1。威信を1得る。"
+   ],
    "sp": 0,
    "onSpell": null,
    "bc": null,
@@ -8641,7 +8630,10 @@
     "guard": false,
     "ward": false,
     "buff": null,
-    "team": null,
+    "team": [
+     1,
+     1
+    ],
     "summon": [],
     "tgt": null,
     "cond": null,
@@ -8675,7 +8667,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 1
    },
    "names": [
     "Oath of Crusade",
@@ -8688,61 +8681,7 @@
     "夕暮れに誓い、夜明けに果たす。"
    ],
    "sc": "legion",
-   "pray": {
-    "cd": 2,
-    "fx": {
-     "dmg": 0,
-     "aoe": 0,
-     "face": 0,
-     "healT": 0,
-     "heal": 0,
-     "armor": 0,
-     "draw": 0,
-     "mana": 0,
-     "selfDmg": 0,
-     "guard": false,
-     "ward": false,
-     "buff": null,
-     "team": [
-      1,
-      1
-     ],
-     "summon": [],
-     "tgt": null,
-     "cond": null,
-     "destroy": false,
-     "silence": false,
-     "freeze": false,
-     "freezeAll": false,
-     "setAtk": 0,
-     "setHp": 0,
-     "sweep": 0,
-     "heroes": false,
-     "armorDmg": false,
-     "dmgBeast": 0,
-     "drawIfKill": false,
-     "tempAtk": 0,
-     "bounce": false,
-     "perFoe": null,
-     "purge": 0,
-     "revive": 0,
-     "hasten": 0,
-     "rush": false,
-     "pierce": false,
-     "wardSummon": false,
-     "splash": 0,
-     "icelance": 0,
-     "freezeBig": false,
-     "plus": 0,
-     "foeExtra": 0,
-     "noSelf": false,
-     "reclaim": 0,
-     "cull": 0,
-     "teamRace": null,
-     "teamWard": false,
-     "multi": 0
-    }
-   },
+   "pray": null,
    "sw": false,
    "pw": 0,
    "beta": true,
@@ -8819,7 +8758,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Dawn Prayer",
@@ -8881,7 +8821,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     }
    },
    "sw": false,
@@ -8960,7 +8901,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Night Vigil",
@@ -9025,7 +8967,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     }
    },
    "sw": false,
@@ -9104,7 +9047,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Sanctuary",
@@ -9169,7 +9113,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     }
    },
    "sw": false,
@@ -9247,7 +9192,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "fx": null,
    "names": [
@@ -9338,7 +9284,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Hymn of Return",
@@ -9400,7 +9347,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     }
    },
    "sw": false,
@@ -9479,7 +9427,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Day of Judgment",
@@ -9541,7 +9490,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     }
    },
    "sw": false,
@@ -9620,7 +9570,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Revelation",
@@ -9682,7 +9633,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     }
    },
    "sw": false,
@@ -9971,7 +9923,8 @@
     "cull": 0,
     "teamRace": null,
     "teamWard": false,
-    "multi": 0
+    "multi": 0,
+    "prestige": 0
    },
    "names": [
     "Lucky Coin",
@@ -10251,7 +10204,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     },
     "names": [
      "Armor Up",
@@ -10345,7 +10299,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     },
     "names": [
      "Arcane Spark",
@@ -10441,7 +10396,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     },
     "names": [
      "Muster",
@@ -10535,7 +10491,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     },
     "names": [
      "Piercing Arrow",
@@ -10629,7 +10586,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     },
     "names": [
      "Mending Touch",
@@ -10723,7 +10681,8 @@
      "cull": 0,
      "teamRace": null,
      "teamWard": false,
-     "multi": 0
+     "multi": 0,
+     "prestige": 0
     },
     "names": [
      "Blood Pact",
@@ -11978,9 +11937,9 @@
          "連携"
         ],
         "desc": [
-         "Whenever one of your Oaths is answered, your minions get +1 Attack.",
-         "你的誓言应验时，你的所有随从+1攻击力。",
-         "誓いが成就するたび、味方のミニオン全体の攻撃力+1。"
+         "Whenever you spend Prestige, your minions get +1 Attack.",
+         "每当你消耗威望，你的所有随从+1攻击力。",
+         "威信を消費するたび、味方のミニオン全体の攻撃力+1。"
         ]
        }
       ]
@@ -12746,7 +12705,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -12811,7 +12771,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -12872,7 +12833,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -12929,7 +12891,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -12989,7 +12952,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13050,7 +13014,8 @@
        "cull": 0,
        "teamRace": null,
        "teamWard": false,
-       "multi": 0
+       "multi": 0,
+       "prestige": 0
       }
      },
      "text": null
@@ -13110,7 +13075,8 @@
        "cull": 0,
        "teamRace": null,
        "teamWard": false,
-       "multi": 0
+       "multi": 0,
+       "prestige": 0
       }
      },
      "text": null
@@ -13166,7 +13132,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13227,7 +13194,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13297,7 +13265,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13354,7 +13323,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13416,7 +13386,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "pray": null,
      "text": null
@@ -13475,7 +13446,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13536,7 +13508,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13609,7 +13582,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13679,7 +13653,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13740,7 +13715,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "pray": null,
      "text": null
@@ -13799,7 +13775,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13863,7 +13840,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13929,7 +13907,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -13990,7 +13969,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14051,7 +14031,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14112,7 +14093,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14190,7 +14172,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14260,7 +14243,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14321,7 +14305,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14378,7 +14363,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -14439,7 +14425,8 @@
       "cull": 0,
       "teamRace": null,
       "teamWard": false,
-      "multi": 0
+      "multi": 0,
+      "prestige": 0
      },
      "bc": null,
      "pray": null,
@@ -15665,7 +15652,8 @@
    "cull": 0,
    "teamRace": null,
    "teamWard": false,
-   "multi": 0
+   "multi": 0,
+   "prestige": 0
   },
   "names": [
    "Fortify",

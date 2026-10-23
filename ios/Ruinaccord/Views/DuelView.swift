@@ -327,6 +327,7 @@ private struct StatusBox: View {
                 s.isCls(side, "warlock") ? tx.souls(h.soul) : nil,
                 s.isCls(side, "priest") ? tx.light(h.light) : nil,
                 s.isCls(side, "hunter") ? tx.fero(h.fero) : nil,
+                s.isCls(side, "paladin") ? tx.prestige(h.pres) : nil,
                 h.rites > 0 ? tx.rites(h.rites) : nil,
             ].compactMap { $0 }
             if !counters.isEmpty {

@@ -46,10 +46,11 @@ struct Effect: Codable, Hashable {
     var teamRace: String?      // the team buff only reaches minions of this race
     var teamWard = false       // all your minions gain Ward
     var multi = 0              // a targeted spell cast on this many chosen targets (Arcane Missiles)
+    var prestige = 0           // Paladin: gain this much Prestige
     private enum CodingKeys: String, CodingKey {
         case dmg, aoe, face, healT, heal, armor, draw, mana, selfDmg, grantGuard = "guard", ward, buff, team, summon, tgt
         case cond, destroy, silence, freeze, freezeAll, setAtk, setHp, sweep, heroes, armorDmg, dmgBeast, drawIfKill, tempAtk, bounce, perFoe
-        case purge, revive, hasten, rush, pierce, wardSummon, splash, icelance, freezeBig, plus, foeExtra, noSelf, reclaim, cull, teamRace, teamWard, multi
+        case purge, revive, hasten, rush, pierce, wardSummon, splash, icelance, freezeBig, plus, foeExtra, noSelf, reclaim, cull, teamRace, teamWard, multi, prestige
     }
     init() {}
     init(from decoder: Decoder) throws {
@@ -66,7 +67,7 @@ struct Effect: Codable, Hashable {
         drawIfKill = b(.drawIfKill); tempAtk = i(.tempAtk); bounce = b(.bounce); perFoe = try c.decodeIfPresent(String.self, forKey: .perFoe)
         purge = i(.purge); revive = i(.revive); hasten = i(.hasten); rush = b(.rush); pierce = b(.pierce); wardSummon = b(.wardSummon)
         splash = i(.splash); icelance = i(.icelance); freezeBig = b(.freezeBig); plus = i(.plus); foeExtra = i(.foeExtra); noSelf = b(.noSelf); reclaim = i(.reclaim)
-        cull = i(.cull); teamRace = try c.decodeIfPresent(String.self, forKey: .teamRace); teamWard = b(.teamWard); multi = i(.multi)
+        cull = i(.cull); teamRace = try c.decodeIfPresent(String.self, forKey: .teamRace); teamWard = b(.teamWard); multi = i(.multi); prestige = i(.prestige)
     }
     var dealsDamage: Bool { dmg > 0 || armorDmg }
 }
@@ -198,7 +199,7 @@ final class GameData: Decodable {
         for (node, byCard) in talents.overrides.sorted(by: { $0.key < $1.key }) { for (card, o) in byCard.sorted(by: { $0.key < $1.key }) { mix("\(node)|\(card)|\(o)") } }
         // The prefix is the online protocol: raise it whenever two app versions would play a match differently
         // (v5: beta rules — talents, prayers, schools, five-card opening hands; v7: one talent a tier from either page, 4 points; v8-v9: class resources, Oaths, Beasts; v10-v11: Graveyard Summoner picks; v12: Blood Rite, a spell with free Legendary copies).
-        return "v13-\(String(UInt32(bitPattern: h), radix: 36))"
+        return "v14-\(String(UInt32(bitPattern: h), radix: 36))"
     }()
 
     private enum CodingKeys: String, CodingKey { case cards, classes, opponents, boardMax, deckSize, fortify, talents }

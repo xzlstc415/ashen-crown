@@ -85,13 +85,21 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.e.hp, ehp - gd.cls("hunter")!.power.fx.face - 1); XCTAssertEqual(s.p.fero, 0)
         s.p.fero = 3; s.summon(.p, "panther"); s.summon(.p, "direwolf")
         XCTAssertFalse(s.p.board[1].sleep); XCTAssertEqual(s.p.fero, 0)
-        // Paladin: Oaths are Prayers; Unity gives +1 Attack when one is answered.
-        s.setupTalents(.p, cls: "paladin", ["pa_drill", "pa_command", "pa_double", "pa_coop"]); s.p.board = []; s.p.mana = 10
-        s.summon(.p, "goblin"); let a0 = s.p.board[0].atk
-        s.castSpell(.p, "oathmuster", nil); XCTAssertEqual(s.p.altar.count, 1)
-        for _ in 0..<(gd.card("oathmuster")!.pray!.cd) { s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p) }
-        XCTAssertTrue(s.p.altar.isEmpty); XCTAssertEqual(s.p.board.filter { $0.key == "minnow" }.count, 3); XCTAssertEqual(s.p.board[0].atk, a0 + 1)
-        s.p.board = []; s.p.altar = []
+        // Paladin Prestige: Oaths resolve at once and give 1; buffed minions give 1 each at the end of the turn (up to 2);
+        // with 3 the hero power makes a 2/2 Guard recruit, and Unity gives the board +1 Attack when it is spent.
+        s.setupTalents(.p, cls: "paladin", ["pa_drill", "pa_command", "pa_double", "pa_coop"]); s.p.board = []; s.p.mana = 10; s.p.pres = 0
+        XCTAssertNil(gd.card("oathmuster")!.pray)
+        s.castSpell(.p, "oathmuster", nil); XCTAssertTrue(s.p.altar.isEmpty)
+        XCTAssertEqual(s.p.board.filter { $0.key == "minnow" }.count, 3); XCTAssertEqual(s.p.pres, 1)
+        s.castSpell(.p, "oathcrusade", nil); XCTAssertEqual(s.p.pres, 2)
+        s.turn = .p; s.startTurn(.e); XCTAssertEqual(s.p.pres, 4, "two of the buffed minions count")
+        s.p.board = [s.p.board[0]]; let a0 = s.p.board[0].atk
+        var pw = Effect(); pw.summon = ["minnow"]
+        s.applyFx(.p, pw, nil, isPower: true)
+        XCTAssertEqual(s.p.pres, 1); let rec = s.p.board.last!
+        XCTAssertEqual(rec.atk, gd.card("minnow")!.atk! + 1); XCTAssertTrue(rec.hasGuard); XCTAssertEqual(s.p.board[0].atk, a0 + 1, "Unity")
+        s.applyFx(.p, pw, nil, isPower: true); XCTAssertFalse(s.p.board.last!.hasGuard, "not enough Prestige the second time")
+        s.p.board = []; s.p.altar = []; s.p.pres = 0
         // Graveyard Summoner: five of the dead on offer (no tokens), the chosen come back to the hand.
         s.setupTalents(.p, cls: "warlock", []); s.p.hand = []; s.p.hb = []
         s.p.grave = ["goblin", "minnow", "golem", "ogre", "treant", "eel", "lurker"]
