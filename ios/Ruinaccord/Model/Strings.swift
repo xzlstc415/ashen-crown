@@ -101,6 +101,7 @@ struct Tx {
             "halfling": ("Halfling", "半身人", "ハーフリング"), "gnome": ("Gnome", "侏儒", "ノーム"), "undead": ("Undead", "亡灵", "アンデッド"),
             "goblin": ("Goblin", "哥布林", "ゴブリン"), "troll": ("Troll", "巨魔", "トロール"), "beast": ("Beast", "野兽", "獣"), "giant": ("Giant", "巨人", "巨人"),
             "construct": ("Construct", "构造体", "構造体"), "elemental": ("Elemental", "元素", "精霊"), "dragon": ("Dragon", "龙", "ドラゴン"), "treant": ("Treant", "树人", "樹人"),
+            "unknown": ("Unknown", "不明", "不明"),
         ]
         guard let t = table[r] else { return r }
         return pick(t.0, t.1, t.2)
@@ -405,7 +406,7 @@ struct Tx {
         }
     }
     func heroRace(_ cls: String) -> String {
-        let r = ["warrior": "orc", "mage": "gnome", "paladin": "human", "hunter": "elf", "priest": "human", "warlock": "undead"][cls] ?? "human"
+        let r = ["warrior": "orc", "mage": "gnome", "paladin": "human", "hunter": "elf", "priest": "unknown", "warlock": "undead"][cls] ?? "human"
         return race(r)
     }
     func roundN(_ n: Int) -> String { pick("Round \(n)", "第\(n)回合", "第\(n)ラウンド") }

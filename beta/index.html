@@ -549,7 +549,7 @@ const I18N={
     champTitle:'The Ashen Crown is yours',champText:n=>`You defeated all eight foes with a ${n}-card deck.`,again:'Play again',
     galTitle:'Card gallery',galSub:n=>`All ${n} cards in the realm.`,back:'Back',minions:'Minions',spells:'Spells',
     rar:{c:'Common',r:'Rare',e:'Epic',l:'Legendary',t:'Token'},costN:n=>`${n} mana`,
-    race:{human:'Human',elf:'Elf',dwarf:'Dwarf',orc:'Orc',halfling:'Halfling',gnome:'Gnome',undead:'Undead',goblin:'Goblin',troll:'Troll',beast:'Beast',giant:'Giant',construct:'Construct',elemental:'Elemental',dragon:'Dragon',treant:'Treant'},
+    race:{unknown:'Unknown',human:'Human',elf:'Elf',dwarf:'Dwarf',orc:'Orc',halfling:'Halfling',gnome:'Gnome',undead:'Undead',goblin:'Goblin',troll:'Troll',beast:'Beast',giant:'Giant',construct:'Construct',elemental:'Elemental',dragon:'Dragon',treant:'Treant'},
     bannerYou:'Your turn',bannerFoe:'Enemy turn',
     rises:x=>`${x} stands in your way.`,fatigue:(x,n)=>`${x} is out of cards and takes ${n} fatigue damage.`,
     handFull:c=>`Your hand is full. ${c} was lost.`,summon:c=>`You summon ${c}.`,cast:c=>`You cast ${c}.`,castOn:(c,t)=>`You cast ${c} on ${t}.`,
@@ -620,7 +620,7 @@ const I18N={
     champTitle:'灰烬王冠归你所有',champText:n=>`你用${n}张牌的牌组击败了全部八名敌人。`,again:'再玩一次',
     galTitle:'卡牌图鉴',galSub:n=>`这个世界中的全部${n}张卡牌。`,back:'返回',minions:'随从',spells:'法术',
     rar:{c:'普通',r:'稀有',e:'史诗',l:'传说',t:'衍生'},costN:n=>`${n}费`,
-    race:{human:'人类',elf:'精灵',dwarf:'矮人',orc:'兽人',halfling:'半身人',gnome:'侏儒',undead:'亡灵',goblin:'哥布林',troll:'巨魔',beast:'野兽',giant:'巨人',construct:'构造体',elemental:'元素',dragon:'龙',treant:'树人'},
+    race:{unknown:'不明',human:'人类',elf:'精灵',dwarf:'矮人',orc:'兽人',halfling:'半身人',gnome:'侏儒',undead:'亡灵',goblin:'哥布林',troll:'巨魔',beast:'野兽',giant:'巨人',construct:'构造体',elemental:'元素',dragon:'龙',treant:'树人'},
     bannerYou:'你的回合',bannerFoe:'敌方回合',
     rises:x=>`${x}挡住了你的去路。`,fatigue:(x,n)=>`${x}的牌库已空，受到${n}点疲劳伤害。`,
     handFull:c=>`你的手牌已满，${c}被烧掉了。`,summon:c=>`你召唤了${c}。`,cast:c=>`你施放了${c}。`,castOn:(c,t)=>`你对${t}施放了${c}。`,
@@ -691,7 +691,7 @@ const I18N={
     champTitle:'灰燼の王冠はあなたのもの',champText:n=>`${n}枚のデッキで8人の敵をすべて倒した。`,again:'もう一度遊ぶ',
     galTitle:'カード図鑑',galSub:n=>`この世界の全${n}枚のカード。`,back:'戻る',minions:'ミニオン',spells:'呪文',
     rar:{c:'コモン',r:'レア',e:'エピック',l:'レジェンド',t:'トークン'},costN:n=>`コスト${n}`,
-    race:{human:'人間',elf:'エルフ',dwarf:'ドワーフ',orc:'オーク',halfling:'ハーフリング',gnome:'ノーム',undead:'アンデッド',goblin:'ゴブリン',troll:'トロール',beast:'獣',giant:'巨人',construct:'構造体',elemental:'精霊',dragon:'ドラゴン',treant:'樹人'},
+    race:{unknown:'不明',human:'人間',elf:'エルフ',dwarf:'ドワーフ',orc:'オーク',halfling:'ハーフリング',gnome:'ノーム',undead:'アンデッド',goblin:'ゴブリン',troll:'トロール',beast:'獣',giant:'巨人',construct:'構造体',elemental:'精霊',dragon:'ドラゴン',treant:'樹人'},
     bannerYou:'あなたのターン',bannerFoe:'敵のターン',
     rises:x=>`${x}が立ちはだかる。`,fatigue:(x,n)=>`${x}の山札が尽き、${n}の疲労ダメージを受けた。`,
     handFull:c=>`手札がいっぱいで、${c}は失われた。`,summon:c=>`${c}を召喚した。`,cast:c=>`${c}を唱えた。`,castOn:(c,t)=>`${t}に${c}を唱えた。`,
@@ -2735,7 +2735,7 @@ function routeRow(){
 // The six heroes (art/HEROES.md): name per language and race, shown under the class name.
 const HEROES={warrior:[['Rok Greytusk','洛克·灰牙','ロク・グレイタスク'],'orc'],mage:[['Pim Emberfrost','皮姆·霜烬','ピム・エンバーフロスト'],'gnome'],
   paladin:[['Aldric Dawnoath','奥德里克·晨誓','アルドリック・ドーンオース'],'human'],hunter:[['Kaelwen Thornstride','凯尔温·荆径','ケルウェン・ソーンストライド'],'elf'],
-  priest:[['Wren Duskbell','雷恩·暮钟','レン・ダスクベル'],'human'],warlock:[['Morwen Lastcandle','莫文·残烛','モーウェン・ラストキャンドル'],'undead']};
+  priest:[['Wren Duskbell','雷恩·暮钟','レン・ダスクベル'],'unknown'],warlock:[['Morwen Lastcandle','莫文·残烛','モーウェン・ラストキャンドル'],'undead']};
 const heroLine=id=>HEROES[id]?`${CBY[id].n[li()]} · ${T('race')[HEROES[id][1]]}`:'';
 function classCard(c,attr='data-class'){
   const p=c.power;
