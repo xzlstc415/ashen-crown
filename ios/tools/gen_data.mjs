@@ -23,7 +23,7 @@ const cards = Object.entries(data.CARDS).map(([id, c]) => ({
   guard: !!c.guard, ward: !!c.ward, surge: !!c.surge, gasp: c.gasp ?? null, token: !!c.token,
   cls: c.cls ?? null, text: c.x ?? null, sp: c.sp ?? 0, onSpell: c.onSpell ?? null,
   bc: fx(c.bc), fx: fx(c.fx), names: c.n, flavor: c.f,
-  sc: c.sc ?? null, pray: c.pray ? {cd: c.pray.cd, fx: fx(c.pray.fx)} : null, sw: !!c.sw, pw: c.pw ?? 0, beta: !!c.beta, rite: !!c.rite, ether: !!c.ether, haunt: !!c.haunt, uniq: !!c.uniq,
+  sc: c.sc ?? null, pray: c.pray ? {cd: c.pray.cd, fx: fx(c.pray.fx)} : null, sw: !!c.sw, pw: c.pw ?? 0, beta: !!c.beta, rite: !!c.rite, ether: !!c.ether, haunt: !!c.haunt, uniq: !!c.uniq, spellward: !!c.spellward, swings: c.swings ?? 1, norip: !!c.norip,
 }));
 function fx(e) {
   if (!e) return null;
@@ -35,7 +35,7 @@ function fx(e) {
     setAtk: e.setAtk ?? 0, setHp: e.setHp ?? 0, sweep: e.sweep ?? 0, heroes: !!e.heroes, armorDmg: !!e.armorDmg,
     dmgBeast: e.dmgBeast ?? 0, drawIfKill: !!e.drawIfKill, tempAtk: e.tempAtk ?? 0, bounce: !!e.bounce, perFoe: e.perFoe ?? null,
     purge: e.purge ?? 0, revive: e.revive ?? 0, hasten: e.hasten ?? 0, rush: !!e.rush, pierce: !!e.pierce, wardSummon: !!e.wardSummon,
-    splash: e.splash ?? 0, icelance: e.icelance ?? 0, freezeBig: !!e.freezeBig, plus: e.plus ?? 0, foeExtra: e.foeExtra ?? 0, noSelf: !!e.noSelf, reclaim: e.reclaim ?? 0,
+    splash: e.splash ?? 0, icelance: e.icelance ?? 0, freezeBig: !!e.freezeBig, plus: e.plus ?? 0, foeExtra: e.foeExtra ?? 0, noSelf: !!e.noSelf, reclaim: e.reclaim ?? 0, cull: e.cull ?? 0, teamRace: e.teamRace ?? null, teamWard: !!e.teamWard,
   };
 }
 // ---- talents ----

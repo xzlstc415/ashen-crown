@@ -32,6 +32,7 @@ struct Minion: Codable, Hashable, Identifiable {
     var silenced = false     // lost its keywords and card effects
     var tmp = 0              // Attack that wears off when this turn ends
     var bled = false         // already got the Bloodied bonus
+    var hits = 0             // attacks made this turn (Sylvara has three)
     var id: EID { EID(side: side, uid: uid) }
     var isFrozen: Bool { frozen > 0 }
     /// Card effects still active (a silenced minion has none).
@@ -40,7 +41,7 @@ struct Minion: Codable, Hashable, Identifiable {
     var onSpell: [Int]? { silenced ? nil : card.onSpell }
     var card: Card { GameData.shared.card(key)! }
 
-    private enum CodingKeys: String, CodingKey { case uid, key, side, atk, hp, max, baseAtk, baseHp, hasGuard, ward, sleep, attacked, frozen, silenced, tmp, bled }
+    private enum CodingKeys: String, CodingKey { case uid, key, side, atk, hp, max, baseAtk, baseHp, hasGuard, ward, sleep, attacked, frozen, silenced, tmp, bled, hits }
     init(uid: Int, key: String, side: Side, atk: Int, hp: Int, max: Int, baseAtk: Int, baseHp: Int, hasGuard: Bool, ward: Bool, sleep: Bool, attacked: Bool) {
         self.uid = uid; self.key = key; self.side = side; self.atk = atk; self.hp = hp; self.max = max; self.baseAtk = baseAtk; self.baseHp = baseHp
         self.hasGuard = hasGuard; self.ward = ward; self.sleep = sleep; self.attacked = attacked
@@ -56,6 +57,7 @@ struct Minion: Codable, Hashable, Identifiable {
         silenced = try c.decodeIfPresent(Bool.self, forKey: .silenced) ?? false
         tmp = try c.decodeIfPresent(Int.self, forKey: .tmp) ?? 0
         bled = try c.decodeIfPresent(Bool.self, forKey: .bled) ?? false
+        hits = try c.decodeIfPresent(Int.self, forKey: .hits) ?? 0
     }
 }
 
@@ -170,7 +172,7 @@ enum LogEntry: Hashable {
 enum FloatKind: Hashable {
     case dmg(Int), armorAbsorb(Int), ward, heal(Int), armorGain(Int), atkUp(Int), hpUp(Int)
     case frozen, silenced, destroyed, stats(Int, Int)
-    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int), ether
+    case answered, revived, rage, named(String), manaUp(Int), light(Int), soulPay, fero, rite(Int), ether, immune
     var isHit: Bool { switch self { case .dmg, .armorAbsorb, .ward: return true; default: return false } }
 }
 
@@ -435,7 +437,7 @@ struct DuelState: Codable {
             let b = self[side].hand.filter { Self.gd.card($0)?.race == "beast" }.count
             if b > 0 { self[side].fero = Swift.min(Self.feroCap, self[side].fero + b); float(.hero(side), .light(b)) }
         }
-        for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].isFrozen }
+        for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].isFrozen; self[side].board[i].hits = 0 }
         haunt(side)
         tickAltar(side, 1)
         // Whoever goes first skips the draw on the opening turn.
@@ -475,9 +477,12 @@ struct DuelState: Codable {
 
     /// Ethereal minions (Wraith Ferryman) take no damage from attacks or hero powers (`phys`); spells and card effects hurt them.
     func isEther(_ id: EID) -> Bool { minion(id).map { $0.card.ether && !$0.silenced } ?? false }
-    mutating func damage(_ id: EID, _ n: Int, pierce: Bool = false, phys: Bool = false) {
+    /// Spellproof minions (Ignaroth) take no damage from spells.
+    func isSpellward(_ id: EID) -> Bool { minion(id).map { $0.card.spellward && !$0.silenced } ?? false }
+    mutating func damage(_ id: EID, _ n: Int, pierce: Bool = false, phys: Bool = false, spell: Bool = false) {
         guard n > 0 else { return }
         if phys && isEther(id) { float(id, .ether); return }
+        if spell && isSpellward(id) { float(id, .immune); return }
         var n = n
         let own = id.side
         if id.isHero { addRage(own, 1) }
@@ -736,7 +741,7 @@ struct DuelState: Codable {
             let bonus = spellBonus(side, key)
             let alive = self[side.other].board.filter { $0.hp > 0 }
             if fire { self[side].tf.fire = true }
-            applyFx(side, fx, t, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0))
+            applyFx(side, fx, t, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0), isSpell: true)
             if self[side].hasTalents {
                 let dead = alive.filter { m in (minion(m.id)?.hp ?? 0) <= 0 }
                 if !dead.isEmpty {
@@ -777,7 +782,7 @@ struct DuelState: Codable {
         float(id, .silenced)
     }
 
-    mutating func applyFx(_ side: Side, _ fx: Effect, _ t: EID?, bonus: Int = 0, faceBonus: Int = 0, isPower: Bool = false) {
+    mutating func applyFx(_ side: Side, _ fx: Effect, _ t: EID?, bonus: Int = 0, faceBonus: Int = 0, isPower: Bool = false, isSpell: Bool = false) {
         let op = side.other
         let mt: EID? = (t?.isHero == false) ? t : nil
         var bonus = bonus
@@ -797,8 +802,8 @@ struct DuelState: Codable {
         if fx.dmgBeast > 0 && self[side].board.contains(where: { $0.card.race == "beast" }) { dmg = fx.dmgBeast }
         if fx.armorDmg { dmg = self[side].armor + fx.plus }
         if fx.dealsDamage, let t {
-            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce && t.isHero, phys: isPower)
-            if fx.splash > 0, let mt { for m in self[op].board where m.id != mt { damage(m.id, fx.splash, phys: isPower) } }
+            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce && t.isHero, phys: isPower, spell: isSpell)
+            if fx.splash > 0, let mt { for m in self[op].board where m.id != mt { damage(m.id, fx.splash, phys: isPower, spell: isSpell) } }
             if fx.drawIfKill, let mt, (minion(mt)?.hp ?? 0) <= 0 { draw(side, 1) }
         }
         if let t = mt, let uid = t.uid, let i = self[t.side].board.firstIndex(where: { $0.uid == uid }) {
@@ -832,22 +837,24 @@ struct DuelState: Codable {
                 if self[t.side].hand.count < 10 { self[t.side].hand.append(m.key) }
             }
         }
-        if fx.aoe > 0 { for m in self[op].board { damage(m.id, fx.aoe + bonus, phys: isPower) } }
+        if fx.aoe > 0 { for m in self[op].board { damage(m.id, fx.aoe + bonus, phys: isPower, spell: isSpell) } }
         if fx.face > 0 { damage(.hero(op), fx.face + bonus + faceBonus, pierce: fx.pierce) }
         if fx.sweep > 0 {
-            for m in self[side].board + self[op].board { damage(m.id, fx.sweep + bonus + (m.side != side ? fx.foeExtra : 0)) }
+            for m in self[side].board + self[op].board { damage(m.id, fx.sweep + bonus + (m.side != side ? fx.foeExtra : 0), spell: isSpell) }
             if fx.heroes { damage(.hero(op), fx.sweep + bonus + faceBonus); if !fx.noSelf { damage(.hero(side), fx.sweep + bonus) } }
         }
         if fx.freezeAll { for m in self[op].board { freezeM(side, m.id) } }
         if fx.freezeBig, let m = self[op].board.max(by: { $0.atk < $1.atk }) { freezeM(side, m.id) }
+        // Team buffs may be limited to a race (Malakar's Undead) and never take a minion below 1 Health; teamWard shields them all.
         if let tm = fx.team {
-            for i in self[side].board.indices {
+            for i in self[side].board.indices where fx.teamRace == nil || self[side].board[i].card.race == fx.teamRace {
                 self[side].board[i].atk += tm[0]
-                self[side].board[i].hp += tm[1]
-                self[side].board[i].max += tm[1]
+                self[side].board[i].hp = Swift.max(1, self[side].board[i].hp + tm[1])
+                self[side].board[i].max = Swift.max(1, self[side].board[i].max + tm[1])
                 float(self[side].board[i].id, tm[0] > 0 ? .atkUp(tm[0]) : .hpUp(tm[1]))
             }
         }
+        if fx.teamWard { for i in self[side].board.indices { self[side].board[i].ward = true; float(self[side].board[i].id, .ward) } }
         for k in fx.summon {
             if let m = summon(side, k), fx.wardSummon, let i = self[side].board.firstIndex(where: { $0.uid == m.uid }) { self[side].board[i].ward = true }
         }
@@ -860,6 +867,9 @@ struct DuelState: Codable {
             if isPower && tal(side, "wl_mutate") { self[side].armor += 5; float(.hero(side), .armorGain(5)) }
         }
         if fx.mana > 0 { self[side].mana += fx.mana }
+        if fx.cull > 0 {
+            for sd in [side, op] { for i in self[sd].board.indices where self[sd].board[i].hp < fx.cull { self[sd].board[i].hp = 0; float(self[sd].board[i].id, .destroyed) } }
+        }
         if fx.purge > 0 {
             for sd in [side, op] { for i in self[sd].board.indices where self[sd].board[i].atk >= fx.purge { self[sd].board[i].hp = 0; float(self[sd].board[i].id, .destroyed) } }
         }
@@ -874,11 +884,16 @@ struct DuelState: Codable {
     mutating func attack(_ attacker: EID, _ target: EID) {
         guard let m = minion(attacker) else { return }
         log(.attacks(name(attacker), name(target)))
+        let norip = m.card.norip && !m.silenced
         let rip = target.isHero && self[target.side].armor > 0 && tal(target.side, "wa_counter")
         damage(target, m.atk, phys: true)
-        if rip { damage(attacker, 1, phys: true) }
-        if !target.isHero, let t = minion(target) { damage(attacker, t.atk, phys: true) }
-        if let i = self[attacker.side].board.firstIndex(where: { $0.uid == attacker.uid }) { self[attacker.side].board[i].attacked = true }
+        if rip && !norip { damage(attacker, 1, phys: true) }
+        if !target.isHero, !norip, let t = minion(target) { damage(attacker, t.atk, phys: true) }
+        // Sylvara swings three times a turn: `hits` counts them, `attacked` is set once they are spent.
+        if let i = self[attacker.side].board.firstIndex(where: { $0.uid == attacker.uid }) {
+            self[attacker.side].board[i].hits += 1
+            self[attacker.side].board[i].attacked = self[attacker.side].board[i].hits >= (m.silenced ? 1 : Swift.max(1, m.card.swings))
+        }
     }
 
     /// Removes dead minions (triggering last breath) and decides the game. Returns true when the game just ended.

@@ -528,7 +528,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}, costs ${c}. ${s}${t}`,statsAria:(a,h)=>`${a} attack, ${h} health. `,
     introTitle:'Fight your way to the Ashen Crown',
     prayerT:'Prayer',altarFull:'Your altar is full (2 Prayers).',prayed:c=>`You place ${c} on your altar.`,ePrayed:(x,c)=>`${x} places ${c} on the altar.`,
-    prayerDone:(x,c)=>`${x}: ${c} is answered.`,emberLbl:n=>`Embers ${n}/5`,altarLbl:'Altar',fEmber:n=>`+${n} Embers`,fIgnite:'Ignite!',fRevive:'Revived',fPray:'Answered',fEther:'Ethereal',fRite:n=>`Sacrificed ${n}`,riteTitle:'Blood Rite: choose one of three Legendaries',riteSub:n=>n>1?'Two copies join your hand and cost (0) this game.':'A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.',riteOk:'Copy',
+    prayerDone:(x,c)=>`${x}: ${c} is answered.`,emberLbl:n=>`Embers ${n}/5`,altarLbl:'Altar',fEmber:n=>`+${n} Embers`,fIgnite:'Ignite!',fRevive:'Revived',fPray:'Answered',fEther:'Ethereal',fImmune:'Spellproof',fRite:n=>`Sacrificed ${n}`,riteTitle:'Blood Rite: choose one of three Legendaries',riteSub:n=>n>1?'Two copies join your hand and cost (0) this game.':'A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.',riteOk:'Copy',
     rEmber:'<b>Mage · Embers (beta):</b> instead of spell mana, mana you leave unspent turns into Embers (max 5). <b>Ignite N</b> cards spend N Embers automatically for a stronger effect.',
     rPrayer:'<b>Priest · Prayers:</b> a Prayer goes on your altar (2 slots) and resolves after N of your turns.',
     rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
@@ -599,7 +599,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}，消耗${c}点法力。${s}${t}`,statsAria:(a,h)=>`${a}点攻击力，${h}点生命值。`,
     introTitle:'一路征战，夺取灰烬王冠',
     prayerT:'祷文',altarFull:'祭坛已满（最多两个祷文）。',prayed:c=>`你把${c}放上了祭坛。`,ePrayed:(x,c)=>`${x}把${c}放上了祭坛。`,
-    prayerDone:(x,c)=>`${x}的${c}应验了。`,emberLbl:n=>`余烬 ${n}/5`,altarLbl:'祭坛',fEmber:n=>`+${n}余烬`,fIgnite:'点燃！',fRevive:'复活',fPray:'应验',fEther:'虚体',fRite:n=>`献祭${n}张`,riteTitle:'血祭：三张传说牌选一张',riteSub:n=>n>1?'两张复制加入你的手牌，本局打出不消耗法力值。':'一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。',riteOk:'复制',
+    prayerDone:(x,c)=>`${x}的${c}应验了。`,emberLbl:n=>`余烬 ${n}/5`,altarLbl:'祭坛',fEmber:n=>`+${n}余烬`,fIgnite:'点燃！',fRevive:'复活',fPray:'应验',fEther:'虚体',fImmune:'法术免疫',fRite:n=>`献祭${n}张`,riteTitle:'血祭：三张传说牌选一张',riteSub:n=>n>1?'两张复制加入你的手牌，本局打出不消耗法力值。':'一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。',riteOk:'复制',
     rEmber:'<b>法师·余烬（测试）：</b>法师没有法术法力，回合结束时没用完的法力会化为余烬（最多5点）。带<b>点燃N</b>的卡牌在余烬足够时会自动消耗N点，发挥更强的效果。',
     rPrayer:'<b>牧师·祷文：</b>祷文打出后放上祭坛（两个位置），在你的N个回合后应验。',
     rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
@@ -670,7 +670,7 @@ const I18N={
     cardAria:(n,c,s,t)=>`${n}、コスト${c}。${s}${t}`,statsAria:(a,h)=>`攻撃力${a}、体力${h}。`,
     introTitle:'戦い抜いて、灰燼の王冠を手にせよ',
     prayerT:'祈祷',altarFull:'祭壇がいっぱいです（祈祷は2つまで）。',prayed:c=>`${c}を祭壇に置いた。`,ePrayed:(x,c)=>`${x}が${c}を祭壇に置いた。`,
-    prayerDone:(x,c)=>`${x}の${c}が成就した。`,emberLbl:n=>`残り火 ${n}/5`,altarLbl:'祭壇',fEmber:n=>`残り火+${n}`,fIgnite:'点火！',fRevive:'復活',fPray:'成就',fEther:'霊体',fRite:n=>`生贄${n}枚`,riteTitle:'血の儀式：伝説カード3枚から1枚を選ぶ',riteSub:n=>n>1?'コピー2枚が手札に加わり、このゲーム中マナを消費しない。':'コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。',riteOk:'コピー',
+    prayerDone:(x,c)=>`${x}の${c}が成就した。`,emberLbl:n=>`残り火 ${n}/5`,altarLbl:'祭壇',fEmber:n=>`残り火+${n}`,fIgnite:'点火！',fRevive:'復活',fPray:'成就',fEther:'霊体',fImmune:'呪文無効',fRite:n=>`生贄${n}枚`,riteTitle:'血の儀式：伝説カード3枚から1枚を選ぶ',riteSub:n=>n>1?'コピー2枚が手札に加わり、このゲーム中マナを消費しない。':'コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。',riteOk:'コピー',
     rEmber:'<b>魔法使い・残り火（テスト）：</b>呪文マナの代わりに、ターン終了時に使わなかったマナは残り火になる（最大5）。<b>点火N</b>のカードは残り火が足りれば自動でN消費し、強化される。',
     rPrayer:'<b>司祭・祈祷：</b>祈祷は祭壇（2枠）に置かれ、自分のNターン後に成就する。',
     rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
@@ -944,10 +944,10 @@ const CARDS={
   wyvern:{c:6,t:'m',a:5,h:5,r:'e',race:'dragon',surge:1,n:['Wyvern Rider','飞龙骑手','ワイバーンライダー'],f:['The sky is just another road.','天空只是另一条路。','空もまた、ただの道だ。']},
   treant:{c:7,t:'m',a:6,h:9,r:'r',race:'treant',guard:1,n:['Ancient Treant','远古树人','古の樹人'],f:['It was old when the first king was crowned.','第一位国王加冕时，它就已经很老了。','最初の王が戴冠した時、すでに老いていた。']},
   dragonknight:{c:7,t:'m',a:5,h:5,r:'e',race:'human',gasp:'spawn',n:['Dragon Knight','龙骑士','竜騎士'],f:['When he falls, his dragon does not.','他倒下时，他的龙不会。','彼が倒れても、竜は倒れない。']},
-  leviathan:{c:8,t:'m',a:7,h:8,r:'l',race:'dragon',guard:1,bc:{aoe:2},n:['Ignaroth, Ashen Wyrm','灰烬巨龙伊格纳洛斯','灰燼竜イグナロス'],f:['The crown was forged in his breath.','那顶王冠，正是在他的龙息中锻成。','王冠は彼の吐息で鍛えられた。']},
-  lich:{c:8,t:'m',a:6,h:6,r:'l',race:'undead',bc:{aoe:3,face:3},n:['Malakar the Undying','不朽者马拉卡','不死のマラカル'],f:['He has died eleven times. He is getting better at it.','他已经死过十一次了，而且越来越熟练。','十一度死んだ。だんだん上手くなっている。']},
-  dwarfking:{c:8,t:'m',a:7,h:7,r:'l',race:'dwarf',guard:1,bc:{armor:5,team:[1,1]},n:['Thorgrim, King Under Stone','山心之王索格林','石下の王ソーグリム'],f:['His beard has its own throne.','他的胡子都有自己的王座。','彼の髭には専用の玉座がある。']},
-  elfqueen:{c:8,t:'m',a:5,h:7,r:'l',race:'elf',ward:1,bc:{heal:8,draw:2},n:['Sylvara, Queen of the Glade','翠林女王希尔瓦拉','森の女王シルヴァラ'],f:['The forest kneels when she walks.','她走过时，森林为之屈膝。','彼女が歩けば、森がひざまずく。']},
+  leviathan:{c:8,t:'m',a:10,h:10,r:'l',race:'dragon',spellward:1,bc:{cull:4},n:['Ignaroth, Ashen Wyrm','灰烬巨龙伊格纳洛斯','灰燼竜イグナロス'],x:['Spellproof (takes no damage from spells). On play: destroy every minion with less than 4 Health.','法术免疫（不受法术伤害）。登场：消灭场上所有生命值低于4的随从。','呪文無効（呪文のダメージを受けない）。登場時：体力4未満のミニオンをすべて破壊する。'],f:['The crown was forged in his breath.','那顶王冠，正是在他的龙息中锻成。','王冠は彼の吐息で鍛えられた。']},
+  lich:{c:8,t:'m',a:6,h:6,r:'l',race:'undead',sp:2,bc:{team:[3,-1],teamRace:'undead'},n:['Malakar the Undying','不朽者马拉卡','不死のマラカル'],x:['Spell Damage +2. On play: your Undead minions get +3 Attack and -1 Health (never below 1).','法术伤害+2。登场：你的所有亡灵随从获得+3攻击力和-1生命值（最低为1）。','呪文ダメージ+2。登場時：自分のアンデッドのミニオンすべてに攻撃力+3、体力-1（1未満にはならない）。'],f:['He has died eleven times. He is getting better at it.','他已经死过十一次了，而且越来越熟练。','十一度死んだ。だんだん上手くなっている。']},
+  dwarfking:{c:8,t:'m',a:7,h:10,r:'l',race:'dwarf',guard:1,bc:{team:[3,3],teamWard:1},n:['Thorgrim, King Under Stone','山心之王索格林','石下の王ソーグリム'],x:['Guard. On play: your minions get +3/+3 and Ward.','守护。登场：你的所有随从获得+3/+3和护盾。','ガード。登場時：自分のミニオンすべてに+3/+3と結界を与える。'],f:['His beard has its own throne.','他的胡子都有自己的王座。','彼の髭には専用の玉座がある。']},
+  elfqueen:{c:8,t:'m',a:5,h:7,r:'l',race:'elf',ward:1,swings:3,norip:1,bc:{heal:8},n:['Sylvara, Queen of the Glade','翠林女王希尔瓦拉','森の女王シルヴァラ'],x:['Ward. Attacks three times a turn and takes no damage striking back. On play: restore 8 Health to your hero.','护盾。每回合可攻击三次，攻击时不受反击伤害。登场：为你的英雄恢复8点生命值。','結界。1ターンに3回攻撃でき、反撃ダメージを受けない。登場時：自分のヒーローの体力を8回復する。'],f:['The forest kneels when she walks.','她走过时，森林为之屈膝。','彼女が歩けば、森がひざまずく。']},
   spray:{cls:'hunter',c:1,t:'s',r:'c',fx:{dmg:2,tgt:'any'},n:['Arcane Shot','奥术射击','アーケインショット'],f:['Quicker than a thought, and twice as sharp.','比念头更快，也更锋利。','思考より速く、二倍鋭い。']},
   brace:{cls:'paladin',c:1,t:'s',r:'c',fx:{buff:[0,3],guard:1,tgt:'ally'},n:['Shield of Faith','信仰之盾','信仰の盾'],f:['Belief, hammered into steel.','把信念锻打成钢。','信念を鋼に打ち込む。']},
   darkpact:{cls:'warlock',c:1,t:'s',r:'r',fx:{selfDmg:2,draw:2},n:['Dark Pact','黑暗契约','闇の契約'],f:['Sign here. And here. And in blood, here.','在这里签字。这里也是。还有这里，用血签。','ここに署名を。ここにも。そしてここは血で。']},
@@ -1897,7 +1897,7 @@ function startTurn(side){
   if(resCls(s,'warrior')&&(s.rage||0)>=rageNeed){s.rage-=rageNeed;s.board.forEach(m=>{m.atk+=2;m.tmp=(m.tmp||0)+2});if(tal(s,'wa_fury')){s.armor+=3;float(s,T('armorN',3),'#cfd8dc')}float(s,TX.rageGo(),'#e0563f')}
   s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
   if(resCls(s,'hunter')){const b=s.hand.filter(k=>CARDS[k]&&CARDS[k].race==='beast').length;if(b){s.fero=Math.min(FERO_CAP,(s.fero||0)+b);float(s,'✦+'+b,'#9ad48a')}}
-  s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen});
+  s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen;m.hits=0});
   haunt(side);
   tickAltar(side,1);
   // Whoever goes first skips the draw on the opening turn (offsets the first-player advantage).
@@ -1938,9 +1938,11 @@ function summon(side,key){
 }
 // Ethereal minions (Wraith Ferryman) take no damage from attacks or hero powers (`phys`); spells and card effects hurt them.
 const ether=m=>!isHero(m)&&!!CARDS[m.key].ether&&!m.silenced;
-function damage(o,n,pierce,phys){
+const spellward=m=>!isHero(m)&&!!CARDS[m.key].spellward&&!m.silenced;
+function damage(o,n,pierce,phys,spell){
   if(n<=0)return;
   if(phys&&ether(o)){float(o,T('fEther'),'#c4b4ff',true);return}
+  if(spell&&spellward(o)){float(o,T('fImmune'),'#ffd27a',true);return}
   const own=isHero(o)?o:S[o.side];
   if(isHero(o))addRage(own,1);
   if(isHero(o)){const a=pierce?0:Math.min(o.armor,n);o.armor-=a;n-=a;o.hp-=n;float(o,n?'-'+n:T('fArmor',a),n?'var(--blood)':'#aab',true)}
@@ -1973,7 +1975,7 @@ function targetsFor(side,tgt,cond){
   else if(tgt==='foe')v=op.board;
   return cond?v.filter(o=>!isHero(o)&&(cond==='damaged'?o.hp<o.max:cond==='atk<=3'?o.atk<=3:cond==='atk<=4'?o.atk<=4:cond==='frozen'?!!o.frozen:o.atk>=5)):v;
 }
-function applyFx(side,fx,t,bonus=0,faceB=0){
+function applyFx(side,fx,t,bonus=0,faceB=0,spell=false){
   const me=S[side],op=S[other(side)],mt=t&&!isHero(t)?t:null,isPw=!!(me.power&&fx===me.power.fx);
   if(isPw&&resCls(me,'hunter')&&(fx.face||fx.dmg)){const k=Math.min(2,Math.floor((me.fero||0)/2));if(k){me.fero-=2*k;bonus+=k;float(me,T('fFero'),'#9ad48a')}}
   if(fx.selfDmg){
@@ -1985,8 +1987,8 @@ function applyFx(side,fx,t,bonus=0,faceB=0){
   let dmg=fx.dmg||0;
   if(fx.dmgBeast&&me.board.some(m=>CARDS[m.key].race==='beast'))dmg=fx.dmgBeast;
   if(fx.armorDmg)dmg=me.armor+(fx.plus||0);
-  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0),fx.pierce&&isHero(t),isPw);
-    if(fx.splash&&mt)op.board.filter(m=>m!==mt).forEach(m=>damage(m,fx.splash,false,isPw));if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
+  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0),fx.pierce&&isHero(t),isPw,spell);
+    if(fx.splash&&mt)op.board.filter(m=>m!==mt).forEach(m=>damage(m,fx.splash,false,isPw,spell));if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
   if(mt){
     if(fx.destroy){mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}
     if(fx.silence){silence(mt);if(tal(me,'sh_void'))damage(mt,2)}
@@ -2001,13 +2003,15 @@ function applyFx(side,fx,t,bonus=0,faceB=0){
     if(fx.ward){mt.ward=true;if(!fx.buff)float(mt,T('fWard'),'var(--foam)')}
     if(fx.bounce){const o=S[mt.side];ghost(idOf(mt));o.board=o.board.filter(m=>m!==mt);if(o.hand.length<10)o.hand.push(mt.key)}
   }
-  if(fx.aoe)[...op.board].forEach(m=>damage(m,fx.aoe+bonus,false,isPw));
+  if(fx.aoe)[...op.board].forEach(m=>damage(m,fx.aoe+bonus,false,isPw,spell));
   if(fx.face)damage(op,fx.face+bonus+faceB,!!fx.pierce);
-  if(fx.sweep){[...me.board,...op.board].forEach(m=>damage(m,fx.sweep+bonus+(fx.foeExtra&&m.side!==side?fx.foeExtra:0)));if(fx.heroes){damage(op,fx.sweep+bonus+faceB);if(!fx.noSelf)damage(me,fx.sweep+bonus)}}
+  if(fx.sweep){[...me.board,...op.board].forEach(m=>damage(m,fx.sweep+bonus+(fx.foeExtra&&m.side!==side?fx.foeExtra:0),false,false,spell));if(fx.heroes){damage(op,fx.sweep+bonus+faceB);if(!fx.noSelf)damage(me,fx.sweep+bonus)}}
   if(fx.freezeAll)op.board.forEach(m=>freezeM(side,m));
   if(fx.freezeBig){const m=[...op.board].sort((a,b)=>b.atk-a.atk)[0];if(m)freezeM(side,m)}
-  if(fx.team)me.board.forEach(m=>{m.atk+=fx.team[0];m.hp+=fx.team[1];m.max+=fx.team[1];
+  // Team buffs may be limited to a race (Malakar's Undead) and never take a minion below 1 Health; teamWard shields them all.
+  if(fx.team)me.board.filter(m=>!fx.teamRace||CARDS[m.key].race===fx.teamRace).forEach(m=>{m.atk+=fx.team[0];m.hp=Math.max(1,m.hp+fx.team[1]);m.max=Math.max(1,m.max+fx.team[1]);
     float(m,fx.team[0]?T('fAtk',fx.team[0]):T('fHp',fx.team[1]),'var(--ready)')});
+  if(fx.teamWard)me.board.forEach(m=>{m.ward=true;float(m,T('fWard'),'var(--foam)')});
   if(fx.summon)[].concat(fx.summon).forEach(k=>{const m=summon(side,k);if(m&&fx.wardSummon)m.ward=true});
   if(fx.perFoe)for(let i=op.board.length;i>0;i--)summon(side,fx.perFoe);
   if(fx.heal)heal(me,fx.heal);
@@ -2017,6 +2021,7 @@ function applyFx(side,fx,t,bonus=0,faceB=0){
     if(isPw&&tal(me,'wl_mutate')){me.armor+=5;float(me,T('armorN',5),'#cfd8dc')}}
   if(fx.mana)me.mana+=fx.mana;
   if(fx.purge)[...me.board,...op.board].forEach(m=>{if(m.atk>=fx.purge){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
+  if(fx.cull)[...me.board,...op.board].forEach(m=>{if(m.hp<fx.cull){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
   for(let r=0;r<(fx.revive||0);r++){const g=me.grave||[],k=[...g].reverse().find(x=>!CARDS[x].token);
     if(k&&me.board.length<BOARD_MAX){g.splice(g.lastIndexOf(k),1);const m=summon(side,k);if(m)float(m,T('fRevive'),'var(--ready)')}}
   if(fx.hasten)tickAltar(side,fx.hasten);
@@ -2042,7 +2047,7 @@ function castSpell(side,k,t){
   else{
     const fx=cardFx(side,k),bonus=spellBonus(side,k),alive=op.board.filter(m=>m.hp>0);
     if(fire&&s.tf)s.tf.fire=1;
-    applyFx(side,fx,t,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0));
+    applyFx(side,fx,t,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0),true);
     if(s.tal&&s.tal.size){
       const dead=alive.filter(m=>m.hp<=0);
       if(dead.length){
@@ -2081,10 +2086,11 @@ async function fxAnim(fx,srcSel,t,side){
 }
 function doAttack(m,t){
   say('attacks',()=>nm(m),()=>nm(t));
-  const rip=isHero(t)&&t.armor>0&&tal(t,'wa_counter');
-  damage(t,m.atk,false,true);if(rip)damage(m,1,false,true);
-  if(!isHero(t))damage(m,t.atk,false,true);
-  m.attacked=true;
+  const c=CARDS[m.key],norip=!!c.norip&&!m.silenced,rip=isHero(t)&&t.armor>0&&tal(t,'wa_counter');
+  damage(t,m.atk,false,true);if(rip&&!norip)damage(m,1,false,true);
+  if(!isHero(t)&&!norip)damage(m,t.atk,false,true);
+  // Sylvara swings three times a turn: `hits` counts them, `attacked` is set once they are spent.
+  m.hits=(m.hits||0)+1;m.attacked=m.hits>=((!m.silenced&&c.swings)||1);
 }
 function cleanup(){
   // Online games resolve deaths host-side first on both clients so token ids stay in step.
@@ -2212,8 +2218,8 @@ function endTurn(){
 
 // ---------- AI ----------
 const aiEasy=()=>S.mode==='quick'&&S.diff==='easy';
-function aiDamageTarget(n,tgt,phys){
-  const foes=S.p.board.filter(m=>!phys||!ether(m));
+function aiDamageTarget(n,tgt,phys,spell){
+  const foes=S.p.board.filter(m=>!(phys&&ether(m))&&!(spell&&spellward(m)));
   if(aiEasy()&&Math.random()<.5){const o=tgt==='minion'?foes:[S.p,...foes];return o.length?o[Math.random()*o.length|0]:null}
   const kill=foes.filter(m=>!m.ward&&m.hp<=n).sort((a,b)=>b.atk-a.atk)[0];
   if(kill)return kill;
@@ -2296,7 +2302,7 @@ function aiPlan(k){
     if(fx.heroes&&e.hp+e.armor<=n+6)return null;
     return dies(foes)>=dies(e.board)+5?{t:null}:null;
   }
-  if(fx.armorDmg){if(e.armor+bonus<2)return null;const t=aiDamageTarget(e.armor+bonus,'minion');return t?{t}:null}
+  if(fx.armorDmg){if(e.armor+bonus<2)return null;const t=aiDamageTarget(e.armor+bonus,'minion',false,true);return t?{t}:null}
   if(fx.drawIfKill){const t=pick(foes.filter(m=>!m.ward&&m.hp<=fx.dmg+bonus),m=>m.atk);return t?{t}:null}
   if(fx.dmg&&fx.buff){const t=pick(e.board.filter(m=>(m.hp>fx.dmg||m.ward)&&!m.frozen),m=>m.atk);return t?{t}:null}
   if(fx.tempAtk){const t=pick(e.board.filter(m=>!m.sleep&&!m.attacked&&!m.frozen),m=>m.atk);return t?{t}:null}
@@ -2306,7 +2312,7 @@ function aiPlan(k){
   if(fx.dmg){
     const n=(fx.dmgBeast&&e.board.some(m=>CARDS[m.key].race==='beast')?fx.dmgBeast:fx.dmg)+bonus;
     if(fx.selfDmg&&e.hp<=fx.selfDmg+8)return null;
-    const t=aiDamageTarget(n,fx.tgt);return t?{t}:null;
+    const t=aiDamageTarget(n,fx.tgt,false,true);return t?{t}:null;
   }
   if(fx.buff){const t=aiBestAlly();return t?{t}:null}
   return aiWorth(fx)?{t:null}:null;
@@ -2364,11 +2370,15 @@ async function aiTurn(){
     if(!did)break;
   }
   if(!S.over)await aiPower();if(S!==G0)return;
-  for(const m of [...e.board]){
-    if(S.over)return;
-    if(!e.board.includes(m)||!canAttack(m))continue;
-    const t=aiAttackTarget(m);
-    await lunge(idOf(m),idOf(t));if(S!==G0)return;doAttack(m,t);cleanup();render();await wait(420);if(S!==G0)return;
+  // Up to three passes, so a minion with several attacks a turn (Sylvara) uses them all.
+  for(let pass=0;pass<3;pass++){let any=false;
+    for(const m of [...e.board]){
+      if(S.over)return;
+      if(!e.board.includes(m)||!canAttack(m))continue;any=true;
+      const t=aiAttackTarget(m);
+      await lunge(idOf(m),idOf(t));if(S!==G0)return;doAttack(m,t);cleanup();render();await wait(420);if(S!==G0)return;
+    }
+    if(!any)break;
   }
   if(S.over)return;
   S.turn='p';startTurn('p');S.busy=false;say('yourTurnLog');cleanup();render();banner(T('bannerYou'));
@@ -2511,13 +2521,13 @@ function startOnline(d){
 }
 // Compact fingerprint of everything both copies must agree on, host's side first.
 function netHash(){
-  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.ember||0,(s.altar||[]).map(p=>p.key+p.cd),(s.grave||[]).length,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,+m.frozen||0,m.silenced?1:0,m.tmp||0]),...(BETA?[hbOf(s).join(''),JSON.stringify(s.tf||{}),s.rage||0,s.soul||0,s.coopN||0,s.coopB||0,s.firstSum||0,s.light||0,s.fero||0,s.rites||0,JSON.stringify(s.free||{}),s.board.map(m=>m.bled?1:0).join('')]:[])];
+  const sd=s=>[s.hp,s.armor,s.mana,s.maxMana,s.sm||0,s.hand,s.deck.length,s.fat,s.powerUsed?1:0,s.ember||0,(s.altar||[]).map(p=>p.key+p.cd),(s.grave||[]).length,s.board.map(m=>[m.uid,m.key,m.atk,m.hp,m.max,m.guard?1:0,m.ward?1:0,m.sleep?1:0,m.attacked?1:0,+m.frozen||0,m.silenced?1:0,m.tmp||0,m.hits||0]),...(BETA?[hbOf(s).join(''),JSON.stringify(s.tf||{}),s.rage||0,s.soul||0,s.coopN||0,s.coopB||0,s.firstSum||0,s.light||0,s.fero||0,s.rites||0,JSON.stringify(s.free||{}),s.board.map(m=>m.bled?1:0).join('')]:[])];
   const str=JSON.stringify([S.order.map(k=>sd(S[k])),S.turn===S.order[0]?'h':'g']);
   let x=0;for(let i=0;i<str.length;i++)x=(x*31+str.charCodeAt(i))|0;return x;
 }
 function netSnap(){
   const side=s=>({hp:s.hp,max:s.max,armor:s.armor,mana:s.mana,maxMana:s.maxMana,sm:s.sm||0,deck:[...s.deck],hand:[...s.hand],fat:s.fat,powerUsed:s.powerUsed,ember:s.ember||0,altar:(s.altar||[]).map(p=>({...p})),grave:[...(s.grave||[])],
-    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:m.frozen||false,silenced:!!m.silenced,tmp:m.tmp||0})),...(BETA?{hb:[...hbOf(s)],tf:{...(s.tf||{})},rage:s.rage||0,soul:s.soul||0,coopN:s.coopN||0,coopB:s.coopB||0,firstSum:s.firstSum||0,light:s.light||0,fero:s.fero||0,rites:s.rites||0,free:{...(s.free||{})},bled:s.board.map(m=>m.bled?1:0)}:{})});
+    board:s.board.map(m=>({uid:m.uid,key:m.key,atk:m.atk,hp:m.hp,max:m.max,base:m.base,guard:m.guard,ward:m.ward,sleep:m.sleep,attacked:m.attacked,frozen:m.frozen||false,silenced:!!m.silenced,tmp:m.tmp||0,hits:m.hits||0})),...(BETA?{hb:[...hbOf(s)],tf:{...(s.tf||{})},rage:s.rage||0,soul:s.soul||0,coopN:s.coopN||0,coopB:s.coopB||0,firstSum:s.firstSum||0,light:s.light||0,fero:s.fero||0,rites:s.rites||0,free:{...(s.free||{})},bled:s.board.map(m=>m.bled?1:0)}:{})});
   return {h:side(S[S.order[0]]),g:side(S[S.order[1]]),turn:S.turn===S.order[0]?'h':'g',opened:S.opened,U};
 }
 function netApplySnap(st){

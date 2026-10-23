@@ -4,8 +4,8 @@ import Foundation
 extension DuelState {
     var aiEasy: Bool { mode == .quick && diff == .easy }
 
-    func aiDamageTarget(_ n: Int, _ tgt: Target?, phys: Bool = false) -> EID? {
-        let foes = p.board.filter { !phys || !isEther($0.id) }
+    func aiDamageTarget(_ n: Int, _ tgt: Target?, phys: Bool = false, spell: Bool = false) -> EID? {
+        let foes = p.board.filter { !(phys && isEther($0.id)) && !(spell && isSpellward($0.id)) }
         if aiEasy && Bool.random() {
             let o = tgt == .minion ? foes.map(\.id) : [p.id] + foes.map(\.id)
             return o.randomElement()
@@ -104,7 +104,7 @@ extension DuelState {
             return dies(foes) >= dies(e.board) + 5 ? .some(nil) : nil
         }
         if fx.armorDmg {
-            guard e.armor + fx.plus + bonus >= 2, let t = aiDamageTarget(e.armor + fx.plus + bonus, .minion) else { return nil }
+            guard e.armor + fx.plus + bonus >= 2, let t = aiDamageTarget(e.armor + fx.plus + bonus, .minion, spell: true) else { return nil }
             return .some(t)
         }
         if fx.drawIfKill { return best(foes.filter { !$0.ward && $0.hp <= fx.dmg + bonus }) { $0.atk } }
@@ -116,7 +116,7 @@ extension DuelState {
         if fx.dmg > 0 {
             let beast = fx.dmgBeast > 0 && e.board.contains { $0.card.race == "beast" }
             if fx.selfDmg > 0 && e.hp <= fx.selfDmg + 8 { return nil }
-            if let t = aiDamageTarget((beast ? fx.dmgBeast : fx.dmg) + bonus, fx.tgt) { return .some(t) }
+            if let t = aiDamageTarget((beast ? fx.dmgBeast : fx.dmg) + bonus, fx.tgt, spell: true) { return .some(t) }
             return nil
         }
         if fx.buff != nil { if let t = aiBestAlly() { return .some(t) }; return nil }

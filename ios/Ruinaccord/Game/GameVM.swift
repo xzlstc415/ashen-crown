@@ -295,6 +295,7 @@ final class GameVM {
         case .fero: return (tx.fFero, Color(hex: "#9ad48a"))
         case .rite(let n): return (tx.fRite(n), Theme.blood)
         case .ether: return (tx.fEther, Color(hex: "#c4b4ff"))
+        case .immune: return (tx.fImmune, Color(hex: "#ffd27a"))
         }
     }
 
@@ -1052,16 +1053,22 @@ final class GameVM {
         }
         if !S.over { await aiPower() }
         guard gameToken == token else { return }
-        for m in S.e.board {
-            if S.over { break }
-            guard S.e.board.contains(where: { $0.uid == m.uid }), let cur = S.minion(m.id), S.canAttack(cur) else { continue }
-            let t = S.aiAttackTarget(cur)
-            await lunge(m.id, t)
-            guard gameToken == token else { return }
-            S.attack(m.id, t)
-            S.cleanup(); drain()
-            await wait(420)
-            guard gameToken == token else { return }
+        // Up to three passes, so a minion with several attacks a turn (Sylvara) uses them all.
+        for _ in 0..<3 {
+            var any = false
+            for m in S.e.board {
+                if S.over { break }
+                guard S.e.board.contains(where: { $0.uid == m.uid }), let cur = S.minion(m.id), S.canAttack(cur) else { continue }
+                any = true
+                let t = S.aiAttackTarget(cur)
+                await lunge(m.id, t)
+                guard gameToken == token else { return }
+                S.attack(m.id, t)
+                S.cleanup(); drain()
+                await wait(420)
+                guard gameToken == token else { return }
+            }
+            if !any || S.over { break }
         }
         if S.over { busy = false; onGameOver(); return }
         S.turn = .p

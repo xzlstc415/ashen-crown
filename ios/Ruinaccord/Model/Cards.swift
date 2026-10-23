@@ -39,10 +39,13 @@ struct Effect: Codable, Hashable {
     var foeExtra = 0           // sweep damage added against enemy minions
     var noSelf = false         // a sweep that hits heroes spares your own
     var reclaim = 0            // show 5 random dead minions, this many come back to the hand
+    var cull = 0               // destroy every minion with less than this much Health (both sides)
+    var teamRace: String?      // the team buff only reaches minions of this race
+    var teamWard = false       // all your minions gain Ward
     private enum CodingKeys: String, CodingKey {
         case dmg, aoe, face, healT, heal, armor, draw, mana, selfDmg, grantGuard = "guard", ward, buff, team, summon, tgt
         case cond, destroy, silence, freeze, freezeAll, setAtk, setHp, sweep, heroes, armorDmg, dmgBeast, drawIfKill, tempAtk, bounce, perFoe
-        case purge, revive, hasten, rush, pierce, wardSummon, splash, icelance, freezeBig, plus, foeExtra, noSelf, reclaim
+        case purge, revive, hasten, rush, pierce, wardSummon, splash, icelance, freezeBig, plus, foeExtra, noSelf, reclaim, cull, teamRace, teamWard
     }
     init() {}
     init(from decoder: Decoder) throws {
@@ -59,6 +62,7 @@ struct Effect: Codable, Hashable {
         drawIfKill = b(.drawIfKill); tempAtk = i(.tempAtk); bounce = b(.bounce); perFoe = try c.decodeIfPresent(String.self, forKey: .perFoe)
         purge = i(.purge); revive = i(.revive); hasten = i(.hasten); rush = b(.rush); pierce = b(.pierce); wardSummon = b(.wardSummon)
         splash = i(.splash); icelance = i(.icelance); freezeBig = b(.freezeBig); plus = i(.plus); foeExtra = i(.foeExtra); noSelf = b(.noSelf); reclaim = i(.reclaim)
+        cull = i(.cull); teamRace = try c.decodeIfPresent(String.self, forKey: .teamRace); teamWard = b(.teamWard)
     }
     var dealsDamage: Bool { dmg > 0 || armorDmg }
 }
@@ -108,6 +112,9 @@ struct Card: Codable, Identifiable, Hashable {
     let ether: Bool             // Ethereal: no damage from attacks or hero powers
     let haunt: Bool             // at the start of its owner's turn, a minion of the grave returns to the hand
     let uniq: Bool              // one copy a deck, like a Legendary
+    let spellward: Bool         // Spellproof: no damage from spells
+    let swings: Int             // attacks a turn (1 for almost everything)
+    let norip: Bool             // takes no damage striking back
 
     var isMinion: Bool { type == .minion }
     var isLegendary: Bool { rarity == "l" }
@@ -116,7 +123,7 @@ struct Card: Codable, Identifiable, Hashable {
     var isTargetedSpell: Bool { !isMinion && fx?.tgt != nil }
     var maxCopies: Int { isLegendary || uniq ? 1 : 2 }
     var artName: String { "art_\(id)" }
-    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt, uniq }
+    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt, uniq, spellward, swings, norip }
     func allowed(for cls: String?) -> Bool { self.cls == nil || cls == nil || self.cls == cls }
 }
 

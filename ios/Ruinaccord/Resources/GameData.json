@@ -37,7 +37,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "pearl",
@@ -76,7 +79,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "apprentice",
@@ -138,7 +144,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -159,7 +168,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "crab",
@@ -198,7 +210,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "harpooneer",
@@ -260,7 +275,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -281,7 +299,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "direwolf",
@@ -320,7 +341,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "cleric",
@@ -382,7 +406,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -403,7 +430,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "berserker",
@@ -442,7 +472,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "burglar",
@@ -504,7 +537,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -525,7 +561,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "eel",
@@ -564,7 +603,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "lurker",
@@ -603,7 +645,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "sailor",
@@ -642,7 +687,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "beastcaller",
@@ -706,7 +754,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -727,7 +778,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "ghoul",
@@ -766,7 +820,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "alchemist",
@@ -831,7 +888,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -852,7 +912,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "knight",
@@ -891,7 +954,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "diver",
@@ -953,7 +1019,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -974,7 +1043,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "gull",
@@ -1013,7 +1085,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "commander",
@@ -1078,7 +1153,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1099,7 +1177,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "golem",
@@ -1138,7 +1219,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "shark",
@@ -1177,7 +1261,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "firelem",
@@ -1239,7 +1326,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1260,7 +1350,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "ogre",
@@ -1299,7 +1392,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "archmage",
@@ -1361,7 +1457,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1382,7 +1481,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "hexer",
@@ -1444,7 +1546,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1465,7 +1570,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "priestess",
@@ -1530,7 +1638,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1551,7 +1662,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "necro",
@@ -1615,7 +1729,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1636,7 +1753,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "thane",
@@ -1698,7 +1818,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1719,7 +1842,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "wyvern",
@@ -1758,7 +1884,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "treant",
@@ -1797,7 +1926,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "dragonknight",
@@ -1836,28 +1968,35 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "leviathan",
    "cost": 8,
    "type": "m",
-   "atk": 7,
-   "hp": 8,
+   "atk": 10,
+   "hp": 10,
    "rarity": "l",
    "race": "dragon",
-   "guard": true,
+   "guard": false,
    "ward": false,
    "surge": false,
    "gasp": null,
    "token": false,
    "cls": null,
-   "text": null,
+   "text": [
+    "Spellproof (takes no damage from spells). On play: destroy every minion with less than 4 Health.",
+    "法术免疫（不受法术伤害）。登场：消灭场上所有生命值低于4的随从。",
+    "呪文無効（呪文のダメージを受けない）。登場時：体力4未満のミニオンをすべて破壊する。"
+   ],
    "sp": 0,
    "onSpell": null,
    "bc": {
     "dmg": 0,
-    "aoe": 2,
+    "aoe": 0,
     "face": 0,
     "healT": 0,
     "heal": 0,
@@ -1898,7 +2037,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 4,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -1919,7 +2061,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": true,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "lich",
@@ -1935,13 +2080,17 @@
    "gasp": null,
    "token": false,
    "cls": null,
-   "text": null,
-   "sp": 0,
+   "text": [
+    "Spell Damage +2. On play: your Undead minions get +3 Attack and -1 Health (never below 1).",
+    "法术伤害+2。登场：你的所有亡灵随从获得+3攻击力和-1生命值（最低为1）。",
+    "呪文ダメージ+2。登場時：自分のアンデッドのミニオンすべてに攻撃力+3、体力-1（1未満にはならない）。"
+   ],
+   "sp": 2,
    "onSpell": null,
    "bc": {
     "dmg": 0,
-    "aoe": 3,
-    "face": 3,
+    "aoe": 0,
+    "face": 0,
     "healT": 0,
     "heal": 0,
     "armor": 0,
@@ -1951,92 +2100,9 @@
     "guard": false,
     "ward": false,
     "buff": null,
-    "team": null,
-    "summon": [],
-    "tgt": null,
-    "cond": null,
-    "destroy": false,
-    "silence": false,
-    "freeze": false,
-    "freezeAll": false,
-    "setAtk": 0,
-    "setHp": 0,
-    "sweep": 0,
-    "heroes": false,
-    "armorDmg": false,
-    "dmgBeast": 0,
-    "drawIfKill": false,
-    "tempAtk": 0,
-    "bounce": false,
-    "perFoe": null,
-    "purge": 0,
-    "revive": 0,
-    "hasten": 0,
-    "rush": false,
-    "pierce": false,
-    "wardSummon": false,
-    "splash": 0,
-    "icelance": 0,
-    "freezeBig": false,
-    "plus": 0,
-    "foeExtra": 0,
-    "noSelf": false,
-    "reclaim": 0
-   },
-   "fx": null,
-   "names": [
-    "Malakar the Undying",
-    "不朽者马拉卡",
-    "不死のマラカル"
-   ],
-   "flavor": [
-    "He has died eleven times. He is getting better at it.",
-    "他已经死过十一次了，而且越来越熟练。",
-    "十一度死んだ。だんだん上手くなっている。"
-   ],
-   "sc": null,
-   "pray": null,
-   "sw": false,
-   "pw": 0,
-   "beta": false,
-   "rite": false,
-   "ether": false,
-   "haunt": false,
-   "uniq": false
-  },
-  {
-   "id": "dwarfking",
-   "cost": 8,
-   "type": "m",
-   "atk": 7,
-   "hp": 7,
-   "rarity": "l",
-   "race": "dwarf",
-   "guard": true,
-   "ward": false,
-   "surge": false,
-   "gasp": null,
-   "token": false,
-   "cls": null,
-   "text": null,
-   "sp": 0,
-   "onSpell": null,
-   "bc": {
-    "dmg": 0,
-    "aoe": 0,
-    "face": 0,
-    "healT": 0,
-    "heal": 0,
-    "armor": 5,
-    "draw": 0,
-    "mana": 0,
-    "selfDmg": 0,
-    "guard": false,
-    "ward": false,
-    "buff": null,
     "team": [
-     1,
-     1
+     3,
+     -1
     ],
     "summon": [],
     "tgt": null,
@@ -2067,7 +2133,106 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": "undead",
+    "teamWard": false
+   },
+   "fx": null,
+   "names": [
+    "Malakar the Undying",
+    "不朽者马拉卡",
+    "不死のマラカル"
+   ],
+   "flavor": [
+    "He has died eleven times. He is getting better at it.",
+    "他已经死过十一次了，而且越来越熟练。",
+    "十一度死んだ。だんだん上手くなっている。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": false,
+   "rite": false,
+   "ether": false,
+   "haunt": false,
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
+  },
+  {
+   "id": "dwarfking",
+   "cost": 8,
+   "type": "m",
+   "atk": 7,
+   "hp": 10,
+   "rarity": "l",
+   "race": "dwarf",
+   "guard": true,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": false,
+   "cls": null,
+   "text": [
+    "Guard. On play: your minions get +3/+3 and Ward.",
+    "守护。登场：你的所有随从获得+3/+3和护盾。",
+    "ガード。登場時：自分のミニオンすべてに+3/+3と結界を与える。"
+   ],
+   "sp": 0,
+   "onSpell": null,
+   "bc": {
+    "dmg": 0,
+    "aoe": 0,
+    "face": 0,
+    "healT": 0,
+    "heal": 0,
+    "armor": 0,
+    "draw": 0,
+    "mana": 0,
+    "selfDmg": 0,
+    "guard": false,
+    "ward": false,
+    "buff": null,
+    "team": [
+     3,
+     3
+    ],
+    "summon": [],
+    "tgt": null,
+    "cond": null,
+    "destroy": false,
+    "silence": false,
+    "freeze": false,
+    "freezeAll": false,
+    "setAtk": 0,
+    "setHp": 0,
+    "sweep": 0,
+    "heroes": false,
+    "armorDmg": false,
+    "dmgBeast": 0,
+    "drawIfKill": false,
+    "tempAtk": 0,
+    "bounce": false,
+    "perFoe": null,
+    "purge": 0,
+    "revive": 0,
+    "hasten": 0,
+    "rush": false,
+    "pierce": false,
+    "wardSummon": false,
+    "splash": 0,
+    "icelance": 0,
+    "freezeBig": false,
+    "plus": 0,
+    "foeExtra": 0,
+    "noSelf": false,
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": true
    },
    "fx": null,
    "names": [
@@ -2088,7 +2253,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "elfqueen",
@@ -2104,7 +2272,11 @@
    "gasp": null,
    "token": false,
    "cls": null,
-   "text": null,
+   "text": [
+    "Ward. Attacks three times a turn and takes no damage striking back. On play: restore 8 Health to your hero.",
+    "护盾。每回合可攻击三次，攻击时不受反击伤害。登场：为你的英雄恢复8点生命值。",
+    "結界。1ターンに3回攻撃でき、反撃ダメージを受けない。登場時：自分のヒーローの体力を8回復する。"
+   ],
    "sp": 0,
    "onSpell": null,
    "bc": {
@@ -2114,7 +2286,7 @@
     "healT": 0,
     "heal": 8,
     "armor": 0,
-    "draw": 2,
+    "draw": 0,
     "mana": 0,
     "selfDmg": 0,
     "guard": false,
@@ -2150,7 +2322,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -2171,7 +2346,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 3,
+   "norip": true
   },
   {
    "id": "spray",
@@ -2234,7 +2412,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Arcane Shot",
@@ -2254,7 +2435,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "brace",
@@ -2320,7 +2504,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Shield of Faith",
@@ -2340,7 +2527,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "darkpact",
@@ -2403,7 +2593,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Dark Pact",
@@ -2423,7 +2616,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "frenzy",
@@ -2489,7 +2685,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Bloodlust",
@@ -2509,7 +2708,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "tidepool",
@@ -2572,7 +2774,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Scholar's Insight",
@@ -2592,7 +2797,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "mend",
@@ -2655,7 +2863,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Healing Light",
@@ -2675,7 +2886,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "shieldwall",
@@ -2738,7 +2952,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Shield Wall",
@@ -2758,7 +2975,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "calltoarms",
@@ -2825,7 +3045,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Call to Arms",
@@ -2845,7 +3068,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "undertow",
@@ -2908,7 +3134,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Smite",
@@ -2928,7 +3157,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "radiant",
@@ -2991,7 +3223,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Radiant Burst",
@@ -3011,7 +3246,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "hymn",
@@ -3077,7 +3315,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Battle Hymn",
@@ -3097,7 +3338,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "lance",
@@ -3160,7 +3404,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Arcane Lance",
@@ -3180,7 +3427,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "maelstrom",
@@ -3243,7 +3493,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Fireball",
@@ -3263,7 +3516,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "riptide",
@@ -3326,7 +3582,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Deadly Shot",
@@ -3346,7 +3605,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "breath",
@@ -3409,7 +3671,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Dragon's Breath",
@@ -3429,7 +3694,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "inferno",
@@ -3492,7 +3760,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Inferno",
@@ -3512,7 +3783,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "innerrage",
@@ -3582,7 +3856,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Inner Rage",
@@ -3602,7 +3879,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "whirlwind",
@@ -3669,7 +3949,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Whirlwind",
@@ -3689,7 +3972,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "shieldslam",
@@ -3756,7 +4042,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Shield Slam",
@@ -3776,7 +4065,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "execute",
@@ -3843,7 +4135,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Execute",
@@ -3863,7 +4158,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "missiles",
@@ -3926,7 +4224,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Arcane Missiles",
@@ -3946,7 +4247,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "mirror",
@@ -4016,7 +4320,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Mirror Image",
@@ -4036,7 +4343,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "frostbolt",
@@ -4103,7 +4413,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Frostbolt",
@@ -4123,7 +4436,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "frostnova",
@@ -4190,7 +4506,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Frost Nova",
@@ -4210,7 +4529,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "squires",
@@ -4276,7 +4598,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Squire's Call",
@@ -4296,7 +4621,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "humility",
@@ -4363,7 +4691,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Humility",
@@ -4383,7 +4714,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "aegis",
@@ -4450,7 +4784,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Sacred Aegis",
@@ -4470,7 +4807,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "kings",
@@ -4536,7 +4876,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Blessing of Kings",
@@ -4556,7 +4899,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "pounce",
@@ -4623,7 +4969,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Pounce",
@@ -4643,7 +4992,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "huntmark",
@@ -4710,7 +5062,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Hunter's Mark",
@@ -4730,7 +5085,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "killcmd",
@@ -4797,7 +5155,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Kill Command",
@@ -4817,7 +5178,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "hounds",
@@ -4884,7 +5248,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Unleash the Hounds",
@@ -4904,7 +5271,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "pwshield",
@@ -4970,7 +5340,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Word of Shielding",
@@ -4990,7 +5363,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "holysmite",
@@ -5053,7 +5429,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Holy Smite",
@@ -5073,7 +5452,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "dispel",
@@ -5140,7 +5522,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Dispel",
@@ -5160,7 +5545,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "swpain",
@@ -5227,7 +5615,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Word of Pain",
@@ -5247,7 +5638,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "swdeath",
@@ -5314,7 +5708,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Word of Death",
@@ -5334,7 +5731,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "soulfire",
@@ -5401,7 +5801,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Soulfire",
@@ -5421,7 +5824,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "coil",
@@ -5488,7 +5894,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Mortal Coil",
@@ -5508,7 +5917,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "raisedead",
@@ -5578,7 +5990,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Raise Dead",
@@ -5598,7 +6013,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "hellfire",
@@ -5665,7 +6083,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Hellfire",
@@ -5685,7 +6106,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "retreat",
@@ -5752,7 +6176,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Tactical Retreat",
@@ -5772,7 +6199,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "wyrmling",
@@ -5818,7 +6248,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "geomancer",
@@ -5861,7 +6294,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "spellbreaker",
@@ -5927,7 +6363,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -5948,7 +6387,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "bubble",
@@ -5987,7 +6429,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "emberbolt",
@@ -6050,7 +6495,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Ember Flick",
@@ -6070,7 +6518,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "icelance",
@@ -6137,7 +6588,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Ice Lance",
@@ -6157,7 +6611,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "frostele",
@@ -6223,7 +6680,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -6244,7 +6704,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "shatter",
@@ -6311,7 +6774,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Shatter",
@@ -6331,7 +6797,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "voidacolyte",
@@ -6397,7 +6866,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -6418,7 +6890,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "wordruin",
@@ -6485,7 +6960,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Word of Ruin",
@@ -6505,7 +6983,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "wordtorment",
@@ -6572,7 +7053,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Word of Torment",
@@ -6592,7 +7076,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "steady",
@@ -6655,7 +7142,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Steady Shot",
@@ -6675,7 +7165,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "explosive",
@@ -6742,7 +7235,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Explosive Shot",
@@ -6762,7 +7258,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "marksman",
@@ -6805,7 +7304,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "whistle",
@@ -6870,7 +7372,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Hound Whistle",
@@ -6890,7 +7395,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "phound",
@@ -6929,7 +7437,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "bonewarr",
@@ -6968,7 +7479,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "icebarrier",
@@ -7035,7 +7549,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Ice Barrier",
@@ -7055,7 +7572,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "emberadept",
@@ -7094,7 +7614,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "scorch",
@@ -7157,7 +7680,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Scorching Ray",
@@ -7177,7 +7703,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "emberele",
@@ -7216,7 +7745,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "phoenix",
@@ -7278,7 +7810,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -7299,7 +7834,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "firestorm",
@@ -7362,7 +7900,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Firestorm",
@@ -7382,7 +7923,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "bloodrite",
@@ -7449,7 +7993,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Seravine's Blood Rite",
@@ -7469,7 +8016,10 @@
    "rite": true,
    "ether": false,
    "haunt": false,
-   "uniq": true
+   "uniq": true,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "gravecaller",
@@ -7535,7 +8085,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 2
+    "reclaim": 2,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -7556,7 +8109,10 @@
    "rite": false,
    "ether": true,
    "haunt": true,
-   "uniq": true
+   "uniq": true,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "boar",
@@ -7595,7 +8151,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "panther",
@@ -7634,7 +8193,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "elk",
@@ -7673,7 +8235,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "oathshelter",
@@ -7736,7 +8301,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Oath of Shelter",
@@ -7797,7 +8365,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -7806,7 +8377,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "oathmuster",
@@ -7869,7 +8443,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Oath of Muster",
@@ -7931,7 +8508,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -7940,7 +8520,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "oathcrusade",
@@ -8003,7 +8586,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Oath of Crusade",
@@ -8064,7 +8650,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8073,7 +8662,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "matins",
@@ -8136,7 +8728,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Dawn Prayer",
@@ -8194,7 +8789,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8203,7 +8801,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "vigil",
@@ -8266,7 +8867,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Night Vigil",
@@ -8327,7 +8931,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8336,7 +8943,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "sanctuary",
@@ -8399,7 +9009,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Sanctuary",
@@ -8460,7 +9073,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8469,7 +9085,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "cantor",
@@ -8531,7 +9150,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "fx": null,
    "names": [
@@ -8552,7 +9174,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "requiem",
@@ -8615,7 +9240,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Hymn of Return",
@@ -8673,7 +9301,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8682,7 +9313,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "judgment",
@@ -8745,7 +9379,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Day of Judgment",
@@ -8803,7 +9440,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8812,7 +9452,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "revelation",
@@ -8875,7 +9518,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Revelation",
@@ -8933,7 +9579,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     }
    },
    "sw": false,
@@ -8942,7 +9591,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "acolyte",
@@ -8981,7 +9633,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "minnow",
@@ -9020,7 +9675,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "reefling",
@@ -9059,7 +9717,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "elver",
@@ -9098,7 +9759,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "squire",
@@ -9137,7 +9801,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "coin",
@@ -9200,7 +9867,10 @@
     "plus": 0,
     "foeExtra": 0,
     "noSelf": false,
-    "reclaim": 0
+    "reclaim": 0,
+    "cull": 0,
+    "teamRace": null,
+    "teamWard": false
    },
    "names": [
     "Lucky Coin",
@@ -9220,7 +9890,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "skeleton",
@@ -9259,7 +9932,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "mirrorimg",
@@ -9298,7 +9974,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "hound",
@@ -9337,7 +10016,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   },
   {
    "id": "spawn",
@@ -9376,7 +10058,10 @@
    "rite": false,
    "ether": false,
    "haunt": false,
-   "uniq": false
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
   }
  ],
  "classes": [
@@ -9461,7 +10146,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     },
     "names": [
      "Armor Up",
@@ -9551,7 +10239,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     },
     "names": [
      "Arcane Spark",
@@ -9643,7 +10334,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     },
     "names": [
      "Muster",
@@ -9733,7 +10427,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     },
     "names": [
      "Piercing Arrow",
@@ -9823,7 +10520,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     },
     "names": [
      "Mending Touch",
@@ -9913,7 +10613,10 @@
      "plus": 0,
      "foeExtra": 0,
      "noSelf": false,
-     "reclaim": 0
+     "reclaim": 0,
+     "cull": 0,
+     "teamRace": null,
+     "teamWard": false
     },
     "names": [
      "Blood Pact",
@@ -11932,7 +12635,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -11993,7 +12699,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12050,7 +12759,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12103,7 +12815,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12159,7 +12874,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12216,7 +12934,10 @@
        "plus": 0,
        "foeExtra": 0,
        "noSelf": false,
-       "reclaim": 0
+       "reclaim": 0,
+       "cull": 0,
+       "teamRace": null,
+       "teamWard": false
       }
      },
      "text": null
@@ -12272,7 +12993,10 @@
        "plus": 0,
        "foeExtra": 0,
        "noSelf": false,
-       "reclaim": 0
+       "reclaim": 0,
+       "cull": 0,
+       "teamRace": null,
+       "teamWard": false
       }
      },
      "text": null
@@ -12324,7 +13048,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12381,7 +13108,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12447,7 +13177,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12500,7 +13233,10 @@
       "plus": 1,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12558,7 +13294,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "pray": null,
      "text": null
@@ -12613,7 +13352,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12670,7 +13412,10 @@
       "plus": 0,
       "foeExtra": 1,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12739,7 +13484,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12805,7 +13553,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12862,7 +13613,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "pray": null,
      "text": null
@@ -12917,7 +13671,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -12977,7 +13734,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13039,7 +13799,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13096,7 +13859,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13153,7 +13919,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13210,7 +13979,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13284,7 +14056,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13350,7 +14125,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13407,7 +14185,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13460,7 +14241,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": false,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -13517,7 +14301,10 @@
       "plus": 0,
       "foeExtra": 0,
       "noSelf": true,
-      "reclaim": 0
+      "reclaim": 0,
+      "cull": 0,
+      "teamRace": null,
+      "teamWard": false
      },
      "bc": null,
      "pray": null,
@@ -14739,7 +15526,10 @@
    "plus": 0,
    "foeExtra": 0,
    "noSelf": false,
-   "reclaim": 0
+   "reclaim": 0,
+   "cull": 0,
+   "teamRace": null,
+   "teamWard": false
   },
   "names": [
    "Fortify",

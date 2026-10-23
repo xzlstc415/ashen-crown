@@ -420,6 +420,7 @@ struct Tx {
     func light(_ n: Int) -> String { pick("Light \(n)/\(DuelState.lightCap)", "圣光 \(n)/\(DuelState.lightCap)", "聖光 \(n)/\(DuelState.lightCap)") }
     var fSoulPay: String { pick("Souls spent", "魂代血", "魂で支払う") }
     var fEther: String { pick("Ethereal", "虚体", "霊体") }
+    var fImmune: String { pick("Spellproof", "法术免疫", "呪文無効") }
     func fRite(_ n: Int) -> String { pick("Sacrificed \(n)", "献祭\(n)张", "生贄\(n)枚") }
     func rites(_ n: Int) -> String { pick("Rites \(n)", "血祭 \(n)", "儀式 \(n)") }
     var riteTitle: String { pick("Blood Rite: choose one of three Legendaries", "血祭：三张传说牌选一张", "血の儀式：伝説カード3枚から1枚を選ぶ") }

@@ -417,4 +417,46 @@ final class EngineTests: XCTestCase {
         let twice = ["goblin", "goblin"]
         for _ in 0..<30 { XCTAssertFalse(Decks.rollRewards(stage: 0, cls: nil, deck: twice).contains("goblin")) }
     }
+
+    func testLegendaries() {
+        let gd = GameData.shared
+        var s = blank()
+        s.p.board = []; s.e.board = []; s.p.hand = []; s.p.hb = []; s.turn = .p
+        // Ignaroth: 10/10, Spellproof, and its On play destroys every minion under 4 Health on both sides.
+        s.summon(.p, "goblin"); s.summon(.e, "goblin"); s.summon(.e, "ogre")
+        let wyrm = s.summon(.p, "leviathan")!; s.applyFx(.p, gd.card("leviathan")!.bc!, nil); s.cleanup()
+        XCTAssertEqual(wyrm.atk, 10); XCTAssertEqual(wyrm.hp, 10); XCTAssertFalse(wyrm.hasGuard)
+        XCTAssertEqual(s.p.board.map(\.key), ["leviathan"]); XCTAssertEqual(s.e.board.map(\.key), ["ogre"], "the ogre has 4+ Health")
+        var bolt = Effect(); bolt.dmg = 4; bolt.tgt = .any
+        s.applyFx(.e, bolt, wyrm.id, isSpell: true); XCTAssertEqual(s.minion(wyrm.id)!.hp, 10, "spells do nothing")
+        s.applyFx(.e, bolt, wyrm.id); XCTAssertEqual(s.minion(wyrm.id)!.hp, 6, "a battlecry still hurts")
+        s.turn = .e; s.attack(s.e.board[0].id, wyrm.id); XCTAssertEqual(s.minion(wyrm.id)!.hp, 6 - gd.card("ogre")!.atk!, "attacks hurt")
+        // Malakar: +3 Attack / -1 Health to Undead only, never below 1; Spell Damage +2.
+        s.p.board = []; s.e.board = []; s.turn = .p
+        s.summon(.p, "goblin"); let gh = s.summon(.p, "ghoul")!
+        if let i = s.p.board.firstIndex(where: { $0.uid == gh.uid }) { s.p.board[i].hp = 1 }
+        let lich = s.summon(.p, "lich")!; s.applyFx(.p, gd.card("lich")!.bc!, nil)
+        XCTAssertEqual(s.minion(gh.id)!.atk, gd.card("ghoul")!.atk! + 3); XCTAssertEqual(s.minion(gh.id)!.hp, 1, "not below 1")
+        XCTAssertEqual(s.p.board[0].atk, gd.card("goblin")!.atk!, "the goblin is not Undead")
+        XCTAssertEqual(s.minion(lich.id)!.atk, 9, "Malakar is Undead himself"); XCTAssertEqual(s.spellBonus(.p), 2)
+        // Thorgrim: 7/10 Guard, +3/+3 and Ward to every friendly minion.
+        s.p.board = []; s.summon(.p, "goblin"); let king = s.summon(.p, "dwarfking")!; s.applyFx(.p, gd.card("dwarfking")!.bc!, nil)
+        XCTAssertEqual(s.minion(king.id)!.atk, 10); XCTAssertEqual(s.minion(king.id)!.hp, 13); XCTAssertTrue(s.p.board.allSatisfy(\.ward))
+        XCTAssertEqual(s.p.board[0].atk, gd.card("goblin")!.atk! + 3)
+        // Sylvara: three attacks a turn, no damage striking back, no draw.
+        s.p.board = []; s.e.board = []; s.p.deck = ["goblin", "goblin"]; s.p.hand = []; s.p.hb = []
+        let queen = s.summon(.p, "elfqueen")!; s.applyFx(.p, gd.card("elfqueen")!.bc!, nil)
+        XCTAssertEqual(s.p.hand.count, 0, "no draw")
+        s.summon(.e, "ogre"); s.summon(.e, "ogre"); s.summon(.e, "ogre")
+        if let i = s.p.board.firstIndex(where: { $0.uid == queen.uid }) { s.p.board[i].sleep = false; s.p.board[i].ward = false }
+        for n in 0..<3 {
+            XCTAssertTrue(s.canAttack(s.minion(queen.id)!), "attack \(n + 1)")
+            s.attack(queen.id, s.e.board[n].id)
+        }
+        XCTAssertFalse(s.canAttack(s.minion(queen.id)!), "three are spent")
+        XCTAssertEqual(s.minion(queen.id)!.hp, gd.card("elfqueen")!.hp!, "the ogres never struck back")
+        XCTAssertTrue(s.e.board.allSatisfy { $0.hp == gd.card("ogre")!.hp! - 5 })
+        s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p)
+        XCTAssertTrue(s.canAttack(s.minion(queen.id)!), "fresh each turn")
+    }
 }
