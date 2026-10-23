@@ -542,7 +542,7 @@ const I18N={
     rPrayer:'<b>Priest · Prayers:</b> a Prayer goes on your altar (2 slots) and resolves after N of your turns.',
     rules:['You gain one more <b>mana</b> each turn, up to 10. Spend it on minions and spells.',
       'A <b>Mage</b> keeps unspent mana as up to 3 <b>spell mana</b>, which only spells can use. Other classes lose it.',
-      'Each class banks its own resource: a <b>Warrior</b> gains <b>Rage</b> from the hero power and hero damage (4 burst into +2 Attack for the board); a <b>Warlock</b> gains <b>Souls</b> from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a <b>Priest</b> turns healing past full into <b>Light</b> (2 Light take a turn off a Prayer); a <b>Hunter</b> gains <b>Ferocity</b> each turn for the Beasts in hand (the hero power spends 2 for +1 damage, a Beast played with 3 Charges); a <b>Paladin</b> earns <b>Prestige</b> at the end of each turn, 1 per buffed minion (up to 2), and 1 from each Oath; with 3 banked, the hero power spends them on a 2/2 Guard recruit.',
+      'Each class banks <b>Energy</b>, gained and spent its own way: a <b>Warrior</b> gains it from the hero power and hero damage (4 burst into +2 Attack for the board); a <b>Warlock</b> from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a <b>Priest</b> from healing past full (2 take a turn off a Prayer); a <b>Hunter</b> gains none unless a talent says so: Tamer banks it from Beasts played, Quiver from Hunter attack spells (the hero power spends 2 for +1 damage, a Beast played with 3 Charges); a <b>Paladin</b> earns it at the end of each turn, 1 per buffed minion (up to 2), and 1 from each Oath; with 3 banked, the hero power spends them on a 2/2 Guard recruit.',
       'Tap a glowing minion, then tap an enemy to <b>attack</b>. New minions wait a turn unless they have <b>Charge</b>.',
       'Enemies must hit <b>Guard</b> minions first. <b>Ward</b> blocks the next damage taken.',
       'Choose one of six <b>classes</b>. Each has its own <b>hero power</b>, usable once per turn, and its own starting deck.',
@@ -588,7 +588,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x} uses ${p} on ${t}.`:`${x} uses ${p}.`,
     rotate:'Turn your phone upright to play.',lpHint:'On a phone, long-press any card to see it full size.',
     played:x=>`${x} played`,target:t=>`Target: ${t}`,history:'Recent plays',tapClose:'Tap anywhere to close',
-    fWard:'Ward',growKw:'Grows with spells',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fSoulPay:'Souls spent',fFero:'Ferocity!',fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
+    fWard:'Ward',growKw:'Grows with spells',tapPlay:'Tap the card again to play it.',tapPreview:'Tap a card in your hand to see it.',fFreeze:'Frozen',fSilence:'Silenced',fDestroy:'Destroyed',spKw:n=>`Spell +${n}`,smAria:n=>`${n} spell mana`,fSoulPay:'Energy spent',fFero:'Energy!',fArmor:n=>`-${n} armor`,fArmorUp:'+2 armor',armorN:n=>`+${n} armor`,fAtk:n=>`+${n} Atk`,fHp:n=>`+${n} HP`,
     fx:{dmg:(n,m)=>m?`Deal ${n} damage to a minion.`:`Deal ${n} damage.`,aoe:n=>`Deal ${n} damage to all enemy minions.`,aoeAll:n=>`Deal ${n} damage to all enemies.`,mana:n=>`Gain ${n} mana this turn only.`,face:n=>`Deal ${n} damage to the enemy hero.`,healT:n=>`Restore ${n} Health to a friendly character.`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
@@ -613,7 +613,7 @@ const I18N={
     rPrayer:'<b>牧师·祷文：</b>祷文打出后放上祭坛（两个位置），在你的N个回合后应验。',
     rules:['每回合你的<b>法力值</b>上限加1，最多10点。用它打出随从和法术。',
       '<b>法师</b>没用完的法力会存为最多3点<b>法术法力</b>，只能用来施放法术；其他职业不会积累。',
-      '每个职业都有自己的资源：<b>战士</b>使用技能和英雄受伤获得<b>怒气</b>（攒到4点，回合开始爆发：全体随从本回合+2攻击）；<b>术士</b>友方随从死亡获得<b>魂</b>（鲜血契约可用2魂代替自伤，回合结束时5魂召唤骷髅战士）；<b>牧师</b>溢出的治疗化为<b>圣光</b>（祷文上祭坛时每2光倒计时-1）；<b>猎人</b>每回合开始按手牌中的野兽数获得<b>兽性</b>（穿刺之箭每2点多1伤害，有3点时打出的野兽获得冲锋）；<b>圣骑士</b>每回合结束时，场上每有一个获得增益的随从就得1点<b>威望</b>（每回合最多2点），每张誓言也给1点；攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。',
+      '每个职业都会积累<b>能量</b>，但获得和使用方式各不相同：<b>战士</b>使用技能和英雄受伤获得（攒到4点，回合开始爆发：全体随从本回合+2攻击）；<b>术士</b>友方随从死亡获得（鲜血契约可用2点代替自伤，回合结束时5点召唤骷髅战士）；<b>牧师</b>溢出的治疗化为能量（祷文上祭坛时每2点倒计时-1）；<b>猎人</b>默认不积累，野兽天赋「驯兽」靠打出野兽牌、射击天赋「箭袋」靠猎人攻击法术积累（穿刺之箭每2点多1伤害，有3点时打出的野兽获得冲锋）；<b>圣骑士</b>每回合结束时，场上每有一个获得增益的随从就得1点（每回合最多2点），每张誓言也给1点；攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。',
       '点击带绿框的随从，再点击敌人即可<b>攻击</b>。新随从要等一回合才能攻击，除非它有<b>冲锋</b>。',
       '敌人必须先攻击有<b>守护</b>的随从。<b>护盾</b>可以抵挡下一次伤害。',
       '从六个<b>职业</b>中选择一个。每个职业都有专属的<b>英雄技能</b>（每回合可用一次）和初始牌组。',
@@ -659,7 +659,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}对${t}使用了${p}。`:`${x}使用了${p}。`,
     rotate:'请把手机竖过来玩。',lpHint:'在手机上，长按任意卡牌可以放大查看。',
     played:x=>`${x}打出`,target:t=>`目标：${t}`,history:'最近出牌',tapClose:'点击任意位置关闭',
-    fWard:'护盾',growKw:'施法成长',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fSoulPay:'魂代血',fFero:'兽性！',fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
+    fWard:'护盾',growKw:'施法成长',tapPlay:'再点一次这张牌即可打出。',tapPreview:'点一张手牌查看。',fFreeze:'冻结',fSilence:'沉默',fDestroy:'消灭',spKw:n=>`法伤+${n}`,smAria:n=>`法术法力 ${n}`,fSoulPay:'能量代血',fFero:'能量！',fArmor:n=>`-${n}护甲`,fArmorUp:'+2护甲',armorN:n=>`+${n}护甲`,fAtk:n=>`+${n}攻击`,fHp:n=>`+${n}生命`,
     fx:{dmg:(n,m)=>m?`对一个随从造成${n}点伤害。`:`造成${n}点伤害。`,aoe:n=>`对所有敌方随从造成${n}点伤害。`,aoeAll:n=>`对所有敌人造成${n}点伤害。`,mana:n=>`仅在本回合获得${n}点法力值。`,face:n=>`对敌方英雄造成${n}点伤害。`,healT:n=>`为一个友方角色恢复${n}点生命值。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
@@ -684,7 +684,7 @@ const I18N={
     rPrayer:'<b>司祭・祈祷：</b>祈祷は祭壇（2枠）に置かれ、自分のNターン後に成就する。',
     rules:['毎ターン<b>マナ</b>の上限が1増える（最大10）。ミニオンと呪文に使おう。',
       '<b>魔法使い</b>は使い切らなかったマナを最大3まで<b>呪文マナ</b>として貯め、呪文にだけ使える。他のクラスは貯まらない。',
-      'クラスごとに固有の資源がある。<b>戦士</b>はヒーローパワー使用と被ダメージで<b>怒気</b>（4で解放、味方全体がこのターン攻撃+2）。<b>ウォーロック</b>は味方の死亡で<b>魂</b>（血の契約は魂2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。<b>司祭</b>は余った回復が<b>聖光</b>になる（祈りを祭壇に置くとき聖光2で待ち時間-1）。<b>狩人</b>は手札の獣の数だけ毎ターン<b>野性</b>を得る（ヒーローパワーは2で+1ダメージ、3あれば出した獣が突撃）。<b>聖騎士</b>はターン終了時、強化された味方ミニオン1体につき<b>威信</b>を1得る（1ターン最大2）。誓いでも1得る。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。',
+      'どのクラスも<b>エネルギー</b>を蓄えるが、得かたと使いかたはそれぞれ違う。<b>戦士</b>はヒーローパワー使用と被ダメージで得る（4で解放、味方全体がこのターン攻撃+2）。<b>ウォーロック</b>は味方の死亡で得る（血の契約は2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。<b>司祭</b>は余った回復で得る（祈りを祭壇に置くとき2ごとに待ち時間-1）。<b>狩人</b>は通常は得られず、獣タレント「調教」は獣カードを出すと、射撃タレント「矢筒」は狩人の攻撃呪文で得る（ヒーローパワーは2で+1ダメージ、3あれば出した獣が突撃）。<b>聖騎士</b>はターン終了時、強化された味方ミニオン1体につき1得る（1ターン最大2）。誓いでも1得る。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。',
       '光っているミニオンをタップし、敵をタップして<b>攻撃</b>。出したばかりのミニオンは<b>突撃</b>がない限り次のターンまで攻撃できない。',
       '敵は先に<b>ガード</b>を持つミニオンを攻撃しなければならない。<b>結界</b>は次に受けるダメージを1回防ぐ。',
       '6つの<b>クラス</b>から1つを選ぼう。クラスごとに専用の<b>ヒーローパワー</b>（1ターンに1回）と初期デッキがある。',
@@ -730,7 +730,7 @@ const I18N={
     ePower:(x,p,t)=>t?`${x}が${t}に${p}を使った。`:`${x}が${p}を使った。`,
     rotate:'スマホを縦向きにしてプレイしてください。',lpHint:'スマホでは、カードを長押しすると拡大表示できる。',
     played:x=>`${x}がプレイ`,target:t=>`対象：${t}`,history:'最近のプレイ',tapClose:'タップで閉じる',
-    fWard:'結界',growKw:'呪文で成長',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fSoulPay:'魂で支払う',fFero:'野性！',fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
+    fWard:'結界',growKw:'呪文で成長',tapPlay:'もう一度タップで使用します。',tapPreview:'手札のカードをタップして確認。',fFreeze:'凍結',fSilence:'沈黙',fDestroy:'破壊',spKw:n=>`呪文+${n}`,smAria:n=>`呪文マナ ${n}`,fSoulPay:'エネルギーで支払う',fFero:'エネルギー！',fArmor:n=>`装甲-${n}`,fArmorUp:'装甲+2',armorN:n=>`装甲+${n}`,fAtk:n=>`攻撃+${n}`,fHp:n=>`体力+${n}`,
     fx:{dmg:(n,m)=>m?`ミニオン1体に${n}ダメージを与える。`:`${n}ダメージを与える。`,aoe:n=>`敵のミニオン全てに${n}ダメージを与える。`,aoeAll:n=>`敵全体に${n}ダメージを与える。`,mana:n=>`このターンのみ、マナを${n}獲得する。`,face:n=>`敵のヒーローに${n}ダメージを与える。`,healT:n=>`味方のキャラクター1体の体力を${n}回復する。`,
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
@@ -1030,9 +1030,9 @@ const CARDS={
   boar:{beta:1,cls:'hunter',c:1,t:'m',a:2,h:1,r:'c',race:'beast',n:['Thornback Boar','荆棘野猪','茨の猪'],f:['Small, fast, and all tusk.','又小又快，浑身是獠牙。','小さく速く、牙だらけ。']},
   panther:{beta:1,cls:'hunter',c:3,t:'m',a:4,h:2,r:'r',race:'beast',surge:1,n:['Mistwood Panther','雾林猎豹','霧林の豹'],f:['You hear it after it lands.','落地之后你才听见它。','着地してから音が聞こえる。']},
   elk:{beta:1,cls:'hunter',c:4,t:'m',a:3,h:5,r:'c',race:'beast',guard:1,n:['Greathorn Elk','巨角麋鹿','大角の鹿'],f:['The forest parts for it.','森林为它让路。','森がそれに道を譲る。']},
-  oathshelter:{beta:1,c:2,t:'s',r:'c',cls:'paladin',fx:{armor:5,team:[0,1],prestige:1},x:['Gain 5 Armor and give your minions +1 Health. Gain 1 Prestige.','获得5点护甲，你的所有随从+1生命值。获得1点威望。','装甲を5獲得し、味方のミニオン全体に体力+1。威信を1得る。'],n:['Oath of Shelter','守护誓言','守護の誓い'],f:['No wall but us.','除了我们，没有城墙。','我らの他に壁はない。']},
-  oathmuster:{beta:1,c:2,t:'s',r:'c',cls:'paladin',fx:{summon:['minnow','minnow','minnow'],prestige:1},x:['Summon three 1/1 Militia. Gain 1 Prestige.','召唤三个1/1的民兵。获得1点威望。','1/1の民兵を3体召喚する。威信を1得る。'],n:['Oath of Muster','集结誓言','召集の誓い'],f:['Word travels. So do farmers.','消息传开了，农夫们也动身了。','噂は広まる。農夫も集まる。']},
-  oathcrusade:{beta:1,c:3,t:'s',r:'r',cls:'paladin',fx:{team:[1,1],prestige:1},x:['Give your minions +1/+1. Gain 1 Prestige.','你的所有随从+1/+1。获得1点威望。','味方のミニオン全体に+1/+1。威信を1得る。'],n:['Oath of Crusade','圣战誓言','聖戦の誓い'],f:['Sworn at dusk. Kept at dawn.','黄昏立誓，黎明践行。','夕暮れに誓い、夜明けに果たす。']},
+  oathshelter:{beta:1,c:2,t:'s',r:'c',cls:'paladin',fx:{armor:5,team:[0,1],prestige:1},x:['Gain 5 Armor and give your minions +1 Health. Gain 1 Energy.','获得5点护甲，你的所有随从+1生命值。获得1点能量。','装甲を5獲得し、味方のミニオン全体に体力+1。エネルギーを1得る。'],n:['Oath of Shelter','守护誓言','守護の誓い'],f:['No wall but us.','除了我们，没有城墙。','我らの他に壁はない。']},
+  oathmuster:{beta:1,c:2,t:'s',r:'c',cls:'paladin',fx:{summon:['minnow','minnow','minnow'],prestige:1},x:['Summon three 1/1 Militia. Gain 1 Energy.','召唤三个1/1的民兵。获得1点能量。','1/1の民兵を3体召喚する。エネルギーを1得る。'],n:['Oath of Muster','集结誓言','召集の誓い'],f:['Word travels. So do farmers.','消息传开了，农夫们也动身了。','噂は広まる。農夫も集まる。']},
+  oathcrusade:{beta:1,c:3,t:'s',r:'r',cls:'paladin',fx:{team:[1,1],prestige:1},x:['Give your minions +1/+1. Gain 1 Energy.','你的所有随从+1/+1。获得1点能量。','味方のミニオン全体に+1/+1。エネルギーを1得る。'],n:['Oath of Crusade','圣战誓言','聖戦の誓い'],f:['Sworn at dusk. Kept at dawn.','黄昏立誓，黎明践行。','夕暮れに誓い、夜明けに果たす。']},
   matins:{beta:1,c:1,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:2,fx:{heal:8,draw:1}},n:['Dawn Prayer','晨祷','暁の祈り'],f:['Said before sunrise, answered after.','日出前念诵，日出后应验。','日の出前に唱え、日の出後に叶う。']},
   vigil:{beta:1,c:2,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:1,fx:{summon:['acolyte','acolyte']}},n:['Night Vigil','守夜祷文','夜の祈り'],f:['Two candles, two watchers.','两盏烛火，两位守夜人。','二つの蝋燭、二人の見張り。']},
   sanctuary:{beta:1,c:2,t:'s',r:'c',cls:'priest',fx:{},pray:{cd:2,fx:{team:[1,2]}},n:['Sanctuary','圣所庇佑','聖域の加護'],f:['The walls are thin. The faith is not.','墙很薄，信仰不薄。','壁は薄い。信仰は薄くない。']},
@@ -1236,7 +1236,7 @@ const TALENTS=BETA?{
       [TN('sh_death',['Oblivion','寂灭','寂滅'],['Word of Death costs 1 less.','死亡之言的费用-1。','死の言葉のコスト-1。']),
        TN('sh_echo',['Echo of Pain','痛苦回响','苦痛の残響'],['Whenever your Word spell destroys a minion, deal 2 damage to the enemy hero.','你的真言每消灭一个随从，对敌方英雄造成2点伤害。','自分の「言葉」の呪文がミニオンを破壊するたび、敵ヒーローに2ダメージ。']),
        TN('sh_void',['Void','虚空','虚無'],['Your Silence effects also deal 2 damage to the target.','你的沉默效果同时对目标造成2点伤害。','自分の沈黙効果が対象に2ダメージも与える。'])],
-      [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion. Light now comes from the damage your spells and hero power deal, not from overhealing.','英雄技能改为「对一个随从造成2点伤害」。圣光改为由你的法术和英雄技能造成的伤害积累，不再来自溢出的治疗。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。聖光は回復の溢れではなく、呪文とヒーローパワーで与えたダメージから得る。']),
+      [TN('sh_touch',['Shadow Touch','暗影之触','影の手'],['Your hero power becomes: deal 2 damage to a minion. Energy now comes from the damage your spells and hero power deal, not from overhealing.','英雄技能改为「对一个随从造成2点伤害」。能量改为由你的法术和英雄技能造成的伤害积累，不再来自溢出的治疗。','ヒーローパワーが「ミニオン1体に2ダメージ」になる。エネルギーは回復の溢れではなく、呪文とヒーローパワーで与えたダメージから得る。']),
        TN('sh_drain',['Drain','汲取','吸収'],['Whenever your spell kills an enemy minion, restore 2 Health to your hero.','你的法术每消灭一个敌方随从，为你的英雄恢复2点生命值。','自分の呪文が敵のミニオンを倒すたび、ヒーローの体力を2回復する。'])],
       [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand and draw a card.','你的真言消灭随从后，将它的一张复制置入你的手牌，并抽一张牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加え、カードを1枚引く。'])]]}],
   warrior:[
@@ -1259,7 +1259,7 @@ const TALENTS=BETA?{
        TN('wa_frenzy',['Frenzy','狂乱','狂乱'],['Bloodlust also lets the minion attack this turn.','嗜血的目标同时获得冲锋。','血の渇きの対象はこのターン攻撃できる。'])],
       [TN('wa_roar',['War Cry','怒吼','雄叫び'],['Your hero power becomes: give a friendly minion +2 Attack this turn.','英雄技能改为「本回合一个友方随从+2攻击力」。','ヒーローパワーが「味方のミニオン1体にこのターン攻撃力+2」になる。']),
        TN('wa_bloodied',['Blood Fight','血战','血戦'],['The first time each of your minions is damaged, it gains +1 Attack.','你的随从第一次受伤后+1攻击力。','自分のミニオンは初めてダメージを受けた後、攻撃力+1。'])],
-      [TN('wa_fury',['Seething','怒气爆发','怒気解放'],['Rage bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.','怒气爆发只需3点，并且爆发时英雄获得3点护甲。','怒気は4ではなく3で解放され、解放時にヒーローが装甲3を得る。'])]]}],
+      [TN('wa_fury',['Seething','爆发','解放'],['Energy bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.','能量爆发只需3点，并且爆发时英雄获得3点护甲。','エネルギーは4ではなく3で解放され、解放時にヒーローが装甲3を得る。'])]]}],
   paladin:[
     {id:'legion',sc:'legion',col:'#e8c35a',n:['Legion','军团','軍団'],tiers:[
       [TN('pa_drill',['Militia Drill','民兵训练','民兵の訓練'],['Your Militia Recruits are 1/2.','你的民兵改为1/2。','自分の民兵は1/2になる。']),
@@ -1270,7 +1270,7 @@ const TALENTS=BETA?{
        TN('pa_array',['Formation','列阵','布陣'],['With 5 minions, your hero power costs 1 less.','你控制5个随从时，英雄技能费用-1。','ミニオンが5体いる時、ヒーローパワーのコスト-1。'])],
       [TN('pa_double',['Double Muster','双重征召','二重召集'],['Muster summons two Recruits and costs 3.','征召改为召唤两个民兵，费用变为3。','召集が民兵2体になり、コストは3になる。']),
        TN('pa_banner',['War Banner','战旗','軍旗'],['Whenever you summon a token, your leftmost minion gets +1 Attack.','每当你召唤一个衍生物，你最左边的随从+1攻击力。','トークンを召喚するたび、一番左のミニオンの攻撃力+1。'])],
-      [TN('pa_coop',['Unity','协作','連携'],['Whenever you spend Prestige, your minions get +1 Attack.','每当你消耗威望，你的所有随从+1攻击力。','威信を消費するたび、味方のミニオン全体の攻撃力+1。'])]]},
+      [TN('pa_coop',['Unity','协作','連携'],['Whenever you spend Energy, your minions get +1 Attack.','每当你消耗能量，你的所有随从+1攻击力。','エネルギーを消費するたび、味方のミニオン全体の攻撃力+1。'])]]},
     {id:'aegis',sc:'aegis',col:'#ffe9a0',n:['Aegis','圣盾','聖盾'],tiers:[
       [TN('pa_first',['Opening Blessing','开场祝福','開幕の祝福'],['The first minion you summon each game gets Ward.','每局你召唤的第一个随从获得护盾。','各ゲーム最初に召喚したミニオンが結界を得る。']),
        TN('pa_bless',['Sheltering','护佑','加護'],['Sacred Aegis also gives +0/+2.','圣盾术的目标额外+0/+2。','聖なる盾の対象に+0/+2。']),
@@ -1284,7 +1284,7 @@ const TALENTS=BETA?{
   hunter:[
     {id:'beast',sc:'beast',col:'#6aa57e',n:['Beasts','野兽','獣'],tiers:[
       [TN('hu_pack',['Pack Leader','狼群','群れの長'],['Dire Wolf has +1/+1.','恐狼+1/+1。','ダイアウルフに+1/+1。']),
-       TN('hu_tame',['Tamer','驯兽','調教'],['Your Wolves have +1/+1.','你的狼+1/+1。','自分の狼に+1/+1。']),
+       TN('hu_tame',['Tamer','驯兽','調教'],['Each Beast card you play gives 1 Energy.','每打出一张野兽牌，获得1点能量。','獣カードを出すたびにエネルギー+1。']),
        TN('hu_pounce',['Big Pounce','猛扑','猛襲'],['Pounce gives +3 Attack.','猛扑改为+3攻击力。','飛びかかりが攻撃力+3になる。'])],
       [TN('hu_kill',['Thrill','兴奋','高揚'],['Kill Command deals 2 more damage.','猎杀令伤害+2。','キルコマンドのダメージ+2。']),
        TN('hu_hound',['Vicious Hounds','恶犬','猛犬'],['Your Hounds have +1 Attack.','你的猎犬+1攻击力。','自分の猟犬の攻撃力+1。']),
@@ -1295,7 +1295,7 @@ const TALENTS=BETA?{
     {id:'shot',sc:'shot',col:'#d9b45a',n:['Marksman','射击','射撃'],tiers:[
       [TN('hu_precise',['Precision','精准','精密'],['Arcane Shot deals 1 extra damage.','奥术射击伤害+1。','アーケインショットのダメージ+1。']),
        TN('hu_eagle',['Eagle Eye','鹰眼','鷹の目'],["Hunter's Mark costs 0.",'猎手印记的费用变为0。','狩人の印のコストが0になる。']),
-       TN('hu_quiver',['Quiver','箭袋','矢筒'],['Start with an extra Arcane Shot in hand.','起手额外获得一张奥术射击。','開始時、手札にアーケインショットが1枚増える。'])],
+       TN('hu_quiver',['Quiver','箭袋','矢筒'],['Each Hunter attack spell you cast gives 1 Energy.','每施放一张猎人攻击法术，获得1点能量。','狩人の攻撃呪文を使うたびにエネルギー+1。'])],
       [TN('hu_deadly',['Deadly Aim','致命','致命'],['Deadly Shot costs 1 less.','致命射击的费用-1。','必殺の射撃のコスト-1。']),
        TN('hu_griffon',['Griffon Wings','狮鹫之翼','グリフォンの翼'],['Griffon Rider has +1 Attack.','狮鹫骑士+1攻击力。','グリフォンライダーの攻撃力+1。']),
        TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 2 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+2。','自分の呪文が敵ヒーローに与えるダメージ+2。'])],
@@ -1312,7 +1312,7 @@ const TALENTS=BETA?{
        TN('wl_coil',['Tight Coil','缠绕','締めつけ'],['Mortal Coil deals 1 extra damage.','死亡缠绕伤害+1。','デスコイルのダメージ+1。'])],
       [TN('wl_tide',['Corpse Tide','尸潮','屍の潮'],['The first time a friendly minion dies each turn, summon a 1/1 Skeleton.','每回合第一个友方随从死亡时，召唤一个1/1骷髅兵。','毎ターン最初に味方のミニオンが死んだ時、1/1のスケルトンを召喚する。']),
        TN('wl_harvest',['Soul Harvest','灵魂收割','魂の収穫'],['The second friendly minion to die in a turn draws you a card.','一回合内死亡的第二个友方随从，让你抽一张牌。','1ターンに2体目の味方のミニオンが死んだ時、カードを1枚引く。'])],
-      [TN('wl_soul',['Bone Lord','骸骨之主','骸骨の主'],['The Bone Warrior your Souls summon is 3/3 and has Charge.','魂召唤的骷髅战士改为3/3并具有冲锋。','魂で召喚する骸骨戦士は3/3になり、突撃を持つ。'])]]},
+      [TN('wl_soul',['Bone Lord','骸骨之主','骸骨の主'],['The Bone Warrior your Energy summons is 3/3 and has Charge.','能量召唤的骷髅战士改为3/3并具有冲锋。','エネルギーで召喚する骸骨戦士は3/3になり、突撃を持つ。'])]]},
     {id:'blood',sc:'blood',col:'#c0405a',n:['Blood','鲜血','血'],tiers:[
       [TN('wl_pact',['Blood Pact','血契','血の盟約'],['Dark Pact draws 3 cards.','黑暗契约改为抽3张。','闇の契約で3枚引く。']),
        TN('wl_soulfire',['Soul Flame','灵魂火焰','魂の炎'],['Soulfire deals 1 extra damage.','灵魂之火伤害+1。','ソウルファイアのダメージ+1。']),
@@ -1422,7 +1422,6 @@ function talOpen(side){const s=S[side];if(!s.tal||!s.tal.size)return;
   if(tal(s,'fi_bank'))s.sm=1;
   if(tal(s,'wa_tough'))s.armor+=7;
   if(tal(s,'wa_reckless'))draw(side,1);
-  if(tal(s,'hu_quiver')&&s.hand.length<10&&CARDS.spray)s.hand.push('spray');
 }
 // Self-damage triggers (Agony, Blood Mana) and deaths (Corpse Tide, Soul Harvest, Souls).
 function selfHurt(side){const s=S[side];if(!s.tf)return;
@@ -1445,7 +1444,6 @@ function talStat(H,key,c){let a=0,h=0;
   if(key==='berserker'&&H('wa_berserk'))a++;
   if(key==='minnow'&&H('pa_drill'))h++;
   if(key==='direwolf'&&H('hu_pack')){a++;h++}
-  if(key==='elver'&&H('hu_tame')){a++;h++}
   if((key==='hound'||key==='whound'||key==='phound')&&H('hu_hound'))a++;
   if(key==='gull'&&H('hu_griffon'))a++;
   if(key==='sailor'&&H('wl_bone')){a++;h++}
@@ -1474,7 +1472,7 @@ const smCap=s=>s.cls==='mage'?(tal(s,'fi_bank')?5:3):0;
 // a turn (3 with Seething) burst into +2 Attack for the board. Warlock: Souls from friendly deaths
 // (cap 7); Blood Pact spends 2 instead of hurting, 5 at the end of a turn become a Bone Warrior. Priest:
 // healing past full becomes Light (cap 5); 2 Light take a turn off a Prayer as it goes on the altar.
-// Hunter: Ferocity at the start of a turn, one per Beast in hand (cap 5); the hero power spends 2 for +1
+// Hunter: Energy only from talents (Tamer: Beast cards played; Quiver: Hunter attack spells; cap 5); the hero power spends 2 for +1
 // damage (up to +2), and a Beast played with 3 banked spends 3 to Charge. Paladin: Oaths are Prayers.
 const RAGE_CAP=5,RAGE_NEED=4,SOUL_CAP=7,LIGHT_CAP=5,FERO_CAP=5,PRES_CAP=5,PRES_NEED=3;
 const resCls=(s,c)=>!!s&&s.cls===c;
@@ -1506,7 +1504,10 @@ const SML=()=>['Spell','法术','呪文'][li()];
 const SMH=()=>['Spell mana (Mage): mana you leave unspent is banked for spells only (up to 3). Spells use it first.','法术法力（法师专属）：回合结束时没用完的法力会存下来，只能用于法术（最多3点），施法时优先消耗。','呪文マナ（魔法使い）：使い残したマナは呪文専用に貯まる（最大3）。呪文はこちらから先に使う。'][li()];
 // Spell Surge boosts per card in hand; kept in step with the hand.
 function hbOf(s){if(!s.hb)s.hb=[];while(s.hb.length<s.hand.length)s.hb.push(0);if(s.hb.length>s.hand.length)s.hb.length=s.hand.length;return s.hb}
-function takeHand(side,i){const s=S[side];hbOf(s);s.castHb=s.hb[i]||0;s.hb.splice(i,1);if(s.tf)s.tf.played=(s.tf.played||0)+1;const k=s.hand.splice(i,1)[0];if(s.free&&s.free[k])s.free[k]--;return k}
+function takeHand(side,i){const s=S[side];hbOf(s);s.castHb=s.hb[i]||0;s.hb.splice(i,1);if(s.tf)s.tf.played=(s.tf.played||0)+1;const k=s.hand.splice(i,1)[0];if(s.free&&s.free[k])s.free[k]--;
+  // Hunter Energy comes only from talents: Tamer for each Beast card played, Quiver for each Hunter attack spell.
+  const c=CARDS[k];if(resCls(s,'hunter')&&c&&!c.token&&((tal(s,'hu_tame')&&c.race==='beast')||(tal(s,'hu_quiver')&&c.t==='s'&&c.cls==='hunter'&&c.fx&&c.fx.dmg>0))){s.fero=Math.min(FERO_CAP,(s.fero||0)+1);float(s,'✦+1','#9ad48a')}
+  return k}
 function afterPower(side){const s=S[side];addRage(s,1);if(tal(s,'fr_armor')){s.armor+=2;float(s,T('armorN',2),'#cfd8dc')}}
 // Freezing (Permafrost keeps it a turn longer; Ice Ward gives Armor once a turn).
 function freezeM(side,m){
@@ -1526,8 +1527,8 @@ const TX={
   fight:()=>['To battle','开始战斗','戦いへ'][li()],
   yours:()=>['Your talents','你的天赋','自分のタレント'][li()],foes:()=>['Enemy talents','敌方天赋','敵のタレント'][li()],
   close:()=>['Close','关闭','閉じる'][li()],
-  rageGo:()=>['Rage!','怒气爆发！','怒気解放！'][li()],rage:(n)=>[`Rage ${n}/${RAGE_CAP}`,`怒气 ${n}/${RAGE_CAP}`,`怒気 ${n}/${RAGE_CAP}`][li()],
-  rites:(n)=>[`Rites ${n}`,`血祭 ${n}`,`儀式 ${n}`][li()],pres:(n)=>[`Prestige ${n}/${PRES_CAP}`,`威望 ${n}/${PRES_CAP}`,`威信 ${n}/${PRES_CAP}`][li()],presUp:(n)=>[`+${n} Prestige`,`威望+${n}`,`威信+${n}`][li()],presGo:()=>['Elite recruit!','精兵！','精鋭！'][li()],soul:(n)=>[`Souls ${n}/${SOUL_CAP}`,`魂 ${n}/${SOUL_CAP}`,`魂 ${n}/${SOUL_CAP}`][li()],light:(n)=>[`Light ${n}/${LIGHT_CAP}`,`圣光 ${n}/${LIGHT_CAP}`,`聖光 ${n}/${LIGHT_CAP}`][li()],fero:(n)=>[`Ferocity ${n}/${FERO_CAP}`,`兽性 ${n}/${FERO_CAP}`,`野性 ${n}/${FERO_CAP}`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/12`,`协作 ${n}/12`,`連携 ${n}/12`][li()],
+  rageGo:()=>['Burst!','爆发！','解放！'][li()],rage:(n)=>[`Energy ${n}/${RAGE_CAP}`,`能量 ${n}/${RAGE_CAP}`,`エネルギー ${n}/${RAGE_CAP}`][li()],
+  rites:(n)=>[`Rites ${n}`,`血祭 ${n}`,`儀式 ${n}`][li()],pres:(n)=>[`Energy ${n}/${PRES_CAP}`,`能量 ${n}/${PRES_CAP}`,`エネルギー ${n}/${PRES_CAP}`][li()],presUp:(n)=>[`+${n} Energy`,`能量+${n}`,`エネルギー+${n}`][li()],presGo:()=>['Elite recruit!','精兵！','精鋭！'][li()],soul:(n)=>[`Energy ${n}/${SOUL_CAP}`,`能量 ${n}/${SOUL_CAP}`,`エネルギー ${n}/${SOUL_CAP}`][li()],light:(n)=>[`Energy ${n}/${LIGHT_CAP}`,`能量 ${n}/${LIGHT_CAP}`,`エネルギー ${n}/${LIGHT_CAP}`][li()],fero:(n)=>[`Energy ${n}/${FERO_CAP}`,`能量 ${n}/${FERO_CAP}`,`エネルギー ${n}/${FERO_CAP}`][li()],coop:(b,n)=>b?['Unity +1','协作 +1','連携 +1'][li()]:[`Unity ${n}/12`,`协作 ${n}/12`,`連携 ${n}/12`][li()],
   teaches:()=>['Works with:','配合天赋：','相性の良いタレント：'][li()],takePack:n=>[`Take the ${n} pack`,`选择${n}牌包`,`${n}パックを取る`][li()],
   packText:(n,o)=>[`Choose a pack for your deck (${n} cards). Next: ${o}.`,`选一个牌包加入牌组（现在${n}张）。下一关：${o}。`,`デッキに加えるパックを選ぶ（現在${n}枚）。次：${o}。`][li()],
   rule:()=>['<b>Talents (beta):</b> Mage and Priest have two talent pages each. Four tiers; in each you pick one talent from either page, and a pick opens the tier below. Set the 4 points in the deck builder; in Adventure you earn one every two duels.','<b>天赋（测试）：</b>法师和牧师各有两页天赋，共四层。每层在两页中任选一个，选了才解锁下一层，一共 4 点。在组牌界面分配；冒险模式中每两关得一点。','<b>タレント（テスト）：</b>魔法使いと司祭はタレントページが2つずつ、4段。各段でどちらかのページから1つ選ぶと次の段が開く。合計4ポイント。デッキ編集で振り、冒険では2戦ごとに1ポイント。'][li()],
@@ -1852,7 +1853,7 @@ function startQuick(diff){
 }
 function goClass(){view='class';render();scrollTo(0,0)}
 // Adventure: the chosen hero before the run starts (resource and hero power).
-const RESX={"warrior": [["Rage", "怒气", "怒気"], ["Using the hero power or taking hero damage gives 1 Rage (up to 5). At the start of your turn, 4 Rage burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点怒气（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれ怒気+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。"]], "mage": [["Spell mana", "法术法力", "呪文マナ"], ["Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。"]], "paladin": [["Prestige", "威望", "威信"], ["At the end of your turn, each buffed minion gives 1 Prestige (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点威望（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につき威信+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。"]], "hunter": [["Ferocity", "兽性", "野性"], ["At the start of your turn, each Beast in your hand gives 1 Ferocity (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "回合开始时，手牌中每有一张野兽得1点兽性（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "ターン開始時、手札の獣1枚につき野性+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。"]], "priest": [["Light", "圣光", "聖光"], ["Healing past full becomes Light (up to 5); with the Shadow Touch talent, the damage your spells and hero power deal does instead. When a Prayer goes on the altar, every 2 Light take a turn off its countdown.", "溢出的治疗化为圣光（上限5）；选了暗影之触天赋后，改为由法术和英雄技能造成的伤害积累。祷文放上祭坛时，每2点圣光让它的倒计时减1。", "回復の溢れた分は聖光になる（最大5）。影の手タレントがあれば、呪文とヒーローパワーで与えたダメージから得る。祈祷を祭壇に置くとき、聖光2ごとにカウントが1進む。"]], "warlock": [["Souls", "魂", "魂"], ["Each friendly minion that dies gives 1 Soul (up to 7). Blood Pact spends 2 Souls instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1个魂（上限7）。鲜血契约可以用2个魂代替自伤；回合结束时攒满5个魂会召唤一个骷髅战士。", "味方ミニオンが倒れるたびに魂+1（最大7）。血の契約は自傷の代わりに魂2を使える。ターン終了時に魂が5あれば骸骨戦士が現れる。"]]};
+const RESX={"warrior": [["Energy", "能量", "エネルギー"], ["Using the hero power or taking hero damage gives 1 Energy (up to 5). At the start of your turn, 4 Energy burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点能量（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれエネルギー+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。"]], "mage": [["Spell mana", "法术法力", "呪文マナ"], ["Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。"]], "paladin": [["Energy", "能量", "エネルギー"], ["At the end of your turn, each buffed minion gives 1 Energy (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点能量（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につきエネルギー+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。"]], "hunter": [["Energy", "能量", "エネルギー"], ["Hunters gain no Energy unless a talent says so. Tamer (Beast talent): each Beast card you play gives 1; Quiver (Marksman talent): each Hunter attack spell you cast gives 1 (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "猎人默认不积累能量。野兽天赋「驯兽」：每打出一张野兽牌得1点；射击天赋「箭袋」：每施放一张猎人攻击法术得1点（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "狩人は通常エネルギーを得ない。獣タレント「調教」：獣カードを出すたびに+1。射撃タレント「矢筒」：狩人の攻撃呪文を使うたびに+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。"]], "priest": [["Energy", "能量", "エネルギー"], ["Healing past full becomes Energy (up to 5); with the Shadow Touch talent, the damage your spells and hero power deal does instead. When a Prayer goes on the altar, every 2 Energy take a turn off its countdown.", "溢出的治疗化为能量（上限5）；选了暗影之触天赋后，改为由法术和英雄技能造成的伤害积累。祷文放上祭坛时，每2点能量让它的倒计时减1。", "回復の溢れた分はエネルギーになる（最大5）。影の手タレントがあれば、呪文とヒーローパワーで与えたダメージから得る。祈祷を祭壇に置くとき、エネルギー2ごとにカウントが1進む。"]], "warlock": [["Energy", "能量", "エネルギー"], ["Each friendly minion that dies gives 1 Energy (up to 7). Blood Pact spends 2 Energy instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1点能量（上限7）。鲜血契约可以用2点能量代替自伤；回合结束时攒满5点能量会召唤一个骷髅战士。", "味方ミニオンが倒れるたびにエネルギー+1（最大7）。血の契約は自傷の代わりにエネルギー2を使える。ターン終了時にエネルギーが5あれば骸骨戦士が現れる。"]]};
 let introCls=null;
 function heroIntroHTML(){const c=CBY[introCls],p=c.power;
   return header()+navRow(['class',['Classes','选择职业','クラス選択'][li()]],['menu',T('toMenu')])+`<div class="screen hintro" style="--cc:${c.col}"><span class="cport big">${classArt(c)}</span>
@@ -1934,7 +1935,6 @@ function startTurn(side){
   const rageNeed=RAGE_NEED-(tal(s,'wa_fury')?1:0);
   if(resCls(s,'warrior')&&(s.rage||0)>=rageNeed){s.rage-=rageNeed;s.board.forEach(m=>{m.atk+=2;m.tmp=(m.tmp||0)+2});if(tal(s,'wa_fury')){s.armor+=3;float(s,T('armorN',3),'#cfd8dc')}float(s,TX.rageGo(),'#e0563f')}
   s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
-  if(resCls(s,'hunter')){const b=s.hand.filter(k=>CARDS[k]&&CARDS[k].race==='beast').length;if(b){s.fero=Math.min(FERO_CAP,(s.fero||0)+b);float(s,'✦+'+b,'#9ad48a')}}
   s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen;m.hits=0});
   haunt(side);
   tickAltar(side,1);

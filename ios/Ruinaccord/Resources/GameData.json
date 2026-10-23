@@ -8413,9 +8413,9 @@
    "token": false,
    "cls": "paladin",
    "text": [
-    "Gain 5 Armor and give your minions +1 Health. Gain 1 Prestige.",
-    "获得5点护甲，你的所有随从+1生命值。获得1点威望。",
-    "装甲を5獲得し、味方のミニオン全体に体力+1。威信を1得る。"
+    "Gain 5 Armor and give your minions +1 Health. Gain 1 Energy.",
+    "获得5点护甲，你的所有随从+1生命值。获得1点能量。",
+    "装甲を5獲得し、味方のミニオン全体に体力+1。エネルギーを1得る。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -8511,9 +8511,9 @@
    "token": false,
    "cls": "paladin",
    "text": [
-    "Summon three 1/1 Militia. Gain 1 Prestige.",
-    "召唤三个1/1的民兵。获得1点威望。",
-    "1/1の民兵を3体召喚する。威信を1得る。"
+    "Summon three 1/1 Militia. Gain 1 Energy.",
+    "召唤三个1/1的民兵。获得1点能量。",
+    "1/1の民兵を3体召喚する。エネルギーを1得る。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -8610,9 +8610,9 @@
    "token": false,
    "cls": "paladin",
    "text": [
-    "Give your minions +1/+1. Gain 1 Prestige.",
-    "你的所有随从+1/+1。获得1点威望。",
-    "味方のミニオン全体に+1/+1。威信を1得る。"
+    "Give your minions +1/+1. Gain 1 Energy.",
+    "你的所有随从+1/+1。获得1点能量。",
+    "味方のミニオン全体に+1/+1。エネルギーを1得る。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -11536,9 +11536,9 @@
          "影の手"
         ],
         "desc": [
-         "Your hero power becomes: deal 2 damage to a minion. Light now comes from the damage your spells and hero power deal, not from overhealing.",
-         "英雄技能改为「对一个随从造成2点伤害」。圣光改为由你的法术和英雄技能造成的伤害积累，不再来自溢出的治疗。",
-         "ヒーローパワーが「ミニオン1体に2ダメージ」になる。聖光は回復の溢れではなく、呪文とヒーローパワーで与えたダメージから得る。"
+         "Your hero power becomes: deal 2 damage to a minion. Energy now comes from the damage your spells and hero power deal, not from overhealing.",
+         "英雄技能改为「对一个随从造成2点伤害」。能量改为由你的法术和英雄技能造成的伤害积累，不再来自溢出的治疗。",
+         "ヒーローパワーが「ミニオン1体に2ダメージ」になる。エネルギーは回復の溢れではなく、呪文とヒーローパワーで与えたダメージから得る。"
         ]
        },
        {
@@ -11836,13 +11836,13 @@
         "id": "wa_fury",
         "names": [
          "Seething",
-         "怒气爆发",
-         "怒気解放"
+         "爆发",
+         "解放"
         ],
         "desc": [
-         "Rage bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.",
-         "怒气爆发只需3点，并且爆发时英雄获得3点护甲。",
-         "怒気は4ではなく3で解放され、解放時にヒーローが装甲3を得る。"
+         "Energy bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.",
+         "能量爆发只需3点，并且爆发时英雄获得3点护甲。",
+         "エネルギーは4ではなく3で解放され、解放時にヒーローが装甲3を得る。"
         ]
        }
       ]
@@ -11979,9 +11979,9 @@
          "連携"
         ],
         "desc": [
-         "Whenever you spend Prestige, your minions get +1 Attack.",
-         "每当你消耗威望，你的所有随从+1攻击力。",
-         "威信を消費するたび、味方のミニオン全体の攻撃力+1。"
+         "Whenever you spend Energy, your minions get +1 Attack.",
+         "每当你消耗能量，你的所有随从+1攻击力。",
+         "エネルギーを消費するたび、味方のミニオン全体の攻撃力+1。"
         ]
        }
       ]
@@ -12158,9 +12158,9 @@
          "調教"
         ],
         "desc": [
-         "Your Wolves have +1/+1.",
-         "你的狼+1/+1。",
-         "自分の狼に+1/+1。"
+         "Each Beast card you play gives 1 Energy.",
+         "每打出一张野兽牌，获得1点能量。",
+         "獣カードを出すたびにエネルギー+1。"
         ]
        },
        {
@@ -12308,9 +12308,9 @@
          "矢筒"
         ],
         "desc": [
-         "Start with an extra Arcane Shot in hand.",
-         "起手额外获得一张奥术射击。",
-         "開始時、手札にアーケインショットが1枚増える。"
+         "Each Hunter attack spell you cast gives 1 Energy.",
+         "每施放一张猎人攻击法术，获得1点能量。",
+         "狩人の攻撃呪文を使うたびにエネルギー+1。"
         ]
        }
       ],
@@ -12531,9 +12531,9 @@
          "骸骨の主"
         ],
         "desc": [
-         "The Bone Warrior your Souls summon is 3/3 and has Charge.",
-         "魂召唤的骷髅战士改为3/3并具有冲锋。",
-         "魂で召喚する骸骨戦士は3/3になり、突撃を持つ。"
+         "The Bone Warrior your Energy summons is 3/3 and has Charge.",
+         "能量召唤的骷髅战士改为3/3并具有冲锋。",
+         "エネルギーで召喚する骸骨戦士は3/3になり、突撃を持つ。"
         ]
        }
       ]

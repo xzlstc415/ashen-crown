@@ -76,10 +76,19 @@ final class EngineTests: XCTestCase {
         s.heal(.hero(.p), 3); XCTAssertEqual(s.p.light, 3)
         s.p.light = 2; s.castSpell(.p, "matins", nil); XCTAssertEqual(s.p.altar.last?.cd, gd.card("matins")!.pray!.cd - 1); XCTAssertEqual(s.p.light, 0)
         s.p.altar = []
-        // Hunter: Ferocity per Beast in hand at the start of a turn; the power spends 2 for +1 damage; a Beast with 3 Charges.
+        // Hunter: no Energy by default; Tamer gives 1 per Beast card played, Quiver 1 per Hunter attack spell; the power
+        // spends 2 for +1 damage; a Beast with 3 Charges.
         s.setupTalents(.p, cls: "hunter", []); s.p.fero = 0; s.p.hand = ["direwolf", "boar", "goblin"]; s.p.board = []
         s.turn = .e; s.startTurn(.e); s.turn = .p; s.startTurn(.p)
-        XCTAssertEqual(s.p.fero, 2)
+        XCTAssertEqual(s.p.fero, 0, "Beasts in hand give nothing")
+        _ = s.takeHand(.p, 0); XCTAssertEqual(s.p.fero, 0, "nor does playing one without Tamer")
+        s.setupTalents(.p, cls: "hunter", ["hu_tame"]); s.p.hand = ["direwolf", "goblin", "steady", "huntmark"]
+        _ = s.takeHand(.p, 0); _ = s.takeHand(.p, 0); XCTAssertEqual(s.p.fero, 1, "Tamer: the Beast counts, the goblin does not")
+        _ = s.takeHand(.p, 0); XCTAssertEqual(s.p.fero, 1, "Tamer does not count spells")
+        s.setupTalents(.p, cls: "hunter", ["hu_quiver"]); s.p.hand = ["steady", "huntmark", "direwolf", "fireball"]
+        _ = s.takeHand(.p, 0); XCTAssertEqual(s.p.fero, 2, "Quiver: a Hunter spell that deals damage")
+        _ = s.takeHand(.p, 0); _ = s.takeHand(.p, 0); XCTAssertEqual(s.p.fero, 2, "not Hunter's Mark, not a Beast")
+        XCTAssertEqual(s.p.hand, ["fireball"], "and Quiver no longer adds an Arcane Shot")
         let ehp = s.e.hp
         s.applyFx(.p, gd.cls("hunter")!.power.fx, nil, isPower: true)
         XCTAssertEqual(s.e.hp, ehp - gd.cls("hunter")!.power.fx.face - 1); XCTAssertEqual(s.p.fero, 0)

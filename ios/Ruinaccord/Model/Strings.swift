@@ -44,21 +44,21 @@ struct Tx {
         switch lang {
         case .en: return ["You gain one more **mana** each turn, up to 10. Spend it on minions and spells.",
                           "A **Mage** keeps unspent mana as up to 3 **spell mana**, which only spells can use. Other classes lose it.",
-                          "Each class banks its own resource: a **Warrior** gains **Rage** from the hero power and hero damage (4 burst into +2 Attack for the board); a **Warlock** gains **Souls** from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a **Priest** turns healing past full into **Light** (2 Light take a turn off a Prayer); a **Hunter** gains **Ferocity** each turn for the Beasts in hand (the hero power spends 2 for +1 damage, a Beast played with 3 Charges); a **Paladin** earns **Prestige** at the end of each turn, 1 per buffed minion (up to 2), and 1 from each Oath; with 3 banked, the hero power spends them on a 2/2 Guard recruit.",
+                          "Each class banks **Energy**, gained and spent its own way: a **Warrior** gains it from the hero power and hero damage (4 burst into +2 Attack for the board); a **Warlock** from friendly deaths (Blood Pact spends 2 instead of hurting, 5 become a Bone Warrior); a **Priest** from healing past full (2 take a turn off a Prayer); a **Hunter** gains none unless a talent says so: Tamer banks it from Beasts played, Quiver from Hunter attack spells (the hero power spends 2 for +1 damage, a Beast played with 3 Charges); a **Paladin** earns it at the end of each turn, 1 per buffed minion (up to 2), and 1 from each Oath; with 3 banked, the hero power spends them on a 2/2 Guard recruit.",
                           "Tap a glowing minion, then tap an enemy to **attack**. New minions wait a turn unless they have **Charge**.",
                           "Enemies must hit **Guard** minions first. **Ward** blocks the next damage taken.",
                           "Choose one of six **classes**. Each has its own **hero power**, usable once per turn, and its own starting deck.",
                           "Defeat eight foes, from a goblin warband to the Ashen King. After each win you also add a card to your deck."]
         case .zh: return ["每回合你的**法力值**上限加1，最多10点。用它打出随从和法术。",
                           "**法师**没用完的法力会存为最多3点**法术法力**，只能用来施放法术；其他职业不会积累。",
-                          "每个职业都有自己的资源：**战士**使用技能和英雄受伤获得**怒气**（攒到4点，回合开始爆发：全体随从本回合+2攻击）；**术士**友方随从死亡获得**魂**（鲜血契约可用2魂代替自伤，回合结束时5魂召唤骷髅战士）；**牧师**溢出的治疗化为**圣光**（祷文上祭坛时每2光倒计时-1）；**猎人**每回合开始按手牌中的野兽数获得**兽性**（穿刺之箭每2点多1伤害，有3点时打出的野兽获得冲锋）；**圣骑士**每回合结束时，场上每有一个获得增益的随从就得1点**威望**（每回合最多2点），每张誓言也给1点；攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。",
+                          "每个职业都会积累**能量**，但获得和使用方式各不相同：**战士**使用技能和英雄受伤获得（攒到4点，回合开始爆发：全体随从本回合+2攻击）；**术士**友方随从死亡获得（鲜血契约可用2点代替自伤，回合结束时5点召唤骷髅战士）；**牧师**溢出的治疗化为能量（祷文上祭坛时每2点倒计时-1）；**猎人**默认不积累，野兽天赋「驯兽」靠打出野兽牌、射击天赋「箭袋」靠猎人攻击法术积累（穿刺之箭每2点多1伤害，有3点时打出的野兽获得冲锋）；**圣骑士**每回合结束时，场上每有一个获得增益的随从就得1点（每回合最多2点），每张誓言也给1点；攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。",
                           "点击带绿框的随从，再点击敌人即可**攻击**。新随从要等一回合才能攻击，除非它有**冲锋**。",
                           "敌人必须先攻击有**守护**的随从。**护盾**可以抵挡下一次伤害。",
                           "从六个**职业**中选择一个。每个职业都有专属的**英雄技能**（每回合可用一次）和初始牌组。",
                           "击败八名敌人，从哥布林战团一路打到灰烬之王。每赢一场，你还可以向牌组加入一张牌。"]
         case .ja: return ["毎ターン**マナ**の上限が1増える（最大10）。ミニオンと呪文に使おう。",
                           "**魔法使い**は使い切らなかったマナを最大3まで**呪文マナ**として貯め、呪文にだけ使える。他のクラスは貯まらない。",
-                          "クラスごとに固有の資源がある。**戦士**はヒーローパワー使用と被ダメージで**怒気**（4で解放、味方全体がこのターン攻撃+2）。**ウォーロック**は味方の死亡で**魂**（血の契約は魂2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。**司祭**は余った回復が**聖光**になる（祈りを祭壇に置くとき聖光2で待ち時間-1）。**狩人**は手札の獣の数だけ毎ターン**野性**を得る（ヒーローパワーは2で+1ダメージ、3あれば出した獣が突撃）。**聖騎士**はターン終了時、強化された味方ミニオン1体につき**威信**を1得る（1ターン最大2）。誓いでも1得る。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。",
+                          "どのクラスも**エネルギー**を蓄えるが、得かたと使いかたはそれぞれ違う。**戦士**はヒーローパワー使用と被ダメージで得る（4で解放、味方全体がこのターン攻撃+2）。**ウォーロック**は味方の死亡で得る（血の契約は2で自傷を肩代わり、ターン終了時に5で骸骨戦士）。**司祭**は余った回復で得る（祈りを祭壇に置くとき2ごとに待ち時間-1）。**狩人**は通常は得られず、獣タレント「調教」は獣カードを出すと、射撃タレント「矢筒」は狩人の攻撃呪文で得る（ヒーローパワーは2で+1ダメージ、3あれば出した獣が突撃）。**聖騎士**はターン終了時、強化された味方ミニオン1体につき1得る（1ターン最大2）。誓いでも1得る。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。",
                           "光っているミニオンをタップし、敵をタップして**攻撃**。出したばかりのミニオンは**突撃**がない限り次のターンまで攻撃できない。",
                           "敵は先に**ガード**を持つミニオンを攻撃しなければならない。**結界**は次に受けるダメージを1回防ぐ。",
                           "6つの**クラス**から1つを選ぼう。クラスごとに専用の**ヒーローパワー**（1ターンに1回）と初期デッキがある。",
@@ -417,11 +417,11 @@ struct Tx {
     var neutralCards: String { pick("Neutral", "中立", "中立") }
     var talYours: String { pick("Your talents", "你的天赋", "自分のタレント") }
     var talFoes: String { pick("Enemy talents", "敌方天赋", "敵のタレント") }
-    var rageGo: String { pick("Rage!", "怒气爆发！", "怒気解放！") }
-    func rage(_ n: Int) -> String { pick("Rage \(n)/\(DuelState.rageCap)", "怒气 \(n)/\(DuelState.rageCap)", "怒気 \(n)/\(DuelState.rageCap)") }
-    func souls(_ n: Int) -> String { pick("Souls \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)", "魂 \(n)/\(DuelState.soulCap)") }
-    func light(_ n: Int) -> String { pick("Light \(n)/\(DuelState.lightCap)", "圣光 \(n)/\(DuelState.lightCap)", "聖光 \(n)/\(DuelState.lightCap)") }
-    var fSoulPay: String { pick("Souls spent", "魂代血", "魂で支払う") }
+    var rageGo: String { pick("Burst!", "爆发！", "解放！") }
+    func rage(_ n: Int) -> String { pick("Energy \(n)/\(DuelState.rageCap)", "能量 \(n)/\(DuelState.rageCap)", "エネルギー \(n)/\(DuelState.rageCap)") }
+    func souls(_ n: Int) -> String { pick("Energy \(n)/\(DuelState.soulCap)", "能量 \(n)/\(DuelState.soulCap)", "エネルギー \(n)/\(DuelState.soulCap)") }
+    func light(_ n: Int) -> String { pick("Energy \(n)/\(DuelState.lightCap)", "能量 \(n)/\(DuelState.lightCap)", "エネルギー \(n)/\(DuelState.lightCap)") }
+    var fSoulPay: String { pick("Energy spent", "能量代血", "エネルギーで支払う") }
     var fEther: String { pick("Ethereal", "虚体", "霊体") }
     var fImmune: String { pick("Spellproof", "法术免疫", "呪文無効") }
     func fRite(_ n: Int) -> String { pick("Sacrificed \(n)", "献祭\(n)张", "生贄\(n)枚") }
@@ -429,36 +429,36 @@ struct Tx {
     var riteTitle: String { pick("Blood Rite: choose one of three Legendaries", "血祭：三张传说牌选一张", "血の儀式：伝説カード3枚から1枚を選ぶ") }
     func riteSub(_ n: Int) -> String { n > 1 ? pick("Two copies join your hand and cost (0) this game.", "两张复制加入你的手牌，本局打出不消耗法力值。", "コピー2枚が手札に加わり、このゲーム中マナを消費しない。") : pick("A copy joins your hand and costs (0) this game. From your third Rite on, two copies come.", "一张复制加入你的手牌，本局打出不消耗法力值。本局第三次血祭起得到两张。", "コピー1枚が手札に加わり、このゲーム中マナを消費しない。3回目の儀式からは2枚になる。") }
     var riteOk: String { pick("Copy", "复制", "コピー") }
-    func fero(_ n: Int) -> String { pick("Ferocity \(n)/\(DuelState.feroCap)", "兽性 \(n)/\(DuelState.feroCap)", "野性 \(n)/\(DuelState.feroCap)") }
+    func fero(_ n: Int) -> String { pick("Energy \(n)/\(DuelState.feroCap)", "能量 \(n)/\(DuelState.feroCap)", "エネルギー \(n)/\(DuelState.feroCap)") }
     /// Each class's resource, for the hero introduction before an Adventure.
     func resName(_ c: String) -> String {
         switch c {
-        case "warrior": return pick("Rage", "怒气", "怒気")
+        case "warrior": return pick("Energy", "能量", "エネルギー")
         case "mage": return pick("Spell mana", "法术法力", "呪文マナ")
-        case "paladin": return pick("Prestige", "威望", "威信")
-        case "hunter": return pick("Ferocity", "兽性", "野性")
-        case "priest": return pick("Light", "圣光", "聖光")
-        case "warlock": return pick("Souls", "魂", "魂")
+        case "paladin": return pick("Energy", "能量", "エネルギー")
+        case "hunter": return pick("Energy", "能量", "エネルギー")
+        case "priest": return pick("Energy", "能量", "エネルギー")
+        case "warlock": return pick("Energy", "能量", "エネルギー")
         default: return ""
         }
     }
     func resDesc(_ c: String) -> String {
         switch c {
-        case "warrior": return pick("Using the hero power or taking hero damage gives 1 Rage (up to 5). At the start of your turn, 4 Rage burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点怒气（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれ怒気+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。")
+        case "warrior": return pick("Using the hero power or taking hero damage gives 1 Energy (up to 5). At the start of your turn, 4 Energy burst: your minions get +2 Attack this turn.", "使用英雄技能或英雄受到伤害，各得1点能量（上限5）。回合开始时攒满4点自动爆发：你的所有随从本回合+2攻击力。", "ヒーローパワー使用と被ダメージでそれぞれエネルギー+1（最大5）。ターン開始時に4たまると解放：味方ミニオン全体の攻撃力がこのターン+2。")
         case "mage": return pick("Up to 3 mana you leave unspent is kept as spell mana, which only spells can use.", "回合结束时没用完的法力最多保留3点，变成法术法力，只能用来施放法术。", "使い残したマナは最大3まで呪文マナとして残り、呪文にだけ使える。")
-        case "paladin": return pick("At the end of your turn, each buffed minion gives 1 Prestige (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点威望（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につき威信+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。")
-        case "hunter": return pick("At the start of your turn, each Beast in your hand gives 1 Ferocity (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "回合开始时，手牌中每有一张野兽得1点兽性（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "ターン開始時、手札の獣1枚につき野性+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。")
-        case "priest": return pick("Healing past full becomes Light (up to 5); with the Shadow Touch talent, the damage your spells and hero power deal does instead. When a Prayer goes on the altar, every 2 Light take a turn off its countdown.", "溢出的治疗化为圣光（上限5）；选了暗影之触天赋后，改为由法术和英雄技能造成的伤害积累。祷文放上祭坛时，每2点圣光让它的倒计时减1。", "回復の溢れた分は聖光になる（最大5）。影の手タレントがあれば、呪文とヒーローパワーで与えたダメージから得る。祈祷を祭壇に置くとき、聖光2ごとにカウントが1進む。")
-        case "warlock": return pick("Each friendly minion that dies gives 1 Soul (up to 7). Blood Pact spends 2 Souls instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1个魂（上限7）。鲜血契约可以用2个魂代替自伤；回合结束时攒满5个魂会召唤一个骷髅战士。", "味方ミニオンが倒れるたびに魂+1（最大7）。血の契約は自傷の代わりに魂2を使える。ターン終了時に魂が5あれば骸骨戦士が現れる。")
+        case "paladin": return pick("At the end of your turn, each buffed minion gives 1 Energy (up to 2 a turn), and each Oath gives 1 (up to 5). With 3, the hero power spends them on a 2/2 Guard recruit.", "回合结束时，场上每个获得增益的随从给1点能量（每回合最多2点），每张誓言也给1点（上限5）。攒满3点时，英雄技能会消耗它们召唤一个2/2带守护的精兵。", "ターン終了時、強化された味方ミニオン1体につきエネルギー+1（1ターン最大2）、誓いでも+1（最大5）。3たまるとヒーローパワーがそれを使い、2/2ガードの精兵を召喚する。")
+        case "hunter": return pick("Hunters gain no Energy unless a talent says so. Tamer (Beast talent): each Beast card you play gives 1; Quiver (Marksman talent): each Hunter attack spell you cast gives 1 (up to 5). The hero power spends 2 for +1 damage (up to +2); a Beast played with 3 banked spends them to Charge.", "猎人默认不积累能量。野兽天赋「驯兽」：每打出一张野兽牌得1点；射击天赋「箭袋」：每施放一张猎人攻击法术得1点（上限5）。英雄技能每消耗2点多造成1点伤害（最多+2）；有3点时打出的野兽会消耗它们获得冲锋。", "狩人は通常エネルギーを得ない。獣タレント「調教」：獣カードを出すたびに+1。射撃タレント「矢筒」：狩人の攻撃呪文を使うたびに+1（最大5）。ヒーローパワーは2消費ごとにダメージ+1（最大+2）。3あれば獣を出すときに消費して突撃を得る。")
+        case "priest": return pick("Healing past full becomes Energy (up to 5); with the Shadow Touch talent, the damage your spells and hero power deal does instead. When a Prayer goes on the altar, every 2 Energy take a turn off its countdown.", "溢出的治疗化为能量（上限5）；选了暗影之触天赋后，改为由法术和英雄技能造成的伤害积累。祷文放上祭坛时，每2点能量让它的倒计时减1。", "回復の溢れた分はエネルギーになる（最大5）。影の手タレントがあれば、呪文とヒーローパワーで与えたダメージから得る。祈祷を祭壇に置くとき、エネルギー2ごとにカウントが1進む。")
+        case "warlock": return pick("Each friendly minion that dies gives 1 Energy (up to 7). Blood Pact spends 2 Energy instead of hurting you; 5 at the end of your turn rise as a Bone Warrior.", "友方随从每死亡一个得1点能量（上限7）。鲜血契约可以用2点能量代替自伤；回合结束时攒满5点能量会召唤一个骷髅战士。", "味方ミニオンが倒れるたびにエネルギー+1（最大7）。血の契約は自傷の代わりにエネルギー2を使える。ターン終了時にエネルギーが5あれば骸骨戦士が現れる。")
         default: return ""
         }
     }
     var resLbl: String { pick("Class resource", "职业资源", "クラス資源") }
     var startAdv: String { pick("Begin the Adventure", "开始冒险", "冒険を始める") }
     var classTitleShort: String { pick("Classes", "选择职业", "クラス選択") }
-    var fFero: String { pick("Ferocity!", "兽性！", "野性！") }
-    func prestige(_ n: Int) -> String { pick("Prestige \(n)/\(DuelState.presCap)", "威望 \(n)/\(DuelState.presCap)", "威信 \(n)/\(DuelState.presCap)") }
-    func presUp(_ n: Int) -> String { pick("+\(n) Prestige", "威望+\(n)", "威信+\(n)") }
+    var fFero: String { pick("Energy!", "能量！", "エネルギー！") }
+    func prestige(_ n: Int) -> String { pick("Energy \(n)/\(DuelState.presCap)", "能量 \(n)/\(DuelState.presCap)", "エネルギー \(n)/\(DuelState.presCap)") }
+    func presUp(_ n: Int) -> String { pick("+\(n) Energy", "能量+\(n)", "エネルギー+\(n)") }
     var presGo: String { pick("Elite recruit!", "精兵！", "精鋭！") }
     func unity(_ b: Int, _ n: Int) -> String { b > 0 ? pick("Unity +1", "协作 +1", "連携 +1") : pick("Unity \(n)/12", "协作 \(n)/12", "連携 \(n)/12") }
     var talTeaches: String { pick("Works with:", "配合天赋：", "相性の良いタレント：") }

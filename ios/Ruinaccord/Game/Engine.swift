@@ -304,7 +304,6 @@ struct DuelState: Codable {
         if tal(side, "fi_bank") { self[side].spellMana = 1 }
         if tal(side, "wa_tough") { self[side].armor += 7 }
         if tal(side, "wa_reckless") { draw(side, 1) }
-        if tal(side, "hu_quiver"), self[side].hand.count < 10, Self.gd.card("spray") != nil { self[side].hand.append("spray") }
     }
 
     func override(_ side: Side, _ k: String) -> CardOverride? { self[side].ovr[k] }
@@ -353,6 +352,11 @@ struct DuelState: Codable {
         self[side].tf.played += 1
         let k = self[side].hand.remove(at: i)
         if self[side].free[k, default: 0] > 0 { self[side].free[k]! -= 1 }
+        // Hunter Energy comes only from talents: Tamer for each Beast card played, Quiver for each Hunter attack spell.
+        if isCls(side, "hunter"), let c = Self.gd.card(k), !c.token,
+           (tal(side, "hu_tame") && c.race == "beast") || (tal(side, "hu_quiver") && !c.isMinion && c.cls == "hunter" && (c.fx?.dmg ?? 0) > 0) {
+            self[side].fero = Swift.min(Self.feroCap, self[side].fero + 1); float(.hero(side), .light(1))
+        }
         return k
     }
 
@@ -433,10 +437,6 @@ struct DuelState: Codable {
         self[side].maxMana = Swift.min(10, self[side].maxMana + 1)
         self[side].mana = self[side].maxMana
         self[side].powerUsed = false
-        if isCls(side, "hunter") {
-            let b = self[side].hand.filter { Self.gd.card($0)?.race == "beast" }.count
-            if b > 0 { self[side].fero = Swift.min(Self.feroCap, self[side].fero + b); float(.hero(side), .light(b)) }
-        }
         for i in self[side].board.indices { self[side].board[i].sleep = false; self[side].board[i].attacked = self[side].board[i].isFrozen; self[side].board[i].hits = 0 }
         haunt(side)
         tickAltar(side, 1)
