@@ -397,13 +397,13 @@ struct Tx {
         case "mage": return pick("Pim Emberfrost", "皮姆·霜烬", "ピム・エンバーフロスト")
         case "paladin": return pick("Aldric Dawnoath", "奥德里克·晨誓", "アルドリック・ドーンオース")
         case "hunter": return pick("Kaelwen Thornstride", "凯尔温·荆径", "ケルウェン・ソーンストライド")
-        case "priest": return pick("Vera Duskbell", "薇拉·暮钟", "ヴェラ・ダスクベル")
+        case "priest": return pick("Wren Duskbell", "雷恩·暮钟", "レン・ダスクベル")
         case "warlock": return pick("Morwen Lastcandle", "莫文·残烛", "モーウェン・ラストキャンドル")
         default: return ""
         }
     }
     func heroRace(_ cls: String) -> String {
-        let r = ["warrior": "orc", "mage": "gnome", "paladin": "human", "hunter": "elf", "priest": "halfling", "warlock": "undead"][cls] ?? "human"
+        let r = ["warrior": "orc", "mage": "gnome", "paladin": "human", "hunter": "elf", "priest": "human", "warlock": "undead"][cls] ?? "human"
         return race(r)
     }
     func roundN(_ n: Int) -> String { pick("Round \(n)", "第\(n)回合", "第\(n)ラウンド") }

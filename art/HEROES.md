@@ -27,7 +27,7 @@ head-and-shoulders portrait, eye-level camera, the face exactly centered and fil
 | 法师 | 侏儒 | 皮姆·霜烬 Pim Emberfrost | 在废墟图书馆长大的自学法师 |
 | 圣骑士 | 人类 | 奥德里克·晨誓 Aldric Dawnoath | 旧王国最后一名骑士 |
 | 猎人 | 精灵 | 凯尔温·荆径 Kaelwen Thornstride | 退出精灵议会的林地巡守 |
-| 牧师 | 半身人 | 薇拉·暮钟 Vera Duskbell | 同时听得见圣光与亡者低语的年轻敲钟人 |
+| 牧师 | 人类 | 雷恩·暮钟 Wren Duskbell | 同时听得见圣光与亡者低语的年轻敲钟人 |
 | 术士 | 不死族 | 莫文·残烛 Morwen Lastcandle | 被巫妖复活、只剩半条命的宫廷占星师 |
 
 ---
@@ -72,16 +72,16 @@ a human man paladin about thirty, short dark hair, close-trimmed beard, a thin p
 a female elf ranger, the only hero with long pointed ears, sharp fine features, auburn hair in a loose braid, dark-green hood pushed back, two thin lines of green war paint under one eye, a small healed cut on the chin, eyes narrowed and looking off to one side, a snapped elven sigil on a cord at her collar, forest green rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
-## 牧师 · 薇拉·暮钟 Vera Duskbell — `hero_priest.png`
-半身人 · 女性 · 二十出头
+## 牧师 · 雷恩·暮钟 Wren Duskbell — `hero_priest.png`
+人类 · 性别不明（形象为非常中性的年轻男子） · 二十出头
 
-（2026-10-22 重写：原来的老修女玛戈·烛芯不讨喜，换成年轻的角色；形象同时容纳圣光与暗影两条路线，因为牧师的天赋分圣光页和暗影页。）
+（2026-10-22 重写：原来的老修女玛戈·烛芯不讨喜，换成年轻的角色；性别刻意不点明，外貌按非常中性化的男子来画；形象同时容纳圣光与暗影两条路线，因为牧师的天赋分圣光页和暗影页。背景文字不使用性别代词。）
 
-**背景**：薇拉是被断墙礼拜堂的老修女们捡回来的孤儿，从小负责敲那口裂了缝的晨钟。战争打到礼拜堂那年，她第一次听见了钟声之外的东西：死在墙外的人在低声说话。她发现自己的祷文能把伤者从死亡边上拉回来，而另一种更低、更冷的祷文，能让亡者开口，甚至让敌人的影子反过来咬住他们自己。老修女们说那是异端，要她二选一。薇拉两样都留下了：光用来救人，影用来讨债。她要那顶王冠，是想把它熔成一口新钟，一口既为活人、也为亡者而鸣的钟。
+**背景**：雷恩是被断墙礼拜堂的老修女们捡回来的孤儿，从小负责敲那口裂了缝的晨钟。战争打到礼拜堂那年，雷恩第一次听见了钟声之外的东西：死在墙外的人在低声说话。雷恩的祷文能把伤者从死亡边上拉回来，而另一种更低、更冷的祷文，能让亡者开口，甚至让敌人的影子反过来咬住敌人自己。老修女们说那是异端，要雷恩二选一。雷恩两样都留下了：光用来救人，影用来讨债。雷恩要那顶王冠，是想把它熔成一口新钟，一口既为活人、也为亡者而鸣的钟。
 
 **头像提示词**
 ```
-a young halfling woman priest in her early twenties, clearly a halfling and not an elf: round face, small rounded ears, freckles, bright confident amber eyes, short dark curly hair with a single white streak, a hood that is cream linen on one side and deep violet on the other, a tiny bronze bell earring, a faint knowing half-smile, her face split by two lights: warm holy gold on the left side and cool violet shadow on the right, a few motes of light drifting on one side and thin wisps of shadow curling on the other, pale gold and shadow violet rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
+a young human priest in their early twenties with a very androgynous, delicate look, gender ambiguous, read as a soft-featured young man: smooth fine features, high cheekbones, calm grey eyes with long lashes, no beard, shoulder-length straight silver-black hair parted in the middle, a hood that is cream linen on one side and deep violet on the other, a tiny bronze bell earring, a serene unreadable half-smile, the face split by two lights: warm holy gold on the left side and cool violet shadow on the right, a few motes of light drifting on one side and thin wisps of shadow curling on the other, pale gold and shadow violet rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic, muscular, heavy jaw, makeup
 ```
 
 ## 术士 · 莫文·残烛 Morwen Lastcandle — `hero_warlock.png`
