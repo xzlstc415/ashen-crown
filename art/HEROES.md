@@ -27,7 +27,7 @@ head-and-shoulders portrait, eye-level camera, the face exactly centered and fil
 | 法师 | 侏儒 | 皮姆·霜烬 Pim Emberfrost | 在废墟图书馆长大的自学法师 |
 | 圣骑士 | 人类 | 奥德里克·晨誓 Aldric Dawnoath | 旧王国最后一名骑士 |
 | 猎人 | 精灵 | 凯尔温·荆径 Kaelwen Thornstride | 退出精灵议会的林地巡守 |
-| 牧师 | 半身人 | 玛戈·烛芯 Margo Candlewick | 在断墙礼拜堂收容流民的修女 |
+| 牧师 | 半身人 | 薇拉·暮钟 Vera Duskbell | 同时听得见圣光与亡者低语的年轻敲钟人 |
 | 术士 | 不死族 | 莫文·残烛 Morwen Lastcandle | 被巫妖复活、只剩半条命的宫廷占星师 |
 
 ---
@@ -72,14 +72,16 @@ a human man paladin about thirty, short dark hair, close-trimmed beard, a thin p
 a female elf ranger, the only hero with long pointed ears, sharp fine features, auburn hair in a loose braid, dark-green hood pushed back, two thin lines of green war paint under one eye, a small healed cut on the chin, eyes narrowed and looking off to one side, a snapped elven sigil on a cord at her collar, forest green rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
-## 牧师 · 玛戈·烛芯 Margo Candlewick — `hero_priest.png`
-半身人 · 女性 · 年长
+## 牧师 · 薇拉·暮钟 Vera Duskbell — `hero_priest.png`
+半身人 · 女性 · 二十出头
 
-**背景**：玛戈在一座只剩半面墙的礼拜堂里当了三十年修女，灰烬之王的战争打到哪儿，流民就往她那儿逃。她不会打仗，但她的祷文从来没有落空过：她点一根蜡烛，许一个愿，蜡烛烧完时愿望就应验。某天她数了数，流民越来越多、蜡烛越来越少，于是她把最后一箱蜡烛背在背上，决定去把战争的源头掐灭。她并不想戴王冠，她想把它熔了，铸成一口能把所有人叫回家的钟。
+（2026-10-22 重写：原来的老修女玛戈·烛芯不讨喜，换成年轻的角色；形象同时容纳圣光与暗影两条路线，因为牧师的天赋分圣光页和暗影页。）
+
+**背景**：薇拉是被断墙礼拜堂的老修女们捡回来的孤儿，从小负责敲那口裂了缝的晨钟。战争打到礼拜堂那年，她第一次听见了钟声之外的东西：死在墙外的人在低声说话。她发现自己的祷文能把伤者从死亡边上拉回来，而另一种更低、更冷的祷文，能让亡者开口，甚至让敌人的影子反过来咬住他们自己。老修女们说那是异端，要她二选一。薇拉两样都留下了：光用来救人，影用来讨债。她要那顶王冠，是想把它熔成一口新钟，一口既为活人、也为亡者而鸣的钟。
 
 **头像提示词**
 ```
-an elderly halfling woman priest, clearly a halfling and not an elf: round soft face, small rounded ears, deep laugh lines, curly grey hair under a cream linen wimple, a thin gold circlet with a pale gem on her brow, warm patient eyes looking straight at the viewer, a lit candle held just below her chin lighting her face from below, pale white-gold rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
+a young halfling woman priest in her early twenties, clearly a halfling and not an elf: round face, small rounded ears, freckles, bright confident amber eyes, short dark curly hair with a single white streak, a hood that is cream linen on one side and deep violet on the other, a tiny bronze bell earring, a faint knowing half-smile, her face split by two lights: warm holy gold on the left side and cool violet shadow on the right, a few motes of light drifting on one side and thin wisps of shadow curling on the other, pale gold and shadow violet rim light, head-and-shoulders portrait, eye-level camera, the face exactly centered and filling about two thirds of the frame, top of the head near the top edge, shoulders cut off by the bottom edge, one key light from the upper left, sunlit overgrown ruins softly blurred behind, same painterly style as the card illustrations: hand-painted, simplified shapes, bold clean silhouette, soft brush texture, limited palette, roguelike card game art, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 1:1 --no text, frame, border, card, letters, numbers, logo, watermark, full body, armor filling the frame, photorealistic
 ```
 
 ## 术士 · 莫文·残烛 Morwen Lastcandle — `hero_warlock.png`

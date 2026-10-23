@@ -397,7 +397,7 @@ struct Tx {
         case "mage": return pick("Pim Emberfrost", "皮姆·霜烬", "ピム・エンバーフロスト")
         case "paladin": return pick("Aldric Dawnoath", "奥德里克·晨誓", "アルドリック・ドーンオース")
         case "hunter": return pick("Kaelwen Thornstride", "凯尔温·荆径", "ケルウェン・ソーンストライド")
-        case "priest": return pick("Margo Candlewick", "玛戈·烛芯", "マーゴ・キャンドルウィック")
+        case "priest": return pick("Vera Duskbell", "薇拉·暮钟", "ヴェラ・ダスクベル")
         case "warlock": return pick("Morwen Lastcandle", "莫文·残烛", "モーウェン・ラストキャンドル")
         default: return ""
         }
