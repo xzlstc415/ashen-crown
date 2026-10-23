@@ -240,7 +240,7 @@ struct MinionView: View {
         .overlay(alignment: .top) { FloatStack(eid: m.id) }
         .reportFrame { vm.frames[m.id] = $0 }
         .contentShape(Rectangle())
-        .pressDrag(onTap: { vm.tap(m.id) },
+        .pressDrag(onTap: { vm.tapMinion(m.id, key: m.key) },
                    onHold: { vm.infoKey = m.key },
                    onHoldEnd: { if vm.infoKey == m.key { vm.infoKey = nil } },
                    onDrag: { p in if m.side == .p { vm.dragMinion(m.id, to: p) } },

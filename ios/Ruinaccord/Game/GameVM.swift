@@ -809,8 +809,18 @@ final class GameVM {
         after()
     }
 
+    /// A tap on a minion on the board: whatever a tap does (aim, select, attack), and unless it was used to aim or
+    /// attack, its card opens in the info panel (a second tap closes it). Works on either turn.
+    func tapMinion(_ id: EID, key: String) {
+        let aiming = !blocked && (pending?.valid.contains(id) == true || (sel != nil && id.side == .e && S.attackTargets(.p).contains(id)))
+        let was = infoKey
+        tap(id)
+        infoKey = aiming || was == key ? nil : key
+    }
+
     func tap(_ id: EID) {
         hsel = nil
+        infoKey = nil
         guard !blocked, S.exists(id) else { return }
         if let p = pending {
             if p.valid.contains(id) { Task { await resolvePending(id) } }
@@ -915,6 +925,7 @@ final class GameVM {
 
     /// Finger moved while holding one of your minions: aim an attack.
     func dragMinion(_ id: EID, to p: CGPoint) {
+        infoKey = nil
         guard !blocked, pending == nil, let m = S.minion(id), m.side == .p, S.canAttack(m) else { drag = nil; return }
         hsel = nil
         if drag == nil { sel = m.uid; Haptics.lift() }
@@ -987,6 +998,7 @@ final class GameVM {
     }
 
     func endTurn() {
+        infoKey = nil
         guard !blocked else { return }
         pending = nil; sel = nil
         if S.mode == .online {

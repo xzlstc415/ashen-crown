@@ -63,6 +63,8 @@ enum DebugLaunch {
                     for _ in 0..<(value("-picks").flatMap(Int.init) ?? 1) { try? await Task.sleep(for: .milliseconds(500)); vm.tap(.hero(.e)) }
                 }
             }
+            // -tapfoe: tap the first enemy minion once (with -card ogre,...), for the info panel
+            if args.contains("-tapfoe"), vm.state != nil { Task { try? await Task.sleep(for: .milliseconds(1500)); if let m = vm.state?.e.board.first { vm.tapMinion(m.id, key: m.key) } } }
             if args.contains("-shatter"), vm.state != nil { Task { try? await Task.sleep(for: .seconds(2)); vm.debugShatter() } }
             if args.contains("-rite"), vm.state != nil { vm.state?.p.rites = 3; vm.choice = Choice(offer: vm.state!.riteOffer(), n: 1, rite: true) }
             // -fatigue: your deck is empty and you are at 1 health, then the turn ends (the fatigue draw must end the game)
