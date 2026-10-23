@@ -145,7 +145,7 @@ struct Tx {
     var modeQuickSub: String { pick("Build your own deck and face a random AI opponent.", "自己组一副牌，随机对战一名AI对手。", "自分でデッキを組み、ランダムなAIと対戦する。") }
     func qClassSub(_ n: Int) -> String { pick("Next you will build a \(n)-card deck for this class.", "接下来为这个职业组一副\(n)张的牌组。", "次にこのクラスで\(n)枚のデッキを組む。") }
     func deckTitle(_ x: String) -> String { pick("\(x) deck", "\(x)的牌组", "\(x)のデッキ") }
-    func deckRules(_ n: Int) -> String { pick("\(n) cards. Up to 2 copies of a card, 1 of a legendary or a marked epic.", "\(n)张牌。同名卡最多2张，传说卡和特殊史诗卡最多1张。", "\(n)枚。同名カードは2枚まで、レジェンドと特別なエピックは1枚まで。") }
+    func deckRules(_ n: Int) -> String { pick("\(n) cards. Up to 2 copies of a card, 1 of a marked epic, and one Legendary in all.", "\(n)张牌。同名卡最多2张，特殊史诗卡最多1张，整副牌组只能带一张传说牌。", "\(n)枚。同名カードは2枚まで、特別なエピックは1枚まで、レジェンドはデッキ全体で1枚だけ。") }
     func deckNeed(_ n: Int) -> String { pick("\(n) more to add", "还差\(n)张", "あと\(n)枚") }
     var deckReady: String { pick("Deck ready", "牌组已完成", "デッキ完成") }
     var autoFill: String { pick("Auto-fill", "自动补满", "自動で埋める") }
@@ -156,6 +156,7 @@ struct Tx {
     var filterAll: String { pick("All", "全部", "すべて") }
     var tapAdd: String { pick("Tap a card to add it. Tap a row in your deck to remove one copy.", "点击卡牌加入牌组，点击牌组中的一行移除一张。", "カードをタップで追加、デッキの行をタップで1枚外す。") }
     var limitHit: String { pick("You already have the most copies allowed of that card.", "这张牌已经达到数量上限。", "このカードは枚数上限に達している。") }
+    var legLimit: String { pick("A deck may hold only one Legendary.", "一副牌组只能带一张传说牌。", "デッキに入れられるレジェンドは1枚だけ。") }
     var deckFull: String { pick("Your deck is full.", "牌组已满。", "デッキがいっぱい。") }
     var emptyDeck: String { pick("Your deck is empty. Tap cards to add them.", "牌组是空的，点击卡牌加入。", "デッキは空。カードをタップして追加しよう。") }
     var diffTitle: String { pick("Choose difficulty", "选择难度", "難易度を選択") }

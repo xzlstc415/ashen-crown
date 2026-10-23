@@ -77,7 +77,7 @@ struct BuilderView: View {
                             }
                             .frame(height: 30).padding(.leading, 10)
                             PagedGrid(items: list, cellWidth: 96, cellHeight: 150, em: 9.6, rows: 2) { c, s in
-                                let n = Decks.copies(d, c.id), full = n >= c.maxCopies
+                                let n = Decks.copies(d, c.id), full = !Decks.fits(d, c.id)
                                 // Plain gestures, not a Button: a Button takes the press, so holding an addable card did nothing.
                                 Group {
                                     CardView(card: c, size: .fit(9.6 * s), ring: full ? .clear : Theme.gold.opacity(0.0), ovr: tt ? gd.overrides(for: vm.q.tal)[c.id] : nil)

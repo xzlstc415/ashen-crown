@@ -536,9 +536,9 @@ const I18N={
     powerAria:(n,c,d)=>`Hero power ${n}, costs ${c}: ${d}`,powerUse:(n,t)=>`You use ${n}${t?' on '+t:''}.`,cantPower:'You can\'t use your hero power right now.',
     modeCamp:'Adventure',modeCampSub:'Defeat eight foes in a row with a class starter deck.',modeQuick:'Quick Match',modeQuickSub:'Build your own deck and face a random AI opponent.',
     qClassTitle:'Quick Match · Choose a class',qClassSub:n=>`Next you will build a ${n}-card deck for this class.`,
-    deckTitle:x=>`${x} deck`,deckRules:n=>`${n} cards. Up to 2 copies of a card, 1 of a legendary or a marked epic.`,deckNeed:n=>`${n} more to add`,deckReady:'Deck ready',
+    deckTitle:x=>`${x} deck`,deckRules:n=>`${n} cards. Up to 2 copies of a card, 1 of a marked epic, and one Legendary in all.`,deckNeed:n=>`${n} more to add`,deckReady:'Deck ready',
     autoFill:'Auto-fill',resetDeck:'Starter deck',clearDeck:'Clear',nextDiff:'Next: difficulty',curve:'Mana curve',filterAll:'All',
-    tapAdd:'Tap a card to add it. Tap a row in your deck to remove one copy.',limitHit:'You already have the most copies allowed of that card.',deckFull:'Your deck is full.',emptyDeck:'Your deck is empty. Tap cards to add them.',
+    tapAdd:'Tap a card to add it. Tap a row in your deck to remove one copy.',limitHit:'You already have the most copies allowed of that card.',legLimit:'A deck may hold only one Legendary.',deckFull:'Your deck is full.',emptyDeck:'Your deck is empty. Tap cards to add them.',
     diffTitle:'Choose difficulty',diffSub:'Your opponent\'s class is chosen at random.',diff:{easy:'Easy',normal:'Normal',hard:'Hard'},
     diffDesc:{easy:'The AI makes mistakes and never uses its hero power. Its deck adds common cards.',normal:'Standard AI that uses its class hero power. Its deck adds rare and epic cards.',hard:'Standard AI whose deck adds epic and legendary cards.'},
     aiName:x=>`${x} (AI)`,goFirst:'You go first.',goSecond:'You go second and get a Lucky Coin.',qWin:'Victory',qLose:'Defeat',qVs:(c,d)=>`Opponent: ${c} · ${d}`,
@@ -607,9 +607,9 @@ const I18N={
     powerAria:(n,c,d)=>`英雄技能「${n}」，消耗${c}点法力：${d}`,powerUse:(n,t)=>t?`你对${t}使用了${n}。`:`你使用了${n}。`,cantPower:'现在无法使用英雄技能。',
     modeCamp:'冒险模式',modeCampSub:'用职业初始牌组，连续击败八名敌人。',modeQuick:'自由对战',modeQuickSub:'自己组一副牌，随机对战一名AI对手。',
     qClassTitle:'自由对战 · 选择职业',qClassSub:n=>`接下来为这个职业组一副${n}张的牌组。`,
-    deckTitle:x=>`${x}的牌组`,deckRules:n=>`${n}张牌。同名卡最多2张，传说卡和特殊史诗卡最多1张。`,deckNeed:n=>`还差${n}张`,deckReady:'牌组已完成',
+    deckTitle:x=>`${x}的牌组`,deckRules:n=>`${n}张牌。同名卡最多2张，特殊史诗卡最多1张，整副牌组只能带一张传说牌。`,deckNeed:n=>`还差${n}张`,deckReady:'牌组已完成',
     autoFill:'自动补满',resetDeck:'恢复初始牌组',clearDeck:'清空',nextDiff:'下一步：选择难度',curve:'法力曲线',filterAll:'全部',
-    tapAdd:'点击卡牌加入牌组，点击牌组中的一行移除一张。',limitHit:'这张牌已经达到数量上限。',deckFull:'牌组已满。',emptyDeck:'牌组是空的，点击卡牌加入。',
+    tapAdd:'点击卡牌加入牌组，点击牌组中的一行移除一张。',limitHit:'这张牌已经达到数量上限。',legLimit:'一副牌组只能带一张传说牌。',deckFull:'牌组已满。',emptyDeck:'牌组是空的，点击卡牌加入。',
     diffTitle:'选择难度',diffSub:'对手的职业会随机决定。',diff:{easy:'简单',normal:'普通',hard:'困难'},
     diffDesc:{easy:'AI会出错，也不使用英雄技能。牌组补充普通卡。',normal:'标准AI，会使用职业英雄技能。牌组补充稀有卡和史诗卡。',hard:'标准AI，牌组补充史诗卡和传说卡。'},
     aiName:x=>`${x}（AI）`,goFirst:'你先手。',goSecond:'你后手，获得一枚幸运硬币。',qWin:'胜利',qLose:'失败',qVs:(c,d)=>`对手：${c} · ${d}`,
@@ -678,9 +678,9 @@ const I18N={
     powerAria:(n,c,d)=>`ヒーローパワー「${n}」、コスト${c}：${d}`,powerUse:(n,t)=>t?`${t}に${n}を使った。`:`${n}を使った。`,cantPower:'今はヒーローパワーを使えない。',
     modeCamp:'冒険モード',modeCampSub:'クラスの初期デッキで、8人の敵に連続で挑む。',modeQuick:'フリー対戦',modeQuickSub:'自分でデッキを組み、ランダムなAIと対戦する。',
     qClassTitle:'フリー対戦 · クラスを選択',qClassSub:n=>`次にこのクラスで${n}枚のデッキを組む。`,
-    deckTitle:x=>`${x}のデッキ`,deckRules:n=>`${n}枚。同名カードは2枚まで、レジェンドと特別なエピックは1枚まで。`,deckNeed:n=>`あと${n}枚`,deckReady:'デッキ完成',
+    deckTitle:x=>`${x}のデッキ`,deckRules:n=>`${n}枚。同名カードは2枚まで、特別なエピックは1枚まで、レジェンドはデッキ全体で1枚だけ。`,deckNeed:n=>`あと${n}枚`,deckReady:'デッキ完成',
     autoFill:'自動で埋める',resetDeck:'初期デッキに戻す',clearDeck:'空にする',nextDiff:'次へ：難易度',curve:'マナカーブ',filterAll:'すべて',
-    tapAdd:'カードをタップで追加、デッキの行をタップで1枚外す。',limitHit:'このカードは枚数上限に達している。',deckFull:'デッキがいっぱい。',emptyDeck:'デッキは空。カードをタップして追加しよう。',
+    tapAdd:'カードをタップで追加、デッキの行をタップで1枚外す。',limitHit:'このカードは枚数上限に達している。',legLimit:'デッキに入れられるレジェンドは1枚だけ。',deckFull:'デッキがいっぱい。',emptyDeck:'デッキは空。カードをタップして追加しよう。',
     diffTitle:'難易度を選択',diffSub:'相手のクラスはランダムに決まる。',diff:{easy:'かんたん',normal:'ふつう',hard:'むずかしい'},
     diffDesc:{easy:'AIはミスをし、ヒーローパワーを使わない。デッキはコモンで補充。',normal:'クラスのヒーローパワーを使う標準AI。デッキはレアとエピックで補充。',hard:'標準AI。デッキはエピックとレジェンドで補充。'},
     aiName:x=>`${x}（AI）`,goFirst:'あなたが先攻。',goSecond:'あなたは後攻。幸運のコインを得る。',qWin:'勝利',qLose:'敗北',qVs:(c,d)=>`相手：${c} · ${d}`,
@@ -1106,7 +1106,7 @@ function rollRewards(stage){
   // Beta: cards of the schools you have talents in come up three times as often.
   const sch=new Set((R.tal||[]).map(id=>TAL_PAGE[id]&&TAL_PAGE[id].sc));
   // Cards the deck already holds the most copies of (a Legendary it has) are never offered.
-  COLLECT.filter(k=>forCls(k,R.cls)&&copies(R.deck,k)<maxCopies(k)).forEach(k=>{for(let i=0;i<w[CARDS[k].r]*(CARDS[k].sc&&sch.has(CARDS[k].sc)?3:1);i++)pool.push(k)});
+  COLLECT.filter(k=>forCls(k,R.cls)&&fits(R.deck,k)).forEach(k=>{for(let i=0;i<w[CARDS[k].r]*(CARDS[k].sc&&sch.has(CARDS[k].sc)?3:1);i++)pool.push(k)});
   const out=[];
   while(out.length<3){const k=pool[Math.random()*pool.length|0];if(!out.includes(k))out.push(k)}
   return out;
@@ -1594,14 +1594,17 @@ const DECK_SIZE=25;
 const DIFFS={easy:{rar:['c'],col:'#6aa57e'},normal:{rar:['r','e'],col:'#5a8ae0'},hard:{rar:['e','l'],col:'#cf4a3f'}};
 const maxCopies=k=>CARDS[k].r==='l'||CARDS[k].uniq?1:2;
 const copies=(d,k)=>d.filter(x=>x===k).length;
+// A deck holds at most one Legendary in all; `fits` is whether card k may still go in deck d.
+const legIn=d=>d.filter(x=>CARDS[x]&&CARDS[x].r==='l').length;
+const fits=(d,k)=>copies(d,k)<maxCopies(k)&&!(CARDS[k].r==='l'&&legIn(d)>=1);
 function padDeck(base,rar,cls){
   const d=[...base],pool=COLLECT.filter(k=>rar.includes(CARDS[k].r)&&forCls(k,cls));let g=0;
-  while(d.length<DECK_SIZE&&g++<600){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
+  while(d.length<DECK_SIZE&&g++<600){const k=pool[Math.random()*pool.length|0];if(fits(d,k))d.push(k)}
   return d;
 }
 function autoFill(d,cls){
   const w={c:3,r:2,e:1,l:1},pool=[];COLLECT.filter(k=>forCls(k,cls)).forEach(k=>{for(let i=0;i<w[CARDS[k].r];i++)pool.push(k)});
-  let g=0;while(d.length<DECK_SIZE&&g++<2000){const k=pool[Math.random()*pool.length|0];if(copies(d,k)<maxCopies(k))d.push(k)}
+  let g=0;while(d.length<DECK_SIZE&&g++<2000){const k=pool[Math.random()*pool.length|0];if(fits(d,k))d.push(k)}
 }
 // Saved decks: a list of named decks per device. Older single drafts per class are migrated once.
 function loadSaved(){
@@ -1631,8 +1634,8 @@ function saveCurrent(asNew){
   if(hasTal(Q.cls))d.tal=[...(Q.tal||[])];
   storeSaved(list);Q.dirty=false;Q.toast=T('saved',name);
 }
-function sanitizeDeck(d,cls){const out=[];d.forEach(k=>{if(CARDS[k]&&!CARDS[k].token&&forCls(k,cls)&&copies(out,k)<maxCopies(k)&&out.length<DECK_SIZE)out.push(k)});return out}
-function validDeck(d,cls){return Array.isArray(d)&&d.length<=DECK_SIZE&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k)&&(!cls||forCls(k,cls)))}
+function sanitizeDeck(d,cls){const out=[];d.forEach(k=>{if(CARDS[k]&&!CARDS[k].token&&forCls(k,cls)&&fits(out,k)&&out.length<DECK_SIZE)out.push(k)});return out}
+function validDeck(d,cls){return Array.isArray(d)&&d.length<=DECK_SIZE&&legIn(d)<=1&&d.every(k=>CARDS[k]&&!CARDS[k].token&&copies(d,k)<=maxCopies(k)&&(!cls||forCls(k,cls)))}
 let Q={cls:null,deck:[],diff:'normal',type:'all',cost:0,rar:'all',w:0,l:0,toast:'',editId:null,name:'',dirty:false,delArm:null,libToast:''};
 
 const pn=p=>p.n[li()],pd=p=>fxText(p.fx,p.tgt);
@@ -2735,7 +2738,7 @@ function builderHTML(){
   const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?CARDS[k].c>=7:CARDS[k].c===Q.cost))&&(Q.rar==='all'||CARDS[k].r===Q.rar))
     .sort((a,b)=>!!CARDS[b].cls-!!CARDS[a].cls||CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   FOV=hasTal(Q.cls)?ovrFor(Q.tal):null;
-  const coll=list.map(k=>{const n=copies(d,k),full=n>=maxCopies(k)||d.length>=DECK_SIZE;
+  const coll=list.map(k=>{const n=copies(d,k),full=!fits(d,k)||d.length>=DECK_SIZE;
     return `<div class="cslot${CARDS[k].cls?' clsc':''}" style="--cc:${c.col}">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');FOV=null;
   const toOnline=Q.ret==='online',tt=hasTal(Q.cls);
   const tabs=tt?`<div class="chips" style="margin:2px 0 8px"><button class="chip ${Q.btab!=='tal'?'on':''}" data-btab="cards">${TX.cards()} ${d.length}/${DECK_SIZE}</button><button class="chip ${Q.btab==='tal'?'on':''}" data-btab="tal">✦ ${TX.talents()} ${(Q.tal||[]).length}/${TAL_MAX}</button></div>`:'';
@@ -2998,7 +3001,7 @@ document.addEventListener('click',ev=>{
   if(b.dataset.hist!==undefined)return peek(+b.dataset.hist);
   if(b.dataset.zoom!==undefined)return showZoom(b.dataset.zoom);
   if(b.dataset.tal!==undefined)return talClick(b.dataset.tal);
-  if(b.dataset.pack!==undefined){const ps=advPacks();if(ps){ps[+b.dataset.pack].cards.forEach(k=>{if(copies(R.deck,k)<maxCopies(k))R.deck.push(k)});R.stage++;goStage()}return}
+  if(b.dataset.pack!==undefined){const ps=advPacks();if(ps){ps[+b.dataset.pack].cards.forEach(k=>{if(fits(R.deck,k))R.deck.push(k)});R.stage++;goStage()}return}
   if(b.dataset.tpre!==undefined)return talPresetClick(b.dataset.tpre);
   if(b.dataset.btab!==undefined){Q.btab=b.dataset.btab;return render()}
   if(b.dataset.tview!==undefined){if(S){S.tview=b.dataset.tview;render()}return}
@@ -3018,7 +3021,7 @@ document.addEventListener('click',ev=>{
   if(b.dataset.class!==undefined)return pickClass(b.dataset.class);
   if(b.dataset.qclass!==undefined)return openBuilder(b.dataset.qclass);
   if(b.dataset.add!==undefined){const k=b.dataset.add;
-    if(Q.deck.length>=DECK_SIZE)Q.toast=T('deckFull');else if(copies(Q.deck,k)>=maxCopies(k))Q.toast=T('limitHit');else{Q.deck.push(k);Q.toast='';Q.dirty=true}
+    if(Q.deck.length>=DECK_SIZE)Q.toast=T('deckFull');else if(copies(Q.deck,k)>=maxCopies(k))Q.toast=T('limitHit');else if(!fits(Q.deck,k))Q.toast=T('legLimit');else{Q.deck.push(k);Q.toast='';Q.dirty=true}
     return render()}
   if(b.dataset.rm!==undefined){const i=Q.deck.lastIndexOf(b.dataset.rm);if(i>=0){Q.deck.splice(i,1);Q.dirty=true}Q.toast='';return render()}
   if(b.dataset.play!==undefined)return playSaved(b.dataset.play);

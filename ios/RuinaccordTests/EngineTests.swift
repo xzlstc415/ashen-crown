@@ -492,4 +492,13 @@ final class EngineTests: XCTestCase {
         let w = s.summon(.p, "direwolf")!
         XCTAssertEqual(w.atk, gd.card("direwolf")!.atk! + 1, "and the summoned minion gets the same boost")
     }
+
+    func testOneLegendaryPerDeck() {
+        XCTAssertTrue(Decks.fits(["goblin"], "lich"))
+        XCTAssertFalse(Decks.fits(["lich"], "leviathan"), "a second, different Legendary does not fit")
+        XCTAssertFalse(Decks.isValid(["lich", "leviathan"]))
+        XCTAssertEqual(Decks.legendaries(Decks.sanitize(["lich", "leviathan", "goblin"], cls: "mage")), 1)
+        var d: [String] = []; Decks.autoFill(&d, cls: "mage"); XCTAssertLessThanOrEqual(Decks.legendaries(d), 1)
+        for _ in 0..<20 { XCTAssertTrue(Decks.rollRewards(stage: 5, cls: "mage", deck: ["lich"]).allSatisfy { GameData.shared.card($0)?.isLegendary == false }) }
+    }
 }

@@ -384,13 +384,14 @@ final class GameVM {
     func pickPack(_ i: Int) {
         guard let ps = advPacks, let p = ps[safe: i] else { return }
         // A pack never pushes a card past its copy limit (one of a Legendary).
-        for k in p.cards where Decks.copies(run.deck, k) < Decks.maxCopies(k) { run.deck.append(k) }
+        for k in p.cards where Decks.fits(run.deck, k) { run.deck.append(k) }
         run.stage += 1; goStage()
     }
 
     func addCard(_ k: String) {
         if q.deck.count >= Decks.size { q.toast = tx.deckFull }
         else if Decks.copies(q.deck, k) >= Decks.maxCopies(k) { q.toast = tx.limitHit }
+        else if !Decks.fits(q.deck, k) { q.toast = tx.legLimit }
         else { q.deck.append(k); q.toast = ""; q.dirty = true }
     }
     func removeCard(_ k: String) {

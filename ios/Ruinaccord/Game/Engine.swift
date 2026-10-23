@@ -938,9 +938,16 @@ enum Decks {
     static var size: Int { GameData.shared.deckSize }
     static func copies(_ d: [String], _ k: String) -> Int { d.filter { $0 == k }.count }
     static func maxCopies(_ k: String) -> Int { GameData.shared.card(k)?.maxCopies ?? 2 }
+    /// A deck holds at most one Legendary in all.
+    static func legendaries(_ d: [String]) -> Int { d.filter { GameData.shared.card($0)?.isLegendary == true }.count }
+    /// Whether card `k` may still go in deck `d` (its copy limit, and the one-Legendary rule).
+    static func fits(_ d: [String], _ k: String) -> Bool {
+        guard let c = GameData.shared.card(k) else { return false }
+        return copies(d, k) < c.maxCopies && !(c.isLegendary && legendaries(d) >= 1)
+    }
 
     static func isValid(_ d: [String], cls: String? = nil) -> Bool {
-        d.count <= size && d.allSatisfy { k in
+        d.count <= size && legendaries(d) <= 1 && d.allSatisfy { k in
             guard let c = GameData.shared.card(k), !c.token, c.allowed(for: cls) else { return false }
             return copies(d, k) <= c.maxCopies
         }
@@ -951,7 +958,7 @@ enum Decks {
     static func sanitize(_ d: [String], cls: String) -> [String] {
         var out: [String] = []
         for k in d {
-            guard let c = GameData.shared.card(k), !c.token, c.allowed(for: cls), copies(out, k) < c.maxCopies, out.count < size else { continue }
+            guard let c = GameData.shared.card(k), !c.token, c.allowed(for: cls), fits(out, k), out.count < size else { continue }
             out.append(k)
         }
         return out
@@ -964,7 +971,7 @@ enum Decks {
         var g = 0
         while d.count < size && g < 600, let k = pool.randomElement() {
             g += 1
-            if copies(d, k) < maxCopies(k) { d.append(k) }
+            if fits(d, k) { d.append(k) }
         }
         return d
     }
@@ -977,7 +984,7 @@ enum Decks {
         var g = 0
         while d.count < size && g < 2000, let k = pool.randomElement() {
             g += 1
-            if copies(d, k) < maxCopies(k) { d.append(k) }
+            if fits(d, k) { d.append(k) }
         }
     }
 
@@ -989,7 +996,7 @@ enum Decks {
         let w = ["c": 3, "r": 2, "e": 1, "l": stage >= 2 ? 1 : 0]
         let schools = Set(talents.compactMap { gd.talentPage(of: $0)?.sc })
         var pool: [String] = []
-        for c in gd.collectible where c.allowed(for: cls) && copies(deck, c.id) < c.maxCopies {
+        for c in gd.collectible where c.allowed(for: cls) && fits(deck, c.id) {
             let boost = c.sc.map { schools.contains($0) } == true ? 3 : 1
             for _ in 0..<((w[c.rarity] ?? 0) * boost) { pool.append(c.id) }
         }
