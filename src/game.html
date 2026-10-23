@@ -426,6 +426,8 @@ svg{-webkit-user-drag:none}
 .endb{flex:none;width:42px;height:42px;border-radius:50%;border:2px solid #f3c97a;color:#fff;display:grid;place-items:center;padding:0;
   background:radial-gradient(circle at 40% 35%,#f0a060,#a8401a 70%);box-shadow:0 3px 0 #0008}
 .endb svg{width:20px;height:20px}
+/* The hero's name is not shown beside the portrait (it stays in the portrait's label and title). */
+.hinfo .hname{display:none}
 .endb{position:relative;border-color:transparent}.endb::before{content:"";position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;background:url(img/frame_endturn.png) center/100% 100% no-repeat;pointer-events:none}
 .endb[disabled]{filter:grayscale(.85) brightness(.55);cursor:default}
 .endb.glow{animation:glowE 1.4s ease-in-out infinite}

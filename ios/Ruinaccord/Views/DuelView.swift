@@ -193,13 +193,14 @@ private struct CountPill: View {
     }
 }
 
-/// Portrait with the name underneath (enemy) or above (you).
+/// Portrait. The name label is gone, but its room is kept so the portrait (and the gems placed beside it) stay put;
+/// VoiceOver still reads the name from the portrait.
 private struct HeroCluster: View {
     let side: Side
     @Environment(GameVM.self) private var vm
     var body: some View {
-        let name = Text(vm.heroName(side)).font(Theme.body(11, .bold)).foregroundStyle(Theme.parch).lineLimit(1)
-            .padding(.horizontal, 8).padding(.vertical, 2).background(Color.black.opacity(0.45), in: Capsule())
+        let name = Text(vm.heroName(side)).font(Theme.body(11, .bold)).lineLimit(1)
+            .padding(.horizontal, 8).padding(.vertical, 2).hidden().accessibilityHidden(true)
         VStack(spacing: 3) {
             if side == .p { name }
             HeroFace(side: side, size: 80)
