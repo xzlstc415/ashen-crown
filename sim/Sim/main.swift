@@ -59,6 +59,13 @@ if mode == "search" {
             save()
         }
     }
+} else if mode == "eval" {
+    // One archetype's champion against the field, `-games` games per opponent.
+    let name = args.firstIndex(of: "-arch").flatMap { args[safe: $0 + 1] } ?? ""
+    let n = arg("-games", 200)
+    for a in archs where name.isEmpty || a.name == name {
+        print(a.name, String(format: "%.3f", Search.eval(champs[a]!, vs: field(a), games: n)))
+    }
 } else if mode == "matrix" {
     // Every pair of archetypes, `-games` games each (alternating who goes first).
     let n = arg("-games", 50)

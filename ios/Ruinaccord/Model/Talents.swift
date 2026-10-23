@@ -141,7 +141,7 @@ extension GameData {
         if key == "minnow" && h("pa_drill") { hp += 1 }
         if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
         if key == "elver" && h("hu_tame") { a += 1; hp += 1 }
-        if (key == "hound" || key == "phound") && h("hu_hound") { a += 1 }
+        if (key == "hound" || key == "whound" || key == "phound") && h("hu_hound") { a += 1 }
         if key == "gull" && h("hu_griffon") { a += 1 }
         if key == "sailor" && h("wl_bone") { a += 1; hp += 1 }
         if key == "bubble" && h("wl_wrath") { a += 1 }

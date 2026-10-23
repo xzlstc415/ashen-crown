@@ -4,7 +4,7 @@ import XCTest
 final class EngineTests: XCTestCase {
     func testDataLoads() {
         let gd = GameData.shared
-        XCTAssertEqual(gd.cards.count, 125)
+        XCTAssertEqual(gd.cards.count, 126)
         XCTAssertEqual(gd.classes.count, 6)
         XCTAssertEqual(gd.opponents.count, 8)
         XCTAssertEqual(gd.deckSize, 25)
@@ -523,5 +523,18 @@ final class EngineTests: XCTestCase {
         var t = blank(); t.setupTalents(.p, cls: "priest", []); t.p.light = 0
         t.applyFx(.p, mend, nil); XCTAssertEqual(t.p.light, 5, "without the talent, overhealing as before")
         t.summon(.e, "ogre"); t.applyFx(.p, bolt, t.e.board[0].id, isSpell: true); XCTAssertEqual(t.p.light, 5)
+    }
+
+    func testWhistleHoundHasNoCharge() {
+        var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_pack", "hu_hound", "hu_whistle"]); s.turn = .p
+        s.summon(.p, "boar")
+        XCTAssertTrue(s.p.hand.contains("whistle"), "the first Beast of the turn brings the whistle")
+        s.castSpell(.p, "whistle", nil)
+        let h = s.p.board.last!
+        XCTAssertEqual(h.key, "whound"); XCTAssertEqual(h.atk, 2, "Vicious Hounds still counts it")
+        XCTAssertFalse(s.canAttack(h), "the whistle's Hound waits a turn")
+        var u = Effect(); u.perFoe = "hound"; s.summon(.e, "ogre")
+        s.applyFx(.p, u, nil)
+        XCTAssertTrue(s.canAttack(s.p.board.last!), "Unleash the Hounds keeps Charge")
     }
 }

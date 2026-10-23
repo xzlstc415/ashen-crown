@@ -7486,7 +7486,7 @@
     "buff": null,
     "team": null,
     "summon": [
-     "hound"
+     "whound"
     ],
     "tgt": null,
     "cond": null,
@@ -10076,6 +10076,48 @@
    "norip": false
   },
   {
+   "id": "whound",
+   "cost": 1,
+   "type": "m",
+   "atk": 1,
+   "hp": 1,
+   "rarity": "t",
+   "race": "beast",
+   "guard": false,
+   "ward": false,
+   "surge": false,
+   "gasp": null,
+   "token": true,
+   "cls": null,
+   "text": null,
+   "sp": 0,
+   "onSpell": null,
+   "bc": null,
+   "fx": null,
+   "names": [
+    "Hound",
+    "猎犬",
+    "猟犬"
+   ],
+   "flavor": [
+    "It heard the call.",
+    "它听见了召唤。",
+    "呼び声を聞いた。"
+   ],
+   "sc": null,
+   "pray": null,
+   "sw": false,
+   "pw": 0,
+   "beta": true,
+   "rite": false,
+   "ether": false,
+   "haunt": false,
+   "uniq": false,
+   "spellward": false,
+   "swings": 1,
+   "norip": false
+  },
+  {
    "id": "spawn",
    "cost": 4,
    "type": "m",
@@ -12198,9 +12240,9 @@
          "猟犬の笛"
         ],
         "desc": [
-         "After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand.",
-         "每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌。",
-         "毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える。"
+         "After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand (its Hound can't attack that turn).",
+         "每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌（召唤的猎犬本回合不能攻击）。",
+         "毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える（その猟犬は出たターンに攻撃できない）。"
         ]
        }
       ],

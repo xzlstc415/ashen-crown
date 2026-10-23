@@ -857,7 +857,7 @@ const ART={
   spellbreaker:portrait({race:'elf',robe:'#6a2a3a',hair:'#e0d0b0',long:1,head:'helm',helm:'#7a2a3a',prop:'sword',glow:'#cf4a3f'}),
   skeleton:portrait({race:'undead',robe:'#3a3a3a',prop:'sword',eyes:'#7fff9a'}),
   mirrorimg:portrait({race:'human',skin:'#c4e6ff',robe:'#8fd0ff',hair:'#e8f4ff',glow:'#8fd0ff'}),
-  hound:wolfArt('#a07a4a'),
+  hound:wolfArt('#a07a4a'),whound:wolfArt('#a07a4a'),
   // beta (class resources)
   emberbolt:'<circle cx="50" cy="34" r="22" fill="#ff8a3a" opacity=".15"/><path d="M50 12Q60 26 56 34Q62 30 61 24Q70 36 62 48Q56 56 50 56Q40 56 36 46Q32 34 42 26Q42 34 46 36Q42 24 50 12Z" fill="#f39a3a"/><path d="M50 30Q55 38 53 44Q50 50 46 46Q44 40 50 30Z" fill="#ffe08a"/><circle cx="26" cy="20" r="1.6" fill="#ffb070"/><circle cx="74" cy="16" r="1.3" fill="#ffb070"/><circle cx="72" cy="44" r="1.8" fill="#ffb070"/>',
   icelance:'<circle cx="50" cy="32" r="26" fill="#8fd0ff" opacity=".16"/><path d="M16 58L74 12" stroke="#c4e6ff" stroke-width="5" stroke-linecap="round"/><path d="M70 8l16-4-4 16z" fill="#ffffff"/><g fill="#e8f4ff"><path d="M28 22l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/><path d="M74 44l1.6 3 3 1.6-3 1.6-1.6 3-1.6-3-3-1.6 3-1.6z"/></g>',
@@ -991,7 +991,7 @@ const CARDS={
   steady:{beta:1,c:2,t:'s',r:'c',cls:'hunter',fx:{dmg:3,tgt:'any'},n:['Steady Shot','稳固射击','着実な射撃'],f:['Breathe out. Then let go.','呼气，然后放手。','息を吐いて、放つ。']},
   explosive:{beta:1,c:4,t:'s',r:'r',cls:'hunter',fx:{dmg:4,splash:1,tgt:'foe'},n:['Explosive Shot','爆裂射击','爆裂射撃'],x:['Deal 4 damage to an enemy minion and 1 to the other enemy minions.','对一个敌方随从造成4点伤害，并对其他敌方随从各造成1点伤害。','敵のミニオン1体に4ダメージ、他の敵のミニオンに1ダメージ。'],f:['Aim for the one in the middle.','瞄准中间那个。','真ん中を狙え。']},
   marksman:{beta:1,c:3,t:'m',a:3,h:3,r:'r',race:'elf',cls:'hunter',pw:1,n:['Elven Marksman','精灵神射手','エルフの名射手'],x:['Your hero power deals 1 extra damage.','你的英雄技能伤害+1。','ヒーローパワーのダメージ+1。'],f:['Never misses twice.','从不连续失手。','二度は外さない。']},
-  whistle:{beta:1,c:0,t:'s',r:'t',token:1,cls:'hunter',fx:{summon:'hound'},n:['Hound Whistle','唤犬哨','猟犬の笛'],f:['One short, one long.','一短，一长。','短く一回、長く一回。']},
+  whistle:{beta:1,c:0,t:'s',r:'t',token:1,cls:'hunter',fx:{summon:'whound'},n:['Hound Whistle','唤犬哨','猟犬の笛'],f:['One short, one long.','一短，一长。','短く一回、長く一回。']},
   phound:{beta:1,c:1,t:'m',a:2,h:1,r:'t',race:'beast',token:1,n:['Pack Hound','群猎犬','群れの猟犬'],f:['Follows the loudest voice.','跟着最响的声音走。','一番大きな声についていく。']},
   bonewarr:{beta:1,c:3,t:'m',a:2,h:2,r:'t',race:'undead',token:1,n:['Bone Warrior','骷髅战士','骸骨戦士'],f:['Built from many. Loyal to one.','由许多人拼成，只效忠一人。','多くから組まれ、一人に仕える。']},
   icebarrier:{beta:1,c:3,t:'s',r:'r',cls:'mage',fx:{armor:5,freezeBig:1},n:['Ice Barrier','寒冰屏障','アイスバリア'],x:['Gain 5 Armor. Freeze the enemy minion with the highest Attack.','获得5点护甲。冻结攻击力最高的敌方随从。','装甲を5獲得する。攻撃力が最も高い敵のミニオンを凍結させる。'],f:['The wall is clear. So is the message.','冰墙透明，意思也很明白。','壁は透明だ。言いたいことも。']},
@@ -1024,6 +1024,8 @@ const CARDS={
   skeleton:{c:1,t:'m',a:1,h:1,r:'t',race:'undead',token:1,n:['Skeleton','骷髅兵','スケルトン'],f:['Rattles when it walks.','走起路来咔咔作响。','歩くとカラカラ鳴る。']},
   mirrorimg:{c:0,t:'m',a:1,h:3,r:'t',race:'elemental',token:1,guard:1,n:['Mirror Image','镜影','ミラーイメージ'],f:['Smile. It will smile back.','微笑吧，它也会对你微笑。','笑え。向こうも笑い返す。']},
   hound:{c:1,t:'m',a:1,h:1,r:'t',race:'beast',token:1,surge:1,n:['Hound','猎犬','猟犬'],f:['Already running.','它已经在跑了。','もう走っている。']},
+  // The Hound Whistle's hound: no Charge.
+  whound:{beta:1,c:1,t:'m',a:1,h:1,r:'t',race:'beast',token:1,n:['Hound','猎犬','猟犬'],f:['It heard the call.','它听见了召唤。','呼び声を聞いた。']},
   spawn:{c:4,t:'m',a:4,h:4,r:'t',race:'dragon',token:1,ward:1,n:['Dragon Whelp','幼龙','子竜'],f:['Small now. Not for long.','现在还小，不会太久。','今は小さい。長くはない。']},
 };
 // ---------- beta switch ----------
@@ -1263,7 +1265,7 @@ const TALENTS=BETA?{
        TN('hu_hound',['Vicious Hounds','恶犬','猛犬'],['Your Hounds have +1 Attack.','你的猎犬+1攻击力。','自分の猟犬の攻撃力+1。']),
        TN('hu_wild',['Wild','野性','野性'],['From the 2nd card you play each turn, your Beasts can attack the turn they arrive.','每回合从你打出的第2张牌起，你的野兽登场时获得冲锋。','毎ターン2枚目以降のカードから、自分の獣は登場したターンに攻撃できる。'])],
       [TN('hu_master',['Houndmaster','犬群主人','猟犬使い'],['Your hero power becomes: summon a 2/1 Hound.','英雄技能改为「召唤一只2/1猎犬」。','ヒーローパワーが「2/1の猟犬を召喚」になる。']),
-       TN('hu_whistle',['Hound Whistle','唤犬哨','猟犬の笛'],['After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand.','每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌。','毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える。'])],
+       TN('hu_whistle',['Hound Whistle','唤犬哨','猟犬の笛'],['After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand (its Hound can\'t attack that turn).','每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌（召唤的猎犬本回合不能攻击）。','毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える（その猟犬は出たターンに攻撃できない）。'])],
       [TN('hu_combo',['Combo','连击','連撃'],['The 3rd and later cards you play each turn cost 1 less.','每回合你打出的第3张及之后的牌费用-1。','毎ターン3枚目以降に使うカードのコスト-1。'])]]},
     {id:'shot',sc:'shot',col:'#d9b45a',n:['Marksman','射击','射撃'],tiers:[
       [TN('hu_precise',['Precision','精准','精密'],['Arcane Shot deals 1 extra damage.','奥术射击伤害+1。','アーケインショットのダメージ+1。']),
@@ -1419,7 +1421,7 @@ function talStat(H,key,c){let a=0,h=0;
   if(key==='minnow'&&H('pa_drill'))h++;
   if(key==='direwolf'&&H('hu_pack')){a++;h++}
   if(key==='elver'&&H('hu_tame')){a++;h++}
-  if((key==='hound'||key==='phound')&&H('hu_hound'))a++;
+  if((key==='hound'||key==='whound'||key==='phound')&&H('hu_hound'))a++;
   if(key==='gull'&&H('hu_griffon'))a++;
   if(key==='sailor'&&H('wl_bone')){a++;h++}
   if(key==='bubble'&&H('wl_wrath'))a++;

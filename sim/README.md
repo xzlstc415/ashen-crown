@@ -17,4 +17,4 @@ talent sets for the current deck) against the champions of the other five classe
 the champion on a fresh run, and keeps a challenger only when it wins clearly. Strength here means strength as
 played by the game's AI.
 
-`best_decks.json` holds the latest result.
+`python3 sim/export.py` writes `best_decks.json` (the latest result, with names) from the matrix.
