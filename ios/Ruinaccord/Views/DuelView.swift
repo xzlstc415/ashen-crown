@@ -79,6 +79,7 @@ struct DuelView: View {
                 let x = hm.heroX - hm.leftW, y = hm.heroY - hm.pad
                 ZStack(alignment: .topLeading) {
                     HeroCluster(side: .p).position(x: x, y: y - 10)
+                    LastingTokens(side: .p).position(x: x, y: y - 92)
                     PowerButton().position(x: x + 60, y: y - 30)
                     GemView(kind: .health, value: max(0, s.p.hp), size: 34).position(x: x + 60, y: y + 24)
                         .accessibilityLabel(Text("\(tx.healthShort) \(max(0, s.p.hp))"))
@@ -147,6 +148,7 @@ private struct TopStrip: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             HeroCluster(side: .e).position(x: hm.heroX - hm.leftW, y: 52)
+            LastingTokens(side: .e).position(x: hm.heroX - hm.leftW, y: 130)
             GemView(kind: .health, value: max(0, s.e.hp), size: 34).position(x: hm.heroX - hm.leftW + 60, y: 44)
                 .accessibilityLabel(Text("\(vm.tx.healthShort) \(max(0, s.e.hp))"))
         })
@@ -190,6 +192,35 @@ private struct CountPill: View {
             .padding(.horizontal, 9).padding(.vertical, 4)
             .background(Color.black.opacity(0.35), in: Capsule())
             .overlay(Capsule().stroke(Theme.line, lineWidth: 1))
+    }
+}
+
+/// Effects waiting off the board for a hero, apart from the status box: the Prayers on the altar for now, each a
+/// round token of its art with the turns left; a tap opens the card with what is left.
+private struct LastingTokens: View {
+    let side: Side
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        guard let s = vm.state, !s[side].altar.isEmpty else { return AnyView(EmptyView()) }
+        let tx = vm.tx
+        return AnyView(HStack(spacing: 8) {
+            ForEach(Array(s[side].altar.enumerated()), id: \.offset) { _, a in
+                Button { vm.zoomNote = tx.altarLeft(a.cd); vm.zoomCard = a.key } label: {
+                    ArtThumb(key: a.key, width: 36, height: 36).clipShape(Circle())
+                        .overlay(Circle().stroke(Color(hex: "#e8c35a"), lineWidth: 1.6))
+                        .shadow(color: Color(hex: "#ffe9a0").opacity(0.55), radius: 5)
+                        .overlay(alignment: .bottomTrailing) {
+                            Text("\(a.cd)").font(Theme.body(10, .heavy)).foregroundStyle(.white).monospacedDigit()
+                                .frame(width: 17, height: 17).background(Color(hex: "#8a6a1a"), in: Circle())
+                                .overlay(Circle().stroke(Color(hex: "#ffe9a0"), lineWidth: 1)).offset(x: 4, y: 4)
+                        }
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text("\(tx.altarLbl): \(tx.cardName(a.key)), \(tx.altarLeft(a.cd))"))
+            }
+        }
+        .padding(.horizontal, 8).padding(.vertical, 5)
+        .background(Color.black.opacity(0.35), in: Capsule()))
     }
 }
 
@@ -321,7 +352,7 @@ private struct StatusBox: View {
                 .lineLimit(1).minimumScaleFactor(0.7)
             }
             ManaBox(side: side)
-            // Talent counters and the altar (Prayers waiting, with turns left).
+            // Class resource counters. Lasting effects (the altar) sit by the hero portrait instead (LastingTokens).
             let counters: [String] = [
                 s.isCls(side, "warrior") ? tx.rage(h.rage) : nil,
                 s.isCls(side, "warlock") ? tx.souls(h.soul) : nil,
@@ -332,19 +363,6 @@ private struct StatusBox: View {
             ].compactMap { $0 }
             if !counters.isEmpty {
                 Text(counters.joined(separator: " · ")).font(Theme.body(8.5, .bold)).foregroundStyle(Theme.gold).lineLimit(1).minimumScaleFactor(0.7)
-            }
-            if !h.altar.isEmpty {
-                HStack(spacing: 3) {
-                    ForEach(Array(h.altar.enumerated()), id: \.offset) { _, a in
-                        HStack(spacing: 2) {
-                            Text(tx.cardName(a.key)).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#ffe9a0")).lineLimit(1)
-                            Text("\(a.cd)").font(Theme.body(8, .heavy)).foregroundStyle(.white).frame(width: 12, height: 12).background(Color(hex: "#8a6a1a"), in: Circle())
-                        }
-                        .padding(.horizontal, 4).frame(height: 15).background(Color.black.opacity(0.4), in: Capsule())
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityLabel(Text(tx.altarLbl + ": " + h.altar.map { "\(tx.cardName($0.key)) \($0.cd)" }.joined(separator: ", ")))
             }
         }
         .padding(.horizontal, 8).padding(.vertical, 6)

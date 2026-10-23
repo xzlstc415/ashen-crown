@@ -465,6 +465,7 @@ struct Tx {
     func talTakePack(_ n: String) -> String { pick("Take the \(n) pack", "选择\(n)牌包", "\(n)パックを取る") }
     func packText(_ n: Int, _ o: String) -> String { pick("Choose a pack for your deck (\(n) cards). Next: \(o).", "选一个牌包加入牌组（现在\(n)张）。下一关：\(o)。", "デッキに加えるパックを選ぶ（現在\(n)枚）。次：\(o)。") }
     var altarLbl: String { pick("Altar", "祭坛", "祭壇") }
+    func altarLeft(_ n: Int) -> String { pick("Altar · \(n) turn\(n == 1 ? "" : "s") left", "祭坛 · 还剩\(n)回合", "祭壇 · 残り\(n)ターン") }
     var altarFull: String { pick("Your altar is full.", "祭坛已满。", "祭壇がいっぱいです。") }
     func prayed(_ c: String) -> String { pick("You place \(c) on your altar.", "你把\(c)放上了祭坛。", "\(c)を祭壇に置いた。") }
     func ePrayed(_ x: String, _ c: String) -> String { pick("\(x) places \(c) on the altar.", "\(x)把\(c)放上了祭坛。", "\(x)が\(c)を祭壇に置いた。") }

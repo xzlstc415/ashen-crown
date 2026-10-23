@@ -337,12 +337,13 @@ struct CardZoom: View {
                 Color(hex: "#0a080c").opacity(0.82).ignoresSafeArea()
                 VStack(spacing: 10) {
                     CardView(card: c, size: .big, full: true)
+                    if let note = vm.zoomNote { Text(note).font(Theme.body(14, .heavy)).foregroundStyle(Color(hex: "#ffe9a0")) }
                     Text(vm.tx.name(c.flavor)).font(Theme.body(13)).italic().foregroundStyle(Theme.muted).multilineTextAlignment(.center).frame(maxWidth: 240)
                     Text(vm.tx.tapClose).font(Theme.body(12)).foregroundStyle(Theme.muted)
                 }
             }
             .contentShape(Rectangle())
-            .onTapGesture { vm.zoomCard = nil; vm.peekItem = nil }
+            .onTapGesture { vm.zoomCard = nil; vm.zoomNote = nil; vm.peekItem = nil }
             .transition(.opacity)
         }
     }

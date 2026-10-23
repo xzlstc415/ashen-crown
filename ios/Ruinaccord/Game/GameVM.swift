@@ -175,6 +175,8 @@ final class GameVM {
     /// Changes with every new game, so an AI turn still waiting from an old game stops instead of acting in the new one.
     private(set) var gameToken = UUID()
     var zoomCard: String?
+    /// A line shown under the zoomed card (an altar Prayer's turns left).
+    var zoomNote: String?
     var peekItem: HistItem?
     /// Heroes whose portrait is breaking apart at game over.
     var dying: Set<Side> = []
