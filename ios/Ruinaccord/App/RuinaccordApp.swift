@@ -73,6 +73,8 @@ enum DebugLaunch {
             if args.contains("-tapfoe"), vm.state != nil { Task { try? await Task.sleep(for: .milliseconds(1500)); if let m = vm.state?.e.board.first { vm.tapMinion(m.id, key: m.key) } } }
             // -altar: both heroes get two Prayers waiting (layout checks)
             if args.contains("-altar"), vm.state != nil { vm.state?.p.altar = [AltarSlot(key: "matins", cd: 2), AltarSlot(key: "judgment", cd: 3)]; vm.state?.e.altar = [AltarSlot(key: "vigil", cd: 1)]; if args.contains("-altarzoom") { vm.zoomNote = vm.tx.altarLeft(3); vm.zoomCard = "judgment" } }
+            // -armor n: both heroes get n Armor (status box checks)
+            if let n = value("-armor").flatMap(Int.init), vm.state != nil { vm.state?.p.armor = n; vm.state?.e.armor = n }
             if args.contains("-shatter"), vm.state != nil { Task { try? await Task.sleep(for: .seconds(2)); vm.debugShatter() } }
             if args.contains("-rite"), vm.state != nil { vm.state?.p.rites = 3; vm.choice = Choice(offer: vm.state!.riteOffer(), n: 1, rite: true) }
             // -fatigue: your deck is empty and you are at 1 health, then the turn ends (the fatigue draw must end the game)

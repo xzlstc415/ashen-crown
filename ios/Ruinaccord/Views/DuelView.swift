@@ -83,6 +83,7 @@ struct DuelView: View {
                     PowerButton().position(x: x + 60, y: y - 30)
                     GemView(kind: .health, value: max(0, s.p.hp), size: 34).position(x: x + 60, y: y + 24)
                         .accessibilityLabel(Text("\(tx.healthShort) \(max(0, s.p.hp))"))
+                    ArmorGem(n: s.p.armor).position(x: x + 92, y: y + 22)
                 }
                 .frame(width: hm.size.width - hm.leftW - hm.rightW, height: vh)
             }
@@ -151,6 +152,7 @@ private struct TopStrip: View {
             LastingTokens(side: .e).position(x: hm.heroX - hm.leftW, y: 130)
             GemView(kind: .health, value: max(0, s.e.hp), size: 34).position(x: hm.heroX - hm.leftW + 60, y: 44)
                 .accessibilityLabel(Text("\(vm.tx.healthShort) \(max(0, s.e.hp))"))
+            ArmorGem(n: s.e.armor).position(x: hm.heroX - hm.leftW + 92, y: 42)
         })
     }
 }
@@ -319,7 +321,7 @@ private struct RightColumn: View {
     }
 }
 
-/// A hero's numbers in one box: the Health gem with Armor (and your banked spell mana) beside it, then mana as
+/// A hero's numbers in one box: banked spell mana, then mana as
 /// "x / max" over a row of ten crystals. The enemy's box is tinted red, yours blue; the acting hero's box glows.
 private struct StatusBox: View {
     let side: Side
@@ -330,23 +332,17 @@ private struct StatusBox: View {
         let acting = s.turn == side && !s.over
         let label = foe ? Color(hex: "#f0a097") : Color(hex: "#9fc4ee")
         return AnyView(VStack(alignment: .leading, spacing: 5) {
-            // Health sits beside the portrait; here: Armor and banked spell mana, then mana.
-            if h.armor > 0 || h.spellMana > 0 {
+            // Health and Armor sit beside the portrait; here: banked spell mana, then mana.
+            if h.spellMana > 0 {
                 HStack(spacing: 4) {
-                    if h.armor > 0 {
-                        StatGem(value: h.armor, colors: [Color(hex: "#c8ccd8"), Color(hex: "#6a7080")], label: tx.armor, scale: 0.75, dark: true)
-                        Text(tx.armor).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#9fa6b8"))
-                    }
-                    if h.spellMana > 0 {
-                        HStack(spacing: 3) {
-                            ForEach(0..<min(6, h.spellMana), id: \.self) { _ in
-                                Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
-                                    .frame(width: 7, height: 7).rotationEffect(.degrees(45))
-                            }
+                    HStack(spacing: 3) {
+                        ForEach(0..<min(6, h.spellMana), id: \.self) { _ in
+                            Rectangle().fill(Color(hex: "#a77be8")).overlay(Rectangle().stroke(Color(hex: "#d2b8ff"), lineWidth: 1))
+                                .frame(width: 7, height: 7).rotationEffect(.degrees(45))
                         }
-                        .padding(.horizontal, 2)
-                        Text(tx.spellManaShort).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#d2b8ff"))
                     }
+                    .padding(.horizontal, 2)
+                    Text(tx.spellManaShort).font(Theme.body(8, .bold)).foregroundStyle(Color(hex: "#d2b8ff"))
                 }
                 .frame(height: 16)
                 .lineLimit(1).minimumScaleFactor(0.7)
@@ -373,6 +369,18 @@ private struct StatusBox: View {
         .animation(.easeOut(duration: 0.25), value: acting)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("\(vm.heroName(side)), \(max(0, h.hp)), \(tx.armor) \(h.armor), \(tx.spellManaShort) \(h.spellMana), " + tx.mana(h.mana, h.maxMana))))
+    }
+}
+
+/// The hero's Armor: a silver gem beside the Health shield, shown while there is any.
+private struct ArmorGem: View {
+    let n: Int
+    @Environment(GameVM.self) private var vm
+    var body: some View {
+        if n > 0 {
+            StatGem(value: n, colors: [Color(hex: "#e4e8f0"), Color(hex: "#7a8090")], label: vm.tx.armor, scale: 1.1, dark: true)
+                .transition(.scale.combined(with: .opacity))
+        }
     }
 }
 

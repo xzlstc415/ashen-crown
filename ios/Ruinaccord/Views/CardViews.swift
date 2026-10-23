@@ -379,7 +379,7 @@ struct ArtThumb: View {
     }
 }
 
-/// A hero's round portrait; tap target for attacks and spells. Health, Armor and spell mana live in the status
+/// A hero's round portrait; tap target for attacks and spells. Health and Armor sit beside it, spell mana in the status
 /// column on the right, so the portrait carries no badges.
 struct HeroFace: View {
     let side: Side
@@ -416,7 +416,7 @@ struct HeroFace: View {
     }
 }
 
-/// Small hexagonal number gem (armor in the status column).
+/// Small hexagonal number gem (the hero's Armor).
 struct StatGem: View {
     let value: Int
     let colors: [Color]
