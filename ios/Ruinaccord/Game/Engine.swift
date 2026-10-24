@@ -297,7 +297,7 @@ struct DuelState: Codable {
     mutating func talOpen(_ side: Side) {
         guard self[side].hasTalents else { return }
         if tal(side, "fi_bank") { self[side].spellMana = 1 }
-        if tal(side, "wa_tough") { self[side].armor += 7 }
+        if tal(side, "wa_tough") { self[side].armor += 5 }
         if tal(side, "wa_reckless") { draw(side, 1) }
     }
 
@@ -420,7 +420,7 @@ struct DuelState: Codable {
         if isCls(side, "warrior") && self[side].rage >= rageNeed {
             self[side].rage -= rageNeed
             for i in self[side].board.indices { self[side].board[i].atk += 2; self[side].board[i].tmp += 2 }
-            if tal(side, "wa_fury") { self[side].armor += 3; float(.hero(side), .armorGain(3)) }
+            if tal(side, "wa_fury") { self[side].armor += 2; float(.hero(side), .armorGain(2)) }
             float(.hero(side), .rage)
         }
         self[side].maxMana = Swift.min(10, self[side].maxMana + 1)

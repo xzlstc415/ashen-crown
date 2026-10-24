@@ -11816,9 +11816,9 @@
          "強靭"
         ],
         "desc": [
-         "Start the game with 7 Armor.",
-         "开局获得7点护甲。",
-         "ゲーム開始時に装甲を7得る。"
+         "Start the game with 5 Armor.",
+         "开局获得5点护甲。",
+         "ゲーム開始時に装甲を5得る。"
         ]
        },
        {
@@ -11926,9 +11926,9 @@
          "解放"
         ],
         "desc": [
-         "Energy bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.",
-         "能量爆发只需3点，并且爆发时英雄获得3点护甲。",
-         "エネルギーは4ではなく3で解放され、解放時にヒーローが装甲3を得る。"
+         "Energy bursts at 3 instead of 4, and each burst also gives your hero 2 Armor.",
+         "能量爆发只需3点，并且爆发时英雄获得2点护甲。",
+         "エネルギーは4ではなく3で解放され、解放時にヒーローが装甲2を得る。"
         ]
        }
       ]

@@ -1219,7 +1219,7 @@ const TALENTS=BETA?{
       [TN('sh_steal',['Mind Theft','心灵窃取','心盗み'],['Whenever your Word spell destroys a minion, add a copy of it to your hand and draw a card.','你的真言消灭随从后，将它的一张复制置入你的手牌，并抽一张牌。','自分の「言葉」の呪文がミニオンを破壊した後、そのコピーを手札に加え、カードを1枚引く。'])]]}],
   warrior:[
     {id:'warrior',sc:'fury',col:'#e0563f',n:['Warrior','战士','戦士'],tiers:[
-      [TN('wa_tough',['Hardened','坚韧','強靭'],['Start the game with 7 Armor.','开局获得7点护甲。','ゲーム開始時に装甲を7得る。']),
+      [TN('wa_tough',['Hardened','坚韧','強靭'],['Start the game with 5 Armor.','开局获得5点护甲。','ゲーム開始時に装甲を5得る。']),
        TN('wa_crab',['Shield Drill','盾卫训练','盾持ちの訓練'],['Dwarf Shieldbearer has +0/+2.','矮人盾卫+0/+2。','ドワーフの盾持ちに+0/+2。']),
        TN('wa_reckless',['Reckless','破釜','背水'],['Draw an extra card at the start. Your hero starts with 3 less Health.','起手多抽一张牌，英雄起始生命值-3。','開始時に1枚多く引く。ヒーローの初期体力-3。'])],
       [TN('wa_iron',['Ironguard','铁卫','鉄の守り'],['Your Guard minions have +0/+2.','你的守护随从+0/+2。','自分のガードを持つミニオンに+0/+2。']),
@@ -1227,7 +1227,7 @@ const TALENTS=BETA?{
        TN('wa_thane',["Thane's Mail",'领主之甲','領主の鎧'],['Dwarf Thane gives 2 more Armor.','矮人领主登场时额外获得2点护甲。','ドワーフの領主の装甲+2。'])],
       [TN('wa_counter',['Riposte','反击','反撃'],['When an enemy minion attacks your hero while you have Armor, deal 1 damage to it.','敌方随从攻击你的英雄时，若你有护甲，对它造成1点伤害。','装甲がある時に敵のミニオンがヒーローを攻撃すると、そのミニオンに1ダメージ。']),
        TN('wa_bloodied',['Blood Fight','血战','血戦'],['The first time each of your minions is damaged, it gains +1 Attack.','你的随从第一次受伤后+1攻击力。','自分のミニオンは初めてダメージを受けた後、攻撃力+1。'])],
-      [TN('wa_fury',['Seething','爆发','解放'],['Energy bursts at 3 instead of 4, and each burst also gives your hero 3 Armor.','能量爆发只需3点，并且爆发时英雄获得3点护甲。','エネルギーは4ではなく3で解放され、解放時にヒーローが装甲3を得る。'])]]}],
+      [TN('wa_fury',['Seething','爆发','解放'],['Energy bursts at 3 instead of 4, and each burst also gives your hero 2 Armor.','能量爆发只需3点，并且爆发时英雄获得2点护甲。','エネルギーは4ではなく3で解放され、解放時にヒーローが装甲2を得る。'])]]}],
   paladin:[
     {id:'paladin',sc:'aegis',col:'#ffe9a0',n:['Paladin','圣骑士','聖騎士'],tiers:[
       [TN('pa_first',['Opening Blessing','开场祝福','開幕の祝福'],['The first minion you summon each game gets Ward.','每局你召唤的第一个随从获得护盾。','各ゲーム最初に召喚したミニオンが結界を得る。']),
@@ -1356,7 +1356,7 @@ const pcost=side=>{const s=S[side],p=s.power||CBY[R.cls].power;return p.c};
 const powerBonus=side=>S[side].board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].pw||0),0);
 function talOpen(side){const s=S[side];if(!s.tal||!s.tal.size)return;
   if(tal(s,'fi_bank'))s.sm=1;
-  if(tal(s,'wa_tough'))s.armor+=7;
+  if(tal(s,'wa_tough'))s.armor+=5;
   if(tal(s,'wa_reckless'))draw(side,1);
 }
 // Self-damage triggers (Agony, Blood Mana) and deaths (Corpse Tide, Soul Harvest, Souls).
@@ -1883,7 +1883,7 @@ function startTurn(side){
   if(resCls(o,'paladin')){const n=Math.min(2,o.board.filter(m=>m.atk>m.base[0]||m.max>m.base[1]).length);if(n){o.pres=Math.min(PRES_CAP,(o.pres||0)+n);float(o,TX.presUp(n),'#ffd27a')}}
   if(resCls(o,'warlock')&&(o.soul||0)>=5){o.soul-=5;const m=summon(other(side),'bonewarr');if(m){float(m,T('fRevive'),'#8ac08a')}}
   const rageNeed=RAGE_NEED-(tal(s,'wa_fury')?1:0);
-  if(resCls(s,'warrior')&&(s.rage||0)>=rageNeed){s.rage-=rageNeed;s.board.forEach(m=>{m.atk+=2;m.tmp=(m.tmp||0)+2});if(tal(s,'wa_fury')){s.armor+=3;float(s,T('armorN',3),'#cfd8dc')}float(s,TX.rageGo(),'#e0563f')}
+  if(resCls(s,'warrior')&&(s.rage||0)>=rageNeed){s.rage-=rageNeed;s.board.forEach(m=>{m.atk+=2;m.tmp=(m.tmp||0)+2});if(tal(s,'wa_fury')){s.armor+=2;float(s,T('armorN',2),'#cfd8dc')}float(s,TX.rageGo(),'#e0563f')}
   s.maxMana=Math.min(10,s.maxMana+1);s.mana=s.maxMana;s.powerUsed=false;
   s.board.forEach(m=>{m.sleep=false;m.attacked=!!m.frozen;m.hits=0});
   haunt(side);
