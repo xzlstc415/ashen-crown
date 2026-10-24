@@ -95,7 +95,7 @@ extension DuelState {
         }
         if fx.freezeBig && foes.isEmpty && e.hp > e.max - 5 { return nil }
         if fx.destroy {
-            let l = targetsFor(.e, fx.tgt ?? .foe, fx.cond).compactMap { minion($0) }
+            let l = targetsFor(.e, fx.tgt ?? .foe, fx.cond).filter { !(Self.isMagic(c.id) && isSpellward($0)) }.compactMap { minion($0) }
             guard let m = l.max(by: { aiValue($0) < aiValue($1) }), aiValue(m) >= (c.cost >= 3 ? 8 : 5) else { return nil }
             return .some(m.id)
         }

@@ -572,4 +572,15 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(s.cardFx(.p, "steady")?.dmg, 4); XCTAssertEqual(s.costOf(.p, "steady"), 1)
         XCTAssertEqual(s.cardFx(.p, "riptide")?.dmg, 7); XCTAssertEqual(s.costOf(.p, "riptide"), 3, "Deadly Aim and Heartseeker stack")
     }
+
+    func testAshenWyrmResistsMagicButNotBlows() {
+        var s = blank(); s.turn = .p
+        s.summon(.e, "leviathan"); let d = s.e.board.last!.id
+        s.castSpell(.p, "wordtorment", d)
+        XCTAssertEqual(s.minion(d)?.hp, 10, "Word of Torment cannot destroy it")
+        s.castSpell(.p, "frostbolt", d)
+        XCTAssertEqual(s.minion(d)?.hp, 10, "nor can a Mage spell hurt it")
+        s.castSpell(.p, "riptide", d)
+        XCTAssertLessThan(s.minion(d)?.hp ?? 10, 10, "a Hunter shot is physical")
+    }
 }

@@ -2016,9 +2016,9 @@
    "token": false,
    "cls": null,
    "text": [
-    "Spellproof (takes no damage from spells). On play: destroy every minion with less than 4 Health.",
-    "法术免疫（不受法术伤害）。登场：消灭场上所有生命值低于4的随从。",
-    "呪文無効（呪文のダメージを受けない）。登場時：体力4未満のミニオンをすべて破壊する。"
+    "Spellproof (spells cannot damage or destroy it, except Warrior and Hunter spells). On play: destroy every minion with less than 4 Health.",
+    "法术免疫（不受法术伤害和消灭，战士与猎人的法术除外）。登场：消灭场上所有生命值低于4的随从。",
+    "呪文無効（呪文のダメージと破壊を受けない。戦士と狩人の呪文は除く）。登場時：体力4未満のミニオンをすべて破壊する。"
    ],
    "sp": 0,
    "onSpell": null,

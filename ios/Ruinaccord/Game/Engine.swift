@@ -483,6 +483,8 @@ struct DuelState: Codable {
     func isEther(_ id: EID) -> Bool { minion(id).map { $0.card.ether && !$0.silenced } ?? false }
     /// Spellproof minions (Ignaroth) take no damage from spells.
     func isSpellward(_ id: EID) -> Bool { minion(id).map { $0.card.spellward && !$0.silenced } ?? false }
+    /// Spells Spellproof resists: all but Warrior and Hunter spells, whose blows and arrows are physical.
+    static func isMagic(_ k: String) -> Bool { gd.card(k).map { !$0.isMinion && $0.cls != "warrior" && $0.cls != "hunter" } ?? false }
     mutating func damage(_ id: EID, _ n: Int, pierce: Bool = false, phys: Bool = false, spell: Bool = false) {
         guard n > 0 else { return }
         if phys && isEther(id) { float(id, .ether); return }
@@ -672,7 +674,7 @@ struct DuelState: Codable {
         guard !done.isEmpty else { return }
         self[side].altar.removeAll { $0.cd <= 0 }
         for p in done {
-            if let pr = cardPray(side, p.key) { applyFx(side, pr.fx, nil) }
+            if let pr = cardPray(side, p.key) { applyFx(side, pr.fx, nil, isSpell: Self.isMagic(p.key)) }
             float(.hero(side), .answered)
             log(.prayerDone(side, p.key))
             if tal(side, "ho_grace") {
@@ -757,7 +759,7 @@ struct DuelState: Codable {
             let alive = self[side.other].board.filter { $0.hp > 0 }
             if fire { self[side].tf.fire = true }
             for tt in (fx.multi > 0 ? [t] + extra.map(Optional.some) : [t]) {
-                applyFx(side, fx, tt, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0), isSpell: true)
+                applyFx(side, fx, tt, bonus: bonus, faceBonus: (fire && tal(side, "fi_burn") ? 1 : 0) + (tal(side, "hu_aim") ? 2 : 0), isSpell: Self.isMagic(key))
             }
             if self[side].hasTalents {
                 let dead = alive.filter { m in (minion(m.id)?.hp ?? 0) <= 0 }
@@ -833,7 +835,9 @@ struct DuelState: Codable {
             if fx.drawIfKill, let mt, (minion(mt)?.hp ?? 0) <= 0 { draw(side, 1) }
         }
         if let t = mt, let uid = t.uid, let i = self[t.side].board.firstIndex(where: { $0.uid == uid }) {
-            if fx.destroy { self[t.side].board[i].hp = 0; float(t, .destroyed) }
+            if fx.destroy {
+                if isSpell && isSpellward(t) { float(t, .immune) } else { self[t.side].board[i].hp = 0; float(t, .destroyed) }
+            }
             if fx.silence { silence(t); if tal(side, "sh_void") { damage(t, 2) } }
             if fx.setAtk > 0 {
                 self[t.side].board[i].atk = fx.setAtk; self[t.side].board[i].tmp = 0
@@ -902,7 +906,7 @@ struct DuelState: Codable {
             for sd in [side, op] { for i in self[sd].board.indices where self[sd].board[i].hp < fx.cull { self[sd].board[i].hp = 0; float(self[sd].board[i].id, .destroyed) } }
         }
         if fx.purge > 0 {
-            for sd in [side, op] { for i in self[sd].board.indices where self[sd].board[i].atk >= fx.purge { self[sd].board[i].hp = 0; float(self[sd].board[i].id, .destroyed) } }
+            for sd in [side, op] { for i in self[sd].board.indices where self[sd].board[i].atk >= fx.purge && !(isSpell && isSpellward(self[sd].board[i].id)) { self[sd].board[i].hp = 0; float(self[sd].board[i].id, .destroyed) } }
         }
         for _ in 0..<fx.revive {
             guard let idx = self[side].grave.lastIndex(where: { Self.gd.card($0)?.token == false }), self[side].board.count < Self.boardMax else { break }

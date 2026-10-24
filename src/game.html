@@ -928,7 +928,7 @@ const CARDS={
   wyvern:{c:6,t:'m',a:5,h:5,r:'e',race:'dragon',surge:1,n:['Wyvern Rider','飞龙骑手','ワイバーンライダー'],f:['The sky is just another road.','天空只是另一条路。','空もまた、ただの道だ。']},
   treant:{c:7,t:'m',a:6,h:9,r:'r',race:'treant',guard:1,n:['Ancient Treant','远古树人','古の樹人'],f:['It was old when the first king was crowned.','第一位国王加冕时，它就已经很老了。','最初の王が戴冠した時、すでに老いていた。']},
   dragonknight:{c:7,t:'m',a:5,h:5,r:'e',race:'human',gasp:'spawn',n:['Dragon Knight','龙骑士','竜騎士'],f:['When he falls, his dragon does not.','他倒下时，他的龙不会。','彼が倒れても、竜は倒れない。']},
-  leviathan:{c:8,t:'m',a:10,h:10,r:'l',race:'dragon',spellward:1,bc:{cull:4},n:['Ignaroth, Ashen Wyrm','灰烬巨龙伊格纳洛斯','灰燼竜イグナロス'],x:['Spellproof (takes no damage from spells). On play: destroy every minion with less than 4 Health.','法术免疫（不受法术伤害）。登场：消灭场上所有生命值低于4的随从。','呪文無効（呪文のダメージを受けない）。登場時：体力4未満のミニオンをすべて破壊する。'],f:['The crown was forged in his breath.','那顶王冠，正是在他的龙息中锻成。','王冠は彼の吐息で鍛えられた。']},
+  leviathan:{c:8,t:'m',a:10,h:10,r:'l',race:'dragon',spellward:1,bc:{cull:4},n:['Ignaroth, Ashen Wyrm','灰烬巨龙伊格纳洛斯','灰燼竜イグナロス'],x:['Spellproof (spells cannot damage or destroy it, except Warrior and Hunter spells). On play: destroy every minion with less than 4 Health.','法术免疫（不受法术伤害和消灭，战士与猎人的法术除外）。登场：消灭场上所有生命值低于4的随从。','呪文無効（呪文のダメージと破壊を受けない。戦士と狩人の呪文は除く）。登場時：体力4未満のミニオンをすべて破壊する。'],f:['The crown was forged in his breath.','那顶王冠，正是在他的龙息中锻成。','王冠は彼の吐息で鍛えられた。']},
   lich:{c:8,t:'m',a:6,h:6,r:'l',race:'undead',sp:2,bc:{team:[3,-1],teamRace:'undead'},n:['Malakar the Undying','不朽者马拉卡','不死のマラカル'],x:['Spell Damage +2. On play: your Undead minions get +3 Attack and -1 Health (never below 1).','法术伤害+2。登场：你的所有亡灵随从获得+3攻击力和-1生命值（最低为1）。','呪文ダメージ+2。登場時：自分のアンデッドのミニオンすべてに攻撃力+3、体力-1（1未満にはならない）。'],f:['He has died eleven times. He is getting better at it.','他已经死过十一次了，而且越来越熟练。','十一度死んだ。だんだん上手くなっている。']},
   dwarfking:{c:8,t:'m',a:7,h:10,r:'l',race:'dwarf',guard:1,bc:{team:[3,3],teamWard:1},n:['Thorgrim, King Under Stone','山心之王索格林','石下の王ソーグリム'],x:['Guard. On play: your minions get +3/+3 and Ward.','守护。登场：你的所有随从获得+3/+3和护盾。','ガード。登場時：自分のミニオンすべてに+3/+3と結界を与える。'],f:['His beard has its own throne.','他的胡子都有自己的王座。','彼の髭には専用の玉座がある。']},
   elfqueen:{c:8,t:'m',a:5,h:7,r:'l',race:'elf',ward:1,swings:3,norip:1,bc:{heal:8},n:['Sylvara, Queen of the Glade','翠林女王希尔瓦拉','森の女王シルヴァラ'],x:['Ward. Attacks three times a turn and takes no damage striking back. On play: restore 8 Health to your hero.','护盾。每回合可攻击三次，攻击时不受反击伤害。登场：为你的英雄恢复8点生命值。','結界。1ターンに3回攻撃でき、反撃ダメージを受けない。登場時：自分のヒーローの体力を8回復する。'],f:['The forest kneels when she walks.','她走过时，森林为之屈膝。','彼女が歩けば、森がひざまずく。']},
@@ -1931,7 +1931,7 @@ function tickAltar(side,n){
   s.altar.forEach(p=>p.cd-=n);
   const done=s.altar.filter(p=>p.cd<=0);if(!done.length)return;
   s.altar=s.altar.filter(p=>p.cd>0);
-  for(const p of done){applyFx(side,cardPray(side,p.key).fx,null);pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key));
+  for(const p of done){applyFx(side,cardPray(side,p.key).fx,null,0,0,magicK(p.key));pushHist(side,p.key,null);float(s,T('fPray'),'#ffe9a0');say('prayerDone',()=>heroName(s),()=>cn(p.key));
     if(tal(s,'ho_grace')){heal(s,3);
       const t=[...S[other(side)].board].filter(m=>m.hp>0).sort((a,b)=>b.atk-a.atk||a.uid-b.uid)[0];if(t)damage(t,1)}}
 }
@@ -1954,6 +1954,8 @@ function summon(side,key){
 // Ethereal minions (Wraith Ferryman) take no damage from attacks or hero powers (`phys`); spells and card effects hurt them.
 const ether=m=>!isHero(m)&&!!CARDS[m.key].ether&&!m.silenced;
 const spellward=m=>!isHero(m)&&!!CARDS[m.key].spellward&&!m.silenced;
+// Spells Spellproof resists: all but Warrior and Hunter spells, whose blows and arrows are physical.
+const magicK=k=>{const c=CARDS[k];return !!c&&c.t==='s'&&c.cls!=='warrior'&&c.cls!=='hunter'};
 function damage(o,n,pierce,phys,spell){
   if(n<=0)return;
   if(phys&&ether(o)){float(o,T('fEther'),'#c4b4ff',true);return}
@@ -2012,7 +2014,7 @@ function applyFx0(side,fx,t,bonus=0,faceB=0,spell=false){
   if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0),!!fx.pierce,isPw,spell);
     if(fx.splash&&mt)op.board.filter(m=>m!==mt).forEach(m=>damage(m,fx.splash,false,isPw,spell));if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
   if(mt){
-    if(fx.destroy){mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}
+    if(fx.destroy){if(spell&&spellward(mt))float(mt,T('fImmune'),'#ffd27a',true);else{mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}}
     if(fx.silence){silence(mt);if(tal(me,'sh_void'))damage(mt,2)}
     if(fx.setAtk){mt.atk=fx.setAtk;mt.tmp=0;float(mt,`${fx.setAtk}/${mt.hp}`,'#cfd8dc')}
     if(fx.setHp){mt.hp=mt.max=fx.setHp;float(mt,`${mt.atk}/${fx.setHp}`,'#cfd8dc')}
@@ -2042,7 +2044,7 @@ function applyFx0(side,fx,t,bonus=0,faceB=0,spell=false){
   if(fx.draw){const n0=me.hand.length;draw(side,fx.draw);
     if(isPw&&tal(me,'wl_mutate')){me.armor+=5;float(me,T('armorN',5),'#cfd8dc')}}
   if(fx.mana)me.mana+=fx.mana;
-  if(fx.purge)[...me.board,...op.board].forEach(m=>{if(m.atk>=fx.purge){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
+  if(fx.purge)[...me.board,...op.board].forEach(m=>{if(m.atk>=fx.purge&&!(spell&&spellward(m))){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
   if(fx.cull)[...me.board,...op.board].forEach(m=>{if(m.hp<fx.cull){m.hp=0;float(m,T('fDestroy'),'var(--blood)',true)}});
   for(let r=0;r<(fx.revive||0);r++){const g=me.grave||[],k=[...g].reverse().find(x=>!CARDS[x].token);
     if(k&&me.board.length<BOARD_MAX){g.splice(g.lastIndexOf(k),1);const m=summon(side,k);if(m)float(m,T('fRevive'),'var(--ready)')}}
@@ -2070,7 +2072,7 @@ function castSpell(side,k,t,extra=[]){
   else{
     const fx=cardFx(side,k),bonus=spellBonus(side,k),alive=op.board.filter(m=>m.hp>0);
     if(fire&&s.tf)s.tf.fire=1;
-    for(const tt of (fx.multi?[t,...extra]:[t]))applyFx(side,fx,tt,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0),true);
+    for(const tt of (fx.multi?[t,...extra]:[t]))applyFx(side,fx,tt,bonus,(fire&&tal(s,'fi_burn')?1:0)+(tal(s,'hu_aim')?2:0),magicK(k));
     if(s.tal&&s.tal.size){
       const dead=alive.filter(m=>m.hp<=0);
       if(dead.length){
@@ -2327,7 +2329,7 @@ function aiPlan(k){
   const pick=(list,score)=>list.slice().sort((a,b)=>score(b)-score(a))[0]||null;
   if(fx.icelance){const fr=foes.filter(m=>m.frozen&&!m.ward);const t=pick(fr.filter(m=>m.hp<=fx.icelance+bonus+(tal(e,'fr_deep')?2:0)+(tal(e,'fr_perma')?1:0)),m=>m.atk)||pick(fr,m=>m.atk)||pick(foes.filter(m=>m.atk>=3&&!m.frozen),m=>m.atk);return t?{t}:null}
   if(fx.freezeBig&&!foes.length&&e.hp>e.max-5)return null;
-  if(fx.destroy){const t=pick(targetsFor('e',fx.tgt,fx.cond),val);return t&&val(t)>=(c.c>=3?8:5)?{t}:null}
+  if(fx.destroy){const t=pick(targetsFor('e',fx.tgt,fx.cond).filter(m=>!(magicK(k)&&spellward(m))),val);return t&&val(t)>=(c.c>=3?8:5)?{t}:null}
   if(fx.silence){const t=aiSilenceTarget();return t?{t}:null}
   if(fx.setAtk){const t=pick(foes.filter(m=>m.atk>=4),m=>m.atk);return t?{t}:null}
   if(fx.setHp){const t=pick(foes.filter(m=>m.hp>=5),m=>m.hp);return t?{t}:null}
