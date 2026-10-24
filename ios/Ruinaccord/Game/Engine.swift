@@ -291,7 +291,6 @@ struct DuelState: Codable {
         if tal(side, "wa_roar"), let n = gd.talentNode("wa_roar") { var fx = Effect(); fx.tempAtk = 2; p = Power(cost: 2, tgt: .ally, fx: fx, names: n.names) }
         if tal(side, "pa_double") { var fx = p.fx; fx.summon = ["minnow", "minnow"]; p = Power(cost: 3, tgt: p.tgt, fx: fx, names: p.names) }
         if tal(side, "pa_lightcall") { mod { $0.wardSummon = true } }
-        if tal(side, "hu_master"), let n = gd.talentNode("hu_master") { var fx = Effect(); fx.summon = ["phound"]; p = Power(cost: 2, tgt: nil, fx: fx, names: n.names) }
         // Rapid Fire and Armor Piercing both let Piercing Arrow aim at minions.
         if tal(side, "hu_rapid") || tal(side, "hu_pierce"), p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
         if tal(side, "hu_pierce") { mod { $0.pierce = true }; p = Power(cost: Swift.max(0, p.cost - 1), tgt: p.tgt, fx: p.fx, names: p.names) }

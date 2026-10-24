@@ -595,4 +595,16 @@ final class EngineTests: XCTestCase {
         s.castSpell(.p, "riptide", d)
         XCTAssertLessThan(s.minion(d)?.hp ?? 10, 10, "a Hunter shot is physical")
     }
+
+    func testHoundmasterCanines() {
+        var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_pack", "hu_hound", "hu_master"]); s.turn = .p
+        XCTAssertEqual(s.p.power.fx.face, GameData.shared.cls("hunter")!.power.fx.face, "the hero power stays Piercing Arrow")
+        s.summon(.p, "direwolf"); let w = s.p.board.last!
+        let base = GameData.shared.card("direwolf")!
+        XCTAssertEqual(w.atk, (base.atk ?? 0) + 2); XCTAssertEqual(w.hp, (base.hp ?? 0) + 2, "Pack Leader and Houndmaster stack on Dire Wolf")
+        s.summon(.p, "elver"); let e = s.p.board.last!, eb = GameData.shared.card("elver")!
+        XCTAssertEqual(e.atk, (eb.atk ?? 0) + 1); XCTAssertEqual(e.hp, (eb.hp ?? 0) + 1)
+        s.summon(.p, "hound"); let h = s.p.board.last!, hb = GameData.shared.card("hound")!
+        XCTAssertEqual(h.atk, (hb.atk ?? 0) + 2, "Vicious Hounds and Houndmaster"); XCTAssertEqual(h.hp, (hb.hp ?? 0) + 1)
+    }
 }

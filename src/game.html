@@ -1264,7 +1264,7 @@ const TALENTS=BETA?{
       [TN('hu_combo',['Combo','连击','連撃'],['The 3rd and later cards you play each turn cost 1 less.','每回合你打出的第3张及之后的牌费用-1。','毎ターン3枚目以降に使うカードのコスト-1。']),
        TN('hu_hound',['Vicious Hounds','恶犬','猛犬'],['Your Hounds have +1 Attack.','你的猎犬+1攻击力。','自分の猟犬の攻撃力+1。']),
        TN('hu_wild',['Wild','野性','野性'],['From the 2nd card you play each turn, your Beasts can attack the turn they arrive.','每回合从你打出的第2张牌起，你的野兽登场时获得冲锋。','毎ターン2枚目以降のカードから、自分の獣は登場したターンに攻撃できる。'])],
-      [TN('hu_master',['Houndmaster','犬群主人','猟犬使い'],['Your hero power becomes: summon a 2/1 Hound.','英雄技能改为「召唤一只2/1猎犬」。','ヒーローパワーが「2/1の猟犬を召喚」になる。']),
+      [TN('hu_master',['Houndmaster','犬群主人','猟犬使い'],['Your Hounds and Wolves, Dire Wolf included, have +1/+1.','你的所有犬类随从（猎犬、灰狼，包括恐狼）+1/+1。','自分の猟犬と狼（ダイアウルフを含む）に+1/+1。']),
        TN('hu_whistle',['Hound Whistle','唤犬哨','猟犬の笛'],['After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand (its Hound can\'t attack that turn).','每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌（召唤的猎犬本回合不能攻击）。','毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える（その猟犬は出たターンに攻撃できない）。'])]]},
     {id:'shot',sc:'shot',col:'#d9b45a',n:['Marksman','射击','射撃'],tiers:[
       [TN('hu_precise',['Precision','精准','精密'],['Arcane Shot deals 1 extra damage.','奥术射击伤害+1。','アーケインショットのダメージ+1。']),
@@ -1383,13 +1383,12 @@ function setupTalents(s,cls,sel){
   if(p&&tal(s,'wa_roar'))p={c:2,tgt:'ally',fx:{tempAtk:2},n:rn('wa_roar')};
   if(p&&tal(s,'pa_double'))p={...p,c:3,fx:{...p.fx,summon:['minnow','minnow']}};
   if(p&&tal(s,'pa_lightcall'))p={...p,fx:{...p.fx,wardSummon:1}};
-  if(p&&tal(s,'hu_master'))p={c:2,fx:{summon:'phound'},n:rn('hu_master')};
   // Rapid Fire and Armor Piercing both let Piercing Arrow aim at minions.
   if(p&&(tal(s,'hu_rapid')||tal(s,'hu_pierce'))&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};
   if(p&&tal(s,'hu_pierce'))p={...p,c:Math.max(0,p.c-1),fx:{...p.fx,pierce:1}};
   if(p&&tal(s,'hu_rapid'))p={...p,c:1};
   if(p&&tal(s,'wl_tap'))p={...p,fx:{...p.fx,selfDmg:3,draw:2}};
-  if(p&&(tal(s,'sh_touch')||tal(s,'wa_roar')||tal(s,'hu_master'))&&!p.n)p.n=CBY[cls].power.n;
+  if(p&&(tal(s,'sh_touch')||tal(s,'wa_roar'))&&!p.n)p.n=CBY[cls].power.n;
   if(p)s.power=p;
 }
 const ovrOf=(side,k)=>{const s=S&&S[side];return s&&s.ovr&&s.ovr[k]||null};
@@ -1425,6 +1424,8 @@ function talStat(H,key,c){let a=0,h=0;
   if(key==='minnow'&&H('pa_drill'))h++;
   if(key==='direwolf'&&H('hu_pack')){a++;h++}
   if((key==='hound'||key==='whound'||key==='phound')&&H('hu_hound'))a++;
+  // Houndmaster: every canine, hounds, wolves and Dire Wolf.
+  if(['hound','whound','phound','elver','direwolf'].includes(key)&&H('hu_master')){a++;h++}
   if(key==='sailor'&&H('wl_bone')){a++;h++}
   if(key==='bubble'&&H('wl_wrath'))a++;
   if(c.gasp&&H('wl_gasp'))a++;
