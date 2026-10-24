@@ -63,7 +63,9 @@ final class EngineTests: XCTestCase {
         s.setupTalents(.p, cls: "mage", ["fr_nova", "fr_bolt"])
         XCTAssertEqual(s.costOf(.p, "frostnova"), gd.card("frostnova")!.cost - 1)
         XCTAssertEqual(s.cardFx(.p, "frostbolt")?.dmg, 5)
-        s.p.mana = 10; s.castSpell(.p, "frostbolt", .hero(.e)); XCTAssertEqual(s.e.hp, 25)
+        s.summon(.e, "golem"); let gm = s.e.board.last!.id
+        s.p.mana = 10; s.castSpell(.p, "frostbolt", gm); XCTAssertEqual(s.minion(gm)?.hp, 3)
+        XCTAssertFalse(s.targetsFor(.p, gd.card("frostbolt")!.fx!.tgt!).contains(.hero(.e)), "Frostbolt aims at minions only")
         XCTAssertFalse(Tx(lang: .zh).cardText(gd.card("frostbolt")!, ovr: s.p.ovr["frostbolt"]).isEmpty)
         // Class resources. Warrior: Rage from the power and from hero damage, bursting at 4 into +2 Attack.
         s.setupTalents(.p, cls: "warrior", [])

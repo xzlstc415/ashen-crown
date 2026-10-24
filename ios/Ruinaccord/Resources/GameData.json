@@ -3837,7 +3837,7 @@
    "fx": {
     "dmg": 0,
     "aoe": 3,
-    "face": 3,
+    "face": 0,
     "healT": 0,
     "heal": 0,
     "armor": 0,
@@ -4597,9 +4597,9 @@
    "cls": "mage",
    "also": null,
    "text": [
-    "Deal 4 damage and Freeze the target.",
-    "造成4点伤害，并冻结目标。",
-    "4ダメージを与え、対象を凍結させる。"
+    "Deal 4 damage to a minion and Freeze it.",
+    "对一个随从造成4点伤害，并冻结它。",
+    "ミニオン1体に4ダメージを与え、凍結させる。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -4619,7 +4619,7 @@
     "buff": null,
     "team": null,
     "summon": [],
-    "tgt": "any",
+    "tgt": "minion",
     "cond": null,
     "destroy": false,
     "silence": false,
@@ -6030,9 +6030,9 @@
    "cls": "warlock",
    "also": null,
    "text": [
-    "Deal 4 damage. Your hero takes 2 damage.",
-    "造成4点伤害。你的英雄受到2点伤害。",
-    "4ダメージを与える。自分のヒーローは2ダメージを受ける。"
+    "Deal 4 damage to a minion. Your hero takes 2 damage.",
+    "对一个随从造成4点伤害。你的英雄受到2点伤害。",
+    "ミニオン1体に4ダメージを与える。自分のヒーローは2ダメージを受ける。"
    ],
    "sp": 0,
    "onSpell": null,
@@ -6052,7 +6052,7 @@
     "buff": null,
     "team": null,
     "summon": [],
-    "tgt": "any",
+    "tgt": "minion",
     "cond": null,
     "destroy": false,
     "silence": false,
@@ -6767,7 +6767,7 @@
     "buff": null,
     "team": null,
     "summon": [],
-    "tgt": "any",
+    "tgt": "minion",
     "cond": null,
     "destroy": false,
     "silence": false,
@@ -12527,7 +12527,7 @@
       "buff": null,
       "team": null,
       "summon": [],
-      "tgt": "any",
+      "tgt": "minion",
       "cond": null,
       "destroy": false,
       "silence": false,
@@ -12565,9 +12565,9 @@
      "bc": null,
      "pray": null,
      "text": [
-      "Deal 5 damage and Freeze the target.",
-      "造成5点伤害，并冻结目标。",
-      "5ダメージを与え、対象を凍結させる。"
+      "Deal 5 damage to a minion and Freeze it.",
+      "对一个随从造成5点伤害，并冻结它。",
+      "ミニオン1体に5ダメージを与え、凍結させる。"
      ]
     }
    },

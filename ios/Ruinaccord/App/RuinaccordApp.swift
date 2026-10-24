@@ -133,14 +133,13 @@ enum DebugLaunch {
             try? await Task.sleep(for: .seconds(1.3))
             print("dragtest minion: board \(vm.state?.p.board.count ?? -1) hand has goblin \(vm.state?.p.hand.contains("goblin") ?? true)")
         }
-        if let i = vm.state?.p.hand.firstIndex(of: "frostbolt") {
-            vm.state?.e.armor = 0; vm.state?.e.hp = 30      // talents may have changed both
-            let p = c(vm.frames[.hero(.e)])
+        if let i = vm.state?.p.hand.firstIndex(of: "frostbolt"), let m = vm.state?.e.board.first {
+            let p = c(vm.frames[m.id])
             vm.dragHand(i, to: p, line: p.y + 60)
             print("dragtest spell: over \(String(describing: vm.drag?.over)) valid \(vm.drag?.valid.count ?? 0)")
             vm.dropHand(i)
             try? await Task.sleep(for: .seconds(1.6))
-            print("dragtest spell: enemy hp \(vm.state?.e.hp ?? -1) (expect 26) pending \(vm.pending != nil)")
+            print("dragtest spell: enemy \(m.key) \(vm.state?.minion(m.id).map { "hp \($0.hp)" } ?? "gone") (was \(m.hp)) pending \(vm.pending != nil)")
         }
         if let m = vm.state?.p.board.first(where: { $0.key == "berserker" }), let t = vm.state?.e.board.first(where: { $0.key == "goblin" }) {
             vm.dragMinion(m.id, to: c(vm.frames[t.id]))
