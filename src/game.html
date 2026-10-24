@@ -1274,8 +1274,8 @@ const TALENTS=BETA?{
       [TN('hu_deadly',['Deadly Aim','致命','致命'],['Deadly Shot costs 1 less.','致命射击的费用-1。','必殺の射撃のコスト-1。']),
        TN('hu_griffon',['Griffon Wings','狮鹫之翼','グリフォンの翼'],['Griffon Rider has +1 Attack.','狮鹫骑士+1攻击力。','グリフォンライダーの攻撃力+1。']),
        TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 2 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+2。','自分の呪文が敵ヒーローに与えるダメージ+2。'])],
-      [TN('hu_rapid',['Rapid Fire','速射','速射'],['Piercing Arrow can target minions and can be used twice a turn.','穿刺之箭可以指定随从，且每回合可以使用两次。','貫きの矢でミニオンも狙え、毎ターン2回使える。']),
-       TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow can target minions and ignores Armor and Ward.','穿刺之箭可以指定随从，并无视护甲与护盾。','貫きの矢でミニオンも狙え、装甲と結界を無視する。'])],
+      [TN('hu_rapid',['Rapid Fire','速射','速射'],['Piercing Arrow can target minions and can be used twice a turn; the first use each turn is free.','穿刺之箭可以指定随从，且每回合可以使用两次，每回合第一次免费。','貫きの矢でミニオンも狙え、毎ターン2回使える。毎ターン1回目はコスト0。']),
+       TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow costs 1 less, can target minions and ignores Armor and Ward.','穿刺之箭费用-1，可以指定随从，并无视护甲与护盾。','貫きの矢のコスト-1。ミニオンも狙え、装甲と結界を無視する。'])],
       [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Arcane Shot, Steady Shot and Deadly Shot deal 1 extra damage and cost 1 less.','奥术射击、稳固射击和致命射击伤害+1，费用-1。','アーケインショット、着実な射撃、必殺の射撃のダメージ+1、コスト-1。'])]]}],
   warlock:[
     {id:'undead',sc:'undead',col:'#8ac08a',n:['Undeath','亡灵','不死'],tiers:[
@@ -1382,7 +1382,7 @@ function setupTalents(s,cls,sel){
   if(p&&tal(s,'hu_master'))p={c:2,fx:{summon:'phound'},n:rn('hu_master')};
   // Rapid Fire and Armor Piercing both let Piercing Arrow aim at minions.
   if(p&&(tal(s,'hu_rapid')||tal(s,'hu_pierce'))&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};
-  if(p&&tal(s,'hu_pierce'))p={...p,fx:{...p.fx,pierce:1}};
+  if(p&&tal(s,'hu_pierce'))p={...p,c:Math.max(0,p.c-1),fx:{...p.fx,pierce:1}};
   if(p&&tal(s,'wl_tap'))p={...p,fx:{...p.fx,selfDmg:3,draw:2}};
   if(p&&(tal(s,'sh_touch')||tal(s,'wa_roar')||tal(s,'hu_master'))&&!p.n)p.n=CBY[cls].power.n;
   if(p)s.power=p;
@@ -1391,7 +1391,8 @@ const ovrOf=(side,k)=>{const s=S&&S[side];return s&&s.ovr&&s.ovr[k]||null};
 const costOf=(side,k)=>{const o=ovrOf(side,k),s=S&&S[side];if(s&&s.free&&s.free[k])return 0;let c=o&&o.c!=null?o.c:CARDS[k].c;
   if(s&&s.tf&&tal(s,'hu_combo')&&(s.tf.played||0)>=2)c=Math.max(0,c-1);return c};
 // Beta talents: hero power cost (Formation), power damage from Marksman minions, opening-hand talents.
-const pcost=side=>{const s=S[side],p=s.power||CBY[R.cls].power;return Math.max(0,p.c-(tal(s,'pa_array')&&s.board.length>=5?1:0))};
+// Rapid Fire: the first use each turn is free.
+const pcost=side=>{const s=S[side],p=s.power||CBY[R.cls].power;if(tal(s,'hu_rapid')&&s.tf&&!s.tf.pw)return 0;return Math.max(0,p.c-(tal(s,'pa_array')&&s.board.length>=5?1:0))};
 const powerBonus=side=>S[side].board.reduce((n,m)=>n+(!m.silenced&&CARDS[m.key].pw||0),0);
 function talOpen(side){const s=S[side];if(!s.tal||!s.tal.size)return;
   if(tal(s,'fi_bank'))s.sm=1;

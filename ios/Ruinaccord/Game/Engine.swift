@@ -294,7 +294,7 @@ struct DuelState: Codable {
         if tal(side, "hu_master"), let n = gd.talentNode("hu_master") { var fx = Effect(); fx.summon = ["phound"]; p = Power(cost: 2, tgt: nil, fx: fx, names: n.names) }
         // Rapid Fire and Armor Piercing both let Piercing Arrow aim at minions.
         if tal(side, "hu_rapid") || tal(side, "hu_pierce"), p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
-        if tal(side, "hu_pierce") { mod { $0.pierce = true } }
+        if tal(side, "hu_pierce") { mod { $0.pierce = true }; p = Power(cost: Swift.max(0, p.cost - 1), tgt: p.tgt, fx: p.fx, names: p.names) }
         if tal(side, "wl_tap") { mod { $0.selfDmg = 3; $0.draw = 2 } }
         self[side].power = p
     }
@@ -318,7 +318,10 @@ struct DuelState: Codable {
         return c
     }
     /// Hero power cost (Formation: 1 less with a full board).
-    func pcost(_ side: Side) -> Int { Swift.max(0, self[side].power.cost - (tal(side, "pa_array") && self[side].board.count >= 5 ? 1 : 0)) }
+    func pcost(_ side: Side) -> Int {
+        if tal(side, "hu_rapid") && !self[side].tf.pw { return 0 }      // Rapid Fire: the first use each turn is free
+        return Swift.max(0, self[side].power.cost - (tal(side, "pa_array") && self[side].board.count >= 5 ? 1 : 0))
+    }
     /// Hero power damage from Marksman minions.
     func powerBonus(_ side: Side) -> Int { self[side].board.reduce(0) { $0 + ($1.silenced ? 0 : $1.card.pw) } }
     func altarMax(_ side: Side) -> Int { tal(side, "ho_altar") ? 3 : 2 }

@@ -470,7 +470,7 @@ private struct PowerButton: View {
             .shadow(color: enabled ? Color(hex: "#f3c97a").opacity(dragging ? 0.95 : 0.5) : .clear, radius: dragging ? 14 : 8)
             .shadow(color: .black.opacity(0.6), radius: 3, y: 2)
             .overlay(alignment: .topLeading) {
-                Text("\(power.cost)").font(Theme.body(10, .heavy)).foregroundStyle(enabled ? .white : Color(hex: "#c8d0dc"))
+                Text("\(s.pcost(.p))").font(Theme.body(10, .heavy)).foregroundStyle(enabled ? .white : Color(hex: "#c8d0dc"))
                     .frame(width: 18, height: 18)
                     .background(enabled ? Theme.mana : Color(hex: "#2a3a50"), in: Circle())
                     .overlay(Circle().stroke(enabled ? Color(hex: "#bfe0fa") : Color(hex: "#6a7a90"), lineWidth: 1))
@@ -489,7 +489,7 @@ private struct PowerButton: View {
         .opacity(enabled ? 1 : 0.75)
         .animation(.spring(duration: 0.2), value: dragging)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text("\(tx.heroPower) \(tx.powerName(power)), \(power.cost): \(tx.powerDesc(power))"))
+        .accessibilityLabel(Text("\(tx.heroPower) \(tx.powerName(power)), \(s.pcost(.p)): \(tx.powerDesc(power))"))
         .accessibilityAddTraits(.isButton))
     }
 }

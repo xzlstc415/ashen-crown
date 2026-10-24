@@ -550,13 +550,16 @@ final class EngineTests: XCTestCase {
     func testRapidFireTwiceAndArmorPiercing() {
         var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_aim", "hu_rapid"]); s.turn = .p
         XCTAssertEqual(s.p.power.tgt, .enemy, "Rapid Fire aims at minions too")
+        XCTAssertEqual(s.pcost(.p), 0, "the first shot of the turn is free")
         s.p.powerUsed = true; s.afterPower(.p)
         XCTAssertFalse(s.p.powerUsed, "Rapid Fire: a second use this turn")
+        XCTAssertEqual(s.pcost(.p), 2, "at the usual cost")
         s.p.powerUsed = true; s.afterPower(.p)
         XCTAssertTrue(s.p.powerUsed, "but not a third")
 
         var t = blank(); t.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_aim", "hu_pierce"]); t.turn = .p
         XCTAssertEqual(t.p.power.tgt, .enemy, "Armor Piercing aims at minions too")
+        XCTAssertEqual(t.pcost(.p), 1, "and costs 1 less")
         t.summon(.e, "ogre"); let i = t.e.board.count - 1; t.e.board[i].ward = true
         let m = t.e.board[i], hp = m.hp
         t.applyFx(.p, t.p.power.fx, m.id, bonus: 0, isPower: true)
