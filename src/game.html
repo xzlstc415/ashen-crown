@@ -1274,7 +1274,7 @@ const TALENTS=BETA?{
       [TN('hu_deadly',['Deadly Aim','致命','致命'],['Deadly Shot costs 1 less.','致命射击的费用-1。','必殺の射撃のコスト-1。']),
        TN('hu_griffon',['Griffon Wings','狮鹫之翼','グリフォンの翼'],['Griffon Rider has +1 Attack.','狮鹫骑士+1攻击力。','グリフォンライダーの攻撃力+1。']),
        TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 2 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+2。','自分の呪文が敵ヒーローに与えるダメージ+2。'])],
-      [TN('hu_rapid',['Rapid Fire','速射','速射'],['Your hero power can be used twice a turn.','英雄技能每回合可以使用两次。','ヒーローパワーを毎ターン2回使える。']),
+      [TN('hu_rapid',['Rapid Fire','速射','速射'],['Piercing Arrow can target minions and can be used twice a turn.','穿刺之箭可以指定随从，且每回合可以使用两次。','貫きの矢でミニオンも狙え、毎ターン2回使える。']),
        TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow can target minions and ignores Armor and Ward.','穿刺之箭可以指定随从，并无视护甲与护盾。','貫きの矢でミニオンも狙え、装甲と結界を無視する。'])],
       [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Arcane Shot, Steady Shot and Deadly Shot deal 1 extra damage and cost 1 less.','奥术射击、稳固射击和致命射击伤害+1，费用-1。','アーケインショット、着実な射撃、必殺の射撃のダメージ+1、コスト-1。'])]]}],
   warlock:[
@@ -1380,7 +1380,9 @@ function setupTalents(s,cls,sel){
   if(p&&tal(s,'pa_double'))p={...p,c:3,fx:{...p.fx,summon:['minnow','minnow']}};
   if(p&&tal(s,'pa_lightcall'))p={...p,fx:{...p.fx,wardSummon:1}};
   if(p&&tal(s,'hu_master'))p={c:2,fx:{summon:'phound'},n:rn('hu_master')};
-  if(p&&tal(s,'hu_pierce')){if(p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};p={...p,fx:{...p.fx,pierce:1}}}
+  // Rapid Fire and Armor Piercing both let Piercing Arrow aim at minions.
+  if(p&&(tal(s,'hu_rapid')||tal(s,'hu_pierce'))&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};
+  if(p&&tal(s,'hu_pierce'))p={...p,fx:{...p.fx,pierce:1}};
   if(p&&tal(s,'wl_tap'))p={...p,fx:{...p.fx,selfDmg:3,draw:2}};
   if(p&&(tal(s,'sh_touch')||tal(s,'wa_roar')||tal(s,'hu_master'))&&!p.n)p.n=CBY[cls].power.n;
   if(p)s.power=p;

@@ -549,6 +549,7 @@ final class EngineTests: XCTestCase {
 
     func testRapidFireTwiceAndArmorPiercing() {
         var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_aim", "hu_rapid"]); s.turn = .p
+        XCTAssertEqual(s.p.power.tgt, .enemy, "Rapid Fire aims at minions too")
         s.p.powerUsed = true; s.afterPower(.p)
         XCTAssertFalse(s.p.powerUsed, "Rapid Fire: a second use this turn")
         s.p.powerUsed = true; s.afterPower(.p)

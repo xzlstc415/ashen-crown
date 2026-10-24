@@ -12364,9 +12364,9 @@
          "速射"
         ],
         "desc": [
-         "Your hero power can be used twice a turn.",
-         "英雄技能每回合可以使用两次。",
-         "ヒーローパワーを毎ターン2回使える。"
+         "Piercing Arrow can target minions and can be used twice a turn.",
+         "穿刺之箭可以指定随从，且每回合可以使用两次。",
+         "貫きの矢でミニオンも狙え、毎ターン2回使える。"
         ]
        },
        {
