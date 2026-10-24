@@ -16,7 +16,7 @@ enum Search {
     /// Every talent choice of the tree: tiers 1-3 from either page, tier 4 the tree's own capstone.
     static func talentSets(_ a: Arch) -> [[String]] {
         let pages = gd.talentPages(a.cls)
-        // A one-page class: every tier from the arch's page.
+        // A class that cannot mix pages: every tier from the arch's page.
         if gd.isSolo(a.cls) {
             return pages[a.tree].tiers.reduce([[]]) { acc, row in acc.flatMap { s in row.map { s + [$0.id] } } }.filter { gd.validTalents(a.cls, $0) }
         }

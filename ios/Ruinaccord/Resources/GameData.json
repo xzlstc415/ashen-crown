@@ -11021,6 +11021,8 @@
  "talents": {
   "maxPts": 4,
   "solo": [
+   "mage",
+   "priest",
    "hunter"
   ],
   "pages": {
@@ -11578,13 +11580,13 @@
    ],
    "warrior": [
     {
-     "id": "prot",
-     "sc": "prot",
-     "color": "#a9b4c2",
+     "id": "warrior",
+     "sc": "fury",
+     "color": "#e0563f",
      "names": [
-      "Protection",
-      "防护",
-      "守護"
+      "Warrior",
+      "战士",
+      "戦士"
      ],
      "tiers": [
       [
@@ -11602,19 +11604,6 @@
         ]
        },
        {
-        "id": "wa_wall",
-        "names": [
-         "Thick Shield",
-         "厚盾",
-         "厚い盾"
-        ],
-        "desc": [
-         "Shield Wall gives 2 more Armor.",
-         "盾墙额外获得2点护甲。",
-         "盾の壁の装甲+2。"
-        ]
-       },
-       {
         "id": "wa_crab",
         "names": [
          "Shield Drill",
@@ -11625,130 +11614,6 @@
          "Dwarf Shieldbearer has +0/+2.",
          "矮人盾卫+0/+2。",
          "ドワーフの盾持ちに+0/+2。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "wa_slam",
-        "names": [
-         "Heavy Slam",
-         "重击",
-         "重撃"
-        ],
-        "desc": [
-         "Shield Slam deals 1 extra damage.",
-         "盾牌猛击额外造成1点伤害。",
-         "シールドスラムのダメージ+1。"
-        ]
-       },
-       {
-        "id": "wa_thane",
-        "names": [
-         "Thane's Mail",
-         "领主之甲",
-         "領主の鎧"
-        ],
-        "desc": [
-         "Dwarf Thane gives 2 more Armor.",
-         "矮人领主登场时额外获得2点护甲。",
-         "ドワーフの領主の装甲+2。"
-        ]
-       },
-       {
-        "id": "wa_iron",
-        "names": [
-         "Ironguard",
-         "铁卫",
-         "鉄の守り"
-        ],
-        "desc": [
-         "Your Guard minions have +0/+2.",
-         "你的守护随从+0/+2。",
-         "自分のガードを持つミニオンに+0/+2。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "wa_heavy",
-        "names": [
-         "Heavy Armor",
-         "重甲",
-         "重装"
-        ],
-        "desc": [
-         "Armor Up gives 1 more Armor.",
-         "英雄技能多获得1点护甲。",
-         "ヒーローパワーの装甲+1。"
-        ]
-       },
-       {
-        "id": "wa_counter",
-        "names": [
-         "Riposte",
-         "反击",
-         "反撃"
-        ],
-        "desc": [
-         "When an enemy minion attacks your hero while you have Armor, deal 1 damage to it.",
-         "敌方随从攻击你的英雄时，若你有护甲，对它造成1点伤害。",
-         "装甲がある時に敵のミニオンがヒーローを攻撃すると、そのミニオンに1ダメージ。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "wa_bulwark",
-        "names": [
-         "Bulwark",
-         "坚壁",
-         "堅壁"
-        ],
-        "desc": [
-         "When short on mana, every 3 Armor can pay for 1 mana.",
-         "法力不足时，每3点护甲可以抵1点法力出牌。",
-         "マナが足りない時、装甲3でマナ1の代わりに払える。"
-        ]
-       }
-      ]
-     ]
-    },
-    {
-     "id": "fury",
-     "sc": "fury",
-     "color": "#e0563f",
-     "names": [
-      "Fury",
-      "狂怒",
-      "憤怒"
-     ],
-     "tiers": [
-      [
-       {
-        "id": "wa_berserk",
-        "names": [
-         "Battle Hunger",
-         "嗜战",
-         "戦闘欲"
-        ],
-        "desc": [
-         "Orc Berserker has +1 Attack.",
-         "兽人狂战士+1攻击力。",
-         "オークの狂戦士の攻撃力+1。"
-        ]
-       },
-       {
-        "id": "wa_rage",
-        "names": [
-         "Seething",
-         "怒火",
-         "激昂"
-        ],
-        "desc": [
-         "Inner Rage gives +1 more Attack.",
-         "怒火中烧额外+1攻击力。",
-         "内なる怒りの攻撃力+1。"
         ]
        },
        {
@@ -11767,16 +11632,16 @@
       ],
       [
        {
-        "id": "wa_whirl",
+        "id": "wa_iron",
         "names": [
-         "Cyclone",
-         "旋风",
-         "旋風"
+         "Ironguard",
+         "铁卫",
+         "鉄の守り"
         ],
         "desc": [
-         "Whirlwind deals 1 extra damage to enemy minions.",
-         "旋风斩对敌方随从额外造成1点伤害。",
-         "旋風斬りが敵のミニオンに与えるダメージ+1。"
+         "Your Guard minions have +0/+2.",
+         "你的守护随从+0/+2。",
+         "自分のガードを持つミニオンに+0/+2。"
         ]
        },
        {
@@ -11793,31 +11658,31 @@
         ]
        },
        {
-        "id": "wa_frenzy",
+        "id": "wa_thane",
         "names": [
-         "Frenzy",
-         "狂乱",
-         "狂乱"
+         "Thane's Mail",
+         "领主之甲",
+         "領主の鎧"
         ],
         "desc": [
-         "Bloodlust also lets the minion attack this turn.",
-         "嗜血的目标同时获得冲锋。",
-         "血の渇きの対象はこのターン攻撃できる。"
+         "Dwarf Thane gives 2 more Armor.",
+         "矮人领主登场时额外获得2点护甲。",
+         "ドワーフの領主の装甲+2。"
         ]
        }
       ],
       [
        {
-        "id": "wa_roar",
+        "id": "wa_counter",
         "names": [
-         "War Cry",
-         "怒吼",
-         "雄叫び"
+         "Riposte",
+         "反击",
+         "反撃"
         ],
         "desc": [
-         "Your hero power becomes: give a friendly minion +2 Attack this turn.",
-         "英雄技能改为「本回合一个友方随从+2攻击力」。",
-         "ヒーローパワーが「味方のミニオン1体にこのターン攻撃力+2」になる。"
+         "When an enemy minion attacks your hero while you have Armor, deal 1 damage to it.",
+         "敌方随从攻击你的英雄时，若你有护甲，对它造成1点伤害。",
+         "装甲がある時に敵のミニオンがヒーローを攻撃すると、そのミニオンに1ダメージ。"
         ]
        },
        {
@@ -11854,150 +11719,13 @@
    ],
    "paladin": [
     {
-     "id": "legion",
-     "sc": "legion",
-     "color": "#e8c35a",
-     "names": [
-      "Legion",
-      "军团",
-      "軍団"
-     ],
-     "tiers": [
-      [
-       {
-        "id": "pa_drill",
-        "names": [
-         "Militia Drill",
-         "民兵训练",
-         "民兵の訓練"
-        ],
-        "desc": [
-         "Your Militia Recruits are 1/2.",
-         "你的民兵改为1/2。",
-         "自分の民兵は1/2になる。"
-        ]
-       },
-       {
-        "id": "pa_horn",
-        "names": [
-         "War Horn",
-         "号角",
-         "角笛"
-        ],
-        "desc": [
-         "Call to Arms costs 1 less.",
-         "征召号角的费用-1。",
-         "召集令のコスト-1。"
-        ]
-       },
-       {
-        "id": "pa_squires",
-        "names": [
-         "Many Squires",
-         "侍从成群",
-         "従者の群れ"
-        ],
-        "desc": [
-         "Squire's Call summons one more Recruit.",
-         "侍从集结多召唤一个义勇民兵。",
-         "従者の召集で民兵がもう1体。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "pa_command",
-        "names": [
-         "Marshal",
-         "统帅",
-         "元帥"
-        ],
-        "desc": [
-         "Knight Commander gives your minions +1/+1 instead.",
-         "骑士统领登场改为所有友方随从+1/+1。",
-         "騎士団長の効果が味方全体+1/+1になる。"
-        ]
-       },
-       {
-        "id": "pa_step",
-        "names": [
-         "In Step",
-         "齐步",
-         "足並み"
-        ],
-        "desc": [
-         "The third minion you summon each turn gets +1/+1.",
-         "每回合你召唤的第三个随从+1/+1。",
-         "毎ターン3体目に召喚したミニオンに+1/+1。"
-        ]
-       },
-       {
-        "id": "pa_array",
-        "names": [
-         "Formation",
-         "列阵",
-         "布陣"
-        ],
-        "desc": [
-         "With 5 minions, your hero power costs 1 less.",
-         "你控制5个随从时，英雄技能费用-1。",
-         "ミニオンが5体いる時、ヒーローパワーのコスト-1。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "pa_double",
-        "names": [
-         "Double Muster",
-         "双重征召",
-         "二重召集"
-        ],
-        "desc": [
-         "Muster summons two Recruits and costs 3.",
-         "征召改为召唤两个民兵，费用变为3。",
-         "召集が民兵2体になり、コストは3になる。"
-        ]
-       },
-       {
-        "id": "pa_banner",
-        "names": [
-         "War Banner",
-         "战旗",
-         "軍旗"
-        ],
-        "desc": [
-         "Whenever you summon a token, your leftmost minion gets +1 Attack.",
-         "每当你召唤一个衍生物，你最左边的随从+1攻击力。",
-         "トークンを召喚するたび、一番左のミニオンの攻撃力+1。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "pa_coop",
-        "names": [
-         "Unity",
-         "协作",
-         "連携"
-        ],
-        "desc": [
-         "Whenever you spend Energy, your minions get +1 Attack.",
-         "每当你消耗能量，你的所有随从+1攻击力。",
-         "エネルギーを消費するたび、味方のミニオン全体の攻撃力+1。"
-        ]
-       }
-      ]
-     ]
-    },
-    {
-     "id": "aegis",
+     "id": "paladin",
      "sc": "aegis",
      "color": "#ffe9a0",
      "names": [
-      "Aegis",
-      "圣盾",
-      "聖盾"
+      "Paladin",
+      "圣骑士",
+      "聖騎士"
      ],
      "tiers": [
       [
@@ -12015,19 +11743,6 @@
         ]
        },
        {
-        "id": "pa_bless",
-        "names": [
-         "Sheltering",
-         "护佑",
-         "加護"
-        ],
-        "desc": [
-         "Sacred Aegis also gives +0/+2.",
-         "圣盾术的目标额外+0/+2。",
-         "聖なる盾の対象に+0/+2。"
-        ]
-       },
-       {
         "id": "pa_hold",
         "names": [
          "Hold Fast",
@@ -12039,20 +11754,46 @@
          "信仰之盾的目标同时获得护盾。",
          "信仰の盾の対象が結界も得る。"
         ]
+       },
+       {
+        "id": "pa_bless",
+        "names": [
+         "Sheltering",
+         "护佑",
+         "加護"
+        ],
+        "desc": [
+         "Sacred Aegis also gives +0/+2.",
+         "圣盾术的目标额外+0/+2。",
+         "聖なる盾の対象に+0/+2。"
+        ]
        }
       ],
       [
        {
-        "id": "pa_kings",
+        "id": "pa_vshield",
         "names": [
-         "Royal Line",
-         "王者",
-         "王統"
+         "Vanguard's Shield",
+         "先锋之盾",
+         "先鋒の盾"
         ],
         "desc": [
-         "Blessing of Kings costs 1 less.",
-         "王者祝福的费用-1。",
-         "王の祝福のコスト-1。"
+         "Paladin Vanguard has +1 Attack and enters with Ward.",
+         "圣骑士先锋+1攻击力，登场时获得护盾。",
+         "聖騎士の先鋒は攻撃力+1、結界を持って登場する。"
+        ]
+       },
+       {
+        "id": "pa_step",
+        "names": [
+         "In Step",
+         "齐步",
+         "足並み"
+        ],
+        "desc": [
+         "The third minion you summon each turn gets +1/+1.",
+         "每回合你召唤的第三个随从+1/+1。",
+         "毎ターン3体目に召喚したミニオンに+1/+1。"
         ]
        },
        {
@@ -12067,22 +11808,22 @@
          "谦卑额外抽一张牌。",
          "謙虚でカードを1枚引く。"
         ]
-       },
-       {
-        "id": "pa_vshield",
-        "names": [
-         "Vanguard's Shield",
-         "先锋之盾",
-         "先鋒の盾"
-        ],
-        "desc": [
-         "Paladin Vanguard has +1 Attack and enters with Ward.",
-         "圣骑士先锋+1攻击力，登场时获得护盾。",
-         "聖騎士の先鋒は攻撃力+1、結界を持って登場する。"
-        ]
        }
       ],
       [
+       {
+        "id": "pa_banner",
+        "names": [
+         "War Banner",
+         "战旗",
+         "軍旗"
+        ],
+        "desc": [
+         "Whenever you summon a token, your leftmost minion gets +1 Attack.",
+         "每当你召唤一个衍生物，你最左边的随从+1攻击力。",
+         "トークンを召喚するたび、一番左のミニオンの攻撃力+1。"
+        ]
+       },
        {
         "id": "pa_lightcall",
         "names": [
@@ -12094,19 +11835,6 @@
          "Recruits from Muster have Ward.",
          "征召召唤的民兵带护盾。",
          "召集の民兵は結界を持つ。"
-        ]
-       },
-       {
-        "id": "pa_echo",
-        "names": [
-         "Shield Echo",
-         "盾之回响",
-         "盾の残響"
-        ],
-        "desc": [
-         "Whenever one of your minions' Ward breaks, restore 2 Health to your hero.",
-         "你的随从的护盾被打破时，为你的英雄恢复2点生命值。",
-         "自分のミニオンの結界が破れるたび、ヒーローの体力を2回復する。"
         ]
        }
       ],
@@ -12376,13 +12104,13 @@
    ],
    "warlock": [
     {
-     "id": "undead",
-     "sc": "undead",
-     "color": "#8ac08a",
+     "id": "warlock",
+     "sc": "blood",
+     "color": "#c0405a",
      "names": [
-      "Undeath",
-      "亡灵",
-      "不死"
+      "Warlock",
+      "术士",
+      "術士"
      ],
      "tiers": [
       [
@@ -12400,19 +12128,6 @@
         ]
        },
        {
-        "id": "wl_raise",
-        "names": [
-         "Bone Swarm",
-         "尸骨成群",
-         "骨の群れ"
-        ],
-        "desc": [
-         "Raise Dead no longer damages you.",
-         "亡者复生不再对你造成伤害。",
-         "死者の蘇生でダメージを受けなくなる。"
-        ]
-       },
-       {
         "id": "wl_wrath",
         "names": [
          "Spiteful Dead",
@@ -12424,9 +12139,35 @@
          "你的怨灵+1攻击力。",
          "自分の怨霊の攻撃力+1。"
         ]
+       },
+       {
+        "id": "wl_raise",
+        "names": [
+         "Bone Swarm",
+         "尸骨成群",
+         "骨の群れ"
+        ],
+        "desc": [
+         "Raise Dead no longer damages you.",
+         "亡者复生不再对你造成伤害。",
+         "死者の蘇生でダメージを受けなくなる。"
+        ]
        }
       ],
       [
+       {
+        "id": "wl_mutate",
+        "names": [
+         "Dark Gift",
+         "突变",
+         "闇の賜物"
+        ],
+        "desc": [
+         "Blood Pact also gives you 5 Armor.",
+         "鲜血契约同时获得5点护甲。",
+         "血の契約で装甲も5得る。"
+        ]
+       },
        {
         "id": "wl_gasp",
         "names": [
@@ -12441,29 +12182,16 @@
         ]
        },
        {
-        "id": "wl_ghoul",
+        "id": "wl_pain",
         "names": [
-         "Ghoul Pits",
-         "食尸",
-         "屍食い"
+         "Agony",
+         "痛楚",
+         "苦悶"
         ],
         "desc": [
-         "Barrow Ghoul costs 1 less.",
-         "古冢食尸鬼的费用-1。",
-         "塚の食屍鬼のコスト-1。"
-        ]
-       },
-       {
-        "id": "wl_coil",
-        "names": [
-         "Tight Coil",
-         "缠绕",
-         "締めつけ"
-        ],
-        "desc": [
-         "Mortal Coil deals 1 extra damage.",
-         "死亡缠绕伤害+1。",
-         "デスコイルのダメージ+1。"
+         "The first time you damage yourself each turn, deal 2 damage to the enemy hero.",
+         "每回合你第一次对自己造成伤害时，对敌方英雄造成2点伤害。",
+         "毎ターン最初に自分にダメージを与えた時、敵ヒーローに2ダメージ。"
         ]
        }
       ],
@@ -12492,143 +12220,6 @@
          "The second friendly minion to die in a turn draws you a card.",
          "一回合内死亡的第二个友方随从，让你抽一张牌。",
          "1ターンに2体目の味方のミニオンが死んだ時、カードを1枚引く。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "wl_soul",
-        "names": [
-         "Bone Lord",
-         "骸骨之主",
-         "骸骨の主"
-        ],
-        "desc": [
-         "The Bone Warrior your Energy summons is 3/3 and has Charge.",
-         "能量召唤的骷髅战士改为3/3并具有冲锋。",
-         "エネルギーで召喚する骸骨戦士は3/3になり、突撃を持つ。"
-        ]
-       }
-      ]
-     ]
-    },
-    {
-     "id": "blood",
-     "sc": "blood",
-     "color": "#c0405a",
-     "names": [
-      "Blood",
-      "鲜血",
-      "血"
-     ],
-     "tiers": [
-      [
-       {
-        "id": "wl_pact",
-        "names": [
-         "Blood Pact",
-         "血契",
-         "血の盟約"
-        ],
-        "desc": [
-         "Dark Pact draws 3 cards.",
-         "黑暗契约改为抽3张。",
-         "闇の契約で3枚引く。"
-        ]
-       },
-       {
-        "id": "wl_soulfire",
-        "names": [
-         "Soul Flame",
-         "灵魂火焰",
-         "魂の炎"
-        ],
-        "desc": [
-         "Soulfire deals 1 extra damage.",
-         "灵魂之火伤害+1。",
-         "ソウルファイアのダメージ+1。"
-        ]
-       },
-       {
-        "id": "wl_flesh",
-        "names": [
-         "Flesh",
-         "血肉",
-         "血肉"
-        ],
-        "desc": [
-         "Your hero starts with +2 Health.",
-         "英雄起始生命值+2。",
-         "ヒーローの初期体力+2。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "wl_hell",
-        "names": [
-         "Lord of Hell",
-         "地狱之主",
-         "地獄の主"
-        ],
-        "desc": [
-         "Hellfire no longer damages your hero.",
-         "地狱烈焰不再伤害你的英雄。",
-         "ヘルファイアが自分のヒーローに当たらなくなる。"
-        ]
-       },
-       {
-        "id": "wl_pain",
-        "names": [
-         "Agony",
-         "痛楚",
-         "苦悶"
-        ],
-        "desc": [
-         "The first time you damage yourself each turn, deal 2 damage to the enemy hero.",
-         "每回合你第一次对自己造成伤害时，对敌方英雄造成2点伤害。",
-         "毎ターン最初に自分にダメージを与えた時、敵ヒーローに2ダメージ。"
-        ]
-       },
-       {
-        "id": "wl_mutate",
-        "names": [
-         "Dark Gift",
-         "突变",
-         "闇の賜物"
-        ],
-        "desc": [
-         "Blood Pact also gives you 5 Armor.",
-         "鲜血契约同时获得5点护甲。",
-         "血の契約で装甲も5得る。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "wl_bloodmana",
-        "names": [
-         "Blood Mana",
-         "鲜血魔力",
-         "血の魔力"
-        ],
-        "desc": [
-         "After you damage yourself the first time each turn, gain 1 mana.",
-         "每回合你第一次对自己造成伤害后，获得1点法力。",
-         "毎ターン最初に自分にダメージを与えた後、マナを1得る。"
-        ]
-       },
-       {
-        "id": "wl_tap",
-        "names": [
-         "Life Tap",
-         "生命分流",
-         "生命分流"
-        ],
-        "desc": [
-         "Blood Pact draws 2 cards and deals 3 damage to you.",
-         "鲜血契约改为抽2张、自伤3点。",
-         "血の契約が2枚引き、自分に3ダメージになる。"
         ]
        }
       ],
@@ -13230,126 +12821,6 @@
      "text": null
     }
    },
-   "wa_wall": {
-    "shieldwall": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 6,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": null,
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "wa_slam": {
-    "shieldslam": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": "minion",
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": true,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 1,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal damage to a minion equal to your Armor, +1.",
-      "对一个随从造成等同于你护甲值+1的伤害。",
-      "ミニオン1体に装甲値+1のダメージを与える。"
-     ]
-    }
-   },
    "wa_thane": {
     "thane": {
      "cost": null,
@@ -13408,331 +12879,11 @@
      "text": null
     }
    },
-   "wa_rage": {
-    "innerrage": {
-     "cost": null,
-     "fx": {
-      "dmg": 1,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": [
-       3,
-       0
-      ],
-      "team": null,
-      "summon": [],
-      "tgt": "minion",
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal 1 damage to a minion and give it +3 Attack.",
-      "对一个随从造成1点伤害，并使其获得+3攻击力。",
-      "ミニオン1体に1ダメージを与え、攻撃力+3。"
-     ]
-    }
-   },
-   "wa_whirl": {
-    "whirlwind": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": null,
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 1,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 1,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal 1 damage to ALL minions, 2 to enemy minions.",
-      "对所有随从造成1点伤害，敌方随从改为2点。",
-      "全てのミニオンに1ダメージ（敵のミニオンには2）。"
-     ]
-    }
-   },
    "wa_exec": {
     "execute": {
      "cost": 1,
      "fx": null,
      "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "wa_frenzy": {
-    "frenzy": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": [
-       3,
-       0
-      ],
-      "team": null,
-      "summon": [],
-      "tgt": "ally",
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": true,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "pa_horn": {
-    "calltoarms": {
-     "cost": 2,
-     "fx": null,
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "pa_squires": {
-    "squires": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [
-       "minnow",
-       "minnow",
-       "minnow"
-      ],
-      "tgt": null,
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "pa_command": {
-    "commander": {
-     "cost": null,
-     "fx": null,
-     "bc": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": [
-       1,
-       1
-      ],
-      "summon": [],
-      "tgt": null,
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
      "pray": null,
      "text": null
     }
@@ -13858,15 +13009,6 @@
       "multi": 0,
       "prestige": 0
      },
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "pa_kings": {
-    "kings": {
-     "cost": 3,
-     "fx": null,
      "bc": null,
      "pray": null,
      "text": null
@@ -14136,259 +13278,6 @@
       "1/1のスケルトンを2体召喚する。"
      ]
     }
-   },
-   "wl_ghoul": {
-    "ghoul": {
-     "cost": 2,
-     "fx": null,
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "wl_coil": {
-    "coil": {
-     "cost": null,
-     "fx": {
-      "dmg": 3,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": "minion",
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": true,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal 3 damage to a minion. If that kills it, draw a card.",
-      "对一个随从造成3点伤害。如果它因此死亡，抽一张牌。",
-      "ミニオン1体に3ダメージ。それで倒したらカードを1枚引く。"
-     ]
-    }
-   },
-   "wl_pact": {
-    "darkpact": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 3,
-      "mana": 0,
-      "selfDmg": 2,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": null,
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": null
-    }
-   },
-   "wl_soulfire": {
-    "soulfire": {
-     "cost": null,
-     "fx": {
-      "dmg": 5,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 2,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": "any",
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal 5 damage. Your hero takes 2 damage.",
-      "造成5点伤害。你的英雄受到2点伤害。",
-      "5ダメージを与える。自分のヒーローに2ダメージ。"
-     ]
-    }
-   },
-   "wl_hell": {
-    "hellfire": {
-     "cost": null,
-     "fx": {
-      "dmg": 0,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": null,
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 3,
-      "heroes": true,
-      "armorDmg": false,
-      "dmgBeast": 0,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": true,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal 3 damage to all minions and the enemy hero.",
-      "对所有随从和敌方英雄造成3点伤害。",
-      "全てのミニオンと敵ヒーローに3ダメージ。"
-     ]
-    }
    }
   },
   "presets": {
@@ -14407,9 +13296,9 @@
     ],
     [
      "fi_ignite",
-     "fr_bolt",
+     "fi_fireball",
      "fi_spark",
-     "fr_deep"
+     "fi_boost"
     ]
    ],
    "priest": [
@@ -14427,48 +13316,48 @@
     ],
     [
      "ho_devout",
-     "sh_death",
+     "ho_shield",
      "ho_pray",
-     "sh_steal"
+     "ho_altar"
     ]
    ],
    "warrior": [
     [
      "wa_tough",
-     "wa_slam",
-     "wa_heavy",
-     "wa_bulwark"
-    ],
-    [
-     "wa_berserk",
-     "wa_whirl",
-     "wa_roar",
+     "wa_iron",
+     "wa_counter",
      "wa_fury"
     ],
     [
      "wa_tough",
-     "wa_whirl",
-     "wa_heavy",
+     "wa_iron",
+     "wa_counter",
+     "wa_fury"
+    ],
+    [
+     "wa_tough",
+     "wa_iron",
+     "wa_counter",
      "wa_fury"
     ]
    ],
    "paladin": [
     [
-     "pa_drill",
-     "pa_command",
-     "pa_double",
-     "pa_coop"
-    ],
-    [
      "pa_first",
-     "pa_kings",
-     "pa_lightcall",
+     "pa_vshield",
+     "pa_banner",
      "pa_sanct"
     ],
     [
-     "pa_drill",
-     "pa_kings",
-     "pa_double",
+     "pa_first",
+     "pa_vshield",
+     "pa_banner",
+     "pa_sanct"
+    ],
+    [
+     "pa_first",
+     "pa_vshield",
+     "pa_banner",
      "pa_sanct"
     ]
    ],
@@ -14492,19 +13381,19 @@
    "warlock": [
     [
      "wl_bone",
-     "wl_gasp",
+     "wl_mutate",
      "wl_tide",
-     "wl_soul"
-    ],
-    [
-     "wl_pact",
-     "wl_hell",
-     "wl_bloodmana",
      "wl_veng"
     ],
     [
      "wl_bone",
-     "wl_hell",
+     "wl_mutate",
+     "wl_tide",
+     "wl_veng"
+    ],
+    [
+     "wl_bone",
+     "wl_mutate",
      "wl_tide",
      "wl_veng"
     ]
@@ -14890,7 +13779,6 @@
        ],
        "hint": [
         "wa_tough",
-        "wa_wall",
         "wa_crab"
        ]
       },
@@ -14900,8 +13788,9 @@
         "innerrage"
        ],
        "hint": [
-        "wa_berserk",
-        "wa_rage"
+        "wa_tough",
+        "wa_crab",
+        "wa_reckless"
        ]
       }
      ],
@@ -14932,7 +13821,6 @@
         "thane"
        ],
        "hint": [
-        "wa_slam",
         "wa_thane"
        ]
       },
@@ -14942,7 +13830,6 @@
         "execute"
        ],
        "hint": [
-        "wa_whirl",
         "wa_exec"
        ]
       }
@@ -14963,7 +13850,9 @@
         "berserker"
        ],
        "hint": [
-        "wa_frenzy"
+        "wa_iron",
+        "wa_exec",
+        "wa_thane"
        ]
       }
      ],
@@ -14974,7 +13863,6 @@
         "thane"
        ],
        "hint": [
-        "wa_heavy",
         "wa_counter"
        ]
       },
@@ -14984,7 +13872,6 @@
         "berserker"
        ],
        "hint": [
-        "wa_roar",
         "wa_bloodied"
        ]
       }
@@ -14996,7 +13883,7 @@
         "shieldslam"
        ],
        "hint": [
-        "wa_bulwark"
+        "wa_fury"
        ]
       },
       {
@@ -15016,7 +13903,7 @@
         "golem"
        ],
        "hint": [
-        "wa_bulwark"
+        "wa_fury"
        ]
       },
       {
@@ -15062,8 +13949,9 @@
         "squires"
        ],
        "hint": [
-        "pa_drill",
-        "pa_squires"
+        "pa_first",
+        "pa_hold",
+        "pa_bless"
        ]
       },
       {
@@ -15085,7 +13973,9 @@
         "goblin"
        ],
        "hint": [
-        "pa_horn"
+        "pa_first",
+        "pa_hold",
+        "pa_bless"
        ]
       },
       {
@@ -15105,7 +13995,6 @@
         "squires"
        ],
        "hint": [
-        "pa_command",
         "pa_step"
        ]
       },
@@ -15115,7 +14004,6 @@
         "humility"
        ],
        "hint": [
-        "pa_kings",
         "pa_humble"
        ]
       }
@@ -15127,7 +14015,9 @@
         "squires"
        ],
        "hint": [
-        "pa_array"
+        "pa_vshield",
+        "pa_step",
+        "pa_humble"
        ]
       },
       {
@@ -15147,7 +14037,6 @@
         "calltoarms"
        ],
        "hint": [
-        "pa_double",
         "pa_banner"
        ]
       },
@@ -15157,8 +14046,7 @@
         "priestess"
        ],
        "hint": [
-        "pa_lightcall",
-        "pa_echo"
+        "pa_lightcall"
        ]
       }
      ],
@@ -15169,7 +14057,7 @@
         "calltoarms"
        ],
        "hint": [
-        "pa_coop"
+        "pa_sanct"
        ]
       },
       {
@@ -15189,7 +14077,7 @@
         "squires"
        ],
        "hint": [
-        "pa_coop"
+        "pa_sanct"
        ]
       },
       {
@@ -15418,8 +14306,9 @@
         "soulfire"
        ],
        "hint": [
-        "wl_pact",
-        "wl_soulfire"
+        "wl_bone",
+        "wl_wrath",
+        "wl_raise"
        ]
       }
      ],
@@ -15439,8 +14328,9 @@
         "coil"
        ],
        "hint": [
-        "wl_flesh",
-        "wl_soulfire"
+        "wl_bone",
+        "wl_wrath",
+        "wl_raise"
        ]
       }
      ],
@@ -15451,8 +14341,7 @@
         "ghoul"
        ],
        "hint": [
-        "wl_gasp",
-        "wl_ghoul"
+        "wl_gasp"
        ]
       },
       {
@@ -15461,7 +14350,6 @@
         "darkpact"
        ],
        "hint": [
-        "wl_hell",
         "wl_pain"
        ]
       }
@@ -15473,7 +14361,9 @@
         "raisedead"
        ],
        "hint": [
-        "wl_coil"
+        "wl_mutate",
+        "wl_gasp",
+        "wl_pain"
        ]
       },
       {
@@ -15503,8 +14393,8 @@
         "soulfire"
        ],
        "hint": [
-        "wl_bloodmana",
-        "wl_tap"
+        "wl_tide",
+        "wl_harvest"
        ]
       }
      ],
@@ -15515,7 +14405,7 @@
         "sailor"
        ],
        "hint": [
-        "wl_soul"
+        "wl_veng"
        ]
       },
       {
@@ -15535,7 +14425,7 @@
         "raisedead"
        ],
        "hint": [
-        "wl_soul"
+        "wl_veng"
        ]
       },
       {

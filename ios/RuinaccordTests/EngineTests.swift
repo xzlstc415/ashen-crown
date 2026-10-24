@@ -34,11 +34,13 @@ final class EngineTests: XCTestCase {
             for st in adv.packs { for p in st { for k in p.cards { XCTAssertNotNil(gd.card(k), k) }; for h in p.hint { XCTAssertNotNil(gd.talentNode(h), h) } } }
             for lang in Lang.allCases { let tx = Tx(lang: lang); for pg in gd.talentPages(cls.id) { for row in pg.tiers { for n in row { XCTAssertFalse(tx.name(n.desc).isEmpty) } } } }
         }
-        // Tier gating: a tier-2 node needs a tier-1 pick above it (either page), one pick a tier across both pages;
-        // pruning drops a node when the pick above it goes.
+        // Tier gating: a tier-2 node needs a tier-1 pick above it, one pick a tier; Mage, Priest and Hunter stay on one
+        // page; pruning drops a node when the pick above it goes.
         XCTAssertFalse(gd.validTalents("mage", ["fi_fireball"]))
         XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fi_fireball"]))
-        XCTAssertTrue(gd.validTalents("mage", ["fi_ignite", "fr_bolt", "fi_spark", "fr_deep"]))
+        XCTAssertFalse(gd.validTalents("mage", ["fi_ignite", "fr_bolt", "fi_spark", "fr_deep"]), "no mixing pages")
+        XCTAssertFalse(gd.validTalents("priest", ["ho_devout", "sh_death"]))
+        XCTAssertEqual(gd.talentPages("warrior").count, 1); XCTAssertEqual(gd.talentPages("paladin").count, 1); XCTAssertEqual(gd.talentPages("warlock").count, 1)
         XCTAssertFalse(gd.validTalents("mage", ["fi_ignite", "fi_heart"]))
         XCTAssertFalse(gd.validTalents("mage", ["fi_ignite", "fr_blood"]))
         XCTAssertEqual(gd.pruneTalents(["fi_fireball", "fi_spark"]), [])
@@ -103,8 +105,8 @@ final class EngineTests: XCTestCase {
         s.p.fero = 3; s.summon(.p, "panther"); s.summon(.p, "direwolf")
         XCTAssertFalse(s.p.board[1].sleep); XCTAssertEqual(s.p.fero, 0)
         // Paladin Prestige: Oaths resolve at once and give 1; buffed minions give 1 each at the end of the turn (up to 2);
-        // with 3 the hero power makes a 2/2 Guard recruit, and Unity gives the board +1 Attack when it is spent.
-        s.setupTalents(.p, cls: "paladin", ["pa_drill", "pa_command", "pa_double", "pa_coop"]); s.p.board = []; s.p.mana = 10; s.p.pres = 0
+        // with 3 the hero power makes a 2/2 Guard recruit.
+        s.setupTalents(.p, cls: "paladin", []); s.p.board = []; s.p.mana = 10; s.p.pres = 0
         XCTAssertNil(gd.card("oathmuster")!.pray)
         s.castSpell(.p, "oathmuster", nil); XCTAssertTrue(s.p.altar.isEmpty)
         XCTAssertEqual(s.p.board.filter { $0.key == "minnow" }.count, 3); XCTAssertEqual(s.p.pres, 1)
@@ -114,7 +116,7 @@ final class EngineTests: XCTestCase {
         var pw = Effect(); pw.summon = ["minnow"]
         s.applyFx(.p, pw, nil, isPower: true)
         XCTAssertEqual(s.p.pres, 1); let rec = s.p.board.last!
-        XCTAssertEqual(rec.atk, gd.card("minnow")!.atk! + 1); XCTAssertTrue(rec.hasGuard); XCTAssertEqual(s.p.board[0].atk, a0 + 1, "Unity")
+        XCTAssertEqual(rec.atk, gd.card("minnow")!.atk! + 1); XCTAssertTrue(rec.hasGuard); XCTAssertEqual(s.p.board[0].atk, a0)
         s.applyFx(.p, pw, nil, isPower: true); XCTAssertFalse(s.p.board.last!.hasGuard, "not enough Prestige the second time")
         s.p.board = []; s.p.altar = []; s.p.pres = 0
         // Graveyard Summoner: five of the dead on offer (no tokens), the chosen come back to the hand.

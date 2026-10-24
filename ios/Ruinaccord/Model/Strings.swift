@@ -413,6 +413,7 @@ struct Tx {
     }
     func roundN(_ n: Int) -> String { pick("Round \(n)", "第\(n)回合", "第\(n)ラウンド") }
     var talHint: String { pick("One talent a tier from either page; each pick opens the tier below.", "每层在两页中任选一个，选了才解锁下一层。", "各段でどちらかのページから1つ。選ぶと次の段が開く。") }
+    var talHintOne: String { pick("One talent a tier; each pick opens the tier below.", "每层选一个天赋，选了才解锁下一层。", "各段で1つ。選ぶと次の段が開く。") }
     var talHintSolo: String { pick("All talents from one page, one a tier; each pick opens the tier below.", "只能选同一页的天赋，每层一个，选了才解锁下一层。", "同じページから各段1つ。選ぶと次の段が開く。") }
     var typeAll: String { pick("All", "全部", "すべて") }
     var costLbl: String { pick("Cost", "费用", "コスト") }

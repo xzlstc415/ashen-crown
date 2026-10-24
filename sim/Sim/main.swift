@@ -11,7 +11,7 @@ let champFile = outDir.appendingPathComponent("champions.json")
 _ = gd.collectible; _ = gd.card("coin")
 _ = Sim.play(Build(cls: "mage", tal: [], deck: gd.cls("mage")!.deck), Build(cls: "mage", tal: [], deck: gd.cls("mage")!.deck), aFirst: true)
 
-let archs = gd.classes.flatMap { c in (0..<2).map { Arch(cls: c.id, tree: $0) } }
+let archs = gd.classes.flatMap { c in gd.talentPages(c.id).indices.map { Arch(cls: c.id, tree: $0) } }
 var champs: [Arch: Build] = [:]
 if let d = try? Data(contentsOf: champFile), let saved = try? JSONDecoder().decode([String: Build].self, from: d) {
     for a in archs { if let b = saved[a.name] { champs[a] = b } }
@@ -81,6 +81,22 @@ if mode == "search" {
     }
     if !gd.validTalents(B.cls, B.tal) { print("invalid talents"); exit(1) }
     print(String(format: "%.3f", Search.eval(A, vs: [B], games: arg("-games", 1000))))
+} else if mode == "nodes" {
+    // Every talent set of a class's trees with that tree's champion deck, against the field: per talent, the best and
+    // the mean score of the sets that take it.
+    let cls = args.firstIndex(of: "-cls").flatMap { args[safe: $0 + 1] } ?? ""
+    let n = arg("-games", 40)
+    var by: [String: [Double]] = [:]
+    for a in archs where a.cls == cls {
+        let sets = Search.talentSets(a), deck = champs[a]!.deck
+        let sc = Search.evalMany(sets.map { Build(cls: cls, tal: $0, deck: deck) }, vs: field(a), games: n)
+        for (t, v) in zip(sets, sc) { for id in t { by[id, default: []].append(v) } }
+        print("\(el()) \(a.name) \(sets.count) sets, best \(String(format: "%.3f", sc.max() ?? 0))")
+    }
+    for pg in gd.talentPages(cls) { for (t, row) in pg.tiers.enumerated() { for nd in row {
+        let v = by[nd.id] ?? [0]
+        print("\(pg.id)\t\(t + 1)\t\(nd.id)\t\(nd.names[1])\tmax \(String(format: "%.3f", v.max()!))\tmean \(String(format: "%.3f", v.reduce(0, +) / Double(v.count)))")
+    } } }
 } else if mode == "matrix" {
     // Every pair of archetypes, `-games` games each (alternating who goes first).
     let n = arg("-games", 50)

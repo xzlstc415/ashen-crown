@@ -13,12 +13,10 @@ struct TalentPanel: View {
                     .foregroundStyle(c.sel.count == c.budget ? Theme.ready : Theme.parch)
                     .padding(.horizontal, 10).frame(height: 26)
                     .overlay(Capsule().stroke(c.sel.count == c.budget ? Theme.ready : Theme.line, lineWidth: 1.2))
-                Text(gd.isSolo(c.cls) ? tx.talHintSolo : tx.talHint).font(Theme.body(11)).foregroundStyle(Theme.muted).lineLimit(1)
+                Text(pages.count == 1 ? tx.talHintOne : gd.isSolo(c.cls) ? tx.talHintSolo : tx.talHint).font(Theme.body(11)).foregroundStyle(Theme.muted).lineLimit(1)
                 Spacer()
-                ForEach(0..<2, id: \.self) { i in
-                    if let pg = pages[safe: i] { Button(tx.name(pg.names)) { vm.talPreset(i) }.ghost(compact: true) }
-                }
-                if !GameData.shared.isSolo(c.cls) { Button(tx.talBalanced) { vm.talPreset(2) }.ghost(compact: true) }
+                ForEach(pages.indices, id: \.self) { i in Button(tx.name(pages[i].names)) { vm.talPreset(i) }.ghost(compact: true) }
+                if pages.count > 1 && !gd.isSolo(c.cls) { Button(tx.talBalanced) { vm.talPreset(2) }.ghost(compact: true) }
                 Button(tx.talClear) { vm.talPreset(nil) }.ghost(compact: true, danger: true)
             }
             HStack(alignment: .top, spacing: 10) {

@@ -167,8 +167,6 @@ extension GameData {
         if key == "spellbreaker" && h("sh_breaker") { a += 1 }
         if key == "crab" && h("wa_crab") { hp += 2 }
         if c.hasGuard && h("wa_iron") { hp += 2 }
-        if key == "berserker" && h("wa_berserk") { a += 1 }
-        if key == "minnow" && h("pa_drill") { hp += 1 }
         if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
         if (key == "hound" || key == "whound" || key == "phound") && h("hu_hound") { a += 1 }
         // Houndmaster: every canine, hounds, wolves and Dire Wolf.
