@@ -16,6 +16,12 @@ struct SavedDeck: Codable, Identifiable, Hashable {
     var talents: [String] {
         let gd = GameData.shared
         if let t = tal, gd.validTalents(cls, t) { return t }
+        // Saved under older rules (a Hunter's four picks from both pages): keep what still fits on the first pick's page.
+        if let t = tal, let pg = t.first.flatMap({ gd.talentPage(of: $0)?.id }) {
+            var tiers = Set<Int>()
+            let k = gd.pruneTalents(t.filter { gd.talentPage(of: $0)?.id == pg && tiers.insert(gd.talentTier(of: $0)).inserted })
+            if !k.isEmpty && gd.validTalents(cls, k) { return k }
+        }
         return gd.talentPreset(cls, 0)
     }
     static func newId() -> String { "d" + String(Int(Date().timeIntervalSince1970), radix: 36) + String(UInt32.random(in: 0...UInt32.max), radix: 36) }

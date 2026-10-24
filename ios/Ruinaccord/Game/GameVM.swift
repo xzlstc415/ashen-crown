@@ -369,8 +369,8 @@ final class GameVM {
 
     /// Where talent picks go: the deck being built, or the adventure run (with the points earned so far).
     var talentContext: (cls: String, sel: [String], budget: Int)? {
-        if screen == .build || screen == .qtalents, let cls = q.cls { return (cls, q.tal, gd.talents.maxPts) }
-        if let cls = run.cls { return (cls, run.tal, gd.advPoints(run.stage)) }
+        if screen == .build || screen == .qtalents, let cls = q.cls { return (cls, q.tal, gd.maxPoints(cls)) }
+        if let cls = run.cls { return (cls, run.tal, gd.advPoints(run.stage, cls)) }
         return nil
     }
     private func setTalents(_ v: [String]) {
@@ -379,8 +379,11 @@ final class GameVM {
     func talClick(_ id: String) {
         guard let c = talentContext, gd.talentNode(id) != nil else { return }
         let t = gd.talentTier(of: id)
+        let pg = gd.talentPage(of: id)?.id
         if c.sel.contains(id) { setTalents(gd.pruneTalents(c.sel.filter { $0 != id })) }
-        else if c.sel.count < c.budget && gd.tierOpen(c.sel, t) && gd.tierPick(c.sel, t) == nil { setTalents(c.sel + [id]) }
+        // A one-page class: a first-tier pick on the other page starts over there.
+        else if gd.isSolo(c.cls) && c.sel.contains(where: { gd.talentPage(of: $0)?.id != pg }) { if t == 0 { setTalents([id]) } }
+        else if c.sel.count < c.budget && gd.tierOpen(c.sel, t, page: pg) && gd.tierPick(c.sel, t) == nil { setTalents(c.sel + [id]) }
     }
     /// Presets 0, 1, 2; nil clears.
     func talPreset(_ i: Int?) {

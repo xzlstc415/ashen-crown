@@ -44,7 +44,7 @@ struct BuilderView: View {
                     if tt {
                         HStack(spacing: 0) {
                             Button(tx.cardsTab) { vm.q.showTalents = false }.buttonStyle(PrimaryButtonStyle(ghost: vm.q.showTalents, compact: true))
-                            Button("✦ \(vm.q.tal.count)/\(gd.talents.maxPts)") { vm.q.showTalents = true }.buttonStyle(PrimaryButtonStyle(ghost: !vm.q.showTalents, compact: true))
+                            Button("✦ \(vm.q.tal.count)/\(gd.maxPoints(vm.q.cls))") { vm.q.showTalents = true }.buttonStyle(PrimaryButtonStyle(ghost: !vm.q.showTalents, compact: true))
                                 .accessibilityLabel(Text(tx.talents))
                         }
                     }

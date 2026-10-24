@@ -46,8 +46,9 @@ enum DebugLaunch {
             case "magebuild": vm.openBuilder(cls: "mage"); vm.q.tal = ["fi_heart", "fi_fireball", "fi_spark", "fi_boost"]; vm.go(.build); vm.q.costFilter = 4
             case "build": vm.openBuilder(cls: "warrior"); vm.go(.build); if let r = value("-rar") { vm.q.rarityFilter = r }
             case "qtalents":
-                vm.q.cls = "mage"; vm.q.deck = GameData.shared.cls("mage")!.deck; vm.q.tal = GameData.shared.talentPreset("mage", 0)
-                Decks.autoFill(&vm.q.deck, cls: "mage")
+                let c = value("-cls") ?? "mage"
+                vm.q.cls = c; vm.q.deck = GameData.shared.cls(c)!.deck; vm.q.tal = GameData.shared.talentPreset(c, 0)
+                Decks.autoFill(&vm.q.deck, cls: c)
                 vm.q.talNext = .diff; vm.go(.qtalents)
             case "gallery": vm.openGallery()
             case "diff":

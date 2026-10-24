@@ -1,7 +1,7 @@
 import Foundation
 
-/// Talents: two pages per class, four tiers of 3/3/2/1 nodes. A tier opens once the page has 0/2/4/6 points in
-/// the tiers below it; 12 points in all. Quick and online duels spend them in the deck builder; Adventure hands
+/// Talents: two pages per class, four tiers of 3/3/2/1 nodes (the Hunter: three tiers of 3/3/2, all from one page).
+/// A tier opens once the tier above it has its pick. Quick and online duels spend them in the deck builder; Adventure hands
 /// them out duel by duel. Generated from the web game by ios/tools/gen_data.mjs.
 struct TalentNode: Codable, Hashable, Identifiable {
     let id: String
@@ -53,6 +53,8 @@ struct AdvClass: Codable, Hashable {
 
 struct Talents: Codable {
     let maxPts: Int
+    /// Classes whose talents all come from one page (no mixing).
+    let solo: [String]
     let pages: [String: [TalentPage]]
     let overrides: [String: [String: CardOverride]]
     let presets: [String: [[String]]]
@@ -68,6 +70,11 @@ struct Talents: Codable {
         for pgs in pages.values { for pg in pgs { for row in pg.tiers { for n in row { d[n.id] = pg } } } }
         return d
     }()
+    private(set) lazy var clsOf: [String: String] = {
+        var d: [String: String] = [:]
+        for (cls, pgs) in pages { for pg in pgs { for row in pg.tiers { for n in row { d[n.id] = cls } } } }
+        return d
+    }()
     private(set) lazy var tierOf: [String: Int] = {
         var d: [String: Int] = [:]
         for pgs in pages.values { for pg in pgs { for (t, row) in pg.tiers.enumerated() { for n in row { d[n.id] = t } } } }
@@ -81,19 +88,31 @@ extension GameData {
     func talentNode(_ id: String) -> TalentNode? { var t = talents; return t.nodes[id] }
     func talentPage(of id: String) -> TalentPage? { var t = talents; return t.pageOf[id] }
     func talentTier(of id: String) -> Int { var t = talents; return t.tierOf[id] ?? 0 }
+    func talentClass(of id: String) -> String? { var t = talents; return t.clsOf[id] }
+    /// One-page class: every talent from the same page.
+    func isSolo(_ cls: String?) -> Bool { cls.map { talents.solo.contains($0) } ?? false }
+    /// Points a class can spend: one per tier.
+    func maxPoints(_ cls: String?) -> Int { cls.flatMap { talents.pages[$0]?.map(\.tiers.count).max() } ?? talents.maxPts }
 
     /// The pick in tier `t` (either page), if any: one talent per tier.
     func tierPick(_ sel: [String], _ t: Int) -> String? { sel.first { talentNode($0) != nil && talentTier(of: $0) == t } }
-    /// Tier 1 is always open; a later tier opens once the tier above it has its pick.
-    func tierOpen(_ sel: [String], _ t: Int) -> Bool { t == 0 || tierPick(sel, t - 1) != nil }
+    /// Tier 1 is always open; a later tier opens once the tier above it has its pick (on the same page `page`, for a
+    /// one-page class).
+    func tierOpen(_ sel: [String], _ t: Int, page: String? = nil) -> Bool {
+        t == 0 || sel.contains { id in
+            talentNode(id) != nil && talentTier(of: id) == t - 1
+                && (page == nil || !isSolo(talentClass(of: id)) || talentPage(of: id)?.id == page)
+        }
+    }
 
     func validTalents(_ cls: String, _ sel: [String]) -> Bool {
         if sel.isEmpty { return true }
-        guard let pages = talents.pages[cls], sel.count <= talents.maxPts, Set(sel).count == sel.count else { return false }
+        guard let pages = talents.pages[cls], sel.count <= maxPoints(cls), Set(sel).count == sel.count else { return false }
+        if isSolo(cls) && Set(sel.map { talentPage(of: $0)?.id }).count > 1 { return false }
         return sel.allSatisfy { id in
             guard let pg = talentPage(of: id), pages.contains(where: { $0.id == pg.id }) else { return false }
             let t = talentTier(of: id)
-            return tierOpen(sel, t) && sel.filter { talentNode($0) != nil && talentTier(of: $0) == t }.count == 1
+            return tierOpen(sel, t, page: pg.id) && sel.filter { talentNode($0) != nil && talentTier(of: $0) == t }.count == 1
         }
     }
 
@@ -101,7 +120,7 @@ extension GameData {
     func pruneTalents(_ sel: [String]) -> [String] {
         var a = sel
         while true {
-            let b = a.filter { id in talentNode(id) != nil && tierOpen(a, talentTier(of: id)) }
+            let b = a.filter { id in talentNode(id) != nil && tierOpen(a, talentTier(of: id), page: talentPage(of: id)?.id) }
             if b.count == a.count { return a }
             a = b
         }
@@ -110,8 +129,9 @@ extension GameData {
     /// Presets: 0 = the first page top to bottom, 1 = the second, 2 = alternating pages.
     func talentPreset(_ cls: String, _ i: Int) -> [String] { talents.presets[cls]?[safe: i] ?? [] }
 
-    /// Adventure: one point every two duels, so `stage` (0-based) plays with 1 + stage / 2 points, 4 at the last two.
-    func advPoints(_ stage: Int) -> Int { min(talents.maxPts, 1 + stage / 2) }
+    /// Adventure: one point every two duels, so `stage` (0-based) plays with 1 + stage / 2 points, up to the class's
+    /// maximum.
+    func advPoints(_ stage: Int, _ cls: String?) -> Int { min(maxPoints(cls), 1 + stage / 2) }
 
     /// The card changes a talent selection makes for its owner, stat boosts included.
     func overrides(for sel: [String]) -> [String: CardOverride] {
@@ -151,7 +171,6 @@ extension GameData {
         if key == "minnow" && h("pa_drill") { hp += 1 }
         if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
         if (key == "hound" || key == "whound" || key == "phound") && h("hu_hound") { a += 1 }
-        if key == "gull" && h("hu_griffon") { a += 1 }
         if key == "sailor" && h("wl_bone") { a += 1; hp += 1 }
         if key == "bubble" && h("wl_wrath") { a += 1 }
         if c.gasp != nil && h("wl_gasp") { a += 1 }

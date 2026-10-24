@@ -11020,6 +11020,9 @@
  "deckSize": 25,
  "talents": {
   "maxPts": 4,
+  "solo": [
+   "hunter"
+  ],
   "pages": {
    "mage": [
     {
@@ -12179,16 +12182,16 @@
       ],
       [
        {
-        "id": "hu_kill",
+        "id": "hu_combo",
         "names": [
-         "Thrill",
-         "兴奋",
-         "高揚"
+         "Combo",
+         "连击",
+         "連撃"
         ],
         "desc": [
-         "Kill Command deals 2 more damage.",
-         "猎杀令伤害+2。",
-         "キルコマンドのダメージ+2。"
+         "The 3rd and later cards you play each turn cost 1 less.",
+         "每回合你打出的第3张及之后的牌费用-1。",
+         "毎ターン3枚目以降に使うカードのコスト-1。"
         ]
        },
        {
@@ -12243,21 +12246,6 @@
          "After the first Beast you play each turn, add a 0-cost Hound Whistle to your hand (its Hound can't attack that turn).",
          "每回合你打出第一个野兽后，将一张0费「唤犬哨」加入手牌（召唤的猎犬本回合不能攻击）。",
          "毎ターン最初に獣を出した後、0コストの猟犬の笛を手札に加える（その猟犬は出たターンに攻撃できない）。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "hu_combo",
-        "names": [
-         "Combo",
-         "连击",
-         "連撃"
-        ],
-        "desc": [
-         "The 3rd and later cards you play each turn cost 1 less.",
-         "每回合你打出的第3张及之后的牌费用-1。",
-         "毎ターン3枚目以降に使うカードのコスト-1。"
         ]
        }
       ]
@@ -12329,16 +12317,16 @@
         ]
        },
        {
-        "id": "hu_griffon",
+        "id": "hu_heart",
         "names": [
-         "Griffon Wings",
-         "狮鹫之翼",
-         "グリフォンの翼"
+         "Heartseeker",
+         "穿心",
+         "心穿ち"
         ],
         "desc": [
-         "Griffon Rider has +1 Attack.",
-         "狮鹫骑士+1攻击力。",
-         "グリフォンライダーの攻撃力+1。"
+         "Arcane Shot, Steady Shot and Deadly Shot deal 1 extra damage and cost 1 less.",
+         "奥术射击、稳固射击和致命射击伤害+1，费用-1。",
+         "アーケインショット、着実な射撃、必殺の射撃のダメージ+1、コスト-1。"
         ]
        },
        {
@@ -12380,21 +12368,6 @@
          "Piercing Arrow costs 1 less, can target minions and ignores Armor and Ward.",
          "穿刺之箭费用-1，可以指定随从，并无视护甲与护盾。",
          "貫きの矢のコスト-1。ミニオンも狙え、装甲と結界を無視する。"
-        ]
-       }
-      ],
-      [
-       {
-        "id": "hu_heart",
-        "names": [
-         "Heartseeker",
-         "穿心",
-         "心穿ち"
-        ],
-        "desc": [
-         "Arcane Shot, Steady Shot and Deadly Shot deal 1 extra damage and cost 1 less.",
-         "奥术射击、稳固射击和致命射击伤害+1，费用-1。",
-         "アーケインショット、着実な射撃、必殺の射撃のダメージ+1、コスト-1。"
         ]
        }
       ]
@@ -14023,68 +13996,6 @@
      ]
     }
    },
-   "hu_kill": {
-    "killcmd": {
-     "cost": null,
-     "fx": {
-      "dmg": 5,
-      "aoe": 0,
-      "face": 0,
-      "healT": 0,
-      "heal": 0,
-      "armor": 0,
-      "draw": 0,
-      "mana": 0,
-      "selfDmg": 0,
-      "guard": false,
-      "ward": false,
-      "buff": null,
-      "team": null,
-      "summon": [],
-      "tgt": "any",
-      "cond": null,
-      "destroy": false,
-      "silence": false,
-      "freeze": false,
-      "freezeAll": false,
-      "setAtk": 0,
-      "setHp": 0,
-      "sweep": 0,
-      "heroes": false,
-      "armorDmg": false,
-      "dmgBeast": 7,
-      "drawIfKill": false,
-      "tempAtk": 0,
-      "bounce": false,
-      "perFoe": null,
-      "purge": 0,
-      "revive": 0,
-      "hasten": 0,
-      "rush": false,
-      "pierce": false,
-      "wardSummon": false,
-      "splash": 0,
-      "icelance": 0,
-      "freezeBig": false,
-      "plus": 0,
-      "foeExtra": 0,
-      "noSelf": false,
-      "reclaim": 0,
-      "cull": 0,
-      "teamRace": null,
-      "teamWard": false,
-      "multi": 0,
-      "prestige": 0
-     },
-     "bc": null,
-     "pray": null,
-     "text": [
-      "Deal 5 damage. If you control a Beast, deal 7 instead.",
-      "造成5点伤害。如果你控制一只野兽，改为造成7点伤害。",
-      "5ダメージを与える。獣がいるなら7ダメージ。"
-     ]
-    }
-   },
    "hu_precise": {
     "spray": {
      "cost": null,
@@ -14564,21 +14475,18 @@
    "hunter": [
     [
      "hu_pack",
-     "hu_kill",
-     "hu_master",
-     "hu_combo"
+     "hu_combo",
+     "hu_master"
     ],
     [
      "hu_precise",
      "hu_deadly",
-     "hu_rapid",
-     "hu_heart"
+     "hu_rapid"
     ],
     [
      "hu_pack",
-     "hu_deadly",
-     "hu_master",
-     "hu_heart"
+     "hu_combo",
+     "hu_master"
     ]
    ],
    "warlock": [
@@ -15370,7 +15278,7 @@
         "hounds"
        ],
        "hint": [
-        "hu_kill",
+        "hu_combo",
         "hu_hound"
        ]
       },
@@ -15381,7 +15289,7 @@
        ],
        "hint": [
         "hu_deadly",
-        "hu_griffon"
+        "hu_heart"
        ]
       }
      ],
@@ -15434,7 +15342,7 @@
         "direwolf"
        ],
        "hint": [
-        "hu_combo"
+        "hu_whistle"
        ]
       },
       {
@@ -15443,7 +15351,7 @@
         "gull"
        ],
        "hint": [
-        "hu_heart"
+        "hu_rapid"
        ]
       }
      ],
@@ -15454,7 +15362,7 @@
         "gull"
        ],
        "hint": [
-        "hu_combo"
+        "hu_master"
        ]
       },
       {
@@ -15463,7 +15371,7 @@
         "wyvern"
        ],
        "hint": [
-        "hu_heart"
+        "hu_pierce"
        ]
       }
      ]

@@ -381,7 +381,7 @@ struct Tx {
     func talAdvSub(_ n: Int) -> String { pick("You have \(n) talent point\(n > 1 ? "s" : ""). You can move them before every duel.", "你现在有\(n)点天赋，每关开始前都可以重新分配。", "タレントポイントは\(n)。毎戦の前に振り直せる。") }
     var talFight: String { pick("To battle", "开始战斗", "戦いへ") }
     var qTalTitle: String { pick("Quick play · Talents", "自由对战 · 分配天赋", "フリー対戦・タレント") }
-    var qTalSub: String { pick("4 points, one a tier; the deck remembers them.", "4 点天赋，每层一个，会保存在这副牌组里。", "4 ポイント、各段1つ。デッキに保存される。") }
+    func qTalSub(_ n: Int) -> String { pick("\(n) points, one a tier; the deck remembers them.", "\(n) 点天赋，每层一个，会保存在这副牌组里。", "\(n) ポイント、各段1つ。デッキに保存される。") }
     var nextCards: String { pick("Next: cards", "下一步：选牌", "次へ：カード") }
     var closeLbl: String { pick("Close", "关闭", "閉じる") }
     // Full-screen pages
@@ -413,6 +413,7 @@ struct Tx {
     }
     func roundN(_ n: Int) -> String { pick("Round \(n)", "第\(n)回合", "第\(n)ラウンド") }
     var talHint: String { pick("One talent a tier from either page; each pick opens the tier below.", "每层在两页中任选一个，选了才解锁下一层。", "各段でどちらかのページから1つ。選ぶと次の段が開く。") }
+    var talHintSolo: String { pick("All talents from one page, one a tier; each pick opens the tier below.", "只能选同一页的天赋，每层一个，选了才解锁下一层。", "同じページから各段1つ。選ぶと次の段が開く。") }
     var typeAll: String { pick("All", "全部", "すべて") }
     var costLbl: String { pick("Cost", "费用", "コスト") }
     var classCards: String { pick("Class", "职业", "クラス") }

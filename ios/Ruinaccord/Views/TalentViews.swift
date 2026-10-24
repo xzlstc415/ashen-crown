@@ -13,16 +13,16 @@ struct TalentPanel: View {
                     .foregroundStyle(c.sel.count == c.budget ? Theme.ready : Theme.parch)
                     .padding(.horizontal, 10).frame(height: 26)
                     .overlay(Capsule().stroke(c.sel.count == c.budget ? Theme.ready : Theme.line, lineWidth: 1.2))
-                Text(tx.talHint).font(Theme.body(11)).foregroundStyle(Theme.muted).lineLimit(1)
+                Text(gd.isSolo(c.cls) ? tx.talHintSolo : tx.talHint).font(Theme.body(11)).foregroundStyle(Theme.muted).lineLimit(1)
                 Spacer()
                 ForEach(0..<2, id: \.self) { i in
                     if let pg = pages[safe: i] { Button(tx.name(pg.names)) { vm.talPreset(i) }.ghost(compact: true) }
                 }
-                Button(tx.talBalanced) { vm.talPreset(2) }.ghost(compact: true)
+                if !GameData.shared.isSolo(c.cls) { Button(tx.talBalanced) { vm.talPreset(2) }.ghost(compact: true) }
                 Button(tx.talClear) { vm.talPreset(nil) }.ghost(compact: true, danger: true)
             }
             HStack(alignment: .top, spacing: 10) {
-                ForEach(pages) { pg in TalentPageView(page: pg, sel: c.sel, budget: c.budget) }
+                ForEach(pages) { pg in TalentPageView(page: pg, sel: c.sel, budget: c.budget, solo: GameData.shared.isSolo(c.cls)) }
             }
             .frame(maxHeight: .infinity, alignment: .top)
         })
@@ -33,10 +33,13 @@ private struct TalentPageView: View {
     let page: TalentPage
     let sel: [String]
     let budget: Int
+    let solo: Bool
     @Environment(GameVM.self) private var vm
     var body: some View {
         let gd = GameData.shared, tx = vm.tx, col = Color(hex: page.color)
         let n = sel.filter { gd.talentPage(of: $0)?.id == page.id }.count
+        // One-page class with picks on the other page: only this page's first tier is open, to start over here.
+        let other = solo && n < sel.count
         VStack(alignment: .leading, spacing: 5) {
             HStack(spacing: 8) {
                 Text(tx.name(page.names)).font(Theme.display(15, cjk: vm.lang.isCJK)).foregroundStyle(col)
@@ -44,7 +47,7 @@ private struct TalentPageView: View {
                 Text("\(n)").font(Theme.body(13, .heavy)).foregroundStyle(col).monospacedDigit()
             }
             ForEach(Array(page.tiers.enumerated()), id: \.offset) { t, row in
-                TalentTierRow(row: row, open: gd.tierOpen(sel, t), taken: gd.tierPick(sel, t) != nil, sel: sel, budget: budget, col: col)
+                TalentTierRow(row: row, open: gd.tierOpen(sel, t, page: page.id), taken: !other && gd.tierPick(sel, t) != nil, other: other, sel: sel, budget: budget, col: col)
             }
         }
         .padding(8)
@@ -58,12 +61,13 @@ private struct TalentTierRow: View {
     let row: [TalentNode]
     let open: Bool
     let taken: Bool
+    let other: Bool
     let sel: [String]
     let budget: Int
     let col: Color
     @Environment(GameVM.self) private var vm
     var body: some View {
-        let room: Bool = open && !taken && sel.count < budget
+        let room: Bool = open && !taken && (other || sel.count < budget)
         HStack(alignment: .top, spacing: 6) {
             ForEach(row) { nd in
                 let on: Bool = sel.contains(nd.id)
@@ -109,7 +113,7 @@ struct TalentScreen: View {
         let tx = vm.tx
         ScreenShell(scene: Scenes.forStage(vm.run.stage)) {
             VStack(spacing: 4) {
-                BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.talAdvTitle(vm.run.stage + 1), subtitle: tx.talAdvSub(GameData.shared.advPoints(vm.run.stage))) {
+                BarRow(back: (tx.toMenu, { vm.goMenu() }), title: tx.talAdvTitle(vm.run.stage + 1), subtitle: tx.talAdvSub(GameData.shared.advPoints(vm.run.stage, vm.run.cls))) {
                     RouteRow()
                     Button(tx.talFight + " ›") { vm.startDuel() }.primary(compact: true, glow: true)
                 }
@@ -128,7 +132,7 @@ struct QTalentScreen: View {
             VStack(spacing: 4) {
                 // A new deck: back to the classes, on to the cards. A saved deck: back to the list, on to the difficulty.
                 let toBuild = vm.q.talNext == .build
-                BarRow(back: toBuild ? (tx.pickClassNew, { vm.goNewDeck() }) : (tx.myDecks, { vm.goDecks() }), title: tx.qTalTitle, subtitle: tx.qTalSub) {
+                BarRow(back: toBuild ? (tx.pickClassNew, { vm.goNewDeck() }) : (tx.myDecks, { vm.goDecks() }), title: tx.qTalTitle, subtitle: tx.qTalSub(GameData.shared.maxPoints(vm.q.cls))) {
                     if !toBuild { IconButton(symbol: "square.grid.2x2", label: tx.editDeck) { vm.go(.build) } }
                     IconButton(symbol: "arrow.right", label: toBuild ? tx.nextCards : tx.nextDiff, primary: true) { vm.talentsNext() }
                 }
