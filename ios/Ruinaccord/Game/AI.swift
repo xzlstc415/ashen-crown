@@ -138,7 +138,7 @@ extension DuelState {
     /// Whether and where to use the enemy hero power.
     func aiPowerPlan() -> EID?? {
         let pw = e.power
-        if aiEasy || e.mana < pcost(.e) { return nil }
+        if aiEasy || e.powerUsed || e.mana < pcost(.e) { return nil }
         let fx = pw.fx
         if fx.dmg > 0 { if let t = aiDamageTarget(fx.dmg + powerBonus(.e), pw.tgt, phys: true) { return .some(t) }; return nil }
         if fx.healT > 0 {

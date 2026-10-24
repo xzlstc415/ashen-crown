@@ -1102,8 +1102,10 @@ final class GameVM {
             }
             if !did { break }
         }
-        if !S.over { await aiPower() }
-        guard gameToken == token else { return }
+        for _ in 0..<2 where !S.over {
+            await aiPower()
+            guard gameToken == token else { return }
+        }
         // Up to three passes, so a minion with several attacks a turn (Sylvara) uses them all.
         for _ in 0..<3 {
             var any = false

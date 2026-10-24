@@ -1074,7 +1074,7 @@ function fxText(fx,tgt){
   if(BETA&&fx.freeze)out.push(['Freeze it.','并冻结目标。','対象を凍結させる。'][li()]);
   if(BETA&&fx.tempAtk)out.push([`+${fx.tempAtk} Attack this turn.`,`本回合+${fx.tempAtk}攻击力。`,`このターン攻撃力+${fx.tempAtk}。`][li()]);
   if(BETA&&fx.rush)out.push(['It can attack this turn.','它本回合可以攻击。','このターン攻撃できる。'][li()]);
-  if(BETA&&fx.pierce)out.push(['Ignores Armor.','无视护甲。','装甲を無視する。'][li()]);
+  if(BETA&&fx.pierce)out.push(['Ignores Armor and Ward.','无视护甲与护盾。','装甲と結界を無視する。'][li()]);
   if(BETA&&fx.wardSummon)out.push(['With Ward.','带护盾。','結界付き。'][li()]);
   if(BETA&&fx.splash)out.push([`${fx.splash} damage to the other enemy minions.`,`对其他敌方随从各造成${fx.splash}点伤害。`,`他の敵のミニオンに${fx.splash}ダメージ。`][li()]);
   return out.join(F.sep);
@@ -1274,8 +1274,8 @@ const TALENTS=BETA?{
       [TN('hu_deadly',['Deadly Aim','致命','致命'],['Deadly Shot costs 1 less.','致命射击的费用-1。','必殺の射撃のコスト-1。']),
        TN('hu_griffon',['Griffon Wings','狮鹫之翼','グリフォンの翼'],['Griffon Rider has +1 Attack.','狮鹫骑士+1攻击力。','グリフォンライダーの攻撃力+1。']),
        TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 2 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+2。','自分の呪文が敵ヒーローに与えるダメージ+2。'])],
-      [TN('hu_rapid',['Rapid Fire','速射','速射'],['Piercing Arrow costs 1 less.','英雄技能「穿刺之箭」费用-1。','ヒーローパワー「貫きの矢」のコスト-1。']),
-       TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow ignores Armor.','穿刺之箭无视护甲。','貫きの矢は装甲を無視する。'])],
+      [TN('hu_rapid',['Rapid Fire','连射','連射'],['Your hero power can be used twice a turn.','英雄技能每回合可以使用两次。','ヒーローパワーを毎ターン2回使える。']),
+       TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow can target minions and ignores Armor and Ward.','穿刺之箭可以指定随从，并无视护甲与护盾。','貫きの矢でミニオンも狙え、装甲と結界を無視する。'])],
       [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Piercing Arrow can target minions.','穿刺之箭可以指定随从。','貫きの矢でミニオンも狙える。'])]]}],
   warlock:[
     {id:'undead',sc:'undead',col:'#8ac08a',n:['Undeath','亡灵','不死'],tiers:[
@@ -1381,8 +1381,7 @@ function setupTalents(s,cls,sel){
   if(p&&tal(s,'pa_lightcall'))p={...p,fx:{...p.fx,wardSummon:1}};
   if(p&&tal(s,'hu_master'))p={c:2,fx:{summon:'phound'},n:rn('hu_master')};
   if(p&&tal(s,'hu_heart')&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};
-  if(p&&tal(s,'hu_pierce'))p={...p,fx:{...p.fx,pierce:1}};
-  if(p&&tal(s,'hu_rapid'))p={...p,c:Math.max(0,p.c-1)};
+  if(p&&tal(s,'hu_pierce')){if(p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};p={...p,fx:{...p.fx,pierce:1}}}
   if(p&&tal(s,'wl_tap'))p={...p,fx:{...p.fx,selfDmg:3,draw:2}};
   if(p&&(tal(s,'sh_touch')||tal(s,'wa_roar')||tal(s,'hu_master'))&&!p.n)p.n=CBY[cls].power.n;
   if(p)s.power=p;
@@ -1483,7 +1482,8 @@ function takeHand(side,i){const s=S[side];hbOf(s);s.castHb=s.hb[i]||0;s.hb.splic
   // Hunter Energy comes only from talents: Tamer for each Beast card played, Quiver for each Hunter attack spell.
   const c=CARDS[k];if(resCls(s,'hunter')&&c&&!c.token&&((tal(s,'hu_tame')&&c.race==='beast')||(tal(s,'hu_quiver')&&c.t==='s'&&c.cls==='hunter'&&c.fx&&c.fx.dmg>0))){s.fero=Math.min(FERO_CAP,(s.fero||0)+1);float(s,'✦+1','#9ad48a')}
   return k}
-function afterPower(side){const s=S[side];addRage(s,1);if(tal(s,'fr_armor')){s.armor+=2;float(s,T('armorN',2),'#cfd8dc')}}
+// Rapid Fire: the first use of the turn leaves the power ready for a second.
+function afterPower(side){const s=S[side];addRage(s,1);if(s.tf&&tal(s,'hu_rapid')&&!s.tf.pw){s.tf.pw=1;s.powerUsed=false}if(tal(s,'fr_armor')){s.armor+=2;float(s,T('armorN',2),'#cfd8dc')}}
 // Freezing (Permafrost keeps it a turn longer; Ice Ward gives Armor once a turn).
 function freezeM(side,m){
   const s=S[side];m.frozen=Math.max(+m.frozen||0,tal(s,'fr_perma')&&m.side!==side?2:1);float(m,T('fFreeze'),'var(--foam)');
@@ -1959,7 +1959,7 @@ function damage(o,n,pierce,phys,spell){
   const own=isHero(o)?o:S[o.side];
   if(isHero(o))addRage(own,1);
   if(isHero(o)){const a=pierce?0:Math.min(o.armor,n);o.armor-=a;n-=a;o.hp-=n;float(o,n?'-'+n:T('fArmor',a),n?'var(--blood)':'#aab',true);shadowLight(o,n)}
-  else if(o.ward){o.ward=false;float(o,T('fWard'),'var(--foam)',true);
+  else if(o.ward&&!pierce){o.ward=false;float(o,T('fWard'),'var(--foam)',true);
     if(own&&own.tal&&own.tal.size){
       if(tal(own,'pa_echo'))heal(own,2);
       if(tal(own,'pa_sanct')&&own.tf&&(own.tf.sd||0)<3){own.tf.sd=(own.tf.sd||0)+1;draw(o.side,1);heal(own,2)}}}
@@ -2007,7 +2007,7 @@ function applyFx0(side,fx,t,bonus=0,faceB=0,spell=false){
   let dmg=fx.dmg||0;
   if(fx.dmgBeast&&me.board.some(m=>CARDS[m.key].race==='beast'))dmg=fx.dmgBeast;
   if(fx.armorDmg)dmg=me.armor+(fx.plus||0);
-  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0),fx.pierce&&isHero(t),isPw,spell);
+  if((fx.dmg||fx.armorDmg)&&t){damage(t,dmg+bonus+(t===op?faceB:0),!!fx.pierce,isPw,spell);
     if(fx.splash&&mt)op.board.filter(m=>m!==mt).forEach(m=>damage(m,fx.splash,false,isPw,spell));if(fx.drawIfKill&&mt&&mt.hp<=0)draw(side,1)}
   if(mt){
     if(fx.destroy){mt.hp=0;float(mt,T('fDestroy'),'var(--blood)',true)}
@@ -2267,14 +2267,14 @@ function aiDamageTarget(n,tgt,phys,spell){
 async function aiPower(){
   // Stop if this game was left (or replaced by a new one) while we were waiting.
   const G0=S;
-  const e=S.e,p=e.power,fx=p.fx;if(aiEasy()||e.mana<pcost('e'))return;
+  const e=S.e,p=e.power,fx=p.fx;if(aiEasy()||e.powerUsed||e.mana<pcost('e'))return;
   let t=null;
   if(fx.dmg){t=aiDamageTarget(fx.dmg,p.tgt,true);if(!t)return}
   else if(fx.healT){t=[e,...e.board].filter(x=>x.hp<x.max).sort((a,b)=>(b.max-b.hp)-(a.max-a.hp))[0]||(fx.hasten&&e.altar.length?e:null)||(resCls(e,'priest')&&(e.light||0)<LIGHT_CAP?e:null);if(!t)return}
   else if(fx.buff){t=aiBestAlly();if(!t)return}
   else if(fx.tempAtk){t=[...e.board].filter(m=>canAttackSoon(m)).sort((a,b)=>b.atk-a.atk)[0];if(!t)return}
   else if(!aiWorth(fx))return;
-  e.mana-=pcost('e');
+  e.mana-=pcost('e');e.powerUsed=true;
   if(t)await aimAt(t);if(S!==G0)return;
   await fxAnim(fx,'[data-epow]',t,'e');if(S!==G0)return;applyFx('e',fx,t,powerBonus('e'));afterPower('e');
   say('ePower',()=>heroName(e),()=>pn(p),t?()=>nm(t):null);cleanup();render();await wait(600);if(S!==G0)return;
@@ -2406,7 +2406,7 @@ async function aiTurn(){
     }
     if(!did)break;
   }
-  if(!S.over)await aiPower();if(S!==G0)return;
+  for(let i=0;i<2&&!S.over;i++){await aiPower();if(S!==G0)return}
   // Up to three passes, so a minion with several attacks a turn (Sylvara) uses them all.
   for(let pass=0;pass<3;pass++){let any=false;
     for(const m of [...e.board]){

@@ -78,7 +78,7 @@ enum Sim {
             }
             if !did { break }
         }
-        if !S.over, let plan = S.aiPowerPlan() {
+        for _ in 0..<2 where !S.over { guard let plan = S.aiPowerPlan() else { break }
             let p = S[me].power
             S[me].mana -= S.pcost(me); S[me].powerUsed = true
             S.applyFx(me, p.fx, plan, bonus: S.powerBonus(me), isPower: true); S.afterPower(me)

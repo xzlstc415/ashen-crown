@@ -346,7 +346,7 @@ struct Tx {
         if fx.freeze { out.append(pick("Freeze it.", "并冻结目标。", "対象を凍結させる。")) }
         if fx.tempAtk > 0 { out.append(pick("+\(fx.tempAtk) Attack this turn.", "本回合+\(fx.tempAtk)攻击力。", "このターン攻撃力+\(fx.tempAtk)。")) }
         if fx.rush { out.append(pick("It can attack this turn.", "它本回合可以攻击。", "このターン攻撃できる。")) }
-        if fx.pierce { out.append(pick("Ignores Armor.", "无视护甲。", "装甲を無視する。")) }
+        if fx.pierce { out.append(pick("Ignores Armor and Ward.", "无视护甲与护盾。", "装甲と結界を無視する。")) }
         if fx.wardSummon { out.append(pick("With Ward.", "带护盾。", "結界付き。")) }
         if fx.splash > 0 { out.append(pick("\(fx.splash) damage to the other enemy minions.", "对其他敌方随从各造成\(fx.splash)点伤害。", "他の敵のミニオンに\(fx.splash)ダメージ。")) }
         return out.joined(separator: lang == .en ? " " : "")

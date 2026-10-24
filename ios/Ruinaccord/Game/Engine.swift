@@ -79,6 +79,7 @@ struct TurnFlags: Codable, Hashable {
     var sum = 0           // minions summoned
     var played = 0        // cards played
     var deaths = 0        // own minions that died
+    var pw = false        // Rapid Fire's first hero power use
 }
 
 struct Hero: Codable, Hashable {
@@ -292,8 +293,10 @@ struct DuelState: Codable {
         if tal(side, "pa_lightcall") { mod { $0.wardSummon = true } }
         if tal(side, "hu_master"), let n = gd.talentNode("hu_master") { var fx = Effect(); fx.summon = ["phound"]; p = Power(cost: 2, tgt: nil, fx: fx, names: n.names) }
         if tal(side, "hu_heart"), p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
-        if tal(side, "hu_pierce") { mod { $0.pierce = true } }
-        if tal(side, "hu_rapid") { p = Power(cost: Swift.max(0, p.cost - 1), tgt: p.tgt, fx: p.fx, names: p.names) }
+        if tal(side, "hu_pierce") {
+            if p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
+            mod { $0.pierce = true }
+        }
         if tal(side, "wl_tap") { mod { $0.selfDmg = 3; $0.draw = 2 } }
         self[side].power = p
     }
@@ -362,6 +365,8 @@ struct DuelState: Codable {
 
     mutating func afterPower(_ side: Side) {
         addRage(side, 1)
+        // Rapid Fire: the first use of the turn leaves the power ready for a second.
+        if tal(side, "hu_rapid") && !self[side].tf.pw { self[side].tf.pw = true; self[side].powerUsed = false }
         if tal(side, "fr_armor") { self[side].armor += 2; float(.hero(side), .armorGain(2)) }
     }
 
@@ -496,7 +501,7 @@ struct DuelState: Codable {
             float(id, rest > 0 ? .dmg(rest) : .armorAbsorb(a))
             shadowLight(own, rest)
         } else if let i = self[own].board.firstIndex(where: { $0.uid == id.uid }) {
-            if self[own].board[i].ward {
+            if self[own].board[i].ward && !pierce {
                 self[own].board[i].ward = false
                 float(id, .ward)
                 if tal(own, "pa_echo") { heal(.hero(own), 2) }
@@ -824,7 +829,7 @@ struct DuelState: Codable {
         if fx.dmgBeast > 0 && self[side].board.contains(where: { $0.card.race == "beast" }) { dmg = fx.dmgBeast }
         if fx.armorDmg { dmg = self[side].armor + fx.plus }
         if fx.dealsDamage, let t {
-            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce && t.isHero, phys: isPower, spell: isSpell)
+            damage(t, dmg + bonus + (t == .hero(op) ? faceBonus : 0), pierce: fx.pierce, phys: isPower, spell: isSpell)
             if fx.splash > 0, let mt { for m in self[op].board where m.id != mt { damage(m.id, fx.splash, phys: isPower, spell: isSpell) } }
             if fx.drawIfKill, let mt, (minion(mt)?.hp ?? 0) <= 0 { draw(side, 1) }
         }

@@ -33,7 +33,7 @@ struct Effect: Codable, Hashable {
     var revive = 0             // bring back this many of your dead (non-token) minions
     var hasten = 0             // your Prayers count down this much more
     var rush = false           // the target may attack this turn
-    var pierce = false         // hero damage ignores Armor
+    var pierce = false         // damage ignores Armor and Ward
     var wardSummon = false     // summoned minions get Ward
     var splash = 0             // damage to the other enemy minions when a minion is hit
     var icelance = 0           // a frozen target takes this damage, anything else is frozen

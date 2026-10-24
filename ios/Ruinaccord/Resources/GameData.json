@@ -12360,13 +12360,13 @@
         "id": "hu_rapid",
         "names": [
          "Rapid Fire",
-         "速射",
-         "速射"
+         "连射",
+         "連射"
         ],
         "desc": [
-         "Piercing Arrow costs 1 less.",
-         "英雄技能「穿刺之箭」费用-1。",
-         "ヒーローパワー「貫きの矢」のコスト-1。"
+         "Your hero power can be used twice a turn.",
+         "英雄技能每回合可以使用两次。",
+         "ヒーローパワーを毎ターン2回使える。"
         ]
        },
        {
@@ -12377,9 +12377,9 @@
          "徹甲"
         ],
         "desc": [
-         "Piercing Arrow ignores Armor.",
-         "穿刺之箭无视护甲。",
-         "貫きの矢は装甲を無視する。"
+         "Piercing Arrow can target minions and ignores Armor and Ward.",
+         "穿刺之箭可以指定随从，并无视护甲与护盾。",
+         "貫きの矢でミニオンも狙え、装甲と結界を無視する。"
         ]
        }
       ],
