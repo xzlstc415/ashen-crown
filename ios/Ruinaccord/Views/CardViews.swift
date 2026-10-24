@@ -72,7 +72,7 @@ struct CardView: View {
                     .lineLimit(2).minimumScaleFactor(0.7)
                     .multilineTextAlignment(.leading)
                 // The frame colour shows minion or spell; this line names the race (Beasts matter in play) and the class.
-                let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.isPrayer ? tx.prayerT : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
+                let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.isPrayer ? tx.prayerT : nil, card.cls == nil ? nil : card.classes.map(tx.className).joined(separator: "/")].compactMap { $0 }.joined(separator: " · ")
                 if !typ.isEmpty { Text(typ)
                     .font(Theme.body(0.76 * em, .medium)).tracking(0.5)
                     .foregroundStyle(Color(hex: "#9fc4ee"))

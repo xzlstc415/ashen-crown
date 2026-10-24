@@ -431,7 +431,7 @@ struct GalleryView: View {
     var body: some View {
         let tx = vm.tx, gd = GameData.shared
         let list = gd.cards.filter { c in
-            c.rarity != "t" && (type == "all" || (type == "m") == c.isMinion) && (cost < 0 || (cost == 7 ? c.cost >= 7 : c.cost == cost)) && (cls == "all" || c.cls == cls || (cls == "neutral" && c.cls == nil))
+            c.rarity != "t" && (type == "all" || (type == "m") == c.isMinion) && (cost < 0 || (cost == 7 ? c.cost >= 7 : c.cost == cost)) && (cls == "all" || c.cls == cls || c.also == cls || (cls == "neutral" && c.cls == nil))
         }.sorted { a, b in a.cost != b.cost ? a.cost < b.cost : tx.name(a.names) < tx.name(b.names) }
         ScreenShell(scene: "glade") {
             VStack(spacing: 2) {

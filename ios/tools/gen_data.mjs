@@ -21,7 +21,7 @@ const data = new Function(chunk + '\nreturn {ART, CARDS, OPP, CLASSES, BOARD_MAX
 const cards = Object.entries(data.CARDS).map(([id, c]) => ({
   id, cost: c.c, type: c.t, atk: c.a ?? null, hp: c.h ?? null, rarity: c.r, race: c.race ?? null,
   guard: !!c.guard, ward: !!c.ward, surge: !!c.surge, gasp: c.gasp ?? null, token: !!c.token,
-  cls: c.cls ?? null, text: c.x ?? null, sp: c.sp ?? 0, onSpell: c.onSpell ?? null,
+  cls: c.cls ?? null, also: c.also ?? null, text: c.x ?? null, sp: c.sp ?? 0, onSpell: c.onSpell ?? null,
   bc: fx(c.bc), fx: fx(c.fx), names: c.n, flavor: c.f,
   sc: c.sc ?? null, pray: c.pray ? {cd: c.pray.cd, fx: fx(c.pray.fx)} : null, sw: !!c.sw, pw: c.pw ?? 0, beta: !!c.beta, rite: !!c.rite, ether: !!c.ether, haunt: !!c.haunt, uniq: !!c.uniq, spellward: !!c.spellward, swings: c.swings ?? 1, norip: !!c.norip,
 }));

@@ -630,7 +630,7 @@ struct CardInfoPanel: View {
     @Environment(GameVM.self) private var vm
     var body: some View {
         let tx = vm.tx, cjk = vm.lang.isCJK
-        let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.cls.map(tx.className)].compactMap { $0 }.joined(separator: " · ")
+        let typ = [card.isMinion ? tx.race(card.race ?? "") : nil, card.cls == nil ? nil : card.classes.map(tx.className).joined(separator: "/")].compactMap { $0 }.joined(separator: " · ")
         VStack(alignment: .leading, spacing: 5) {
             HStack(spacing: 8) {
                 Text("\(ovr?.cost ?? card.cost)").font(Theme.body(14, .heavy)).foregroundStyle((ovr?.cost ?? card.cost) < card.cost ? Theme.ready : .white)

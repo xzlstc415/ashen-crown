@@ -4,7 +4,7 @@ import XCTest
 final class EngineTests: XCTestCase {
     func testDataLoads() {
         let gd = GameData.shared
-        XCTAssertEqual(gd.cards.count, 126)
+        XCTAssertEqual(gd.cards.count, 127)
         XCTAssertEqual(gd.classes.count, 6)
         XCTAssertEqual(gd.opponents.count, 8)
         XCTAssertEqual(gd.deckSize, 25)

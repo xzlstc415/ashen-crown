@@ -14,7 +14,8 @@ _ = Sim.play(Build(cls: "mage", tal: [], deck: gd.cls("mage")!.deck), Build(cls:
 let archs = gd.classes.flatMap { c in gd.talentPages(c.id).indices.map { Arch(cls: c.id, tree: $0) } }
 var champs: [Arch: Build] = [:]
 if let d = try? Data(contentsOf: champFile), let saved = try? JSONDecoder().decode([String: Build].self, from: d) {
-    for a in archs { if let b = saved[a.name] { champs[a] = b } }
+    // Cards that moved to another class (or left the game) drop out; the deck is filled up again.
+    for a in archs { if var b = saved[a.name] { b.deck = Decks.sanitize(b.deck, cls: a.cls); Decks.autoFill(&b.deck, cls: a.cls); b.deck.sort(); champs[a] = b } }
 }
 for a in archs where champs[a] == nil {
     var d = Decks.sanitize(gd.cls(a.cls)!.deck, cls: a.cls); Decks.autoFill(&d, cls: a.cls)

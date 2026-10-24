@@ -105,6 +105,7 @@ struct Card: Codable, Identifiable, Hashable {
     let names: [String]
     let flavor: [String]
     let cls: String?            // class card: only this class may use it
+    let also: String?           // a second class that may use it too
     let text: [String]?         // rules text written per language (otherwise generated from the effect)
     let sp: Int                 // Spell Damage
     let onSpell: [Int]?         // [+atk, +hp] whenever its owner casts a spell
@@ -128,8 +129,10 @@ struct Card: Codable, Identifiable, Hashable {
     var isTargetedSpell: Bool { !isMinion && fx?.tgt != nil }
     var maxCopies: Int { isLegendary || uniq ? 1 : 2 }
     var artName: String { "art_\(id)" }
-    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt, uniq, spellward, swings, norip }
-    func allowed(for cls: String?) -> Bool { self.cls == nil || cls == nil || self.cls == cls }
+    private enum CodingKeys: String, CodingKey { case id, cost, type, atk, hp, rarity, race, hasGuard = "guard", ward, surge, gasp, token, bc, fx, names, flavor, cls, also, text, sp, onSpell, sc, pray, sw, pw, beta, rite, ether, haunt, uniq, spellward, swings, norip }
+    func allowed(for cls: String?) -> Bool { self.cls == nil || cls == nil || self.cls == cls || also == cls }
+    /// The classes a class card belongs to, for its type line.
+    var classes: [String] { [cls, also].compactMap { $0 } }
 }
 
 struct HeroClass: Codable, Identifiable, Hashable {
@@ -193,7 +196,7 @@ final class GameData: Decodable {
     private(set) lazy var rulesVersion: String = {
         var h: Int32 = 0
         func mix(_ s: String) { for u in s.utf8 { h = h &* 31 &+ Int32(u) } }
-        for c in cards { mix("\(c.id)|\(c.cls ?? "")|\(c.sp)|\(c.onSpell ?? [])|\(c.cost)|\(c.atk ?? -1)|\(c.hp ?? -1)|\(c.hasGuard)|\(c.ward)|\(c.surge)|\(c.gasp ?? "")|\(c.bc.map { "\($0)" } ?? "")|\(c.fx.map { "\($0)" } ?? "")|\(c.sc ?? "")|\(c.pray.map { "\($0)" } ?? "")|\(c.sw)|\(c.pw)") }
+        for c in cards { mix("\(c.id)|\(c.cls ?? "")|\(c.also ?? "")|\(c.sp)|\(c.onSpell ?? [])|\(c.cost)|\(c.atk ?? -1)|\(c.hp ?? -1)|\(c.hasGuard)|\(c.ward)|\(c.surge)|\(c.gasp ?? "")|\(c.bc.map { "\($0)" } ?? "")|\(c.fx.map { "\($0)" } ?? "")|\(c.sc ?? "")|\(c.pray.map { "\($0)" } ?? "")|\(c.sw)|\(c.pw)") }
         for k in classes { mix("\(k.id)|\(k.power.cost)|\(k.power.tgt?.rawValue ?? "")|\(k.power.fx)") }
         for (cls, pgs) in talents.pages.sorted(by: { $0.key < $1.key }) { for pg in pgs { mix("\(cls)|\(pg.id)|\(pg.tiers.map { $0.map(\.id) })") } }
         for (node, byCard) in talents.overrides.sorted(by: { $0.key < $1.key }) { for (card, o) in byCard.sorted(by: { $0.key < $1.key }) { mix("\(node)|\(card)|\(o)") } }
