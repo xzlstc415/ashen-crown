@@ -12352,9 +12352,9 @@
          "速射"
         ],
         "desc": [
-         "Piercing Arrow can target minions and can be used twice a turn; the first use each turn is free.",
-         "穿刺之箭可以指定随从，且每回合可以使用两次，每回合第一次免费。",
-         "貫きの矢でミニオンも狙え、毎ターン2回使える。毎ターン1回目はコスト0。"
+         "Piercing Arrow costs 1, can target minions and can be used twice a turn.",
+         "穿刺之箭费用变为1，可以指定随从，且每回合可以使用两次。",
+         "貫きの矢のコストが1になり、ミニオンも狙え、毎ターン2回使える。"
         ]
        },
        {

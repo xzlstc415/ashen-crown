@@ -558,10 +558,10 @@ final class EngineTests: XCTestCase {
     func testRapidFireTwiceAndArmorPiercing() {
         var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_aim", "hu_rapid"]); s.turn = .p
         XCTAssertEqual(s.p.power.tgt, .enemy, "Rapid Fire aims at minions too")
-        XCTAssertEqual(s.pcost(.p), 0, "the first shot of the turn is free")
+        XCTAssertEqual(s.pcost(.p), 1, "each shot costs 1")
         s.p.powerUsed = true; s.afterPower(.p)
         XCTAssertFalse(s.p.powerUsed, "Rapid Fire: a second use this turn")
-        XCTAssertEqual(s.pcost(.p), 2, "at the usual cost")
+        XCTAssertEqual(s.pcost(.p), 1, "the second one too")
         s.p.powerUsed = true; s.afterPower(.p)
         XCTAssertTrue(s.p.powerUsed, "but not a third")
 
