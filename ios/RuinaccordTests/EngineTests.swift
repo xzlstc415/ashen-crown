@@ -46,14 +46,14 @@ final class EngineTests: XCTestCase {
         XCTAssertEqual(gd.pruneTalents(["fi_fireball", "fi_spark"]), [])
         XCTAssertEqual(gd.talents.maxPts, 4)
         XCTAssertEqual(gd.advPoints(0, "mage"), 1); XCTAssertEqual(gd.advPoints(3, "mage"), 2); XCTAssertEqual(gd.advPoints(7, "mage"), 4)
-        XCTAssertEqual(gd.advPoints(7, "hunter"), 3, "the Hunter has three tiers")
+        XCTAssertEqual(gd.advPoints(7, "hunter"), 4)
         // The Hunter takes every talent from one page.
-        XCTAssertTrue(gd.validTalents("hunter", ["hu_pack", "hu_combo", "hu_whistle"]))
+        XCTAssertTrue(gd.validTalents("hunter", ["hu_pack", "hu_kill", "hu_whistle", "hu_combo"]))
         XCTAssertFalse(gd.validTalents("hunter", ["hu_pack", "hu_heart"]), "no mixing pages")
         XCTAssertFalse(gd.tierOpen(["hu_pack"], 1, page: "shot"), "the other page stays shut")
         XCTAssertEqual(gd.pruneTalents(["hu_precise", "hu_combo"]), ["hu_precise"])
-        let old = SavedDeck(id: "x", name: "", cls: "hunter", cards: [], t: 0, tal: ["hu_tame", "hu_wild", "hu_whistle", "hu_combo"])
-        XCTAssertEqual(old.talents, ["hu_tame", "hu_wild", "hu_whistle"], "an old four-talent Hunter deck keeps its Beast picks")
+        let old = SavedDeck(id: "x", name: "", cls: "hunter", cards: [], t: 0, tal: ["hu_tame", "fr_bolt", "hu_wild", "hu_aim", "hu_whistle"])
+        XCTAssertEqual(old.talents, ["hu_tame", "hu_wild", "hu_whistle"], "a mixed old Hunter deck keeps its first page's picks")
         // Overrides change the owner's card: Frostbolt deals 5 with its talent, Frost Nova costs 1 less, Frost Blood adds Health.
         var s = DuelState(mode: .quick, pcls: "mage", ecls: "warrior", diff: .normal,
                           p: DuelState.makeHero(.p, hp: 30, deck: [], power: gd.cls("mage")!.power),
@@ -580,11 +580,11 @@ final class EngineTests: XCTestCase {
     }
 
     func testHeartseekerShots() {
-        var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_heart", "hu_rapid"])
+        var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_deadly", "hu_rapid", "hu_heart"])
         XCTAssertEqual(s.cardFx(.p, "spray")?.dmg, 4, "Precision and Heartseeker stack on Arcane Shot")
         XCTAssertEqual(s.costOf(.p, "spray"), 0)
         XCTAssertEqual(s.cardFx(.p, "steady")?.dmg, 4); XCTAssertEqual(s.costOf(.p, "steady"), 1)
-        XCTAssertEqual(s.cardFx(.p, "riptide")?.dmg, 7); XCTAssertEqual(s.costOf(.p, "riptide"), 4)
+        XCTAssertEqual(s.cardFx(.p, "riptide")?.dmg, 7); XCTAssertEqual(s.costOf(.p, "riptide"), 3, "Deadly Aim and Heartseeker stack")
     }
 
     func testAshenWyrmResistsMagicButNotBlows() {

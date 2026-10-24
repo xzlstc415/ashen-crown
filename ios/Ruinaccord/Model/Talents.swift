@@ -1,6 +1,7 @@
 import Foundation
 
-/// Talents: two pages per class, four tiers of 3/3/2/1 nodes (the Hunter: three tiers of 3/3/2, all from one page).
+/// Talents: two pages per class (Warrior, Paladin and Warlock: one), four tiers of 3/3/2/1 nodes; Mage, Priest and
+/// Hunter take every talent from one page.
 /// A tier opens once the tier above it has its pick. Quick and online duels spend them in the deck builder; Adventure hands
 /// them out duel by duel. Generated from the web game by ios/tools/gen_data.mjs.
 struct TalentNode: Codable, Hashable, Identifiable {
@@ -168,6 +169,7 @@ extension GameData {
         if key == "crab" && h("wa_crab") { hp += 2 }
         if c.hasGuard && h("wa_iron") { hp += 2 }
         if key == "direwolf" && h("hu_pack") { a += 1; hp += 1 }
+        if key == "gull" && h("hu_griffon") { a += 1 }
         if (key == "hound" || key == "whound" || key == "phound") && h("hu_hound") { a += 1 }
         // Houndmaster: every canine, hounds, wolves and Dire Wolf.
         if ["hound", "whound", "phound", "elver", "direwolf"].contains(key) && h("hu_master") { a += 1; hp += 1 }
