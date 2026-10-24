@@ -68,10 +68,10 @@ a massive stone golem made of carved temple blocks seen from a worm's-eye angle,
 a fire elemental bursting up out of a cracked forge floor, arms flung wide, flames streaming upward like hair, molten core in its chest, seen head-on, bright orange fire accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
-### 熔岩元素 Magma Elemental — `magmaele.png`
+### 兽人掷斧手 Orc Axe-Thrower — `axethrower.png`
 6 费 · 随从 5/5 · 普通
 ```
-a hulking magma elemental of black cooling rock crouched low on a volcanic slope, glowing orange lava seeping through the cracks of its back and fists, slow heavy pose, seen in three-quarter view from behind and above, dull red-orange accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
+a broad-shouldered orc in a dented iron helm caught mid-throw, one arm whipped forward as a spinning hand axe leaves his fingers toward the viewer, a second axe ready at his belt, seen from a low front angle, rust orange accent, the face or most recognizable part in the upper third of the frame, simple ground in the lower part, hand-painted storybook illustration, simplified shapes, bold clean silhouette, flat color blocks with soft brush texture, limited palette, minimal simple background, roguelike card game art, full-bleed illustration only, no card frame, no border, no text, no letters, no numbers, no icons, no UI --ar 2:3 --no text, frame, border, card, letters, numbers, logo, watermark
 ```
 
 ### 食人魔莽夫 Ogre Brute — `ogre.png`

@@ -806,7 +806,7 @@ const ART={
   commander:portrait({race:'human',robe:'#8a2a2a',trim:'#e8c35a',head:'helm',plume:'#e8c35a',prop:'banner',beard:1,hair:'#4a3020'}),
   golem:golemArt('#8a8580','#8fd0ff'),
   firelem:'<path d="M50 4Q66 22 62 34Q72 28 70 18Q84 34 74 52Q66 64 50 64Q34 64 26 52Q16 34 30 18Q28 28 38 34Q34 22 50 4Z" fill="#e2763a"/><path d="M50 22Q60 34 56 44Q62 42 62 36Q68 46 60 56Q54 62 50 62Q46 62 40 56Q32 46 38 36Q38 42 44 44Q40 34 50 22Z" fill="#f6d78f"/><path d="M43 44l5 2M57 44l-5 2" stroke="#3a1a0a" stroke-width="2.4" stroke-linecap="round"/>',
-  magmaele:'<path d="M50 6Q70 10 74 30Q84 40 78 56Q68 66 50 66Q32 66 22 56Q16 40 26 30Q30 10 50 6Z" fill="#5a3a2e"/><path d="M38 18l8 12-6 10 10 8M62 16l-6 14 8 8-6 12M30 44l10 4M70 42l-8 6" stroke="#ff8a3a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M42 34l5 2M58 34l-5 2" stroke="#ffd36a" stroke-width="2.6" stroke-linecap="round"/>',
+  axethrower:portrait({race:'orc',robe:'#6a4a2a',hair:'#2a1e18',beard:1,head:'helm',prop:'axe'}),
   ogre:portrait({race:'ogre',robe:'#6a5a3a',prop:'club'}),
   archmage:portrait({race:'human',robe:'#2a3a7a',hair:'#eeeeee',beard:1,beardC:'#eeeeee',head:'wizhat',hat:'#2a3a7a',prop:'staff',orb:'#8fd0ff',glow:'#8fd0ff'}),
   lich:portrait({race:'undead',robe:'#3a2a5a',trim:'#9a6aff',head:'crown',gem:'#7fff9a',prop:'staff',orb:'#9a6aff',eyes:'#7fff9a',glow:'#9a6aff'}),
@@ -920,7 +920,7 @@ const CARDS={
   golem:{c:5,t:'m',a:2,h:8,r:'c',race:'construct',guard:1,n:['Stone Golem','守门石像','ストーンゴーレム'],f:['It was told to guard the door. The door is long gone.','它被命令守门，可那扇门早就没了。','扉を守れと命じられた。扉はとうに無い。']},
   shark:{c:6,t:'m',a:6,h:6,r:'e',race:'giant',ward:1,n:['Runebound Giant','符文巨人','ルーンの巨人'],f:['Every rune is a spell someone wasted on it.','每道符文，都是有人白费在它身上的法术。','ルーンの一つ一つが、誰かが無駄にした呪文だ。']},
   firelem:{cls:'mage',c:6,t:'m',a:5,h:5,r:'r',race:'elemental',bc:{dmg:3,tgt:'any'},n:['Fire Elemental','火元素','炎の精霊'],f:['Do not offer it a hand to shake.','千万别向它伸手握手。','握手を求めてはいけない。']},
-  magmaele:{c:6,t:'m',a:5,h:5,r:'c',race:'elemental',bc:{dmg:2,tgt:'any'},n:['Magma Elemental','熔岩元素','溶岩の精霊'],f:['Slow to anger. Slower to cool.','怒得慢，凉得更慢。','怒るのは遅く、冷めるのはもっと遅い。']},
+  axethrower:{c:6,t:'m',a:5,h:5,r:'c',race:'orc',bc:{dmg:2,tgt:'any'},n:['Orc Axe-Thrower','兽人掷斧手','オークの斧投げ'],f:['He always gets his axe back. Eventually.','他总能把斧头捡回来。迟早的事。','斧はいつか必ず取り戻す。']},
   ogre:{c:6,t:'m',a:6,h:7,r:'c',race:'giant',n:['Ogre Brute','食人魔莽夫','オーガの蛮兵'],f:['Two heads would be smarter. He has one.','两个脑袋会聪明些，可他只有一个。','頭が二つなら賢かったろう。彼には一つしかない。']},
   archmage:{cls:'mage',c:6,t:'m',a:6,h:7,r:'e',race:'human',bc:{draw:2},n:['Archmage of the Spire','尖塔大法师','尖塔の大魔導師'],f:['She has read every book in the tower. Twice.','塔里的每本书她都读过两遍。','塔の本は全て読んだ。二度ずつ。']},
   hexer:{c:4,t:'m',a:3,h:4,r:'c',race:'orc',bc:{dmg:2,tgt:'any'},n:['Orc Hexer','兽人咒术师','オークの呪術師'],f:['Every curse is a promise kept.','每一道诅咒，都是兑现的承诺。','呪いはすべて、守られた約束だ。']},
@@ -1152,7 +1152,7 @@ const CLASSES=[
   {id:'warlock',col:'#9a6aff',n:['Warlock','术士','術士'],tag:['Trade health for cards and command the undead.','以生命换取手牌，驱使亡灵大军。','体力を手札に換え、アンデッドを操る。'],
    art:portrait({race:'human',robe:'#3a2a5a',head:'hood',hood:'#2a1a40',eyes:'#c47fe0',prop:'staff',orb:'#9a6aff',glow:'#9a6aff'}),
    power:{c:2,fx:{selfDmg:2,draw:1},n:['Blood Pact','鲜血契约','血の契約']},
-   deck:['hexer','soulfire','coil','raisedead','lurker',...rep('sailor',2),...rep('ghoul',2),'magmaele','hellfire','inferno',...rep('necro',2),'golem','darkpact','breath','ogre','shark','dragonknight']},
+   deck:['hexer','soulfire','coil','raisedead','lurker',...rep('sailor',2),...rep('ghoul',2),'axethrower','hellfire','inferno',...rep('necro',2),'golem','darkpact','breath','ogre','shark','dragonknight']},
 ];
 if(BETA){
   const cm=CLASSES.find(c=>c.id==='mage'),cp=CLASSES.find(c=>c.id==='priest'),cw=CLASSES.find(c=>c.id==='warrior');
@@ -1161,7 +1161,7 @@ if(BETA){
   CLASSES.find(c=>c.id==='warrior').deck=['innerrage','shieldslam','whirlwind','berserker','berserker','crab','crab','execute','execute','frenzy','shieldwall','eel','diver','lurker','golem','golem','thane','thane','ogre','treant'];
   CLASSES.find(c=>c.id==='paladin').deck=['aegis','brace','humility','oathshelter','squires','calltoarms','radiant','radiant','undertow','kings','kings','knight','oathmuster','priestess','commander','commander','golem','oathcrusade','wyvern','dragonknight'];
   CLASSES.find(c=>c.id==='hunter').deck=['pounce','boar','huntmark','spray','spray','burglar','direwolf','harpooneer','killcmd','beastcaller','beastcaller','panther','hounds','hounds','gull','gull','riptide','elk','shark','wyvern'];
-  CLASSES.find(c=>c.id==='warlock').deck=['coil','darkpact','raisedead','soulfire','soulfire','sailor','sailor','ghoul','hellfire','darkpact','lurker','necro','necro','gravecaller','inferno','breath','magmaele','bloodrite','shark','dragonknight'];
+  CLASSES.find(c=>c.id==='warlock').deck=['coil','darkpact','raisedead','soulfire','soulfire','sailor','sailor','ghoul','hellfire','darkpact','lurker','necro','necro','gravecaller','inferno','breath','axethrower','bloodrite','shark','dragonknight'];
   cm.tag=['Talents: Fire grows your spells, Frost freezes and shatters.','天赋：火焰养大法术，冰霜冻结再击碎。','タレント：炎は呪文を育て、氷は凍らせて砕く。'];
   cm.deck=['apprentice','emberbolt','icelance','icelance','wyrmling','emberadept','frostbolt','frostbolt','frostnova','shatter','icebarrier','lance','maelstrom','diver','emberele','frostele','phoenix','archmage','firelem','firestorm'];
   cp.tag=['Talents: Holy hastens Prayers, Shadow destroys key minions.','天赋：圣光加快祷文，暗影拆掉关键随从。','タレント：聖光は祈祷を早め、影は要のミニオンを消す。'];

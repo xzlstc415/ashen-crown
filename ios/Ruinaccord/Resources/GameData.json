@@ -1396,13 +1396,13 @@
    "norip": false
   },
   {
-   "id": "magmaele",
+   "id": "axethrower",
    "cost": 6,
    "type": "m",
    "atk": 5,
    "hp": 5,
    "rarity": "c",
-   "race": "elemental",
+   "race": "orc",
    "guard": false,
    "ward": false,
    "surge": false,
@@ -1465,14 +1465,14 @@
    },
    "fx": null,
    "names": [
-    "Magma Elemental",
-    "熔岩元素",
-    "溶岩の精霊"
+    "Orc Axe-Thrower",
+    "兽人掷斧手",
+    "オークの斧投げ"
    ],
    "flavor": [
-    "Slow to anger. Slower to cool.",
-    "怒得慢，凉得更慢。",
-    "怒るのは遅く、冷めるのはもっと遅い。"
+    "He always gets his axe back. Eventually.",
+    "他总能把斧头捡回来。迟早的事。",
+    "斧はいつか必ず取り戻す。"
    ],
    "sc": null,
    "pray": null,
@@ -10886,7 +10886,7 @@
     "gravecaller",
     "inferno",
     "breath",
-    "magmaele",
+    "axethrower",
     "bloodrite",
     "shark",
     "dragonknight"
