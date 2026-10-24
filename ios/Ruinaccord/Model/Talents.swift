@@ -120,6 +120,16 @@ extension GameData {
             guard let byCard = talents.overrides[id] else { continue }
             for (k, o) in byCard where card(k) != nil { out[k, default: CardOverride()].merge(o) }
         }
+        // Heartseeker: Arcane, Steady and Deadly Shot deal 1 more damage and cost 1 less, on top of Precision and Deadly Aim.
+        if sel.contains("hu_heart") {
+            for k in ["spray", "steady", "riptide"] {
+                var o = out[k] ?? CardOverride()
+                guard let c = card(k), var fx = o.fx ?? c.fx else { continue }
+                fx.dmg += 1
+                o.fx = fx; o.cost = Swift.max(0, (o.cost ?? c.cost) - 1)
+                out[k] = o
+            }
+        }
         for c in cards where c.isMinion {
             let (a, h) = statBonus(c, tal: sel)
             if a != 0 || h != 0 { out[c.id, default: CardOverride()].atkUp = a; out[c.id, default: CardOverride()].hpUp = h }

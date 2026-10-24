@@ -12360,8 +12360,8 @@
         "id": "hu_rapid",
         "names": [
          "Rapid Fire",
-         "连射",
-         "連射"
+         "速射",
+         "速射"
         ],
         "desc": [
          "Your hero power can be used twice a turn.",
@@ -12392,9 +12392,9 @@
          "心穿ち"
         ],
         "desc": [
-         "Piercing Arrow can target minions.",
-         "穿刺之箭可以指定随从。",
-         "貫きの矢でミニオンも狙える。"
+         "Arcane Shot, Steady Shot and Deadly Shot deal 1 extra damage and cost 1 less.",
+         "奥术射击、稳固射击和致命射击伤害+1，费用-1。",
+         "アーケインショット、着実な射撃、必殺の射撃のダメージ+1、コスト-1。"
         ]
        }
       ]

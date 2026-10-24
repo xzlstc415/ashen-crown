@@ -1274,9 +1274,9 @@ const TALENTS=BETA?{
       [TN('hu_deadly',['Deadly Aim','致命','致命'],['Deadly Shot costs 1 less.','致命射击的费用-1。','必殺の射撃のコスト-1。']),
        TN('hu_griffon',['Griffon Wings','狮鹫之翼','グリフォンの翼'],['Griffon Rider has +1 Attack.','狮鹫骑士+1攻击力。','グリフォンライダーの攻撃力+1。']),
        TN('hu_aim',['Take Aim','瞄准','照準'],['Your spells deal 2 extra damage to the enemy hero.','你的法术对敌方英雄的伤害+2。','自分の呪文が敵ヒーローに与えるダメージ+2。'])],
-      [TN('hu_rapid',['Rapid Fire','连射','連射'],['Your hero power can be used twice a turn.','英雄技能每回合可以使用两次。','ヒーローパワーを毎ターン2回使える。']),
+      [TN('hu_rapid',['Rapid Fire','速射','速射'],['Your hero power can be used twice a turn.','英雄技能每回合可以使用两次。','ヒーローパワーを毎ターン2回使える。']),
        TN('hu_pierce',['Armor Piercing','破甲','徹甲'],['Piercing Arrow can target minions and ignores Armor and Ward.','穿刺之箭可以指定随从，并无视护甲与护盾。','貫きの矢でミニオンも狙え、装甲と結界を無視する。'])],
-      [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Piercing Arrow can target minions.','穿刺之箭可以指定随从。','貫きの矢でミニオンも狙える。'])]]}],
+      [TN('hu_heart',['Heartseeker','穿心','心穿ち'],['Arcane Shot, Steady Shot and Deadly Shot deal 1 extra damage and cost 1 less.','奥术射击、稳固射击和致命射击伤害+1，费用-1。','アーケインショット、着実な射撃、必殺の射撃のダメージ+1、コスト-1。'])]]}],
   warlock:[
     {id:'undead',sc:'undead',col:'#8ac08a',n:['Undeath','亡灵','不死'],tiers:[
       [TN('wl_bone',['Hard Bones','坚骨','硬い骨'],['Grave Thrall has +1/+1.','守墓亡仆+1/+1。','墓所の下僕に+1/+1。']),
@@ -1364,7 +1364,7 @@ function talPreset(cls,i){
 function setupTalents(s,cls,sel){
   s.tal=new Set(hasTal(cls)&&validTal(cls,sel||[])?sel:[]);s.ovr={};s.hb=[];s.tf={};s.castHb=0;
   for(const id of s.tal){const o=TOVR[id];if(o)for(const k in o)if(CARDS[k])s.ovr[k]={...s.ovr[k],...o[k]()}}
-  withStats(s.ovr,id=>s.tal.has(id));
+  talShots(withStats(s.ovr,id=>s.tal.has(id)),id=>s.tal.has(id));
   if(tal(s,'wl_flesh')){s.hp+=2;s.max+=2}
   if(tal(s,'fr_blood')){s.hp+=7;s.max+=7}
   if(tal(s,'wa_reckless')){s.hp-=3;s.max-=3}
@@ -1380,7 +1380,6 @@ function setupTalents(s,cls,sel){
   if(p&&tal(s,'pa_double'))p={...p,c:3,fx:{...p.fx,summon:['minnow','minnow']}};
   if(p&&tal(s,'pa_lightcall'))p={...p,fx:{...p.fx,wardSummon:1}};
   if(p&&tal(s,'hu_master'))p={c:2,fx:{summon:'phound'},n:rn('hu_master')};
-  if(p&&tal(s,'hu_heart')&&p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};
   if(p&&tal(s,'hu_pierce')){if(p.fx.face)p={...p,tgt:'enemy',fx:{dmg:p.fx.face}};p={...p,fx:{...p.fx,pierce:1}}}
   if(p&&tal(s,'wl_tap'))p={...p,fx:{...p.fx,selfDmg:3,draw:2}};
   if(p&&(tal(s,'sh_touch')||tal(s,'wa_roar')||tal(s,'hu_master'))&&!p.n)p.n=CBY[cls].power.n;
@@ -1426,6 +1425,9 @@ function talStat(H,key,c){let a=0,h=0;
   if(key==='knight'&&H('pa_vshield'))a++;
   return [a,h]}
 // Adds those stat changes (da, dh) to a set of card overrides so card faces can show them.
+// Heartseeker: Arcane, Steady and Deadly Shot deal 1 more damage and cost 1 less, on top of Precision and Deadly Aim.
+function talShots(o,H){if(H('hu_heart'))['spray','steady','riptide'].forEach(k=>{if(!CARDS[k])return;const b=o[k]||{},fx=b.fx||CARDS[k].fx;
+  o[k]={...b,c:Math.max(0,(b.c!=null?b.c:CARDS[k].c)-1),fx:{...fx,dmg:fx.dmg+1}}});return o}
 function withStats(o,H){for(const k in CARDS){const c=CARDS[k];if(c.t!=='m')continue;const [a,h]=talStat(H,k,c);if(a||h)o[k]={...o[k],da:a,dh:h}}return o}
 function talSummon(s,m,key,c){
   const H=id=>s.tal.has(id);let [a,h]=talStat(H,key,c);
@@ -1491,7 +1493,7 @@ function freezeM(side,m){
 }
 // Talent summary text for a side (duel info button).
 function talNames(sel){return sel.map(id=>TAL_NODE[id]).filter(Boolean)}
-function ovrFor(sel){const o={};(sel||[]).forEach(id=>{const t=TOVR[id];if(t)for(const k in t)if(CARDS[k])o[k]={...o[k],...t[k]()}});return withStats(o,id=>(sel||[]).includes(id))}
+function ovrFor(sel){const o={};(sel||[]).forEach(id=>{const t=TOVR[id];if(t)for(const k in t)if(CARDS[k])o[k]={...o[k],...t[k]()}});const H=id=>(sel||[]).includes(id);return talShots(withStats(o,H),H)}
 const TX={
   talents:()=>['Talents','天赋','タレント'][li()],cards:()=>['Cards','卡牌','カード'][li()],
   pts:(n,m)=>[`Points ${n}/${m}`,`天赋点 ${n}/${m}`,`ポイント ${n}/${m}`][li()],

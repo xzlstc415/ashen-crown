@@ -564,4 +564,12 @@ final class EngineTests: XCTestCase {
         t.applyFx(.p, t.p.power.fx, .hero(.e), bonus: 0, isPower: true)
         XCTAssertEqual(t.e.armor, 5, "Armor is ignored"); XCTAssertLessThan(t.e.hp, h0)
     }
+
+    func testHeartseekerShots() {
+        var s = blank(); s.setupTalents(.p, cls: "hunter", ["hu_precise", "hu_deadly", "hu_rapid", "hu_heart"])
+        XCTAssertEqual(s.cardFx(.p, "spray")?.dmg, 4, "Precision and Heartseeker stack on Arcane Shot")
+        XCTAssertEqual(s.costOf(.p, "spray"), 0)
+        XCTAssertEqual(s.cardFx(.p, "steady")?.dmg, 4); XCTAssertEqual(s.costOf(.p, "steady"), 1)
+        XCTAssertEqual(s.cardFx(.p, "riptide")?.dmg, 7); XCTAssertEqual(s.costOf(.p, "riptide"), 3, "Deadly Aim and Heartseeker stack")
+    }
 }

@@ -292,7 +292,6 @@ struct DuelState: Codable {
         if tal(side, "pa_double") { var fx = p.fx; fx.summon = ["minnow", "minnow"]; p = Power(cost: 3, tgt: p.tgt, fx: fx, names: p.names) }
         if tal(side, "pa_lightcall") { mod { $0.wardSummon = true } }
         if tal(side, "hu_master"), let n = gd.talentNode("hu_master") { var fx = Effect(); fx.summon = ["phound"]; p = Power(cost: 2, tgt: nil, fx: fx, names: n.names) }
-        if tal(side, "hu_heart"), p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
         if tal(side, "hu_pierce") {
             if p.fx.face > 0 { var fx = p.fx; fx.dmg = fx.face; fx.face = 0; p = Power(cost: p.cost, tgt: .enemy, fx: fx, names: p.names) }
             mod { $0.pierce = true }
