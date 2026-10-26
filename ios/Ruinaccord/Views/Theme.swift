@@ -31,6 +31,9 @@ enum Theme {
     static let gold = Color(hex: "#d9b45a")
     static let blood = Color(hex: "#cf4a3f")
     static let ready = Color(hex: "#7fd17f")
+    /// Like Hearthstone: a value better than printed is green, worse is red.
+    static let upInk = Color(hex: "#9fe09f"), downInk = Color(hex: "#ffb3a9")
+    static func delta(_ d: Int) -> Color? { d > 0 ? ready : d < 0 ? downInk : nil }
     static let arcane = Color(hex: "#8f78e0")
     static let mana = Color(hex: "#2f6fa8")
     static let manaLight = Color(hex: "#5aa3e0")
@@ -86,11 +89,43 @@ struct RichText: View {
     var keywords: [String] = []
     var font: Font = .body
     var color: Color = Theme.parchInk
+    /// Which numbers in the text (0 = the first number) to draw in `greenColor`: values the talents changed.
+    var greens: Set<Int> = []
+    var greenColor: Color = Theme.upInk
     var body: some View {
         Text(attributed).font(font).foregroundStyle(color)
     }
+    /// The numbers of `text` that differ from `base`, by position; none unless the rest of the two texts is the same.
+    static func changedNumbers(_ text: String, from base: String) -> Set<Int> {
+        func split(_ s: String) -> (words: [String], nums: [String]) {
+            var words = [""], nums: [String] = []
+            for ch in s {
+                if ch.isASCII && ch.isNumber {
+                    if words.count == nums.count + 1 { nums.append("") }
+                    nums[nums.count - 1].append(ch)
+                } else {
+                    if words.count == nums.count { words.append("") }
+                    words[words.count - 1].append(ch)
+                }
+            }
+            return (words, nums)
+        }
+        let a = split(text), b = split(base)
+        guard a.words == b.words, a.nums.count == b.nums.count else { return [] }
+        return Set(a.nums.indices.filter { a.nums[$0] != b.nums[$0] })
+    }
     private var attributed: AttributedString {
         var s = (try? AttributedString(markdown: text, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(text)
+        if !greens.isEmpty {
+            var n = 0, i = s.startIndex
+            while i < s.endIndex {
+                guard s.characters[i].isASCII && s.characters[i].isNumber else { i = s.characters.index(after: i); continue }
+                var j = i
+                while j < s.endIndex && s.characters[j].isASCII && s.characters[j].isNumber { j = s.characters.index(after: j) }
+                if greens.contains(n) { s[i..<j].foregroundColor = greenColor; s[i..<j].font = font.weight(.heavy) }
+                n += 1; i = j
+            }
+        }
         for kw in keywords {
             var searchRange = s.startIndex..<s.endIndex
             while let r = s[searchRange].range(of: kw) {

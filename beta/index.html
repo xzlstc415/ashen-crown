@@ -138,7 +138,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .st.a{left:-8px;--ink2:#3a1c06;background-image:var(--gem-atk)}
 .st.h{right:-8px;height:26px;padding-bottom:1px;--ink2:#3a0a06;background-image:var(--gem-hp)}
 .st.h.hurt{color:#ffb3a9}
-.st.h.up,.st.a.up{color:#9fe09f}
+.st.h.up,.st.a.up{color:#9fe09f}.st.a.down{color:#ffb3a9}
 
 .mid{display:flex;align-items:center;justify-content:center;gap:10px;min-height:28px;font-size:13px;color:var(--muted);text-align:center}
 .mid .btn{padding:5px 12px;font-size:12px}
@@ -291,7 +291,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .lhero .hres{justify-content:center;margin-top:4px}.lhero .ember{font-size:10px;padding:0 5px}.lhero .aslot{width:26px;height:18px}
 .card.ign{box-shadow:0 0 0 2px #ff8a3a,0 0 14px #ff8a3aaa}
 .hboost{position:absolute;top:-.5em;right:-.4em;z-index:2;background:#ff8a3a;color:#2a130a;font-weight:800;font-size:.95em;border-radius:999px;padding:0 .45em;line-height:1.5em}
-.card .cost.down{color:#9fe09f}.card .cost.up{color:#ffb3a9}.card .stat.up{color:#9fe09f}
+.card .cost.down{color:#9fe09f}.card .cost.up{color:#ffb3a9}.card .stat.up{color:#9fe09f}.card .stat.down{color:#ffb3a9}.card .tx .tup{color:#9fe09f;font-weight:800}
 .ctr{font-size:11px;font-weight:700;color:#ffd0a0;background:#3a2414;border:1px solid #8a5a2a;border-radius:999px;padding:1px 7px;white-space:nowrap}
 .lhero .ctr{font-size:9.5px;padding:0 4px}
 .talbtn{font-size:11.5px;font-weight:800;color:var(--gold);background:#2a2430;border:1px solid #e8c35a88;border-radius:999px;padding:1px 8px;line-height:18px}
@@ -593,7 +593,7 @@ const I18N={
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a} Attack`:`+${h} Health`,
       buff:(s,g,w)=>`Give a friendly minion ${s}${g?' and Guard':''}${w?' and Ward':''}.`,team:s=>`Give your minions ${s}.`,
       summon:(n,a,h,nm)=>n>1?`Summon ${['','a','two','three','four'][n]} ${a}/${h} ${nm}s.`:`Summon a ${a}/${h} ${nm}.`,
-      heal:n=>`Restore ${n} Health to your hero.`,armor:n=>`Gain ${n} Armor.`,draw:n=>n>1?`Draw ${n} cards.`:'Draw a card.',self:n=>`Take ${n} damage.`,ember:n=>n>1?`Gain ${n} Embers.`:'Gain 1 Ember.',purge:n=>`Destroy all minions with ${n} or more Attack.`,revive:'Revive your most recently killed minion.',reclaim:n=>`Look at 5 random minions that died this game and return ${n} of them to your hand.`,hasten:n=>`Your Prayers count down ${n}.`,ignite:n=>`Ignite ${n}: `,pray:n=>`Prayer ${n}: `,
+      heal:n=>`Restore ${n} Health to your hero.`,armor:n=>`Gain ${n} Armor.`,draw:n=>n>1?`Draw ${n} cards.`:'Draw a card.',self:n=>`Take ${n} damage.`,ember:n=>n>1?`Gain ${n} Embers.`:'Gain 1 Ember.',purge:n=>`Destroy all minions with ${n} or more Attack.`,revive:n=>n>1?`Revive your ${n} most recently killed minions.`:'Revive your most recently killed minion.',reclaim:n=>`Look at 5 random minions that died this game and return ${n} of them to your hand.`,hasten:n=>`Your Prayers count down ${n}.`,ignite:n=>`Ignite ${n}: `,pray:n=>`Prayer ${n}: `,
       kw:{guard:'Guard',ward:'Ward',surge:'Charge'},onPlay:'On play: ',last:'Last breath: ',sep:' ',kwSep:'. ',end:'.'},
     kwRe:/\b(Guard|Ward|Charge|Ethereal|On play|Last breath|Freeze|Silence|Spell Damage|Ignite \d|Prayer \d)\b/g,
   },
@@ -664,7 +664,7 @@ const I18N={
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`+${a}攻击力`:`+${h}生命值`,
       buff:(s,g,w)=>`使一个友方随从获得${s}${g?'和守护':''}${w?'和护盾':''}。`,team:s=>`使你的所有随从获得${s}。`,
       summon:(n,a,h,nm)=>`召唤${['','一','两','三','四'][n]}个${a}/${h}的${nm}。`,
-      heal:n=>`为你的英雄恢复${n}点生命值。`,armor:n=>`获得${n}点护甲。`,draw:n=>`抽${n>1?'两':'一'}张牌。`,self:n=>`受到${n}点伤害。`,ember:n=>`获得${n}点余烬。`,purge:n=>`消灭所有攻击力不低于${n}的随从。`,revive:'复活你最近死亡的一个随从。',reclaim:n=>`从本局死亡的随从中随机展示五张，选${n}张放回你的手牌。`,hasten:n=>`你的所有祷文倒计时减${n}。`,ignite:n=>`点燃${n}：`,pray:n=>`祷文${n}：`,
+      heal:n=>`为你的英雄恢复${n}点生命值。`,armor:n=>`获得${n}点护甲。`,draw:n=>`抽${n>1?'两':'一'}张牌。`,self:n=>`受到${n}点伤害。`,ember:n=>`获得${n}点余烬。`,purge:n=>`消灭所有攻击力不低于${n}的随从。`,revive:n=>`复活你最近死亡的${n}个随从。`,reclaim:n=>`从本局死亡的随从中随机展示五张，选${n}张放回你的手牌。`,hasten:n=>`你的所有祷文倒计时减${n}。`,ignite:n=>`点燃${n}：`,pray:n=>`祷文${n}：`,
       kw:{guard:'守护',ward:'护盾',surge:'冲锋'},onPlay:'登场：',last:'遗言：',sep:'',kwSep:'。',end:'。'},
     kwRe:/(守护|护盾|冲锋|虚体|登场|遗言|冻结|沉默|法术伤害|点燃\d|祷文\d)/g,
   },
@@ -735,7 +735,7 @@ const I18N={
       stat:(a,h)=>a&&h?`+${a}/+${h}`:a?`攻撃力+${a}`:`体力+${h}`,
       buff:(s,g,w)=>`味方のミニオン1体に${s}${g?'とガード':''}${w?'と結界':''}を付与する。`,team:s=>`味方のミニオン全てに${s}を付与する。`,
       summon:(n,a,h,nm)=>`${a}/${h}の${nm}を${n}体召喚する。`,
-      heal:n=>`自分のヒーローの体力を${n}回復する。`,armor:n=>`装甲を${n}獲得する。`,draw:n=>`カードを${n}枚引く。`,self:n=>`${n}ダメージを受ける。`,ember:n=>`残り火を${n}得る。`,purge:n=>`攻撃力${n}以上のミニオンをすべて破壊する。`,revive:'最後に倒された味方ミニオンを1体蘇らせる。',reclaim:n=>`このゲームで倒されたミニオンから無作為に5枚を見て、${n}枚を手札に戻す。`,hasten:n=>`自分の祈祷のカウントを${n}進める。`,ignite:n=>`点火${n}：`,pray:n=>`祈祷${n}：`,
+      heal:n=>`自分のヒーローの体力を${n}回復する。`,armor:n=>`装甲を${n}獲得する。`,draw:n=>`カードを${n}枚引く。`,self:n=>`${n}ダメージを受ける。`,ember:n=>`残り火を${n}得る。`,purge:n=>`攻撃力${n}以上のミニオンをすべて破壊する。`,revive:n=>`最後に倒された味方ミニオンを${n}体蘇らせる。`,reclaim:n=>`このゲームで倒されたミニオンから無作為に5枚を見て、${n}枚を手札に戻す。`,hasten:n=>`自分の祈祷のカウントを${n}進める。`,ignite:n=>`点火${n}：`,pray:n=>`祈祷${n}：`,
       kw:{guard:'ガード',ward:'結界',surge:'突撃'},onPlay:'登場時：',last:'断末魔：',sep:'',kwSep:'。',end:'。'},
     kwRe:/(ガード|結界|突撃|霊体|登場時|断末魔|凍結|沈黙|呪文ダメージ|点火\d|祈祷\d)/g,
   }
@@ -1095,7 +1095,7 @@ function fxText(fx,tgt){
   if(fx.mana)out.push(F.mana(fx.mana));
   if(fx.ember)out.push(F.ember(fx.ember));
   if(fx.purge)out.push(F.purge(fx.purge));
-  if(fx.revive)out.push(F.revive);
+  if(fx.revive)out.push(F.revive(fx.revive));
   if(fx.reclaim)out.push(F.reclaim(fx.reclaim));
   if(fx.hasten)out.push(F.hasten(fx.hasten));
   if(BETA&&fx.freeze)out.push(['Freeze it.','并冻结目标。','対象を凍結させる。'][li()]);
@@ -2705,6 +2705,16 @@ function oresultHTML(){
 // ---------- render ----------
 // FOV: talent overrides to show (your hand, the deck builder); boost: Spell Surge bonus on a hand card.
 let FOV=null;
+// Like Hearthstone: a value better than printed is green, worse is red.
+const updn=d=>d>0?' up':d<0?' down':'';
+// The card text with the numbers the talents changed in green (only when the rest of the text is the same).
+function talText(k,ov){
+  const now=ct(k);if(!ov||!(ov.fx||ov.bc||ov.pray))return now;
+  const keep=FOV;FOV=null;const base=ct(k);FOV=keep;
+  const a=now.split(/(\d+)/),b=base.split(/(\d+)/);
+  if(a.length!==b.length||a.some((x,i)=>i%2===0&&x!==b[i]))return now;
+  return a.map((x,i)=>i%2&&x!==b[i]?`<span class="tup">${x}</span>`:x).join('');
+}
 function cardFace(k,size,tag='button',attrs='',extra='',boost=0){
   const c=CARDS[k],m=c.t==='m',ov=FOV&&FOV[k],cost=ov&&ov.c!=null?ov.c:c.c;
   // The frame colour shows minion or spell; the line names what matters in play: the race (Beasts count for
@@ -2712,8 +2722,8 @@ function cardFace(k,size,tag='button',attrs='',extra='',boost=0){
   const typ=[m&&T('race')[c.race],c.pray&&T('prayerT'),c.cls&&[c.cls,c.also].filter(Boolean).map(x=>CBY[x].n[li()]).join('/')].filter(Boolean).join(' · ');
   return `<${tag} class="card ${c.t}${c.r==='l'?' leg':''}${c.uniq?' uniq':''} ${size} ${extra}" ${attrs}>
     <span class="art">${art(k)}</span><span class="cost${cost<c.c?' down':cost>c.c?' up':''}">${cost}</span>${boost?`<span class="hboost">+${boost}</span>`:''}
-    <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span>${typ?`<span class="typ">${typ}</span>`:''}<span class="tx">${kwBold(ct(k))}</span></span>
-    ${m?`<span class="stat a${ov&&ov.da?' up':''}">${c.a+(ov&&ov.da||0)}</span><span class="stat h${ov&&ov.dh?' up':''}">${c.h+(ov&&ov.dh||0)}</span>`:''}</${tag}>`;
+    <span class="tbox"><span class="gem ${c.r}"></span><span class="plate">${cn(k)}</span>${typ?`<span class="typ">${typ}</span>`:''}<span class="tx">${kwBold(talText(k,ov))}</span></span>
+    ${m?`<span class="stat a${updn(ov&&ov.da)}">${c.a+(ov&&ov.da||0)}</span><span class="stat h${updn(ov&&ov.dh)}">${c.h+(ov&&ov.dh||0)}</span>`:''}</${tag}>`;
 }
 function header(){
   return `<div class="top"><span class="brand">${T('brand')}</span>
@@ -2874,7 +2884,7 @@ function minHTML(m){
   return `<button class="${cls}" data-t="${id}" aria-label="${T('minAria',cn(m.key),m.atk,m.hp,kw)}">
     <span class="mart">${art(m.key)}</span><span class="mn">${cn(m.key)}</span><span class="kw">${kw}</span>${icons}
     ${m.sleep&&m.side==='p'?'<span class="z">zz</span>':''}
-    <span class="st a ${m.atk>m.base[0]?'up':''}">${m.atk}</span><span class="st h ${m.hp<m.max?'hurt':m.max>m.base[1]?'up':''}">${m.hp}</span></button>`;
+    <span class="st a ${m.atk>m.base[0]?'up':m.atk<m.base[0]?'down':''}">${m.atk}</span><span class="st h ${m.hp<m.max?'hurt':m.max>m.base[1]?'up':''}">${m.hp}</span></button>`;
 }
 function handHTML(){
   const newFrom=S.p.hand.length-S.drew;

@@ -340,7 +340,7 @@ struct Tx {
         if fx.draw > 0 { out.append(fx.draw > 1 ? pick("Draw \(fx.draw) cards.", "抽两张牌。", "カードを\(fx.draw)枚引く。") : pick("Draw a card.", "抽一张牌。", "カードを1枚引く。")) }
         if fx.mana > 0 { out.append(pick("Gain \(fx.mana) mana this turn only.", "仅在本回合获得\(fx.mana)点法力值。", "このターンのみ、マナを\(fx.mana)獲得する。")) }
         if fx.purge > 0 { out.append(pick("Destroy all minions with \(fx.purge) or more Attack.", "消灭所有攻击力不低于\(fx.purge)的随从。", "攻撃力\(fx.purge)以上のミニオンをすべて破壊する。")) }
-        if fx.revive > 0 { out.append(pick("Revive your most recently killed minion.", "复活你最近死亡的一个随从。", "最後に倒された味方ミニオンを1体蘇らせる。")) }
+        if fx.revive > 0 { out.append(pick(fx.revive > 1 ? "Revive your \(fx.revive) most recently killed minions." : "Revive your most recently killed minion.", "复活你最近死亡的\(fx.revive)个随从。", "最後に倒された味方ミニオンを\(fx.revive)体蘇らせる。")) }
         if fx.reclaim > 0 { out.append(pick("Look at 5 random minions that died this game and return \(fx.reclaim) of them to your hand.", "从本局死亡的随从中随机展示五张，选\(fx.reclaim)张放回你的手牌。", "このゲームで倒されたミニオンから無作為に5枚を見て、\(fx.reclaim)枚を手札に戻す。")) }
         if fx.hasten > 0 { out.append(pick("Your Prayers count down \(fx.hasten).", "你的所有祷文倒计时减\(fx.hasten)。", "自分の祈祷のカウントを\(fx.hasten)進める。")) }
         if fx.freeze { out.append(pick("Freeze it.", "并冻结目标。", "対象を凍結させる。")) }

@@ -77,7 +77,9 @@ struct CardView: View {
                     .font(Theme.body(0.76 * em, .medium)).tracking(0.5)
                     .foregroundStyle(Color(hex: "#9fc4ee"))
                     .textCase(.uppercase).lineLimit(1).minimumScaleFactor(0.7) }
-                RichText(text: tx.cardText(card, ovr: ovr), keywords: tx.keywords, font: Theme.body(0.96 * em), color: Color(hex: "#f3e9d4"))
+                let text = tx.cardText(card, ovr: ovr)
+                RichText(text: text, keywords: tx.keywords, font: Theme.body(0.96 * em), color: Color(hex: "#f3e9d4"),
+                         greens: ovr == nil ? [] : RichText.changedNumbers(text, from: tx.cardText(card)), greenColor: Theme.upInk)
                     .multilineTextAlignment(.leading)
                     .lineLimit(full ? nil : 3).truncationMode(.tail)
                     .minimumScaleFactor(full ? 0.65 : 0.9)
@@ -116,9 +118,9 @@ struct CardView: View {
             if card.isMinion {
                 HStack {
                     let au = ovr?.atkUp ?? 0, hu = ovr?.hpUp ?? 0
-                    GemView(kind: .attack, value: (card.atk ?? 0) + au, size: 2.9 * em, numberColor: au > 0 ? Theme.ready : nil)
+                    GemView(kind: .attack, value: (card.atk ?? 0) + au, size: 2.9 * em, numberColor: Theme.delta(au))
                     Spacer()
-                    GemView(kind: .health, value: (card.hp ?? 0) + hu, size: 2.9 * em, numberColor: hu > 0 ? Theme.ready : nil)
+                    GemView(kind: .health, value: (card.hp ?? 0) + hu, size: 2.9 * em, numberColor: Theme.delta(hu))
                 }
                 .offset(y: 0.8 * em)
                 .frame(maxHeight: .infinity, alignment: .bottom)
@@ -212,7 +214,7 @@ struct MinionView: View {
             .grayscale(m.silenced ? 0.85 : 0)
             .padding(.top, 2)
             HStack {
-                GemView(kind: .attack, value: m.atk, size: 21, numberColor: m.atk > m.baseAtk ? Theme.ready : nil)
+                GemView(kind: .attack, value: m.atk, size: 21, numberColor: Theme.delta(m.atk - m.baseAtk))
                 Spacer()
                 GemView(kind: .health, value: m.hp, size: 21, numberColor: m.hp < m.max ? Color(hex: "#ffb3a9") : m.max > m.baseHp ? Theme.ready : nil)
             }

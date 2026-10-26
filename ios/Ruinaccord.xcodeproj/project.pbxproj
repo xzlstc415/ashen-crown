@@ -34,6 +34,7 @@
 		E0400EF665034BEA5638BF07 /* RuinaccordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048B3A9F4BCC9BAF16D331C /* RuinaccordApp.swift */; };
 		EA25C31BFAE434EF7E9E959D /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF527A51B1E8B26782748BB /* Engine.swift */; };
 		EA6F7E62FB9B3B612D7E26EA /* EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9726708ED1BBD78C7E359 /* EngineTests.swift */; };
+		EB32DA1F9B165BB6BACAB10E /* TextDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157A8880278FFFD3F7A5803D /* TextDiffTests.swift */; };
 		F4718328AED7FDF6B8EB0020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB8548AE18AE9BAA895F2B8 /* Assets.xcassets */; };
 		F5B49A914418393AA4E4B3F6 /* DuelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA8A742A17EE606385C7A5 /* DuelView.swift */; };
 		F71F2CC0A436ED3831D05090 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DD730CCCD5023EB3E03B8A /* Shell.swift */; };
@@ -54,6 +55,7 @@
 		01E8B964C8B1BD0034A3D1C0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		07BA8A742A17EE606385C7A5 /* DuelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelView.swift; sourceTree = "<group>"; };
 		0E7192B9B343177DE2DC1C6E /* DuelFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuelFX.swift; sourceTree = "<group>"; };
+		157A8880278FFFD3F7A5803D /* TextDiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDiffTests.swift; sourceTree = "<group>"; };
 		29DD730CCCD5023EB3E03B8A /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		2BF527A51B1E8B26782748BB /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		35E8AA0B886A534E391E96A9 /* LocalBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalBackend.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				65E9726708ED1BBD78C7E359 /* EngineTests.swift */,
+				157A8880278FFFD3F7A5803D /* TextDiffTests.swift */,
 			);
 			path = RuinaccordTests;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA6F7E62FB9B3B612D7E26EA /* EngineTests.swift in Sources */,
+				EB32DA1F9B165BB6BACAB10E /* TextDiffTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
