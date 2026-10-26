@@ -17,7 +17,14 @@ struct BuilderView: View {
         let qcost: (Card) -> Int = { c in talOvr[c.id]?.cost ?? c.cost }
         let list = gd.collectible.filter { c in
             c.allowed(for: clsId) && (vm.q.typeFilter == "all" || (vm.q.typeFilter == "cls" ? c.cls != nil : c.type.rawValue == vm.q.typeFilter)) && (vm.q.costFilter == 0 || (vm.q.costFilter == 7 ? qcost(c) >= 7 : qcost(c) == vm.q.costFilter)) && (vm.q.rarityFilter == "all" || c.rarity == vm.q.rarityFilter)
-        }.sorted { a, b in (a.cls != nil) != (b.cls != nil) ? a.cls != nil : a.cost != b.cost ? a.cost < b.cost : (a.isMinion != b.isMinion ? a.isMinion : tx.name(a.names) < tx.name(b.names)) }
+        }.sorted { a, b in
+            // By the cost the talents give (as shown), then class cards, minions, name.
+            let ca = qcost(a), cb = qcost(b)
+            if ca != cb { return ca < cb }
+            if (a.cls != nil) != (b.cls != nil) { return a.cls != nil }
+            if a.isMinion != b.isMinion { return a.isMinion }
+            return tx.name(a.names) < tx.name(b.names)
+        }
 
         return AnyView(ScreenShell(scene: "dawn") {
             VStack(spacing: 2) {

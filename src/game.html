@@ -2746,7 +2746,7 @@ function builderHTML(){
   // The cost filter goes by the cost the talents give a card.
   const FO=hasTal(Q.cls)?ovrFor(Q.tal):{},fc=k=>FO[k]&&FO[k].c!=null?FO[k].c:CARDS[k].c;
   const list=COLLECT.filter(k=>forCls(k,Q.cls)&&(Q.type==='all'||(Q.type==='cls'?!!CARDS[k].cls:CARDS[k].t===Q.type))&&(!Q.cost||(Q.cost===7?fc(k)>=7:fc(k)===Q.cost))&&(Q.rar==='all'||CARDS[k].r===Q.rar))
-    .sort((a,b)=>!!CARDS[b].cls-!!CARDS[a].cls||CARDS[a].c-CARDS[b].c||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
+    .sort((a,b)=>fc(a)-fc(b)||!!CARDS[b].cls-!!CARDS[a].cls||(CARDS[a].t==='s')-(CARDS[b].t==='s')||cn(a).localeCompare(cn(b)));
   FOV=hasTal(Q.cls)?ovrFor(Q.tal):null;
   const coll=list.map(k=>{const n=copies(d,k),full=!fits(d,k)||d.length>=DECK_SIZE;
     return `<div class="cslot${CARDS[k].cls?' clsc':''}" style="--cc:${c.col}">${n?`<span class="badge">${n}/${maxCopies(k)}</span>`:''}${cardFace(k,'sm','button',`data-add="${k}" ${full?'disabled':''} aria-label="${T('cardAria',cn(k),CARDS[k].c,CARDS[k].t==='m'?T('statsAria',CARDS[k].a,CARDS[k].h):'',ct(k))}"`)}</div>`}).join('');FOV=null;
